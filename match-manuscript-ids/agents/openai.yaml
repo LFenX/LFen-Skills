@@ -1,0 +1,4 @@
+interface:
+  display_name: "稿件 ID 双表匹配"
+  short_description: "标准化稿件 ID，输出匹配、双向差异、补充分析及复核结果"
+  default_prompt: "Use $match-manuscript-ids to compare two CSV/XLSX files by manuscript ID and produce a validated four-sheet workbook."
