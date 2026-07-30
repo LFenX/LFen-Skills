@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web 产品生产流程"
+  short_description: "AI Native Web 产品任务裁剪、产物缩放与门禁执行"
+  default_prompt: "使用 $run-web-product-workflow 从需求澄清开始推进当前 Web 产品任务，只向我询问必须由人决定的信息。"
