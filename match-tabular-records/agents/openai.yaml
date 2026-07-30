@@ -1,0 +1,4 @@
+interface:
+  display_name: "多字段双表匹配"
+  short_description: "按单字段或复合字段匹配双表，输出差异、包含关系与复核结果"
+  default_prompt: "Use $match-tabular-records to reconcile two CSV/XLSX files by one or more mapped fields and produce a validated four-sheet workbook."
