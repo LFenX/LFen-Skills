@@ -1,0 +1,29 @@
+name: Validate skill catalog
+
+on:
+  pull_request:
+    paths:
+      - "*/SKILL.md"
+      - "catalog/**"
+      - "scripts/update_catalog.py"
+      - "CATALOG.md"
+      - "README.md"
+      - ".github/workflows/catalog.yml"
+  push:
+    paths:
+      - "*/SKILL.md"
+      - "catalog/**"
+      - "scripts/update_catalog.py"
+      - "CATALOG.md"
+      - "README.md"
+      - ".github/workflows/catalog.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python scripts/update_catalog.py --check

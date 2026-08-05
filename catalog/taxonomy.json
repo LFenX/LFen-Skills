@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "catalog": {
+    "title": "LFen Skills 分类目录",
+    "max_root_categories": 2,
+    "generated_file": "CATALOG.md"
+  },
+  "categories": [
+    {
+      "id": "data-processing",
+      "name": "数据处理",
+      "description": "结构化数据的匹配、清洗、转换、分析与质量核验。",
+      "skills": [
+        "match-tabular-records"
+      ],
+      "children": []
+    },
+    {
+      "id": "product-engineering",
+      "name": "产品研发",
+      "description": "产品定义、研发执行、质量控制、交付与运营流程。",
+      "skills": [
+        "run-web-product-workflow"
+      ],
+      "children": []
+    }
+  ],
+  "references": [
+    {
+      "name": "Anthropic Skills",
+      "url": "https://github.com/anthropics/skills#skill-sets",
+      "adopted": "按用户任务与能力用途划分领域，而不是按脚本语言划分。"
+    },
+    {
+      "name": "Microsoft Skills",
+      "url": "https://github.com/microsoft/skills#adding-new-skills",
+      "adopted": "用一级分类和按需子分类组织目录，并让分类导航独立于 skill 的规范目录。"
+    },
+    {
+      "name": "NVIDIA Skills",
+      "url": "https://github.com/NVIDIA/skills#skill-catalog",
+      "adopted": "从元数据自动生成目录，以支持 skill 持续新增和更新。"
+    }
+  ]
+}
