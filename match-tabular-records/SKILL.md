@@ -15,8 +15,10 @@ Use the bundled deterministic script to compare two tabular exports without modi
 4. Add optional secondary key pairs only when the user wants to identify likely equivalents among primary-key-unmatched rows.
 5. Run `scripts/match_tabular_records.py`.
 6. Read the JSON result and report matched rows/keys, directional differences, rates, duplicate/invalid keys, subset relationship, and secondary matches.
-7. Render and inspect all four output sheets when spreadsheet rendering tools are available.
-8. Return only the final validated workbook.
+7. Apply any triggered business output profile after the core match.
+8. Render and inspect all four output sheets when spreadsheet rendering tools are available.
+9. Independently validate source sets, formulas, workbook structure, and visual layout.
+10. Return only the final validated workbook.
 
 ## Commands
 
@@ -84,6 +86,24 @@ Repeat `--key-normalizer` once per key pair, or provide it once to apply to ever
 - Stop and request explicit mappings when fields cannot be identified unambiguously.
 
 Read [references/matching-rules.md](references/matching-rules.md) for normalization, composite-key, duplicate, secondary-pairing, and output rules.
+
+## Business Output Profiles
+
+### Xiaohongshu review backend vs full submission
+
+When the two chains are Xiaohongshu review-backend data and full submission-note data, when the mapped key is `稿件ID = 稿件id`, or when the user says to follow the previous/reference processing style, you MUST read and apply [references/xhs-review-output-profile.md](references/xhs-review-output-profile.md).
+
+The profile is part of the required output contract, not optional presentation guidance. It defines:
+
+- cumulative historical-ID removal for multi-round incremental matching;
+- chain-specific sheet names and status values;
+- dynamic field grouping, naming, and source-order preservation;
+- the manual-review-over-Agent formula generated from actual header positions;
+- row and section ordering;
+- Excel colors, fonts, widths, heights, wrapping, conditional formats, and freeze panes;
+- independent set, formula, naming, OOXML, and visual validation.
+
+Do not return the generic file-A/file-B workbook for a triggered profile. Post-process it into the profile's final workbook. Treat the profile as a rule system, not a frozen column template: preserve real source fields, skip absent field groups, and never add blank placeholder columns only to imitate a historical workbook.
 
 ## Output
 

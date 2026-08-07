@@ -122,6 +122,23 @@ python scripts/match_tabular_records.py `
 5. 验证历史主键未出现在本轮匹配表和两张不匹配表中。
 6. 在分析汇总中记录各轮历史数量、累计剔除量和本轮结果。
 
+## 小红书审稿/投稿标准输出 Profile
+
+当任务是“小红书审稿后台链路”与“全量投稿笔记链路”匹配，或用户要求沿用此前的链路命名版格式时，必须应用 [小红书标准输出 Profile](references/xhs-review-output-profile.md)。
+
+该 profile 规范了：
+
+- 按字段角色动态分组，实际列数跟随输入文件；
+- 结果列、核心身份列、链接列、投稿字段和审稿字段的优先顺序；
+- 同名字段的业务化命名和无技术前缀规则；
+- 人工复核覆盖 Agent 审核结果的动态 Excel 公式；
+- 两张不匹配表和分析汇总的行、章节及链路命名；
+- 多轮增量匹配的历史 ID 排除与累计统计；
+- 字体、颜色、列宽、行高、冻结窗格、换行和条件格式；
+- 源集合、历史回流、公式、命名、OOXML 和视觉验证。
+
+此 profile 是成品规范，不是固定模板。它保留真实源字段、跳过不存在的字段组，不会为了复刻历史列数而添加空占位列。
+
 ## 业务字段扩展
 
 匹配结束后可以按项目规则增加派生字段。例如审稿场景中的“最终审核结果”：
@@ -152,3 +169,4 @@ python scripts/match_tabular_records.py `
 - `scripts/match_tabular_records.py`：确定性匹配脚本。
 - `scripts/self_test.py`：回归测试。
 - `references/matching-rules.md`：标准化和匹配规则详解。
+- `references/xhs-review-output-profile.md`：小红书审稿/投稿链路的字段、排序、公式和 Excel 风格规范。
