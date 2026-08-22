@@ -1152,11 +1152,23 @@ def main(argv: list[str] | None = None) -> int:
         )
         require_test((not validate_task_directory(task_dir)), 'self-test invariant failed at original line 987: not validate_task_directory(task_dir)')
         rebuild_project_state(root, "P-TEST")
-        historical_before["tailoring_resolution"]["complete_source_files"][0]["path"] = "references/unknown-source.md"
+        historical_before["tailoring_resolution"]["complete_source_files"][0]["path"] = "references/legacy/V6.2-source.md"
         historical_before_path.write_text(
             json.dumps(historical_before, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
-        require_test((any("cannot be resolved" in item for item in validate_task_directory(task_dir))), "self-test invariant failed at original line 993: any(('cannot be resolved' in item for item in validate_task_directory(task_dir)))")
+        require_test(
+            not validate_task_directory(task_dir),
+            "a terminal task must preserve a safe historical source identity even when the current Manifest no longer publishes that path",
+        )
+        rebuild_project_state(root, "P-TEST")
+        historical_before["tailoring_resolution"]["complete_source_files"][0]["path"] = "../unsafe-source.md"
+        historical_before_path.write_text(
+            json.dumps(historical_before, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        require_test(
+            any("safe canonical references/ path" in item for item in validate_task_directory(task_dir)),
+            "a terminal historical source identity must reject traversal or non-canonical paths",
+        )
         historical_before["tailoring_resolution"]["complete_source_files"][0]["path"] = compiled_before["tailoring_resolution"]["complete_source_files"][0]["path"]
         historical_before_path.write_text(
             json.dumps(historical_before, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

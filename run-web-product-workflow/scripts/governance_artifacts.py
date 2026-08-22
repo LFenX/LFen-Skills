@@ -1661,7 +1661,7 @@ def validate_tailoring_resolution(before: dict[str, Any]) -> list[str]:
 
 
 def validate_historical_tailoring_sources(before: dict[str, Any]) -> list[str]:
-    """Validate frozen source identities without rewriting a terminal historical resolution."""
+    """Validate frozen identities without coupling terminal history to the current release."""
 
     stored = before.get("tailoring_resolution")
     if not isinstance(stored, dict):
@@ -1689,10 +1689,16 @@ def validate_historical_tailoring_sources(before: dict[str, Any]) -> list[str]:
         if not re.fullmatch(r"[a-f0-9]{64}", expected_hash):
             errors.append(f"historical tailoring source sha256 is invalid: {source_id}")
             continue
-        try:
-            runtime_asset_path(logical_path)
-        except (OSError, json.JSONDecodeError, GovernanceError) as exc:
-            errors.append(f"historical tailoring source cannot be resolved: {source_id}: {exc}")
+        parts = logical_path.split("/")
+        if (
+            "\\" in logical_path
+            or not parts
+            or parts[0] != "references"
+            or any(part in {"", ".", ".."} for part in parts)
+        ):
+            errors.append(
+                f"historical tailoring source path must be a safe canonical references/ path: {source_id}"
+            )
     return errors
 
 

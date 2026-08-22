@@ -227,7 +227,7 @@ python scripts/query_norm_context.py --task-dir <task-directory> --request-json-
 python scripts/audit_norm_shadow.py --project-root <root> --project-id <P-ID> --task-id <T-ID> --task-dir <task-directory> --output-dir <evaluation-directory> --approval-ref <authority-ref> --median-reduction-threshold <percent> --minimum-case-reduction-threshold <percent> --mandatory-coverage-threshold 100 --false-allow-threshold 0 --publication-state pre-review
 ```
 
-旧V6.2/V6.2.1任务包仍可直接传给同一校验器兼容读取。
+旧V6.2/V6.2.1任务包仍可直接传给同一校验器兼容读取。已收尾任务的冻结来源身份只校验 `source_id`、安全规范逻辑路径和 SHA-256 结构，不依赖当前 Manifest 继续发布同一路径；活动任务仍必须精确解析并匹配当前 V6.3 Tailoring Resolution。
 
 ## 管理项目文档
 
