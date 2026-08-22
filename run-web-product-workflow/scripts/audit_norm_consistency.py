@@ -560,6 +560,7 @@ def audit(
     task_id: str,
     *,
     verify_authority_sources: bool = True,
+    verify_task_contract: bool = True,
 ) -> tuple[dict[str, Any], list[Path]]:
     project_root = project_root.resolve()
     skill_root = Path(__file__).resolve().parent.parent
@@ -977,74 +978,92 @@ def audit(
     current_normative_digest = normative_sources_digest(source_catalog, default_mapping_path())
     current_rule_set_sha256 = sha256_file(default_tailoring_map_path())
     task_contract_snapshot_verified = True
-    task_before_path = governance_root(project_root) / "tasks" / task_id / "before.json"
-    try:
-        task_before = read_json(task_before_path)
-        task_resolution = task_before.get("tailoring_resolution", {})
-        expected_normative_digest = task_resolution.get("normative_sources_sha256")
-        expected_rule_set_sha256 = task_resolution.get("rule_set_sha256")
-        if expected_normative_digest != current_normative_digest:
-            task_contract_snapshot_verified = False
-            findings.append(
-                make_finding(
-                    severity="Blocker",
-                    category="task_contract_snapshot_drift",
-                    source_id=task_id,
-                    logical_path=f".project-governance/tasks/{task_id}/before.json",
-                    message="当前规范来源集合摘要与冻结 TaskContract 不一致",
-                    impact="无法证明审计输入属于任务冻结时接受的规范来源集合",
-                    evidence=f"expected={expected_normative_digest}; actual={current_normative_digest}",
-                    remediation_class="refresh-or-stop",
-                )
+    if not verify_task_contract:
+        # No task is bound to this audit, so there is no frozen TaskContract to
+        # compare against. Record that the baseline was not established instead of
+        # reporting an absence that cannot be remediated in this mode.
+        task_contract_snapshot_verified = False
+        findings.append(
+            make_finding(
+                severity="Observation",
+                category="task_contract_snapshot_not_applicable",
+                source_id=task_id,
+                logical_path=f".project-governance/tasks/{task_id}/before.json",
+                message="审计未绑定任务，跳过冻结 TaskContract 校验",
+                impact="本次审计只覆盖受保护运行资产，不证明输入属于某个任务冻结的来源集合",
+                evidence="no --task-id supplied",
+                remediation_class="not-applicable",
             )
-        if expected_rule_set_sha256 != current_rule_set_sha256:
-            task_contract_snapshot_verified = False
-            findings.append(
-                make_finding(
-                    severity="Blocker",
-                    category="task_contract_snapshot_drift",
-                    source_id=task_id,
-                    logical_path=f".project-governance/tasks/{task_id}/before.json",
-                    message="当前裁剪规则摘要与冻结 TaskContract 不一致",
-                    impact="无法证明审计使用任务冻结时的适用性和来源路由规则",
-                    evidence=f"expected={expected_rule_set_sha256}; actual={current_rule_set_sha256}",
-                    remediation_class="refresh-or-stop",
-                )
-            )
-        for source in task_resolution.get("complete_source_files", []):
-            if not isinstance(source, dict):
-                continue
-            logical_path = source.get("path")
-            expected_sha256 = source.get("sha256")
-            path = valid_runtime_paths.get(logical_path)
-            if path is None or expected_sha256 != sha256_file(path):
+        )
+    else:
+        task_before_path = governance_root(project_root) / "tasks" / task_id / "before.json"
+        try:
+            task_before = read_json(task_before_path)
+            task_resolution = task_before.get("tailoring_resolution", {})
+            expected_normative_digest = task_resolution.get("normative_sources_sha256")
+            expected_rule_set_sha256 = task_resolution.get("rule_set_sha256")
+            if expected_normative_digest != current_normative_digest:
                 task_contract_snapshot_verified = False
                 findings.append(
                     make_finding(
                         severity="Blocker",
                         category="task_contract_snapshot_drift",
-                        source_id=str(source.get("source_id", task_id)),
-                        logical_path=str(logical_path),
-                        message="TaskContract 中的命中来源哈希与当前运行资产不一致",
-                        impact="当前审计输入无法回到任务冻结的完整来源文件",
-                        evidence=f"expected={expected_sha256}",
+                        source_id=task_id,
+                        logical_path=f".project-governance/tasks/{task_id}/before.json",
+                        message="当前规范来源集合摘要与冻结 TaskContract 不一致",
+                        impact="无法证明审计输入属于任务冻结时接受的规范来源集合",
+                        evidence=f"expected={expected_normative_digest}; actual={current_normative_digest}",
                         remediation_class="refresh-or-stop",
                     )
                 )
-    except (OSError, json.JSONDecodeError, GovernanceError) as exc:
-        task_contract_snapshot_verified = False
-        findings.append(
-            make_finding(
-                severity="Blocker",
-                category="task_contract_snapshot_missing",
-                source_id=task_id,
-                logical_path=f".project-governance/tasks/{task_id}/before.json",
-                message=f"无法读取冻结 TaskContract: {exc}",
-                impact="审计输入没有任务执行前的来源与规则摘要基线",
-                evidence=str(exc),
-                remediation_class="task-contract-fix",
+            if expected_rule_set_sha256 != current_rule_set_sha256:
+                task_contract_snapshot_verified = False
+                findings.append(
+                    make_finding(
+                        severity="Blocker",
+                        category="task_contract_snapshot_drift",
+                        source_id=task_id,
+                        logical_path=f".project-governance/tasks/{task_id}/before.json",
+                        message="当前裁剪规则摘要与冻结 TaskContract 不一致",
+                        impact="无法证明审计使用任务冻结时的适用性和来源路由规则",
+                        evidence=f"expected={expected_rule_set_sha256}; actual={current_rule_set_sha256}",
+                        remediation_class="refresh-or-stop",
+                    )
+                )
+            for source in task_resolution.get("complete_source_files", []):
+                if not isinstance(source, dict):
+                    continue
+                logical_path = source.get("path")
+                expected_sha256 = source.get("sha256")
+                path = valid_runtime_paths.get(logical_path)
+                if path is None or expected_sha256 != sha256_file(path):
+                    task_contract_snapshot_verified = False
+                    findings.append(
+                        make_finding(
+                            severity="Blocker",
+                            category="task_contract_snapshot_drift",
+                            source_id=str(source.get("source_id", task_id)),
+                            logical_path=str(logical_path),
+                            message="TaskContract 中的命中来源哈希与当前运行资产不一致",
+                            impact="当前审计输入无法回到任务冻结的完整来源文件",
+                            evidence=f"expected={expected_sha256}",
+                            remediation_class="refresh-or-stop",
+                        )
+                    )
+        except (OSError, json.JSONDecodeError, GovernanceError) as exc:
+            task_contract_snapshot_verified = False
+            findings.append(
+                make_finding(
+                    severity="Blocker",
+                    category="task_contract_snapshot_missing",
+                    source_id=task_id,
+                    logical_path=f".project-governance/tasks/{task_id}/before.json",
+                    message=f"无法读取冻结 TaskContract: {exc}",
+                    impact="审计输入没有任务执行前的来源与规则摘要基线",
+                    evidence=str(exc),
+                    remediation_class="task-contract-fix",
+                )
             )
-        )
 
     after_hashes = {item["embedded"]: sha256_file(skill_root / item["embedded"]) for item in protected_entries}
     protected_unchanged = before_hashes == after_hashes
@@ -1273,7 +1292,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--runtime-only",
         action="store_true",
-        help="For consumer projects: validate the protected embedded publication without requiring the normative editing repository",
+        help="For consumer projects: audit the protected embedded publication on its own. Without --task-id there is no frozen TaskContract to compare against, so that check is reported as not applicable rather than as a Blocker.",
     )
     return parser.parse_args()
 
@@ -1296,6 +1315,7 @@ def main() -> int:
             args.project_id,
             task_id,
             verify_authority_sources=not args.runtime_only,
+            verify_task_contract=bool(args.task_id),
         )
         output_dir = args.output_dir or (
             governance_root(args.project_root) / "generated" / "audits" / task_id

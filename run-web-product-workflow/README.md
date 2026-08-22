@@ -49,7 +49,7 @@ python <skill-root>/scripts/self_test.py --project-root <project-root>
 SKILL.md                     Agent 入口，126 行，self-test 硬卡 < 200 行
 reference/                   命令卡，每张 22-46 行
 references/                  skill 说明（路由图 / 第一性原理 / 文档布局）
-scripts/                     19 个治理脚本
+scripts/                     28 个治理脚本
 assets/runtime/norms/        规范正文快照（22 份）
 assets/runtime/schemas/      产物 JSON Schema（11 份）
 assets/runtime/mappings/     裁剪适用性与 Profile 映射
@@ -61,7 +61,7 @@ agents/openai.yaml           Codex 侧 skill 元数据
 
 ## 维护者门禁
 
-发布前必须全绿。CI（`.github/workflows/skill-gates.yml`）在每次改动本 skill 时自动执行同样两条：
+发布前必须全绿。CI（`.github/workflows/skill-gates.yml`）在每次推送和 PR 上自动执行同样三条：
 
 ```bash
 python run-web-product-workflow/scripts/self_test.py --project-root .
@@ -75,9 +75,19 @@ python run-web-product-workflow/scripts/audit_norm_retrieval.py --validate-only 
 
 校验受保护的检索契约：28 个 gold case、41 条 REQ / 25 条 AC 覆盖、8 个 hard gate、12 项结构检查，以及 taxonomy 与 gold set 的哈希。
 
-### 已知门禁缺陷
+```bash
+python run-web-product-workflow/scripts/audit_norm_consistency.py --project-root . --runtime-only
+```
 
-`audit_norm_consistency.py --runtime-only` **目前必然返回 exit 3**：runtime-only 模式仍会去读 `.project-governance/tasks/RUNTIME-ONLY/before.json`，而该文件按定义不存在，因而恒定产生一条 `task_contract_snapshot_missing` Blocker。SKILL.md「维护入口」把它列为消费项目审计命令，实际不可用。修复涉及门禁语义变更，需要人决定控制目标，**未纳入 CI**。带真实 `--task-id` 运行不受此影响。
+校验 Manifest、内嵌快照与任务来源边界。不带 `--task-id` 时没有可比对的冻结 TaskContract，该项记为 `task_contract_snapshot_not_applicable`（Observation），不构成 Blocker；一旦指定 `--task-id`，缺失或漂移的 TaskContract 仍然是 Blocker 并返回 exit 3。
+
+### 发布信任链
+
+tag 只是标签，除非有东西检查它指向什么。推送 `rwpw-v*` tag 时，CI 在三条门禁全绿之后额外执行一个 release 作业，拒绝与 `SKILL.md` 的 `metadata.version` 不匹配的 tag。因此发布信任根是机器验证的，不是人手写的：
+
+```bash
+python .github/scripts/check_release_tag.py rwpw-v6.3.0-candidate
+```
 
 ## 修订内置规范
 

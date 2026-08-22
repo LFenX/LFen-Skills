@@ -2203,7 +2203,7 @@
       },
       {
         "script": "audit_norm_consistency.py",
-        "help_sha256": "e5784ba685e8201d7e4acf582bc5c5cad13bb88b0ac3691a6c904c7b760f6b55",
+        "help_sha256": "d9e5940d1f7fef9a078dffffc83566b1a5008a73e8919a0427f9ffdf39c61606",
         "options": [
           "--fail-on",
           "--help",
