@@ -226,7 +226,7 @@ TaskContract 在首个 `run_started` Event 时冻结。之后 Scope、Acceptance
 
 RunLedger 只追加；更正通过新 Event 引用原 Event。ProjectState 和 DerivedView 由生成器重建，禁止直接编辑或纳入独立变更源。Git Commit/Diff 可作为代码和文档变化的权威证据，但外部副作用、失败、验证环境、批准和决定必须由相应元类型或 AuthorityAsset 保存。
 
-`AI-Native的产品开发生产规范` 仓库是规范正文与规范映射的唯一编辑事实源；`LFen-Skills/run-web-product-workflow` 是 Skill 实现、脚本、引用包装和运行快照的唯一编辑事实源。规范模板目录及安装入口必须以受控 Junction 指向该 Skill 事实源，不得保留平行可编辑副本。Skill 内置规范只能由受控同步脚本从显式指定的规范仓库刷新；运行时禁止从工作目录、父目录、环境变量或其他外部仓库查找同名规范。
+`LFen-Skills/run-web-product-workflow` 是规范正文、规范映射、Skill 实现、脚本、引用包装和运行快照的唯一编辑事实源；本规范不设外部上游规范仓库，内置规范即权威正文。规范模板目录及安装入口必须以受控 Junction 指向该事实源，不得保留平行可编辑副本。受保护运行资产修订后只能由受控重封脚本就地重算登记哈希；运行时禁止从工作目录、父目录、环境变量或任何外部仓库查找同名规范。
 
 ### 8.1 正式产物
 

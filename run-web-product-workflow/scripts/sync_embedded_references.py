@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Refresh canonical embedded norms and publish the Skill without runtime lookup."""
+"""Reseal the embedded runtime manifest and publish the Skill without runtime lookup."""
 
 from __future__ import annotations
 
@@ -86,24 +86,7 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def resolve_spec_root(explicit: Path | None) -> Path:
-    if explicit is None:
-        raise ValueError(
-            "normative source repository cannot be inferred from the canonical Skill; "
-            "pass --spec-root <AI-Native product specification repository root>"
-        )
-    resolved = explicit.resolve()
-    required = [Path(relative) for relative in REFERENCE_FILES]
-    required.extend(Path(relative) for relative, _, _ in MAPPING_FILES)
-    missing = [relative.as_posix() for relative in required if not (resolved / relative).is_file()]
-    if missing:
-        raise FileNotFoundError(
-            f"normative source repository is incomplete: {resolved}; first missing file: {missing[0]}"
-        )
-    return resolved
-
-
-def refresh_embedded(spec_root: Path) -> list[dict[str, str]]:
+def refresh_embedded() -> list[dict[str, str]]:
     previous_manifest = (
         json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
         if MANIFEST_PATH.is_file()
@@ -111,37 +94,31 @@ def refresh_embedded(spec_root: Path) -> list[dict[str, str]]:
     )
     manifest: list[dict[str, str]] = []
     for relative in REFERENCE_FILES:
-        source = spec_root / Path(relative)
         logical_path = f"references/{relative}"
         embedded_path = f"assets/runtime/norms/{relative}"
-        destination = SKILL_ROOT / embedded_path
-        if not source.is_file():
-            raise FileNotFoundError(f"canonical reference is missing: {source}")
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source, destination)
+        target = SKILL_ROOT / embedded_path
+        if not target.is_file():
+            raise FileNotFoundError(f"embedded norm is missing: {target}")
         manifest.append(
             {
                 "role": "norm",
-                "source": relative.replace("\\", "/"),
+                "source": f"skill-local:{logical_path}",
                 "logical_path": logical_path,
                 "embedded": embedded_path,
-                "sha256": sha256(destination),
+                "sha256": sha256(target),
             }
         )
-    for source_relative, logical_path, embedded_path in MAPPING_FILES:
-        mapping_source = spec_root / source_relative
-        mapping_destination = SKILL_ROOT / embedded_path
-        if not mapping_source.is_file():
-            raise FileNotFoundError(f"canonical mapping is missing: {mapping_source}")
-        mapping_destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(mapping_source, mapping_destination)
+    for _legacy_relative, logical_path, embedded_path in MAPPING_FILES:
+        target = SKILL_ROOT / embedded_path
+        if not target.is_file():
+            raise FileNotFoundError(f"embedded mapping is missing: {target}")
         manifest.append(
             {
                 "role": "mapping",
-                "source": source_relative,
+                "source": f"skill-local:{logical_path}",
                 "logical_path": logical_path,
                 "embedded": embedded_path,
-                "sha256": sha256(mapping_destination),
+                "sha256": sha256(target),
             }
         )
     for name in LOCAL_MAPPING_FILES:
@@ -235,7 +212,7 @@ def refresh_embedded(spec_root: Path) -> list[dict[str, str]]:
             {
                 "schema_version": "6.3-candidate",
                 "layout_version": "skill-runtime-v2",
-                "source_of_truth": "LFen-Skills/run-web-product-workflow Skill implementation; AI-Native的产品开发生产规范 normative documents",
+                "source_of_truth": "LFen-Skills/run-web-product-workflow; the embedded runtime assets are the sole editing source of truth for the norms, mappings, schemas and evaluations they contain",
                 "files": manifest,
             },
             ensure_ascii=False,
@@ -286,11 +263,12 @@ def publish(destination: Path) -> int:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--spec-root",
-        type=Path,
-        help="Authoritative AI-Native product specification repository root.",
+    parser = argparse.ArgumentParser(
+        description=(
+            "Recompute the SHA-256 of every protected runtime asset from the Skill's "
+            "own files and rewrite embedded-manifest.json. The Skill is the sole "
+            "editing source of truth; no external specification repository is read."
+        )
     )
     parser.add_argument(
         "--publish-to",
@@ -303,9 +281,8 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     try:
-        spec_root = resolve_spec_root(args.spec_root)
-        manifest = refresh_embedded(spec_root)
-        print(f"REFRESHED: {len(manifest)} embedded runtime fact files")
+        manifest = refresh_embedded()
+        print(f"RESEALED: {len(manifest)} embedded runtime fact files")
         if args.publish_to:
             count = publish(args.publish_to)
             if count == 0 and args.publish_to.resolve() == SKILL_ROOT.resolve():

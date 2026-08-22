@@ -106,9 +106,9 @@ Ask 只是交互和恢复通道；正式决定、批准和 Gate 以权威事实�
 
 - `<skill-root>/scripts/amend_record.py`：按 Amendment 修订已建立记录。
 - `<skill-root>/scripts/self_test.py --project-root <project-root>`：完整正反向自检。
-- `<skill-root>/scripts/sync_embedded_references.py --spec-root <norm-repository>`：从规范事实源刷新快照与 Manifest。
+- `<skill-root>/scripts/sync_embedded_references.py`：修订内置规范或任一受保护运行资产后，就地重算并重封 Manifest。
 - `<skill-root>/scripts/migrate_legacy_artifacts.py`：兼容读取旧治理产物，不迁移产品原生文档。
-- `<skill-root>/scripts/audit_norm_consistency.py --project-root <project-root> --runtime-only`：消费项目 runtime-only 审计；正式规范仓审计必须显式传 `--task-id`。
+- `<skill-root>/scripts/audit_norm_consistency.py --project-root <project-root> --runtime-only`：消费项目 runtime-only 审计；针对具体任务的完整审计必须显式传 `--task-id`。
 - `<skill-root>/scripts/audit_norm_retrieval.py --validate-only --runtime-only`：验证受保护查询契约。
 - `<skill-root>/scripts/rebuild_query_history_index.py --project-root <project-root> --task-id <TaskID> --reason <reason>`：合法初态可创建缺失的 query-history。
 

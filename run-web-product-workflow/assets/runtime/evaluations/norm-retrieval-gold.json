@@ -810,7 +810,7 @@
       "target_id": "NCT-008",
       "source_id": "C11",
       "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
-      "source_sha256": "7cd85e958609f03fb8dc3facc7a2de56cb061ddffcb15804058cb565c91b1c1e",
+      "source_sha256": "95146f309e58e19d40c8c8c3440bbd89953644f2ef99846cc3a729d1a7aca8b2",
       "heading_path": [
         "10. 配置、版本、基线与变更控制规则",
         "10.8 Change Request 创建与分流"
@@ -2480,11 +2480,10 @@
       },
       {
         "script": "sync_embedded_references.py",
-        "help_sha256": "16e0c8c243b1954766c81793e08a3c0394d926145bb674d7555fb63087f5a01f",
+        "help_sha256": "4a42c713e9c9adc4c7b700f997309b1e1fb615069cf72e53d4c195a7a7aa2604",
         "options": [
           "--help",
-          "--publish-to",
-          "--spec-root"
+          "--publish-to"
         ]
       },
       {

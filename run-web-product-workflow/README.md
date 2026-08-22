@@ -79,15 +79,15 @@ python run-web-product-workflow/scripts/audit_norm_retrieval.py --validate-only 
 
 `audit_norm_consistency.py --runtime-only` **目前必然返回 exit 3**：runtime-only 模式仍会去读 `.project-governance/tasks/RUNTIME-ONLY/before.json`，而该文件按定义不存在，因而恒定产生一条 `task_contract_snapshot_missing` Blocker。SKILL.md「维护入口」把它列为消费项目审计命令，实际不可用。修复涉及门禁语义变更，需要人决定控制目标，**未纳入 CI**。带真实 `--task-id` 运行不受此影响。
 
-## 刷新规范快照
+## 修订内置规范
 
-规范正文的编辑事实源是 `AI-Native的产品开发生产规范` 仓库，**不是本包**。本包内的 `assets/runtime/norms/` 是只读快照：
+本包是规范正文的**唯一编辑事实源**，不镜像任何外部规范仓库。直接修订 `assets/runtime/norms/` 下的正文，然后就地重封 Manifest：
 
 ```bash
-python run-web-product-workflow/scripts/sync_embedded_references.py --spec-root <规范仓库根>
+python run-web-product-workflow/scripts/sync_embedded_references.py
 ```
 
-刷新后重跑上面两条门禁，再提交并打新 tag。
+该命令重算全部受保护资产的 SHA-256 并重写 `embedded-manifest.json`，不读取任何外部目录。重封后重跑上面两条门禁，再提交并打新 tag。禁止手工编辑登记哈希——写入守卫会拒绝。
 
 ## 发布信任根
 

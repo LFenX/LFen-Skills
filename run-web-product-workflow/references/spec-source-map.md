@@ -2,9 +2,8 @@
 
 ## 1. 路径和事实源
 
-- 规范编辑事实源：`AI-Native的产品开发生产规范` 仓库根目录；只能在该处修订规范正文与规范映射。
-- Skill 编辑事实源：`LFen-Skills/run-web-product-workflow`；只能在该处修订 Skill 实现、脚本、引用包装和运行快照。
-- 统一入口：规范模板目录、`.codex` 与 `.agents` 中的同名路径必须是指向 Skill 编辑事实源的 Junction，不得保留平行可编辑副本。
+- 唯一编辑事实源：`LFen-Skills/run-web-product-workflow`；规范正文、规范映射、Schema、评测集和 Skill 实现都只能在该处修订。本 Skill 自带完整规范，不镜像也不依赖任何外部规范仓库。
+- 统一入口：规范模板目录、`.codex` 与 `.agents` 中的同名路径必须是指向该事实源的 Junction，不得保留平行可编辑副本。
 - 运行规范事实源：Skill 的 `assets/runtime/`；其中的规范、映射和 Schema 是受哈希保护的机器运行资产。
 - 稳定逻辑路径：TaskContract、Norm Packet 和历史记录继续使用 `references/...`、`mappings/...`、`schemas/...`。
 - 物理路径：`assets/runtime/embedded-manifest.json` 把逻辑路径唯一解析为磁盘路径。规范逻辑路径 `references/<分类>/...` 对应 `assets/runtime/norms/<分类>/...`；`mappings/...` 对应 `assets/runtime/mappings/...`；`schemas/...` 对应 `assets/runtime/schemas/...`。禁止把逻辑路径当作 skill 根下的文件打开，也禁止绕过 Manifest 自行拼接。
@@ -57,8 +56,8 @@
 5. 查询结果为 `Expanded` 时按回退事件读取父章节、完整命中源或有序分页；`Blocked` 时停止，不得用 `rg` 绕过。
 6. Source Pack 始终保留为完整命中源回退；Unknown、Pending、冲突、过期或哈希错误从配置阶段起失败关闭。
 7. 条款查询层保持 `Shadow`；Candidate、In Review 或 Proposed 必须保留原状态，禁止写成 Approved 或 Baselined。
-8. 刷新内置规范时必须从 Skill 编辑事实源运行 `<skill-root>/scripts/sync_embedded_references.py --spec-root <规范仓库根>`；禁止扫描父目录、工作目录或环境变量猜测规范源。
-9. 消费项目缺少本地 Ready 索引时，使用受 Manifest 保护的 runtime-only 发布资产建立内容寻址缓存；规范编辑仓 Authority 对账仍只在发布审计执行，禁止向消费项目复制开发任务历史充当授权。
+8. 修订 `assets/runtime/` 下任一受保护资产后，必须运行 `<skill-root>/scripts/sync_embedded_references.py` 就地重算并重封 Manifest；禁止手工编辑登记哈希，禁止从父目录、工作目录、环境变量或任何外部仓库读取规范。
+9. 消费项目缺少本地 Ready 索引时，使用受 Manifest 保护的 runtime-only 发布资产建立内容寻址缓存；禁止向消费项目复制开发任务历史充当授权。
 10. 只有 VC-PPG-DEC-001 §16.4 的 Minimal 资格全部成立时，才跳过第 2–5 项的 Shadow 派生物；`task-record.json` 仍须由结构校验器检查并进入 ProjectState。
 
 ## 6. 发布信任根
