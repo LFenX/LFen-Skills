@@ -1071,6 +1071,42 @@ def main(argv: list[str] | None = None) -> int:
         "reference/minimal.md",
     }), "all command reference files must exist")
     require_test((all(f"({relative})" in skill_text for relative in command_reference_files)), "SKILL.md must link every command reference")
+
+    # VC-PPG-DEC-001 16.4 owns the Minimal eligibility conditions, and
+    # minimal-task-record.schema.json pins them as const-constrained fields. The table
+    # in reference/minimal.md is the one human-readable projection of that pair. Hold it
+    # to the schema in both directions so the projection cannot silently drift, and keep
+    # SKILL.md from growing a third copy -- SKILL.md 7 allows exactly one authoritative
+    # definition per fact.
+    minimal_card = (skill_root / "reference" / "minimal.md").read_text(encoding="utf-8")
+    eligibility_schema = read_json(
+        skill_root / "assets" / "runtime" / "schemas" / "minimal-task-record.schema.json"
+    )["properties"]["eligibility"]
+    # evidence_refs proves the conditions; it is not itself one of them.
+    controlled_keys = {
+        key for key in eligibility_schema["required"] if key != "evidence_refs"
+    }
+    projected_keys = set(re.findall(r"\| `([a-z_]+)` \|", minimal_card))
+    missing_keys = sorted(controlled_keys - projected_keys)
+    require_test(
+        (not missing_keys),
+        f"reference/minimal.md eligibility table must project every schema field; missing: {missing_keys}",
+    )
+    stray_keys = sorted(projected_keys - controlled_keys)
+    require_test(
+        (not stray_keys),
+        f"reference/minimal.md eligibility table names fields the schema does not control: {stray_keys}",
+    )
+    condition_phrases = [
+        row.split("|")[1].strip()
+        for row in minimal_card.splitlines()
+        if re.search(r"\| `[a-z_]+` \|", row)
+    ]
+    restated = [phrase for phrase in condition_phrases if phrase and phrase in skill_text]
+    require_test(
+        (len(restated) <= 1),
+        f"SKILL.md must point at the eligibility projection, not restate it; restated: {restated}",
+    )
     require_test(("scripts/get_context.py" in skill_text), "SKILL.md must route full-carrier context through get_context.py")
     require_test(("scripts/signals.py" in skill_text), "SKILL.md must route no-argument status through signals.py")
     require_test(("scripts/check_write_guard.py" in skill_text), "SKILL.md must document the write guard")

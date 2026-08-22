@@ -28,21 +28,31 @@ metadata:
 - 规范逻辑路径形如 `references/01_治理基线/...`，磁盘文件在 `assets/runtime/norms/`；禁止把逻辑路径当 skill 根下的文件打开。产品文档里的 `LG_project_docs/.../references/` 是需求外部资料，与规范快照无关。
 - 本 skill 不读取平台 Token、不安装平台插件、不调用平台绑定接口。
 
-## 读取分流
+## 读取分层
 
-完整载体或不确定是否 Minimal 时，先读 [规范源路由图](references/spec-source-map.md) 和 [第一性原理执行规范](references/first-principles-method.md)。
+按决策顺序分层，不按载体类型。每层只读该层需要的东西。
 
-已确定符合 Minimal 资格时，不完整读取 `spec-source-map.md`；只有存在会改变目标、范围、验收、风险或授权的未知时，才完整读取第一性原理参考。
+**判定层——不读任何文件。** 用本文件的路由表和 Minimal 硬边界即可判定意图、载体和风险。任务尚未建立时没有条款检索路径，这是明确边界：此阶段依据本文件与一张命令卡工作，条款检索从任务建立后开始。
 
-涉及项目文档创建、整理、迁移或 README 时，再读 [项目文档目录与迁移规范](references/project-document-layout.md)。
+**载体层——只读一张命令卡。** 按下方路由表进入对应的 `reference/*.md`，不要顺带读其他卡。
 
-禁止递归读取 `assets/runtime/norms/` 全部文件。完整载体物质动作前只运行一次：
+**执行层——完整载体每次物质动作前查一次条款。**
 
 ```console
 python <skill-root>/scripts/get_context.py --task-dir <project-root>/.project-governance/tasks/<TaskID> --action <action> --query-text <current-action-summary>
 ```
 
 返回 `Blocked` 时停止受影响动作；返回 Clause Context 时消费其引用。只有合法且未升级、未收尾的 Minimal 任务调用该命令才会说明跳过查询并 exit 0。本地 norm index 只保留当前活动 digest。
+
+禁止递归读取 `assets/runtime/norms/`。
+
+`references/` 三个文件按触发读取，与载体类型无关：
+
+| 触发 | 读取 |
+|---|---|
+| 需要定位规范物理位置、Source ID 或检索策略 | [规范源路由图](references/spec-source-map.md) |
+| 问题拆解、方案制定、重大修订 | [第一性原理执行规范](references/first-principles-method.md) |
+| 项目文档创建、整理、迁移或 README | [项目文档目录与迁移规范](references/project-document-layout.md) |
 
 ## 路由
 
@@ -74,9 +84,9 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 
 优先级固定：硬边界 > 用户显式选择 > 自动判定。
 
-只有 `Risk=Low`、可逆、单一 Scope、无外部系统副作用、无生产发布、无安全/隐私影响、E01-E05 全部 Inactive、无阻断 Unknown、无专用 Gate 时，才使用 `<project-root>/.project-governance/tasks/<TaskID>/task-record.json` 聚合 TaskContract、RunLedger 和 TaskOutcome。完整资格与升级触发以 VC-PPG-DEC-001 §16.4 为唯一事实源。
+资格判定以 VC-PPG-DEC-001 §16.4 为唯一事实源；其九条受控条件的人类可读投影在 [reference/minimal.md](reference/minimal.md)，本文件不复述。九条全部成立才使用 `<project-root>/.project-governance/tasks/<TaskID>/task-record.json` 聚合 TaskContract、RunLedger 和 TaskOutcome。任意一条不成立或为 Unknown，走完整载体。
 
-满足资格时读取 [reference/minimal.md](reference/minimal.md)。无歧义且用户已明确要求执行时 Grill Me 为零轮，S1 摘要与首次回复合并，不重复询问 `Proceed`。执行中跨越任一硬边界时停止受影响动作并单向升级为完整载体；禁止完整载体降回 Minimal。
+判定前只需读 [reference/minimal.md](reference/minimal.md) 一张卡。无歧义且用户已明确要求执行时 Grill Me 为零轮，S1 摘要与首次回复合并，不重复询问 `Proceed`。执行中跨越任一硬边界时停止受影响动作并单向升级为完整载体；禁止完整载体降回 Minimal。
 
 ## 完整载体
 

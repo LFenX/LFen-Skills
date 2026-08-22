@@ -4,7 +4,24 @@ Minimal 是同一六元模型的物理载体裁剪，不是第二套流程。
 
 路径：脚本在 `<skill-root>/scripts/`；`<project-root>` 为含 `.project-governance` 的消费项目根，不是 skill 根。
 
-资格全部成立时才可用：Risk=Low、可逆、单一 Scope、无外部系统副作用、无生产发布、无安全/隐私影响、E01-E05 Inactive、无阻断 Unknown、无专用 Gate。
+## 资格
+
+唯一事实源是 `VC-PPG-DEC-001 §16.4`。下表是它的人类可读投影，每行绑定 `schemas/minimal-task-record.schema.json` 中 `eligibility` 的受控字段；`self_test.py` 校验本表覆盖全部字段，投影与 schema 漂移时失败。
+
+| 条件 | schema 字段 | 记录值 |
+|---|---|---|
+| C02 Risk 为 Low | `risk_level` | `Low` |
+| 变化可逆且回退路径已记录 | `reversible` | `true` |
+| 只有一个可独立验收的 Scope | `single_scope` | `true` |
+| 无外部系统副作用 | `external_system_effect` | `false` |
+| 无生产发布 | `production_release` | `false` |
+| 无安全/隐私影响 | `security_privacy_impact` | `false` |
+| E01–E05 全部 Inactive | `extension_triggers` | 五项均 `Inactive` |
+| 无阻断 Unknown、权限扩大、独立复核 | `blocking_unknowns` | `[]` |
+| 无专用 Gate | `special_gates` | `[]` |
+
+九条**全部**成立才可用。任意一条不成立或为 Unknown，走完整载体——Unknown 不得当作 No。
+
 
 若裁剪图显示 Change Surface 或 Delivery Scenario 会触发 E01-E05，初始化必须拒绝 Minimal 并改走完整载体；当前允许的 Minimal Change Surface 为 `UI/UX`、`API/Integration`、`Agent/Collaboration`。
 
