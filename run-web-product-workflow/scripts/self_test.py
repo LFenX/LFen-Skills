@@ -1097,6 +1097,29 @@ def main(argv: list[str] | None = None) -> int:
         (not stray_keys),
         f"reference/minimal.md eligibility table names fields the schema does not control: {stray_keys}",
     )
+    # VC-PPG-PRO-001 S1 filters Grill Me on materiality alone. "不可发现" appears once
+    # in the whole corpus, at PRO-001:116, as the Requestor's duty to volunteer such
+    # constraints -- never as a limit on what the Agent may ask. SKILL.md previously
+    # carried it as a gate, which let almost any question be argued away as something
+    # the Agent could look up, and biased the agent toward not asking.
+    discoverability_gate = [
+        phrase for phrase in ("无法发现", "不可发现") if phrase in skill_text
+    ]
+    require_test(
+        (not discoverability_gate),
+        f"SKILL.md must filter questions on materiality, not discoverability; found: {discoverability_gate}",
+    )
+    clarify_card = (skill_root / "reference" / "clarify.md").read_text(encoding="utf-8")
+    # The S1 exit conditions are the norm's, and a zero-round claim is only legitimate
+    # when they demonstrably hold. Keep both in the card that owns the rule.
+    missing_exit = [
+        phrase for phrase in ("可表达", "已逐项列出") if phrase not in clarify_card
+    ]
+    require_test(
+        (not missing_exit),
+        f"reference/clarify.md must carry the VC-PPG-PRO-001 S1 exit conditions; missing: {missing_exit}",
+    )
+
     condition_phrases = [
         row.split("|")[1].strip()
         for row in minimal_card.splitlines()

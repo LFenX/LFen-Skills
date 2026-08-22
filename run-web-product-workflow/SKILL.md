@@ -12,7 +12,7 @@ metadata:
 保持人的操作简单，把正式治理留在后台。
 
 1. 先检查仓库、文档、环境和既有 Baseline，再提问。
-2. 只向人询问无法发现且会改变目标、范围、验收、风险或授权的信息。
+2. 只向人询问会改变目标、范围、验收、风险或授权的信息；判据是猜错的后果，不是能否自行查出。
 3. 用户回复“默认”时采用推荐默认值并记录依据。
 4. 对人使用通俗中文；除非用户要求审阅治理细节，不展示完整规范矩阵。
 5. 不推测批准人、授权范围、验收结果、事实证据或风险接受结论。
@@ -86,7 +86,7 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 
 资格判定以 VC-PPG-DEC-001 §16.4 为唯一事实源；其九条受控条件的人类可读投影在 [reference/minimal.md](reference/minimal.md)，本文件不复述。九条全部成立才使用 `<project-root>/.project-governance/tasks/<TaskID>/task-record.json` 聚合 TaskContract、RunLedger 和 TaskOutcome。任意一条不成立或为 Unknown，走完整载体。
 
-判定前只需读 [reference/minimal.md](reference/minimal.md) 一张卡；不确定资格时先跑其中的 `manage_minimal_task.py screen`，它按 9 条否决事实给出载体结论和点名理由。无歧义且用户已明确要求执行时 Grill Me 为零轮，S1 摘要与首次回复合并，不重复询问 `Proceed`。执行中跨越任一硬边界时停止受影响动作并单向升级为完整载体；禁止完整载体降回 Minimal。
+判定前只需读 [reference/minimal.md](reference/minimal.md) 一张卡；不确定资格时先跑其中的 `manage_minimal_task.py screen`，它按 9 条否决事实给出载体结论和点名理由。Minimal 不改变澄清要求，零轮条件只在 [reference/clarify.md](reference/clarify.md) 表述；满足零轮时 S1 摘要与首次回复合并，不重复询问 `Proceed`。执行中跨越任一硬边界时停止受影响动作并单向升级为完整载体；禁止完整载体降回 Minimal。
 
 ## 完整载体
 
