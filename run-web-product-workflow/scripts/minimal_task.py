@@ -42,6 +42,38 @@ DEFAULT_ASSUMPTION = "script default: Minimal eligibility facts remain valid; up
 DEFAULT_ROLLBACK = "script default: reversible through git revert on the current branch."
 DEFAULT_CONSTRAINT = "script default: only allowed_paths may be modified."
 DEFAULT_BASIS = "script default: omitted non-blocking Minimal fields were populated by manage_minimal_task.py."
+# VC-PPG-DEC-001 16.4 lists what a Minimal record must carry at init -- objective,
+# single scope, allowed paths, Authority, one verifiable acceptance, the selected
+# approach and why the alternative was rejected -- and authorises the script to
+# populate omitted non-blocking fields with traceable defaults. Minimal is Risk=Low
+# by eligibility, so first-principles depth is Concise, whose floor per
+# references/first-principles-method.md 4 is the selected approach against the status
+# quo with traceable steps; both are already mandatory arguments. These defaults keep
+# every control objective present in the record without charging the caller for
+# content the norm does not require up front. They restate facts the record already
+# proves elsewhere -- never invented evidence.
+DEFAULT_FACT = (
+    "script default: no separate first-principles fact was supplied; the recorded "
+    "Minimal eligibility evidence refs are the established fact base."
+)
+DEFAULT_FUNDAMENTALS = (
+    "script default: the change is confined to the recorded allowed_paths.",
+    "script default: the change is reversible, which is the eligibility fact that "
+    "permits the Minimal carrier.",
+)
+DEFAULT_CAUSAL_LINK = (
+    "script default: the recorded eligibility facts -- Low risk, reversible, single "
+    "scope, no external effect, no production release, no security or privacy impact, "
+    "all extensions Inactive -- are why the aggregate carrier is sufficient here."
+)
+DEFAULT_DECISION_CRITERION = (
+    "script default: satisfy the recorded acceptance statement without crossing any "
+    "Minimal hard boundary."
+)
+DEFAULT_VERIFICATION = (
+    "script default: verification evidence is recorded at close via "
+    "manage_minimal_task.py close --verification."
+)
 MINIMAL_ALLOWED_CHANGE_SURFACES = ("UI/UX", "API/Integration", "Agent/Collaboration")
 MINIMAL_BLOCKING_FACT_SURFACE_KEYS = (
     "architecture_impact",
@@ -268,6 +300,10 @@ def create_minimal_record(
     if not constraint_values:
         constraint_values = [DEFAULT_CONSTRAINT]
         default_used = True
+    verification_value = verification.strip()
+    if not verification_value:
+        verification_value = DEFAULT_VERIFICATION
+        default_used = True
 
     values = {
         "objective": objective.strip(),
@@ -275,12 +311,18 @@ def create_minimal_record(
         "acceptance": acceptance.strip(),
         "selected_approach": selected_approach.strip(),
         "alternative_rejected": alternative_rejected.strip(),
-        "verification": verification.strip(),
+        "verification": verification_value,
         "rollback": rollback_value,
     }
     if any(not value for value in values.values()):
         raise GovernanceError("Minimal objective, scope, acceptance, plan, verification, and rollback are required")
     steps = [value.strip() for value in plan_steps if value.strip()]
+    if not steps:
+        steps = [
+            "script default: execute the selected approach within allowed_paths -- "
+            f"{values['selected_approach']}"
+        ]
+        default_used = True
     allowed = [value.strip() for value in allowed_paths if value.strip()]
     bases = [value.strip() for value in basis if value.strip()]
     if default_used and DEFAULT_BASIS not in bases:
@@ -290,17 +332,34 @@ def create_minimal_record(
         dict.fromkeys(value.strip() for value in eligibility_evidence_refs if value.strip())
     )
     fact_values = [value.strip() for value in facts if value.strip()]
+    if not fact_values:
+        fact_values = [DEFAULT_FACT]
+        default_used = True
     fundamental_values = [value.strip() for value in fundamentals if value.strip()]
+    if len(fundamental_values) < 2:
+        fundamental_values = list(
+            dict.fromkeys([*fundamental_values, *DEFAULT_FUNDAMENTALS])
+        )
+        default_used = True
     causal_values = [value.strip() for value in causal_chain if value.strip()]
+    if not causal_values:
+        causal_values = [DEFAULT_CAUSAL_LINK]
+        default_used = True
     criterion_values = [value.strip() for value in decision_criteria if value.strip()]
-    if not steps or not allowed or not bases or not authorities:
-        raise GovernanceError("Minimal plan steps, allowed paths, basis, and authority refs are required")
+    if not criterion_values:
+        criterion_values = [DEFAULT_DECISION_CRITERION]
+        default_used = True
+    if not bases:
+        bases = [DEFAULT_BASIS]
+    elif default_used and DEFAULT_BASIS not in bases:
+        bases.append(DEFAULT_BASIS)
+    if not allowed or not authorities:
+        raise GovernanceError("Minimal allowed paths and authority refs are required")
+    # Eligibility evidence stays mandatory and uncounted-down: it is the proof that the
+    # Minimal carrier is permitted at all, the schema requires five refs, and inventing
+    # a default here would fabricate evidence, which first-principles-method.md 5 forbids.
     if len(evidence) < 5:
         raise GovernanceError("Minimal eligibility requires at least five distinct evidence refs")
-    if not fact_values or not constraint_values or len(fundamental_values) < 2:
-        raise GovernanceError("Minimal first-principles facts, constraints, and two fundamentals are required")
-    if not causal_values or not criterion_values:
-        raise GovernanceError("Minimal causal chain and decision criteria are required")
     if selection_source not in {"explicit-user", "automatic"}:
         raise GovernanceError("selection_source must be explicit-user or automatic")
     require_minimal_applicability(

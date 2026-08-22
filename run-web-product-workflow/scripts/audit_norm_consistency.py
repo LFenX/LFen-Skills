@@ -47,6 +47,17 @@ MODAL_REMOVE_RE = re.compile(
 )
 
 
+def is_minimal_carrier(task_dir: Path) -> bool:
+    """True when the task legitimately has no frozen before.json.
+
+    The Minimal carrier aggregates the three meta types into task-record.json. A
+    stray task-record.json beside before.json does not count -- the full carrier
+    wins there, matching get_context.py and check_write_guard.py.
+    """
+
+    return (task_dir / "task-record.json").is_file() and not (task_dir / "before.json").is_file()
+
+
 def sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
@@ -992,6 +1003,24 @@ def audit(
                 message="审计未绑定任务，跳过冻结 TaskContract 校验",
                 impact="本次审计只覆盖受保护运行资产，不证明输入属于某个任务冻结的来源集合",
                 evidence="no --task-id supplied",
+                remediation_class="not-applicable",
+            )
+        )
+    elif is_minimal_carrier(governance_root(project_root) / "tasks" / task_id):
+        # A Minimal carrier aggregates TaskContract, RunLedger and TaskOutcome into
+        # task-record.json and has no frozen before.json by design (VC-PPG-DEC-001
+        # 16.4). Reporting that as a missing snapshot states an absence that cannot be
+        # remediated without abandoning the carrier the task legitimately chose.
+        task_contract_snapshot_verified = False
+        findings.append(
+            make_finding(
+                severity="Observation",
+                category="task_contract_snapshot_not_applicable",
+                source_id=task_id,
+                logical_path=f".project-governance/tasks/{task_id}/task-record.json",
+                message="Minimal 载体没有独立的冻结 TaskContract，快照基线不适用",
+                impact="该审计不建立任务冻结来源基线；Minimal 资格事实记录在 task-record.json",
+                evidence="carrier=Minimal",
                 remediation_class="not-applicable",
             )
         )

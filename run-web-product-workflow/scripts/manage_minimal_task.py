@@ -45,11 +45,16 @@ def add_common_init(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument("--selected-approach", required=True)
     parser.add_argument("--alternative-rejected", required=True)
-    parser.add_argument("--plan-step", action="append", required=True)
-    parser.add_argument("--verification", required=True)
+    # Optional by VC-PPG-DEC-001 16.4, which lists what Minimal must carry at init
+    # and authorises the script to populate omitted non-blocking fields with
+    # traceable defaults. Minimal is Risk=Low, so first-principles depth is Concise,
+    # whose floor is the selected approach against the status quo -- both already
+    # mandatory above. Supplying any of these still overrides the default.
+    parser.add_argument("--plan-step", action="append", default=[])
+    parser.add_argument("--verification", default="")
     parser.add_argument("--rollback", default="")
     parser.add_argument("--selection-source", required=True, choices=["explicit-user", "automatic"])
-    parser.add_argument("--basis", action="append", required=True)
+    parser.add_argument("--basis", action="append", default=[])
     parser.add_argument("--authority-ref", action="append", required=True)
     parser.add_argument(
         "--eligibility-evidence-ref",
@@ -57,12 +62,12 @@ def add_common_init(parser: argparse.ArgumentParser) -> None:
         required=True,
         help="Repeat with distinct evidence for reversibility, scope, effects, release, security, and extensions.",
     )
-    parser.add_argument("--fact", action="append", required=True)
+    parser.add_argument("--fact", action="append", default=[])
     parser.add_argument("--constraint", action="append", default=[])
     parser.add_argument("--assumption", action="append", default=[])
-    parser.add_argument("--fundamental", action="append", required=True)
-    parser.add_argument("--causal-link", action="append", required=True)
-    parser.add_argument("--decision-criterion", action="append", required=True)
+    parser.add_argument("--fundamental", action="append", default=[])
+    parser.add_argument("--causal-link", action="append", default=[])
+    parser.add_argument("--decision-criterion", action="append", default=[])
 
 
 def parse_args() -> argparse.Namespace:

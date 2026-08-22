@@ -2356,7 +2356,7 @@
           "init",
           "--help"
         ],
-        "help_sha256": "107331d098b3358c3dc47f018cd92503b56eae6b275659bf67299fcc2012431c",
+        "help_sha256": "73d7a1f67db63a23527518209593cf88afe5f7c12980226670f4e858c85a283f",
         "options": [
           "--acceptance",
           "--allowed-path",

@@ -10,13 +10,15 @@ Minimal 是同一六元模型的物理载体裁剪，不是第二套流程。
 
 `--selection-source explicit-user` 用于用户明确说“采用最轻框架”；`--selection-source automatic` 用于 agent 判定资格全部成立并告知默认采用 Minimal。
 
-初始化：
+初始化。只需 §16.4 在 init 期要求的字段加基础 ID、Task Profile 三元和资格证据：
 
 ```console
-python <skill-root>/scripts/manage_minimal_task.py init --project-root <project-root> --project-id <ProjectID> --work-item-id <WorkItemID> --task-id <TaskID> --ordinal <N> --objective <text> --scope <single-scope> --allowed-path <path> --acceptance <criterion> --delivery-scenario DS-03 --development-type DT-08 --change-surface UI/UX --selected-approach <approach> --alternative-rejected <rejected-alternative> --plan-step <step> --verification <verification-summary> --selection-source automatic --basis <basis> --authority-ref <authority-ref> --eligibility-evidence-ref <risk-low-ref> --eligibility-evidence-ref <reversible-ref> --eligibility-evidence-ref <single-scope-ref> --eligibility-evidence-ref <no-external-effect-ref> --eligibility-evidence-ref <no-production-ref> --eligibility-evidence-ref <no-security-ref> --eligibility-evidence-ref <extensions-inactive-ref> --fact <fact> --fundamental <fundamental-1> --fundamental <fundamental-2> --causal-link <causal-link> --decision-criterion <criterion>
+python <skill-root>/scripts/manage_minimal_task.py init --project-root <project-root> --project-id <ProjectID> --work-item-id <WorkItemID> --task-id <TaskID> --ordinal <N> --objective <text> --scope <single-scope> --allowed-path <path> --acceptance <criterion> --delivery-scenario DS-03 --development-type DT-08 --change-surface UI/UX --selected-approach <approach> --alternative-rejected <rejected-alternative> --selection-source automatic --authority-ref <authority-ref> --eligibility-evidence-ref <risk-low-ref> --eligibility-evidence-ref <reversible-ref> --eligibility-evidence-ref <single-scope-ref> --eligibility-evidence-ref <no-external-effect-ref> --eligibility-evidence-ref <no-production-ref>
 ```
 
-可省略的非阻断字段由脚本写入可追溯默认值：`--out-of-scope`、`--forbidden-action`、`--assumption`、`--rollback`、`--constraint`。
+资格证据至少 5 条且互不相同，不设默认值：它是 Minimal 被允许的证明，编造默认等于伪造证据。
+
+其余字段省略时由脚本写入带 `script default:` 前缀的可追溯值，并在 `selection.basis` 记录默认来源；需要时照常显式传入即可覆盖：`--plan-step`、`--verification`、`--basis`、`--fact`、`--fundamental`、`--causal-link`、`--decision-criterion`、`--out-of-scope`、`--forbidden-action`、`--assumption`、`--rollback`、`--constraint`
 
 追加事件：
 
