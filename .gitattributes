@@ -1,0 +1,11 @@
+# Default: normalize source to LF in the working tree on every platform.
+* text=auto eol=lf
+
+# The skill's integrity model hashes these files byte-for-byte:
+# embedded-manifest.json records a SHA-256 per protected file and the runtime
+# fails closed on mismatch. Some of them legitimately contain CRLF inside their
+# content, so ANY end-of-line conversion -- in either direction, on add or on
+# checkout -- changes the hash and breaks the skill. Mark them as binary so git
+# stores and restores the exact bytes.
+run-web-product-workflow/assets/** -text
+run-web-product-workflow/references/** -text
