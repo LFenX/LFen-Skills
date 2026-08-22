@@ -27,7 +27,7 @@
 
 | Skill | 能力说明 |
 | --- | --- |
-| [`run-web-product-workflow`](run-web-product-workflow/SKILL.md) | 按团队的 AI Native Web 产品生产规范推进需求澄清、任务分类、计划、开发、验证、验收、发布与观察，并自动裁剪适用规范、缩放产物和维护证据。用于新产品、模板派生、新功能、需求修订、缺陷修复、工程或配置变更、迁移替代退役、生产处置，以及用户要求使用通用生产流程、Grill Me、多轮澄清、Task Profile、Artifact Manifest、C01-C12 或 E01-E05 时。 |
+| [`run-web-product-workflow`](run-web-product-workflow/SKILL.md) | 按团队 V6.3 Candidate 规范推进 Web 产品或工程变化，用同一六元模型在 Minimal 与完整流程之间裁剪，并维护需求、计划、执行、验证、验收、发布和证据。用于新产品、新功能、需求修订、带产品面的缺陷修复或工程变更、迁移退役、生产处置，或用户明确要求 Grill Me、Task Profile、Artifact Manifest、VC-PPG、C01-C12、E01-E05 或“最轻框架”时。Not for read-only Q&A, git one-liners, or edits that do not change product behavior, docs layout, or release. Not for backend-only library patches with no Web product surface. |
 
 ## 分类演进规则
 
