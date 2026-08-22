@@ -28,6 +28,14 @@ python <skill-root>/scripts/self_test.py --project-root <project-root>
 
 退出码 0 且末尾为 `"positive": "passed"` / `"negative": "passed"` 即可用。之后在 Agent 里直接说要做的事，或用命令词 `init` / `clarify` / `plan` / `run` / `verify` / `close` / `status` / `migrate` / `minimal` 开头。不带参数时走 `status`。
 
+不确定该走 Minimal 还是完整载体时，先筛查——它只问会否决资格的那几条事实，不需要先做完整分类：
+
+```bash
+python <skill-root>/scripts/manage_minimal_task.py screen --risk Low --single-scope yes
+```
+
+不带 `--fact` 运行会列出需要哪些事实。
+
 无需安装平台插件，无需 Token，本 skill 不调用任何平台绑定接口。
 
 ## 两个必须先分清的概念
@@ -39,7 +47,7 @@ python <skill-root>/scripts/self_test.py --project-root <project-root>
 | 目录 | 内容 | 谁读 |
 |---|---|---|
 | `reference/` | 9 张命令卡（init/clarify/plan/run/verify/close/status/migrate/minimal） | Agent 按路由按需读一张 |
-| `references/` | skill 说明：规范源路由图、第一性原理、项目文档布局 | Agent 在完整载体前读 |
+| `references/` | skill 说明：规范源路由图、第一性原理、项目文档布局 | Agent 按触发读，见 SKILL.md「读取分层」 |
 | `assets/runtime/norms/` | 规范正文快照 | **不直读**，只能过 `get_context.py` 检索 |
 
 规范的逻辑路径写作 `references/01_治理基线/...`，但那是 Manifest 里的逻辑标识，**不是 skill 根下的可打开文件**，磁盘位置在 `assets/runtime/norms/`。递归读取 norms 目录是被明确禁止的——那会一次性烧掉几万行上下文，也正是本 skill 的检索层要解决的问题。
@@ -47,8 +55,8 @@ python <skill-root>/scripts/self_test.py --project-root <project-root>
 ## 目录结构
 
 ```
-SKILL.md                     Agent 入口，126 行，self-test 硬卡 < 200 行
-reference/                   命令卡，每张 22-46 行
+SKILL.md                     Agent 入口，self-test 硬卡 < 200 行
+reference/                   命令卡，按路由读一张
 references/                  skill 说明（路由图 / 第一性原理 / 文档布局）
 scripts/                     28 个治理脚本
 assets/runtime/norms/        规范正文快照（22 份）
@@ -68,7 +76,7 @@ agents/openai.yaml           Codex 侧 skill 元数据
 python run-web-product-workflow/scripts/self_test.py --project-root .
 ```
 
-189 条正反向断言，覆盖入口结构、frontmatter、命令卡完整性、文档治理、消费方引导、Minimal 载体单向升级、缓存回收与写入守卫。
+正反向断言，覆盖入口结构、frontmatter、命令卡与 references 完整性、Minimal 资格投影与 schema 的双向对账、澄清判据、文档治理、消费方引导、Minimal 载体单向升级、缓存回收与写入守卫。
 
 ```bash
 python run-web-product-workflow/scripts/audit_norm_retrieval.py --validate-only --runtime-only
@@ -91,6 +99,10 @@ tag 只是标签，除非有东西检查它指向什么。推送 `rwpw-v*` tag �
 ```bash
 python .github/scripts/check_release_tag.py rwpw-v6.3.0-candidate
 ```
+
+### 维护者评测工具
+
+`scripts/audit_norm_shadow.py` 评测 Shadow 检索质量——无关上下文降幅、强制条款覆盖率、错误放行数。它需要真实 task-dir、审批引用和阈值，是维护者评测入口，不是消费方运行时工具，也不在 CI 门禁中。它是本包内最接近「检索效用度量」的资产。
 
 ## 修订内置规范
 

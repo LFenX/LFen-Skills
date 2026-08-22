@@ -115,6 +115,7 @@ Ask 只是交互和恢复通道；正式决定、批准和 Gate 以权威事实�
 ## 维护入口
 
 - `<skill-root>/scripts/amend_record.py`：按 Amendment 修订已建立记录。
+- `<skill-root>/scripts/register_authority_asset.py`：按触发登记 AuthorityAsset 到 `<project-root>/.project-governance/authority/`。
 - `<skill-root>/scripts/self_test.py --project-root <project-root>`：完整正反向自检。
 - `<skill-root>/scripts/sync_embedded_references.py`：修订内置规范或任一受保护运行资产后，就地重算并重封 Manifest。
 - `<skill-root>/scripts/migrate_legacy_artifacts.py`：兼容读取旧治理产物，不迁移产品原生文档。
