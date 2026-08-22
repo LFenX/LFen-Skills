@@ -1,0 +1,52 @@
+{
+  "schema_version": "6.3-candidate",
+  "publication_type": "norm-retrieval-budget-baseline",
+  "status": "T-013-measured-candidate",
+  "source_task_id": "T-013",
+  "source_ref": ".project-governance/generated/evaluations/T-013/legacy-retrieval-baseline.json",
+  "measurement_basis": {
+    "chars_per_token_assumption": 4,
+    "corpus_source_count": 22,
+    "mean_source_chars": 44502.38,
+    "navigation_chars": 7452,
+    "rg_hit_count_p50": 217,
+    "rg_hit_count_p75": 842,
+    "rg_hit_count_p95": 1211,
+    "selected_source_count": 16,
+    "source_pack_chars": 712038
+  },
+  "benchmark": {
+    "budget_recommendations": {
+      "profiles": {
+        "compact": {
+          "candidate_limit": 40,
+          "context_chars": 6000,
+          "escalation_limit": 1,
+          "estimated_tokens": 1500,
+          "source_limit": 2
+        },
+        "standard": {
+          "candidate_limit": 80,
+          "context_chars": 12000,
+          "escalation_limit": 2,
+          "estimated_tokens": 3000,
+          "source_limit": 4
+        },
+        "extended": {
+          "candidate_limit": 160,
+          "context_chars": 24000,
+          "escalation_limit": 4,
+          "estimated_tokens": 6000,
+          "source_limit": 8
+        },
+        "source-required": {
+          "candidate_limit": 160,
+          "context_chars": 45000,
+          "escalation_limit": 44,
+          "estimated_tokens": 11250,
+          "source_limit": 22
+        }
+      }
+    }
+  }
+}

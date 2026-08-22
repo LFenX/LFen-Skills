@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "document_id": "VC-PPG-MAP-001",
+  "title": "Vibe Coding V6.3 Candidate 领域 Profile 到元类型映射",
+  "version": "V6.3 Candidate",
+  "status": "In Review",
+  "expected_legacy_profile_count": 137,
+  "meta_types": [
+    "ProjectState",
+    "TaskContract",
+    "RunLedger",
+    "TaskOutcome",
+    "AuthorityAsset",
+    "DerivedView"
+  ],
+  "default_meta_type": "AuthorityAsset",
+  "overrides": {
+    "TaskContract": [
+      "ECP",
+      "AEP"
+    ],
+    "RunLedger": [
+      "RUN",
+      "TIL"
+    ],
+    "TaskOutcome": [
+      "CAS",
+      "CCS",
+      "FER"
+    ],
+    "DerivedView": [
+      "VCM",
+      "DCM",
+      "VDR",
+      "BTM",
+      "RCR",
+      "ALR",
+      "IQR",
+      "CFR",
+      "PHR",
+      "ADQ",
+      "KFR"
+    ]
+  },
+  "unmapped_meta_types": {
+    "ProjectState": "V6.3新增的项目状态物化视图，没有V6.2领域Profile等价物。"
+  },
+  "rules": [
+    "先按overrides匹配；同一legacy_kind禁止命中多个元类型。",
+    "未命中overrides的legacy_kind统一映射为AuthorityAsset。",
+    "legacy_kind只用于语义兼容和迁移，不再作为正式顶层产物类型。",
+    "137个legacy_kind必须全部来自VC-PPG-IDX-001，禁止在本文件复制名称、Owner、状态或专属字段。",
+    "任何新增Profile必须先完成Change、Impact、Owner、Schema Profile和迁移影响评审。"
+  ]
+}

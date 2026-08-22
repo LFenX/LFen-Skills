@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lfen.local/schemas/v6.3/run-event.schema.json",
+  "title": "V6.3 RunLedger Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "meta_type",
+    "event_id",
+    "project_id",
+    "task_id",
+    "run_id",
+    "attempt_id",
+    "sequence",
+    "timestamp",
+    "event_type",
+    "summary",
+    "status",
+    "evidence_refs",
+    "side_effects",
+    "redactions"
+  ],
+  "properties": {
+    "schema_version": {"const": "6.3-candidate"},
+    "meta_type": {"const": "RunLedger"},
+    "event_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "attempt_id": {"type": "string", "minLength": 1},
+    "sequence": {"type": "integer", "minimum": 1},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "event_type": {
+      "enum": [
+        "run_started",
+        "mutation",
+        "failure",
+        "retry",
+        "verification",
+        "external_effect",
+        "human_gate",
+        "authority_decision_reference",
+        "rollback",
+        "run_finished"
+      ]
+    },
+    "summary": {"type": "string", "minLength": 1},
+    "status": {"enum": ["started", "succeeded", "failed", "blocked", "skipped", "recorded"]},
+    "exit_code": {"type": ["integer", "null"]},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "side_effects": {"type": "array", "items": {"type": "string"}},
+    "redactions": {"type": "array", "items": {"type": "string"}}
+  }
+}

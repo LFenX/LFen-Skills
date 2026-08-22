@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lfen.local/schemas/v6.3/norm-consistency-report.schema.json",
+  "title": "V6.3 Candidate Norm Consistency Report",
+  "x-lfen-semantic-invariants": [
+    "summary.total_findings equals the number of findings",
+    "summary.by_severity and summary.by_category are recomputed from findings",
+    "norm_index_ready is true only for a Complete report with no Blocker or Major findings, verified task snapshot, and unchanged protected assets",
+    "audit_digest is recomputed from the canonical audit body",
+    "finding line_end is greater than or equal to line_start when both are present"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_version",
+    "report_type",
+    "project_id",
+    "task_id",
+    "generated_at",
+    "generator",
+    "audit_status",
+    "scope",
+    "inputs",
+    "summary",
+    "manual_review_inventory",
+    "detector_limits",
+    "norm_index_ready",
+    "next_gate",
+    "protected_assets_unchanged",
+    "audit_digest",
+    "findings"
+  ],
+  "properties": {
+    "schema_version": {"const": "6.3-candidate"},
+    "report_version": {"type": "string", "minLength": 1},
+    "report_type": {"const": "norm-consistency-audit"},
+    "project_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "generator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "audit_status": {"enum": ["Complete", "Blocked", "Failed"]},
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["norm_sources", "mappings", "schemas", "evaluations", "manifest", "standards", "profiles"],
+      "properties": {
+        "norm_sources": {"const": 22},
+        "mappings": {"const": 3},
+        "schemas": {"const": 11},
+        "evaluations": {"const": 2},
+        "manifest": {"const": 1},
+        "standards": {"const": 17},
+        "profiles": {"const": 137}
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest_sha256",
+        "tailoring_map_sha256",
+        "profile_meta_map_sha256",
+        "normative_sources_sha256",
+        "task_contract_snapshot_verified",
+        "protected_asset_sha256",
+        "auditor_sha256"
+      ],
+      "properties": {
+        "manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "tailoring_map_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "profile_meta_map_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "normative_sources_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "task_contract_snapshot_verified": {"type": "boolean"},
+        "protected_asset_sha256": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        },
+        "auditor_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_findings", "by_severity", "by_category"],
+      "properties": {
+        "total_findings": {"type": "integer", "minimum": 0},
+        "by_severity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["Blocker", "Major", "Minor", "Observation"],
+          "properties": {
+            "Blocker": {"type": "integer", "minimum": 0},
+            "Major": {"type": "integer", "minimum": 0},
+            "Minor": {"type": "integer", "minimum": 0},
+            "Observation": {"type": "integer", "minimum": 0}
+          }
+        },
+        "by_category": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+      }
+    },
+    "manual_review_inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["precedence_and_authority_claims", "unique_fact_source_claims"],
+      "properties": {
+        "precedence_and_authority_claims": {"type": "array", "items": {"type": "object"}},
+        "unique_fact_source_claims": {"type": "array", "items": {"type": "object"}}
+      }
+    },
+    "detector_limits": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "norm_index_ready": {"type": "boolean"},
+    "next_gate": {"enum": ["T-012-required", "T-013-eligible", "T-014-eligible"]},
+    "protected_assets_unchanged": {"type": "boolean"},
+    "audit_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id",
+          "severity",
+          "category",
+          "source_id",
+          "logical_path",
+          "line_start",
+          "line_end",
+          "message",
+          "impact",
+          "evidence",
+          "related_sources",
+          "requires_human_decision",
+          "remediation_class"
+        ],
+        "properties": {
+          "finding_id": {"type": "string", "pattern": "^NCF-[0-9]{4}$"},
+          "severity": {"enum": ["Blocker", "Major", "Minor", "Observation"]},
+          "category": {"type": "string", "minLength": 1},
+          "source_id": {"type": "string", "minLength": 1},
+          "logical_path": {"type": "string", "minLength": 1},
+          "line_start": {"type": ["integer", "null"], "minimum": 1},
+          "line_end": {"type": ["integer", "null"], "minimum": 1},
+          "message": {"type": "string", "minLength": 1},
+          "impact": {"type": "string", "minLength": 1},
+          "evidence": {"type": "string"},
+          "related_sources": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "requires_human_decision": {"type": "boolean"},
+          "remediation_class": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"norm_index_ready": {"const": true}}, "required": ["norm_index_ready"]},
+      "then": {
+        "properties": {
+          "audit_status": {"const": "Complete"},
+          "inputs": {"properties": {"task_contract_snapshot_verified": {"const": true}}},
+          "summary": {"properties": {"by_severity": {"properties": {"Blocker": {"const": 0}, "Major": {"const": 0}}}}},
+          "protected_assets_unchanged": {"const": true},
+          "next_gate": {"enum": ["T-013-eligible", "T-014-eligible"]}
+        }
+      }
+    },
+    {
+      "if": {
+        "anyOf": [
+          {"properties": {"summary": {"properties": {"by_severity": {"properties": {"Blocker": {"minimum": 1}}}}}}},
+          {"properties": {"summary": {"properties": {"by_severity": {"properties": {"Major": {"minimum": 1}}}}}}}
+        ]
+      },
+      "then": {"properties": {"norm_index_ready": {"const": false}}}
+    }
+  ]
+}

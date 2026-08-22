@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lfen.local/schemas/v6.3/norm-query.schema.json",
+  "title": "V6.3 Candidate Norm Query",
+  "x-lfen-semantic-invariants": [
+    "action is registered in the action taxonomy",
+    "stage is allowed by the selected action",
+    "requested_additional_control_types are registered in the action taxonomy"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "stage",
+    "action",
+    "query_text",
+    "tailoring_resolution_sha256",
+    "normative_sources_sha256",
+    "budget_profile",
+    "modes",
+    "requested_additional_control_types"
+  ],
+  "properties": {
+    "schema_version": {"const": "6.3-candidate"},
+    "task_id": {"type": "string", "minLength": 1},
+    "stage": {"enum": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"]},
+    "action": {"type": "string", "pattern": "^[a-z][a-z0-9_-]*$"},
+    "query_text": {"type": "string", "minLength": 1},
+    "tailoring_resolution_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "normative_sources_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "budget_profile": {"enum": ["compact", "standard", "extended", "source-required"]},
+    "modes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"enum": ["exact", "fts", "semantic"]}
+    },
+    "requested_additional_control_types": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[a-z][a-z0-9_-]*$"}
+    }
+  }
+}

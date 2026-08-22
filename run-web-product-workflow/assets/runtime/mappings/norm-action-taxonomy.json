@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "taxonomy_id": "VC-PPG-NRG-ACTION-001",
+  "title": "V6.3 Candidate 规范检索动作与控制类型词典",
+  "version": "0.1 Candidate",
+  "status": "In Review",
+  "source": "RQS-0001 REQ-NRG-007/013/019/020；TDS-0001 §8.2、§9",
+  "normalization": {
+    "unicode": "NFC",
+    "case_fold_latin": true,
+    "trim_whitespace": true,
+    "logical_sets": "sort-unique",
+    "ranked_lists": "preserve-order"
+  },
+  "budget_profile_names": [
+    "compact",
+    "standard",
+    "extended",
+    "source-required"
+  ],
+  "normative_modalities": {
+    "must": ["必须", "应当", "shall", "must"],
+    "must_not": ["不得", "禁止", "严禁", "shall not", "must not"],
+    "should": ["应该", "建议", "should"],
+    "may": ["可以", "允许", "may"],
+    "conditional": ["除非", "仅当", "只有", "unless", "only if"]
+  },
+  "negation_terms": [
+    "不",
+    "不得",
+    "禁止",
+    "严禁",
+    "无权",
+    "未授权",
+    "不可",
+    "不能",
+    "not",
+    "never",
+    "prohibited",
+    "forbidden",
+    "unauthorized"
+  ],
+  "control_types": {
+    "applicability": "规范是否适用及Pending边界，只能来自Tailoring Resolution",
+    "scope": "任务、路径、对象、阶段和排除范围",
+    "authority": "有权主体、权威事实源、批准和决策有效性",
+    "permission": "执行动作所需权限与受控副作用",
+    "prohibition": "不得、禁止、停止和失败关闭约束",
+    "gate": "阶段进入退出、独立复核和人工验收门禁",
+    "evidence": "验证证据、来源证明、哈希和可重放记录",
+    "integrity": "Manifest、路径、文件、摘要和索引完整性",
+    "freshness": "Revision、Snapshot、时效和陈旧阻断",
+    "change": "Change、影响分析、修订和回滚",
+    "execution": "Run、Attempt、Retry、Stop和终态顺序",
+    "validation": "Acceptance、Verification、Validation和失败可见性",
+    "release": "发布、观察、回滚和生产副作用",
+    "records": "正式记录、保留、检索和派生视图边界",
+    "data": "数据、Schema、质量、血缘、许可和删除",
+    "definition": "术语、对象、状态或契约字段的定义",
+    "example": "用于解释规则但不改变规范义务的示例",
+    "background": "用于说明目的、上下文或设计动机的背景信息"
+  },
+  "priority_rules": {
+    "P0": ["authority", "permission", "prohibition", "gate", "integrity"],
+    "P1": ["applicability", "scope", "execution", "validation", "freshness"],
+    "P2": ["evidence", "change", "release", "records", "data"],
+    "P3": ["definition", "example", "background"],
+    "silent_truncation_forbidden": ["P0", "P1"]
+  },
+  "actions": {
+    "clarify_requirement": {
+      "stages": ["S1", "S2"],
+      "keywords": ["需求澄清", "目标", "期望结果", "验收示例", "unknown", "assumption"],
+      "identifiers": ["Grill Me", "Proceed", "Revise", "Stop"],
+      "required_control_types": ["scope", "authority", "evidence"],
+      "pinned_control_types": ["authority", "prohibition"]
+    },
+    "classify_task": {
+      "stages": ["S2", "S3", "S4"],
+      "keywords": ["任务分类", "风险等级", "变更面", "扩展触发", "适用性"],
+      "identifiers": ["DS-", "DT-", "E01", "E02", "E03", "E04", "E05"],
+      "required_control_types": ["applicability", "scope", "freshness"],
+      "pinned_control_types": ["applicability", "prohibition"]
+    },
+    "plan_execution": {
+      "stages": ["S3", "S4"],
+      "keywords": ["执行计划", "依赖", "步骤", "验证", "回退", "门禁"],
+      "identifiers": ["TaskContract", "Artifact Manifest"],
+      "required_control_types": ["scope", "permission", "gate", "validation", "change"],
+      "pinned_control_types": ["permission", "gate", "prohibition"]
+    },
+    "run_started": {
+      "stages": ["S4"],
+      "keywords": ["开始执行", "执行就绪", "权限", "Gate", "Authority", "阻断"],
+      "identifiers": ["run_started", "execution_permissions", "authority_assessments"],
+      "required_control_types": ["scope", "authority", "permission", "gate", "integrity", "freshness"],
+      "pinned_control_types": ["authority", "permission", "prohibition", "gate", "integrity"]
+    },
+    "edit_in_scope": {
+      "stages": ["S5"],
+      "keywords": ["修改", "编辑", "写入", "范围内", "禁止路径", "副作用"],
+      "identifiers": ["edit-in-scope", "allowed_paths", "forbidden_actions"],
+      "required_control_types": ["scope", "permission", "prohibition", "change", "evidence"],
+      "pinned_control_types": ["permission", "prohibition"]
+    },
+    "validate_change": {
+      "stages": ["S5", "S6"],
+      "keywords": ["校验", "验证", "验收", "证据", "失败", "Blocked"],
+      "identifiers": ["Verification", "Validation", "Acceptance"],
+      "required_control_types": ["validation", "evidence", "integrity", "gate"],
+      "pinned_control_types": ["prohibition", "gate", "integrity"]
+    },
+    "independent_review": {
+      "stages": ["S6"],
+      "keywords": ["独立复核", "技术评审", "发现项", "关闭证据", "review"],
+      "identifiers": ["independent-review", "RVR"],
+      "required_control_types": ["authority", "gate", "evidence", "validation"],
+      "pinned_control_types": ["authority", "gate", "prohibition"]
+    },
+    "human_acceptance": {
+      "stages": ["S6"],
+      "keywords": ["人工验收", "验收决定", "接受", "拒绝", "有权人"],
+      "identifiers": ["human-acceptance", "Accepted", "Rejected"],
+      "required_control_types": ["authority", "gate", "evidence"],
+      "pinned_control_types": ["authority", "gate", "prohibition"]
+    },
+    "publish_release": {
+      "stages": ["S7"],
+      "keywords": ["发布", "上线", "观察", "回滚", "生产", "外部副作用"],
+      "identifiers": ["Release", "external-effect", "production_release"],
+      "required_control_types": ["authority", "permission", "gate", "release", "validation", "evidence"],
+      "pinned_control_types": ["authority", "permission", "prohibition", "gate"]
+    },
+    "rollback": {
+      "stages": ["S5", "S7"],
+      "keywords": ["回滚", "恢复", "逆向变更", "数据副作用", "rollback"],
+      "identifiers": ["rollback", "Rolled Back"],
+      "required_control_types": ["authority", "permission", "change", "release", "evidence"],
+      "pinned_control_types": ["authority", "permission", "prohibition"]
+    },
+    "resolve_conflict": {
+      "stages": ["S3", "S4", "S6"],
+      "keywords": ["冲突", "矛盾", "优先级", "唯一事实源", "失败关闭"],
+      "identifiers": ["Conflict", "Blocked", "Authority"],
+      "required_control_types": ["authority", "prohibition", "integrity", "freshness"],
+      "pinned_control_types": ["authority", "prohibition", "integrity"]
+    },
+    "close_task": {
+      "stages": ["S8"],
+      "keywords": ["任务收尾", "终态事实", "遗留问题", "验证结果", "关闭"],
+      "identifiers": ["TaskOutcome", "run_finished", "ProjectState"],
+      "required_control_types": ["execution", "validation", "evidence", "records", "freshness"],
+      "pinned_control_types": ["prohibition", "gate", "integrity"]
+    }
+  }
+}

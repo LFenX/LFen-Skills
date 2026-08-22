@@ -1,0 +1,524 @@
+#!/usr/bin/env python3
+"""Shared logic for the Minimal aggregate carrier.
+
+The carrier preserves TaskContract, RunLedger, and TaskOutcome as logical
+sections. It is not a seventh meta type or a second risk model.
+"""
+
+from __future__ import annotations
+
+import hashlib
+from pathlib import Path
+from typing import Any, Iterable
+
+from governance_artifacts import (
+    GovernanceError,
+    atomic_write_json,
+    capture_source_snapshot,
+    now_utc,
+    read_json,
+    require_id,
+    validate_json_document,
+)
+
+
+MINIMAL_SCHEMA = "minimal-task-record.schema.json"
+MINIMAL_META_TYPES = ["TaskContract", "RunLedger", "TaskOutcome"]
+MINIMAL_EVENT_TYPES = {
+    "run_started",
+    "mutation",
+    "verification",
+    "failure",
+    "run_finished",
+    "upgrade_triggered",
+}
+MINIMAL_STATUSES = {"started", "recorded", "succeeded", "failed", "blocked"}
+OUTCOME_STATES = {"Implemented", "Deferred", "Cancelled", "Blocked", "Superseded"}
+EXTENSIONS = ("E01", "E02", "E03", "E04", "E05")
+
+
+def minimal_record_path(task_dir: Path) -> Path:
+    return task_dir.resolve() / "task-record.json"
+
+
+def validate_minimal_record(
+    record: dict[str, Any],
+    *,
+    task_dir: Path | None = None,
+) -> list[str]:
+    errors = validate_json_document(record, MINIMAL_SCHEMA, "task-record")
+    if errors:
+        return errors
+    if task_dir is not None and record["task_id"] != task_dir.name:
+        errors.append("task-record.task_id must match the task directory name")
+    if record["meta_types"] != MINIMAL_META_TYPES:
+        errors.append("Minimal carrier must preserve exactly TaskContract, RunLedger, TaskOutcome")
+    if record["task_id"] in set(record.get("depends_on", [])):
+        errors.append("Minimal task cannot depend on itself")
+    triggers = record["eligibility"]["extension_triggers"]
+    if set(triggers) != set(EXTENSIONS) or any(value != "Inactive" for value in triggers.values()):
+        errors.append("Minimal carrier requires E01-E05 to be Inactive")
+    if record["task_contract"]["task_profile"]["extension_triggers"] != triggers:
+        errors.append("Minimal task profile and eligibility extension triggers must match")
+    manifest_types = [item.get("meta_type") for item in record["artifact_manifest"]]
+    if manifest_types != MINIMAL_META_TYPES:
+        errors.append("Minimal Artifact Manifest must preserve the three logical meta types in order")
+    expected_ref = f".project-governance/tasks/{record['task_id']}/task-record.json"
+    if any(item.get("content_ref") != expected_ref for item in record["artifact_manifest"]):
+        errors.append("Minimal Artifact Manifest content_ref must point to task-record.json")
+    events = record["run_ledger"]
+    for index, event in enumerate(events, start=1):
+        if event.get("sequence") != index:
+            errors.append("Minimal RunLedger sequence must be contiguous and start at 1")
+            break
+    if events and events[0].get("event_type") != "run_started":
+        errors.append("Minimal RunLedger must begin with run_started")
+    if sum(event.get("event_type") == "run_started" for event in events) > 1:
+        errors.append("Minimal RunLedger may contain only one run_started")
+    outcome = record["task_outcome"]
+    lifecycle = record["lifecycle_state"]
+    if outcome is None:
+        if lifecycle == "Completed":
+            errors.append("Completed Minimal carrier requires task_outcome")
+    else:
+        if lifecycle != "Completed":
+            errors.append("Minimal task_outcome requires lifecycle_state Completed")
+        if not events or events[-1].get("event_type") != "run_finished":
+            errors.append("Completed Minimal carrier requires run_finished as final event")
+        if record["completed_at"] != outcome.get("completed_at"):
+            errors.append("Minimal carrier completion timestamps must match")
+        if any(item.get("outcome") != "Created" for item in record["artifact_manifest"]):
+            errors.append("Completed Minimal carrier requires Created manifest outcomes")
+    upgrade = record["upgrade"]
+    if lifecycle == "Upgraded" and not upgrade.get("required"):
+        errors.append("Upgraded Minimal carrier requires an upgrade reason")
+    if upgrade.get("required") and (
+        not upgrade.get("reason") or not upgrade.get("basis") or not upgrade.get("triggered_at")
+    ):
+        errors.append("Minimal upgrade requires triggered_at, reason, and basis")
+    return errors
+
+
+def require_valid_minimal_record(record: dict[str, Any], *, task_dir: Path | None = None) -> None:
+    errors = validate_minimal_record(record, task_dir=task_dir)
+    if errors:
+        raise GovernanceError("; ".join(errors))
+
+
+def create_minimal_record(
+    project_root: Path,
+    *,
+    project_id: str,
+    work_item_id: str,
+    task_id: str,
+    ordinal: int,
+    depends_on: Iterable[str],
+    supersedes: Iterable[str],
+    objective: str,
+    scope: str,
+    acceptance: str,
+    delivery_scenario: str,
+    development_type: str,
+    change_surface: str,
+    selected_approach: str,
+    alternative_rejected: str,
+    plan_steps: Iterable[str],
+    verification: str,
+    rollback: str,
+    allowed_paths: Iterable[str],
+    out_of_scope: Iterable[str],
+    forbidden_actions: Iterable[str],
+    selection_source: str,
+    basis: Iterable[str],
+    authority_refs: Iterable[str],
+    eligibility_evidence_refs: Iterable[str],
+    facts: Iterable[str],
+    constraints: Iterable[str],
+    assumptions: Iterable[str],
+    fundamentals: Iterable[str],
+    causal_chain: Iterable[str],
+    decision_criteria: Iterable[str],
+) -> Path:
+    require_id(project_id, "project_id")
+    require_id(work_item_id, "work_item_id")
+    require_id(task_id, "task_id")
+    if ordinal < 1:
+        raise GovernanceError("ordinal must be at least 1")
+    values = {
+        "objective": objective.strip(),
+        "scope": scope.strip(),
+        "acceptance": acceptance.strip(),
+        "selected_approach": selected_approach.strip(),
+        "alternative_rejected": alternative_rejected.strip(),
+        "verification": verification.strip(),
+        "rollback": rollback.strip(),
+    }
+    if any(not value for value in values.values()):
+        raise GovernanceError("Minimal objective, scope, acceptance, plan, verification, and rollback are required")
+    steps = [value.strip() for value in plan_steps if value.strip()]
+    allowed = [value.strip() for value in allowed_paths if value.strip()]
+    bases = [value.strip() for value in basis if value.strip()]
+    authorities = list(dict.fromkeys(value.strip() for value in authority_refs if value.strip()))
+    evidence = list(
+        dict.fromkeys(value.strip() for value in eligibility_evidence_refs if value.strip())
+    )
+    fact_values = [value.strip() for value in facts if value.strip()]
+    constraint_values = [value.strip() for value in constraints if value.strip()]
+    fundamental_values = [value.strip() for value in fundamentals if value.strip()]
+    causal_values = [value.strip() for value in causal_chain if value.strip()]
+    criterion_values = [value.strip() for value in decision_criteria if value.strip()]
+    if not steps or not allowed or not bases or not authorities:
+        raise GovernanceError("Minimal plan steps, allowed paths, basis, and authority refs are required")
+    if len(evidence) < 5:
+        raise GovernanceError("Minimal eligibility requires at least five distinct evidence refs")
+    if not fact_values or not constraint_values or len(fundamental_values) < 2:
+        raise GovernanceError("Minimal first-principles facts, constraints, and two fundamentals are required")
+    if not causal_values or not criterion_values:
+        raise GovernanceError("Minimal causal chain and decision criteria are required")
+    if selection_source not in {"explicit-user", "automatic"}:
+        raise GovernanceError("selection_source must be explicit-user or automatic")
+
+    task_dir = (
+        project_root.resolve()
+        / ".project-governance"
+        / "tasks"
+        / task_id
+    )
+    record_path = minimal_record_path(task_dir)
+    if record_path.exists() or (task_dir / "before.json").exists():
+        raise GovernanceError(f"task already exists: {task_dir}")
+    timestamp = now_utc()
+    triggers = {extension: "Inactive" for extension in EXTENSIONS}
+    content_ref = f".project-governance/tasks/{task_id}/task-record.json"
+    record = {
+        "schema_version": "6.3-candidate",
+        "carrier_version": "minimal-task-record-v1",
+        "carrier_mode": "Minimal",
+        "meta_types": MINIMAL_META_TYPES,
+        "project_id": project_id,
+        "work_item_id": work_item_id,
+        "task_id": task_id,
+        "ordinal": ordinal,
+        "depends_on": list(dict.fromkeys(value for value in depends_on if value)),
+        "supersedes": list(dict.fromkeys(value for value in supersedes if value)),
+        "blocked_by": [],
+        "revision": 1,
+        "lifecycle_state": "Ready",
+        "created_at": timestamp,
+        "completed_at": None,
+        "selection": {
+            "source": selection_source,
+            "basis": bases,
+            "authority_refs": authorities,
+        },
+        "eligibility": {
+            "risk_level": "Low",
+            "reversible": True,
+            "single_scope": True,
+            "external_system_effect": False,
+            "production_release": False,
+            "security_privacy_impact": False,
+            "extension_triggers": triggers,
+            "blocking_unknowns": [],
+            "special_gates": [],
+            "evidence_refs": evidence,
+        },
+        "task_contract": {
+            "objective": values["objective"],
+            "scope": values["scope"],
+            "out_of_scope": [value.strip() for value in out_of_scope if value.strip()],
+            "allowed_paths": allowed,
+            "forbidden_actions": [
+                value.strip() for value in forbidden_actions if value.strip()
+            ],
+            "acceptance": values["acceptance"],
+            "task_profile": {
+                "delivery_scenario": delivery_scenario,
+                "development_type": development_type,
+                "change_surface": change_surface,
+                "risk_level": "Low",
+                "extension_triggers": triggers,
+            },
+            "plan": {
+                "selected_approach": values["selected_approach"],
+                "alternative_rejected": values["alternative_rejected"],
+                "steps": steps,
+                "verification": values["verification"],
+                "rollback": values["rollback"],
+            },
+            "first_principles_analysis": {
+                "outcome": values["objective"],
+                "facts": fact_values,
+                "constraints": constraint_values,
+                "assumptions": [value.strip() for value in assumptions if value.strip()],
+                "unknowns": [],
+                "fundamentals": fundamental_values,
+                "causal_chain": causal_values,
+                "alternatives": [
+                    values["selected_approach"],
+                    values["alternative_rejected"],
+                ],
+                "decision_criteria": criterion_values,
+                "selected_approach": values["selected_approach"],
+                "validation": values["verification"],
+            },
+            "source_snapshot": capture_source_snapshot(project_root.resolve()),
+        },
+        "run_ledger": [],
+        "task_outcome": None,
+        "artifact_manifest": [
+            {
+                "meta_type": meta_type,
+                "action": "Create/Revise",
+                "content_ref": content_ref,
+                "outcome": "Planned",
+            }
+            for meta_type in MINIMAL_META_TYPES
+        ],
+        "upgrade": {
+            "required": False,
+            "triggered_at": None,
+            "reason": None,
+            "basis": None,
+            "full_carrier_ref": None,
+        },
+        "amendments": [],
+    }
+    require_valid_minimal_record(record, task_dir=task_dir)
+    from manage_project_docs import (
+        initialize_project_document_layout,
+        refresh_project_readmes,
+    )
+
+    initialize_project_document_layout(project_root.resolve())
+    task_dir.mkdir(parents=True, exist_ok=False)
+    atomic_write_json(record_path, record)
+    refresh_project_readmes(project_root.resolve())
+    return record_path
+
+
+def append_minimal_event(
+    task_dir: Path,
+    *,
+    event_type: str,
+    summary: str,
+    status: str,
+    evidence_refs: Iterable[str] = (),
+) -> dict[str, Any]:
+    if event_type not in MINIMAL_EVENT_TYPES:
+        raise GovernanceError(f"unsupported Minimal event_type: {event_type}")
+    if status not in MINIMAL_STATUSES:
+        raise GovernanceError(f"unsupported Minimal event status: {status}")
+    record_path = minimal_record_path(task_dir)
+    record = read_json(record_path)
+    require_valid_minimal_record(record, task_dir=task_dir.resolve())
+    if record["lifecycle_state"] in {"Completed", "Upgraded"}:
+        raise GovernanceError("cannot append to a completed or upgraded Minimal carrier")
+    events = record["run_ledger"]
+    if not events and event_type != "run_started":
+        raise GovernanceError("the first Minimal event must be run_started")
+    if events and event_type == "run_started":
+        raise GovernanceError("run_started already exists")
+    if event_type == "run_finished":
+        raise GovernanceError("run_finished is written by close, not append")
+    event = {
+        "sequence": len(events) + 1,
+        "timestamp": now_utc(),
+        "event_type": event_type,
+        "summary": summary.strip(),
+        "status": status,
+        "evidence_refs": [value for value in evidence_refs if value],
+    }
+    if not event["summary"]:
+        raise GovernanceError("Minimal event summary is required")
+    events.append(event)
+    record["lifecycle_state"] = "Frozen"
+    record["revision"] += 1
+    require_valid_minimal_record(record, task_dir=task_dir.resolve())
+    atomic_write_json(record_path, record)
+    return event
+
+
+def parse_verification(values: Iterable[str]) -> list[dict[str, Any]]:
+    checks: list[dict[str, Any]] = []
+    for raw in values:
+        parts = raw.split("::", 2)
+        if len(parts) < 2 or parts[0] not in {
+            "Passed",
+            "Failed",
+            "Blocked",
+            "Skipped",
+            "Not Applicable",
+        }:
+            raise GovernanceError("verification must use RESULT::summary[::evidence-ref]")
+        checks.append(
+            {
+                "result": parts[0],
+                "summary": parts[1],
+                "evidence_refs": [parts[2]] if len(parts) == 3 and parts[2] else [],
+            }
+        )
+    if not checks:
+        raise GovernanceError("at least one Minimal verification is required")
+    return checks
+
+
+def close_minimal_record(
+    task_dir: Path,
+    *,
+    status: str,
+    established_facts: Iterable[str],
+    actual_changes: Iterable[str],
+    verification: Iterable[str],
+    incomplete_items: Iterable[str] = (),
+) -> Path:
+    if status not in OUTCOME_STATES:
+        raise GovernanceError(f"unsupported Minimal outcome: {status}")
+    record_path = minimal_record_path(task_dir)
+    record = read_json(record_path)
+    require_valid_minimal_record(record, task_dir=task_dir.resolve())
+    if record["lifecycle_state"] in {"Completed", "Upgraded"}:
+        raise GovernanceError("Minimal carrier is already terminal")
+    events = record["run_ledger"]
+    changes = [value for value in actual_changes if value]
+    if (status == "Implemented" or changes) and not events:
+        raise GovernanceError("Implemented Minimal work requires run_started")
+    checks = parse_verification(verification)
+    incomplete: list[dict[str, str]] = []
+    for raw in incomplete_items:
+        parts = raw.split("::", 4)
+        if len(parts) != 5 or any(not part for part in parts):
+            raise GovernanceError(
+                "incomplete item must use summary::reason::impact::owner::reentry_condition"
+            )
+        incomplete.append(
+            {
+                "summary": parts[0],
+                "reason": parts[1],
+                "impact": parts[2],
+                "owner": parts[3],
+                "reentry_condition": parts[4],
+            }
+        )
+    if status == "Implemented" and any(item["result"] != "Passed" for item in checks):
+        raise GovernanceError("Implemented Minimal work requires all verification results to pass")
+    completed_at = now_utc()
+    if events:
+        events.append(
+            {
+                "sequence": len(events) + 1,
+                "timestamp": completed_at,
+                "event_type": "run_finished",
+                "summary": f"Minimal task closed as {status}.",
+                "status": "succeeded" if status == "Implemented" else "recorded",
+                "evidence_refs": [
+                    ref
+                    for item in checks
+                    for ref in item["evidence_refs"]
+                ],
+            }
+        )
+    record["task_outcome"] = {
+        "status": status,
+        "established_facts": [value for value in established_facts if value],
+        "actual_changes": changes,
+        "verification": checks,
+        "incomplete_items": incomplete,
+        "completed_at": completed_at,
+    }
+    record["completed_at"] = completed_at
+    record["lifecycle_state"] = "Completed"
+    record["revision"] += 1
+    for item in record["artifact_manifest"]:
+        item["outcome"] = "Created"
+    require_valid_minimal_record(record, task_dir=task_dir.resolve())
+    atomic_write_json(record_path, record)
+    return record_path
+
+
+def mark_minimal_upgrade(
+    task_dir: Path,
+    *,
+    reason: str,
+    basis: str,
+    full_carrier_ref: str,
+) -> dict[str, Any]:
+    record_path = minimal_record_path(task_dir)
+    record = read_json(record_path)
+    require_valid_minimal_record(record, task_dir=task_dir.resolve())
+    if record["lifecycle_state"] in {"Completed", "Upgraded"}:
+        raise GovernanceError("only active Minimal work can upgrade")
+    timestamp = now_utc()
+    events = record["run_ledger"]
+    if not events:
+        events.append(
+            {
+                "sequence": 1,
+                "timestamp": timestamp,
+                "event_type": "run_started",
+                "summary": "Minimal task opened for mandatory upgrade.",
+                "status": "started",
+                "evidence_refs": [basis],
+            }
+        )
+    events.append(
+        {
+            "sequence": len(events) + 1,
+            "timestamp": timestamp,
+            "event_type": "upgrade_triggered",
+            "summary": reason,
+            "status": "blocked",
+            "evidence_refs": [basis],
+        }
+    )
+    record["upgrade"] = {
+        "required": True,
+        "triggered_at": timestamp,
+        "reason": reason,
+        "basis": basis,
+        "full_carrier_ref": full_carrier_ref,
+    }
+    record["lifecycle_state"] = "Upgraded"
+    record["revision"] += 1
+    require_valid_minimal_record(record, task_dir=task_dir.resolve())
+    return record
+
+
+def minimal_record_sha256(record: dict[str, Any]) -> str:
+    import json
+
+    payload = json.dumps(
+        record,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def render_minimal_review(record: dict[str, Any]) -> str:
+    outcome = record.get("task_outcome")
+    status = outcome.get("status") if isinstance(outcome, dict) else "Active"
+    lines = [
+        f"# Task {record['task_id']}",
+        "",
+        "- Carrier: Minimal aggregate (TaskContract + RunLedger + TaskOutcome)",
+        f"- Status: {status}",
+        f"- Objective: {record['task_contract']['objective']}",
+        f"- Scope: {record['task_contract']['scope']}",
+        f"- Acceptance: {record['task_contract']['acceptance']}",
+        "",
+        "## Events",
+        "",
+    ]
+    lines.extend(
+        f"- {event['sequence']}: {event['event_type']} — {event['summary']}"
+        for event in record["run_ledger"]
+    )
+    if outcome:
+        lines.extend(["", "## Verification", ""])
+        lines.extend(
+            f"- {item['result']}: {item['summary']}"
+            for item in outcome["verification"]
+        )
+    return "\n".join(lines) + "\n"

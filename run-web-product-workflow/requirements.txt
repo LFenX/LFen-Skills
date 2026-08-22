@@ -1,0 +1,2 @@
+# Required only by scripts/audit_norm_retrieval.py for Draft 2020-12 schema audits.
+jsonschema>=4.18,<5

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lfen.local/schemas/v6.3/norm-index-metadata.schema.json",
+  "title": "V6.3 Candidate Norm Index Metadata",
+  "x-lfen-semantic-invariants": [
+    "source_count equals the number of unique source_ids",
+    "storage.relative_cache_path filename equals index_digest"
+  ],
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "index_schema_version",
+    "index_digest",
+    "status",
+    "created_at",
+    "normative_sources_sha256",
+    "consistency_report_sha256",
+    "parser_sha256",
+    "action_taxonomy_sha256",
+    "source_ids",
+    "source_count",
+    "clause_count",
+    "storage",
+    "integrity",
+    "blocker_reasons"
+  ],
+  "properties": {
+    "schema_version": {"const": "6.3-candidate"},
+    "index_schema_version": {"type": "string", "minLength": 1},
+    "index_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "status": {"enum": ["Building", "Ready", "Blocked", "Stale", "Failed"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "normative_sources_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "consistency_report_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "parser_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "action_taxonomy_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "source_count": {"type": "integer", "minimum": 1},
+    "clause_count": {"type": "integer", "minimum": 0},
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["engine", "sqlite_version", "fts_modes", "relative_cache_path"],
+      "properties": {
+        "engine": {"const": "sqlite3-fts5"},
+        "sqlite_version": {"type": "string", "minLength": 1},
+        "fts_modes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["unicode61", "trigram"]}},
+        "relative_cache_path": {"type": "string", "pattern": "^\\.project-governance/runtime-cache/norm-index/[a-f0-9]{64}\\.sqlite3$"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sqlite_integrity_check", "source_hashes_verified", "completion_marker"],
+      "properties": {
+        "sqlite_integrity_check": {"enum": ["ok", "not-run", "failed"]},
+        "source_hashes_verified": {"type": "boolean"},
+        "completion_marker": {"type": "boolean"}
+      }
+    },
+    "blocker_reasons": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "Ready"}}, "required": ["status"]},
+      "then": {
+        "properties": {
+          "integrity": {
+            "properties": {
+              "sqlite_integrity_check": {"const": "ok"},
+              "source_hashes_verified": {"const": true},
+              "completion_marker": {"const": true}
+            }
+          },
+          "blocker_reasons": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"enum": ["Blocked", "Stale", "Failed"]}}, "required": ["status"]},
+      "then": {"properties": {"blocker_reasons": {"minItems": 1}}}
+    }
+  ]
+}

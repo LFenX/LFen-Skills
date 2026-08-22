@@ -1,0 +1,276 @@
+{
+  "schema_version": "6.3-candidate",
+  "document_id": "VC-PPG-TAIL-001",
+  "title": "Vibe Coding 完整裁剪适用性规则",
+  "version": "6.3 Candidate",
+  "status": "In Review",
+  "normative_parent": "VC-PPG-DEC-001",
+  "process_parent": "VC-PPG-PRO-001",
+  "semantics": {
+    "model": "standard applicability + control strength + profile instantiation + stage context loading",
+    "default": "union all applicable rules; strongest control wins",
+    "fail_closed": "unknown, conflict, missing rule, or stale resolution cannot silently become Inactive, N/A, or a weaker control",
+    "non_subtraction": "stage, primary development type, baseline reference, emergency mode, or physical carrier choice never removes an applicable control",
+    "normative_clause_policy": {
+      "applicable_standard": "all normative clauses in the complete source file remain authoritative",
+      "pending_standard": "the complete source file remains available for trigger assessment until resolved",
+      "navigation_only": ["non_trimmable_controls", "source_sections"],
+      "complete_pack": "include complete UTF-8 source contents and per-file SHA-256 for governance sources, profile index, applicable standards, and pending standards; consume targeted passages without treating omission from the navigation packet as N/A"
+    }
+  },
+  "controlled_values": {
+    "delivery_scenarios": ["DS-01", "DS-02", "DS-03", "DS-04"],
+    "development_types": ["DT-01", "DT-02", "DT-03", "DT-04", "DT-05", "DT-06", "DT-07", "DT-08", "DT-09"],
+    "change_surfaces": [
+      "UI/UX",
+      "API/Integration",
+      "Data/Schema",
+      "Identity/Security/Privacy",
+      "AI/Data Governance",
+      "Architecture/Multi-repo",
+      "Deploy/Operations",
+      "Agent/Collaboration"
+    ],
+    "risk_levels": ["Low", "Medium", "High", "Critical"],
+    "extension_states": ["Not Evaluated", "Pending", "Inactive", "Conditionally Active", "Active", "Retiring", "Retired"],
+    "baseline_inheritance": ["New", "Reference", "Revise", "Supersede"],
+    "execution_modes": ["Normal", "Emergency"],
+    "confidence_levels": ["Low", "Medium", "High"],
+    "stages": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"],
+    "fact_values": ["Yes", "No", "Unknown"],
+    "profile_actions": ["Create/Revise", "Reference", "Generate", "On Event", "N/A"],
+    "execution_permissions": ["read", "edit-in-scope", "validate", "external-effect", "rollback"]
+  },
+  "applicability_facts": {
+    "product_intent_change": {"activates": ["C01"], "blocking_from_stage": "S4"},
+    "initiative_scope_change": {"activates": ["C02"], "blocking_from_stage": "S4"},
+    "requirement_change": {"activates": ["C03", "C04"], "blocking_from_stage": "S4"},
+    "external_behavior_change": {"activates": ["C03", "C05"], "blocking_from_stage": "S4"},
+    "design_change": {"activates": ["C06"], "blocking_from_stage": "S4"},
+    "architecture_impact": {"activates": ["E01"], "extension": "E01", "blocking_from_stage": "S4"},
+    "security_privacy_impact": {"activates": ["E02"], "extension": "E02", "blocking_from_stage": "S4"},
+    "data_ai_impact": {"activates": ["E03"], "extension": "E03", "blocking_from_stage": "S4"},
+    "formal_knowledge_records": {"activates": ["E04"], "extension": "E04", "blocking_from_stage": "S4"},
+    "operations_impact": {"activates": ["E05"], "extension": "E05", "blocking_from_stage": "S4"},
+    "production_release": {"activates": ["C11", "C12", "E05"], "extension": "E05", "blocking_from_stage": "S4"},
+    "irreversible_change": {"activates": ["C02", "C07", "C11", "C12"], "blocking_from_stage": "S4"},
+    "actual_execution": {"activates": ["C09"], "blocking_from_stage": "S4"},
+    "authority_available": {"activates": ["C07", "C12"], "blocking_from_stage": "S4", "required_value_from_stage": "Yes"},
+    "migration_retirement": {"activates": ["C04", "C11", "C12"], "blocking_from_stage": "S4"},
+    "external_system_effect": {"activates": ["C09", "C10", "C11", "C12"], "blocking_from_stage": "S4"},
+    "formal_review_or_gate": {"activates": ["C10", "C12"], "blocking_from_stage": "S4"}
+  },
+  "source_catalog": [
+    {"id": "VC-PPG-COM-001", "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md", "role": "controlled vocabulary", "load": "always-core"},
+    {"id": "VC-PPG-COM-002", "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md", "role": "profile and state semantics", "load": "always-core-plus-owner"},
+    {"id": "VC-PPG-DEC-001", "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md", "role": "tailoring authority", "load": "always-core"},
+    {"id": "VC-PPG-PRO-001", "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md", "role": "stage process", "load": "always-core-plus-stage"},
+    {"id": "C01", "path": "references/02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md", "role": "core standard", "load": "resolved"},
+    {"id": "C02", "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md", "role": "core standard", "load": "resolved"},
+    {"id": "C03", "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md", "role": "core standard", "load": "resolved"},
+    {"id": "C04", "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md", "role": "core standard", "load": "resolved"},
+    {"id": "C05", "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md", "role": "core standard", "load": "resolved"},
+    {"id": "C06", "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md", "role": "core standard", "load": "resolved"},
+    {"id": "C07", "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md", "role": "core standard", "load": "always-minimum"},
+    {"id": "C08", "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md", "role": "core standard", "load": "always-minimum"},
+    {"id": "C09", "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md", "role": "core standard", "load": "always-minimum"},
+    {"id": "C10", "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md", "role": "core standard", "load": "always-minimum"},
+    {"id": "C11", "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md", "role": "core standard", "load": "always-minimum"},
+    {"id": "C12", "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md", "role": "core standard", "load": "always-minimum"},
+    {"id": "E01", "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md", "role": "extension standard", "load": "resolved"},
+    {"id": "E02", "path": "references/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md", "role": "extension standard", "load": "resolved"},
+    {"id": "E03", "path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md", "role": "extension standard", "load": "resolved"},
+    {"id": "E04", "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md", "role": "extension standard", "load": "resolved"},
+    {"id": "E05", "path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md", "role": "extension standard", "load": "resolved"},
+    {"id": "VC-PPG-IDX-001", "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md", "role": "137 profile ownership and instance semantics", "load": "always-index-plus-owner"}
+  ],
+  "standards": {
+    "C01": {"name": "Product Discovery, Evidence and Intent", "profile_count": 6, "always_minimum": false, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["product identity and intent linkage", "evidence-source separation", "assumption and unknown disclosure", "discovery-to-delivery gate"]},
+    "C02": {"name": "Initiative and Scope", "profile_count": 6, "always_minimum": true, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["scope and out-of-scope", "risk classification", "boundary and dependency", "unknown cannot be Low or N/A"]},
+    "C03": {"name": "PRD and Feature", "profile_count": 7, "always_minimum": false, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["observable behavior", "requirement-to-acceptance link", "state and edge conditions", "supersession trace"]},
+    "C04": {"name": "Atomic Requirement and Evolution", "profile_count": 7, "always_minimum": false, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["atomic requirement identity", "revision and supersession trace", "defect-to-requirement reference", "migration and retirement boundary"]},
+    "C05": {"name": "Acceptance, Verification and Validation", "profile_count": 8, "always_minimum": true, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["acceptance criteria", "verification evidence", "validation conclusion", "failed and blocked checks remain visible"]},
+    "C06": {"name": "UX and Technical Design", "profile_count": 10, "always_minimum": false, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["surface-specific design decision", "interface and data contract", "failure and rollback design", "design-to-requirement trace"]},
+    "C07": {"name": "Human-Agent Collaboration", "profile_count": 7, "always_minimum": true, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["accountable human", "authority boundary", "stop and escalation condition", "human gate cannot be self-approved"]},
+    "C08": {"name": "Agent Context Governance", "profile_count": 7, "always_minimum": true, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["context source and version", "priority and freshness", "assumption and conflict disclosure", "context delta trace"]},
+    "C09": {"name": "Agent Execution and Evidence", "profile_count": 9, "always_minimum": true, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["TaskContract before execution", "ordered material RunLedger events", "TaskOutcome terminal facts", "side effect and evidence trace"]},
+    "C10": {"name": "Decision Traceability and Lineage", "profile_count": 8, "always_minimum": true, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["source-to-change trace", "decision authority", "cross-task lineage", "derived view cannot own authority"]},
+    "C11": {"name": "Configuration, Version, Baseline and Change", "profile_count": 10, "always_minimum": true, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["source snapshot", "revision and amendment", "change identity", "baseline, supersession and rollback trace"]},
+    "C12": {"name": "Review, Quality Gate and Product Health", "profile_count": 8, "always_minimum": true, "source_sections": ["3", "7", "8", "10", "12", "15", "17", "18"], "non_trimmable_controls": ["entry and exit gate", "independent review when required", "human acceptance remains human", "residual risk and health conclusion"]},
+    "E01": {"name": "Architecture Governance", "profile_count": 8, "always_minimum": false, "extension": true, "trigger_facts": ["architecture_impact"], "trigger_surfaces": ["Architecture/Multi-repo"], "source_sections": ["3", "7", "8", "10", "13", "15", "17", "18"], "non_trimmable_controls": ["architecture boundary", "decision and dependency", "cross-repository impact", "architecture risk and verification"]},
+    "E02": {"name": "Security, Privacy and Compliance", "profile_count": 9, "always_minimum": false, "extension": true, "trigger_facts": ["security_privacy_impact"], "trigger_surfaces": ["Identity/Security/Privacy"], "source_sections": ["3", "7", "8", "10", "13", "15", "17", "18"], "non_trimmable_controls": ["identity and access boundary", "threat and vulnerability", "privacy and compliance obligation", "security evidence and residual risk"]},
+    "E03": {"name": "Data and AI Data Governance", "profile_count": 9, "always_minimum": false, "extension": true, "trigger_facts": ["data_ai_impact"], "trigger_surfaces": ["Data/Schema", "AI/Data Governance"], "source_sections": ["3", "7", "8", "10", "13", "15", "17", "18"], "non_trimmable_controls": ["data source and lineage", "schema and quality", "license and permitted use", "retention and deletion"]},
+    "E04": {"name": "Knowledge and Records Governance", "profile_count": 8, "always_minimum": false, "extension": true, "trigger_facts": ["formal_knowledge_records"], "trigger_surfaces": [], "source_sections": ["3", "7", "8", "10", "13", "15", "17", "18"], "non_trimmable_controls": ["record classification", "source, version and freshness", "retention and disposition", "legal hold and retrieval"]},
+    "E05": {"name": "Product Operations and Service Management", "profile_count": 10, "always_minimum": false, "extension": true, "trigger_facts": ["operations_impact", "production_release"], "trigger_surfaces": ["Deploy/Operations"], "trigger_scenarios": ["DS-04"], "source_sections": ["3", "7", "8", "10", "13", "15", "17", "18"], "non_trimmable_controls": ["release and rollback", "service objective and observability", "incident and problem trace", "operational feedback closure"]}
+  },
+  "routes": {
+    "always_applicable": ["C02", "C05", "C07", "C08", "C09", "C10", "C11", "C12"],
+    "delivery_scenarios": {
+      "DS-01": ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12"],
+      "DS-02": ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12"],
+      "DS-03": ["C02", "C05", "C07", "C08", "C09", "C10", "C11", "C12"],
+      "DS-04": ["C02", "C05", "C07", "C08", "C09", "C10", "C11", "C12", "E05"]
+    },
+    "development_types": {
+      "DT-01": ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12"],
+      "DT-02": ["C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12"],
+      "DT-03": ["C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12"],
+      "DT-04": ["C02", "C04", "C05", "C07", "C08", "C09", "C10", "C11", "C12"],
+      "DT-05": ["C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12"],
+      "DT-06": ["C02", "C04", "C05", "C07", "C08", "C09", "C10", "C11", "C12"],
+      "DT-07": ["C02", "C05", "C07", "C08", "C09", "C10", "C11", "C12"],
+      "DT-08": ["C02", "C05", "C07", "C08", "C09", "C10", "C11", "C12"],
+      "DT-09": ["C02", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12"]
+    },
+    "change_surfaces": {
+      "UI/UX": ["C05", "C06"],
+      "API/Integration": ["C05", "C06"],
+      "Data/Schema": ["C05", "C06", "E03"],
+      "Identity/Security/Privacy": ["C05", "C06", "E02"],
+      "AI/Data Governance": ["C05", "C06", "E03"],
+      "Architecture/Multi-repo": ["C06", "E01"],
+      "Deploy/Operations": ["C05", "C11", "C12", "E05"],
+      "Agent/Collaboration": ["C07", "C08", "C09"]
+    },
+    "risk_levels": {
+      "Low": {"minimum": ["C02", "C05", "C07", "C12"], "control_strength": "minimum"},
+      "Medium": {"minimum": ["C02", "C05", "C07", "C10", "C11", "C12"], "control_strength": "standard"},
+      "High": {"minimum": ["C02", "C05", "C07", "C08", "C09", "C10", "C11", "C12"], "control_strength": "enhanced", "independent_review": true},
+      "Critical": {"minimum": ["C02", "C05", "C07", "C08", "C09", "C10", "C11", "C12"], "control_strength": "maximum", "independent_review": true, "explicit_human_gate": true}
+    },
+    "baseline_inheritance": {
+      "New": {"adds": [], "effect": "create new authority where triggered"},
+      "Reference": {"adds": [], "effect": "reference valid authority; never remove applicable controls"},
+      "Revise": {"adds": ["C10", "C11", "C12"], "effect": "preserve identity, revision and impact trace"},
+      "Supersede": {"adds": ["C04", "C10", "C11", "C12"], "effect": "preserve predecessor, successor and effective boundary"}
+    },
+    "execution_modes": {
+      "Normal": {"adds": [], "effect": "normal stage gates"},
+      "Emergency": {"adds": ["C02", "C05", "C07", "C09", "C10", "C11", "C12"], "effect": "overlay emergency authority, stop, rollback and retrospective controls; never waive evidence or human authority"}
+    }
+  },
+  "multi_type_policy": {
+    "requires_scope_partition_when_multiple": true,
+    "semantic_conflict_pairs": [
+      ["DT-03", "DT-07"],
+      ["DT-03", "DT-08"],
+      ["DT-04", "DT-05"],
+      ["DT-05", "DT-07"],
+      ["DT-05", "DT-08"]
+    ],
+    "rule": "each selected Development Type must bind to one or more exact scope.in_scope values; a semantic-conflict pair cannot share the same sub-scope value"
+  },
+  "classification_consistency": {
+    "fact_requires_any_surface": {
+      "design_change": ["UI/UX", "API/Integration", "Data/Schema", "Identity/Security/Privacy", "AI/Data Governance", "Architecture/Multi-repo"],
+      "architecture_impact": ["Architecture/Multi-repo"],
+      "security_privacy_impact": ["Identity/Security/Privacy"],
+      "data_ai_impact": ["Data/Schema", "AI/Data Governance"],
+      "operations_impact": ["Deploy/Operations"],
+      "production_release": ["Deploy/Operations"]
+    },
+    "fact_requires_any_development_type": {
+      "product_intent_change": ["DT-01", "DT-02", "DT-05"],
+      "requirement_change": ["DT-01", "DT-02", "DT-03", "DT-04", "DT-05", "DT-06", "DT-09"],
+      "external_behavior_change": ["DT-01", "DT-02", "DT-03", "DT-05", "DT-06", "DT-09"],
+      "migration_retirement": ["DT-09"]
+    }
+  },
+  "stage_context": {
+    "S1": {"name": "initial clarification", "minimum_standards": ["C02", "C07", "C08", "C10"], "conditional_standards": ["C01", "C03", "C04"], "global_sections": ["3", "7", "8", "10", "17", "18"], "unknown_policy": "record and route"},
+    "S2": {"name": "scope and acceptance", "minimum_standards": ["C02", "C05", "C07", "C12"], "conditional_standards": ["C01", "C03", "C04"], "global_sections": ["7", "10", "15", "17"], "unknown_policy": "record and route"},
+    "S3": {"name": "requirements and design", "minimum_standards": ["C05", "C10", "C11", "C12"], "conditional_standards": ["C01", "C03", "C04", "C06"], "global_sections": ["8", "10", "12", "13", "17", "18"], "unknown_policy": "resolve execution-blocking facts"},
+    "S4": {"name": "plan and execution readiness", "minimum_standards": ["C02", "C05", "C07", "C08", "C09", "C10", "C11", "C12"], "conditional_standards": ["C01", "C03", "C04", "C06"], "global_sections": ["7", "10", "12", "13", "15", "17"], "unknown_policy": "fail closed"},
+    "S5": {"name": "execution", "minimum_standards": ["C05", "C07", "C08", "C09", "C10", "C11", "C12"], "conditional_standards": ["C04", "C06"], "global_sections": ["7", "9", "10", "13", "16", "17"], "unknown_policy": "stop affected action"},
+    "S6": {"name": "verification and outcome", "minimum_standards": ["C05", "C09", "C10", "C11", "C12"], "conditional_standards": ["C03", "C04", "C06"], "global_sections": ["10", "14", "15", "16", "17"], "unknown_policy": "cannot claim passed or implemented"},
+    "S7": {"name": "release and observation", "minimum_standards": ["C05", "C07", "C09", "C10", "C11", "C12"], "conditional_standards": ["C06"], "global_sections": ["9", "10", "15", "16", "17", "18"], "unknown_policy": "cannot release or close observation"},
+    "S8": {"name": "closure and project state", "minimum_standards": ["C09", "C10", "C11", "C12"], "conditional_standards": ["C04"], "global_sections": ["9", "14", "16", "17"], "unknown_policy": "preserve unresolved item and successor task"}
+  },
+  "extension_resolution": {
+    "Active": {"applicable": true, "context": "full applicable sections"},
+    "Conditionally Active": {"applicable": true, "context": "trigger, boundary, gate and applicable sections"},
+    "Retiring": {"applicable": true, "context": "active controls plus retirement and successor boundary", "requires": "extension_evidence_refs"},
+    "Retired": {"applicable": false, "context": "retirement evidence and superseding rule only", "requires": "extension_evidence_refs"},
+    "Inactive": {"applicable": false, "context": "trigger and inactivity basis only", "requires": "all trigger facts No and no triggering route"},
+    "Pending": {"applicable": null, "context": "trigger and assessment sections", "blocks_from_stage": "S4"},
+    "Not Evaluated": {"applicable": null, "context": "trigger and assessment sections", "blocks_from_stage": "S4"}
+  },
+  "gate_requirements": {
+    "risk_levels": {
+      "High": ["independent-review"],
+      "Critical": ["independent-review", "human-acceptance"]
+    },
+    "applicability_facts": {
+      "security_privacy_impact": ["security-privacy-review"],
+      "production_release": ["release-approval"],
+      "irreversible_change": ["irreversible-change-approval"]
+    }
+  },
+  "authority_policy": {
+    "enforcement_from_stage": "S4",
+    "source_kinds": ["UserDirective", "AuthorityAsset", "PlatformDecision", "Policy"],
+    "assessment_states": ["Valid", "Pending", "Invalid", "Expired"],
+    "executable_state": "Valid",
+    "requires_reference_binding": true,
+    "requires_evidence_refs": true,
+    "requires_unexpired_assessment": true,
+    "requires_verified_at_not_future": true,
+    "requires_expiry_after_verification": true,
+    "scope_reference_target": "scope.in_scope",
+    "requires_complete_scope_coverage": true,
+    "fact_permission_requirements": {
+      "external_system_effect": ["external-effect"],
+      "production_release": ["external-effect"]
+    },
+    "run_event_permission_requirements": {
+      "run_started": ["read"],
+      "mutation": ["edit-in-scope"],
+      "verification": ["validate"],
+      "external_effect": ["external-effect"],
+      "rollback": ["rollback"]
+    },
+    "gate_token_semantics": "planned transition control only; actual Gate outcome must be verified from its authority source before the guarded transition"
+  },
+  "confidence_policy": {
+    "Low": {"blocks_from_stage": "S4"},
+    "Medium": {"blocks_from_stage": null},
+    "High": {"blocks_from_stage": null}
+  },
+  "profile_resolution": {
+    "expected_profile_count": 137,
+    "ownership_source": "VC-PPG-IDX-001 §4",
+    "meta_mapping_source": "mappings/profile-meta-map.json",
+    "instance_semantics_source": "VC-PPG-IDX-001 §9",
+    "rules": [
+      "profile owner standard must first be applicable",
+      "stable valid baseline uses Reference instead of duplicate creation",
+      "event profiles use On Event only when the named event occurred",
+      "review or presentation views use Generate on demand and never become authority",
+      "N/A requires rule reference, fact basis, scope, owner, and re-evaluation trigger",
+      "a profile may share a physical carrier but keeps independent identity, state, trace, and history"
+    ]
+  },
+  "precedence": [
+    {"order": 1, "rule": "law, policy, approved baseline, and explicit accountable-human authority within scope"},
+    {"order": 2, "rule": "Critical over High over Medium over Low control strength"},
+    {"order": 3, "rule": "active extension and explicit applicability fact over generic route"},
+    {"order": 4, "rule": "change surface and all development types are unioned; primary type is display-only"},
+    {"order": 5, "rule": "delivery scenario, baseline inheritance, mode, and stage add controls but do not subtract"},
+    {"order": 6, "rule": "specific owner-standard profile rule over generic profile rule"},
+    {"order": 7, "rule": "when equal-rank rules conflict, keep both, mark conflict, and stop the affected action"}
+  ],
+  "mandatory_reclassification_triggers": [
+    "scope, acceptance, authority, risk, development type, surface, extension state, baseline or mode changes",
+    "new evidence changes any applicability fact",
+    "a stable reference becomes stale, conflicted, superseded or unavailable",
+    "an external effect, irreversible action, production release or human gate is newly discovered",
+    "the task enters a stage whose exit gate requires previously unresolved facts"
+  ],
+  "resolution_contract": {
+    "required_inputs": ["task_profile", "applicability_facts", "extension_evidence_refs", "scope", "authority", "acceptance", "source_snapshot", "stage"],
+    "required_outputs": ["rule_set_sha256", "normative_sources_sha256", "resolver_sha256", "task_contract_schema_sha256", "input_digest", "applicable_standards", "pending_standards", "stage_context_standards", "control_strength", "independent_review", "blocking_reasons", "rule_ids", "source_sections", "complete_source_files", "profile_coverage_digest"],
+    "freshness": "resolution is stale after any mandatory reclassification trigger or source snapshot change",
+    "execution_gate": "S4 and later require zero blocking reasons for the affected action",
+    "closure_gate": "S8 preserves unresolved facts and successor TaskIDs; it never converts Unknown to No"
+  }
+}

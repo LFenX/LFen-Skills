@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lfen.local/schemas/v6.3/task-after.schema.json",
+  "title": "V6.3 TaskOutcome",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "meta_type", "project_id", "work_item_id", "task_id", "revision", "status", "completed_at", "source_snapshot", "established_facts", "actual_changes", "verification", "incomplete_items", "legacy_issues", "decisions", "evidence_refs", "next_tasks", "artifact_manifest", "amendments"],
+  "properties": {
+    "schema_version": {"const": "6.3-candidate"},
+    "meta_type": {"const": "TaskOutcome"},
+    "project_id": {"type": "string", "minLength": 1},
+    "work_item_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "revision": {"type": "integer", "minimum": 1},
+    "status": {"enum": ["Implemented", "Deferred", "Cancelled", "Blocked", "Superseded"]},
+    "completed_at": {"type": "string", "format": "date-time"},
+    "source_snapshot": {"type": "object", "minProperties": 1},
+    "established_facts": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "actual_changes": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "verification": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["summary", "result", "evidence_refs"],
+        "properties": {
+          "summary": {"type": "string", "minLength": 1},
+          "result": {"enum": ["Passed", "Failed", "Blocked", "Skipped", "Not Applicable"]},
+          "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "method": {"type": "string"},
+          "expected": {"type": "string"},
+          "actual": {"type": "string"},
+          "limitations": {"type": "string"},
+          "required": {"type": "boolean"}
+        }
+      }
+    },
+    "incomplete_items": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["summary", "reason", "impact", "owner", "reentry_condition"],
+        "properties": {
+          "summary": {"type": "string", "minLength": 1}, "reason": {"type": "string", "minLength": 1},
+          "impact": {"type": "string", "minLength": 1}, "owner": {"type": "string", "minLength": 1},
+          "reentry_condition": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "legacy_issues": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["summary", "reason", "impact", "owner", "reentry_condition"],
+        "properties": {
+          "summary": {"type": "string", "minLength": 1}, "reason": {"type": "string", "minLength": 1},
+          "impact": {"type": "string", "minLength": 1}, "owner": {"type": "string", "minLength": 1},
+          "reentry_condition": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "decisions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "next_tasks": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "artifact_manifest": {
+      "type": "array", "minItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["meta_type", "legacy_kind", "action", "asset_id", "content_ref", "reason", "rule_reference", "owner", "source_snapshot", "human_confirmation_refs", "outcome"],
+        "properties": {
+          "meta_type": {"enum": ["ProjectState", "TaskContract", "RunLedger", "TaskOutcome", "AuthorityAsset", "DerivedView"]},
+          "legacy_kind": {"type": ["string", "null"]},
+          "action": {"enum": ["Create/Revise", "Reference", "Generate", "On Event", "N/A"]},
+          "asset_id": {"type": "string", "minLength": 1}, "content_ref": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1}, "rule_reference": {"type": "string", "minLength": 1},
+          "owner": {"type": "string", "minLength": 1}, "source_snapshot": {"type": "string", "minLength": 1},
+          "human_confirmation_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "outcome": {"enum": ["Created", "Revised", "Referenced", "Generated", "Not Triggered", "Not Applicable", "Deferred"]}
+        }
+      }
+    },
+    "amendments": {"type": "array", "items": {"type": "object", "required": ["from_revision", "to_revision", "path", "old_value", "new_value", "reason", "basis", "changed_at"]}}
+  }
+}

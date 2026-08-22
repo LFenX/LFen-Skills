@@ -1,0 +1,376 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lfen.local/schemas/v6.3/task-before.schema.json",
+  "title": "V6.3 TaskContract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "meta_type", "project_id", "work_item_id", "task_id", "ordinal", "revision", "lifecycle_state", "created_at", "frozen_at", "objective", "depends_on", "supersedes", "blocked_by", "source_snapshot", "scope", "authority", "acceptance", "plan", "task_profile", "tailoring_resolution", "artifact_manifest", "amendments"],
+  "properties": {
+    "schema_version": {"const": "6.3-candidate"},
+    "meta_type": {"const": "TaskContract"},
+    "project_id": {"type": "string", "minLength": 1},
+    "work_item_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "ordinal": {"type": "integer", "minimum": 1},
+    "revision": {"type": "integer", "minimum": 1},
+    "lifecycle_state": {"enum": ["Draft", "Ready", "Frozen", "Superseded"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "frozen_at": {"type": ["string", "null"], "format": "date-time"},
+    "objective": {"type": "string", "minLength": 1},
+    "depends_on": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "supersedes": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "blocked_by": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "source_snapshot": {"type": "object", "minProperties": 1},
+    "legacy_run_policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["policy_version", "rationale", "affected_sequences", "evidence_refs"],
+      "properties": {
+        "policy_version": {"const": "pre-v6.3-enforcement"},
+        "rationale": {"type": "string", "minLength": 1},
+        "affected_sequences": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 1}},
+        "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["in_scope", "out_of_scope", "allowed_paths", "forbidden_actions"],
+      "properties": {
+        "in_scope": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "out_of_scope": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "allowed_paths": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "forbidden_actions": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["execution_permissions", "required_gates", "stop_conditions", "authority_references", "authority_assessments"],
+      "properties": {
+        "execution_permissions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["read", "edit-in-scope", "validate", "external-effect", "rollback"]}},
+        "required_gates": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "stop_conditions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "authority_references": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "authority_assessments": {
+          "type": "array", "uniqueItems": true,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["reference", "source_kind", "status", "scope_refs", "evidence_refs", "verified_at", "expires_at"],
+            "properties": {
+              "reference": {"type": "string", "minLength": 1},
+              "source_kind": {"enum": ["UserDirective", "AuthorityAsset", "PlatformDecision", "Policy"]},
+              "status": {"enum": ["Valid", "Pending", "Invalid", "Expired"]},
+              "scope_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+              "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+              "verified_at": {"type": "string", "format": "date-time"},
+              "expires_at": {"type": ["string", "null"], "format": "date-time"}
+            }
+          }
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["criteria", "decision_owner"],
+      "properties": {
+        "criteria": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "decision_owner": {"type": "string", "minLength": 1}
+      }
+    },
+    "plan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["steps", "verification", "rollback"],
+      "properties": {
+        "steps": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "verification": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "rollback": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "first_principles_analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method_version", "depth", "outcome", "facts", "constraints", "assumptions", "unknowns", "fundamentals", "causal_links", "alternatives", "decision_criteria", "selected_approach", "derivation", "validation_refs", "source_refs"],
+      "properties": {
+        "method_version": {"const": "first-principles-v1"},
+        "depth": {"enum": ["Concise", "Standard", "Deep"]},
+        "outcome": {"type": "string", "minLength": 1},
+        "facts": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "statement", "evidence_refs"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^F[0-9]+$"},
+              "statement": {"type": "string", "minLength": 1},
+              "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+            }
+          }
+        },
+        "constraints": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "statement", "source_refs"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^C[0-9]+$"},
+              "statement": {"type": "string", "minLength": 1},
+              "source_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+            }
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "statement", "validation"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^A[0-9]+$"},
+              "statement": {"type": "string", "minLength": 1},
+              "validation": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "statement", "owner", "resolution_condition", "blocking"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^U[0-9]+$"},
+              "statement": {"type": "string", "minLength": 1},
+              "owner": {"type": "string", "minLength": 1},
+              "resolution_condition": {"type": "string", "minLength": 1},
+              "blocking": {"type": "boolean"}
+            }
+          }
+        },
+        "fundamentals": {
+          "type": "array", "minItems": 2,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "statement", "derived_from"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^P[0-9]+$"},
+              "statement": {"type": "string", "minLength": 1},
+              "derived_from": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+            }
+          }
+        },
+        "causal_links": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["from_ref", "to_ref", "rationale", "evidence_refs"],
+            "properties": {
+              "from_ref": {"type": "string", "minLength": 1},
+              "to_ref": {"type": "string", "minLength": 1},
+              "rationale": {"type": "string", "minLength": 1},
+              "evidence_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+            }
+          }
+        },
+        "alternatives": {
+          "type": "array", "minItems": 2,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "description", "status", "derived_from", "tradeoffs"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^O[0-9]+$"},
+              "description": {"type": "string", "minLength": 1},
+              "status": {"enum": ["Selected", "Rejected"]},
+              "derived_from": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+              "tradeoffs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+            }
+          }
+        },
+        "decision_criteria": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "statement", "source_refs"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^K[0-9]+$"},
+              "statement": {"type": "string", "minLength": 1},
+              "source_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+            }
+          }
+        },
+        "selected_approach": {"type": "string", "pattern": "^O[0-9]+$"},
+        "derivation": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["plan_step", "derived_from", "supports"],
+            "properties": {
+              "plan_step": {"type": "string", "minLength": 1},
+              "derived_from": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+              "supports": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+            }
+          }
+        },
+        "validation_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "source_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "task_profile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["delivery_scenario", "development_types", "primary_development_type", "development_type_scopes", "change_surfaces", "risk_level", "extension_triggers", "extension_evidence_refs", "baseline_inheritance", "mode", "confidence", "basis", "open_questions", "applicability_facts"],
+      "properties": {
+        "delivery_scenario": {"enum": ["DS-01", "DS-02", "DS-03", "DS-04"]},
+        "development_types": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["DT-01", "DT-02", "DT-03", "DT-04", "DT-05", "DT-06", "DT-07", "DT-08", "DT-09"]}},
+        "primary_development_type": {"enum": ["DT-01", "DT-02", "DT-03", "DT-04", "DT-05", "DT-06", "DT-07", "DT-08", "DT-09"]},
+        "development_type_scopes": {
+          "type": "object", "minProperties": 1, "additionalProperties": false,
+          "properties": {
+            "DT-01": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "DT-02": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "DT-03": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "DT-04": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "DT-05": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "DT-06": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "DT-07": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "DT-08": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "DT-09": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+          }
+        },
+        "change_surfaces": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["UI/UX", "API/Integration", "Data/Schema", "Identity/Security/Privacy", "AI/Data Governance", "Architecture/Multi-repo", "Deploy/Operations", "Agent/Collaboration"]}},
+        "risk_level": {"enum": ["Low", "Medium", "High", "Critical"]},
+        "extension_triggers": {
+          "type": "object", "additionalProperties": false,
+          "required": ["E01", "E02", "E03", "E04", "E05"],
+          "properties": {
+            "E01": {"enum": ["Not Evaluated", "Pending", "Inactive", "Conditionally Active", "Active", "Retiring", "Retired"]},
+            "E02": {"enum": ["Not Evaluated", "Pending", "Inactive", "Conditionally Active", "Active", "Retiring", "Retired"]},
+            "E03": {"enum": ["Not Evaluated", "Pending", "Inactive", "Conditionally Active", "Active", "Retiring", "Retired"]},
+            "E04": {"enum": ["Not Evaluated", "Pending", "Inactive", "Conditionally Active", "Active", "Retiring", "Retired"]},
+            "E05": {"enum": ["Not Evaluated", "Pending", "Inactive", "Conditionally Active", "Active", "Retiring", "Retired"]}
+          }
+        },
+        "extension_evidence_refs": {
+          "type": "object", "additionalProperties": false,
+          "required": ["E01", "E02", "E03", "E04", "E05"],
+          "properties": {
+            "E01": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "E02": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "E03": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "E04": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "E05": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+          }
+        },
+        "baseline_inheritance": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["New", "Reference", "Revise", "Supersede"]}},
+        "mode": {"enum": ["Normal", "Emergency"]},
+        "confidence": {"enum": ["Low", "Medium", "High"]},
+        "basis": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "open_questions": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["summary", "owner", "blocking"],
+            "properties": {
+              "summary": {"type": "string", "minLength": 1},
+              "owner": {"type": "string", "minLength": 1},
+              "blocking": {"type": "boolean"}
+            }
+          }
+        },
+        "applicability_facts": {
+          "type": "object", "additionalProperties": false,
+          "required": ["product_intent_change", "initiative_scope_change", "requirement_change", "external_behavior_change", "design_change", "architecture_impact", "security_privacy_impact", "data_ai_impact", "formal_knowledge_records", "operations_impact", "production_release", "irreversible_change", "actual_execution", "authority_available", "migration_retirement", "external_system_effect", "formal_review_or_gate"],
+          "properties": {
+            "product_intent_change": {"enum": ["Yes", "No", "Unknown"]},
+            "initiative_scope_change": {"enum": ["Yes", "No", "Unknown"]},
+            "requirement_change": {"enum": ["Yes", "No", "Unknown"]},
+            "external_behavior_change": {"enum": ["Yes", "No", "Unknown"]},
+            "design_change": {"enum": ["Yes", "No", "Unknown"]},
+            "architecture_impact": {"enum": ["Yes", "No", "Unknown"]},
+            "security_privacy_impact": {"enum": ["Yes", "No", "Unknown"]},
+            "data_ai_impact": {"enum": ["Yes", "No", "Unknown"]},
+            "formal_knowledge_records": {"enum": ["Yes", "No", "Unknown"]},
+            "operations_impact": {"enum": ["Yes", "No", "Unknown"]},
+            "production_release": {"enum": ["Yes", "No", "Unknown"]},
+            "irreversible_change": {"enum": ["Yes", "No", "Unknown"]},
+            "actual_execution": {"enum": ["Yes", "No", "Unknown"]},
+            "authority_available": {"enum": ["Yes", "No", "Unknown"]},
+            "migration_retirement": {"enum": ["Yes", "No", "Unknown"]},
+            "external_system_effect": {"enum": ["Yes", "No", "Unknown"]},
+            "formal_review_or_gate": {"enum": ["Yes", "No", "Unknown"]}
+          }
+        }
+      }
+    },
+    "tailoring_resolution": {
+      "type": "object", "additionalProperties": false,
+      "required": ["rule_set_id", "rule_set_version", "rule_set_status", "rule_set_sha256", "normative_sources_sha256", "resolver_sha256", "task_contract_schema_sha256", "input_digest", "stage", "applicable_standards", "pending_standards", "stage_context_standards", "control_strength", "independent_review", "explicit_human_gate", "blocking_reasons", "rule_ids", "source_sections", "complete_source_files", "profile_coverage_digest"],
+      "properties": {
+        "rule_set_id": {"const": "VC-PPG-TAIL-001"},
+        "rule_set_version": {"type": "string", "minLength": 1},
+        "rule_set_status": {"type": "string", "minLength": 1},
+        "rule_set_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "normative_sources_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "resolver_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "task_contract_schema_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "input_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "stage": {"enum": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8"]},
+        "applicable_standards": {"type": "array", "uniqueItems": true, "items": {"pattern": "^[CE][0-9]{2}$"}},
+        "pending_standards": {"type": "array", "uniqueItems": true, "items": {"pattern": "^[CE][0-9]{2}$"}},
+        "stage_context_standards": {"type": "array", "uniqueItems": true, "items": {"pattern": "^[CE][0-9]{2}$"}},
+        "control_strength": {"enum": ["minimum", "standard", "enhanced", "maximum"]},
+        "independent_review": {"type": "boolean"},
+        "explicit_human_gate": {"type": "boolean"},
+        "blocking_reasons": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "rule_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "source_sections": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["source_id", "path", "sections"],
+            "properties": {
+              "source_id": {"type": "string", "minLength": 1},
+              "path": {"type": "string", "minLength": 1},
+              "sections": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+            }
+          }
+        },
+        "complete_source_files": {
+          "type": "array", "minItems": 5,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["source_id", "path", "sha256"],
+            "properties": {
+              "source_id": {"type": "string", "minLength": 1},
+              "path": {"type": "string", "minLength": 1},
+              "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+            }
+          }
+        },
+        "profile_coverage_digest": {
+          "type": "object", "additionalProperties": false,
+          "required": ["applicable", "total", "sha256"],
+          "properties": {
+            "applicable": {"type": "integer", "minimum": 0},
+            "total": {"const": 137},
+            "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+          }
+        }
+      }
+    },
+    "artifact_manifest": {
+      "type": "array", "minItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["meta_type", "legacy_kind", "action", "asset_id", "content_ref", "reason", "rule_reference", "owner", "source_snapshot", "human_confirmation_refs"],
+        "properties": {
+          "meta_type": {"enum": ["ProjectState", "TaskContract", "RunLedger", "TaskOutcome", "AuthorityAsset", "DerivedView"]},
+          "legacy_kind": {"type": ["string", "null"]},
+          "action": {"enum": ["Create/Revise", "Reference", "Generate", "On Event", "N/A"]},
+          "asset_id": {"type": "string", "minLength": 1},
+          "content_ref": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1},
+          "rule_reference": {"type": "string", "minLength": 1},
+          "owner": {"type": "string", "minLength": 1},
+          "source_snapshot": {"type": "string", "minLength": 1},
+          "human_confirmation_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "amendments": {"type": "array", "items": {"type": "object", "required": ["from_revision", "to_revision", "path", "old_value", "new_value", "reason", "basis", "changed_at"]}}
+  }
+}

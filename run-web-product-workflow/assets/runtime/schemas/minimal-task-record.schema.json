@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lfen.local/schemas/v6.3/minimal-task-record.schema.json",
+  "title": "V6.3 Minimal Aggregate Carrier",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "carrier_version",
+    "carrier_mode",
+    "meta_types",
+    "project_id",
+    "work_item_id",
+    "task_id",
+    "ordinal",
+    "depends_on",
+    "supersedes",
+    "blocked_by",
+    "revision",
+    "lifecycle_state",
+    "created_at",
+    "completed_at",
+    "selection",
+    "eligibility",
+    "task_contract",
+    "run_ledger",
+    "task_outcome",
+    "artifact_manifest",
+    "upgrade",
+    "amendments"
+  ],
+  "properties": {
+    "schema_version": {"const": "6.3-candidate"},
+    "carrier_version": {"const": "minimal-task-record-v1"},
+    "carrier_mode": {"const": "Minimal"},
+    "meta_types": {
+      "const": ["TaskContract", "RunLedger", "TaskOutcome"]
+    },
+    "project_id": {"type": "string", "minLength": 1},
+    "work_item_id": {"type": "string", "minLength": 1},
+    "task_id": {"type": "string", "minLength": 1},
+    "ordinal": {"type": "integer", "minimum": 1},
+    "depends_on": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "supersedes": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "blocked_by": {"const": []},
+    "revision": {"type": "integer", "minimum": 1},
+    "lifecycle_state": {"enum": ["Ready", "Frozen", "Completed", "Upgraded"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": ["string", "null"], "format": "date-time"},
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "basis", "authority_refs"],
+      "properties": {
+        "source": {"enum": ["explicit-user", "automatic"]},
+        "basis": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "authority_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "eligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk_level",
+        "reversible",
+        "single_scope",
+        "external_system_effect",
+        "production_release",
+        "security_privacy_impact",
+        "extension_triggers",
+        "blocking_unknowns",
+        "special_gates",
+        "evidence_refs"
+      ],
+      "properties": {
+        "risk_level": {"const": "Low"},
+        "reversible": {"const": true},
+        "single_scope": {"const": true},
+        "external_system_effect": {"const": false},
+        "production_release": {"const": false},
+        "security_privacy_impact": {"const": false},
+        "extension_triggers": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["E01", "E02", "E03", "E04", "E05"],
+          "properties": {
+            "E01": {"const": "Inactive"},
+            "E02": {"const": "Inactive"},
+            "E03": {"const": "Inactive"},
+            "E04": {"const": "Inactive"},
+            "E05": {"const": "Inactive"}
+          }
+        },
+        "blocking_unknowns": {"const": []},
+        "special_gates": {"const": []},
+        "evidence_refs": {"type": "array", "minItems": 5, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "task_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "objective",
+        "scope",
+        "out_of_scope",
+        "allowed_paths",
+        "forbidden_actions",
+        "acceptance",
+        "task_profile",
+        "plan",
+        "first_principles_analysis",
+        "source_snapshot"
+      ],
+      "properties": {
+        "objective": {"type": "string", "minLength": 1},
+        "scope": {"type": "string", "minLength": 1},
+        "out_of_scope": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "allowed_paths": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "forbidden_actions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "acceptance": {"type": "string", "minLength": 1},
+        "task_profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["delivery_scenario", "development_type", "change_surface", "risk_level", "extension_triggers"],
+          "properties": {
+            "delivery_scenario": {"enum": ["DS-01", "DS-02", "DS-03", "DS-04"]},
+            "development_type": {"enum": ["DT-01", "DT-02", "DT-03", "DT-04", "DT-05", "DT-06", "DT-07", "DT-08", "DT-09"]},
+            "change_surface": {"enum": ["UI/UX", "API/Integration", "Data/Schema", "Identity/Security/Privacy", "Deploy/Operations", "Architecture/Multi-repo", "AI/Data Governance", "Agent/Collaboration"]},
+            "risk_level": {"const": "Low"},
+            "extension_triggers": {"type": "object"}
+          }
+        },
+        "plan": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["selected_approach", "alternative_rejected", "steps", "verification", "rollback"],
+          "properties": {
+            "selected_approach": {"type": "string", "minLength": 1},
+            "alternative_rejected": {"type": "string", "minLength": 1},
+            "steps": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+            "verification": {"type": "string", "minLength": 1},
+            "rollback": {"type": "string", "minLength": 1}
+          }
+        },
+        "first_principles_analysis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["outcome", "facts", "constraints", "assumptions", "unknowns", "fundamentals", "causal_chain", "alternatives", "decision_criteria", "selected_approach", "validation"],
+          "properties": {
+            "outcome": {"type": "string", "minLength": 1},
+            "facts": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+            "constraints": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+            "assumptions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+            "unknowns": {"const": []},
+            "fundamentals": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+            "causal_chain": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+            "alternatives": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+            "decision_criteria": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+            "selected_approach": {"type": "string", "minLength": 1},
+            "validation": {"type": "string", "minLength": 1}
+          }
+        },
+        "source_snapshot": {"type": "object", "minProperties": 1}
+      }
+    },
+    "run_ledger": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sequence", "timestamp", "event_type", "summary", "status", "evidence_refs"],
+        "properties": {
+          "sequence": {"type": "integer", "minimum": 1},
+          "timestamp": {"type": "string", "format": "date-time"},
+          "event_type": {"enum": ["run_started", "mutation", "verification", "failure", "run_finished", "upgrade_triggered"]},
+          "summary": {"type": "string", "minLength": 1},
+          "status": {"enum": ["started", "recorded", "succeeded", "failed", "blocked"]},
+          "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "task_outcome": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "established_facts", "actual_changes", "verification", "incomplete_items", "completed_at"],
+          "properties": {
+            "status": {"enum": ["Implemented", "Deferred", "Cancelled", "Blocked", "Superseded"]},
+            "established_facts": {"type": "array", "items": {"type": "string", "minLength": 1}},
+            "actual_changes": {"type": "array", "items": {"type": "string", "minLength": 1}},
+            "verification": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["result", "summary", "evidence_refs"],
+                "properties": {
+                  "result": {"enum": ["Passed", "Failed", "Blocked", "Skipped", "Not Applicable"]},
+                  "summary": {"type": "string", "minLength": 1},
+                  "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+                }
+              }
+            },
+            "incomplete_items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["summary", "reason", "impact", "owner", "reentry_condition"],
+                "properties": {
+                  "summary": {"type": "string", "minLength": 1},
+                  "reason": {"type": "string", "minLength": 1},
+                  "impact": {"type": "string", "minLength": 1},
+                  "owner": {"type": "string", "minLength": 1},
+                  "reentry_condition": {"type": "string", "minLength": 1}
+                }
+              }
+            },
+            "completed_at": {"type": "string", "format": "date-time"}
+          }
+        }
+      ]
+    },
+    "artifact_manifest": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["meta_type", "action", "content_ref", "outcome"],
+        "properties": {
+          "meta_type": {"enum": ["TaskContract", "RunLedger", "TaskOutcome"]},
+          "action": {"const": "Create/Revise"},
+          "content_ref": {"type": "string", "minLength": 1},
+          "outcome": {"enum": ["Planned", "Created"]}
+        }
+      }
+    },
+    "upgrade": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "triggered_at", "reason", "basis", "full_carrier_ref"],
+      "properties": {
+        "required": {"type": "boolean"},
+        "triggered_at": {"type": ["string", "null"], "format": "date-time"},
+        "reason": {"type": ["string", "null"]},
+        "basis": {"type": ["string", "null"]},
+        "full_carrier_ref": {"type": ["string", "null"]}
+      }
+    },
+    "amendments": {"type": "array", "items": {"type": "object"}}
+  }
+}
