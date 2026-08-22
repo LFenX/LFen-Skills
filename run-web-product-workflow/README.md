@@ -8,7 +8,8 @@
 |---|---|
 | 版本 | `6.3.0-candidate` |
 | 发布 tag | `rwpw-v6.3.0-candidate` |
-| 运行依赖 | Python 3.11+；标准库。仅 `audit_norm_retrieval.py` 需 `jsonschema>=4.18,<5` |
+| 运行依赖 | 标准库；仅 `audit_norm_retrieval.py` 需 `jsonschema>=4.18,<5` |
+| Python | 脚本需 3.11+。**自检需 3.13**：gold set 钉了各脚本 `--help` 全文的 SHA-256，而 argparse 的渲染随版本变化 |
 | 规范快照 | 22 份 norm，共约 2.9 万行，受 `embedded-manifest.json` 的 SHA-256 保护 |
 
 ## 五分钟跑通

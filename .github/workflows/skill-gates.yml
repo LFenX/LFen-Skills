@@ -18,9 +18,13 @@ jobs:
       PYTHONUTF8: "1"
     steps:
       - uses: actions/checkout@v4
+      # Pinned deliberately. The gold set records a SHA-256 of each script's
+      # --help text, and argparse renders usage differently across Python
+      # versions, so the CLI contract only validates under the version it was
+      # sealed with. Changing this without resealing turns Gate 1 red.
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.13"
 
       - name: Install runtime dependencies
         run: python -m pip install --disable-pip-version-check -r run-web-product-workflow/requirements.txt
