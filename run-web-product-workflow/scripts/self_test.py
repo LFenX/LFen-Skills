@@ -1028,7 +1028,21 @@ def main(argv: list[str] | None = None) -> int:
         if ":" in line
     }
     require_test(({"name", "description", "metadata"}.issubset(frontmatter_keys)), "frontmatter must include name, description, and metadata")
-    require_test(("version: 6.3.0-candidate" in skill_text), "frontmatter metadata must expose version 6.3.0-candidate")
+    # SKILL.md frontmatter is the single declaration of the version. Deriving it
+    # here instead of hardcoding it keeps a release from needing an edit to this
+    # file, where forgetting would fail with a message that names the wrong cause.
+    declared_version_match = re.search(
+        r"^\s+version:\s*(\S+)\s*$",
+        "\n".join(skill_lines[1:frontmatter_end]),
+        re.MULTILINE,
+    )
+    require_test(bool(declared_version_match), "frontmatter metadata must declare a version")
+    declared_version = declared_version_match.group(1)
+    require_test(
+        bool(re.fullmatch(r"\d+\.\d+\.\d+(?:-[0-9a-z.]+)?", declared_version)),
+        f"frontmatter metadata.version must be a semantic version, got {declared_version!r}",
+    )
+    release_tag = f"rwpw-v{declared_version}"
     reference_files = sorted(
         path.relative_to(skill_root).as_posix()
         for path in (skill_root / "references").rglob("*")
@@ -1064,6 +1078,19 @@ def main(argv: list[str] | None = None) -> int:
     require_test(("Manifest 的44个受保护文件" in source_map_text), "self-test invariant failed at original line 454: 'Manifest 的44个受保护文件' in source_map_text")
     require_test(("retrieval-plan.json" in source_map_text), "self-test invariant failed at original line 455: 'retrieval-plan.json' in source_map_text")
     require_test(("发布信任根" in source_map_text), "spec-source-map must document the Git commit/tag publication trust root")
+    # The tag name is written out in the trust-root section; hold it to the version
+    # SKILL.md declares so the two cannot drift apart silently.
+    require_test(
+        (release_tag in source_map_text),
+        f"spec-source-map must cite the release tag for the declared version ({release_tag})",
+    )
+    stale_tags = {
+        tag for tag in re.findall(r"rwpw-v[0-9a-z.\-]+", source_map_text) if tag != release_tag
+    }
+    require_test(
+        (not stale_tags),
+        f"spec-source-map cites release tags that do not match metadata.version: {sorted(stale_tags)}",
+    )
     require_test((not (skill_root / "references" / "platform-bootstrap.md").exists()), "platform bootstrap reference must be removed")
     require_test(("platform-bootstrap" not in skill_text), "SKILL.md must not route to platform bootstrap")
     require_test(("<skill-root>" in skill_text), "SKILL.md must distinguish skill-root from project-root")
