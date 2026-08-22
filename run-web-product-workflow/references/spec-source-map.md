@@ -7,7 +7,8 @@
 - 统一入口：规范模板目录、`.codex` 与 `.agents` 中的同名路径必须是指向 Skill 编辑事实源的 Junction，不得保留平行可编辑副本。
 - 运行规范事实源：Skill 的 `assets/runtime/`；其中的规范、映射和 Schema 是受哈希保护的机器运行资产。
 - 稳定逻辑路径：TaskContract、Norm Packet 和历史记录继续使用 `references/...`、`mappings/...`、`schemas/...`。
-- 物理路径：`assets/runtime/embedded-manifest.json` 把逻辑路径唯一解析为 `assets/runtime/...`。禁止绕过 Manifest 自行拼接。
+- 物理路径：`assets/runtime/embedded-manifest.json` 把逻辑路径唯一解析为磁盘路径。规范逻辑路径 `references/<分类>/...` 对应 `assets/runtime/norms/<分类>/...`；`mappings/...` 对应 `assets/runtime/mappings/...`；`schemas/...` 对应 `assets/runtime/schemas/...`。禁止把逻辑路径当作 skill 根下的文件打开，也禁止绕过 Manifest 自行拼接。
+- `reference/`（无 s）是命令卡；本目录 `references/`（有 s）只放 skill 说明，不是规范快照目录。
 - 任一必需资产缺失、未登记、越界、重复或哈希不符时失败关闭。
 
 ## 2. 固定治理源与索引
@@ -49,13 +50,25 @@
 
 ## 5. 读取和校验策略
 
-1. 先校验 Manifest 的45个受保护文件（22 norm、3 mapping、11 schema、4 skill-reference、2 evaluation、3 asset-template），再校验22源、17标准、137 Profile 和全部受控维度闭包。
+1. 先校验 Manifest 的44个受保护文件（22 norm、3 mapping、11 schema、3 skill-reference、2 evaluation、3 asset-template），再校验22源、17标准、137 Profile 和全部受控维度闭包。物质动作前运行 `<skill-root>/scripts/get_context.py`，不要直接 Read 下表逻辑路径。
 2. 由 Task Profile、Applicability Facts 和 Stage 编译 `norm-packet.md`、`norm-source-pack.md` 与 `retrieval-plan.json`。
 3. Source Pack 必须包含固定治理源、索引、已适用和待判定标准的完整原文与逐文件 SHA-256。
 4. Norm Packet 只是非穷尽导航；物质动作前从 Retrieval Plan 生成有界查询，优先消费带引用的 Clause Context。
 5. 查询结果为 `Expanded` 时按回退事件读取父章节、完整命中源或有序分页；`Blocked` 时停止，不得用 `rg` 绕过。
 6. Source Pack 始终保留为完整命中源回退；Unknown、Pending、冲突、过期或哈希错误从配置阶段起失败关闭。
 7. 条款查询层保持 `Shadow`；Candidate、In Review 或 Proposed 必须保留原状态，禁止写成 Approved 或 Baselined。
-8. 刷新内置规范时必须从 Skill 编辑事实源运行 `scripts/sync_embedded_references.py --spec-root <规范仓库根>`；禁止扫描父目录、工作目录或环境变量猜测规范源。
+8. 刷新内置规范时必须从 Skill 编辑事实源运行 `<skill-root>/scripts/sync_embedded_references.py --spec-root <规范仓库根>`；禁止扫描父目录、工作目录或环境变量猜测规范源。
 9. 消费项目缺少本地 Ready 索引时，使用受 Manifest 保护的 runtime-only 发布资产建立内容寻址缓存；规范编辑仓 Authority 对账仍只在发布审计执行，禁止向消费项目复制开发任务历史充当授权。
 10. 只有 VC-PPG-DEC-001 §16.4 的 Minimal 资格全部成立时，才跳过第 2–5 项的 Shadow 派生物；`task-record.json` 仍须由结构校验器检查并进入 ProjectState。
+
+## 6. 发布信任根
+
+`embedded-manifest.json` 只证明 Skill 包内受保护文件与登记哈希一致，不证明发布来源可信。
+
+发布信任根是 `LFen-Skills/run-web-product-workflow` 所在 Git 提交；维护者发布时建议使用 annotated tag，例如 `rwpw-v6.3.0-candidate`。消费方校验当前发布快照时运行：
+
+```console
+python <skill-root>/scripts/self_test.py --project-root <project-root>
+```
+
+本 Skill 不要求 Agent 流程自建 GPG 或 PKI。Tag、签名和仓库访问策略由维护者本地发布流程管理。

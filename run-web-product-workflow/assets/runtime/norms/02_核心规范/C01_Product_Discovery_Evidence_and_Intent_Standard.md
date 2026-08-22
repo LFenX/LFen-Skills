@@ -1,4 +1,4 @@
-﻿# C01 产品发现、证据与意图规范
+# C01 产品发现、证据与意图规范
 
 ## 1. 文档控制信息
 
@@ -7,7 +7,7 @@
 | 文档编号 | C01 |
 | 英文名称 | Product Discovery, Evidence and Intent Specification |
 | 正式文件名 | `C01_Product_Discovery_Evidence_and_Intent_Standard.md` |
-| 版本 | V0.3 Candidate |
+| 版本 | V6.3 Candidate |
 | 状态 | In Review |
 | 编制日期 | 2026-07-27 |
 | 责任人 | 项目负责人 |

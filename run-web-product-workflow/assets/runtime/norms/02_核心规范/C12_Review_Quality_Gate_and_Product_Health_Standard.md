@@ -1,4 +1,4 @@
-﻿# C12 评审、质量门禁与产品健康规范
+# C12 评审、质量门禁与产品健康规范
 
 ## 1. 文档控制信息
 
@@ -7,7 +7,7 @@
 | 文档编号 | C12 |
 | 英文名称 | Review, Quality Gate and Product Health Specification |
 | 正式文件名 | `C12_Review_Quality_Gate_and_Product_Health_Standard.md` |
-| 版本 | V0.3 Candidate |
+| 版本 | V6.3 Candidate |
 | 状态 | In Review |
 | 编制日期 | 2026-07-28 |
 | 责任人 | 项目负责人 |
@@ -16,7 +16,7 @@
 | 适用档位 | P2 标准 |
 | 上位蓝图 | VC-PPG-BP-001、VC-PPG-BP-002 |
 | 公共治理依赖 | VC-PPG-DEC-001、VC-PPG-COM-001、VC-PPG-COM-002 |
-| 上游规范 | C01 V0.3 至 C11 V0.3 |
+| 上游规范 | C01 V6.3 至 C11 V6.3 |
 | 生产前调研 | RVR-C12-0001 |
 | 横向治理 | C01 至 C11、E01 至 E05 |
 | 后续规范 | E01 至 E05 |

@@ -1,0 +1,15 @@
+{
+  "action": "run_started",
+  "budget_profile": "standard",
+  "modes": [
+    "exact",
+    "fts"
+  ],
+  "normative_sources_sha256": "d819a2aa213059b3d51968e2cbf9ebecf8f5f61e9e4da2633906d50247f34cb4",
+  "query_text": "修订裁剪规范和 Skill 实现，修复确定性缺陷、自检、命令契约、信任边界，并在同一六元模型中实现 Minimal 物理载体与单向升级。",
+  "requested_additional_control_types": [],
+  "schema_version": "6.3-candidate",
+  "stage": "S4",
+  "tailoring_resolution_sha256": "ccce182d52b54f577cf328a12bddcd5c92962a87258dd4877dafc29691c4d122",
+  "task_id": "T-RWPW-20260822-001"
+}

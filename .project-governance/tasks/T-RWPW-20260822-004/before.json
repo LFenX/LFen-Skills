@@ -1,0 +1,684 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "TaskContract",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-RWPW-20260822-004",
+  "task_id": "T-RWPW-20260822-004",
+  "ordinal": 5,
+  "revision": 1,
+  "lifecycle_state": "Frozen",
+  "created_at": "2026-08-22T08:11:11Z",
+  "frozen_at": "2026-08-22T08:12:08Z",
+  "objective": "Fix adversarial review defects in run-web-product-workflow and delete the handoff document after validation.",
+  "depends_on": [],
+  "supersedes": [],
+  "blocked_by": [],
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "6d95201c21cd68eda09cbb604e0c8fd5e81d1f8a",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 204,
+    "status_digest": "6c2e7c4c4b418f52511cf8f62a16206c271f7ebe4efb4d244ab0b4a972d52999",
+    "captured_at": "2026-08-22T08:11:11Z"
+  },
+  "scope": {
+    "in_scope": [
+      "run-web-product-workflow adversarial fixes for get_context, Minimal eligibility, signals, close routing, CLI help contracts, tests, gold, and handoff deletion."
+    ],
+    "out_of_scope": [
+      "No new risk tier, no parallel flow, no fail-open production/security/privacy bypass, no unrelated WP1 residual cleanup."
+    ],
+    "allowed_paths": [
+      "run-web-product-workflow",
+      ".project-governance"
+    ],
+    "forbidden_actions": [
+      "Do not hand-edit manifest hashes after protected runtime asset changes.",
+      "Do not commit or push."
+    ]
+  },
+  "authority": {
+    "execution_permissions": [
+      "read",
+      "edit-in-scope",
+      "validate"
+    ],
+    "required_gates": [],
+    "stop_conditions": [
+      "scope-expansion",
+      "authority-conflict",
+      "critical-evidence-missing"
+    ],
+    "authority_references": [
+      "conversation:2026-08-22:user-handoff-adversarial"
+    ],
+    "authority_assessments": [
+      {
+        "expires_at": null,
+        "scope_refs": [
+          "run-web-product-workflow adversarial fixes for get_context, Minimal eligibility, signals, close routing, CLI help contracts, tests, gold, and handoff deletion."
+        ],
+        "reference": "conversation:2026-08-22:user-handoff-adversarial",
+        "verified_at": "2026-08-22T00:00:00Z",
+        "source_kind": "UserDirective",
+        "status": "Valid",
+        "evidence_refs": [
+          "run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md",
+          "conversation:2026-08-22:user-request-fix-and-delete-handoff"
+        ]
+      }
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      "FIX-1 through FIX-5 are verified present where applicable, fixed, covered by adversarial self-test cases, and the handoff file is removed."
+    ],
+    "decision_owner": "task-initiator"
+  },
+  "plan": {
+    "steps": [
+      "Verify each FIX against current files.",
+      "Patch only listed scripts and references.",
+      "Refresh generated contracts and run required validations."
+    ],
+    "verification": [
+      "self_test passes with added adversarial coverage",
+      "audit_norm_retrieval runtime-only passes",
+      "handoff file removed"
+    ],
+    "rollback": [
+      "Use git diff to isolate and revert this task's edited files before handoff if validation fails."
+    ]
+  },
+  "first_principles_analysis": {
+    "method_version": "first-principles-v1",
+    "depth": "Standard",
+    "outcome": "Fix adversarial review defects in run-web-product-workflow and delete the handoff document after validation.",
+    "facts": [
+      {
+        "id": "F1",
+        "statement": "任务发起人已确认目标：Fix adversarial review defects in run-web-product-workflow and delete the handoff document after validation.",
+        "evidence_refs": [
+          "conversation:2026-08-22:user-handoff-adversarial",
+          "Handoff document run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md requested verification and fixes."
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "id": "C1",
+        "statement": "执行范围仅限：run-web-product-workflow adversarial fixes for get_context, Minimal eligibility, signals, close routing, CLI help contracts, tests, gold, and handoff deletion.",
+        "source_refs": [
+          "conversation:2026-08-22:user-handoff-adversarial",
+          "Handoff document run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md requested verification and fixes."
+        ]
+      },
+      {
+        "id": "C2",
+        "statement": "执行必须遵守允许路径、排除范围和禁止动作；allowed=['run-web-product-workflow', '.project-governance']；out=['No new risk tier, no parallel flow, no fail-open production/security/privacy bypass, no unrelated WP1 residual cleanup.']；forbidden=['Do not hand-edit manifest hashes after protected runtime asset changes.', 'Do not commit or push.']",
+        "source_refs": [
+          "conversation:2026-08-22:user-handoff-adversarial",
+          "Handoff document run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md requested verification and fixes."
+        ]
+      }
+    ],
+    "assumptions": [],
+    "unknowns": [],
+    "fundamentals": [
+      {
+        "id": "P1",
+        "statement": "任何方案必须直接改变已确认的目标状态，而不是只完成活动清单。",
+        "derived_from": [
+          "F1"
+        ]
+      },
+      {
+        "id": "P2",
+        "statement": "任何方案必须保持已确认的范围、权限和禁止边界。",
+        "derived_from": [
+          "C1",
+          "C2"
+        ]
+      }
+    ],
+    "causal_links": [
+      {
+        "from_ref": "P1",
+        "to_ref": "O1",
+        "rationale": "选定方案必须产生目标状态变化。",
+        "evidence_refs": [
+          "conversation:2026-08-22:user-handoff-adversarial",
+          "Handoff document run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md requested verification and fixes."
+        ]
+      },
+      {
+        "from_ref": "P2",
+        "to_ref": "O1",
+        "rationale": "选定方案必须在授权边界内可执行。",
+        "evidence_refs": [
+          "conversation:2026-08-22:user-handoff-adversarial",
+          "Handoff document run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md requested verification and fixes."
+        ]
+      }
+    ],
+    "alternatives": [
+      {
+        "id": "O0",
+        "description": "保持现状，不实施本任务变更",
+        "status": "Rejected",
+        "derived_from": [
+          "F1"
+        ],
+        "tradeoffs": [
+          "无新增实施成本",
+          "不能达到已确认目标"
+        ]
+      },
+      {
+        "id": "O1",
+        "description": "按已确认计划在授权范围内实施并验证",
+        "status": "Selected",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "tradeoffs": [
+          "直接覆盖验收标准",
+          "需要实施与回归验证成本"
+        ]
+      },
+      {
+        "id": "O2",
+        "description": "仅实施局部修补并推迟体系性变更",
+        "status": "Rejected",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "tradeoffs": [
+          "短期改动较少",
+          "不能闭合全部目标与长期一致性"
+        ]
+      }
+    ],
+    "decision_criteria": [
+      {
+        "id": "K1",
+        "statement": "FIX-1 through FIX-5 are verified present where applicable, fixed, covered by adversarial self-test cases, and the handoff file is removed.",
+        "source_refs": [
+          "conversation:2026-08-22:user-handoff-adversarial",
+          "Handoff document run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md requested verification and fixes."
+        ]
+      }
+    ],
+    "selected_approach": "O1",
+    "derivation": [
+      {
+        "plan_step": "Verify each FIX against current files.",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1"
+        ]
+      },
+      {
+        "plan_step": "Patch only listed scripts and references.",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1"
+        ]
+      },
+      {
+        "plan_step": "Refresh generated contracts and run required validations.",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1"
+        ]
+      }
+    ],
+    "validation_refs": [
+      "self_test passes with added adversarial coverage",
+      "audit_norm_retrieval runtime-only passes",
+      "handoff file removed"
+    ],
+    "source_refs": [
+      "conversation:2026-08-22:user-handoff-adversarial",
+      "Handoff document run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md requested verification and fixes."
+    ]
+  },
+  "task_profile": {
+    "delivery_scenario": "DS-03",
+    "development_types": [
+      "DT-06"
+    ],
+    "primary_development_type": "DT-06",
+    "development_type_scopes": {
+      "DT-06": [
+        "run-web-product-workflow adversarial fixes for get_context, Minimal eligibility, signals, close routing, CLI help contracts, tests, gold, and handoff deletion."
+      ]
+    },
+    "change_surfaces": [
+      "Agent/Collaboration"
+    ],
+    "risk_level": "Medium",
+    "extension_triggers": {
+      "E01": "Inactive",
+      "E02": "Inactive",
+      "E03": "Inactive",
+      "E04": "Inactive",
+      "E05": "Inactive"
+    },
+    "extension_evidence_refs": {
+      "E01": [
+        "no-architecture-surface-change"
+      ],
+      "E02": [
+        "no-security-privacy-change"
+      ],
+      "E03": [
+        "no-data-schema-change"
+      ],
+      "E04": [
+        "local-governance-records-only"
+      ],
+      "E05": [
+        "no-production-ops"
+      ]
+    },
+    "baseline_inheritance": [
+      "Revise"
+    ],
+    "mode": "Normal",
+    "confidence": "High",
+    "basis": [
+      "Handoff document run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md requested verification and fixes."
+    ],
+    "open_questions": [],
+    "applicability_facts": {
+      "product_intent_change": "No",
+      "initiative_scope_change": "No",
+      "requirement_change": "No",
+      "external_behavior_change": "No",
+      "design_change": "No",
+      "architecture_impact": "No",
+      "security_privacy_impact": "No",
+      "data_ai_impact": "No",
+      "formal_knowledge_records": "No",
+      "operations_impact": "No",
+      "production_release": "No",
+      "irreversible_change": "No",
+      "actual_execution": "Yes",
+      "authority_available": "Yes",
+      "migration_retirement": "No",
+      "external_system_effect": "No",
+      "formal_review_or_gate": "No"
+    }
+  },
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-004-before",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-004/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "6d95201c21cd68eda09cbb604e0c8fd5e81d1f8a",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-004-run",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-004/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "6d95201c21cd68eda09cbb604e0c8fd5e81d1f8a",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-004-after",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-004/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "6d95201c21cd68eda09cbb604e0c8fd5e81d1f8a",
+      "human_confirmation_refs": []
+    }
+  ],
+  "amendments": [],
+  "tailoring_resolution": {
+    "rule_set_id": "VC-PPG-TAIL-001",
+    "rule_set_version": "6.3 Candidate",
+    "rule_set_status": "In Review",
+    "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+    "normative_sources_sha256": "a89e74a90f1f3dddf7ed711ceff9690d194044ae0b639cb3811c775185432aba",
+    "resolver_sha256": "96de7208844d2e0b79d8eac289f24885fbc9e449d7f88380f4971a312d6ab069",
+    "task_contract_schema_sha256": "aa43c93d653274feb98f66dbb5b5f6da000288214aaa1ac27bf6086b65194d70",
+    "input_digest": "c3cb6628707183c7ef20729fee728450aacafcb6a6987f7eae0d122e4705de04",
+    "stage": "S4",
+    "applicable_standards": [
+      "C02",
+      "C04",
+      "C05",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12"
+    ],
+    "pending_standards": [],
+    "stage_context_standards": [
+      "C02",
+      "C04",
+      "C05",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12"
+    ],
+    "control_strength": "standard",
+    "independent_review": false,
+    "explicit_human_gate": false,
+    "blocking_reasons": [],
+    "rule_ids": [
+      "VC-PPG-TAIL-001:always_applicable",
+      "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+      "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+      "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+      "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+      "VC-PPG-TAIL-001:development_types:DT-06",
+      "VC-PPG-TAIL-001:execution_modes:Normal",
+      "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E04:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+      "VC-PPG-TAIL-001:risk_levels:Medium"
+    ],
+    "source_sections": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sections": [
+          "2",
+          "10",
+          "12"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "22",
+          "23"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sections": [
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sections": [
+          "7",
+          "10",
+          "12",
+          "13",
+          "15",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "9"
+        ]
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      }
+    ],
+    "complete_source_files": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sha256": "a056901c9508fb4acf89779c432e0c35ed7ce7aec7bc062629a7b95f1a6a069f"
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sha256": "9d7c2a03abe1f6af017786abfbe6ed3144fe37318c95d7789cfe08d1bb2b0d1b"
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sha256": "7cd85e958609f03fb8dc3facc7a2de56cb061ddffcb15804058cb565c91b1c1e"
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+      }
+    ],
+    "profile_coverage_digest": {
+      "applicable": 70,
+      "total": 137,
+      "sha256": "8489343979bb95541d1de713be0176ccf3b74334a070a11b6ae2754aefbb82bb"
+    }
+  }
+}

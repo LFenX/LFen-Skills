@@ -1185,15 +1185,39 @@ def build_index(
                     temp_path.unlink()
                 except FileNotFoundError:
                     pass
+    prune_warnings = prune_runtime_index_cache(cache_dir, index_digest)
     document = metadata_document(base, cache_relative=relative, created_at=created_at)
     stats = {
         "build_status": build_status,
         "recovered_stale_lock": recovered,
+        "cache_prune_warnings": prune_warnings,
         "content_digest": content_digest,
         "structure_counts": structure_counts,
         "modality_counts": modality_counts,
     }
     return formal, document, stats
+
+
+def prune_runtime_index_cache(cache_dir: Path, active_digest: str) -> list[str]:
+    """Keep only the active runtime index digest; stale cleanup never blocks use."""
+
+    warnings: list[str] = []
+    keep = {
+        f"{active_digest}.sqlite3",
+        f"{active_digest}.lock",
+    }
+    for path in sorted(cache_dir.iterdir(), key=lambda item: item.name):
+        if not path.is_file() or path.name in keep:
+            continue
+        if path.name.startswith(f".{active_digest}."):
+            continue
+        if path.suffix not in {".sqlite3", ".lock"}:
+            continue
+        try:
+            path.unlink()
+        except OSError as exc:
+            warnings.append(f"{path.name}: {exc}")
+    return warnings
 
 
 def read_existing_metadata(path: Path, identity: dict[str, Any]) -> dict[str, Any]:
@@ -1760,7 +1784,6 @@ def prohibited_boundary_evaluation(
         "SKILL.md",
         "agents/openai.yaml",
         "references/spec-source-map.md",
-        "references/platform-bootstrap.md",
     )
     hash_comparisons: dict[str, dict[str, Any]] = {}
     for relative in protected_entries:
@@ -2307,6 +2330,7 @@ def main(argv: list[str] | None = None) -> int:
             "source_count": metadata["source_count"],
             "clause_count": metadata["clause_count"],
             "build_status": stats["build_status"],
+            "cache_prune_warnings": stats["cache_prune_warnings"],
             "evaluation_status": evaluation["status"],
         }, ensure_ascii=False, indent=2))
         return 0

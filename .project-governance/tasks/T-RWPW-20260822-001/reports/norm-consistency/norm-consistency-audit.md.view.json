@@ -1,0 +1,16 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "DerivedView",
+  "project_id": "P-LFEN-SKILLS",
+  "view_id": "DV-T-RWPW-20260822-001-NORM-AUDIT-MD",
+  "view_kind": "norm-consistency-audit-review",
+  "legacy_kind": null,
+  "generated_at": "2026-08-22T07:05:27Z",
+  "generator": "run-web-product-workflow/scripts/governance_artifacts.py",
+  "source_snapshot": "3bc5813c47f8dbf595bf4b76b72ed34c69479b87ebd0a81ea4e028bddfa82dda",
+  "sources": [
+    ".project-governance/tasks/T-RWPW-20260822-001/reports/norm-consistency/norm-consistency-audit.json"
+  ],
+  "content_ref": ".project-governance/tasks/T-RWPW-20260822-001/reports/norm-consistency/norm-consistency-audit.md",
+  "integrity_status": "Complete"
+}

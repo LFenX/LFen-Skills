@@ -22,7 +22,7 @@
       "source": "01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
       "logical_path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
       "embedded": "assets/runtime/norms/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
-      "sha256": "9e5fcd46f44fd77216a47b948dea55caf6c11c95465ad152116b6951d76e58a1"
+      "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
     },
     {
       "role": "norm",
@@ -36,119 +36,119 @@
       "source": "02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md",
       "logical_path": "references/02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md",
-      "sha256": "3b2ab1f05034c68a6128a63dff48eead05603b30d1dba469aa26136091a31346"
+      "sha256": "afd73ffbde490eb2774af346046034692c83093612d0d60e0649cae8744c1773"
     },
     {
       "role": "norm",
       "source": "02_核心规范/C02_Initiative_and_Scope_Standard.md",
       "logical_path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C02_Initiative_and_Scope_Standard.md",
-      "sha256": "9cca8d9e69b015d21e2f48c2656b0b89ea6169c7e6945abd3b0f037ad66a25c4"
+      "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
     },
     {
       "role": "norm",
       "source": "02_核心规范/C03_PRD_and_Feature_Standard.md",
       "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C03_PRD_and_Feature_Standard.md",
-      "sha256": "d2daa4dec1c099c25050a02d6b4470c1576307b4f7f7a8a5328f50e781beb35c"
+      "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
     },
     {
       "role": "norm",
       "source": "02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
       "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
-      "sha256": "3788d4b3d66bb9a20dc86fd0ae5bcd4b4523cf709528b838a2a24907754f6ade"
+      "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
     },
     {
       "role": "norm",
       "source": "02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
       "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
-      "sha256": "30fa7ae9be8d49fb814360de52bb4230b92f79e6166bda7c0993eade25155194"
+      "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
     },
     {
       "role": "norm",
       "source": "02_核心规范/C06_UX_and_Technical_Design_Standard.md",
       "logical_path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
-      "sha256": "8b95fa1a9ee02e8207938c8c0db02f10ef31ce3061de5bddcee8701c58517dd4"
+      "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
     },
     {
       "role": "norm",
       "source": "02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
       "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
-      "sha256": "8c0dbd4c68d7f426f17039c2a8422714b80dd656334e22029284f3dd699080c4"
+      "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
     },
     {
       "role": "norm",
       "source": "02_核心规范/C08_Agent_Context_Governance_Standard.md",
       "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C08_Agent_Context_Governance_Standard.md",
-      "sha256": "864ab8c28361474f83648a928268a2642de42db53cbeffaa776b73da0e38c210"
+      "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
     },
     {
       "role": "norm",
       "source": "02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
       "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
-      "sha256": "5a4e598959b9b136dbf8db3875239aa53d243f8322e8e494c9b74b17fccf28d1"
+      "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
     },
     {
       "role": "norm",
       "source": "02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
       "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
-      "sha256": "e75b2c351eee72bf11cc81fb628c26af9f34630e77332321bd81b6696266c82a"
+      "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
     },
     {
       "role": "norm",
       "source": "02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
       "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
-      "sha256": "c912f7e566dd41fa08c44d1be8958f2eded02dd11cd5852408a68b10c3e4b303"
+      "sha256": "7cd85e958609f03fb8dc3facc7a2de56cb061ddffcb15804058cb565c91b1c1e"
     },
     {
       "role": "norm",
       "source": "02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
       "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
       "embedded": "assets/runtime/norms/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
-      "sha256": "01b45e3751afc132d5caad2191f7bf0cb8e77be37104e20d5905e21460a5aab6"
+      "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
     },
     {
       "role": "norm",
       "source": "03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
       "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
       "embedded": "assets/runtime/norms/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
-      "sha256": "753fba3b310f63da7836c8e687f194603cf553920879e7fe2cca12c5a8e7e62d"
+      "sha256": "ff37e13d26782b9d926835f82c84bb73719c81ffa6b835cf3e2ac742e90e611a"
     },
     {
       "role": "norm",
       "source": "03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md",
       "logical_path": "references/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md",
       "embedded": "assets/runtime/norms/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md",
-      "sha256": "b8e8198e58def31a7ef58a46616cc51a1e203f6ad619084d0a804d7127882e6e"
+      "sha256": "7353dcc98f73b6f68d9fb90ab1d0ed4e9ede362d1fcd9c4106685d68b7f57ebd"
     },
     {
       "role": "norm",
       "source": "03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
       "logical_path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
       "embedded": "assets/runtime/norms/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
-      "sha256": "e0590a2a709d3f73a3268923b20d1656f9370451400f835075c10e526ef2088a"
+      "sha256": "bb6a10422c6e672f3f67e6dc109c5bfaa594b195924758b21911fe44a18c603b"
     },
     {
       "role": "norm",
       "source": "03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
       "logical_path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
       "embedded": "assets/runtime/norms/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
-      "sha256": "647c9d4a6a22a271513b6b8508f10e31e598fb51767d93be0a5109043dbb27e3"
+      "sha256": "8cb8a7b01cec9b1c868a1cba27352fef1c6314ff85f1956072af6dee9eeabdf0"
     },
     {
       "role": "norm",
       "source": "03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
       "logical_path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
       "embedded": "assets/runtime/norms/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
-      "sha256": "f6479b23a16f57178cb0a2ae50bfced7e2fc3271e8301ab922903dde5ce433cf"
+      "sha256": "326d746628fd6b214527cd28ca71b5ea7b12148d4a0c102efcb0fb43f5c677da"
     },
     {
       "role": "norm",
@@ -187,24 +187,17 @@
     },
     {
       "role": "skill-reference",
-      "source": "skill-local:references/platform-bootstrap.md",
-      "logical_path": "references/platform-bootstrap.md",
-      "embedded": "references/platform-bootstrap.md",
-      "sha256": "ad2f88d911d9f34975bcdc4f8a87609eda78f592ecf7a7ef39ef234416bf0704"
-    },
-    {
-      "role": "skill-reference",
       "source": "skill-local:references/project-document-layout.md",
       "logical_path": "references/project-document-layout.md",
       "embedded": "references/project-document-layout.md",
-      "sha256": "175e4c4a0868f94ac7ca94d4749dbc548a56b08720c9c335e09db120a7d922b2"
+      "sha256": "b4f6d78f5657d0879382679555c3ba8b82c1b0dd8e2edd2b03b7b29cf494297d"
     },
     {
       "role": "skill-reference",
       "source": "skill-local:references/spec-source-map.md",
       "logical_path": "references/spec-source-map.md",
       "embedded": "references/spec-source-map.md",
-      "sha256": "06fffb3cf7e99e1e8d2184f4005bc3cd758396288b52c72555766e47c9f3776b"
+      "sha256": "ed697de1e6fb9e1c2c613bb0e655e2b74e8b6682929d7fdbe823fd339b7f789e"
     },
     {
       "role": "schema",
@@ -295,7 +288,7 @@
       "source": "skill-local:evaluations/norm-retrieval-gold.json",
       "logical_path": "evaluations/norm-retrieval-gold.json",
       "embedded": "assets/runtime/evaluations/norm-retrieval-gold.json",
-      "sha256": "baa88b656cc28a6d820024b206f69a51e2a5b2cef61e72861dc1045136cbc23e"
+      "sha256": "8285ddba2072c988a9aedbd6f545e755bd697cc20b3cdeb33452881ebc7ef467"
     },
     {
       "role": "asset-template",

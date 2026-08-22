@@ -1,0 +1,1633 @@
+{
+  "audit_digest": "2d967f5fd204bfdf8e61e5b03d997d568c8efb5774c6fd012a060f24337974b2",
+  "audit_status": "Complete",
+  "detector_limits": [
+    "模态冲突机检只确认规范化命题完全一致的相反模态；同义改写由独立人工复核补充",
+    "Authority机检覆盖唯一事实源重复声明与显式优先级循环；隐式Scope/时效/主体冲突由独立人工复核补充",
+    "定义差异先作为候选，不由机器自行判断兼容扩展或语义冲突",
+    "消费项目 runtime-only 模式验证 Manifest、内嵌快照和任务来源边界；规范编辑仓 Authority 对账只在发布审计执行"
+  ],
+  "findings": [],
+  "generated_at": "2026-08-22T07:05:27Z",
+  "generator": {
+    "path": "run-web-product-workflow/scripts/audit_norm_consistency.py",
+    "sha256": "406dfcb0e4ae41729850899d376ed14b30c0889703942ae77eda55b767425ffe"
+  },
+  "inputs": {
+    "auditor_sha256": "406dfcb0e4ae41729850899d376ed14b30c0889703942ae77eda55b767425ffe",
+    "manifest_sha256": "1d312b1b33fca24b09957c853ccea2a40cf5ba30c118f4e4f7afdabe605c6ee6",
+    "normative_sources_sha256": "d819a2aa213059b3d51968e2cbf9ebecf8f5f61e9e4da2633906d50247f34cb4",
+    "profile_meta_map_sha256": "7b67698ee0cdadfeddf5e9216b165a128622dff54efe4ad84f150876e77e6f5c",
+    "protected_asset_sha256": {
+      "assets/runtime/evaluations/norm-retrieval-budgets.json": "d6b3c7ba1434427ef857d69a19c30a05bded3db0068ac25d2054bbc9fa21f54a",
+      "assets/runtime/evaluations/norm-retrieval-gold.json": "baa88b656cc28a6d820024b206f69a51e2a5b2cef61e72861dc1045136cbc23e",
+      "assets/runtime/mappings/norm-action-taxonomy.json": "d814fc5a9ccf0cc6e547f3a23d534d3100039d73dca59cdc23fbe819bc8b3882",
+      "assets/runtime/mappings/profile-meta-map.json": "7b67698ee0cdadfeddf5e9216b165a128622dff54efe4ad84f150876e77e6f5c",
+      "assets/runtime/mappings/tailoring-applicability-map.json": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+      "assets/runtime/norms/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md": "9e5fcd46f44fd77216a47b948dea55caf6c11c95465ad152116b6951d76e58a1",
+      "assets/runtime/norms/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md": "9d7c2a03abe1f6af017786abfbe6ed3144fe37318c95d7789cfe08d1bb2b0d1b",
+      "assets/runtime/norms/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0",
+      "assets/runtime/norms/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md": "a056901c9508fb4acf89779c432e0c35ed7ce7aec7bc062629a7b95f1a6a069f",
+      "assets/runtime/norms/02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md": "3b2ab1f05034c68a6128a63dff48eead05603b30d1dba469aa26136091a31346",
+      "assets/runtime/norms/02_核心规范/C02_Initiative_and_Scope_Standard.md": "9cca8d9e69b015d21e2f48c2656b0b89ea6169c7e6945abd3b0f037ad66a25c4",
+      "assets/runtime/norms/02_核心规范/C03_PRD_and_Feature_Standard.md": "d2daa4dec1c099c25050a02d6b4470c1576307b4f7f7a8a5328f50e781beb35c",
+      "assets/runtime/norms/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md": "3788d4b3d66bb9a20dc86fd0ae5bcd4b4523cf709528b838a2a24907754f6ade",
+      "assets/runtime/norms/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md": "30fa7ae9be8d49fb814360de52bb4230b92f79e6166bda7c0993eade25155194",
+      "assets/runtime/norms/02_核心规范/C06_UX_and_Technical_Design_Standard.md": "8b95fa1a9ee02e8207938c8c0db02f10ef31ce3061de5bddcee8701c58517dd4",
+      "assets/runtime/norms/02_核心规范/C07_Human_Agent_Collaboration_Standard.md": "8c0dbd4c68d7f426f17039c2a8422714b80dd656334e22029284f3dd699080c4",
+      "assets/runtime/norms/02_核心规范/C08_Agent_Context_Governance_Standard.md": "864ab8c28361474f83648a928268a2642de42db53cbeffaa776b73da0e38c210",
+      "assets/runtime/norms/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md": "5a4e598959b9b136dbf8db3875239aa53d243f8322e8e494c9b74b17fccf28d1",
+      "assets/runtime/norms/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md": "e75b2c351eee72bf11cc81fb628c26af9f34630e77332321bd81b6696266c82a",
+      "assets/runtime/norms/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md": "c912f7e566dd41fa08c44d1be8958f2eded02dd11cd5852408a68b10c3e4b303",
+      "assets/runtime/norms/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md": "01b45e3751afc132d5caad2191f7bf0cb8e77be37104e20d5905e21460a5aab6",
+      "assets/runtime/norms/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md": "753fba3b310f63da7836c8e687f194603cf553920879e7fe2cca12c5a8e7e62d",
+      "assets/runtime/norms/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md": "b8e8198e58def31a7ef58a46616cc51a1e203f6ad619084d0a804d7127882e6e",
+      "assets/runtime/norms/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md": "e0590a2a709d3f73a3268923b20d1656f9370451400f835075c10e526ef2088a",
+      "assets/runtime/norms/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md": "647c9d4a6a22a271513b6b8508f10e31e598fb51767d93be0a5109043dbb27e3",
+      "assets/runtime/norms/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md": "f6479b23a16f57178cb0a2ae50bfced7e2fc3271e8301ab922903dde5ce433cf",
+      "assets/runtime/norms/05_记录与登记册/V6.3_跨规范产物归属索引.md": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682",
+      "assets/runtime/schemas/authority-asset.schema.json": "0d578d67a124a9e432f09828661d6e123e027b3a32c168626d2eb8ab9c15c51a",
+      "assets/runtime/schemas/derived-view.schema.json": "91c93a759081eafdd3b082471efd91c87dc7b65ee4363098f237f9d58987dade",
+      "assets/runtime/schemas/minimal-task-record.schema.json": "5847547c0990a1084bfc6e88b06089346a5bb42d7454f6f94f1ffad2ad19252b",
+      "assets/runtime/schemas/norm-consistency-report.schema.json": "33e99cd44ffe237fe0a7ecc3930d328669fb5a51c6b6c627c4ee9950078e46b3",
+      "assets/runtime/schemas/norm-index-metadata.schema.json": "aa3984e3e6f0ac43728fb8efd73d90e6528e803a0ac9a8a1f806d94429edbc9e",
+      "assets/runtime/schemas/norm-query-result.schema.json": "5e000963dce586ffb3bb027da899470245aa90eb3d206217ede9640ee1a174cf",
+      "assets/runtime/schemas/norm-query.schema.json": "18a00d1808aa76fb9b70d5425afc8081eeb1a05a95e063847e1e86ca3d06b106",
+      "assets/runtime/schemas/project-state.schema.json": "5d89c6c4ce154701504f7e04e7a69f9ed4fd1d7f358dcb98583b55e33ae0eaa4",
+      "assets/runtime/schemas/run-event.schema.json": "82a9b5a848736594b49ae94593ff06616b025942302be76983cee66019681a3e",
+      "assets/runtime/schemas/task-after.schema.json": "a2b654c3511af194ed0ba8bdc82f89e1d27be41b90441176faf652a40fb94b74",
+      "assets/runtime/schemas/task-before.schema.json": "aa43c93d653274feb98f66dbb5b5f6da000288214aaa1ac27bf6086b65194d70"
+    },
+    "tailoring_map_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+    "task_contract_snapshot_verified": true
+  },
+  "manual_review_inventory": {
+    "precedence_and_authority_claims": [
+      {
+        "line": 26,
+        "logical_path": "references/02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md",
+        "source_id": "C01",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 27,
+        "logical_path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "source_id": "C02",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 27,
+        "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "source_id": "C03",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 112,
+        "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "source_id": "C03",
+        "text": "| Product Dependency | PRD、Feature 或 Requirement 成立、实现、验证或发布所依赖的外部对象或条件 | 专业化自 C02 Dependency；冲突时以 C02 上游事实为准 |"
+      },
+      {
+        "line": 198,
+        "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "source_id": "C03",
+        "text": "| 信息 | 唯一事实源 | C03 允许动作 |"
+      },
+      {
+        "line": 27,
+        "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "source_id": "C04",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 211,
+        "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "source_id": "C04",
+        "text": "| 信息 | 唯一事实源 | C04 允许动作 |"
+      },
+      {
+        "line": 27,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "source_id": "C05",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 242,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "source_id": "C05",
+        "text": "| 信息 | 唯一事实源 | C05 允许动作 |"
+      },
+      {
+        "line": 27,
+        "logical_path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "source_id": "C06",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 37,
+        "logical_path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "source_id": "C06",
+        "text": "3. 使 UX Design Specification 与 Technical Design Specification 分别成为唯一事实源，不互相复制；"
+      },
+      {
+        "line": 153,
+        "logical_path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "source_id": "C06",
+        "text": "| Prototype | 用于探索、沟通或评价设计假设的可交互或静态表现 | 不是 UXD/TDS 的唯一事实源 |"
+      },
+      {
+        "line": 27,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "source_id": "C07",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 242,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "source_id": "C07",
+        "text": "| 信息 | 唯一事实源 |"
+      },
+      {
+        "line": 27,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "source_id": "C08",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 245,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "source_id": "C08",
+        "text": "| 信息 | 唯一事实源 | C08 处理 |"
+      },
+      {
+        "line": 760,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "source_id": "C08",
+        "text": "3. 唯一事实源：Context 指向 Source，不复制形成漂移副本；"
+      },
+      {
+        "line": 27,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "source_id": "C09",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 235,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "source_id": "C09",
+        "text": "### 8.3 唯一事实源边界"
+      },
+      {
+        "line": 237,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "source_id": "C09",
+        "text": "| 信息 | 唯一事实源 | C09 处理 |"
+      },
+      {
+        "line": 28,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "source_id": "C10",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 250,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "source_id": "C10",
+        "text": "### 8.4 唯一事实源边界"
+      },
+      {
+        "line": 252,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "source_id": "C10",
+        "text": "| 信息 | 唯一事实源 | C10 处理 |"
+      },
+      {
+        "line": 28,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "source_id": "C11",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 221,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "source_id": "C11",
+        "text": "## 8. 正式产物与唯一事实源"
+      },
+      {
+        "line": 233,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "source_id": "C11",
+        "text": "| 代码 | 正式产物 | 状态模型 | 唯一事实源 |"
+      },
+      {
+        "line": 248,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "source_id": "C11",
+        "text": "### 8.2 唯一事实源边界"
+      },
+      {
+        "line": 250,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "source_id": "C11",
+        "text": "| 信息 | 唯一事实源 | C11 使用规则 |"
+      },
+      {
+        "line": 28,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "source_id": "C12",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 244,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "source_id": "C12",
+        "text": "## 8. 管理对象、关系与唯一事实源"
+      },
+      {
+        "line": 254,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "source_id": "C12",
+        "text": "| 代码 | 正式产物 | 状态模型 | 唯一事实源 |"
+      },
+      {
+        "line": 285,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "source_id": "C12",
+        "text": "### 8.3 唯一事实源边界"
+      },
+      {
+        "line": 287,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "source_id": "C12",
+        "text": "| 信息 | 唯一事实源 | C12 处理 |"
+      },
+      {
+        "line": 1494,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "source_id": "C12",
+        "text": "8. 标准全文冲突时，以合法取得的正式版本为准并执行 Change Control。"
+      },
+      {
+        "line": 29,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "source_id": "E01",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 288,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "source_id": "E01",
+        "text": "| 事实 | 唯一事实源 | E01 只允许 |"
+      },
+      {
+        "line": 30,
+        "logical_path": "references/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md",
+        "source_id": "E02",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 1674,
+        "logical_path": "references/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md",
+        "source_id": "E02",
+        "text": "R1 优先于 R2；R2 不得用于覆盖法律、合同或组织 Authority。"
+      },
+      {
+        "line": 30,
+        "logical_path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+        "source_id": "E03",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 1696,
+        "logical_path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+        "source_id": "E03",
+        "text": "2. 正式 Requirement、Approved Decision 和 Baseline 优先于 Tool Default；"
+      },
+      {
+        "line": 30,
+        "logical_path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "source_id": "E04",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 702,
+        "logical_path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "source_id": "E04",
+        "text": "3. 分类冲突时采用更严格控制并提交有权复核；"
+      },
+      {
+        "line": 712,
+        "logical_path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "source_id": "E04",
+        "text": "3. Legal Hold 优先于常规 Disposition；"
+      },
+      {
+        "line": 30,
+        "logical_path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+        "source_id": "E05",
+        "text": "> V6.3 元模型适配规则： 本规范列出的三位代码自 V6.3 起统一作为 legacy_kind/Domain Profile，不再作为正式顶层产物类型。本规范正文中历史表述“正式产物”“正式产物类型”均按“受控领域 Profile”解释；其专业语义、专属字段、领域状态和 Owner 保留。实例必须先归入 VC-PPG-COM-002 的六类元类型，再由 VC-PPG-MAP-001 解析 Profile。该规则优先于本规范正文中的 V6.2/V6.2.1 类型措辞，但不改变既有专业控制。"
+      },
+      {
+        "line": 1265,
+        "logical_path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+        "source_id": "E05",
+        "text": "7. 多个扩展冲突时采用更严格适用控制并建立 Decision。"
+      },
+      {
+        "line": 22,
+        "logical_path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "source_id": "VC-PPG-IDX-001",
+        "text": "VC-PPG-IDX-001 是跨规范治理文档编号，不是元类型或领域 Profile 代码。六类正式元类型、Profile 名称、状态模型和专属信息的唯一事实源是 VC-PPG-COM-002；137→6 映射的唯一事实源是 VC-PPG-MAP-001。本索引只提供归属、消费和导航视图，不建立第二套定义。"
+      },
+      {
+        "line": 355,
+        "logical_path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "source_id": "VC-PPG-IDX-001",
+        "text": "| 唯一事实源已声明 | Pass |"
+      },
+      {
+        "line": 188,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "source_id": "VC-PPG-PRO-001",
+        "text": "### 8.4 项目状态与唯一事实源"
+      },
+      {
+        "line": 190,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "source_id": "VC-PPG-PRO-001",
+        "text": "| 内容 | 唯一事实源 |"
+      }
+    ],
+    "unique_fact_source_claims": [
+      {
+        "line": 200,
+        "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "owner": "C01",
+        "owner_key": "c01",
+        "source_id": "C03",
+        "subject": "Product、Problem、Intent、Goal",
+        "subject_key": "product、problem、intent、goal"
+      },
+      {
+        "line": 201,
+        "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "owner": "C02",
+        "owner_key": "c02",
+        "source_id": "C03",
+        "subject": "Initiative、Scope、Risk、Success Metric、Initiative Dependency",
+        "subject_key": "initiative、scope、risk、successmetric、initiativedependency"
+      },
+      {
+        "line": 202,
+        "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "owner": "C04",
+        "owner_key": "c04",
+        "source_id": "C03",
+        "subject": "原子 Requirement",
+        "subject_key": "原子requirement"
+      },
+      {
+        "line": 203,
+        "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "owner": "C05",
+        "owner_key": "c05",
+        "source_id": "C03",
+        "subject": "Acceptance、Verification、Validation",
+        "subject_key": "acceptance、verification、validation"
+      },
+      {
+        "line": 204,
+        "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "owner": "C06",
+        "owner_key": "c06",
+        "source_id": "C03",
+        "subject": "Technical Design、Architecture",
+        "subject_key": "technicaldesign、architecture"
+      },
+      {
+        "line": 205,
+        "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "owner": "C10",
+        "owner_key": "c10",
+        "source_id": "C03",
+        "subject": "Decision、Trace、Provenance",
+        "subject_key": "decision、trace、provenance"
+      },
+      {
+        "line": 206,
+        "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "owner": "C11",
+        "owner_key": "c11",
+        "source_id": "C03",
+        "subject": "Change、Baseline、Release",
+        "subject_key": "change、baseline、release"
+      },
+      {
+        "line": 207,
+        "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "owner": "C12",
+        "owner_key": "c12",
+        "source_id": "C03",
+        "subject": "Gate Decision",
+        "subject_key": "gatedecision"
+      },
+      {
+        "line": 213,
+        "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "owner": "C01",
+        "owner_key": "c01",
+        "source_id": "C04",
+        "subject": "Need、Problem、Intent、Goal",
+        "subject_key": "need、problem、intent、goal"
+      },
+      {
+        "line": 214,
+        "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "owner": "C02",
+        "owner_key": "c02",
+        "source_id": "C04",
+        "subject": "Initiative、Scope、Risk、Constraint",
+        "subject_key": "initiative、scope、risk、constraint"
+      },
+      {
+        "line": 215,
+        "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "owner": "C03",
+        "owner_key": "c03",
+        "source_id": "C04",
+        "subject": "PRD、Feature、Scenario、QAS",
+        "subject_key": "prd、feature、scenario、qas"
+      },
+      {
+        "line": 216,
+        "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "owner": "C04 REQ",
+        "owner_key": "c04req",
+        "source_id": "C04",
+        "subject": "Requirement Statement 与属性",
+        "subject_key": "requirementstatement与属性"
+      },
+      {
+        "line": 217,
+        "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "owner": "C05",
+        "owner_key": "c05",
+        "source_id": "C04",
+        "subject": "Acceptance 与 Verification",
+        "subject_key": "acceptance与verification"
+      },
+      {
+        "line": 218,
+        "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "owner": "C06",
+        "owner_key": "c06",
+        "source_id": "C04",
+        "subject": "Design 与 Architecture",
+        "subject_key": "design与architecture"
+      },
+      {
+        "line": 219,
+        "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "owner": "C10",
+        "owner_key": "c10",
+        "source_id": "C04",
+        "subject": "Trace 与 Decision",
+        "subject_key": "trace与decision"
+      },
+      {
+        "line": 220,
+        "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "owner": "C11",
+        "owner_key": "c11",
+        "source_id": "C04",
+        "subject": "Revision、Snapshot、Baseline、Change",
+        "subject_key": "revision、snapshot、baseline、change"
+      },
+      {
+        "line": 221,
+        "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "owner": "C12",
+        "owner_key": "c12",
+        "source_id": "C04",
+        "subject": "Gate Decision",
+        "subject_key": "gatedecision"
+      },
+      {
+        "line": 244,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "owner": "C01",
+        "owner_key": "c01",
+        "source_id": "C05",
+        "subject": "Need、Intent、Goal、Evidence",
+        "subject_key": "need、intent、goal、evidence"
+      },
+      {
+        "line": 245,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "owner": "C02",
+        "owner_key": "c02",
+        "source_id": "C05",
+        "subject": "Scope、Risk、Metric",
+        "subject_key": "scope、risk、metric"
+      },
+      {
+        "line": 246,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "owner": "C03",
+        "owner_key": "c03",
+        "source_id": "C05",
+        "subject": "PRD、Feature、Scenario、QAS、Acceptance Boundary",
+        "subject_key": "prd、feature、scenario、qas、acceptanceboundary"
+      },
+      {
+        "line": 247,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "owner": "C04",
+        "owner_key": "c04",
+        "source_id": "C05",
+        "subject": "Requirement、Revision、Applicability、Priority、Criticality",
+        "subject_key": "requirement、revision、applicability、priority、criticality"
+      },
+      {
+        "line": 248,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "owner": "C05",
+        "owner_key": "c05",
+        "source_id": "C05",
+        "subject": "Acceptance Criterion、V&V Strategy、Evidence、Coverage、Acceptance",
+        "subject_key": "acceptancecriterion、v&vstrategy、evidence、coverage、acceptance"
+      },
+      {
+        "line": 249,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "owner": "C06",
+        "owner_key": "c06",
+        "source_id": "C05",
+        "subject": "Design、接口、数据、权限和实现约束",
+        "subject_key": "design、接口、数据、权限和实现约束"
+      },
+      {
+        "line": 250,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "owner": "C09",
+        "owner_key": "c09",
+        "source_id": "C05",
+        "subject": "Agent Run、命令、日志和代码验证报告",
+        "subject_key": "agentrun、命令、日志和代码验证报告"
+      },
+      {
+        "line": 251,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "owner": "C10",
+        "owner_key": "c10",
+        "source_id": "C05",
+        "subject": "Decision、Trace 和 Lineage",
+        "subject_key": "decision、trace和lineage"
+      },
+      {
+        "line": 252,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "owner": "C11",
+        "owner_key": "c11",
+        "source_id": "C05",
+        "subject": "Configuration、Snapshot、Baseline、Change、Release",
+        "subject_key": "configuration、snapshot、baseline、change、release"
+      },
+      {
+        "line": 253,
+        "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "owner": "C12",
+        "owner_key": "c12",
+        "source_id": "C05",
+        "subject": "Gate、Waiver、Risk Acceptance",
+        "subject_key": "gate、waiver、riskacceptance"
+      },
+      {
+        "line": 244,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C01",
+        "owner_key": "c01",
+        "source_id": "C07",
+        "subject": "Product、Goal、Problem",
+        "subject_key": "product、goal、problem"
+      },
+      {
+        "line": 245,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C02",
+        "owner_key": "c02",
+        "source_id": "C07",
+        "subject": "Initiative、Scope、Agent Modification Boundary、Risk",
+        "subject_key": "initiative、scope、agentmodificationboundary、risk"
+      },
+      {
+        "line": 246,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C03",
+        "owner_key": "c03",
+        "source_id": "C07",
+        "subject": "PRD、Feature、Scenario、Quality Attribute",
+        "subject_key": "prd、feature、scenario、qualityattribute"
+      },
+      {
+        "line": 247,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C04",
+        "owner_key": "c04",
+        "source_id": "C07",
+        "subject": "Requirement",
+        "subject_key": "requirement"
+      },
+      {
+        "line": 248,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C05",
+        "owner_key": "c05",
+        "source_id": "C07",
+        "subject": "Acceptance、Verification、Validation、Evidence",
+        "subject_key": "acceptance、verification、validation、evidence"
+      },
+      {
+        "line": 249,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C06",
+        "owner_key": "c06",
+        "source_id": "C07",
+        "subject": "UX/Technical Design、Permission Model Design",
+        "subject_key": "uxtechnicaldesign、permissionmodeldesign"
+      },
+      {
+        "line": 250,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C07",
+        "owner_key": "c07",
+        "source_id": "C07",
+        "subject": "角色、责任、Authorization、Approval、Stop、Escalation",
+        "subject_key": "角色、责任、authorization、approval、stop、escalation"
+      },
+      {
+        "line": 251,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C08",
+        "owner_key": "c08",
+        "source_id": "C07",
+        "subject": "Agent Context",
+        "subject_key": "agentcontext"
+      },
+      {
+        "line": 252,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C09",
+        "owner_key": "c09",
+        "source_id": "C07",
+        "subject": "Run、Command、Tool Call、实际变更和执行证据",
+        "subject_key": "run、command、toolcall、实际变更和执行证据"
+      },
+      {
+        "line": 253,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C10",
+        "owner_key": "c10",
+        "source_id": "C07",
+        "subject": "Decision、Trace 和 Lineage",
+        "subject_key": "decision、trace和lineage"
+      },
+      {
+        "line": 254,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C11",
+        "owner_key": "c11",
+        "source_id": "C07",
+        "subject": "Configuration、Snapshot、Baseline 和 Change",
+        "subject_key": "configuration、snapshot、baseline和change"
+      },
+      {
+        "line": 255,
+        "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "owner": "C12",
+        "owner_key": "c12",
+        "source_id": "C07",
+        "subject": "Gate、Risk Acceptance、质量例外和 Product Health",
+        "subject_key": "gate、riskacceptance、质量例外和producthealth"
+      },
+      {
+        "line": 247,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C01",
+        "owner_key": "c01",
+        "source_id": "C08",
+        "subject": "Product、Goal、Problem",
+        "subject_key": "product、goal、problem"
+      },
+      {
+        "line": 248,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C02",
+        "owner_key": "c02",
+        "source_id": "C08",
+        "subject": "Scope、Risk、Constraint",
+        "subject_key": "scope、risk、constraint"
+      },
+      {
+        "line": 249,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C03",
+        "owner_key": "c03",
+        "source_id": "C08",
+        "subject": "PRD、Feature、Scenario",
+        "subject_key": "prd、feature、scenario"
+      },
+      {
+        "line": 250,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C04",
+        "owner_key": "c04",
+        "source_id": "C08",
+        "subject": "Requirement",
+        "subject_key": "requirement"
+      },
+      {
+        "line": 251,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C05",
+        "owner_key": "c05",
+        "source_id": "C08",
+        "subject": "Acceptance、Evidence",
+        "subject_key": "acceptance、evidence"
+      },
+      {
+        "line": 252,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C06",
+        "owner_key": "c06",
+        "source_id": "C08",
+        "subject": "Design、Permission Model",
+        "subject_key": "design、permissionmodel"
+      },
+      {
+        "line": 253,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C07",
+        "owner_key": "c07",
+        "source_id": "C08",
+        "subject": "Role、Authorization、Approval、Stop",
+        "subject_key": "role、authorization、approval、stop"
+      },
+      {
+        "line": 254,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C08",
+        "owner_key": "c08",
+        "source_id": "C08",
+        "subject": "Context Manifest/Package/Policy",
+        "subject_key": "contextmanifestpackagepolicy"
+      },
+      {
+        "line": 255,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C09",
+        "owner_key": "c09",
+        "source_id": "C08",
+        "subject": "Run、Tool Result、实际使用记录",
+        "subject_key": "run、toolresult、实际使用记录"
+      },
+      {
+        "line": 256,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C10",
+        "owner_key": "c10",
+        "source_id": "C08",
+        "subject": "Decision、Trace、Lineage",
+        "subject_key": "decision、trace、lineage"
+      },
+      {
+        "line": 257,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C11",
+        "owner_key": "c11",
+        "source_id": "C08",
+        "subject": "Configuration、Snapshot、Baseline、Change",
+        "subject_key": "configuration、snapshot、baseline、change"
+      },
+      {
+        "line": 258,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "C12",
+        "owner_key": "c12",
+        "source_id": "C08",
+        "subject": "Gate、Risk Acceptance、Exception",
+        "subject_key": "gate、riskacceptance、exception"
+      },
+      {
+        "line": 259,
+        "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "owner": "E04",
+        "owner_key": "e04",
+        "source_id": "C08",
+        "subject": "Knowledge/Record 生命周期",
+        "subject_key": "knowledgerecord生命周期"
+      },
+      {
+        "line": 239,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "owner": "C04/C11",
+        "owner_key": "c04/c11",
+        "source_id": "C09",
+        "subject": "Requirement/Engineering Change",
+        "subject_key": "requirementengineeringchange"
+      },
+      {
+        "line": 240,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "owner": "C05",
+        "owner_key": "c05",
+        "source_id": "C09",
+        "subject": "Acceptance/Verification/Validation",
+        "subject_key": "acceptanceverificationvalidation"
+      },
+      {
+        "line": 241,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "owner": "C07",
+        "owner_key": "c07",
+        "source_id": "C09",
+        "subject": "Agent Role/Authorization/Approval/Stop",
+        "subject_key": "agentroleauthorizationapprovalstop"
+      },
+      {
+        "line": 242,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "owner": "C08",
+        "owner_key": "c08",
+        "source_id": "C09",
+        "subject": "Context/Source/Fingerprint/Delta",
+        "subject_key": "contextsourcefingerprintdelta"
+      },
+      {
+        "line": 243,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "owner": "C09",
+        "owner_key": "c09",
+        "source_id": "C09",
+        "subject": "Run/Command/Tool/Actual Change",
+        "subject_key": "runcommandtoolactualchange"
+      },
+      {
+        "line": 244,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "owner": "C10",
+        "owner_key": "c10",
+        "source_id": "C09",
+        "subject": "Decision/Trace/Lineage",
+        "subject_key": "decisiontracelineage"
+      },
+      {
+        "line": 245,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "owner": "C11",
+        "owner_key": "c11",
+        "source_id": "C09",
+        "subject": "Snapshot/Baseline/Change/Release Configuration",
+        "subject_key": "snapshotbaselinechangereleaseconfiguration"
+      },
+      {
+        "line": 246,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "owner": "C12",
+        "owner_key": "c12",
+        "source_id": "C09",
+        "subject": "Gate/Risk Acceptance/Exception",
+        "subject_key": "gateriskacceptanceexception"
+      },
+      {
+        "line": 247,
+        "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "owner": "E04",
+        "owner_key": "e04",
+        "source_id": "C09",
+        "subject": "Knowledge/Record lifecycle",
+        "subject_key": "knowledgerecordlifecycle"
+      },
+      {
+        "line": 254,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "owner": "所属 C01–C09/C11/E01–E05 规范",
+        "owner_key": "所属c01–c09/c11/e01–e05规范",
+        "source_id": "C10",
+        "subject": "Asset 内容与 Current Revision",
+        "subject_key": "asset内容与currentrevision"
+      },
+      {
+        "line": 255,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "owner": "C10 DEC 或专属 Decision 事实源",
+        "owner_key": "c10dec或专属decision事实源",
+        "source_id": "C10",
+        "subject": "Decision rationale 与替代",
+        "subject_key": "decisionrationale与替代"
+      },
+      {
+        "line": 256,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "owner": "C10 TLR",
+        "owner_key": "c10tlr",
+        "source_id": "C10",
+        "subject": "正式 Trace Link",
+        "subject_key": "正式tracelink"
+      },
+      {
+        "line": 257,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "owner": "C10 派生报告",
+        "owner_key": "c10派生报告",
+        "source_id": "C10",
+        "subject": "Matrix/Coverage/Lineage",
+        "subject_key": "matrixcoveragelineage"
+      },
+      {
+        "line": 258,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "owner": "C09",
+        "owner_key": "c09",
+        "source_id": "C10",
+        "subject": "Actual Change/Run",
+        "subject_key": "actualchangerun"
+      },
+      {
+        "line": 259,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "owner": "C11",
+        "owner_key": "c11",
+        "source_id": "C10",
+        "subject": "Snapshot/Baseline/Change/Release",
+        "subject_key": "snapshotbaselinechangerelease"
+      },
+      {
+        "line": 260,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "owner": "C05",
+        "owner_key": "c05",
+        "source_id": "C10",
+        "subject": "Verification/Validation",
+        "subject_key": "verificationvalidation"
+      },
+      {
+        "line": 261,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "owner": "C12",
+        "owner_key": "c12",
+        "source_id": "C10",
+        "subject": "Gate/Risk Acceptance/Waiver",
+        "subject_key": "gateriskacceptancewaiver"
+      },
+      {
+        "line": 262,
+        "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "owner": "E04",
+        "owner_key": "e04",
+        "source_id": "C10",
+        "subject": "Record metadata/lifecycle",
+        "subject_key": "recordmetadatalifecycle"
+      },
+      {
+        "line": 235,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "标识与版本方案",
+        "owner_key": "标识与版本方案",
+        "source_id": "C11",
+        "subject": "IDP",
+        "subject_key": "idp"
+      },
+      {
+        "line": 236,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "CI 当前登记与索引",
+        "owner_key": "ci当前登记与索引",
+        "source_id": "C11",
+        "subject": "CIR",
+        "subject_key": "cir"
+      },
+      {
+        "line": 237,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "版本/修订变化事实",
+        "owner_key": "版本/修订变化事实",
+        "source_id": "C11",
+        "subject": "VRR",
+        "subject_key": "vrr"
+      },
+      {
+        "line": 238,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "不可变状态捕获事实",
+        "owner_key": "不可变状态捕获事实",
+        "source_id": "C11",
+        "subject": "SNP",
+        "subject_key": "snp"
+      },
+      {
+        "line": 239,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "批准基线决定",
+        "owner_key": "批准基线决定",
+        "source_id": "C11",
+        "subject": "BSL",
+        "subject_key": "bsl"
+      },
+      {
+        "line": 240,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "变更控制案件",
+        "owner_key": "变更控制案件",
+        "source_id": "C11",
+        "subject": "CHG",
+        "subject_key": "chg"
+      },
+      {
+        "line": 241,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "变更影响分析",
+        "owner_key": "变更影响分析",
+        "source_id": "C11",
+        "subject": "IMA",
+        "subject_key": "ima"
+      },
+      {
+        "line": 242,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "变更处置决定",
+        "owner_key": "变更处置决定",
+        "source_id": "C11",
+        "subject": "CHD",
+        "subject_key": "chd"
+      },
+      {
+        "line": 243,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "实际发布配置事实",
+        "owner_key": "实际发布配置事实",
+        "source_id": "C11",
+        "subject": "RLC",
+        "subject_key": "rlc"
+      },
+      {
+        "line": 244,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "替代与退役事实",
+        "owner_key": "替代与退役事实",
+        "source_id": "C11",
+        "subject": "SRR",
+        "subject_key": "srr"
+      },
+      {
+        "line": 252,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "所属 C01 至 C10、E01 至 E05 规范",
+        "owner_key": "所属c01至c10e01至e05规范",
+        "source_id": "C11",
+        "subject": "资产业务语义",
+        "subject_key": "资产业务语义"
+      },
+      {
+        "line": 253,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "IDP",
+        "owner_key": "idp",
+        "source_id": "C11",
+        "subject": "标识与版本方案",
+        "subject_key": "标识与版本方案"
+      },
+      {
+        "line": 254,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "CIR",
+        "owner_key": "cir",
+        "source_id": "C11",
+        "subject": "CI 当前索引",
+        "subject_key": "ci当前索引"
+      },
+      {
+        "line": 255,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "VRR + C09 Actual Change",
+        "owner_key": "vrr+c09actualchange",
+        "source_id": "C11",
+        "subject": "内容变化事实",
+        "subject_key": "内容变化事实"
+      },
+      {
+        "line": 256,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "SNP",
+        "owner_key": "snp",
+        "source_id": "C11",
+        "subject": "某时点完整状态",
+        "subject_key": "某时点完整状态"
+      },
+      {
+        "line": 257,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "BSL",
+        "owner_key": "bsl",
+        "source_id": "C11",
+        "subject": "批准配置集合",
+        "subject_key": "批准配置集合"
+      },
+      {
+        "line": 258,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "CHG + IMA + CHD",
+        "owner_key": "chg+ima+chd",
+        "source_id": "C11",
+        "subject": "变更控制",
+        "subject_key": "变更控制"
+      },
+      {
+        "line": 259,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "RLC",
+        "owner_key": "rlc",
+        "source_id": "C11",
+        "subject": "实际 Release 构成",
+        "subject_key": "实际release构成"
+      },
+      {
+        "line": 260,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "SRR",
+        "owner_key": "srr",
+        "source_id": "C11",
+        "subject": "替代与退役",
+        "subject_key": "替代与退役"
+      },
+      {
+        "line": 261,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "C10",
+        "owner_key": "c10",
+        "source_id": "C11",
+        "subject": "Trace 与 Impact Query",
+        "subject_key": "trace与impactquery"
+      },
+      {
+        "line": 262,
+        "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "owner": "C12",
+        "owner_key": "c12",
+        "source_id": "C11",
+        "subject": "Gate 与 Release Decision",
+        "subject_key": "gate与releasedecision"
+      },
+      {
+        "line": 256,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "一次评审执行和结论",
+        "owner_key": "一次评审执行和结论",
+        "source_id": "C12",
+        "subject": "RVR",
+        "subject_key": "rvr"
+      },
+      {
+        "line": 257,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "Gate 检查标准",
+        "owner_key": "gate检查标准",
+        "source_id": "C12",
+        "subject": "QGC",
+        "subject_key": "qgc"
+      },
+      {
+        "line": 258,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "特定 Gate 实例决定",
+        "owner_key": "特定gate实例决定",
+        "source_id": "C12",
+        "subject": "GTE",
+        "subject_key": "gte"
+      },
+      {
+        "line": 259,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "规则/门禁偏离决定",
+        "owner_key": "规则/门禁偏离决定",
+        "source_id": "C12",
+        "subject": "EWR",
+        "subject_key": "ewr"
+      },
+      {
+        "line": 260,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "剩余 Risk 接受决定",
+        "owner_key": "剩余risk接受决定",
+        "source_id": "C12",
+        "subject": "RAR",
+        "subject_key": "rar"
+      },
+      {
+        "line": 261,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "周期健康评价",
+        "owner_key": "周期健康评价",
+        "source_id": "C12",
+        "subject": "PHR",
+        "subject_key": "phr"
+      },
+      {
+        "line": 262,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "回顾执行、Learning 和行动结论",
+        "owner_key": "回顾执行learning和行动结论",
+        "source_id": "C12",
+        "subject": "RTR",
+        "subject_key": "rtr"
+      },
+      {
+        "line": 263,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "改进行动集合",
+        "owner_key": "改进行动集合",
+        "source_id": "C12",
+        "subject": "IAP",
+        "subject_key": "iap"
+      },
+      {
+        "line": 289,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C01 至 C06",
+        "owner_key": "c01至c06",
+        "source_id": "C12",
+        "subject": "Need/Scope/PRD/Requirement/Design",
+        "subject_key": "needscopeprdrequirementdesign"
+      },
+      {
+        "line": 290,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C07 至 C09",
+        "owner_key": "c07至c09",
+        "source_id": "C12",
+        "subject": "Authorization/Context/Run",
+        "subject_key": "authorizationcontextrun"
+      },
+      {
+        "line": 291,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C10",
+        "owner_key": "c10",
+        "source_id": "C12",
+        "subject": "Trace/Coverage/Impact",
+        "subject_key": "tracecoverageimpact"
+      },
+      {
+        "line": 292,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C11",
+        "owner_key": "c11",
+        "source_id": "C12",
+        "subject": "Configuration/Change/Release",
+        "subject_key": "configurationchangerelease"
+      },
+      {
+        "line": 293,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C05",
+        "owner_key": "c05",
+        "source_id": "C12",
+        "subject": "Verification/Validation",
+        "subject_key": "verificationvalidation"
+      },
+      {
+        "line": 294,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C02 或适用扩展",
+        "owner_key": "c02或适用扩展",
+        "source_id": "C12",
+        "subject": "Risk",
+        "subject_key": "risk"
+      },
+      {
+        "line": 295,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C12 RVR",
+        "owner_key": "c12rvr",
+        "source_id": "C12",
+        "subject": "Review 执行",
+        "subject_key": "review执行"
+      },
+      {
+        "line": 296,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C12 GTE",
+        "owner_key": "c12gte",
+        "source_id": "C12",
+        "subject": "Gate 决定",
+        "subject_key": "gate决定"
+      },
+      {
+        "line": 297,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C12 EWR",
+        "owner_key": "c12ewr",
+        "source_id": "C12",
+        "subject": "Waiver",
+        "subject_key": "waiver"
+      },
+      {
+        "line": 298,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C12 RAR",
+        "owner_key": "c12rar",
+        "source_id": "C12",
+        "subject": "Risk Acceptance",
+        "subject_key": "riskacceptance"
+      },
+      {
+        "line": 299,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C12 PHR",
+        "owner_key": "c12phr",
+        "source_id": "C12",
+        "subject": "Health",
+        "subject_key": "health"
+      },
+      {
+        "line": 300,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "C12 RTR/IAP",
+        "owner_key": "c12rtr/iap",
+        "source_id": "C12",
+        "subject": "Learning/Improvement",
+        "subject_key": "learningimprovement"
+      },
+      {
+        "line": 301,
+        "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "owner": "E04",
+        "owner_key": "e04",
+        "source_id": "C12",
+        "subject": "Record 生命周期",
+        "subject_key": "record生命周期"
+      },
+      {
+        "line": 290,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C01",
+        "owner_key": "c01",
+        "source_id": "E01",
+        "subject": "Need、Problem、Goal",
+        "subject_key": "need、problem、goal"
+      },
+      {
+        "line": 291,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C02",
+        "owner_key": "c02",
+        "source_id": "E01",
+        "subject": "Scope、Risk、Constraint、Dependency",
+        "subject_key": "scope、risk、constraint、dependency"
+      },
+      {
+        "line": 292,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C03",
+        "owner_key": "c03",
+        "source_id": "E01",
+        "subject": "PRD、Feature、Quality Attribute",
+        "subject_key": "prd、feature、qualityattribute"
+      },
+      {
+        "line": 293,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C04",
+        "owner_key": "c04",
+        "source_id": "E01",
+        "subject": "Requirement",
+        "subject_key": "requirement"
+      },
+      {
+        "line": 294,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C05",
+        "owner_key": "c05",
+        "source_id": "E01",
+        "subject": "Acceptance、Verification、Evidence",
+        "subject_key": "acceptance、verification、evidence"
+      },
+      {
+        "line": 295,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C06",
+        "owner_key": "c06",
+        "source_id": "E01",
+        "subject": "Technical Design",
+        "subject_key": "technicaldesign"
+      },
+      {
+        "line": 296,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C07",
+        "owner_key": "c07",
+        "source_id": "E01",
+        "subject": "Authority",
+        "subject_key": "authority"
+      },
+      {
+        "line": 297,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C08",
+        "owner_key": "c08",
+        "source_id": "E01",
+        "subject": "Agent Context",
+        "subject_key": "agentcontext"
+      },
+      {
+        "line": 298,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C09",
+        "owner_key": "c09",
+        "source_id": "E01",
+        "subject": "Agent Run 和实际 Change",
+        "subject_key": "agentrun和实际change"
+      },
+      {
+        "line": 299,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C10",
+        "owner_key": "c10",
+        "source_id": "E01",
+        "subject": "Decision、Trace、Lineage",
+        "subject_key": "decision、trace、lineage"
+      },
+      {
+        "line": 300,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C11",
+        "owner_key": "c11",
+        "source_id": "E01",
+        "subject": "Revision、Snapshot、Baseline、Change",
+        "subject_key": "revision、snapshot、baseline、change"
+      },
+      {
+        "line": 301,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "C12",
+        "owner_key": "c12",
+        "source_id": "E01",
+        "subject": "Gate、Waiver、Risk Acceptance",
+        "subject_key": "gate、waiver、riskacceptance"
+      },
+      {
+        "line": 302,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "E01 ARC",
+        "owner_key": "e01arc",
+        "source_id": "E01",
+        "subject": "Architecture Description",
+        "subject_key": "architecturedescription"
+      },
+      {
+        "line": 303,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "E01 AMS",
+        "owner_key": "e01ams",
+        "source_id": "E01",
+        "subject": "Architecture View/Model",
+        "subject_key": "architectureviewmodel"
+      },
+      {
+        "line": 304,
+        "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "owner": "E01 AFC",
+        "owner_key": "e01afc",
+        "source_id": "E01",
+        "subject": "Architecture Fitness Definition",
+        "subject_key": "architecturefitnessdefinition"
+      },
+      {
+        "line": 192,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "owner": "VC-PPG-COM-001",
+        "owner_key": "vc-ppg-com-001",
+        "source_id": "VC-PPG-PRO-001",
+        "subject": "六类元类型、Task Profile 与 Artifact Manifest 术语",
+        "subject_key": "六类元类型、taskprofile与artifactmanifest术语"
+      },
+      {
+        "line": 193,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "owner": "VC-PPG-COM-002",
+        "owner_key": "vc-ppg-com-002",
+        "source_id": "VC-PPG-PRO-001",
+        "subject": "Profile 代码、状态、字段和实例动作",
+        "subject_key": "profile代码、状态、字段和实例动作"
+      },
+      {
+        "line": 194,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "owner": "VC-PPG-MAP-001",
+        "owner_key": "vc-ppg-map-001",
+        "source_id": "VC-PPG-PRO-001",
+        "subject": "137→6 映射",
+        "subject_key": "137→6映射"
+      },
+      {
+        "line": 195,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "owner": "VC-PPG-DEC-001",
+        "owner_key": "vc-ppg-dec-001",
+        "source_id": "VC-PPG-PRO-001",
+        "subject": "完整裁剪代数与优先级",
+        "subject_key": "完整裁剪代数与优先级"
+      },
+      {
+        "line": 196,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "owner": "VC-PPG-TAIL-001",
+        "owner_key": "vc-ppg-tail-001",
+        "source_id": "VC-PPG-PRO-001",
+        "subject": "受控值、22 源、17 标准、阶段和 Profile 覆盖机器表",
+        "subject_key": "受控值、22源、17标准、阶段和profile覆盖机器表"
+      },
+      {
+        "line": 197,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "owner": "C02",
+        "owner_key": "c02",
+        "source_id": "VC-PPG-PRO-001",
+        "subject": "风险、Scope 和 Initiative",
+        "subject_key": "风险、scope和initiative"
+      },
+      {
+        "line": 198,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "owner": "C01 至 C12、E01 至 E05",
+        "owner_key": "c01至c12e01至e05",
+        "source_id": "VC-PPG-PRO-001",
+        "subject": "专业触发和控制活动",
+        "subject_key": "专业触发和控制活动"
+      },
+      {
+        "line": 199,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "owner": "VC-PPG-PRO-001",
+        "owner_key": "vc-ppg-pro-001",
+        "source_id": "VC-PPG-PRO-001",
+        "subject": "跨任务阶段顺序和路由",
+        "subject_key": "跨任务阶段顺序和路由"
+      },
+      {
+        "line": 200,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "owner": "VC-PPG-IDX-001",
+        "owner_key": "vc-ppg-idx-001",
+        "source_id": "VC-PPG-PRO-001",
+        "subject": "Profile 主规范和消费方",
+        "subject_key": "profile主规范和消费方"
+      },
+      {
+        "line": 201,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "owner": "run-web-product-workflow；不得重定义上述语义",
+        "owner_key": "run-web-product-workflow重定义上述语义",
+        "source_id": "VC-PPG-PRO-001",
+        "subject": "TaskContract/RunLedger/TaskOutcome Schema 与生成器",
+        "subject_key": "taskcontractrunledgertaskoutcomeschema与生成器"
+      },
+      {
+        "line": 202,
+        "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "owner": "仅由有效 TaskOutcome 和当前 AuthorityAsset 物化，禁止直接编辑",
+        "owner_key": "仅由有效taskoutcome和当前authorityasset物化直接编辑",
+        "source_id": "VC-PPG-PRO-001",
+        "subject": "ProjectState",
+        "subject_key": "projectstate"
+      }
+    ]
+  },
+  "next_gate": "T-013-eligible",
+  "norm_index_ready": true,
+  "project_id": "P-LFEN-SKILLS",
+  "protected_assets_unchanged": true,
+  "report_type": "norm-consistency-audit",
+  "report_version": "1.0",
+  "schema_version": "6.3-candidate",
+  "scope": {
+    "evaluations": 2,
+    "manifest": 1,
+    "mappings": 3,
+    "norm_sources": 22,
+    "profiles": 137,
+    "schemas": 11,
+    "standards": 17
+  },
+  "summary": {
+    "by_category": {},
+    "by_severity": {
+      "Blocker": 0,
+      "Major": 0,
+      "Minor": 0,
+      "Observation": 0
+    },
+    "total_findings": 0
+  },
+  "task_id": "T-RWPW-20260822-001"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "6.3-candidate",
+  "task_id": "T-RWPW-20260821-001",
+  "stage": "S4",
+  "action": "plan_execution",
+  "query_text": "验证 Skill 脚本、受保护资产、文档治理迁移与任务包证据是否满足当前裁剪规范",
+  "tailoring_resolution_sha256": "f39031c741f6df5d1c7f94c24575d0ff55be4cffdb4b62142f8e8893e0b6b2ec",
+  "normative_sources_sha256": "a4457593d28f1e534aedf7f89724b6dd39daeea54c9d1546b3d18bb2e8e6c869",
+  "budget_profile": "standard",
+  "modes": [
+    "exact",
+    "fts"
+  ],
+  "requested_additional_control_types": []
+}

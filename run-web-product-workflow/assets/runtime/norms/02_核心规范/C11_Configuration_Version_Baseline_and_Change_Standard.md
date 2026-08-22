@@ -1,4 +1,4 @@
-﻿# C11 配置、版本、基线与变更控制规范
+# C11 配置、版本、基线与变更控制规范
 
 ## 1. 文档控制信息
 
@@ -7,7 +7,7 @@
 | 文档编号 | C11 |
 | 英文名称 | Configuration, Version, Baseline and Change Control Specification |
 | 正式文件名 | `C11_Configuration_Version_Baseline_and_Change_Standard.md` |
-| 版本 | V0.3 Candidate |
+| 版本 | V6.3 Candidate |
 | 状态 | In Review |
 | 编制日期 | 2026-07-28 |
 | 责任人 | 项目负责人 |
@@ -16,7 +16,7 @@
 | 适用档位 | P2 标准 |
 | 上位蓝图 | VC-PPG-BP-001、VC-PPG-BP-002 |
 | 公共治理依赖 | VC-PPG-DEC-001、VC-PPG-COM-001、VC-PPG-COM-002 |
-| 上游规范 | C01 V0.3 至 C10 V0.3 |
+| 上游规范 | C01 V6.3 至 C10 V6.3 |
 | 生产前调研 | RVR-C11-0001 |
 | 下游规范 | C12、E01 至 E05 |
 | 横向适用 | 产品、需求、设计、代码、配置、测试、证据、模型、数据、知识、运维和治理资产 |

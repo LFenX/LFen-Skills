@@ -13,6 +13,7 @@ sys.dont_write_bytecode = True
 from governance_artifacts import GovernanceError, read_json
 from minimal_task import (
     append_minimal_event,
+    allowed_minimal_change_surfaces,
     close_minimal_record,
     create_minimal_record,
     minimal_record_path,
@@ -39,22 +40,14 @@ def add_common_init(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--change-surface",
         required=True,
-        choices=[
-            "UI/UX",
-            "API/Integration",
-            "Data/Schema",
-            "Identity/Security/Privacy",
-            "Deploy/Operations",
-            "Architecture/Multi-repo",
-            "AI/Data Governance",
-            "Agent/Collaboration",
-        ],
+        choices=allowed_minimal_change_surfaces(),
+        help="Minimal-eligible controlled surface; extension-triggering surfaces are rejected and must use the full carrier.",
     )
     parser.add_argument("--selected-approach", required=True)
     parser.add_argument("--alternative-rejected", required=True)
     parser.add_argument("--plan-step", action="append", required=True)
     parser.add_argument("--verification", required=True)
-    parser.add_argument("--rollback", required=True)
+    parser.add_argument("--rollback", default="")
     parser.add_argument("--selection-source", required=True, choices=["explicit-user", "automatic"])
     parser.add_argument("--basis", action="append", required=True)
     parser.add_argument("--authority-ref", action="append", required=True)
@@ -65,7 +58,7 @@ def add_common_init(parser: argparse.ArgumentParser) -> None:
         help="Repeat with distinct evidence for reversibility, scope, effects, release, security, and extensions.",
     )
     parser.add_argument("--fact", action="append", required=True)
-    parser.add_argument("--constraint", action="append", required=True)
+    parser.add_argument("--constraint", action="append", default=[])
     parser.add_argument("--assumption", action="append", default=[])
     parser.add_argument("--fundamental", action="append", required=True)
     parser.add_argument("--causal-link", action="append", required=True)
@@ -108,6 +101,7 @@ def parse_args() -> argparse.Namespace:
         help="summary::reason::impact::owner::reentry_condition",
     )
     validate = commands.add_parser("validate")
+    validate.add_argument("--project-root", default=".")
     validate.add_argument("task_dir", type=Path)
     return parser.parse_args()
 
@@ -171,7 +165,9 @@ def main() -> int:
                 )
             )
         else:
-            task_dir = args.task_dir.resolve()
+            project_root = Path(args.project_root).resolve()
+            task_dir = args.task_dir if args.task_dir.is_absolute() else project_root / args.task_dir
+            task_dir = task_dir.resolve()
             errors = validate_minimal_record(
                 read_json(minimal_record_path(task_dir)),
                 task_dir=task_dir,

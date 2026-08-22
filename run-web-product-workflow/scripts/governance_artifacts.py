@@ -702,17 +702,17 @@ def validate_embedded_manifest(skill_root: Path | None = None) -> list[str]:
         errors.append(f"runtime fact is absent from embedded manifest: {relative}")
     for relative in sorted(listed - required_runtime):
         errors.append(f"embedded manifest contains an undeclared runtime fact: {relative}")
-    if len(files) != 45 or role_counts != {
+    if len(files) != 44 or role_counts != {
         "norm": 22,
         "mapping": 3,
         "schema": 11,
-        "skill-reference": 4,
+        "skill-reference": 3,
         "evaluation": 2,
         "asset-template": 3,
     }:
         errors.append(
-            "embedded manifest must contain 45 files with roles "
-            "norm=22, mapping=3, schema=11, skill-reference=4, "
+            "embedded manifest must contain 44 files with roles "
+            "norm=22, mapping=3, schema=11, skill-reference=3, "
             "evaluation=2, asset-template=3"
         )
     return errors

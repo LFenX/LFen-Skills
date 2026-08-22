@@ -1,0 +1,4840 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "TaskContract",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-RWPW-DOC-GOVERNANCE",
+  "task_id": "T-RWPW-20260821-001",
+  "ordinal": 1,
+  "revision": 14,
+  "lifecycle_state": "Frozen",
+  "created_at": "2026-08-21T09:58:49Z",
+  "frozen_at": "2026-08-21T10:40:33Z",
+  "objective": "建立严格、可发现、可恢复的项目文档体系，把第一性原理固化为可执行方法论，并修复规范检索首次启动及三项确定性运行缺陷",
+  "depends_on": [],
+  "supersedes": [],
+  "blocked_by": [],
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "19a12e1922791f69defeab9f2c57ffc66316ebd5",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 66,
+    "status_digest": "9a9e2d4023aadcbb45a965f96d410511b64900fbbbf847ccaac836612740ff00",
+    "captured_at": "2026-08-21T09:58:49Z"
+  },
+  "scope": {
+    "in_scope": [
+      "升级 run-web-product-workflow 的文档目录治理、README 初始化、旧文档迁移能力和第一性原理方法论",
+      "修复新项目规范索引可移植启动、D1 Retrieval Plan 冻结陈旧、D2 数据库误触发 data 控制、D3 新任务查询历史重建失败"
+    ],
+    "out_of_scope": [
+      "迁移当前 LFen-Skills 仓库已有文档",
+      "修改其他 Skills 或 22 份内嵌规范正文"
+    ],
+    "allowed_paths": [
+      "run-web-product-workflow/**",
+      ".project-governance/**"
+    ],
+    "forbidden_actions": [
+      "修改 run-web-product-workflow/assets/runtime/norms/**",
+      "修改其他 Skill 目录"
+    ]
+  },
+  "authority": {
+    "execution_permissions": [
+      "read",
+      "edit-in-scope",
+      "validate"
+    ],
+    "required_gates": [],
+    "stop_conditions": [
+      "scope-expansion",
+      "authority-conflict",
+      "critical-evidence-missing"
+    ],
+    "authority_references": [
+      "conversation://user/proceed/2026-08-21",
+      "conversation://user/revise/2026-08-21"
+    ],
+    "authority_assessments": [
+      {
+        "expires_at": null,
+        "verified_at": "2026-08-21T00:00:00Z",
+        "source_kind": "UserDirective",
+        "status": "Valid",
+        "reference": "conversation://user/proceed/2026-08-21",
+        "evidence_refs": [
+          "conversation://user/requirements/2026-08-21"
+        ],
+        "scope_refs": [
+          "升级 run-web-product-workflow 的文档目录治理、README 初始化、旧文档迁移能力和第一性原理方法论"
+        ]
+      },
+      {
+        "expires_at": null,
+        "verified_at": "2026-08-21T00:00:00Z",
+        "source_kind": "UserDirective",
+        "status": "Valid",
+        "reference": "conversation://user/revise/2026-08-21",
+        "evidence_refs": [
+          "conversation://user/defect-review/2026-08-21"
+        ],
+        "scope_refs": [
+          "修复新项目规范索引可移植启动、D1 Retrieval Plan 冻结陈旧、D2 数据库误触发 data 控制、D3 新任务查询历史重建失败"
+        ]
+      }
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      "新项目初始化时创建 .project-governance 与 LG_project_docs 的受控 README 和目录结构",
+      "原生产品文档按需求和文档类型进入 LG_project_docs，非法放置可被校验阻断",
+      "旧文档迁移先备份、保留哈希和原路径，再分类移动并生成用户报告",
+      "所有问题拆解与方案制定采用有权威来源支撑的第一性原理结构化分析",
+      "全新项目不依赖本地 T-015 历史即可验证并消费受信规范索引",
+      "compile → query → run_started 后 Retrieval Plan 仍有效，物质性 TaskContract 变化仍判陈旧",
+      "E03 Inactive 时数据库不误推出 data 控制，独立数据语义仍正确推出 data 控制",
+      "仅有 active queries 的合法新任务可建立空归档历史索引，缺失 active queries 仍失败关闭",
+      "新增与既有自动化测试通过"
+    ],
+    "decision_owner": "task-initiator"
+  },
+  "plan": {
+    "steps": [
+      "建立事实、约束、假设、未知、因果链、备选方案和验收之间的第一性原理分析",
+      "定义并保护第一性原理与项目文档布局契约",
+      "修复受信规范索引在全新采用项目中的可移植启动机制",
+      "修复 Retrieval Plan 稳定契约摘要和冻结转换兼容性",
+      "修复控制术语边界和查询历史空归档初始化",
+      "实现文档目录初始化、README、校验和迁移工具",
+      "集成 TaskContract、AuthorityAsset 和采用流程",
+      "运行正向、负向、回归及全新项目端到端测试"
+    ],
+    "verification": [
+      "在临时全新项目验证初始化、S4 编译、索引解析和有界查询",
+      "验证 run_started 只改变运行态字段时计划不陈旧，范围或裁剪变化时计划失败关闭",
+      "验证数据库、数据、Data、dataset 等边界用例",
+      "验证新任务空历史、既有归档、缺失 active roots 和损坏发布集",
+      "验证非法文档路径、迁移冲突、备份哈希和未分类处理",
+      "运行 Skill quick_validate、自测、Manifest 校验和裁剪覆盖审计"
+    ],
+    "rollback": [
+      "仅回退本任务在 run-web-product-workflow 与 .project-governance 下的变更"
+    ]
+  },
+  "task_profile": {
+    "delivery_scenario": "DS-03",
+    "development_types": [
+      "DT-06"
+    ],
+    "primary_development_type": "DT-06",
+    "development_type_scopes": {
+      "DT-06": [
+        "升级 run-web-product-workflow 的文档目录治理、README 初始化、旧文档迁移能力和第一性原理方法论"
+      ]
+    },
+    "change_surfaces": [
+      "Agent/Collaboration",
+      "Architecture/Multi-repo"
+    ],
+    "risk_level": "Medium",
+    "extension_triggers": {
+      "E01": "Active",
+      "E02": "Inactive",
+      "E03": "Inactive",
+      "E04": "Active",
+      "E05": "Inactive"
+    },
+    "extension_evidence_refs": {
+      "E01": [],
+      "E02": [],
+      "E03": [],
+      "E04": [],
+      "E05": []
+    },
+    "baseline_inheritance": [
+      "Revise"
+    ],
+    "mode": "Normal",
+    "confidence": "High",
+    "basis": [
+      "用户已确认全部默认并选择 Proceed"
+    ],
+    "open_questions": [],
+    "applicability_facts": {
+      "product_intent_change": "No",
+      "initiative_scope_change": "No",
+      "requirement_change": "Yes",
+      "external_behavior_change": "Yes",
+      "design_change": "Yes",
+      "architecture_impact": "Yes",
+      "security_privacy_impact": "No",
+      "data_ai_impact": "No",
+      "formal_knowledge_records": "Yes",
+      "operations_impact": "No",
+      "production_release": "No",
+      "irreversible_change": "No",
+      "actual_execution": "Yes",
+      "authority_available": "Yes",
+      "migration_retirement": "No",
+      "external_system_effect": "No",
+      "formal_review_or_gate": "Yes"
+    }
+  },
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260821-001-before",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260821-001/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "19a12e1922791f69defeab9f2c57ffc66316ebd5",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260821-001-run",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260821-001/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "19a12e1922791f69defeab9f2c57ffc66316ebd5",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260821-001-after",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260821-001/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "19a12e1922791f69defeab9f2c57ffc66316ebd5",
+      "human_confirmation_refs": []
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "path": "tailoring_resolution",
+      "old_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d9b4adc9b168a823c75138fc09c07c4f2625cf06afe777f343427fed312562d0",
+        "normative_sources_sha256": "a4457593d28f1e534aedf7f89724b6dd39daeea54c9d1546b3d18bb2e8e6c869",
+        "resolver_sha256": "57fd6f2af9571a1db42339546a24bbb25dcd248fcc8d6aef2bcad71ac2c93a6e",
+        "task_contract_schema_sha256": "3be5583bac7dae493e824f08a5e36458a1a3342661f1992787ddce44a00427f4",
+        "input_digest": "3883b4e050ed5e65bd1da3fed20fa5f2510932ab1a91c3ed5af0555b6e104865",
+        "stage": "S2",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C07",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:architecture_impact=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+          "VC-PPG-TAIL-001:change_surfaces:Architecture/Multi-repo",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sections": [
+              "7",
+              "10",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sha256": "621658625961c6b281e0665533d508d7e467b9a416cd506720cb4a9d2788c506"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sha256": "064b006e77b4e5d9c40d5b7a5be59232ce1557e3ed653ed1fd0d48a8bc3ee6a3"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sha256": "4bb9794f69b7856599178f5245ccb66985fd21c384d224b2df19b27c7495d835"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "9cca8d9e69b015d21e2f48c2656b0b89ea6169c7e6945abd3b0f037ad66a25c4"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "d2daa4dec1c099c25050a02d6b4470c1576307b4f7f7a8a5328f50e781beb35c"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "3788d4b3d66bb9a20dc86fd0ae5bcd4b4523cf709528b838a2a24907754f6ade"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "30fa7ae9be8d49fb814360de52bb4230b92f79e6166bda7c0993eade25155194"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b95fa1a9ee02e8207938c8c0db02f10ef31ce3061de5bddcee8701c58517dd4"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "8c0dbd4c68d7f426f17039c2a8422714b80dd656334e22029284f3dd699080c4"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "864ab8c28361474f83648a928268a2642de42db53cbeffaa776b73da0e38c210"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "5a4e598959b9b136dbf8db3875239aa53d243f8322e8e494c9b74b17fccf28d1"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "e75b2c351eee72bf11cc81fb628c26af9f34630e77332321bd81b6696266c82a"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "c912f7e566dd41fa08c44d1be8958f2eded02dd11cd5852408a68b10c3e4b303"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "01b45e3751afc132d5caad2191f7bf0cb8e77be37104e20d5905e21460a5aab6"
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sha256": "753fba3b310f63da7836c8e687f194603cf553920879e7fe2cca12c5a8e7e62d"
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sha256": "647c9d4a6a22a271513b6b8508f10e31e598fb51767d93be0a5109043dbb27e3"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sha256": "0002468f81778bfc71595858140ae3d74aa293ac857a082c4be4fad4d8e1cf61"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 103,
+          "total": 137,
+          "sha256": "f28bacf2d2b151f78385420ffe14a81d46141dc4811f9e09b0b425ce2def0238"
+        }
+      },
+      "new_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d9b4adc9b168a823c75138fc09c07c4f2625cf06afe777f343427fed312562d0",
+        "normative_sources_sha256": "a4457593d28f1e534aedf7f89724b6dd39daeea54c9d1546b3d18bb2e8e6c869",
+        "resolver_sha256": "57fd6f2af9571a1db42339546a24bbb25dcd248fcc8d6aef2bcad71ac2c93a6e",
+        "task_contract_schema_sha256": "3be5583bac7dae493e824f08a5e36458a1a3342661f1992787ddce44a00427f4",
+        "input_digest": "3883b4e050ed5e65bd1da3fed20fa5f2510932ab1a91c3ed5af0555b6e104865",
+        "stage": "S4",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:architecture_impact=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+          "VC-PPG-TAIL-001:change_surfaces:Architecture/Multi-repo",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sections": [
+              "7",
+              "10",
+              "12",
+              "13",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sha256": "621658625961c6b281e0665533d508d7e467b9a416cd506720cb4a9d2788c506"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sha256": "064b006e77b4e5d9c40d5b7a5be59232ce1557e3ed653ed1fd0d48a8bc3ee6a3"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sha256": "4bb9794f69b7856599178f5245ccb66985fd21c384d224b2df19b27c7495d835"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "9cca8d9e69b015d21e2f48c2656b0b89ea6169c7e6945abd3b0f037ad66a25c4"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "d2daa4dec1c099c25050a02d6b4470c1576307b4f7f7a8a5328f50e781beb35c"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "3788d4b3d66bb9a20dc86fd0ae5bcd4b4523cf709528b838a2a24907754f6ade"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "30fa7ae9be8d49fb814360de52bb4230b92f79e6166bda7c0993eade25155194"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b95fa1a9ee02e8207938c8c0db02f10ef31ce3061de5bddcee8701c58517dd4"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "8c0dbd4c68d7f426f17039c2a8422714b80dd656334e22029284f3dd699080c4"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "864ab8c28361474f83648a928268a2642de42db53cbeffaa776b73da0e38c210"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "5a4e598959b9b136dbf8db3875239aa53d243f8322e8e494c9b74b17fccf28d1"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "e75b2c351eee72bf11cc81fb628c26af9f34630e77332321bd81b6696266c82a"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "c912f7e566dd41fa08c44d1be8958f2eded02dd11cd5852408a68b10c3e4b303"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "01b45e3751afc132d5caad2191f7bf0cb8e77be37104e20d5905e21460a5aab6"
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sha256": "753fba3b310f63da7836c8e687f194603cf553920879e7fe2cca12c5a8e7e62d"
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sha256": "647c9d4a6a22a271513b6b8508f10e31e598fb51767d93be0a5109043dbb27e3"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sha256": "0002468f81778bfc71595858140ae3d74aa293ac857a082c4be4fad4d8e1cf61"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 103,
+          "total": 137,
+          "sha256": "f28bacf2d2b151f78385420ffe14a81d46141dc4811f9e09b0b425ce2def0238"
+        }
+      },
+      "reason": "进入计划与执行就绪阶段",
+      "basis": "用户已选择 Proceed 且范围、验收、权限与方法论要求已确认",
+      "changed_at": "2026-08-21T09:58:58Z"
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "path": "objective",
+      "old_value": "建立严格、可发现、可恢复的项目文档体系，并把第一性原理固化为本 Skill 的可执行方法论",
+      "new_value": "建立严格、可发现、可恢复的项目文档体系，把第一性原理固化为可执行方法论，并修复规范检索首次启动及三项确定性运行缺陷",
+      "reason": "用户 Revise 批准扩大修复范围",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:17:47Z"
+    },
+    {
+      "from_revision": 3,
+      "to_revision": 4,
+      "path": "scope.in_scope",
+      "old_value": [
+        "升级 run-web-product-workflow 的文档目录治理、README 初始化、旧文档迁移能力和第一性原理方法论"
+      ],
+      "new_value": [
+        "升级 run-web-product-workflow 的文档目录治理、README 初始化、旧文档迁移能力和第一性原理方法论",
+        "修复新项目规范索引可移植启动、D1 Retrieval Plan 冻结陈旧、D2 数据库误触发 data 控制、D3 新任务查询历史重建失败"
+      ],
+      "reason": "用户 Revise 批准扩大修复范围",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:17:47Z"
+    },
+    {
+      "from_revision": 4,
+      "to_revision": 5,
+      "path": "authority.authority_references",
+      "old_value": [
+        "conversation://user/proceed/2026-08-21"
+      ],
+      "new_value": [
+        "conversation://user/proceed/2026-08-21",
+        "conversation://user/revise/2026-08-21"
+      ],
+      "reason": "用户 Revise 批准扩大修复范围",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:17:47Z"
+    },
+    {
+      "from_revision": 5,
+      "to_revision": 6,
+      "path": "authority.authority_assessments",
+      "old_value": [
+        {
+          "expires_at": null,
+          "verified_at": "2026-08-21T09:58:49Z",
+          "source_kind": "UserDirective",
+          "status": "Valid",
+          "reference": "conversation://user/proceed/2026-08-21",
+          "evidence_refs": [
+            "conversation://user/requirements/2026-08-21"
+          ],
+          "scope_refs": [
+            "升级 run-web-product-workflow 的文档目录治理、README 初始化、旧文档迁移能力和第一性原理方法论"
+          ]
+        }
+      ],
+      "new_value": [
+        {
+          "expires_at": null,
+          "verified_at": "2026-08-21T09:58:49Z",
+          "source_kind": "UserDirective",
+          "status": "Valid",
+          "reference": "conversation://user/proceed/2026-08-21",
+          "evidence_refs": [
+            "conversation://user/requirements/2026-08-21"
+          ],
+          "scope_refs": [
+            "升级 run-web-product-workflow 的文档目录治理、README 初始化、旧文档迁移能力和第一性原理方法论"
+          ]
+        },
+        {
+          "expires_at": null,
+          "verified_at": "2026-08-21T10:30:00Z",
+          "source_kind": "UserDirective",
+          "status": "Valid",
+          "reference": "conversation://user/revise/2026-08-21",
+          "evidence_refs": [
+            "conversation://user/defect-review/2026-08-21"
+          ],
+          "scope_refs": [
+            "修复新项目规范索引可移植启动、D1 Retrieval Plan 冻结陈旧、D2 数据库误触发 data 控制、D3 新任务查询历史重建失败"
+          ]
+        }
+      ],
+      "reason": "用户 Revise 批准扩大修复范围",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:17:47Z"
+    },
+    {
+      "from_revision": 6,
+      "to_revision": 7,
+      "path": "acceptance.criteria",
+      "old_value": [
+        "新项目初始化时创建 .project-governance 与 LG_project_docs 的受控 README 和目录结构",
+        "原生产品文档按需求和文档类型进入 LG_project_docs，非法放置可被校验阻断",
+        "旧文档迁移先备份、保留哈希和原路径，再分类移动并生成用户报告",
+        "所有问题拆解与方案制定采用有权威来源支撑的第一性原理结构化分析",
+        "新增与既有自动化测试通过"
+      ],
+      "new_value": [
+        "新项目初始化时创建 .project-governance 与 LG_project_docs 的受控 README 和目录结构",
+        "原生产品文档按需求和文档类型进入 LG_project_docs，非法放置可被校验阻断",
+        "旧文档迁移先备份、保留哈希和原路径，再分类移动并生成用户报告",
+        "所有问题拆解与方案制定采用有权威来源支撑的第一性原理结构化分析",
+        "全新项目不依赖本地 T-015 历史即可验证并消费受信规范索引",
+        "compile → query → run_started 后 Retrieval Plan 仍有效，物质性 TaskContract 变化仍判陈旧",
+        "E03 Inactive 时数据库不误推出 data 控制，独立数据语义仍正确推出 data 控制",
+        "仅有 active queries 的合法新任务可建立空归档历史索引，缺失 active queries 仍失败关闭",
+        "新增与既有自动化测试通过"
+      ],
+      "reason": "用户 Revise 批准扩大修复范围",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:17:47Z"
+    },
+    {
+      "from_revision": 7,
+      "to_revision": 8,
+      "path": "plan.steps",
+      "old_value": [
+        "定义并保护第一性原理与项目文档布局契约",
+        "实现初始化、README、校验和迁移工具",
+        "集成 TaskContract、AuthorityAsset 和采用流程",
+        "运行正向、负向与回归测试"
+      ],
+      "new_value": [
+        "建立事实、约束、假设、未知、因果链、备选方案和验收之间的第一性原理分析",
+        "定义并保护第一性原理与项目文档布局契约",
+        "修复受信规范索引在全新采用项目中的可移植启动机制",
+        "修复 Retrieval Plan 稳定契约摘要和冻结转换兼容性",
+        "修复控制术语边界和查询历史空归档初始化",
+        "实现文档目录初始化、README、校验和迁移工具",
+        "集成 TaskContract、AuthorityAsset 和采用流程",
+        "运行正向、负向、回归及全新项目端到端测试"
+      ],
+      "reason": "用户 Revise 批准扩大修复范围",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:17:47Z"
+    },
+    {
+      "from_revision": 8,
+      "to_revision": 9,
+      "path": "plan.verification",
+      "old_value": [
+        "在临时项目验证初始化幂等性和 README 内容保护",
+        "验证非法文档路径、迁移冲突、备份哈希和未分类处理",
+        "运行 Skill quick_validate、自测和裁剪覆盖审计"
+      ],
+      "new_value": [
+        "在临时全新项目验证初始化、S4 编译、索引解析和有界查询",
+        "验证 run_started 只改变运行态字段时计划不陈旧，范围或裁剪变化时计划失败关闭",
+        "验证数据库、数据、Data、dataset 等边界用例",
+        "验证新任务空历史、既有归档、缺失 active roots 和损坏发布集",
+        "验证非法文档路径、迁移冲突、备份哈希和未分类处理",
+        "运行 Skill quick_validate、自测、Manifest 校验和裁剪覆盖审计"
+      ],
+      "reason": "用户 Revise 批准扩大修复范围",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:17:47Z"
+    },
+    {
+      "from_revision": 9,
+      "to_revision": 10,
+      "path": "tailoring_resolution",
+      "old_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d9b4adc9b168a823c75138fc09c07c4f2625cf06afe777f343427fed312562d0",
+        "normative_sources_sha256": "a4457593d28f1e534aedf7f89724b6dd39daeea54c9d1546b3d18bb2e8e6c869",
+        "resolver_sha256": "57fd6f2af9571a1db42339546a24bbb25dcd248fcc8d6aef2bcad71ac2c93a6e",
+        "task_contract_schema_sha256": "3be5583bac7dae493e824f08a5e36458a1a3342661f1992787ddce44a00427f4",
+        "input_digest": "3883b4e050ed5e65bd1da3fed20fa5f2510932ab1a91c3ed5af0555b6e104865",
+        "stage": "S4",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:architecture_impact=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+          "VC-PPG-TAIL-001:change_surfaces:Architecture/Multi-repo",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sections": [
+              "7",
+              "10",
+              "12",
+              "13",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sha256": "621658625961c6b281e0665533d508d7e467b9a416cd506720cb4a9d2788c506"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sha256": "064b006e77b4e5d9c40d5b7a5be59232ce1557e3ed653ed1fd0d48a8bc3ee6a3"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sha256": "4bb9794f69b7856599178f5245ccb66985fd21c384d224b2df19b27c7495d835"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "9cca8d9e69b015d21e2f48c2656b0b89ea6169c7e6945abd3b0f037ad66a25c4"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "d2daa4dec1c099c25050a02d6b4470c1576307b4f7f7a8a5328f50e781beb35c"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "3788d4b3d66bb9a20dc86fd0ae5bcd4b4523cf709528b838a2a24907754f6ade"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "30fa7ae9be8d49fb814360de52bb4230b92f79e6166bda7c0993eade25155194"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b95fa1a9ee02e8207938c8c0db02f10ef31ce3061de5bddcee8701c58517dd4"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "8c0dbd4c68d7f426f17039c2a8422714b80dd656334e22029284f3dd699080c4"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "864ab8c28361474f83648a928268a2642de42db53cbeffaa776b73da0e38c210"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "5a4e598959b9b136dbf8db3875239aa53d243f8322e8e494c9b74b17fccf28d1"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "e75b2c351eee72bf11cc81fb628c26af9f34630e77332321bd81b6696266c82a"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "c912f7e566dd41fa08c44d1be8958f2eded02dd11cd5852408a68b10c3e4b303"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "01b45e3751afc132d5caad2191f7bf0cb8e77be37104e20d5905e21460a5aab6"
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sha256": "753fba3b310f63da7836c8e687f194603cf553920879e7fe2cca12c5a8e7e62d"
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sha256": "647c9d4a6a22a271513b6b8508f10e31e598fb51767d93be0a5109043dbb27e3"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sha256": "0002468f81778bfc71595858140ae3d74aa293ac857a082c4be4fad4d8e1cf61"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 103,
+          "total": 137,
+          "sha256": "f28bacf2d2b151f78385420ffe14a81d46141dc4811f9e09b0b425ce2def0238"
+        }
+      },
+      "new_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d9b4adc9b168a823c75138fc09c07c4f2625cf06afe777f343427fed312562d0",
+        "normative_sources_sha256": "a4457593d28f1e534aedf7f89724b6dd39daeea54c9d1546b3d18bb2e8e6c869",
+        "resolver_sha256": "57fd6f2af9571a1db42339546a24bbb25dcd248fcc8d6aef2bcad71ac2c93a6e",
+        "task_contract_schema_sha256": "3be5583bac7dae493e824f08a5e36458a1a3342661f1992787ddce44a00427f4",
+        "input_digest": "5d05006053d56019858b9919adf55d76f9364fb6fda856bbf313061a82f9635c",
+        "stage": "S4",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [
+          "authority assessment verified_at is in the future: conversation://user/revise/2026-08-21",
+          "valid authority assessments do not cover scope.in_scope: 修复新项目规范索引可移植启动、d1 retrieval plan 冻结陈旧、d2 数据库误触发 data 控制、d3 新任务查询历史重建失败"
+        ],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:architecture_impact=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+          "VC-PPG-TAIL-001:change_surfaces:Architecture/Multi-repo",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sections": [
+              "7",
+              "10",
+              "12",
+              "13",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sha256": "621658625961c6b281e0665533d508d7e467b9a416cd506720cb4a9d2788c506"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sha256": "064b006e77b4e5d9c40d5b7a5be59232ce1557e3ed653ed1fd0d48a8bc3ee6a3"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sha256": "4bb9794f69b7856599178f5245ccb66985fd21c384d224b2df19b27c7495d835"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "9cca8d9e69b015d21e2f48c2656b0b89ea6169c7e6945abd3b0f037ad66a25c4"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "d2daa4dec1c099c25050a02d6b4470c1576307b4f7f7a8a5328f50e781beb35c"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "3788d4b3d66bb9a20dc86fd0ae5bcd4b4523cf709528b838a2a24907754f6ade"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "30fa7ae9be8d49fb814360de52bb4230b92f79e6166bda7c0993eade25155194"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b95fa1a9ee02e8207938c8c0db02f10ef31ce3061de5bddcee8701c58517dd4"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "8c0dbd4c68d7f426f17039c2a8422714b80dd656334e22029284f3dd699080c4"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "864ab8c28361474f83648a928268a2642de42db53cbeffaa776b73da0e38c210"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "5a4e598959b9b136dbf8db3875239aa53d243f8322e8e494c9b74b17fccf28d1"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "e75b2c351eee72bf11cc81fb628c26af9f34630e77332321bd81b6696266c82a"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "c912f7e566dd41fa08c44d1be8958f2eded02dd11cd5852408a68b10c3e4b303"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "01b45e3751afc132d5caad2191f7bf0cb8e77be37104e20d5905e21460a5aab6"
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sha256": "753fba3b310f63da7836c8e687f194603cf553920879e7fe2cca12c5a8e7e62d"
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sha256": "647c9d4a6a22a271513b6b8508f10e31e598fb51767d93be0a5109043dbb27e3"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sha256": "0002468f81778bfc71595858140ae3d74aa293ac857a082c4be4fad4d8e1cf61"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 103,
+          "total": 137,
+          "sha256": "f28bacf2d2b151f78385420ffe14a81d46141dc4811f9e09b0b425ce2def0238"
+        }
+      },
+      "reason": "automatically refresh deterministic tailoring after: 用户 Revise 批准扩大修复范围",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:17:47Z"
+    },
+    {
+      "from_revision": 10,
+      "to_revision": 11,
+      "path": "authority.authority_assessments",
+      "old_value": [
+        {
+          "expires_at": null,
+          "verified_at": "2026-08-21T09:58:49Z",
+          "source_kind": "UserDirective",
+          "status": "Valid",
+          "reference": "conversation://user/proceed/2026-08-21",
+          "evidence_refs": [
+            "conversation://user/requirements/2026-08-21"
+          ],
+          "scope_refs": [
+            "升级 run-web-product-workflow 的文档目录治理、README 初始化、旧文档迁移能力和第一性原理方法论"
+          ]
+        },
+        {
+          "expires_at": null,
+          "verified_at": "2026-08-21T10:30:00Z",
+          "source_kind": "UserDirective",
+          "status": "Valid",
+          "reference": "conversation://user/revise/2026-08-21",
+          "evidence_refs": [
+            "conversation://user/defect-review/2026-08-21"
+          ],
+          "scope_refs": [
+            "修复新项目规范索引可移植启动、D1 Retrieval Plan 冻结陈旧、D2 数据库误触发 data 控制、D3 新任务查询历史重建失败"
+          ]
+        }
+      ],
+      "new_value": [
+        {
+          "expires_at": null,
+          "verified_at": "2026-08-21T00:00:00Z",
+          "source_kind": "UserDirective",
+          "status": "Valid",
+          "reference": "conversation://user/proceed/2026-08-21",
+          "evidence_refs": [
+            "conversation://user/requirements/2026-08-21"
+          ],
+          "scope_refs": [
+            "升级 run-web-product-workflow 的文档目录治理、README 初始化、旧文档迁移能力和第一性原理方法论"
+          ]
+        },
+        {
+          "expires_at": null,
+          "verified_at": "2026-08-21T00:00:00Z",
+          "source_kind": "UserDirective",
+          "status": "Valid",
+          "reference": "conversation://user/revise/2026-08-21",
+          "evidence_refs": [
+            "conversation://user/defect-review/2026-08-21"
+          ],
+          "scope_refs": [
+            "修复新项目规范索引可移植启动、D1 Retrieval Plan 冻结陈旧、D2 数据库误触发 data 控制、D3 新任务查询历史重建失败"
+          ]
+        }
+      ],
+      "reason": "修正权威评估时间为已发生时间",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:18:21Z"
+    },
+    {
+      "from_revision": 11,
+      "to_revision": 12,
+      "path": "tailoring_resolution",
+      "old_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d9b4adc9b168a823c75138fc09c07c4f2625cf06afe777f343427fed312562d0",
+        "normative_sources_sha256": "a4457593d28f1e534aedf7f89724b6dd39daeea54c9d1546b3d18bb2e8e6c869",
+        "resolver_sha256": "57fd6f2af9571a1db42339546a24bbb25dcd248fcc8d6aef2bcad71ac2c93a6e",
+        "task_contract_schema_sha256": "3be5583bac7dae493e824f08a5e36458a1a3342661f1992787ddce44a00427f4",
+        "input_digest": "5d05006053d56019858b9919adf55d76f9364fb6fda856bbf313061a82f9635c",
+        "stage": "S4",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [
+          "authority assessment verified_at is in the future: conversation://user/revise/2026-08-21",
+          "valid authority assessments do not cover scope.in_scope: 修复新项目规范索引可移植启动、d1 retrieval plan 冻结陈旧、d2 数据库误触发 data 控制、d3 新任务查询历史重建失败"
+        ],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:architecture_impact=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+          "VC-PPG-TAIL-001:change_surfaces:Architecture/Multi-repo",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sections": [
+              "7",
+              "10",
+              "12",
+              "13",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sha256": "621658625961c6b281e0665533d508d7e467b9a416cd506720cb4a9d2788c506"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sha256": "064b006e77b4e5d9c40d5b7a5be59232ce1557e3ed653ed1fd0d48a8bc3ee6a3"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sha256": "4bb9794f69b7856599178f5245ccb66985fd21c384d224b2df19b27c7495d835"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "9cca8d9e69b015d21e2f48c2656b0b89ea6169c7e6945abd3b0f037ad66a25c4"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "d2daa4dec1c099c25050a02d6b4470c1576307b4f7f7a8a5328f50e781beb35c"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "3788d4b3d66bb9a20dc86fd0ae5bcd4b4523cf709528b838a2a24907754f6ade"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "30fa7ae9be8d49fb814360de52bb4230b92f79e6166bda7c0993eade25155194"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b95fa1a9ee02e8207938c8c0db02f10ef31ce3061de5bddcee8701c58517dd4"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "8c0dbd4c68d7f426f17039c2a8422714b80dd656334e22029284f3dd699080c4"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "864ab8c28361474f83648a928268a2642de42db53cbeffaa776b73da0e38c210"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "5a4e598959b9b136dbf8db3875239aa53d243f8322e8e494c9b74b17fccf28d1"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "e75b2c351eee72bf11cc81fb628c26af9f34630e77332321bd81b6696266c82a"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "c912f7e566dd41fa08c44d1be8958f2eded02dd11cd5852408a68b10c3e4b303"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "01b45e3751afc132d5caad2191f7bf0cb8e77be37104e20d5905e21460a5aab6"
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sha256": "753fba3b310f63da7836c8e687f194603cf553920879e7fe2cca12c5a8e7e62d"
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sha256": "647c9d4a6a22a271513b6b8508f10e31e598fb51767d93be0a5109043dbb27e3"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sha256": "0002468f81778bfc71595858140ae3d74aa293ac857a082c4be4fad4d8e1cf61"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 103,
+          "total": 137,
+          "sha256": "f28bacf2d2b151f78385420ffe14a81d46141dc4811f9e09b0b425ce2def0238"
+        }
+      },
+      "new_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d9b4adc9b168a823c75138fc09c07c4f2625cf06afe777f343427fed312562d0",
+        "normative_sources_sha256": "a4457593d28f1e534aedf7f89724b6dd39daeea54c9d1546b3d18bb2e8e6c869",
+        "resolver_sha256": "57fd6f2af9571a1db42339546a24bbb25dcd248fcc8d6aef2bcad71ac2c93a6e",
+        "task_contract_schema_sha256": "3be5583bac7dae493e824f08a5e36458a1a3342661f1992787ddce44a00427f4",
+        "input_digest": "25f5f30c582c9ad73cd34da5f9ca9798048760626dab8a5e2b065ffd51af4f6a",
+        "stage": "S4",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:architecture_impact=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+          "VC-PPG-TAIL-001:change_surfaces:Architecture/Multi-repo",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sections": [
+              "7",
+              "10",
+              "12",
+              "13",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sha256": "621658625961c6b281e0665533d508d7e467b9a416cd506720cb4a9d2788c506"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sha256": "064b006e77b4e5d9c40d5b7a5be59232ce1557e3ed653ed1fd0d48a8bc3ee6a3"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sha256": "4bb9794f69b7856599178f5245ccb66985fd21c384d224b2df19b27c7495d835"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "9cca8d9e69b015d21e2f48c2656b0b89ea6169c7e6945abd3b0f037ad66a25c4"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "d2daa4dec1c099c25050a02d6b4470c1576307b4f7f7a8a5328f50e781beb35c"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "3788d4b3d66bb9a20dc86fd0ae5bcd4b4523cf709528b838a2a24907754f6ade"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "30fa7ae9be8d49fb814360de52bb4230b92f79e6166bda7c0993eade25155194"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b95fa1a9ee02e8207938c8c0db02f10ef31ce3061de5bddcee8701c58517dd4"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "8c0dbd4c68d7f426f17039c2a8422714b80dd656334e22029284f3dd699080c4"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "864ab8c28361474f83648a928268a2642de42db53cbeffaa776b73da0e38c210"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "5a4e598959b9b136dbf8db3875239aa53d243f8322e8e494c9b74b17fccf28d1"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "e75b2c351eee72bf11cc81fb628c26af9f34630e77332321bd81b6696266c82a"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "c912f7e566dd41fa08c44d1be8958f2eded02dd11cd5852408a68b10c3e4b303"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "01b45e3751afc132d5caad2191f7bf0cb8e77be37104e20d5905e21460a5aab6"
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sha256": "753fba3b310f63da7836c8e687f194603cf553920879e7fe2cca12c5a8e7e62d"
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sha256": "647c9d4a6a22a271513b6b8508f10e31e598fb51767d93be0a5109043dbb27e3"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sha256": "0002468f81778bfc71595858140ae3d74aa293ac857a082c4be4fad4d8e1cf61"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 103,
+          "total": 137,
+          "sha256": "f28bacf2d2b151f78385420ffe14a81d46141dc4811f9e09b0b425ce2def0238"
+        }
+      },
+      "reason": "automatically refresh deterministic tailoring after: 修正权威评估时间为已发生时间",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:18:21Z"
+    },
+    {
+      "from_revision": 12,
+      "to_revision": 13,
+      "path": "first_principles_analysis",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "method_version": "first-principles-v1",
+        "depth": "Standard",
+        "outcome": "新项目采用本 Skill 后，能从可信发布资产启动规范检索，把产品原生文档放入唯一可发现目录，并以可逆方式整理旧文档；当前三项确定性缺陷不再错误失败或错误阻断。",
+        "facts": [
+          {
+            "id": "F1",
+            "statement": "当前 build_norm_index 在消费项目缺少本地 T-015 Implemented TaskOutcome 时确定性阻断。",
+            "evidence_refs": [
+              "run-web-product-workflow/scripts/build_norm_index.py:evaluate_t014_boundary"
+            ]
+          },
+          {
+            "id": "F2",
+            "statement": "Retrieval Plan 当前绑定 before.json 全文件字节，而首个 Run 事件会修改 lifecycle_state 和 frozen_at。",
+            "evidence_refs": [
+              "conversation://user/defect-review/2026-08-21:D1"
+            ]
+          },
+          {
+            "id": "F3",
+            "statement": "控制推导当前使用无词界子串匹配，因此 数据 会命中 数据库。",
+            "evidence_refs": [
+              "conversation://user/defect-review/2026-08-21:D2"
+            ]
+          },
+          {
+            "id": "F4",
+            "statement": "查询历史重建当前要求 query-history 和 queries 同时预先存在，而首次查询只创建 queries。",
+            "evidence_refs": [
+              "conversation://user/defect-review/2026-08-21:D3"
+            ]
+          },
+          {
+            "id": "F5",
+            "statement": "用户已指定 LG_project_docs 为 .project-governance 外产品原生文档的默认目录，并要求 README 与旧文档备份迁移。",
+            "evidence_refs": [
+              "conversation://user/requirements/2026-08-21"
+            ]
+          }
+        ],
+        "constraints": [
+          {
+            "id": "C1",
+            "statement": "不得修改 22 份内嵌规范正文、其他 Skill 或迁移当前 LFen-Skills 既有文档。",
+            "source_refs": [
+              ".project-governance/tasks/T-RWPW-20260821-001/before.json:scope"
+            ]
+          },
+          {
+            "id": "C2",
+            "statement": "消费项目的信任链必须来自受 Manifest 保护的发布资产，不得复制或伪造规范开发项目历史。",
+            "source_refs": [
+              "conversation://user/revise/2026-08-21",
+              "run-web-product-workflow/references/spec-source-map.md"
+            ]
+          },
+          {
+            "id": "C3",
+            "statement": "旧文档移动属于破坏性变更，必须先完整备份、复验哈希并确认同一迁移计划摘要。",
+            "source_refs": [
+              "run-web-product-workflow/references/project-document-layout.md"
+            ]
+          }
+        ],
+        "assumptions": [
+          {
+            "id": "A1",
+            "statement": "数据库一词本身不构成 E03 数据治理意图；独立 数据、Data、dataset 等词仍构成。",
+            "validation": "以数据库/数据/database/Data/metadata/dataset 对照回归测试验证。"
+          }
+        ],
+        "unknowns": [],
+        "fundamentals": [
+          {
+            "id": "P1",
+            "statement": "计划身份必须绑定会改变执行语义的契约内容，不能绑定合法运行态转换。",
+            "derived_from": [
+              "F2"
+            ]
+          },
+          {
+            "id": "P2",
+            "statement": "意图分类必须识别词项边界和已知复合词，不能把任意子串等同于独立语义。",
+            "derived_from": [
+              "F3",
+              "A1"
+            ]
+          },
+          {
+            "id": "P3",
+            "statement": "零条历史记录是合法初始状态；只有活动查询根和完整发布集是首次重建的必要前提。",
+            "derived_from": [
+              "F4"
+            ]
+          },
+          {
+            "id": "P4",
+            "statement": "消费项目验证发布内容，不继承开发项目的任务身份和历史。",
+            "derived_from": [
+              "F1",
+              "C2"
+            ]
+          },
+          {
+            "id": "P5",
+            "statement": "文档秩序需要唯一默认位置、身份与类型两级分类、入口说明和可逆迁移共同成立。",
+            "derived_from": [
+              "F5",
+              "C3"
+            ]
+          }
+        ],
+        "causal_links": [
+          {
+            "from_ref": "P1",
+            "to_ref": "O1",
+            "rationale": "规范化契约投影可允许冻结转换，同时让范围、计划、裁剪等物质变化继续失效。",
+            "evidence_refs": [
+              "conversation://user/defect-review/2026-08-21:D1"
+            ]
+          },
+          {
+            "from_ref": "P2",
+            "to_ref": "O1",
+            "rationale": "ASCII 词界和中文排除复合词可删除数据库假阳性而保留独立数据意图。",
+            "evidence_refs": [
+              "conversation://user/defect-review/2026-08-21:D2"
+            ]
+          },
+          {
+            "from_ref": "P3",
+            "to_ref": "O1",
+            "rationale": "缺少历史目录时初始化空目录，随后枚举活动发布即可生成合法索引。",
+            "evidence_refs": [
+              "conversation://user/defect-review/2026-08-21:D3"
+            ]
+          },
+          {
+            "from_ref": "P4",
+            "to_ref": "O1",
+            "rationale": "runtime-only 审计加内容寻址索引保留完整性验证，同时移除错误的本地开发历史依赖。",
+            "evidence_refs": [
+              "run-web-product-workflow/assets/runtime/embedded-manifest.json"
+            ]
+          },
+          {
+            "from_ref": "P5",
+            "to_ref": "O1",
+            "rationale": "初始化、README、路径校验、先备份后移动和迁移报告共同闭合文档生命周期。",
+            "evidence_refs": [
+              "conversation://user/requirements/2026-08-21"
+            ]
+          }
+        ],
+        "alternatives": [
+          {
+            "id": "O0",
+            "description": "保持现状，不修复启动、检索和文档治理缺陷",
+            "status": "Rejected",
+            "derived_from": [
+              "F1",
+              "F2",
+              "F3",
+              "F4",
+              "F5"
+            ],
+            "tradeoffs": [
+              "无新增实施成本",
+              "合法流程继续确定性失败且文档继续无唯一位置"
+            ]
+          },
+          {
+            "id": "O1",
+            "description": "修复四项根因并建立受 Manifest 保护的第一性原理与文档治理工具链",
+            "status": "Selected",
+            "derived_from": [
+              "P1",
+              "P2",
+              "P3",
+              "P4",
+              "P5"
+            ],
+            "tradeoffs": [
+              "覆盖全部已确认结果",
+              "需要同步 Schema、Manifest、脚本和回归测试"
+            ]
+          },
+          {
+            "id": "O2",
+            "description": "仅在 SKILL.md 增加操作说明，不修改确定性脚本",
+            "status": "Rejected",
+            "derived_from": [
+              "P1",
+              "P2",
+              "P3",
+              "P4",
+              "P5"
+            ],
+            "tradeoffs": [
+              "改动少",
+              "不能改变合法输入下脚本的错误行为，也不能严格约束文档位置"
+            ]
+          }
+        ],
+        "decision_criteria": [
+          {
+            "id": "K1",
+            "statement": "全新项目可完成初始化、S4 编译、可信索引启动和有界查询。",
+            "source_refs": [
+              ".project-governance/tasks/T-RWPW-20260821-001/before.json:acceptance"
+            ]
+          },
+          {
+            "id": "K2",
+            "statement": "D1-D3 的正向、负向和边界对照测试全部通过。",
+            "source_refs": [
+              "conversation://user/defect-review/2026-08-21"
+            ]
+          },
+          {
+            "id": "K3",
+            "statement": "新文档位置可校验，旧文档迁移可恢复且逐文件哈希闭合。",
+            "source_refs": [
+              "conversation://user/requirements/2026-08-21"
+            ]
+          },
+          {
+            "id": "K4",
+            "statement": "第一性原理字段可由 Schema 和语义校验器检查，并与计划逐步追踪。",
+            "source_refs": [
+              "conversation://user/requirements/2026-08-21:first-principles"
+            ]
+          }
+        ],
+        "selected_approach": "O1",
+        "derivation": [
+          {
+            "plan_step": "建立事实、约束、假设、未知、因果链、备选方案和验收之间的第一性原理分析",
+            "derived_from": [
+              "P1",
+              "P2",
+              "P3",
+              "P4",
+              "P5"
+            ],
+            "supports": [
+              "K4"
+            ]
+          },
+          {
+            "plan_step": "定义并保护第一性原理与项目文档布局契约",
+            "derived_from": [
+              "P5"
+            ],
+            "supports": [
+              "K3",
+              "K4"
+            ]
+          },
+          {
+            "plan_step": "修复受信规范索引在全新采用项目中的可移植启动机制",
+            "derived_from": [
+              "P4"
+            ],
+            "supports": [
+              "K1"
+            ]
+          },
+          {
+            "plan_step": "修复 Retrieval Plan 稳定契约摘要和冻结转换兼容性",
+            "derived_from": [
+              "P1"
+            ],
+            "supports": [
+              "K2"
+            ]
+          },
+          {
+            "plan_step": "修复控制术语边界和查询历史空归档初始化",
+            "derived_from": [
+              "P2",
+              "P3"
+            ],
+            "supports": [
+              "K2"
+            ]
+          },
+          {
+            "plan_step": "实现文档目录初始化、README、校验和迁移工具",
+            "derived_from": [
+              "P5"
+            ],
+            "supports": [
+              "K3"
+            ]
+          },
+          {
+            "plan_step": "集成 TaskContract、AuthorityAsset 和采用流程",
+            "derived_from": [
+              "P4",
+              "P5"
+            ],
+            "supports": [
+              "K1",
+              "K3",
+              "K4"
+            ]
+          },
+          {
+            "plan_step": "运行正向、负向、回归及全新项目端到端测试",
+            "derived_from": [
+              "P1",
+              "P2",
+              "P3",
+              "P4",
+              "P5"
+            ],
+            "supports": [
+              "K1",
+              "K2",
+              "K3",
+              "K4"
+            ]
+          }
+        ],
+        "validation_refs": [
+          "test:fresh-project-init-compile-bootstrap-query",
+          "test:retrieval-plan-freeze-and-material-drift",
+          "test:control-term-boundaries",
+          "test:empty-query-history-bootstrap",
+          "test:document-layout-and-migration",
+          "test:skill-self-test-and-manifest"
+        ],
+        "source_refs": [
+          "conversation://user/requirements/2026-08-21",
+          "conversation://user/revise/2026-08-21",
+          "conversation://user/defect-review/2026-08-21",
+          "run-web-product-workflow/references/first-principles-method.md"
+        ]
+      },
+      "reason": "按用户 Revise 将第一性原理分析及四项确定性缺陷纳入执行契约",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:36:31Z"
+    },
+    {
+      "from_revision": 13,
+      "to_revision": 14,
+      "path": "tailoring_resolution",
+      "old_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d9b4adc9b168a823c75138fc09c07c4f2625cf06afe777f343427fed312562d0",
+        "normative_sources_sha256": "a4457593d28f1e534aedf7f89724b6dd39daeea54c9d1546b3d18bb2e8e6c869",
+        "resolver_sha256": "57fd6f2af9571a1db42339546a24bbb25dcd248fcc8d6aef2bcad71ac2c93a6e",
+        "task_contract_schema_sha256": "3be5583bac7dae493e824f08a5e36458a1a3342661f1992787ddce44a00427f4",
+        "input_digest": "25f5f30c582c9ad73cd34da5f9ca9798048760626dab8a5e2b065ffd51af4f6a",
+        "stage": "S4",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:architecture_impact=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+          "VC-PPG-TAIL-001:change_surfaces:Architecture/Multi-repo",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sections": [
+              "7",
+              "10",
+              "12",
+              "13",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sha256": "621658625961c6b281e0665533d508d7e467b9a416cd506720cb4a9d2788c506"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sha256": "064b006e77b4e5d9c40d5b7a5be59232ce1557e3ed653ed1fd0d48a8bc3ee6a3"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sha256": "4bb9794f69b7856599178f5245ccb66985fd21c384d224b2df19b27c7495d835"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "9cca8d9e69b015d21e2f48c2656b0b89ea6169c7e6945abd3b0f037ad66a25c4"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "d2daa4dec1c099c25050a02d6b4470c1576307b4f7f7a8a5328f50e781beb35c"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "3788d4b3d66bb9a20dc86fd0ae5bcd4b4523cf709528b838a2a24907754f6ade"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "30fa7ae9be8d49fb814360de52bb4230b92f79e6166bda7c0993eade25155194"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b95fa1a9ee02e8207938c8c0db02f10ef31ce3061de5bddcee8701c58517dd4"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "8c0dbd4c68d7f426f17039c2a8422714b80dd656334e22029284f3dd699080c4"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "864ab8c28361474f83648a928268a2642de42db53cbeffaa776b73da0e38c210"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "5a4e598959b9b136dbf8db3875239aa53d243f8322e8e494c9b74b17fccf28d1"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "e75b2c351eee72bf11cc81fb628c26af9f34630e77332321bd81b6696266c82a"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "c912f7e566dd41fa08c44d1be8958f2eded02dd11cd5852408a68b10c3e4b303"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "01b45e3751afc132d5caad2191f7bf0cb8e77be37104e20d5905e21460a5aab6"
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sha256": "753fba3b310f63da7836c8e687f194603cf553920879e7fe2cca12c5a8e7e62d"
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sha256": "647c9d4a6a22a271513b6b8508f10e31e598fb51767d93be0a5109043dbb27e3"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sha256": "0002468f81778bfc71595858140ae3d74aa293ac857a082c4be4fad4d8e1cf61"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 103,
+          "total": 137,
+          "sha256": "f28bacf2d2b151f78385420ffe14a81d46141dc4811f9e09b0b425ce2def0238"
+        }
+      },
+      "new_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d9b4adc9b168a823c75138fc09c07c4f2625cf06afe777f343427fed312562d0",
+        "normative_sources_sha256": "a4457593d28f1e534aedf7f89724b6dd39daeea54c9d1546b3d18bb2e8e6c869",
+        "resolver_sha256": "1e161a266bb3bce4dfd0f42bd14e9a015257dfb23354b627ba4fbd90b256c1f2",
+        "task_contract_schema_sha256": "aa43c93d653274feb98f66dbb5b5f6da000288214aaa1ac27bf6086b65194d70",
+        "input_digest": "09f697e32bf4fbff3a490f960fcaba184b546e3bba301d9875b62215011e3c36",
+        "stage": "S4",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E01",
+          "E04"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:architecture_impact=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+          "VC-PPG-TAIL-001:change_surfaces:Architecture/Multi-repo",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sections": [
+              "7",
+              "10",
+              "12",
+              "13",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+            "sha256": "621658625961c6b281e0665533d508d7e467b9a416cd506720cb4a9d2788c506"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+            "sha256": "064b006e77b4e5d9c40d5b7a5be59232ce1557e3ed653ed1fd0d48a8bc3ee6a3"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+            "sha256": "4bb9794f69b7856599178f5245ccb66985fd21c384d224b2df19b27c7495d835"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "9cca8d9e69b015d21e2f48c2656b0b89ea6169c7e6945abd3b0f037ad66a25c4"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "d2daa4dec1c099c25050a02d6b4470c1576307b4f7f7a8a5328f50e781beb35c"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "3788d4b3d66bb9a20dc86fd0ae5bcd4b4523cf709528b838a2a24907754f6ade"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "30fa7ae9be8d49fb814360de52bb4230b92f79e6166bda7c0993eade25155194"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b95fa1a9ee02e8207938c8c0db02f10ef31ce3061de5bddcee8701c58517dd4"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "8c0dbd4c68d7f426f17039c2a8422714b80dd656334e22029284f3dd699080c4"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "864ab8c28361474f83648a928268a2642de42db53cbeffaa776b73da0e38c210"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "5a4e598959b9b136dbf8db3875239aa53d243f8322e8e494c9b74b17fccf28d1"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "e75b2c351eee72bf11cc81fb628c26af9f34630e77332321bd81b6696266c82a"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "c912f7e566dd41fa08c44d1be8958f2eded02dd11cd5852408a68b10c3e4b303"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "01b45e3751afc132d5caad2191f7bf0cb8e77be37104e20d5905e21460a5aab6"
+          },
+          {
+            "source_id": "E01",
+            "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+            "sha256": "753fba3b310f63da7836c8e687f194603cf553920879e7fe2cca12c5a8e7e62d"
+          },
+          {
+            "source_id": "E04",
+            "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+            "sha256": "647c9d4a6a22a271513b6b8508f10e31e598fb51767d93be0a5109043dbb27e3"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+            "sha256": "0002468f81778bfc71595858140ae3d74aa293ac857a082c4be4fad4d8e1cf61"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 103,
+          "total": 137,
+          "sha256": "f28bacf2d2b151f78385420ffe14a81d46141dc4811f9e09b0b425ce2def0238"
+        }
+      },
+      "reason": "automatically refresh deterministic tailoring after: 按用户 Revise 将第一性原理分析及四项确定性缺陷纳入执行契约",
+      "basis": "conversation://user/revise/2026-08-21",
+      "changed_at": "2026-08-21T10:36:31Z"
+    }
+  ],
+  "tailoring_resolution": {
+    "rule_set_id": "VC-PPG-TAIL-001",
+    "rule_set_version": "6.3 Candidate",
+    "rule_set_status": "In Review",
+    "rule_set_sha256": "d9b4adc9b168a823c75138fc09c07c4f2625cf06afe777f343427fed312562d0",
+    "normative_sources_sha256": "a4457593d28f1e534aedf7f89724b6dd39daeea54c9d1546b3d18bb2e8e6c869",
+    "resolver_sha256": "1e161a266bb3bce4dfd0f42bd14e9a015257dfb23354b627ba4fbd90b256c1f2",
+    "task_contract_schema_sha256": "aa43c93d653274feb98f66dbb5b5f6da000288214aaa1ac27bf6086b65194d70",
+    "input_digest": "09f697e32bf4fbff3a490f960fcaba184b546e3bba301d9875b62215011e3c36",
+    "stage": "S4",
+    "applicable_standards": [
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E01",
+      "E04"
+    ],
+    "pending_standards": [],
+    "stage_context_standards": [
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E01",
+      "E04"
+    ],
+    "control_strength": "standard",
+    "independent_review": false,
+    "explicit_human_gate": false,
+    "blocking_reasons": [],
+    "rule_ids": [
+      "VC-PPG-TAIL-001:always_applicable",
+      "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:architecture_impact=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+      "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+      "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+      "VC-PPG-TAIL-001:change_surfaces:Architecture/Multi-repo",
+      "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+      "VC-PPG-TAIL-001:development_types:DT-06",
+      "VC-PPG-TAIL-001:execution_modes:Normal",
+      "VC-PPG-TAIL-001:extension_resolution:E01:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+      "VC-PPG-TAIL-001:risk_levels:Medium"
+    ],
+    "source_sections": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+        "sections": [
+          "2",
+          "10",
+          "12"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "22",
+          "23"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+        "sections": [
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+        "sections": [
+          "7",
+          "10",
+          "12",
+          "13",
+          "15",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "9"
+        ]
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E01",
+        "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      }
+    ],
+    "complete_source_files": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.2.md",
+        "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.2.md",
+        "sha256": "621658625961c6b281e0665533d508d7e467b9a416cd506720cb4a9d2788c506"
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.2.md",
+        "sha256": "064b006e77b4e5d9c40d5b7a5be59232ce1557e3ed653ed1fd0d48a8bc3ee6a3"
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.2.md",
+        "sha256": "4bb9794f69b7856599178f5245ccb66985fd21c384d224b2df19b27c7495d835"
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sha256": "9cca8d9e69b015d21e2f48c2656b0b89ea6169c7e6945abd3b0f037ad66a25c4"
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sha256": "d2daa4dec1c099c25050a02d6b4470c1576307b4f7f7a8a5328f50e781beb35c"
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sha256": "3788d4b3d66bb9a20dc86fd0ae5bcd4b4523cf709528b838a2a24907754f6ade"
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sha256": "30fa7ae9be8d49fb814360de52bb4230b92f79e6166bda7c0993eade25155194"
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sha256": "8b95fa1a9ee02e8207938c8c0db02f10ef31ce3061de5bddcee8701c58517dd4"
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sha256": "8c0dbd4c68d7f426f17039c2a8422714b80dd656334e22029284f3dd699080c4"
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sha256": "864ab8c28361474f83648a928268a2642de42db53cbeffaa776b73da0e38c210"
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sha256": "5a4e598959b9b136dbf8db3875239aa53d243f8322e8e494c9b74b17fccf28d1"
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sha256": "e75b2c351eee72bf11cc81fb628c26af9f34630e77332321bd81b6696266c82a"
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sha256": "c912f7e566dd41fa08c44d1be8958f2eded02dd11cd5852408a68b10c3e4b303"
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sha256": "01b45e3751afc132d5caad2191f7bf0cb8e77be37104e20d5905e21460a5aab6"
+      },
+      {
+        "source_id": "E01",
+        "path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+        "sha256": "753fba3b310f63da7836c8e687f194603cf553920879e7fe2cca12c5a8e7e62d"
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sha256": "647c9d4a6a22a271513b6b8508f10e31e598fb51767d93be0a5109043dbb27e3"
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.2_跨规范产物归属索引.md",
+        "sha256": "0002468f81778bfc71595858140ae3d74aa293ac857a082c4be4fad4d8e1cf61"
+      }
+    ],
+    "profile_coverage_digest": {
+      "applicable": 103,
+      "total": 137,
+      "sha256": "f28bacf2d2b151f78385420ffe14a81d46141dc4811f9e09b0b425ce2def0238"
+    }
+  },
+  "first_principles_analysis": {
+    "method_version": "first-principles-v1",
+    "depth": "Standard",
+    "outcome": "新项目采用本 Skill 后，能从可信发布资产启动规范检索，把产品原生文档放入唯一可发现目录，并以可逆方式整理旧文档；当前三项确定性缺陷不再错误失败或错误阻断。",
+    "facts": [
+      {
+        "id": "F1",
+        "statement": "当前 build_norm_index 在消费项目缺少本地 T-015 Implemented TaskOutcome 时确定性阻断。",
+        "evidence_refs": [
+          "run-web-product-workflow/scripts/build_norm_index.py:evaluate_t014_boundary"
+        ]
+      },
+      {
+        "id": "F2",
+        "statement": "Retrieval Plan 当前绑定 before.json 全文件字节，而首个 Run 事件会修改 lifecycle_state 和 frozen_at。",
+        "evidence_refs": [
+          "conversation://user/defect-review/2026-08-21:D1"
+        ]
+      },
+      {
+        "id": "F3",
+        "statement": "控制推导当前使用无词界子串匹配，因此 数据 会命中 数据库。",
+        "evidence_refs": [
+          "conversation://user/defect-review/2026-08-21:D2"
+        ]
+      },
+      {
+        "id": "F4",
+        "statement": "查询历史重建当前要求 query-history 和 queries 同时预先存在，而首次查询只创建 queries。",
+        "evidence_refs": [
+          "conversation://user/defect-review/2026-08-21:D3"
+        ]
+      },
+      {
+        "id": "F5",
+        "statement": "用户已指定 LG_project_docs 为 .project-governance 外产品原生文档的默认目录，并要求 README 与旧文档备份迁移。",
+        "evidence_refs": [
+          "conversation://user/requirements/2026-08-21"
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "id": "C1",
+        "statement": "不得修改 22 份内嵌规范正文、其他 Skill 或迁移当前 LFen-Skills 既有文档。",
+        "source_refs": [
+          ".project-governance/tasks/T-RWPW-20260821-001/before.json:scope"
+        ]
+      },
+      {
+        "id": "C2",
+        "statement": "消费项目的信任链必须来自受 Manifest 保护的发布资产，不得复制或伪造规范开发项目历史。",
+        "source_refs": [
+          "conversation://user/revise/2026-08-21",
+          "run-web-product-workflow/references/spec-source-map.md"
+        ]
+      },
+      {
+        "id": "C3",
+        "statement": "旧文档移动属于破坏性变更，必须先完整备份、复验哈希并确认同一迁移计划摘要。",
+        "source_refs": [
+          "run-web-product-workflow/references/project-document-layout.md"
+        ]
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "A1",
+        "statement": "数据库一词本身不构成 E03 数据治理意图；独立 数据、Data、dataset 等词仍构成。",
+        "validation": "以数据库/数据/database/Data/metadata/dataset 对照回归测试验证。"
+      }
+    ],
+    "unknowns": [],
+    "fundamentals": [
+      {
+        "id": "P1",
+        "statement": "计划身份必须绑定会改变执行语义的契约内容，不能绑定合法运行态转换。",
+        "derived_from": [
+          "F2"
+        ]
+      },
+      {
+        "id": "P2",
+        "statement": "意图分类必须识别词项边界和已知复合词，不能把任意子串等同于独立语义。",
+        "derived_from": [
+          "F3",
+          "A1"
+        ]
+      },
+      {
+        "id": "P3",
+        "statement": "零条历史记录是合法初始状态；只有活动查询根和完整发布集是首次重建的必要前提。",
+        "derived_from": [
+          "F4"
+        ]
+      },
+      {
+        "id": "P4",
+        "statement": "消费项目验证发布内容，不继承开发项目的任务身份和历史。",
+        "derived_from": [
+          "F1",
+          "C2"
+        ]
+      },
+      {
+        "id": "P5",
+        "statement": "文档秩序需要唯一默认位置、身份与类型两级分类、入口说明和可逆迁移共同成立。",
+        "derived_from": [
+          "F5",
+          "C3"
+        ]
+      }
+    ],
+    "causal_links": [
+      {
+        "from_ref": "P1",
+        "to_ref": "O1",
+        "rationale": "规范化契约投影可允许冻结转换，同时让范围、计划、裁剪等物质变化继续失效。",
+        "evidence_refs": [
+          "conversation://user/defect-review/2026-08-21:D1"
+        ]
+      },
+      {
+        "from_ref": "P2",
+        "to_ref": "O1",
+        "rationale": "ASCII 词界和中文排除复合词可删除数据库假阳性而保留独立数据意图。",
+        "evidence_refs": [
+          "conversation://user/defect-review/2026-08-21:D2"
+        ]
+      },
+      {
+        "from_ref": "P3",
+        "to_ref": "O1",
+        "rationale": "缺少历史目录时初始化空目录，随后枚举活动发布即可生成合法索引。",
+        "evidence_refs": [
+          "conversation://user/defect-review/2026-08-21:D3"
+        ]
+      },
+      {
+        "from_ref": "P4",
+        "to_ref": "O1",
+        "rationale": "runtime-only 审计加内容寻址索引保留完整性验证，同时移除错误的本地开发历史依赖。",
+        "evidence_refs": [
+          "run-web-product-workflow/assets/runtime/embedded-manifest.json"
+        ]
+      },
+      {
+        "from_ref": "P5",
+        "to_ref": "O1",
+        "rationale": "初始化、README、路径校验、先备份后移动和迁移报告共同闭合文档生命周期。",
+        "evidence_refs": [
+          "conversation://user/requirements/2026-08-21"
+        ]
+      }
+    ],
+    "alternatives": [
+      {
+        "id": "O0",
+        "description": "保持现状，不修复启动、检索和文档治理缺陷",
+        "status": "Rejected",
+        "derived_from": [
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5"
+        ],
+        "tradeoffs": [
+          "无新增实施成本",
+          "合法流程继续确定性失败且文档继续无唯一位置"
+        ]
+      },
+      {
+        "id": "O1",
+        "description": "修复四项根因并建立受 Manifest 保护的第一性原理与文档治理工具链",
+        "status": "Selected",
+        "derived_from": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5"
+        ],
+        "tradeoffs": [
+          "覆盖全部已确认结果",
+          "需要同步 Schema、Manifest、脚本和回归测试"
+        ]
+      },
+      {
+        "id": "O2",
+        "description": "仅在 SKILL.md 增加操作说明，不修改确定性脚本",
+        "status": "Rejected",
+        "derived_from": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5"
+        ],
+        "tradeoffs": [
+          "改动少",
+          "不能改变合法输入下脚本的错误行为，也不能严格约束文档位置"
+        ]
+      }
+    ],
+    "decision_criteria": [
+      {
+        "id": "K1",
+        "statement": "全新项目可完成初始化、S4 编译、可信索引启动和有界查询。",
+        "source_refs": [
+          ".project-governance/tasks/T-RWPW-20260821-001/before.json:acceptance"
+        ]
+      },
+      {
+        "id": "K2",
+        "statement": "D1-D3 的正向、负向和边界对照测试全部通过。",
+        "source_refs": [
+          "conversation://user/defect-review/2026-08-21"
+        ]
+      },
+      {
+        "id": "K3",
+        "statement": "新文档位置可校验，旧文档迁移可恢复且逐文件哈希闭合。",
+        "source_refs": [
+          "conversation://user/requirements/2026-08-21"
+        ]
+      },
+      {
+        "id": "K4",
+        "statement": "第一性原理字段可由 Schema 和语义校验器检查，并与计划逐步追踪。",
+        "source_refs": [
+          "conversation://user/requirements/2026-08-21:first-principles"
+        ]
+      }
+    ],
+    "selected_approach": "O1",
+    "derivation": [
+      {
+        "plan_step": "建立事实、约束、假设、未知、因果链、备选方案和验收之间的第一性原理分析",
+        "derived_from": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5"
+        ],
+        "supports": [
+          "K4"
+        ]
+      },
+      {
+        "plan_step": "定义并保护第一性原理与项目文档布局契约",
+        "derived_from": [
+          "P5"
+        ],
+        "supports": [
+          "K3",
+          "K4"
+        ]
+      },
+      {
+        "plan_step": "修复受信规范索引在全新采用项目中的可移植启动机制",
+        "derived_from": [
+          "P4"
+        ],
+        "supports": [
+          "K1"
+        ]
+      },
+      {
+        "plan_step": "修复 Retrieval Plan 稳定契约摘要和冻结转换兼容性",
+        "derived_from": [
+          "P1"
+        ],
+        "supports": [
+          "K2"
+        ]
+      },
+      {
+        "plan_step": "修复控制术语边界和查询历史空归档初始化",
+        "derived_from": [
+          "P2",
+          "P3"
+        ],
+        "supports": [
+          "K2"
+        ]
+      },
+      {
+        "plan_step": "实现文档目录初始化、README、校验和迁移工具",
+        "derived_from": [
+          "P5"
+        ],
+        "supports": [
+          "K3"
+        ]
+      },
+      {
+        "plan_step": "集成 TaskContract、AuthorityAsset 和采用流程",
+        "derived_from": [
+          "P4",
+          "P5"
+        ],
+        "supports": [
+          "K1",
+          "K3",
+          "K4"
+        ]
+      },
+      {
+        "plan_step": "运行正向、负向、回归及全新项目端到端测试",
+        "derived_from": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ]
+      }
+    ],
+    "validation_refs": [
+      "test:fresh-project-init-compile-bootstrap-query",
+      "test:retrieval-plan-freeze-and-material-drift",
+      "test:control-term-boundaries",
+      "test:empty-query-history-bootstrap",
+      "test:document-layout-and-migration",
+      "test:skill-self-test-and-manifest"
+    ],
+    "source_refs": [
+      "conversation://user/requirements/2026-08-21",
+      "conversation://user/revise/2026-08-21",
+      "conversation://user/defect-review/2026-08-21",
+      "run-web-product-workflow/references/first-principles-method.md"
+    ]
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-RWPW-20260822-004",
+  "task_id": "T-RWPW-20260822-004",
+  "revision": 1,
+  "status": "Implemented",
+  "completed_at": "2026-08-22T08:22:15Z",
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "6d95201c21cd68eda09cbb604e0c8fd5e81d1f8a",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 220,
+    "status_digest": "051c0b6c7e29a5a8bb9bc5ed96c70fc89a7b2d81b0846a66eb60931ceb59a8d5",
+    "captured_at": "2026-08-22T08:22:15Z"
+  },
+  "established_facts": [
+    "FIX-1 through FIX-5 were verified against current files and fixed where present.",
+    "Handoff file run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md was deleted after validation."
+  ],
+  "actual_changes": [
+    "get_context now skips only valid active Minimal carriers and rejects invalid, completed, or upgraded Minimal records.",
+    "Minimal creation and validation now reject extension-triggering surfaces and DS-04 via the protected tailoring map.",
+    "signals no longer treats Upgraded Minimal records as executable active tasks.",
+    "close.md now documents Full and Minimal close branches.",
+    "CLI help contracts now include query_norm_context.py and manage_minimal_task.py init --help, with a 20-contract closure."
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "self_test normal and python -O modes passed",
+      "evidence_refs": [
+        "python -B run-web-product-workflow/scripts/self_test.py --project-root ."
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "runtime retrieval contract audit passed with 20 CLI contracts",
+      "evidence_refs": [
+        "python -B run-web-product-workflow/scripts/audit_norm_retrieval.py --validate-only --runtime-only"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "skill quick validation and tailoring coverage passed",
+      "evidence_refs": [
+        "quick_validate + audit_tailoring_coverage"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "handoff deletion confirmed",
+      "evidence_refs": [
+        "Test-Path returned DELETED"
+      ]
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [],
+  "evidence_refs": [],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-004-before",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-004/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "6d95201c21cd68eda09cbb604e0c8fd5e81d1f8a",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-004-run",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-004/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "6d95201c21cd68eda09cbb604e0c8fd5e81d1f8a",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-004-after",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-004/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "6d95201c21cd68eda09cbb604e0c8fd5e81d1f8a",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": []
+}

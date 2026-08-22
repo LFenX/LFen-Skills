@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import copy
 import argparse
+import contextlib
+import io
 import json
 import os
 import re
@@ -19,6 +21,7 @@ sys.dont_write_bytecode = True
 from governance_artifacts import (
     GovernanceError,
     _write_derived_view,
+    atomic_write_json,
     amend_record,
     append_run_event,
     capture_source_snapshot,
@@ -44,9 +47,11 @@ from sync_embedded_references import publish
 from audit_norm_retrieval import claim_mandatory_target_identity, validate_contracts
 from build_norm_index import (
     bootstrap_project_runtime,
+    prune_runtime_index_cache,
     run_lock_lifecycle_fixtures,
     run_parser_fixtures,
 )
+from check_write_guard import evaluate as evaluate_write_guard
 from manage_project_docs import (
     apply_migration_plan,
     create_migration_plan,
@@ -57,9 +62,12 @@ from minimal_task import (
     append_minimal_event,
     close_minimal_record,
     create_minimal_record,
+    mark_minimal_upgrade,
     validate_minimal_record,
 )
+from get_context import should_skip_for_minimal
 from query_norm_context import run_query_planner_fixtures
+from signals import active_task_signal, recommendations
 from validate_task_package import QUERY_PUBLICATION_FILES, inspect_active_query_tree
 
 
@@ -99,6 +107,51 @@ def expect_governance_error(label: str, operation) -> None:
     except GovernanceError:
         return
     raise SelfTestFailure(f"negative test did not fail: {label}")
+
+
+def minimal_fixture_record(project_root: Path, task_id: str, *, change_surface: str = "UI/UX", delivery_scenario: str = "DS-03") -> Path:
+    evidence = [
+        "evidence://risk-low",
+        "evidence://reversible",
+        "evidence://single-scope",
+        "evidence://no-external-effect",
+        "evidence://no-production",
+        "evidence://no-security",
+        "evidence://extensions-inactive",
+    ]
+    return create_minimal_record(
+        project_root,
+        project_id="P-MIN",
+        work_item_id=f"W-{task_id}",
+        task_id=task_id,
+        ordinal=1,
+        depends_on=[],
+        supersedes=[],
+        objective="Update one local label.",
+        scope="Change one label.",
+        acceptance="The focused test passes.",
+        delivery_scenario=delivery_scenario,
+        development_type="DT-08",
+        change_surface=change_surface,
+        selected_approach="Edit one label.",
+        alternative_rejected="Keep current text.",
+        plan_steps=["Edit."],
+        verification="Run focused test.",
+        rollback="Restore line.",
+        allowed_paths=["src/label.txt"],
+        out_of_scope=[],
+        forbidden_actions=[],
+        selection_source="automatic",
+        basis=["All Minimal eligibility facts were inspected."],
+        authority_refs=["conversation://fixture"],
+        eligibility_evidence_refs=evidence,
+        facts=["The current label is observable."],
+        constraints=["Only src/label.txt is authorized."],
+        assumptions=[],
+        fundamentals=["One value changes.", "The change is reversible."],
+        causal_chain=["A focused edit satisfies acceptance."],
+        decision_criteria=["The test passes."],
+    )
 
 
 def run_active_query_tree_fixtures() -> dict[str, object]:
@@ -406,6 +459,16 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             not validate_minimal_record(read_json(record_path), task_dir=task_dir),
             "fresh Minimal carrier must validate",
         )
+        signal = active_task_signal(task_dir)
+        require_test(
+            signal and signal["pending_acceptance"] and not signal.get("upgrade_pending"),
+            "active Minimal carrier must remain pending until close or upgrade",
+        )
+        active_commands = {item["command"] for item in recommendations([signal])}
+        require_test(
+            {"run", "verify", "close"} <= active_commands,
+            "active Minimal carrier should retain run/verify/close recommendations",
+        )
         append_minimal_event(
             task_dir,
             event_type="run_started",
@@ -438,6 +501,275 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
         require_test(
             state["source_tasks"][0].get("carrier_mode") == "Minimal",
             "ProjectState must index the Minimal carrier",
+        )
+
+    for blocked_surface in (
+        "Identity/Security/Privacy",
+        "Deploy/Operations",
+        "Data/Schema",
+        "AI/Data Governance",
+        "Architecture/Multi-repo",
+    ):
+        with tempfile.TemporaryDirectory(prefix="v63-minimal-surface-block-") as temp:
+            project_root = Path(temp)
+            expect_governance_error(
+                f"Minimal rejects {blocked_surface}",
+                lambda blocked_surface=blocked_surface, project_root=project_root: minimal_fixture_record(
+                    project_root,
+                    "T-MIN-BLOCK",
+                    change_surface=blocked_surface,
+                ),
+            )
+            require_test(
+                not (project_root / ".project-governance" / "tasks" / "T-MIN-BLOCK" / "task-record.json").exists(),
+                "rejected Minimal surface must not write task-record.json",
+            )
+
+    with tempfile.TemporaryDirectory(prefix="v63-minimal-ds04-block-") as temp:
+        project_root = Path(temp)
+        expect_governance_error(
+            "Minimal rejects DS-04",
+            lambda: minimal_fixture_record(
+                project_root,
+                "T-MIN-DS04",
+                delivery_scenario="DS-04",
+            ),
+        )
+        require_test(
+            not (project_root / ".project-governance" / "tasks" / "T-MIN-DS04" / "task-record.json").exists(),
+            "rejected Minimal scenario must not write task-record.json",
+        )
+
+    with tempfile.TemporaryDirectory(prefix="v63-minimal-validate-block-") as temp:
+        project_root = Path(temp)
+        record_path = minimal_fixture_record(project_root, "T-MIN-TAMPER")
+        record = read_json(record_path)
+        record["task_contract"]["task_profile"]["change_surface"] = "Data/Schema"
+        errors = validate_minimal_record(record, task_dir=record_path.parent)
+        require_test(
+            any("Minimal rejects change_surface Data/Schema" in error for error in errors),
+            "validate_minimal_record must reject extension-triggering surfaces",
+        )
+
+    with tempfile.TemporaryDirectory(prefix="v63-get-context-stray-") as temp:
+        task_dir = Path(temp) / ".project-governance" / "tasks" / "T-FULL-STRAY"
+        task_dir.mkdir(parents=True)
+        (task_dir / "before.json").write_text("{}\n", encoding="utf-8")
+        (task_dir / "task-record.json").write_text("not-even-json", encoding="utf-8")
+        with contextlib.redirect_stderr(io.StringIO()):
+            require_test(
+                should_skip_for_minimal(task_dir) is False,
+                "Full carrier must not skip norm query because a stray task-record.json exists",
+            )
+
+    with tempfile.TemporaryDirectory(prefix="v63-get-context-invalid-min-") as temp:
+        task_dir = Path(temp) / ".project-governance" / "tasks" / "T-BAD-MIN"
+        task_dir.mkdir(parents=True)
+        (task_dir / "task-record.json").write_text("not-even-json", encoding="utf-8")
+        process = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(Path(__file__).resolve().with_name("get_context.py")),
+                "--task-dir",
+                str(task_dir),
+                "--action",
+                "run_started",
+                "--query-text",
+                "fixture",
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        require_test(process.returncode == 2, "invalid Minimal task-record must fail get_context")
+        require_test(
+            "Minimal skips bounded norm query" not in process.stdout,
+            "invalid Minimal task-record must not print skip notice",
+        )
+
+    with tempfile.TemporaryDirectory(prefix="v63-get-context-active-min-") as temp:
+        project_root = Path(temp)
+        record_path = minimal_fixture_record(project_root, "T-MIN-GET")
+        process = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(Path(__file__).resolve().with_name("get_context.py")),
+                "--task-dir",
+                str(record_path.parent),
+                "--action",
+                "run_started",
+                "--query-text",
+                "fixture",
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        require_test(process.returncode == 0, "active Minimal task-record should skip bounded query")
+        require_test(
+            "Minimal skips bounded norm query" in process.stdout,
+            "active Minimal task-record should print skip notice",
+        )
+
+    with tempfile.TemporaryDirectory(prefix="v63-minimal-upgraded-signal-") as temp:
+        project_root = Path(temp)
+        record_path = minimal_fixture_record(project_root, "T-MIN-UPG")
+        upgraded = mark_minimal_upgrade(
+            record_path.parent,
+            reason="Scope expanded beyond Minimal.",
+            basis="evidence://scope-expanded",
+            full_carrier_ref=".project-governance/tasks/T-MIN-UPG/before.json",
+        )
+        atomic_write_json(record_path, upgraded)
+        signal = active_task_signal(record_path.parent)
+        require_test(
+            signal and signal["lifecycle_state"] == "Upgraded" and signal.get("upgrade_pending"),
+            "Upgraded Minimal carrier must be marked as upgrade_pending",
+        )
+        require_test(
+            not signal["pending_acceptance"],
+            "Upgraded Minimal carrier must not remain pending acceptance",
+        )
+        commands = {item["command"] for item in recommendations([signal])}
+        require_test("init" in commands, "Upgraded Minimal carrier must recommend init upgrade")
+        require_test(
+            not ({"run", "verify", "close"} & commands),
+            "Upgraded Minimal carrier must not recommend run/verify/close",
+        )
+        process = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(Path(__file__).resolve().with_name("get_context.py")),
+                "--task-dir",
+                str(record_path.parent),
+                "--action",
+                "run_started",
+                "--query-text",
+                "fixture",
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        require_test(process.returncode == 2, "Upgraded Minimal task-record must fail get_context")
+        require_test(
+            "Minimal skips bounded norm query" not in process.stdout,
+            "Upgraded Minimal task-record must not print skip notice",
+        )
+
+    with tempfile.TemporaryDirectory(prefix="v63-mixed-carrier-signal-") as temp:
+        project_root = Path(temp)
+        record_path = minimal_fixture_record(project_root, "T-MIX")
+        (record_path.parent / "before.json").write_text(
+            json.dumps(
+                {
+                    "task_id": "T-MIX",
+                    "lifecycle_state": "Ready",
+                    "task_profile": {
+                        "applicability_facts": {
+                            "security_privacy_impact": "Unknown",
+                            "production_release": "Unknown",
+                        }
+                    },
+                    "tailoring_resolution": {"blocking_reasons": ["unknown facts"]},
+                    "scope": {"allowed_paths": ["src/only-full.txt"]},
+                }
+            ),
+            encoding="utf-8",
+        )
+        with contextlib.redirect_stderr(io.StringIO()):
+            mixed_signal = active_task_signal(record_path.parent)
+        require_test(
+            mixed_signal
+            and mixed_signal["carrier"] == "Full"
+            and mixed_signal["pending_acceptance"]
+            and mixed_signal["unknown_blockers"],
+            "before.json must win over a stray Minimal record",
+        )
+        mixed_commands = {item["command"] for item in recommendations([mixed_signal])}
+        require_test(
+            mixed_commands == {"clarify", "plan"},
+            "mixed carrier must surface full-carrier Unknown blockers",
+        )
+
+    with tempfile.TemporaryDirectory(prefix="v63-upgrade-sibling-signal-") as temp:
+        project_root = Path(temp)
+        record_path = minimal_fixture_record(project_root, "T-MIN-UPG-SIB")
+        upgraded = mark_minimal_upgrade(
+            record_path.parent,
+            reason="Scope expanded beyond Minimal.",
+            basis="evidence://scope-expanded",
+            full_carrier_ref=".project-governance/tasks/T-MIN-UPG-SIB/before.json",
+        )
+        atomic_write_json(record_path, upgraded)
+        sibling = {
+            "task_id": "T-FULL-ACTIVE",
+            "carrier": "Full",
+            "lifecycle_state": "Frozen",
+            "unknown_blockers": [],
+            "pending_acceptance": True,
+            "minimal_eligibility": None,
+            "upgrade_pending": False,
+        }
+        sibling_commands = {
+            item["command"]
+            for item in recommendations([active_task_signal(record_path.parent), sibling])
+        }
+        require_test(
+            {"run", "verify", "close"} <= sibling_commands,
+            "Upgraded leftover must not suppress sibling run/verify/close",
+        )
+
+    with tempfile.TemporaryDirectory(prefix="v63-minimal-defaults-") as temp:
+        project_root = Path(temp)
+        record_path = create_minimal_record(
+            project_root,
+            project_id="P-DEF",
+            work_item_id="W-DEF",
+            task_id="T-DEF-001",
+            ordinal=1,
+            depends_on=[],
+            supersedes=[],
+            objective="Update one local label.",
+            scope="Change one label.",
+            acceptance="The focused test passes.",
+            delivery_scenario="DS-03",
+            development_type="DT-08",
+            change_surface="UI/UX",
+            selected_approach="Edit one label.",
+            alternative_rejected="Keep current text.",
+            plan_steps=["Edit."],
+            verification="Run focused test.",
+            rollback="",
+            allowed_paths=["src/label.txt"],
+            out_of_scope=[],
+            forbidden_actions=[],
+            selection_source="automatic",
+            basis=["Eligibility facts were inspected."],
+            authority_refs=["conversation://fixture"],
+            eligibility_evidence_refs=evidence,
+            facts=["The current label is observable."],
+            constraints=[],
+            assumptions=[],
+            fundamentals=["One value changes.", "The change is reversible."],
+            causal_chain=["A focused edit satisfies acceptance."],
+            decision_criteria=["The test passes."],
+        )
+        record = read_json(record_path)
+        require_test(
+            any("script default" in item for item in record["selection"]["basis"]),
+            "Minimal defaults must leave a basis trace",
+        )
+        require_test(
+            record["task_contract"]["plan"]["rollback"].startswith("script default:"),
+            "Minimal rollback default must be recorded",
+        )
+        require_test(
+            record["task_contract"]["first_principles_analysis"]["constraints"][0].startswith("script default:"),
+            "Minimal constraint default must be recorded",
         )
 
     with tempfile.TemporaryDirectory(prefix="v63-minimal-upgrade-") as temp:
@@ -506,7 +838,110 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             not validate_task_directory(record_path.parent),
             "upgraded default task package must validate",
         )
-    return {"status": "Passed", "lifecycle": "single-file", "upgrade": "one-way"}
+    return {"status": "Passed", "lifecycle": "single-file", "upgrade": "one-way", "defaults": "traceable"}
+
+
+def run_cache_prune_fixture() -> dict[str, object]:
+    with tempfile.TemporaryDirectory(prefix="v63-cache-prune-") as temp:
+        root = Path(temp)
+        for name in (
+            "a" * 64 + ".sqlite3",
+            "a" * 64 + ".lock",
+            "b" * 64 + ".sqlite3",
+            "b" * 64 + ".lock",
+            "notes.txt",
+        ):
+            (root / name).write_text("fixture\n", encoding="utf-8")
+        warnings = prune_runtime_index_cache(root, "a" * 64)
+        require_test(warnings == [], "cache prune fixture should not warn")
+        require_test((root / ("a" * 64 + ".sqlite3")).is_file(), "active sqlite must remain")
+        require_test((root / ("a" * 64 + ".lock")).is_file(), "active lock must remain")
+        require_test(not (root / ("b" * 64 + ".sqlite3")).exists(), "old sqlite must be removed")
+        require_test(not (root / ("b" * 64 + ".lock")).exists(), "old lock must be removed")
+        require_test((root / "notes.txt").is_file(), "non-cache file must remain")
+    return {"status": "Passed", "checks": 5}
+
+
+def run_write_guard_fixture() -> dict[str, object]:
+    with tempfile.TemporaryDirectory(prefix="v63-write-guard-") as temp:
+        root = Path(temp)
+        task_dir = new_task(root, "T-GUARD", 1)
+        allowed, message = evaluate_write_guard(root / "src" / "file.txt", task_dir)
+        require_test(allowed and "allowed_path" in message, "allowed path must pass")
+        allowed, message = evaluate_write_guard(
+            root / ".project-governance" / "project-state.json",
+            task_dir,
+        )
+        require_test(not allowed and "project-state.json" in message, "project-state direct edit must be refused")
+        allowed, message = evaluate_write_guard(
+            Path(__file__).resolve().parent.parent
+            / "assets"
+            / "runtime"
+            / "embedded-manifest.json",
+            task_dir,
+        )
+        require_test(not allowed and "embedded-manifest.json" in message, "manifest direct edit must be refused")
+        process = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(Path(__file__).resolve().with_name("check_write_guard.py")),
+                "--task-dir",
+                str(root / ".project-governance" / "tasks" / "MISSING"),
+                str(root / "src" / "file.txt"),
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        require_test(process.returncode == 0 and "WARNING" in process.stderr, "guard failure must fail open with warning")
+
+    with tempfile.TemporaryDirectory(prefix="v63-write-guard-stray-garbage-") as temp:
+        root = Path(temp)
+        task_dir = root / ".project-governance" / "tasks" / "T-FULL-STRAY"
+        task_dir.mkdir(parents=True)
+        (task_dir / "before.json").write_text(
+            json.dumps({"scope": {"allowed_paths": ["src/label.txt"]}}),
+            encoding="utf-8",
+        )
+        (task_dir / "task-record.json").write_text("not-even-json", encoding="utf-8")
+        with contextlib.redirect_stderr(io.StringIO()):
+            allowed, message = evaluate_write_guard(root / "secrets.env", task_dir)
+        require_test(
+            not allowed and "allowed_paths" in message,
+            "stray garbage task-record must not fail-open when before.json exists",
+        )
+        process = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(Path(__file__).resolve().with_name("check_write_guard.py")),
+                "--task-dir",
+                str(task_dir),
+                str(root / "secrets.env"),
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        require_test(
+            process.returncode == 1 and "REFUSED" in process.stderr,
+            "stray garbage task-record CLI must refuse using full carrier paths",
+        )
+
+    with tempfile.TemporaryDirectory(prefix="v63-write-guard-mixed-") as temp:
+        root = Path(temp)
+        record_path = minimal_fixture_record(root, "T-GUARD-MIX")
+        (record_path.parent / "before.json").write_text(
+            json.dumps({"scope": {"allowed_paths": ["src/only-full.txt"]}}),
+            encoding="utf-8",
+        )
+        with contextlib.redirect_stderr(io.StringIO()):
+            allowed_full, _ = evaluate_write_guard(root / "src" / "only-full.txt", record_path.parent)
+            allowed_min, _ = evaluate_write_guard(root / "src" / "label.txt", record_path.parent)
+        require_test(allowed_full, "mixed carrier write guard must use full allowed_paths")
+        require_test(not allowed_min, "mixed carrier write guard must ignore Minimal allowed_paths")
+    return {"status": "Passed", "checks": 8}
 
 
 def new_task(root: Path, task_id: str, ordinal: int, *, project_id: str = "P-TEST", depends_on=()) -> Path:
@@ -579,12 +1014,12 @@ def main(argv: list[str] | None = None) -> int:
     skill_root = Path(__file__).resolve().parent.parent
     project_root = resolve_project_root(skill_root, args.project_root)
     require_test(({
-        "SKILL.md", "agents", "scripts", "references", "assets"
-    }.issubset({item.name for item in skill_root.iterdir()})), "self-test invariant failed at original line 421: {'SKILL.md', 'agents', 'scripts', 'references', 'assets'}.issubset({item.name for item in skill_root.iterdir()})")
+        "SKILL.md", "agents", "scripts", "references", "reference", "assets"
+    }.issubset({item.name for item in skill_root.iterdir()})), "Skill root must contain the required entrypoint, command references, runtime assets, and UI metadata")
     require_test((skill_root.name == "run-web-product-workflow"), "self-test invariant failed at original line 424: skill_root.name == 'run-web-product-workflow'")
     skill_text = (skill_root / "SKILL.md").read_text(encoding="utf-8")
     skill_lines = skill_text.splitlines()
-    require_test((len(skill_lines) < 500), 'self-test invariant failed at original line 427: len(skill_lines) < 500')
+    require_test((len(skill_lines) < 200), "SKILL.md must remain below 200 lines after command reference split")
     require_test((skill_lines[0] == "---" and "---" in skill_lines[1:]), "self-test invariant failed at original line 428: skill_lines[0] == '---' and '---' in skill_lines[1:]")
     frontmatter_end = skill_lines[1:].index("---") + 1
     frontmatter_keys = {
@@ -592,7 +1027,8 @@ def main(argv: list[str] | None = None) -> int:
         for line in skill_lines[1:frontmatter_end]
         if ":" in line
     }
-    require_test(({"name", "description"}.issubset(frontmatter_keys)), "self-test invariant failed at original line 435: {'name', 'description'}.issubset(frontmatter_keys)")
+    require_test(({"name", "description", "metadata"}.issubset(frontmatter_keys)), "frontmatter must include name, description, and metadata")
+    require_test(("version: 6.3.0-candidate" in skill_text), "frontmatter metadata must expose version 6.3.0-candidate")
     reference_files = sorted(
         path.relative_to(skill_root).as_posix()
         for path in (skill_root / "references").rglob("*")
@@ -600,19 +1036,40 @@ def main(argv: list[str] | None = None) -> int:
     )
     required_reference_files = {
         "references/first-principles-method.md",
-        "references/platform-bootstrap.md",
         "references/project-document-layout.md",
         "references/spec-source-map.md",
     }
     require_test((required_reference_files.issubset(reference_files)), 'self-test invariant failed at original line 447: required_reference_files.issubset(reference_files)')
     require_test((all(f"({relative})" in skill_text for relative in reference_files)), "self-test invariant failed at original line 448: all((f'({relative})' in skill_text for relative in reference_files))")
-    require_test(("retrieval-plan.json" in skill_text), "self-test invariant failed at original line 449: 'retrieval-plan.json' in skill_text")
-    require_test(("scripts/query_norm_context.py" in skill_text), "self-test invariant failed at original line 450: 'scripts/query_norm_context.py' in skill_text")
-    require_test(("`Shadow`" in skill_text), "self-test invariant failed at original line 451: '`Shadow`' in skill_text")
-    require_test(("`rg` 不是正常查询入口" in skill_text), "self-test invariant failed at original line 452: '`rg` 不是正常查询入口' in skill_text")
+    command_reference_files = sorted(
+        path.relative_to(skill_root).as_posix()
+        for path in (skill_root / "reference").glob("*.md")
+    )
+    require_test((set(command_reference_files) == {
+        "reference/init.md",
+        "reference/clarify.md",
+        "reference/plan.md",
+        "reference/run.md",
+        "reference/verify.md",
+        "reference/close.md",
+        "reference/status.md",
+        "reference/migrate.md",
+        "reference/minimal.md",
+    }), "all command reference files must exist")
+    require_test((all(f"({relative})" in skill_text for relative in command_reference_files)), "SKILL.md must link every command reference")
+    require_test(("scripts/get_context.py" in skill_text), "SKILL.md must route full-carrier context through get_context.py")
+    require_test(("scripts/signals.py" in skill_text), "SKILL.md must route no-argument status through signals.py")
+    require_test(("scripts/check_write_guard.py" in skill_text), "SKILL.md must document the write guard")
     source_map_text = (skill_root / "references" / "spec-source-map.md").read_text(encoding="utf-8")
-    require_test(("Manifest 的45个受保护文件" in source_map_text), "self-test invariant failed at original line 454: 'Manifest 的45个受保护文件' in source_map_text")
+    require_test(("Manifest 的44个受保护文件" in source_map_text), "self-test invariant failed at original line 454: 'Manifest 的44个受保护文件' in source_map_text")
     require_test(("retrieval-plan.json" in source_map_text), "self-test invariant failed at original line 455: 'retrieval-plan.json' in source_map_text")
+    require_test(("发布信任根" in source_map_text), "spec-source-map must document the Git commit/tag publication trust root")
+    require_test((not (skill_root / "references" / "platform-bootstrap.md").exists()), "platform bootstrap reference must be removed")
+    require_test(("platform-bootstrap" not in skill_text), "SKILL.md must not route to platform bootstrap")
+    require_test(("<skill-root>" in skill_text), "SKILL.md must distinguish skill-root from project-root")
+    require_test(("<project-root>/.project-governance" in skill_text), "SKILL.md must place governance files under project-root")
+    require_test(("assets/runtime/norms/" in source_map_text), "spec-source-map must map logical references/ paths to disk norms")
+    require_test(((skill_root / "agents" / "openai.yaml").is_file()), "Codex skill metadata must remain")
     require_test((not (skill_root / "mappings").exists()), "self-test invariant failed at original line 456: not (skill_root / 'mappings').exists()")
     require_test((not (skill_root / "schemas").exists()), "self-test invariant failed at original line 457: not (skill_root / 'schemas').exists()")
     openai_yaml = (skill_root / "agents" / "openai.yaml").read_text(encoding="utf-8")
@@ -624,7 +1081,7 @@ def main(argv: list[str] | None = None) -> int:
     require_test((not validate_embedded_manifest(skill_root)), 'self-test invariant failed at original line 464: not validate_embedded_manifest(skill_root)')
     manifest = read_json(embedded_manifest_path(skill_root))
     require_test((manifest["layout_version"] == "skill-runtime-v2"), "self-test invariant failed at original line 466: manifest['layout_version'] == 'skill-runtime-v2'")
-    require_test((len(manifest["files"]) == 45), "self-test invariant failed at original line 467: len(manifest['files']) == 45")
+    require_test((len(manifest["files"]) == 44), "self-test invariant failed at original line 467: len(manifest['files']) == 44")
     require_test(({item["role"] for item in manifest["files"]} == {
         "norm", "mapping", "schema", "skill-reference", "evaluation", "asset-template"
     }), "self-test invariant failed at original line 468: {item['role'] for item in manifest['files']} == {'norm', 'mapping', 'schema', 'skill-reference', 'evaluation', 'asset-template'}")
@@ -676,7 +1133,9 @@ def main(argv: list[str] | None = None) -> int:
     document_governance_validation = run_document_governance_fixture()
     consumer_bootstrap_validation = run_consumer_bootstrap_fixture()
     minimal_carrier_validation = run_minimal_carrier_fixture()
-    require_test((retrieval_validation["manifest_files"] == 45), "self-test invariant failed at original line 518: retrieval_validation['manifest_files'] == 45")
+    cache_prune_validation = run_cache_prune_fixture()
+    write_guard_validation = run_write_guard_fixture()
+    require_test((retrieval_validation["manifest_files"] == 44), "self-test invariant failed at original line 518: retrieval_validation['manifest_files'] == 44")
     require_test((retrieval_validation["fixture_counts"] == {
         "positive": 8,
         "schema_negative": 21,
@@ -685,7 +1144,23 @@ def main(argv: list[str] | None = None) -> int:
     require_test((retrieval_validation["gold_case_count"] == 28), "self-test invariant failed at original line 524: retrieval_validation['gold_case_count'] == 28")
     require_test((retrieval_validation["mandatory_target_count"] == 12), "self-test invariant failed at original line 525: retrieval_validation['mandatory_target_count'] == 12")
     require_test((retrieval_validation["hard_gate_negative_count"] == 8), "self-test invariant failed at original line 526: retrieval_validation['hard_gate_negative_count'] == 8")
-    require_test((retrieval_validation["compatibility"]["cli_contract_count"] == 15), "CLI compatibility closure must contain 15 public scripts")
+    gold_contracts = read_json(runtime_asset_path("evaluations/norm-retrieval-gold.json"))["compatibility_baselines"]["cli_help_contracts"]
+    gold_contract_keys = {
+        (item["script"], tuple(item.get("help_args", ["--help"])))
+        for item in gold_contracts
+    }
+    require_test(
+        ("query_norm_context.py", ("--help",)) in gold_contract_keys,
+        "CLI compatibility closure must include query_norm_context.py",
+    )
+    require_test(
+        ("manage_minimal_task.py", ("init", "--help")) in gold_contract_keys,
+        "CLI compatibility closure must include manage_minimal_task.py init --help",
+    )
+    require_test(
+        retrieval_validation["compatibility"]["cli_contract_count"] == len(gold_contracts),
+        "CLI compatibility closure must execute every gold help contract",
+    )
     require_test((retrieval_validation["requirement_coverage"] == 41), "self-test invariant failed at original line 528: retrieval_validation['requirement_coverage'] == 41")
     require_test((retrieval_validation["acceptance_coverage"] == 25), "self-test invariant failed at original line 529: retrieval_validation['acceptance_coverage'] == 25")
     require_test((retrieval_validation["verification_mode"] == "protected-runtime"), "self-test invariant failed at original line 530: retrieval_validation['verification_mode'] == 'protected-runtime'")
@@ -706,9 +1181,11 @@ def main(argv: list[str] | None = None) -> int:
     require_test((consumer_bootstrap_validation == {"status": "Passed", "checks": 4}), "self-test invariant failed at original line 545: consumer_bootstrap_validation == {'status': 'Passed', 'checks': 4}")
     require_test(
         minimal_carrier_validation
-        == {"status": "Passed", "lifecycle": "single-file", "upgrade": "one-way"},
+        == {"status": "Passed", "lifecycle": "single-file", "upgrade": "one-way", "defaults": "traceable"},
         "Minimal aggregate lifecycle and one-way upgrade must pass",
     )
+    require_test((cache_prune_validation == {"status": "Passed", "checks": 5}), "runtime cache pruning fixture must pass")
+    require_test((write_guard_validation == {"status": "Passed", "checks": 8}), "write guard fixture must pass")
     expect_governance_error(
         "unknown logical runtime path",
         lambda: runtime_asset_path("references/unknown-source.md"),
@@ -1536,6 +2013,8 @@ def main(argv: list[str] | None = None) -> int:
         "document_governance": document_governance_validation,
         "consumer_bootstrap": consumer_bootstrap_validation,
         "minimal_carrier": minimal_carrier_validation,
+        "cache_prune": cache_prune_validation,
+        "write_guard": write_guard_validation,
         "positive": "passed",
         "negative": "passed",
     }, ensure_ascii=False, indent=2))

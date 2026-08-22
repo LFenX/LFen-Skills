@@ -92,7 +92,7 @@ EXPECTED_ROLES = {
     "norm": 22,
     "mapping": 3,
     "schema": 11,
-    "skill-reference": 4,
+    "skill-reference": 3,
     "evaluation": 2,
     "asset-template": 3,
 }
@@ -735,12 +735,32 @@ def validate_contracts(
             t008_results[key] = actual
         executed_checks.add("legacy-source-pack-regression")
 
+    contracts = compatibility.get("cli_help_contracts", [])
+    if not isinstance(contracts, list):
+        raise GovernanceError("cli_help_contracts must be a list")
+    contract_keys: list[tuple[str, tuple[str, ...]]] = []
+    for expected in contracts:
+        help_args = tuple(expected.get("help_args", ["--help"]))
+        contract_keys.append((expected.get("script"), help_args))
+    if len(contract_keys) != len(set(contract_keys)):
+        raise GovernanceError("CLI compatibility closure contains duplicate command contracts")
+    required_cli_contracts = {
+        ("get_context.py", ("--help",)),
+        ("query_norm_context.py", ("--help",)),
+        ("manage_minimal_task.py", ("--help",)),
+        ("manage_minimal_task.py", ("init", "--help")),
+    }
+    missing_required = required_cli_contracts - set(contract_keys)
+    if missing_required:
+        raise GovernanceError(f"CLI compatibility closure is missing required contracts: {sorted(missing_required)}")
+
     cli_results: list[dict[str, Any]] = []
     scripts_dir = Path(__file__).resolve().parent
-    for expected in compatibility.get("cli_help_contracts", []):
+    for expected in contracts:
         script = scripts_dir / expected["script"]
+        help_args = list(expected.get("help_args", ["--help"]))
         process = subprocess.run(
-            [sys.executable, "-B", str(script), "--help"],
+            [sys.executable, "-B", str(script), *help_args],
             text=True,
             encoding="utf-8",
             errors="strict",
@@ -749,15 +769,18 @@ def validate_contracts(
             env={**os.environ, "PYTHONUTF8": "1", "PYTHONDONTWRITEBYTECODE": "1"},
         )
         if process.returncode != 0:
-            raise GovernanceError(f"{expected['script']}: --help failed with {process.returncode}")
+            raise GovernanceError(f"{expected['script']} {' '.join(help_args)} failed with {process.returncode}")
         help_text = process.stdout.replace("\r\n", "\n")
         actual_options = sorted(set(re.findall(r"(?<!\w)--[a-z][a-z0-9-]*", help_text)))
         actual_hash = sha256_bytes(help_text.encode("utf-8"))
         if actual_hash != expected.get("help_sha256") or actual_options != expected.get("options"):
-            raise GovernanceError(f"{expected['script']}: CLI help contract changed")
-        cli_results.append({"script": expected["script"], "help_sha256": actual_hash, "options": actual_options})
-    if len(cli_results) != 15:
-        raise GovernanceError("CLI compatibility closure must contain 15 scripts")
+            raise GovernanceError(f"{expected['script']} {' '.join(help_args)}: CLI help contract changed")
+        result = {"script": expected["script"], "help_sha256": actual_hash, "options": actual_options}
+        if help_args != ["--help"]:
+            result["help_args"] = help_args
+        cli_results.append(result)
+    if len(cli_results) != len(contracts):
+        raise GovernanceError("CLI compatibility closure did not execute every gold contract")
     executed_checks.add("cli-contract-regression")
 
     referenced_checks = {

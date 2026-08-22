@@ -1199,7 +1199,7 @@ def run_self_test() -> None:
 | 文档属性 | 内容 |
 |---|---|
 | 文档编号 | C01 |
-| 版本 | V0.3 Candidate |
+| 版本 | V6.3 Candidate |
 | 状态 | In Review |
 | 上游依赖 | C02 V0.1 |
 
@@ -1266,7 +1266,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project-root", type=Path, default=Path.cwd())
     parser.add_argument("--project-id", default="P-AINATIVE-SPEC")
-    parser.add_argument("--task-id", default="T-011")
+    parser.add_argument("--task-id")
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--fail-on", choices=("blocker", "major", "none"), default="major")
     parser.add_argument("--self-test", action="store_true")
@@ -1288,14 +1288,17 @@ def main() -> int:
                 "modal, authority, precedence, deterministic digest"
             )
             return 0
+        if not args.task_id and not args.runtime_only:
+            raise GovernanceError("--task-id is required unless --runtime-only is used")
+        task_id = args.task_id or "RUNTIME-ONLY"
         report, sources = audit(
             args.project_root,
             args.project_id,
-            args.task_id,
+            task_id,
             verify_authority_sources=not args.runtime_only,
         )
         output_dir = args.output_dir or (
-            governance_root(args.project_root) / "generated" / "audits" / args.task_id
+            governance_root(args.project_root) / "generated" / "audits" / task_id
         )
         outputs = write_report(
             report,

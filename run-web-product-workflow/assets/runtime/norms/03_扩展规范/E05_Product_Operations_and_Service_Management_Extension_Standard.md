@@ -1,4 +1,4 @@
-﻿# E05 产品运营与服务管理扩展规范
+# E05 产品运营与服务管理扩展规范
 
 ## 1. 文档控制信息
 
@@ -7,7 +7,7 @@
 | 文档编号 | E05 |
 | 英文名称 | Product Operations and Service Management Extension Specification |
 | 正式文件名 | `E05_Product_Operations_and_Service_Management_Extension_Standard.md` |
-| 版本 | V0.3 Candidate |
+| 版本 | V6.3 Candidate |
 | 状态 | In Review |
 | 编制日期 | 2026-07-28 |
 | 责任人 | 项目负责人 |
@@ -18,8 +18,8 @@
 | 当前激活状态 | 未激活 |
 | 上位蓝图 | VC-PPG-BP-001、VC-PPG-BP-002 |
 | 公共治理依赖 | VC-PPG-DEC-001、VC-PPG-COM-001、VC-PPG-COM-002 |
-| 核心规范依赖 | C01 至 C12 V0.3 |
-| 扩展规范依赖 | E01 至 E04 V0.3 |
+| 核心规范依赖 | C01 至 C12 V6.3 |
+| 扩展规范依赖 | E01 至 E04 V6.3 |
 | 生产前调研 | RVR-E05-0001 |
 | 后续任务 | 跨规范产物归属索引、引用与依赖检查、V6.2 完整符合性检查 |
 | 访问级别 | 内部 |

@@ -1,0 +1,121 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-RWPW-HARDEN-MINIMAL",
+  "task_id": "T-RWPW-20260822-001",
+  "revision": 1,
+  "status": "Implemented",
+  "completed_at": "2026-08-22T07:11:11Z",
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "034eedf0d6c96245723e9cdfd96694cd702544fd",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 112,
+    "status_digest": "40dfbf80640c53a9ca936f6a079eda3107b458dfcb051bc818e8fb3860886a8e",
+    "captured_at": "2026-08-22T07:11:11Z"
+  },
+  "established_facts": [
+    "The canonical run-web-product-workflow Skill now publishes one manifest-closed V6.3 Candidate runtime snapshot with 45 protected assets.",
+    "Minimal is a physical carrier within the existing six-meta-model, subject to hard eligibility boundaries and one-way upgrade.",
+    "Product-native documents have one default LG_project_docs taxonomy, managed README templates, and a hash-verified legacy migration workflow."
+  ],
+  "actual_changes": [
+    "Fixed deterministic defects D1-D3 and the self-test, CLI, version, documentation, trust-boundary, portability, and shared-hash issues confirmed by review.",
+    "Added Minimal task-record schema, lifecycle CLI, ProjectState integration, review generation, and safe upgrade into the full carrier.",
+    "Committed the complete canonical Skill baseline as 034eedf0d6c96245723e9cdfd96694cd702544fd."
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "Normal Python full self-test: 137 profiles, 45 runtime assets, 28 retrieval cases, Minimal lifecycle and upgrade.",
+      "evidence_refs": [
+        ".project-governance/tasks/T-RWPW-20260822-001/reports"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "Python -O full self-test proves checks are not disabled with assert optimization.",
+      "evidence_refs": [
+        ".project-governance/tasks/T-RWPW-20260822-001/reports"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "Runtime consistency audit completed with zero Blocker, Major, Minor, or Observation findings.",
+      "evidence_refs": [
+        ".project-governance/tasks/T-RWPW-20260822-001/reports/norm-consistency/norm-consistency-audit.json"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "Runtime retrieval contract validation passed all 45 protected assets and 15 public CLI contracts.",
+      "evidence_refs": [
+        ".project-governance/tasks/T-RWPW-20260822-001/reports/norm-retrieval"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "Skill Creator validation, manifest validation, Git diff check, and Frozen execution-ready validation passed.",
+      "evidence_refs": [
+        "git://LFen-Skills/034eedf0d6c96245723e9cdfd96694cd702544fd"
+      ]
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [
+    "Implemented the approved first-principles upgrade without introducing a seventh meta type or a parallel risk framework."
+  ],
+  "evidence_refs": [
+    "conversation://user/skill-upgrade/2026-08-22",
+    "git://LFen-Skills/034eedf0d6c96245723e9cdfd96694cd702544fd"
+  ],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-001-before",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-001/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "19a12e1922791f69defeab9f2c57ffc66316ebd5",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-001-run",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-001/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "19a12e1922791f69defeab9f2c57ffc66316ebd5",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-001-after",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-001/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "19a12e1922791f69defeab9f2c57ffc66316ebd5",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": []
+}

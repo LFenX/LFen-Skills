@@ -18,6 +18,7 @@ from governance_artifacts import (
     now_utc,
     read_json,
     require_id,
+    runtime_asset_path,
     validate_json_document,
 )
 
@@ -35,10 +36,105 @@ MINIMAL_EVENT_TYPES = {
 MINIMAL_STATUSES = {"started", "recorded", "succeeded", "failed", "blocked"}
 OUTCOME_STATES = {"Implemented", "Deferred", "Cancelled", "Blocked", "Superseded"}
 EXTENSIONS = ("E01", "E02", "E03", "E04", "E05")
+DEFAULT_OUT_OF_SCOPE = "script default: no additional exclusions beyond the stated Minimal scope."
+DEFAULT_FORBIDDEN_ACTION = "script default: files outside allowed_paths are forbidden."
+DEFAULT_ASSUMPTION = "script default: Minimal eligibility facts remain valid; upgrade if a hard boundary is crossed."
+DEFAULT_ROLLBACK = "script default: reversible through git revert on the current branch."
+DEFAULT_CONSTRAINT = "script default: only allowed_paths may be modified."
+DEFAULT_BASIS = "script default: omitted non-blocking Minimal fields were populated by manage_minimal_task.py."
+MINIMAL_ALLOWED_CHANGE_SURFACES = ("UI/UX", "API/Integration", "Agent/Collaboration")
+MINIMAL_BLOCKING_FACT_SURFACE_KEYS = (
+    "architecture_impact",
+    "security_privacy_impact",
+    "data_ai_impact",
+    "operations_impact",
+    "production_release",
+)
 
 
 def minimal_record_path(task_dir: Path) -> Path:
     return task_dir.resolve() / "task-record.json"
+
+
+def load_tailoring_applicability_map() -> dict[str, Any]:
+    return read_json(runtime_asset_path("mappings/tailoring-applicability-map.json"))
+
+
+def minimal_applicability_errors(
+    *,
+    delivery_scenario: str,
+    change_surface: str,
+    tailoring_map: dict[str, Any] | None = None,
+) -> list[str]:
+    mapping = tailoring_map or load_tailoring_applicability_map()
+    errors: list[str] = []
+    extensions = set(EXTENSIONS)
+    controlled = mapping.get("controlled_values", {})
+    surfaces = controlled.get("change_surfaces", [])
+    scenarios = controlled.get("delivery_scenarios", [])
+    if change_surface not in surfaces:
+        errors.append(f"Minimal change_surface is not controlled: {change_surface}")
+        return errors
+    if delivery_scenario not in scenarios:
+        errors.append(f"Minimal delivery_scenario is not controlled: {delivery_scenario}")
+        return errors
+    routes = mapping.get("routes", {})
+    surface_standards = set(routes.get("change_surfaces", {}).get(change_surface, []))
+    routed_extensions = sorted(surface_standards & extensions)
+    if routed_extensions:
+        errors.append(
+            f"Minimal rejects change_surface {change_surface}: routes extension standards {', '.join(routed_extensions)}"
+        )
+    scenario_standards = set(routes.get("delivery_scenarios", {}).get(delivery_scenario, []))
+    scenario_extensions = sorted(scenario_standards & extensions)
+    if scenario_extensions:
+        errors.append(
+            f"Minimal rejects delivery_scenario {delivery_scenario}: routes extension standards {', '.join(scenario_extensions)}"
+        )
+    standards = mapping.get("standards", {})
+    trigger_extensions = sorted(
+        source_id
+        for source_id, spec in standards.items()
+        if source_id in extensions and change_surface in spec.get("trigger_surfaces", [])
+    )
+    if trigger_extensions:
+        errors.append(
+            f"Minimal rejects change_surface {change_surface}: triggers {', '.join(trigger_extensions)}"
+        )
+    consistency = mapping.get("classification_consistency", {})
+    fact_surfaces = consistency.get("fact_requires_any_surface", {})
+    boundary_facts = sorted(
+        fact
+        for fact in MINIMAL_BLOCKING_FACT_SURFACE_KEYS
+        if change_surface in fact_surfaces.get(fact, [])
+    )
+    if boundary_facts:
+        errors.append(
+            f"Minimal rejects change_surface {change_surface}: implies {', '.join(boundary_facts)}"
+        )
+    return errors
+
+
+def require_minimal_applicability(*, delivery_scenario: str, change_surface: str) -> None:
+    errors = minimal_applicability_errors(
+        delivery_scenario=delivery_scenario,
+        change_surface=change_surface,
+    )
+    if errors:
+        raise GovernanceError("; ".join(errors))
+
+
+def allowed_minimal_change_surfaces() -> list[str]:
+    mapping = load_tailoring_applicability_map()
+    return [
+        surface
+        for surface in mapping.get("controlled_values", {}).get("change_surfaces", [])
+        if not minimal_applicability_errors(
+            delivery_scenario="DS-03",
+            change_surface=surface,
+            tailoring_map=mapping,
+        )
+    ]
 
 
 def validate_minimal_record(
@@ -60,6 +156,13 @@ def validate_minimal_record(
         errors.append("Minimal carrier requires E01-E05 to be Inactive")
     if record["task_contract"]["task_profile"]["extension_triggers"] != triggers:
         errors.append("Minimal task profile and eligibility extension triggers must match")
+    task_profile = record["task_contract"]["task_profile"]
+    errors.extend(
+        minimal_applicability_errors(
+            delivery_scenario=task_profile["delivery_scenario"],
+            change_surface=task_profile["change_surface"],
+        )
+    )
     manifest_types = [item.get("meta_type") for item in record["artifact_manifest"]]
     if manifest_types != MINIMAL_META_TYPES:
         errors.append("Minimal Artifact Manifest must preserve the three logical meta types in order")
@@ -144,6 +247,28 @@ def create_minimal_record(
     require_id(task_id, "task_id")
     if ordinal < 1:
         raise GovernanceError("ordinal must be at least 1")
+    default_used = False
+    rollback_value = rollback.strip()
+    if not rollback_value:
+        rollback_value = DEFAULT_ROLLBACK
+        default_used = True
+    out_values = [value.strip() for value in out_of_scope if value.strip()]
+    if not out_values:
+        out_values = [DEFAULT_OUT_OF_SCOPE]
+        default_used = True
+    forbidden_values = [value.strip() for value in forbidden_actions if value.strip()]
+    if not forbidden_values:
+        forbidden_values = [DEFAULT_FORBIDDEN_ACTION]
+        default_used = True
+    assumption_values = [value.strip() for value in assumptions if value.strip()]
+    if not assumption_values:
+        assumption_values = [DEFAULT_ASSUMPTION]
+        default_used = True
+    constraint_values = [value.strip() for value in constraints if value.strip()]
+    if not constraint_values:
+        constraint_values = [DEFAULT_CONSTRAINT]
+        default_used = True
+
     values = {
         "objective": objective.strip(),
         "scope": scope.strip(),
@@ -151,19 +276,20 @@ def create_minimal_record(
         "selected_approach": selected_approach.strip(),
         "alternative_rejected": alternative_rejected.strip(),
         "verification": verification.strip(),
-        "rollback": rollback.strip(),
+        "rollback": rollback_value,
     }
     if any(not value for value in values.values()):
         raise GovernanceError("Minimal objective, scope, acceptance, plan, verification, and rollback are required")
     steps = [value.strip() for value in plan_steps if value.strip()]
     allowed = [value.strip() for value in allowed_paths if value.strip()]
     bases = [value.strip() for value in basis if value.strip()]
+    if default_used and DEFAULT_BASIS not in bases:
+        bases.append(DEFAULT_BASIS)
     authorities = list(dict.fromkeys(value.strip() for value in authority_refs if value.strip()))
     evidence = list(
         dict.fromkeys(value.strip() for value in eligibility_evidence_refs if value.strip())
     )
     fact_values = [value.strip() for value in facts if value.strip()]
-    constraint_values = [value.strip() for value in constraints if value.strip()]
     fundamental_values = [value.strip() for value in fundamentals if value.strip()]
     causal_values = [value.strip() for value in causal_chain if value.strip()]
     criterion_values = [value.strip() for value in decision_criteria if value.strip()]
@@ -177,6 +303,10 @@ def create_minimal_record(
         raise GovernanceError("Minimal causal chain and decision criteria are required")
     if selection_source not in {"explicit-user", "automatic"}:
         raise GovernanceError("selection_source must be explicit-user or automatic")
+    require_minimal_applicability(
+        delivery_scenario=delivery_scenario,
+        change_surface=change_surface,
+    )
 
     task_dir = (
         project_root.resolve()
@@ -226,11 +356,9 @@ def create_minimal_record(
         "task_contract": {
             "objective": values["objective"],
             "scope": values["scope"],
-            "out_of_scope": [value.strip() for value in out_of_scope if value.strip()],
-            "allowed_paths": allowed,
-            "forbidden_actions": [
-                value.strip() for value in forbidden_actions if value.strip()
-            ],
+                "out_of_scope": out_values,
+                "allowed_paths": allowed,
+                "forbidden_actions": forbidden_values,
             "acceptance": values["acceptance"],
             "task_profile": {
                 "delivery_scenario": delivery_scenario,
@@ -250,7 +378,7 @@ def create_minimal_record(
                 "outcome": values["objective"],
                 "facts": fact_values,
                 "constraints": constraint_values,
-                "assumptions": [value.strip() for value in assumptions if value.strip()],
+                "assumptions": assumption_values,
                 "unknowns": [],
                 "fundamentals": fundamental_values,
                 "causal_chain": causal_values,

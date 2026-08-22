@@ -1,0 +1,15 @@
+{
+  "action": "run_started",
+  "budget_profile": "standard",
+  "modes": [
+    "exact",
+    "fts"
+  ],
+  "normative_sources_sha256": "d819a2aa213059b3d51968e2cbf9ebecf8f5f61e9e4da2633906d50247f34cb4",
+  "query_text": "修复已收尾 V6.2 TaskContract 在 V6.3 Manifest 下无法重建 ProjectState 的兼容问题，同时保持活动任务严格校验并拒绝历史路径穿越。",
+  "requested_additional_control_types": [],
+  "schema_version": "6.3-candidate",
+  "stage": "S4",
+  "tailoring_resolution_sha256": "c7ffb3ee2509f790b1a75fb28eb011fa2d9e6c31d4720d3ca171b4ef7bd51458",
+  "task_id": "T-RWPW-20260822-002"
+}

@@ -1,4 +1,4 @@
-﻿# C10 决策、追踪与资产血缘规范
+# C10 决策、追踪与资产血缘规范
 
 ## 1. 文档控制信息
 
@@ -7,7 +7,7 @@
 | 文档编号 | C10 |
 | 英文名称 | Decision, Traceability and Asset Lineage Specification |
 | 正式文件名 | `C10_Decision_Traceability_and_Lineage_Standard.md` |
-| 版本 | V0.3 Candidate |
+| 版本 | V6.3 Candidate |
 | 状态 | In Review |
 | 编制日期 | 2026-07-28 |
 | 责任人 | 项目负责人 |
@@ -16,7 +16,7 @@
 | 适用档位 | P2 标准 |
 | 上位蓝图 | VC-PPG-BP-001、VC-PPG-BP-002 |
 | 公共治理依赖 | VC-PPG-DEC-001、VC-PPG-COM-001、VC-PPG-COM-002 |
-| 上游规范 | C01 V0.3、C02 V0.3、C03 V0.3、C04 V0.3、C05 V0.3、C06 V0.3、C07 V0.3、C08 V0.3、C09 V0.3 |
+| 上游规范 | C01 V6.3、C02 V6.3、C03 V6.3、C04 V6.3、C05 V6.3、C06 V6.3、C07 V6.3、C08 V6.3、C09 V6.3 |
 | 生产前调研 | RVR-C10-0001 |
 | 下游规范 | C11、C12、E01 至 E05 |
 | 横向适用 | C01 至 C09 的 Decision、Trace、Coverage 和 Lineage |

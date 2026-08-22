@@ -1,4 +1,4 @@
-﻿# E01 架构治理扩展规范
+# E01 架构治理扩展规范
 
 ## 1. 文档控制信息
 
@@ -7,7 +7,7 @@
 | 文档编号 | E01 |
 | 英文名称 | Architecture Governance Extension Specification |
 | 正式文件名 | `E01_Architecture_Governance_Extension_Standard.md` |
-| 版本 | V0.3 Candidate |
+| 版本 | V6.3 Candidate |
 | 状态 | In Review |
 | 编制日期 | 2026-07-28 |
 | 责任人 | 项目负责人 |
@@ -18,7 +18,7 @@
 | 当前激活状态 | 未激活 |
 | 上位蓝图 | VC-PPG-BP-001、VC-PPG-BP-002 |
 | 公共治理依赖 | VC-PPG-DEC-001、VC-PPG-COM-001、VC-PPG-COM-002 |
-| 核心规范依赖 | C01 至 C12 V0.3 |
+| 核心规范依赖 | C01 至 C12 V6.3 |
 | 生产前调研 | RVR-E01-0001 |
 | 后续规范 | E02 至 E05 |
 | 访问级别 | 内部 |

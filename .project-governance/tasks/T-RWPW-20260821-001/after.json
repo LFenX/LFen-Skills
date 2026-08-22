@@ -1,0 +1,108 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-RWPW-DOC-GOVERNANCE",
+  "task_id": "T-RWPW-20260821-001",
+  "revision": 1,
+  "status": "Implemented",
+  "completed_at": "2026-08-21T11:02:16Z",
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "19a12e1922791f69defeab9f2c57ffc66316ebd5",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 139,
+    "status_digest": "bd33c5d89e45a2b71f9b6fe6cbd5d6384643f7613991980de5e0322b4d61f468",
+    "captured_at": "2026-08-21T11:02:16Z"
+  },
+  "established_facts": [
+    "D1-D3 均为当前代码中的可复现确定性缺陷，现已修复",
+    "所有问题拆解和方案制定已由 TaskContract first_principles_analysis 记录可追溯推导",
+    "当前 LFen-Skills 项目不存在需要迁移的旧产品文档目录，未执行项目旧文档搬迁"
+  ],
+  "actual_changes": [
+    "新增第一性原理执行规范并将其纳入 TaskContract、裁剪与 Skill 主流程",
+    "新增 LG_project_docs 分类、两级 README 模板、初始化、校验和哈希备份迁移工具",
+    "修复 consumer runtime bootstrap、Retrieval Plan 冻结摘要、数据意图词法边界、零历史索引和活动查询请求注册"
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "完整 Skill 正负向自检通过",
+      "evidence_refs": [
+        "run-web-product-workflow/scripts/self_test.py"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "当前任务包 execution-ready 与活动查询重放通过",
+      "evidence_refs": [
+        ".project-governance/generated/queries/T-RWPW-20260821-001/fefc18080389b0a3b906d09357a901c850c98774e8f627b8ad4a8fa2ac7af22f/query-result.json"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "受保护运行契约 44 个资产、137 Profile、28 金标通过",
+      "evidence_refs": [
+        "run-web-product-workflow/assets/runtime/embedded-manifest.json"
+      ]
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [
+    "以事实、约束、假设、未知、基础要素、因果链、备选和判据逐步推导执行计划",
+    "运行态字段不属于 Retrieval Plan 的材料契约身份，其他 TaskContract 字段仍属于"
+  ],
+  "evidence_refs": [
+    ".project-governance/tasks/T-RWPW-20260821-001/run.jsonl",
+    ".project-governance/generated/query-history/T-RWPW-20260821-001/archive-index.json"
+  ],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260821-001-before",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260821-001/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "19a12e1922791f69defeab9f2c57ffc66316ebd5",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260821-001-run",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260821-001/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "19a12e1922791f69defeab9f2c57ffc66316ebd5",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260821-001-after",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260821-001/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "19a12e1922791f69defeab9f2c57ffc66316ebd5",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": []
+}

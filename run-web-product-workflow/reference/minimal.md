@@ -1,0 +1,46 @@
+# minimal
+
+Minimal 是同一六元模型的物理载体裁剪，不是第二套流程。
+
+路径：脚本在 `<skill-root>/scripts/`；`<project-root>` 为含 `.project-governance` 的消费项目根，不是 skill 根。
+
+资格全部成立时才可用：Risk=Low、可逆、单一 Scope、无外部系统副作用、无生产发布、无安全/隐私影响、E01-E05 Inactive、无阻断 Unknown、无专用 Gate。
+
+若裁剪图显示 Change Surface 或 Delivery Scenario 会触发 E01-E05，初始化必须拒绝 Minimal 并改走完整载体；当前允许的 Minimal Change Surface 为 `UI/UX`、`API/Integration`、`Agent/Collaboration`。
+
+`--selection-source explicit-user` 用于用户明确说“采用最轻框架”；`--selection-source automatic` 用于 agent 判定资格全部成立并告知默认采用 Minimal。
+
+初始化：
+
+```console
+python <skill-root>/scripts/manage_minimal_task.py init --project-root <project-root> --project-id <ProjectID> --work-item-id <WorkItemID> --task-id <TaskID> --ordinal <N> --objective <text> --scope <single-scope> --allowed-path <path> --acceptance <criterion> --delivery-scenario DS-03 --development-type DT-08 --change-surface UI/UX --selected-approach <approach> --alternative-rejected <rejected-alternative> --plan-step <step> --verification <verification-summary> --selection-source automatic --basis <basis> --authority-ref <authority-ref> --eligibility-evidence-ref <risk-low-ref> --eligibility-evidence-ref <reversible-ref> --eligibility-evidence-ref <single-scope-ref> --eligibility-evidence-ref <no-external-effect-ref> --eligibility-evidence-ref <no-production-ref> --eligibility-evidence-ref <no-security-ref> --eligibility-evidence-ref <extensions-inactive-ref> --fact <fact> --fundamental <fundamental-1> --fundamental <fundamental-2> --causal-link <causal-link> --decision-criterion <criterion>
+```
+
+可省略的非阻断字段由脚本写入可追溯默认值：`--out-of-scope`、`--forbidden-action`、`--assumption`、`--rollback`、`--constraint`。
+
+追加事件：
+
+```console
+python <skill-root>/scripts/manage_minimal_task.py append <project-root>/.project-governance/tasks/<TaskID> --event-type run_started --summary <summary> --status started
+python <skill-root>/scripts/manage_minimal_task.py append <project-root>/.project-governance/tasks/<TaskID> --event-type mutation --summary <summary> --status recorded --evidence-ref <evidence-ref>
+```
+
+收尾：
+
+```console
+python <skill-root>/scripts/manage_minimal_task.py close <project-root>/.project-governance/tasks/<TaskID> --status Implemented --fact <fact> --change <change> --verification "Passed::<summary>::<evidence-ref>"
+```
+
+校验：
+
+```console
+python <skill-root>/scripts/manage_minimal_task.py validate --project-root <project-root> <project-root>/.project-governance/tasks/<TaskID>
+```
+
+升级：
+
+```console
+python <skill-root>/scripts/init_task.py --project-root <project-root> --project-id <ProjectID> --work-item-id <WorkItemID> --task-id <TaskID> --ordinal <N> --objective <text> --acceptance <criterion> --development-type <DT> --change-surface <surface> --in-scope <scope> --baseline-inheritance Revise --upgrade-minimal-reason <reason> --upgrade-minimal-basis <evidence-ref>
+```
+
+其余参数同普通 `init_task.py`；只允许 Minimal 到完整载体，禁止反向降级。

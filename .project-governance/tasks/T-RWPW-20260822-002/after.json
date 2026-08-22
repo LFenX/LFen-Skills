@@ -1,0 +1,104 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-RWPW-COMPAT-20260822",
+  "task_id": "T-RWPW-20260822-002",
+  "revision": 1,
+  "status": "Implemented",
+  "completed_at": "2026-08-22T07:19:25Z",
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "6d95201c21cd68eda09cbb604e0c8fd5e81d1f8a",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 139,
+    "status_digest": "45f03d726cdc37cef38a391453092393cf10d0a87715c2d5e408e0e1c5a4a062",
+    "captured_at": "2026-08-22T07:19:25Z"
+  },
+  "established_facts": [
+    "Terminal historical tailoring snapshots are self-contained identities and do not depend on the current runtime Manifest retaining their logical paths.",
+    "Active tasks remain bound to the current V6.3 Tailoring Resolution and retrieval plan."
+  ],
+  "actual_changes": [
+    "Terminal source validation now accepts canonical references/ paths with valid SHA-256 identities and rejects traversal, backslash, empty, dot, or non-references paths.",
+    "Added regression coverage and documented the active-versus-terminal validation boundary."
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "The real closed V6.2 task and all V6.3 tasks rebuild into ProjectState.",
+      "evidence_refs": [
+        ".project-governance/project-state.json"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "Normal and Python -O full self-tests pass the safe-history and unsafe-path cases.",
+      "evidence_refs": [
+        "run-web-product-workflow/scripts/self_test.py"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "Skill validation, 45-file Manifest integrity, review generation, and current execution-ready validation pass.",
+      "evidence_refs": [
+        "git://LFen-Skills/6d95201"
+      ]
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [
+    "Preserve immutable terminal evidence structurally; require current release resolution only for active execution."
+  ],
+  "evidence_refs": [
+    "git://LFen-Skills/6d95201"
+  ],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-002-before",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-002/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "034eedf0d6c96245723e9cdfd96694cd702544fd",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-002-run",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-002/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "034eedf0d6c96245723e9cdfd96694cd702544fd",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-RWPW-20260822-002-after",
+      "content_ref": ".project-governance/tasks/T-RWPW-20260822-002/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "034eedf0d6c96245723e9cdfd96694cd702544fd",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": []
+}

@@ -357,7 +357,7 @@ Minimal 是同一六元模型下的物理载体裁剪结果，不是新的任务
 7. E01 至 E05 全部为 `Inactive`；
 8. 不存在阻断 Unknown、权限扩大、独立复核或专用 Gate。
 
-Minimal 仍必须记录唯一 TaskID、目标、单一 Scope、允许路径、Authority 引用、一句可验证 Acceptance、选定方案、未采用替代方案的理由、实际变化、验证结果、终态和升级检查。它可以跳过 Norm Packet、Source Pack、Retrieval Plan、逐动作条款查询和每任务即时 DerivedView；原因是资格事实已证明没有扩展规范、专用 Gate 或外部副作用，且 Shadow 查询不产生治理结论。ProjectState 必须索引 Minimal 任务；DerivedView 可以在收尾时一次生成或批处理。
+Minimal 仍必须记录唯一 TaskID、目标、单一 Scope、允许路径、Authority 引用、一句可验证 Acceptance、选定方案、未采用替代方案的理由、实际变化、验证结果、终态和升级检查。未提供的非阻断字段由脚本写入可追溯默认值，并在 basis、事实或约束中标明脚本默认来源。它可以跳过 Norm Packet、Source Pack、Retrieval Plan、逐动作条款查询和每任务即时 DerivedView；原因是资格事实已证明没有扩展规范、专用 Gate 或外部副作用，且 Shadow 查询不产生治理结论。ProjectState 必须索引 Minimal 任务；DerivedView 可以在收尾时一次生成或批处理。
 
 无歧义且用户已经明确要求在已声明范围内执行时，S1 摘要可以与首次回复合并，Grill Me 为零轮，S2 不重复要求 `Proceed`；必须保存该用户指令引用。若仍有会改变目标、Scope、Acceptance、风险或授权的问题，Minimal 不得用于绕过澄清。
 

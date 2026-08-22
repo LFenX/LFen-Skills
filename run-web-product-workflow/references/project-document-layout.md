@@ -1,5 +1,7 @@
 # 项目文档目录与迁移规范
 
+这些路径均相对于 `<project-root>`，不是 skill 根。
+
 ## 1. 唯一默认位置
 
 `.project-governance/` 只保存机器治理记录、权威资产登记和派生视图。其他产品原生文档统一保存到 `LG_project_docs/`：

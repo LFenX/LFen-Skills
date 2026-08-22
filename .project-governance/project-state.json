@@ -1,0 +1,158 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "ProjectState",
+  "project_id": "P-LFEN-SKILLS",
+  "generated": true,
+  "generated_at": "2026-08-22T08:22:22Z",
+  "source_digest": "3aeb6cfd8154f6d2e6a7f64024e474fbfb69d515237543ca8b89befa6936d4af",
+  "source_tasks": [
+    {
+      "task_id": "T-RWPW-20260821-001",
+      "ordinal": 1,
+      "status": "Implemented",
+      "revision": 1,
+      "completed_at": "2026-08-21T11:02:16Z"
+    },
+    {
+      "task_id": "T-RWPW-20260822-001",
+      "ordinal": 2,
+      "status": "Implemented",
+      "revision": 1,
+      "completed_at": "2026-08-22T07:11:11Z"
+    },
+    {
+      "task_id": "T-RWPW-20260822-002",
+      "ordinal": 3,
+      "status": "Implemented",
+      "revision": 1,
+      "completed_at": "2026-08-22T07:19:25Z"
+    },
+    {
+      "task_id": "T-RWPW-20260822-003",
+      "ordinal": 4,
+      "status": "Implemented",
+      "revision": 1,
+      "completed_at": "2026-08-22T07:54:14Z"
+    },
+    {
+      "task_id": "T-RWPW-20260822-004",
+      "ordinal": 5,
+      "status": "Implemented",
+      "revision": 1,
+      "completed_at": "2026-08-22T08:22:15Z"
+    }
+  ],
+  "current_facts": [
+    {
+      "task_id": "T-RWPW-20260821-001",
+      "ordinal": 1,
+      "fact": "D1-D3 均为当前代码中的可复现确定性缺陷，现已修复"
+    },
+    {
+      "task_id": "T-RWPW-20260821-001",
+      "ordinal": 1,
+      "fact": "所有问题拆解和方案制定已由 TaskContract first_principles_analysis 记录可追溯推导"
+    },
+    {
+      "task_id": "T-RWPW-20260821-001",
+      "ordinal": 1,
+      "fact": "当前 LFen-Skills 项目不存在需要迁移的旧产品文档目录，未执行项目旧文档搬迁"
+    },
+    {
+      "task_id": "T-RWPW-20260822-001",
+      "ordinal": 2,
+      "fact": "The canonical run-web-product-workflow Skill now publishes one manifest-closed V6.3 Candidate runtime snapshot with 45 protected assets."
+    },
+    {
+      "task_id": "T-RWPW-20260822-001",
+      "ordinal": 2,
+      "fact": "Minimal is a physical carrier within the existing six-meta-model, subject to hard eligibility boundaries and one-way upgrade."
+    },
+    {
+      "task_id": "T-RWPW-20260822-001",
+      "ordinal": 2,
+      "fact": "Product-native documents have one default LG_project_docs taxonomy, managed README templates, and a hash-verified legacy migration workflow."
+    },
+    {
+      "task_id": "T-RWPW-20260822-002",
+      "ordinal": 3,
+      "fact": "Terminal historical tailoring snapshots are self-contained identities and do not depend on the current runtime Manifest retaining their logical paths."
+    },
+    {
+      "task_id": "T-RWPW-20260822-002",
+      "ordinal": 3,
+      "fact": "Active tasks remain bound to the current V6.3 Tailoring Resolution and retrieval plan."
+    },
+    {
+      "task_id": "T-RWPW-20260822-003",
+      "ordinal": 4,
+      "fact": "WP1-WP10 were locally reproducible or confirmed by targeted search, and all reproducible items were fixed."
+    },
+    {
+      "task_id": "T-RWPW-20260822-003",
+      "ordinal": 4,
+      "fact": "C/E current version labels and dependency cross-references now align to V6.3 Candidate."
+    },
+    {
+      "task_id": "T-RWPW-20260822-003",
+      "ordinal": 4,
+      "fact": "Minimal now supports traceable defaults and documented init/append/close/validate flow."
+    },
+    {
+      "task_id": "T-RWPW-20260822-003",
+      "ordinal": 4,
+      "fact": "SKILL.md is split to 78-line route entry with command references and metadata.version."
+    },
+    {
+      "task_id": "T-RWPW-20260822-004",
+      "ordinal": 5,
+      "fact": "FIX-1 through FIX-5 were verified against current files and fixed where present."
+    },
+    {
+      "task_id": "T-RWPW-20260822-004",
+      "ordinal": 5,
+      "fact": "Handoff file run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md was deleted after validation."
+    }
+  ],
+  "unresolved_items": [],
+  "task_graph": [
+    {
+      "task_id": "T-RWPW-20260821-001",
+      "ordinal": 1,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": []
+    },
+    {
+      "task_id": "T-RWPW-20260822-001",
+      "ordinal": 2,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": []
+    },
+    {
+      "task_id": "T-RWPW-20260822-002",
+      "ordinal": 3,
+      "depends_on": [
+        "T-RWPW-20260822-001"
+      ],
+      "supersedes": [],
+      "blocked_by": []
+    },
+    {
+      "task_id": "T-RWPW-20260822-003",
+      "ordinal": 4,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": []
+    },
+    {
+      "task_id": "T-RWPW-20260822-004",
+      "ordinal": 5,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": []
+    }
+  ],
+  "authority_assets": []
+}

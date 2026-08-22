@@ -11,7 +11,6 @@ from pathlib import Path
 
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
-LEGACY_SPEC_ROOT = SKILL_ROOT.parents[1]
 RUNTIME_ROOT = SKILL_ROOT / "assets" / "runtime"
 MANIFEST_PATH = RUNTIME_ROOT / "embedded-manifest.json"
 REFERENCE_FILES = [
@@ -56,7 +55,6 @@ LOCAL_MAPPING_FILES = [
 
 SKILL_REFERENCE_FILES = [
     "references/first-principles-method.md",
-    "references/platform-bootstrap.md",
     "references/project-document-layout.md",
     "references/spec-source-map.md",
 ]
@@ -89,17 +87,16 @@ def sha256(path: Path) -> str:
 
 
 def resolve_spec_root(explicit: Path | None) -> Path:
-    candidate = explicit if explicit is not None else LEGACY_SPEC_ROOT
-    resolved = candidate.resolve()
+    if explicit is None:
+        raise ValueError(
+            "normative source repository cannot be inferred from the canonical Skill; "
+            "pass --spec-root <AI-Native product specification repository root>"
+        )
+    resolved = explicit.resolve()
     required = [Path(relative) for relative in REFERENCE_FILES]
     required.extend(Path(relative) for relative, _, _ in MAPPING_FILES)
     missing = [relative.as_posix() for relative in required if not (resolved / relative).is_file()]
     if missing:
-        if explicit is None:
-            raise ValueError(
-                "normative source repository cannot be inferred from the canonical Skill; "
-                "pass --spec-root <AI-Native product specification repository root>"
-            )
         raise FileNotFoundError(
             f"normative source repository is incomplete: {resolved}; first missing file: {missing[0]}"
         )
