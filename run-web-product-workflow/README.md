@@ -9,7 +9,7 @@
 | 版本 | `6.3.0-candidate` |
 | 发布 tag | `rwpw-v6.3.0-candidate` |
 | 运行依赖 | 标准库；仅 `audit_norm_retrieval.py` 需 `jsonschema>=4.18,<5` |
-| Python | 脚本需 3.11+。**自检需 3.13**：gold set 钉了各脚本 `--help` 全文的 SHA-256，而 argparse 的渲染随版本变化 |
+| Python | 3.11 / 3.12 / 3.13。CI 在三个版本上跑完整门禁，自检结果不依赖解释器版本 |
 | 规范快照 | 22 份 norm，共约 2.9 万行，受 `embedded-manifest.json` 的 SHA-256 保护 |
 
 ## 五分钟跑通
@@ -75,6 +75,8 @@ python run-web-product-workflow/scripts/audit_norm_retrieval.py --validate-only 
 ```
 
 校验受保护的检索契约：28 个 gold case、41 条 REQ / 25 条 AC 覆盖、8 个 hard gate、12 项结构检查，以及 taxonomy 与 gold set 的哈希。
+
+其中 CLI 契约钉的是各脚本 `--help` 的**规范化投影**，不是原文：argparse 的换行位置和 `optional arguments:` / `options:` 标题都随 Python 版本变化，与脚本接受什么命令行无关。参数、metavar、help 文案和描述的任何变化仍然改变摘要。
 
 ```bash
 python run-web-product-workflow/scripts/audit_norm_consistency.py --project-root . --runtime-only

@@ -288,7 +288,7 @@
       "source": "skill-local:evaluations/norm-retrieval-gold.json",
       "logical_path": "evaluations/norm-retrieval-gold.json",
       "embedded": "assets/runtime/evaluations/norm-retrieval-gold.json",
-      "sha256": "382452108485a694d73cb407a85a87d85b959fd773e1754b64fed3085647a37c"
+      "sha256": "c58eace61c07a550f30d03f6de0d5516d4f1ad281a137da1cde994ad0dfdc15e"
     },
     {
       "role": "asset-template",

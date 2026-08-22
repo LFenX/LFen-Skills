@@ -123,6 +123,24 @@ EXPECTED_OUTPUT_PATHS = [
 SEVERITIES = ("Blocker", "Major", "Minor", "Observation")
 
 
+def canonical_help(text: str) -> str:
+    """Project --help output onto the part that is actually the CLI contract.
+
+    argparse renders the same parser differently across Python versions: line
+    wrapping changed between 3.11 and 3.13 (9 of this Skill's 19 pinned scripts
+    differ), and the options section was titled "optional arguments:" before
+    3.10. Neither says anything about the command line a script accepts, so
+    hashing raw output couples this contract to one interpreter and fails for
+    reasons unrelated to what it protects. Collapse those two rendering
+    differences and hash what remains -- flags, metavars, help strings and the
+    description all still change the digest.
+    """
+
+    text = text.replace("\r\n", "\n")
+    text = re.sub(r"^optional arguments:", "options:", text, flags=re.MULTILINE)
+    return re.sub(r"\s+", " ", text).strip()
+
+
 def sha256_bytes(value: bytes) -> str:
     return hashlib.sha256(value).hexdigest()
 
@@ -772,7 +790,7 @@ def validate_contracts(
             raise GovernanceError(f"{expected['script']} {' '.join(help_args)} failed with {process.returncode}")
         help_text = process.stdout.replace("\r\n", "\n")
         actual_options = sorted(set(re.findall(r"(?<!\w)--[a-z][a-z0-9-]*", help_text)))
-        actual_hash = sha256_bytes(help_text.encode("utf-8"))
+        actual_hash = sha256_bytes(canonical_help(help_text).encode("utf-8"))
         if actual_hash != expected.get("help_sha256") or actual_options != expected.get("options"):
             raise GovernanceError(f"{expected['script']} {' '.join(help_args)}: CLI help contract changed")
         result = {"script": expected["script"], "help_sha256": actual_hash, "options": actual_options}

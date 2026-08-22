@@ -2171,7 +2171,7 @@
     "cli_help_contracts": [
       {
         "script": "amend_record.py",
-        "help_sha256": "a1c240414a871f12c50f37dc1a3b5a506d610001c195f4dde43fc8a521f37b98",
+        "help_sha256": "589b4e70001392ab6a5e2d694b565bbdba6a02814923ca590d3d879e00a5fedb",
         "options": [
           "--allow-add",
           "--basis",
@@ -2187,7 +2187,7 @@
       },
       {
         "script": "append_run_event.py",
-        "help_sha256": "e4bc6d64050bb0acf54d6394ec30ce91f835468e37c861d2b630a261a0581c64",
+        "help_sha256": "d7fe54e30d4fc8fb36fe9e150d51240fe21cc34dd8e7d8a81f402bb7281b21ec",
         "options": [
           "--attempt-id",
           "--event-type",
@@ -2203,7 +2203,7 @@
       },
       {
         "script": "audit_norm_consistency.py",
-        "help_sha256": "d9e5940d1f7fef9a078dffffc83566b1a5008a73e8919a0427f9ffdf39c61606",
+        "help_sha256": "35fee685d306227dc0ee724cadbab683760bc39b9dd31f5632376186d19233c4",
         "options": [
           "--fail-on",
           "--help",
@@ -2217,7 +2217,7 @@
       },
       {
         "script": "audit_tailoring_coverage.py",
-        "help_sha256": "edbc947fb526cfd5e4541c161947b6cd1b71cdefda5610e1bd08b349b300f8c4",
+        "help_sha256": "45413058ec6740027bce0c79ce0ba8e53599bfb6a4ca6c06bf7e1cc71aeececc",
         "options": [
           "--help",
           "--output",
@@ -2228,7 +2228,7 @@
       },
       {
         "script": "close_task.py",
-        "help_sha256": "504e75f81482d828a356efa83a7485eb25c3357577c6afd25e6f441c9baf1cbf",
+        "help_sha256": "281b638f4da14d59efa044a33482304e8af72464a007bd599241e9f9fa30150c",
         "options": [
           "--artifact-manifest-json-base64",
           "--artifact-manifest-json-file",
@@ -2252,7 +2252,7 @@
       },
       {
         "script": "compile_norm_context.py",
-        "help_sha256": "44044bcf9ad6929a4f5bf3e218e5dfacd02b3ca25fc6ae1e7fd0361d642610d8",
+        "help_sha256": "a256b17c21812149daed0158edfcd3d218cf1386042d778bf40eb22bd8e03e1d",
         "options": [
           "--enforce",
           "--help",
@@ -2264,7 +2264,7 @@
       },
       {
         "script": "check_write_guard.py",
-        "help_sha256": "45d99b5710f215fb43e4cb63c53baa2ad2419be74b525902183a052338355213",
+        "help_sha256": "1f7bc750420ed2fcb02b0167f46609a13535cacede18d96938a1ae5f394c5c46",
         "options": [
           "--help",
           "--task-dir"
@@ -2272,7 +2272,7 @@
       },
       {
         "script": "generate_review_views.py",
-        "help_sha256": "564cc5de56a385e14c260497fdb6be4ebcafd5230e9659174d298ae6efc3761f",
+        "help_sha256": "9fb9aa4a74a7c75cec62793b948727b33e0daeb0a7f1816f7a355196f4df69f3",
         "options": [
           "--help",
           "--mapping",
@@ -2283,7 +2283,7 @@
       },
       {
         "script": "get_context.py",
-        "help_sha256": "7cccdd501cce608ab5e99a990d324687eae7d83541e31ab844ba8cd95a9b8c58",
+        "help_sha256": "8e4e27a9ca6e2ef1d0135553d324f6f250ce59ddc6fab4453741cb00b895fe20",
         "options": [
           "--action",
           "--help",
@@ -2293,7 +2293,7 @@
       },
       {
         "script": "init_task.py",
-        "help_sha256": "db87804a33da7089a6d315624051f3ab39c4fb91b57f28fd704168409669b725",
+        "help_sha256": "19b2d06ad8f599941c83b80b6321b98c226c5b490466f06157964a5b0e00af17",
         "options": [
           "--acceptance",
           "--allowed-path",
@@ -2345,7 +2345,7 @@
       },
       {
         "script": "manage_minimal_task.py",
-        "help_sha256": "a3fd56b13ffb4099bbf0de024898b297a210dddbfffc6bb8a27c9313ec3337ac",
+        "help_sha256": "80e7dd1d8a2ed6a7a857753cb4a89c2207d1ce8ddf7c12a208bb360b2d6fb56c",
         "options": [
           "--help"
         ]
@@ -2356,7 +2356,7 @@
           "init",
           "--help"
         ],
-        "help_sha256": "37ca637583e810dd653803a76ab9736f1ebd40c95afc79d4313de14b30ba648e",
+        "help_sha256": "107331d098b3358c3dc47f018cd92503b56eae6b275659bf67299fcc2012431c",
         "options": [
           "--acceptance",
           "--allowed-path",
@@ -2394,7 +2394,7 @@
       },
       {
         "script": "migrate_legacy_artifacts.py",
-        "help_sha256": "b96fbde45f89a7fdfffce82ec791c18251f39afbfb70227954f8d0b25cad6946",
+        "help_sha256": "f8f900b37bbec99c1063a2971a879c15f012cf827ffd3bcb090860fc3ee62e8f",
         "options": [
           "--help",
           "--legacy-kind",
@@ -2405,7 +2405,7 @@
       },
       {
         "script": "rebuild_project_state.py",
-        "help_sha256": "6cc7d268638a2b3de3d34f6c33be67303c66268aed73aa38b47f878125198f42",
+        "help_sha256": "6f26c9da79a8e7b0aa80e72a27fb6db8f14c3442a1891c75ba5e26e4ceb9e888",
         "options": [
           "--help",
           "--project-id",
@@ -2414,7 +2414,7 @@
       },
       {
         "script": "query_norm_context.py",
-        "help_sha256": "1ae8f3d88f1d136196369405156c6f2a62e90035d6954356146382ee09bfde12",
+        "help_sha256": "b663eb2bf3134b37545d87c662406a571792835c607ae8272d1ebfa4bfa26df6",
         "options": [
           "--budget-baseline",
           "--consistency-report",
@@ -2429,7 +2429,7 @@
       },
       {
         "script": "refresh_tailoring_resolution.py",
-        "help_sha256": "01c853bf5171143e64207c865af91d5b27f15899216e0d22da5e510db47d3ae1",
+        "help_sha256": "2f1ae828e044f8e160a6b8a442b499e5775af91e8b956d60f9ea6043aced757f",
         "options": [
           "--applicability-fact",
           "--basis",
@@ -2444,7 +2444,7 @@
       },
       {
         "script": "register_authority_asset.py",
-        "help_sha256": "b554c6954bce0fe2b3a6338b2e51010b7e9d0048cbf428ada46e7c951269ae8c",
+        "help_sha256": "afc1a3f937fbfbc600c50cc997bcbaf50bdd44daf5a052dfdb7e056bfe53b959",
         "options": [
           "--access-classification",
           "--asset-id",
@@ -2472,7 +2472,7 @@
       },
       {
         "script": "signals.py",
-        "help_sha256": "45ebe939b568915c962d72b76cf33e83b011e64ab43e9ff69e8e1343fe4d9019",
+        "help_sha256": "b2caa7cf1c28381928e83d464d91fe8612dcf141ba242ecea5e9c13b0fa9e370",
         "options": [
           "--help",
           "--project-root"
@@ -2480,7 +2480,7 @@
       },
       {
         "script": "sync_embedded_references.py",
-        "help_sha256": "4a42c713e9c9adc4c7b700f997309b1e1fb615069cf72e53d4c195a7a7aa2604",
+        "help_sha256": "dacbe894f23cf575a86495dcbcda07cef699eea9c547e4814bc3010f33d90b1e",
         "options": [
           "--help",
           "--publish-to"
@@ -2488,7 +2488,7 @@
       },
       {
         "script": "validate_task_package.py",
-        "help_sha256": "ed95774464d050ac79bb5ad30ff58bab5fb893378192c94fd8a87012a3ff0c13",
+        "help_sha256": "de8a98b5c7b1130b314cb57e1bce2d6f6191e542109557ada064b1238afd9fae",
         "options": [
           "--check-mapping",
           "--execution-ready",

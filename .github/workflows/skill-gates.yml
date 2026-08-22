@@ -14,17 +14,20 @@ on:
 jobs:
   gates:
     runs-on: ubuntu-latest
+    # The Skill claims a consumer can verify their own copy with self_test.py.
+    # That claim is only worth anything if it is checked on more than one
+    # interpreter, so every supported version runs the full gate set.
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
     env:
       PYTHONUTF8: "1"
     steps:
       - uses: actions/checkout@v4
-      # Pinned deliberately. The gold set records a SHA-256 of each script's
-      # --help text, and argparse renders usage differently across Python
-      # versions, so the CLI contract only validates under the version it was
-      # sealed with. Changing this without resealing turns Gate 1 red.
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "${{ matrix.python-version }}"
 
       - name: Install runtime dependencies
         run: python -m pip install --disable-pip-version-check -r run-web-product-workflow/requirements.txt
