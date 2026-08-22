@@ -709,3 +709,72 @@ def render_minimal_review(record: dict[str, Any]) -> str:
             for item in outcome["verification"]
         )
     return "\n".join(lines) + "\n"
+
+
+# --- Minimal eligibility screening -------------------------------------------
+# VC-PPG-DEC-001 16.4 lists nine conditions; minimal-task-record.schema.json pins
+# them as const fields. Deciding whether a task may use the Minimal carrier needs
+# only the applicability facts whose Yes value would veto one of those conditions
+# -- not the full 17-fact Task Profile, which the Minimal record does not even
+# carry. Screening on that subset is what lets the carrier be chosen before the
+# heavy classification work, instead of after it.
+#
+# Facts that gate an extension are read from the map so E01-E05 coverage cannot
+# drift. The rest are named here because the fact vocabulary and the schema field
+# names genuinely differ for two of them.
+SCREEN_FACT_TO_CONDITION = {
+    "irreversible_change": "reversible",
+    "external_system_effect": "external_system_effect",
+    "production_release": "production_release",
+    "security_privacy_impact": "security_privacy_impact",
+    "formal_review_or_gate": "special_gates",
+}
+
+
+def screening_facts() -> dict[str, str]:
+    """Fact key -> the eligibility condition its Yes value would veto."""
+
+    mapping = load_tailoring_applicability_map()
+    facts = dict(SCREEN_FACT_TO_CONDITION)
+    for key, rule in mapping["applicability_facts"].items():
+        extension = rule.get("extension")
+        if extension:
+            facts.setdefault(key, f"extension_triggers.{extension}")
+    return facts
+
+
+def screen_minimal_eligibility(
+    *,
+    risk_level: str,
+    single_scope: bool,
+    facts: dict[str, str],
+) -> tuple[bool, list[str]]:
+    """Return (eligible, reasons). Reasons name the condition that vetoed."""
+
+    mapping = load_tailoring_applicability_map()
+    fact_values = set(mapping["controlled_values"]["fact_values"])
+    required = screening_facts()
+    reasons: list[str] = []
+    missing = sorted(set(required) - set(facts))
+    if missing:
+        reasons.append(
+            "not screened: supply --fact for each of " + ", ".join(missing)
+        )
+    if risk_level != "Low":
+        reasons.append(f"risk_level={risk_level} vetoes eligibility; Minimal requires Low")
+    if not single_scope:
+        reasons.append("single_scope=false vetoes eligibility")
+    for key in sorted(set(required) & set(facts)):
+        value = facts[key]
+        if value not in fact_values:
+            reasons.append(f"{key}={value} is not Yes, No or Unknown")
+        elif value == "Yes":
+            reasons.append(f"{key}=Yes vetoes eligibility condition {required[key]}")
+        elif value == "Unknown":
+            # VC-PPG-DEC-001 10.2: Unknown may never be read as No, and 16.4 requires
+            # blocking_unknowns to be empty.
+            reasons.append(
+                f"{key}=Unknown vetoes eligibility condition blocking_unknowns; "
+                "resolve it or use the full carrier"
+            )
+    return (not reasons), reasons

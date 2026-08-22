@@ -2345,7 +2345,7 @@
       },
       {
         "script": "manage_minimal_task.py",
-        "help_sha256": "80e7dd1d8a2ed6a7a857753cb4a89c2207d1ce8ddf7c12a208bb360b2d6fb56c",
+        "help_sha256": "626ddce827633f99578ebc507d47677cc7dda2927ff9f9d724065a5963e020ff",
         "options": [
           "--help"
         ]

@@ -27,6 +27,14 @@ Minimal 是同一六元模型的物理载体裁剪，不是第二套流程。
 
 `--selection-source explicit-user` 用于用户明确说“采用最轻框架”；`--selection-source automatic` 用于 agent 判定资格全部成立并告知默认采用 Minimal。
 
+先筛查再决定载体。Minimal 记录不承载 `applicability_facts`，资格只取决于取值为 `Yes` 就会否决某条条件的那 9 条事实，所以不必先完成完整 Task Profile：
+
+```console
+python <skill-root>/scripts/manage_minimal_task.py screen --risk <Low|Medium|High|Critical> --single-scope <yes|no> --fact <key>=<Yes|No|Unknown>
+```
+
+不带 `--fact` 直接运行会列出需要哪 9 条。输出 `ELIGIBLE` 才走下面的 init；`NOT-ELIGIBLE` 会点名是哪条否决的，改走 [init](init.md)。任一事实为 `Unknown` 即否决——§10.2 明令 Unknown 不得当作 No。
+
 初始化。只需 §16.4 在 init 期要求的字段加基础 ID、Task Profile 三元和资格证据：
 
 ```console

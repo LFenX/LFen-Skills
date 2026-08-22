@@ -86,7 +86,7 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 
 资格判定以 VC-PPG-DEC-001 §16.4 为唯一事实源；其九条受控条件的人类可读投影在 [reference/minimal.md](reference/minimal.md)，本文件不复述。九条全部成立才使用 `<project-root>/.project-governance/tasks/<TaskID>/task-record.json` 聚合 TaskContract、RunLedger 和 TaskOutcome。任意一条不成立或为 Unknown，走完整载体。
 
-判定前只需读 [reference/minimal.md](reference/minimal.md) 一张卡。无歧义且用户已明确要求执行时 Grill Me 为零轮，S1 摘要与首次回复合并，不重复询问 `Proceed`。执行中跨越任一硬边界时停止受影响动作并单向升级为完整载体；禁止完整载体降回 Minimal。
+判定前只需读 [reference/minimal.md](reference/minimal.md) 一张卡；不确定资格时先跑其中的 `manage_minimal_task.py screen`，它按 9 条否决事实给出载体结论和点名理由。无歧义且用户已明确要求执行时 Grill Me 为零轮，S1 摘要与首次回复合并，不重复询问 `Proceed`。执行中跨越任一硬边界时停止受影响动作并单向升级为完整载体；禁止完整载体降回 Minimal。
 
 ## 完整载体
 

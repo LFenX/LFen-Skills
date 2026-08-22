@@ -13,6 +13,8 @@ sys.dont_write_bytecode = True
 from governance_artifacts import GovernanceError, read_json
 from minimal_task import (
     append_minimal_event,
+    screen_minimal_eligibility,
+    screening_facts,
     allowed_minimal_change_surfaces,
     close_minimal_record,
     create_minimal_record,
@@ -105,6 +107,25 @@ def parse_args() -> argparse.Namespace:
         default=[],
         help="summary::reason::impact::owner::reentry_condition",
     )
+    # Answers "Minimal or full carrier?" before any record exists. The Minimal
+    # record does not carry applicability_facts at all, and eligibility depends on
+    # only the facts whose Yes value vetoes one of VC-PPG-DEC-001 16.4's conditions,
+    # so the carrier can be chosen without first completing the full Task Profile.
+    screen = commands.add_parser("screen")
+    screen.add_argument("--risk", required=True, choices=["Low", "Medium", "High", "Critical"])
+    screen.add_argument(
+        "--single-scope",
+        required=True,
+        choices=["yes", "no"],
+        help="Whether scope.in_scope would hold exactly one independently acceptable Scope.",
+    )
+    screen.add_argument(
+        "--fact",
+        action="append",
+        default=[],
+        metavar="KEY=Yes|No|Unknown",
+        help="Repeat for each screening fact; run without any to be told which are needed.",
+    )
     validate = commands.add_parser("validate")
     validate.add_argument("--project-root", default=".")
     validate.add_argument("task_dir", type=Path)
@@ -169,6 +190,31 @@ def main() -> int:
                     incomplete_items=args.incomplete_item,
                 )
             )
+        elif args.command == "screen":
+            facts: dict[str, str] = {}
+            for item in args.fact:
+                key, _, value = item.partition("=")
+                if not value:
+                    raise GovernanceError(f"--fact must be KEY=VALUE, got {item!r}")
+                facts[key.strip()] = value.strip()
+            unknown_keys = sorted(set(facts) - set(screening_facts()))
+            if unknown_keys:
+                raise GovernanceError(
+                    "not screening facts: " + ", ".join(unknown_keys)
+                )
+            eligible, reasons = screen_minimal_eligibility(
+                risk_level=args.risk,
+                single_scope=args.single_scope == "yes",
+                facts=facts,
+            )
+            if eligible:
+                print("ELIGIBLE: every VC-PPG-DEC-001 16.4 condition holds; use the Minimal carrier.")
+                print("Next: manage_minimal_task.py init  (see reference/minimal.md)")
+                return 0
+            print("NOT-ELIGIBLE: use the full carrier via init_task.py (see reference/init.md).")
+            for reason in reasons:
+                print(f"  - {reason}")
+            return 0
         else:
             project_root = Path(args.project_root).resolve()
             task_dir = args.task_dir if args.task_dir.is_absolute() else project_root / args.task_dir

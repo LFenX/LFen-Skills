@@ -23,4 +23,12 @@ python <skill-root>/scripts/manage_project_docs.py init --project-root <project-
 python <skill-root>/scripts/manage_project_docs.py refresh-readme --project-root <project-root>
 ```
 
+脚本已承担的判定，不需要人工记忆或预先推演：
+
+- 适用规范由 `applicability_facts` 自动并集推导，`Yes` 即并入该事实 `activates` 的规范并触发对应扩展。
+- DT 语义冲突组合由脚本强制校验，冲突时报错点名冲突对与重叠的子范围。
+- 事实与分类标签不一致时按 VC-PPG-DEC-001 §10.1 形成阻断，报错列出可接受的 Change Surface 或 Development Type。这是规范要求的阻断，不会自动消解——按报错补齐标签即可。
+
+先判定载体：不确定走 Minimal 还是完整载体时，先跑 [minimal](minimal.md) 里的 `screen`。
+
 写入 Task Profile 时必须使用受控值；入口口语可以映射，不能原样写入 `defect-fix`、`automation` 等别名。
