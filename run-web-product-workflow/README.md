@@ -100,6 +100,16 @@ tag 只是标签，除非有东西检查它指向什么。推送 `rwpw-v*` tag �
 python .github/scripts/check_release_tag.py rwpw-v6.3.0-candidate
 ```
 
+### 审计台
+
+任务血缘、衍生审计、未决项与资产完整性可以生成为一个自包含的 HTML 单页，供人直接审阅：
+
+```bash
+python run-web-product-workflow/scripts/generate_audit_console.py --project-root . --project-id <ProjectID>
+```
+
+产出 `.project-governance/generated/reviews/audit-console.html`，无外部依赖，浏览器直接打开。它按 C10 §8.2 的受控关系区分「本次引入」与「顺带发现」，回归链深只沿前者计算——这样一个任务是制造了返工还是暴露了隐患，一眼可分。作为 DerivedView 可随时重建，且不是新事实的来源。
+
 ### 维护者评测工具
 
 `scripts/audit_norm_shadow.py` 评测 Shadow 检索质量——无关上下文降幅、强制条款覆盖率、错误放行数。它需要真实 task-dir、审批引用和阈值，是维护者评测入口，不是消费方运行时工具，也不在 CI 门禁中。它是本包内最接近「检索效用度量」的资产。

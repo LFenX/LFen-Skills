@@ -19,6 +19,16 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 
 `signals.py` 只报告，不自动执行推荐命令。
 
+`signals.py` 的 `derivation_audit` 按 C10 §8.2 关系符号分开统计衍生：`affected-by`（本次引入）计入回归链深，`observed-from`（顺带发现）单独计数——前者链长说明修复方式有系统性问题，后者多则相反。`recorded_but_not_created` 列出已记录为衍生目标但项目里尚不存在的任务，那是「发现了却没人接手」的线索。
+
+需要人来审计时生成审计台：
+
+```console
+python <skill-root>/scripts/generate_audit_console.py --project-root <project-root> --project-id <ProjectID>
+```
+
+产出 `generated/reviews/audit-console.html`，自包含单文件，可直接用浏览器打开。它是 DerivedView，可随时重建，按 C10 §8.0 不得作为新追踪事实的唯一来源。
+
 同目录存在 `before.json` 时以完整载体为准，忽略 stray `task-record.json`。Minimal `lifecycle_state=Upgraded` 不是可执行活跃任务；若没有其他待验收任务，才推荐用 `init_task.py` 的升级参数完成完整载体，禁止对该 Minimal 继续 `run` / `verify` / `close`。Upgraded 残留不得取消其他待验收任务的 `run` 建议。
 
 口语入口映射：

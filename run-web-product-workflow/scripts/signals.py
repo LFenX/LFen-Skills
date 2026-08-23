@@ -11,6 +11,7 @@ from typing import Any
 
 sys.dont_write_bytecode = True
 
+import audit_console
 from build_norm_index import load_sources
 from governance_artifacts import GovernanceError, capture_source_snapshot, read_json
 
@@ -187,65 +188,11 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-# C10 8.2 relations carry opposite meanings for a review. A task whose successors
-# are observed-from surfaced hidden problems -- that is the run doing its job. A task
-# whose successors are affected-by created the work itself. Counting them together
-# yields a number that cannot be reflected on, so the audit reports them apart and
-# only follows affected-by when measuring how far a repair kept propagating.
-NEGATIVE_RELATIONS = ("affected-by",)
-POSITIVE_RELATIONS = ("observed-from",)
-
-
 def derivation_audit(project_root: Path) -> dict[str, Any]:
     state_path = project_root / ".project-governance" / "project-state.json"
     if not state_path.is_file():
         return {"available": False, "reason": "project-state.json not built yet"}
-    graph = read_json(state_path).get("task_graph", [])
-    by_id = {node["task_id"]: node for node in graph}
-    known = set(by_id)
-
-    def chain_depth(task_id: str, relations: tuple[str, ...], seen: frozenset[str]) -> int:
-        node = by_id.get(task_id)
-        if node is None or task_id in seen:
-            return 0
-        deeper = [
-            1 + chain_depth(link["task_id"], relations, seen | {task_id})
-            for link in node.get("next_tasks", [])
-            if link["relation"] in relations
-        ]
-        return max(deeper, default=0)
-
-    counts: dict[str, int] = {}
-    per_task = []
-    dangling = []
-    for node in graph:
-        links = node.get("next_tasks", [])
-        for link in links:
-            counts[link["relation"]] = counts.get(link["relation"], 0) + 1
-            if link["task_id"] not in known:
-                dangling.append(
-                    {"task_id": node["task_id"], "target": link["task_id"], "relation": link["relation"]}
-                )
-        if not links and not node.get("derived_from"):
-            continue
-        per_task.append(
-            {
-                "task_id": node["task_id"],
-                "caused": sum(1 for link in links if link["relation"] in NEGATIVE_RELATIONS),
-                "surfaced": sum(1 for link in links if link["relation"] in POSITIVE_RELATIONS),
-                "derived_from": len(node.get("derived_from", [])),
-                "caused_chain_depth": chain_depth(node["task_id"], NEGATIVE_RELATIONS, frozenset()),
-            }
-        )
-    per_task.sort(key=lambda item: (-item["caused_chain_depth"], -item["caused"], item["task_id"]))
-    return {
-        "available": True,
-        "relation_counts": dict(sorted(counts.items())),
-        "by_task": per_task,
-        "recorded_but_not_created": sorted(
-            dangling, key=lambda item: (item["task_id"], item["target"])
-        ),
-    }
+    return audit_console.derivation_audit(read_json(state_path))
 
 
 def main(argv: list[str] | None = None) -> int:
