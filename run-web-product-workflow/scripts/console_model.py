@@ -36,6 +36,19 @@ from manage_project_docs import (
     legacy_roots,
 )
 
+# Authoritative one-line purposes, quoted from VC-PPG-COM-002 (受控产物目录与状态模型).
+# The console must explain what each governance object is FOR, and that explanation
+# has to come from the norm rather than from the console's author.
+META_TYPES = (
+    ("TaskContract", "任务执行前", "保存 Task Profile、适用性事实、确定性裁剪快照、权限、验收和计划；Run 开始时冻结，修订必须留痕", "tasks/<TaskID>/before.json"),
+    ("RunLedger", "任务执行中", "只追加重要事件", "tasks/<TaskID>/run.jsonl"),
+    ("TaskOutcome", "任务终态", "已成立事实和遗留问题的任务级事实源", "tasks/<TaskID>/after.json"),
+    ("ProjectState", "跨任务当前状态", "从终态和权威资产物化，不直接编辑", "project-state.json"),
+    ("AuthorityAsset", "项目长期事实", "需求、设计、决定、证据、基线等权威对象", "authority/"),
+    ("DerivedView", "按需审核与查询", "可重建，禁止直接承载新权威事实", "generated/"),
+)
+
+
 PREVIEWABLE_TEXT = {".md", ".mdx", ".txt", ".json", ".jsonl", ".yaml", ".yml", ".csv", ".log"}
 PREVIEWABLE_IMAGE = {".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif"}
 PREVIEWABLE_HTML = {".html", ".htm"}
@@ -122,6 +135,12 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
         "depends_on": node.get("depends_on", []),
         "supersedes": node.get("supersedes", []),
         "files": [],
+        "manifest": [],
+        "tailoring": None,
+        "eligibility": None,
+        "selection": None,
+        "scope": {},
+        "authority": [],
     }
     minimal_path = task_dir / "task-record.json"
     before_path = task_dir / "before.json"
@@ -153,6 +172,15 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
                 actual_changes=outcome.get("actual_changes", []),
                 incomplete_items=outcome.get("incomplete_items", []),
                 lifecycle=record.get("lifecycle_state", ""),
+                # Minimal has no tailoring_resolution by design (16.4); its analogue is
+                # the eligibility that permitted the carrier plus how it was selected.
+                eligibility=record.get("eligibility"),
+                selection=record.get("selection"),
+                manifest=record.get("artifact_manifest", []),
+                scope={"in_scope": [contract.get("scope", "")], "out_of_scope": contract.get("out_of_scope", []),
+                       "allowed_paths": contract.get("allowed_paths", []),
+                       "forbidden_actions": contract.get("forbidden_actions", [])},
+                authority=contract.get("authority_refs", []),
             )
         elif before_path.is_file():
             before = read_json(before_path)
@@ -170,6 +198,10 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
                     for item in before.get("acceptance", [])
                 ],
                 lifecycle=before.get("lifecycle_state", ""),
+                manifest=before.get("artifact_manifest", []),
+                tailoring=before.get("tailoring_resolution"),
+                scope=before.get("scope", {}),
+                authority=before.get("authority", []),
             )
             run_path = task_dir / "run.jsonl"
             if run_path.is_file():
@@ -188,6 +220,9 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
                 entry["established_facts"] = after.get("established_facts", [])
                 entry["actual_changes"] = after.get("actual_changes", [])
                 entry["incomplete_items"] = after.get("incomplete_items", [])
+                # The terminal manifest supersedes the contract's declaration.
+                if after.get("artifact_manifest"):
+                    entry["manifest"] = after["artifact_manifest"]
     except (OSError, json.JSONDecodeError, GovernanceError) as exc:
         entry["error"] = str(exc)
     entry["files"] = [_stat(path, project_root) for path in _iter_files(task_dir)]

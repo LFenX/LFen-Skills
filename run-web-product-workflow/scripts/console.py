@@ -231,6 +231,11 @@ class ConsoleHandler(BaseHTTPRequestHandler):
             self._html(200, console_render.shell(model, path="/tasks", title=task_id,
                                                  crumbs=[home, ("/tasks", "任务"), ("", task_id)], body=body), send_body)
             return
+        if route == "/model":
+            self._html(200, console_render.shell(model, path=route, title="产物结构",
+                                                 crumbs=[home, ("", "产物结构")],
+                                                 body=console_render.page_model(model)), send_body)
+            return
         if route == "/lineage":
             self._html(200, console_render.shell(model, path=route, title="血缘与衍生",
                                                  crumbs=[home, ("", "血缘与衍生")],

@@ -14,6 +14,7 @@ import re
 from typing import Any, Iterable
 
 import audit_console
+import console_model
 
 RELATION_LABELS = audit_console.RELATION_LABELS
 SEVERITY_BADGE = {"warn": "warn", "info": "mute", "error": "neg"}
@@ -31,6 +32,7 @@ NAV = (
         ("/archive", "迁移归档", "archives"),
     )),
     ("资产", (
+        ("/model", "产物结构", "manifest"),
         ("/artifacts", "生成物", "artifacts"),
         ("/integrity", "完整性与审计", "findings"),
     )),
@@ -51,6 +53,7 @@ def _counts(model: dict[str, Any]) -> dict[str, int]:
         "intake": len(docs.get("intake", [])),
         "archives": len(docs.get("archives", [])),
         "artifacts": sum(len(f["items"]) for f in model["artifacts"]),
+        "manifest": sum(len(task.get("manifest") or []) for task in model["tasks"]),
         "findings": len(model["doc_findings"]) + len(model["integrity"].get("errors", [])),
     }
 
@@ -213,6 +216,24 @@ def page_overview(model: dict[str, Any]) -> str:
 {'<p style="margin:12px 0 0"><a href="/integrity">查看全部 →</a></p>' if findings else ''}</div>"""
 
 
+def tailoring_summary(task: dict[str, Any]) -> str:
+    """One glanceable cell: how much norm this task is bound by."""
+
+    tailoring = task.get("tailoring")
+    if tailoring:
+        standards = tailoring.get("applicable_standards", [])
+        extensions = [s for s in standards if s.startswith("E")]
+        bits = [badge(f"{len(standards)} 规范", "mute"), badge(tailoring.get("control_strength", ""), "mute")]
+        if extensions:
+            bits.append(badge("+".join(extensions), "neg"))
+        if tailoring.get("explicit_human_gate") or tailoring.get("independent_review"):
+            bits.append(badge("Gate", "warn"))
+        return " ".join(bits)
+    if task.get("eligibility"):
+        return badge("Minimal 资格", "pos")
+    return ""
+
+
 def page_tasks(model: dict[str, Any]) -> str:
     rows = []
     for task in model["tasks"]:
@@ -225,12 +246,14 @@ def page_tasks(model: dict[str, Any]) -> str:
             f'<td>{e(task["status"])}</td>'
             f'<td>{e(task["risk_level"] or "-")}</td>'
             f'<td class="wrap">{e(task["objective"])}</td>'
+            f'<td>{tailoring_summary(task)}</td>'
+            f'<td class="num">{len(task.get("manifest") or []) or ""}</td>'
             f'<td class="num">{len(task["next_tasks"]) or ""}</td>'
-            f'<td class="mono">{e(task.get("updated_at", ""))}</td></tr>' 
+            f'<td class="mono">{e(task.get("updated_at", ""))}</td></tr>'  
         )
     carriers = sorted({t["carrier"] for t in model["tasks"]})
     options = "".join(f"<option value='{e(c)}'>{e(c)}</option>" for c in carriers)
-    body = table(["#序号", "任务", "载体", "状态", "风险", "目标", "#衍生", "最后更新"], rows) or empty(
+    body = table(["#序号", "任务", "载体", "状态", "风险", "目标", "裁剪", "#产物", "#衍生", "最后更新"], rows) or empty(
         "还没有受控任务。", "用 init_task.py 或 manage_minimal_task.py init 建立第一个任务。"
     )
     return f"""<h1>任务</h1>
@@ -243,6 +266,94 @@ def page_tasks(model: dict[str, Any]) -> str:
   </div>
   {body}
 </div>"""
+
+
+def tailoring_card(task: dict[str, Any]) -> str:
+    """The tailoring result: which standards bind this task, and on what rule.
+
+    A reviewer's first question about a governed task is what it was tailored to.
+    The full carrier records that in tailoring_resolution; Minimal has none by design
+    (VC-PPG-DEC-001 16.4) and instead records the eligibility that permitted it.
+    """
+
+    tailoring = task.get("tailoring")
+    if tailoring:
+        applicable = "".join(badge(s, "neg" if s.startswith("E") else "") for s in tailoring.get("applicable_standards", []))
+        pending = "".join(badge(s, "warn") for s in tailoring.get("pending_standards", []))
+        gates = []
+        if tailoring.get("independent_review"):
+            gates.append(badge("独立复核", "warn"))
+        if tailoring.get("explicit_human_gate"):
+            gates.append(badge("人类 Gate", "warn"))
+        blocking = tailoring.get("blocking_reasons") or []
+        rules = "".join(f"<li class='mono'>{e(rule)}</li>" for rule in tailoring.get("rule_ids", []))
+        return (
+            "<div class='card'><h3>裁剪结果</h3>"
+            "<p class='hint'>适用规范由分类与适用性事实按 VC-PPG-TAIL-001 取并集推导，规则依据逐条留痕。</p>"
+            "<dl class='kv'>"
+            f"<dt>阶段</dt><dd>{badge(tailoring.get('stage', ''), 'mute')}</dd>"
+            f"<dt>控制强度</dt><dd>{badge(tailoring.get('control_strength', ''), 'mute')}</dd>"
+            f"<dt>适用规范</dt><dd>{applicable or '—'} <span class='count'>共 {len(tailoring.get('applicable_standards', []))} 项</span></dd>"
+            f"<dt>待判定</dt><dd>{pending or '无'}</dd>"
+            f"<dt>专用 Gate</dt><dd>{' '.join(gates) if gates else badge('无', 'pos')}</dd>"
+            f"<dt>阻断原因</dt><dd>{''.join(f'<div>{e(x)}</div>' for x in blocking) if blocking else badge('无', 'pos')}</dd>"
+            f"<dt>完整来源</dt><dd>{len(tailoring.get('complete_source_files', []))} 个规范文件 · {len(tailoring.get('source_sections', []))} 个章节</dd>"
+            "</dl>"
+            f"<details><summary>规则依据（{len(tailoring.get('rule_ids', []))} 条）</summary>"
+            f"<ul class='plain'>{rules}</ul></details></div>"
+        )
+    eligibility = task.get("eligibility")
+    if not eligibility:
+        return ""
+    selection = task.get("selection") or {}
+    rows = "".join(
+        f"<dt>{e(key)}</dt><dd>{badge(str(value), 'pos') if value in (False, [], 'Low') else e(str(value))}</dd>"
+        for key, value in eligibility.items()
+        if key not in {"evidence_refs", "extension_triggers"}
+    )
+    triggers = "".join(
+        badge(f"{name} {state}", "pos" if state == "Inactive" else "neg")
+        for name, state in (eligibility.get("extension_triggers") or {}).items()
+    )
+    return (
+        "<div class='card'><h3>裁剪结果 · Minimal 资格</h3>"
+        "<p class='hint'>Minimal 按 VC-PPG-DEC-001 §16.4 不产出裁剪决议；准入依据是下列九条资格条件全部成立。</p>"
+        f"<dl class='kv'>{rows}<dt>扩展状态</dt><dd>{triggers}</dd>"
+        f"<dt>选择方式</dt><dd>{badge(selection.get('source', ''), 'mute')}</dd>"
+        f"<dt>资格证据</dt><dd>{len(eligibility.get('evidence_refs', []))} 条</dd></dl></div>"
+    )
+
+
+META_PURPOSE = {name: purpose for name, _when, purpose, _where in console_model.META_TYPES}
+
+
+def manifest_card(task: dict[str, Any]) -> str:
+    """The declared deliverables, typed, with what each one is for.
+
+    reason and rule_reference are recorded per entry -- the record already says what
+    every artifact exists for and which clause requires it. Showing the file list
+    without them was the reason this read as a file browser.
+    """
+
+    entries = task.get("manifest") or []
+    if not entries:
+        return ""
+    rows = "".join(
+        f"<tr><td>{badge(item.get('meta_type', ''), 'mute')}</td>"
+        f"<td class='wrap'>{e(META_PURPOSE.get(item.get('meta_type', ''), ''))}</td>"
+        f"<td>{e(item.get('action', ''))}</td>"
+        f"<td class='wrap'>{e(item.get('reason', '') or '—')}</td>"
+        f"<td class='mono'>{e(item.get('rule_reference', '') or '—')}</td>"
+        f"<td>{e(item.get('outcome', '') or '—')}</td>"
+        f"<td><a class='mono' href='/preview?path={e(item.get('content_ref', ''))}'>查看</a></td></tr>"
+        for item in entries
+    )
+    return (
+        "<div class='card'><h3>产物清单 · Artifact Manifest</h3>"
+        "<p class='hint'>该任务声明产出的受控产物，按六元类型归类。「作用」与「规则依据」取自记录本身。</p>"
+        + table(["元类型", "该类型的作用", "动作", "本次作用", "规则依据", "结果", ""], [rows])
+        + "</div>"
+    )
 
 
 def page_task(model: dict[str, Any], task_id: str) -> str | None:
@@ -335,6 +446,8 @@ def page_task(model: dict[str, Any], task_id: str) -> str | None:
     return f"""<h1 class="mono">{e(task['task_id'])}</h1>
 <p class="lede">{e(task['objective'])}</p>
 <div class="card"><h3>分类</h3>{profile}</div>
+{tailoring_card(task)}
+{manifest_card(task)}
 {bullets('允许路径', task['allowed_paths'], mono=True)}
 {bullets('验收', task['acceptance'])}
 {events_card}
@@ -344,6 +457,58 @@ def page_task(model: dict[str, Any], task_id: str) -> str | None:
 {lineage_card}
 {owned_card}
 {files_card}"""
+
+
+def page_model(model: dict[str, Any]) -> str:
+    """Explain the artifact model itself, with this project's actual counts.
+
+    "What is this file for" should not require reading the norms. The purposes are
+    quoted from VC-PPG-COM-002 so the console never becomes a second definition.
+    """
+
+    produced: dict[str, int] = {}
+    for task in model["tasks"]:
+        for item in task.get("manifest") or []:
+            produced[item.get("meta_type", "?")] = produced.get(item.get("meta_type", "?"), 0) + 1
+    live = {
+        "ProjectState": 1 if model["state_present"] else 0,
+        "AuthorityAsset": len(model["authority"]),
+        "DerivedView": sum(len(f["items"]) for f in model["artifacts"]),
+    }
+    rows = "".join(
+        f"<tr><td>{badge(name, 'mute')}</td><td>{e(when)}</td><td class='wrap'>{e(purpose)}</td>"
+        f"<td class='mono'>{e(where)}</td>"
+        f"<td class='num'>{produced.get(name) or live.get(name) or ''}</td></tr>"
+        for name, when, purpose, where in console_model.META_TYPES
+    )
+    manifest_rows = []
+    for task in model["tasks"]:
+        for item in task.get("manifest") or []:
+            manifest_rows.append(
+                f"<tr data-filter='{e(task['task_id'] + ' ' + item.get('meta_type', '') + ' ' + (item.get('reason') or ''))}'"
+                f" data-group='{e(item.get('meta_type', ''))}'>"
+                f"<td>{task_link(model, task['task_id'])}</td>"
+                f"<td>{badge(item.get('meta_type', ''), 'mute')}</td>"
+                f"<td>{e(item.get('action', ''))}</td>"
+                f"<td class='wrap'>{e(item.get('reason', '') or '—')}</td>"
+                f"<td class='mono'>{e(item.get('rule_reference', '') or '—')}</td>"
+                f"<td><a class='mono' href='/preview?path={e(item.get('content_ref', ''))}'>查看</a></td></tr>"
+            )
+    types = sorted({item.get("meta_type", "") for task in model["tasks"] for item in task.get("manifest") or []})
+    options = "".join(f"<option value='{e(x)}'>{e(x)}</option>" for x in types)
+    return f"""<h1>产物结构</h1>
+<p class="lede">治理产物只有六种元类型，每种有固定的用途、位置和状态模型。下表的「作用」逐字取自
+VC-PPG-COM-002《受控产物目录与状态模型》，控制台不另立定义。</p>
+<div class="card"><h3>六元类型</h3>
+<p class="hint">「本项目」列为该类型在本项目中已声明或已存在的数量。</p>
+{table(['元类型', '时点', '作用', '默认位置', '#本项目'], [rows])}</div>
+<div class="card" data-filter-scope><h3>全项目产物清单</h3>
+<p class="hint">各任务 Artifact Manifest 的合并视图——谁产出了什么、为什么、依据哪条规则。</p>
+<div class="filters">
+  <input type="search" placeholder="筛选产物…" data-filter-input aria-label="筛选产物">
+  <select data-filter-select aria-label="按元类型筛选"><option value="">全部元类型</option>{options}</select>
+  <span class="spacer"></span><span class="result" data-filter-count></span></div>
+{table(['任务', '元类型', '动作', '本次作用', '规则依据', ''], manifest_rows) or empty('还没有任务声明产物清单。')}</div>"""
 
 
 def page_lineage(model: dict[str, Any]) -> str:
