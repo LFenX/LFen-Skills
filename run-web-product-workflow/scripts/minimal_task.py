@@ -8,6 +8,7 @@ sections. It is not a seventh meta type or a second risk model.
 from __future__ import annotations
 
 import hashlib
+import re
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -273,6 +274,7 @@ def create_minimal_record(
     fundamentals: Iterable[str],
     causal_chain: Iterable[str],
     decision_criteria: Iterable[str],
+    request_snapshot: dict[str, str] | None = None,
 ) -> Path:
     require_id(project_id, "project_id")
     require_id(work_item_id, "work_item_id")
@@ -414,6 +416,7 @@ def create_minimal_record(
         },
         "task_contract": {
             "objective": values["objective"],
+            **({"request_snapshot": request_snapshot} if request_snapshot else {}),
             "scope": values["scope"],
                 "out_of_scope": out_values,
                 "allowed_paths": allowed,
@@ -532,6 +535,23 @@ def append_minimal_event(
 # C10's per-relation obligation lands -- affected-by must state impact type, scope and
 # time; addresses must state the handled scope.
 NEXT_TASK_RELATIONS = ("observed-from", "affected-by", "addresses", "extends", "refines")
+
+
+def parse_request_snapshot(value: str | None, *, language: str | None) -> dict[str, str] | None:
+    """Capture the requester's own words verbatim.
+
+    An objective is the agent's summary; a summary in a language the requester does
+    not use, or paraphrased past the point of recognition, cannot be checked by them.
+    Storing the original alongside it keeps the summary auditable.
+    """
+
+    if not value:
+        return None
+    text = value.strip()
+    if not text:
+        raise GovernanceError("--request-snapshot must not be empty")
+    detected = (language or "").strip() or ("zh" if re.search(r"[一-鿿]", text) else "en")
+    return {"language": detected, "text": text, "captured_at": now_utc()}
 
 
 def parse_next_tasks(values: Iterable[str], *, task_id: str) -> list[dict[str, str]]:

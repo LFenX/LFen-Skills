@@ -1126,6 +1126,24 @@ def main(argv: list[str] | None = None) -> int:
         (not discoverability_gate),
         f"SKILL.md must filter questions on materiality, not discoverability; found: {discoverability_gate}",
     )
+    # An objective is the agent's summary. Recording it in a language the requester
+    # does not use, with no verbatim original kept beside it, leaves them unable to
+    # check the summary at all.
+    require_test(
+        ("用户提问所用的语言" in skill_text and "request_snapshot" in skill_text),
+        "SKILL.md must require human-facing records in the requester's language and a verbatim request_snapshot",
+    )
+    for schema_name, container in (
+        ("task-before.schema.json", lambda doc: doc["properties"]),
+        ("minimal-task-record.schema.json",
+         lambda doc: doc["properties"]["task_contract"]["properties"]),
+    ):
+        schema = read_json(skill_root / "assets" / "runtime" / "schemas" / schema_name)
+        require_test(
+            ("request_snapshot" in container(schema)),
+            f"{schema_name} must carry request_snapshot so the original wording survives",
+        )
+
     clarify_card = (skill_root / "commands" / "clarify.md").read_text(encoding="utf-8")
     # The S1 exit conditions are the norm's, and a zero-round claim is only legitimate
     # when they demonstrably hold. Keep both in the card that owns the rule.
@@ -1936,6 +1954,7 @@ def main(argv: list[str] | None = None) -> int:
             "--task-id", "T-001",
             "--ordinal", "1",
             "--objective", "Exercise UTF-8 JSON file inputs",
+            "--request-snapshot", "用 UTF-8 JSON 文件输入跑一遍自检",
             "--acceptance", "CLI file inputs are consumed without Base64",
             "--in-scope", "temporary CLI fixture",
             "--delivery-scenario", "DS-03",

@@ -216,6 +216,64 @@ def page_overview(model: dict[str, Any]) -> str:
 {'<p style="margin:12px 0 0"><a href="/integrity">查看全部 →</a></p>' if findings else ''}</div>"""
 
 
+def _task_row(model: dict[str, Any], task: dict[str, Any], *, depth: int, root_id: str,
+              relation: str = "", reason: str = "") -> str:
+    subtree = task.get("subtree") or {}
+    children = task.get("children") or []
+    toggle = (
+        f"<button class='twist' data-expand='{e(root_id)}' aria-expanded='false' "
+        f"title='展开衍生任务'>▸</button>"
+        if depth == 0 and children else "<span class='twist-space'></span>"
+    )
+    audit = ""
+    if depth == 0 and subtree.get("total"):
+        parts = [badge(f"衍生 {subtree['total']}", "mute")]
+        if subtree.get("caused"):
+            parts.append(badge(f"引入 {subtree['caused']}", "neg"))
+        if subtree.get("surfaced"):
+            parts.append(badge(f"发现 {subtree['surfaced']}", "pos"))
+        if subtree.get("depth", 0) > 1:
+            parts.append(badge(f"链深 {subtree['depth']}", "warn"))
+        audit = " ".join(parts)
+    lead = (
+        f"<span class='indent' style='--d:{depth}'></span>{toggle}"
+        + (relation_badge(relation) + " " if relation else "")
+        + f"<a class='mono' href='/tasks/{e(task['task_id'])}'>{e(task['task_id'])}</a>"
+    )
+    hay = " ".join([task["task_id"], task["objective"], task["status"], task["carrier"], task["risk_level"]])
+    attrs = (
+        f"data-filter=\"{e(hay)}\" data-group=\"{e(task['carrier'])}\""
+        if depth == 0 else f"data-child-of=\"{e(root_id)}\" hidden"
+    )
+    return (
+        f"<tr class='depth-{min(depth, 3)}' {attrs}>"
+        f"<td class='num'>{e(task['ordinal']) if depth == 0 else ''}</td>"
+        f"<td>{lead}</td>"
+        f"<td>{badge(task['carrier'], 'mute')}</td>"
+        f"<td>{e(task['status'])}</td>"
+        f"<td>{e(task['risk_level'] or '-')}</td>"
+        f"<td class='wrap'>{e(task['objective'])}"
+        + (f"<div class='detail'>{e(reason)}</div>" if reason else "")
+        + "</td>"
+        f"<td>{tailoring_summary(task)}</td>"
+        f"<td class='num'>{len(task.get('manifest') or []) or ''}</td>"
+        f"<td>{audit}</td>"
+        f"<td class='mono'>{e(task.get('updated_at', ''))}</td></tr>"
+    )
+
+
+def _task_rows(model: dict[str, Any], task: dict[str, Any], *, depth: int, root_id: str,
+               relation: str = "", reason: str = "", seen: frozenset[str] = frozenset()) -> list[str]:
+    if task["task_id"] in seen:
+        return []
+    seen = seen | {task["task_id"]}
+    rows = [_task_row(model, task, depth=depth, root_id=root_id, relation=relation, reason=reason)]
+    for child in task.get("children") or []:
+        rows.extend(_task_rows(model, child["task"], depth=depth + 1, root_id=root_id,
+                               relation=child["relation"], reason=child.get("reason", ""), seen=seen))
+    return rows
+
+
 def tailoring_summary(task: dict[str, Any]) -> str:
     """One glanceable cell: how much norm this task is bound by."""
 
@@ -235,29 +293,23 @@ def tailoring_summary(task: dict[str, Any]) -> str:
 
 
 def page_tasks(model: dict[str, Any]) -> str:
+    roots = model.get("task_roots") or model["tasks"]
     rows = []
-    for task in model["tasks"]:
-        hay = " ".join([task["task_id"], task["objective"], task["status"], task["carrier"], task["risk_level"]])
-        rows.append(
-            f'<tr data-filter="{e(hay)}" data-group="{e(task["carrier"])}">'
-            f'<td class="num">{e(task["ordinal"])}</td>'
-            f'<td><a class="mono" href="/tasks/{e(task["task_id"])}">{e(task["task_id"])}</a></td>'
-            f'<td>{badge(task["carrier"], "mute")}</td>'
-            f'<td>{e(task["status"])}</td>'
-            f'<td>{e(task["risk_level"] or "-")}</td>'
-            f'<td class="wrap">{e(task["objective"])}</td>'
-            f'<td>{tailoring_summary(task)}</td>'
-            f'<td class="num">{len(task.get("manifest") or []) or ""}</td>'
-            f'<td class="num">{len(task["next_tasks"]) or ""}</td>'
-            f'<td class="mono">{e(task.get("updated_at", ""))}</td></tr>'  
-        )
+    for task in roots:
+        rows.extend(_task_rows(model, task, depth=0, root_id=task["task_id"]))
     carriers = sorted({t["carrier"] for t in model["tasks"]})
     options = "".join(f"<option value='{e(c)}'>{e(c)}</option>" for c in carriers)
-    body = table(["#序号", "任务", "载体", "状态", "风险", "目标", "裁剪", "#产物", "#衍生", "最后更新"], rows) or empty(
-        "还没有受控任务。", "用 init_task.py 或 manage_minimal_task.py init 建立第一个任务。"
+    derived = len(model["tasks"]) - len(roots)
+    body = table(
+        ["#序号", "任务", "载体", "状态", "风险", "目标", "裁剪", "#产物", "衍生审计", "最后更新"], rows
+    ) or empty("还没有受控任务。", "用 init_task.py 或 manage_minimal_task.py init 建立第一个任务。")
+    note = (
+        f"顶层 {len(roots)} 个主任务，另有 {derived} 个衍生任务收在其下——展开箭头查看。"
+        if derived else f"{len(roots)} 个任务，暂无衍生任务。"
     )
     return f"""<h1>任务</h1>
-<p class="lede">来自 ProjectState 的任务图与每个任务的契约记录。点任务 ID 进入详情。</p>
+<p class="lede">衍生任务不与主任务同级：它们是前一个任务的后果，收在源头之下。{e(note)}
+「衍生审计」列统计整棵子树——引入的返工与顺带发现的问题分开计。</p>
 <div data-filter-scope>
   <div class="filters">
     <input type="search" placeholder="筛选任务…" data-filter-input aria-label="筛选任务">
@@ -278,8 +330,8 @@ def tailoring_card(task: dict[str, Any]) -> str:
 
     tailoring = task.get("tailoring")
     if tailoring:
-        applicable = "".join(badge(s, "neg" if s.startswith("E") else "") for s in tailoring.get("applicable_standards", []))
-        pending = "".join(badge(s, "warn") for s in tailoring.get("pending_standards", []))
+        applicable = " ".join(badge(s, "neg" if s.startswith("E") else "") for s in tailoring.get("applicable_standards", []))
+        pending = " ".join(badge(s, "warn") for s in tailoring.get("pending_standards", []))
         gates = []
         if tailoring.get("independent_review"):
             gates.append(badge("独立复核", "warn"))
@@ -311,13 +363,13 @@ def tailoring_card(task: dict[str, Any]) -> str:
         for key, value in eligibility.items()
         if key not in {"evidence_refs", "extension_triggers"}
     )
-    triggers = "".join(
+    triggers = " ".join(
         badge(f"{name} {state}", "pos" if state == "Inactive" else "neg")
         for name, state in (eligibility.get("extension_triggers") or {}).items()
     )
     return (
         "<div class='card'><h3>裁剪结果 · Minimal 资格</h3>"
-        "<p class='hint'>Minimal 按 VC-PPG-DEC-001 §16.4 不产出裁剪决议；准入依据是下列九条资格条件全部成立。</p>"
+        "<p class='hint'>Minimal 按 VC-PPG-DEC-001 §16.4 不产出裁剪决议；准入依据是下列资格条件全部成立。</p>"
         f"<dl class='kv'>{rows}<dt>扩展状态</dt><dd>{triggers}</dd>"
         f"<dt>选择方式</dt><dd>{badge(selection.get('source', ''), 'mute')}</dd>"
         f"<dt>资格证据</dt><dd>{len(eligibility.get('evidence_refs', []))} 条</dd></dl></div>"
@@ -443,8 +495,19 @@ def page_task(model: dict[str, Any], task_id: str) -> str | None:
         f"{table(['文件', '阶段', '完整性', '#字节'], [owned_rows])}</div>"
         if owned_rows else ""
     )
+    snapshot = task.get("request_snapshot") or {}
+    snapshot_card = (
+        "<div class='card'><h3>用户原始提问</h3>"
+        f"<p class='hint'>语言 {badge(snapshot.get('language', ''), 'mute')} · 记录于 {e(snapshot.get('captured_at', ''))}"
+        "。上方介绍是 Agent 的概括，这里是可核对的原话。</p>"
+        f"<blockquote class='quote'>{e(snapshot.get('text', ''))}</blockquote></div>"
+        if snapshot else
+        "<div class='card'><h3>用户原始提问</h3><p class='hint'>该任务建立于本字段引入之前，没有留存原话。"
+        "新任务必须通过 <code>--request-snapshot</code> 记录。</p></div>"
+    )
     return f"""<h1 class="mono">{e(task['task_id'])}</h1>
 <p class="lede">{e(task['objective'])}</p>
+{snapshot_card}
 <div class="card"><h3>分类</h3>{profile}</div>
 {tailoring_card(task)}
 {manifest_card(task)}

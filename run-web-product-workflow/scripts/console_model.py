@@ -134,6 +134,7 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
         "required_by": node.get("required_by", []),
         "depends_on": node.get("depends_on", []),
         "supersedes": node.get("supersedes", []),
+        "request_snapshot": None,
         "files": [],
         "manifest": [],
         "tailoring": None,
@@ -181,6 +182,7 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
                        "allowed_paths": contract.get("allowed_paths", []),
                        "forbidden_actions": contract.get("forbidden_actions", [])},
                 authority=contract.get("authority_refs", []),
+                request_snapshot=contract.get("request_snapshot"),
             )
         elif before_path.is_file():
             before = read_json(before_path)
@@ -202,6 +204,7 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
                 tailoring=before.get("tailoring_resolution"),
                 scope=before.get("scope", {}),
                 authority=before.get("authority", []),
+                request_snapshot=before.get("request_snapshot"),
             )
             run_path = task_dir / "run.jsonl"
             if run_path.is_file():
@@ -268,6 +271,47 @@ def scan_tasks(project_root: Path, state: dict[str, Any]) -> list[dict[str, Any]
             _task_entry(tasks_root / node["task_id"], node, status_by_id.get(node["task_id"], "Active"), project_root)
         )
     return entries
+
+
+def nest_tasks(tasks: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Attach each derived task to the task that recorded it.
+
+    A successor recorded through next_tasks is a consequence of its origin, not a
+    peer of it. Listing them side by side hides how much of a project's activity is
+    fallout from earlier work, which is the number a reviewer needs.
+    """
+
+    by_id = {task["task_id"]: task for task in tasks}
+    for task in tasks:
+        task["children"] = []
+        task["parents"] = []
+    for task in tasks:
+        for link in task.get("next_tasks", []):
+            child = by_id.get(link["task_id"])
+            if child is None or child is task:
+                continue
+            child["parents"].append({"task_id": task["task_id"], "relation": link["relation"]})
+            task["children"].append({**link, "task": child})
+    roots = [task for task in tasks if not task["parents"]]
+
+    def audit_counts(task: dict[str, Any], seen: frozenset[str]) -> dict[str, int]:
+        """Totals over the whole subtree, so a root shows the fallout it caused."""
+
+        total = {"total": 0, "caused": 0, "surfaced": 0, "depth": 0}
+        if task["task_id"] in seen:
+            return total
+        seen = seen | {task["task_id"]}
+        for child in task["children"]:
+            below = audit_counts(child["task"], seen)
+            total["total"] += 1 + below["total"]
+            total["caused"] += (1 if child["relation"] == "affected-by" else 0) + below["caused"]
+            total["surfaced"] += (1 if child["relation"] == "observed-from" else 0) + below["surfaced"]
+            total["depth"] = max(total["depth"], 1 + below["depth"])
+        return total
+
+    for task in tasks:
+        task["subtree"] = audit_counts(task, frozenset())
+    return roots
 
 
 def scan_artifacts(project_root: Path) -> list[dict[str, Any]]:
@@ -593,6 +637,7 @@ def scan(project_root: Path) -> dict[str, Any]:
         # reviewer than the number itself.
         "lineage_recorded": any(task["next_tasks"] or task["derived_from"] for task in tasks),
         "tasks": tasks,
+        "task_roots": nest_tasks(tasks),
         "derivation": audit_console.derivation_audit(state),
         "unresolved": state.get("unresolved_items", []),
         "current_facts": state.get("current_facts", []),

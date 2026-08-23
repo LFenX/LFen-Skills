@@ -17,6 +17,16 @@
     "created_at": {"type": "string", "format": "date-time"},
     "frozen_at": {"type": ["string", "null"], "format": "date-time"},
     "objective": {"type": "string", "minLength": 1},
+    "request_snapshot": {
+      "type": "object", "additionalProperties": false,
+      "required": ["language", "text", "captured_at"],
+      "properties": {
+        "language": {"type": "string", "minLength": 2},
+        "text": {"type": "string", "minLength": 1},
+        "captured_at": {"type": "string", "format": "date-time"},
+        "source": {"type": "string"}
+      }
+    },
     "depends_on": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
     "supersedes": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
     "blocked_by": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},

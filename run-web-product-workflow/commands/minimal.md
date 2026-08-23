@@ -27,6 +27,8 @@ Minimal 是同一六元模型的物理载体裁剪，不是第二套流程。
 
 `--selection-source explicit-user` 用于用户明确说“采用最轻框架”；`--selection-source automatic` 用于 agent 判定资格全部成立并告知默认采用 Minimal。
 
+`--objective` 用用户提问所用的语言；`--request-snapshot` 传用户原话，两者都必填。
+
 先筛查再决定载体。Minimal 记录不承载 `applicability_facts`，资格只取决于取值为 `Yes` 就会否决某条条件的那 9 条事实，所以不必先完成完整 Task Profile：
 
 ```console

@@ -2293,7 +2293,7 @@
       },
       {
         "script": "init_task.py",
-        "help_sha256": "19b2d06ad8f599941c83b80b6321b98c226c5b490466f06157964a5b0e00af17",
+        "help_sha256": "2894bdbc7f2e33d7abe75b5929caf451127d247261f6be5c098e6194405abdb6",
         "options": [
           "--acceptance",
           "--allowed-path",
@@ -2329,6 +2329,8 @@
           "--primary-development-type",
           "--project-id",
           "--project-root",
+          "--request-language",
+          "--request-snapshot",
           "--required-gate",
           "--risk-level",
           "--rollback",
@@ -2356,7 +2358,7 @@
           "init",
           "--help"
         ],
-        "help_sha256": "73d7a1f67db63a23527518209593cf88afe5f7c12980226670f4e858c85a283f",
+        "help_sha256": "ebdc2604d518f7049a22d87428c607db83cffa07cfa25d7b3aa1bd1e250a3dfd",
         "options": [
           "--acceptance",
           "--allowed-path",
@@ -2382,6 +2384,8 @@
           "--plan-step",
           "--project-id",
           "--project-root",
+          "--request-language",
+          "--request-snapshot",
           "--rollback",
           "--scope",
           "--selected-approach",

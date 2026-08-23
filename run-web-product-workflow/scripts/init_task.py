@@ -11,6 +11,7 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 
+from minimal_task import parse_request_snapshot
 from governance_artifacts import (
     APPLICABILITY_FACT_VALUES,
     BASELINE_INHERITANCE_STATES,
@@ -32,6 +33,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--task-id", required=True)
     parser.add_argument("--ordinal", type=int, required=True)
     parser.add_argument("--objective", required=True)
+    parser.add_argument(
+        "--request-snapshot",
+        required=True,
+        metavar="TEXT",
+        help="用户原始提问原文；任务介绍必须使用同一语言",
+    )
+    parser.add_argument("--request-language", default="", help="留空则从原文自动判定")
     parser.add_argument("--acceptance", action="append", required=True)
     parser.add_argument("--development-type", action="append", choices=sorted(DEVELOPMENT_TYPES), required=True)
     parser.add_argument("--primary-development-type", choices=sorted(DEVELOPMENT_TYPES))
@@ -155,6 +163,7 @@ def main() -> int:
             task_id=args.task_id,
             ordinal=args.ordinal,
             objective=args.objective,
+            request_snapshot=parse_request_snapshot(args.request_snapshot, language=args.request_language),
             acceptance=args.acceptance,
             development_types=args.development_type,
             primary_development_type=args.primary_development_type,

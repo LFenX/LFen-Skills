@@ -23,6 +23,8 @@ python <skill-root>/scripts/manage_project_docs.py init --project-root <project-
 python <skill-root>/scripts/manage_project_docs.py refresh-readme --project-root <project-root>
 ```
 
+语言与原文：`--objective` 等面向人的字段必须使用**用户提问所用的语言**；`--request-snapshot` 传用户**原话**，不要概括、不要翻译。介绍是 Agent 的概括，原话是可核对的凭据，缺原话不允许建任务。
+
 脚本已承担的判定，不需要人工记忆或预先推演：
 
 - 适用规范由 `applicability_facts` 自动并集推导，`Yes` 即并入该事实 `activates` 的规范并触发对应扩展。

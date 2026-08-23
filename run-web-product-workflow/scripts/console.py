@@ -25,6 +25,7 @@ import subprocess
 import sys
 import threading
 import time
+import traceback
 import urllib.parse
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -202,15 +203,20 @@ class ConsoleHandler(BaseHTTPRequestHandler):
                 return
             model = console_model.scan(self.project_root)
             self._route_page(model, route, params, send_body)
-        except (GovernanceError, OSError, ValueError, KeyError, TypeError, json.JSONDecodeError) as exc:
+        except Exception as exc:  # noqa: BLE001 - a dropped connection tells the reader nothing
             fallback = {"project_id": "", "tasks": [], "docs": {}, "artifacts": [], "unresolved": [],
                         "doc_findings": [], "integrity": {}, "derivation": {}, "state_present": True}
-            markup = console_render.shell(
-                fallback, path=route, title="错误",
-                crumbs=[("/", "总览"), ("", "错误")],
-                body=console_render.page_error(fallback, 500, "读取治理资产时出错。", str(exc)),
-            )
-            self._html(500, markup, send_body)
+            detail = f"{type(exc).__name__}: {exc}"
+            traceback.print_exception(exc, file=sys.stderr)
+            try:
+                markup = console_render.shell(
+                    fallback, path=route, title="错误",
+                    crumbs=[("/", "总览"), ("", "错误")],
+                    body=console_render.page_error(fallback, 500, "读取治理资产时出错。", detail),
+                )
+                self._html(500, markup, send_body)
+            except Exception:  # noqa: BLE001 - last resort, still answer the request
+                self._send(500, detail.encode("utf-8"), "text/plain; charset=utf-8", send_body=send_body)
 
     def _route_page(self, model: dict[str, Any], route: str, params: dict[str, list[str]], send_body: bool) -> None:
         home = ("/", "总览")
@@ -387,7 +393,10 @@ def cmd_start(args: argparse.Namespace) -> int:
         kwargs["creationflags"] = creation
     else:
         kwargs["start_new_session"] = True
-    process = subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, **kwargs)
+    log_path = state_path(project_root).with_name("console.log")
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    log = open(log_path, "a", encoding="utf-8")  # noqa: SIM115 - owned by the detached child
+    process = subprocess.Popen(command, stdout=log, stderr=log, **kwargs)
     for _ in range(60):
         if port_responds(port):
             break
@@ -396,7 +405,7 @@ def cmd_start(args: argparse.Namespace) -> int:
         process.terminate()
         print("ERROR: 服务未能在 6 秒内就绪", file=sys.stderr)
         return 2
-    write_state(project_root, {"pid": process.pid, "port": port, "url": url,
+    write_state(project_root, {"pid": process.pid, "port": port, "url": url, "log": str(log_path),
                                "project_root": str(project_root), "started_at": time.strftime("%Y-%m-%dT%H:%M:%S")})
     print(f"治理控制台已启动：{url}  (pid {process.pid})")
     print(f"停止： console.py stop --project-root {project_root}")

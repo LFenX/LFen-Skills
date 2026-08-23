@@ -14,6 +14,7 @@ from governance_artifacts import GovernanceError, read_json
 from minimal_task import (
     append_minimal_event,
     parse_next_tasks,
+    parse_request_snapshot,
     screen_minimal_eligibility,
     screening_facts,
     allowed_minimal_change_surfaces,
@@ -33,6 +34,15 @@ def add_common_init(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--depends-on", action="append", default=[])
     parser.add_argument("--supersedes", action="append", default=[])
     parser.add_argument("--objective", required=True)
+    # Required here even though the schema keeps it optional: existing records stay
+    # valid, and every new task carries the requester's own words from now on.
+    parser.add_argument(
+        "--request-snapshot",
+        required=True,
+        metavar="TEXT",
+        help="用户原始提问原文；任务介绍必须使用同一语言",
+    )
+    parser.add_argument("--request-language", default="", help="留空则从原文自动判定")
     parser.add_argument("--scope", required=True)
     parser.add_argument("--out-of-scope", action="append", default=[])
     parser.add_argument("--allowed-path", action="append", required=True)
@@ -153,6 +163,7 @@ def main() -> int:
                 depends_on=args.depends_on,
                 supersedes=args.supersedes,
                 objective=args.objective,
+                request_snapshot=parse_request_snapshot(args.request_snapshot, language=args.request_language),
                 scope=args.scope,
                 acceptance=args.acceptance,
                 delivery_scenario=args.delivery_scenario,
