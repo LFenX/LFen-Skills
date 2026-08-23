@@ -100,15 +100,19 @@ tag 只是标签，除非有东西检查它指向什么。推送 `rwpw-v*` tag �
 python .github/scripts/check_release_tag.py rwpw-v6.3.0-candidate
 ```
 
-### 审计台
+### 治理控制台
 
-任务血缘、衍生审计、未决项与资产完整性可以生成为一个自包含的 HTML 单页，供人直接审阅：
+浏览与审计两个资产目录——`.project-governance` 和 `LG_project_docs`，**包括其中并非本 skill 产生的资产**：
 
 ```bash
-python run-web-product-workflow/scripts/generate_audit_console.py --project-root . --project-id <ProjectID>
+python run-web-product-workflow/scripts/console.py start --project-root .
 ```
 
-产出 `.project-governance/generated/reviews/audit-console.html`，无外部依赖，浏览器直接打开。它按 C10 §8.2 的受控关系区分「本次引入」与「顺带发现」，回归链深只沿前者计算——这样一个任务是制造了返工还是暴露了隐患，一眼可分。作为 DerivedView 可随时重建，且不是新事实的来源。
+只读本地服务，绑 `127.0.0.1`，启动后自动打开浏览器。`status` 查看地址、`open` 重新打开、`stop` 停止；端口被占用时自动顺延。
+
+多页面：总览、任务与任务详情、血缘与衍生审计、未决项、项目文档与需求下钻、待分类、迁移归档、生成物、完整性与审计、全局检索、文件预览（Markdown 渲染、JSON、图片、HTML 沙箱）。
+
+每次请求都重新探查目录，不缓存也不需要重新生成。只服务 `GET`/`HEAD`，所有受请求路径必须落在上述两个目录之内，越界一律 403。
 
 ### 维护者评测工具
 
