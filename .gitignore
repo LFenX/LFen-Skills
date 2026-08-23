@@ -8,3 +8,9 @@ Thumbs.db
 # execution evidence; caches and derived views are rebuilt by the scripts.
 .project-governance/runtime-cache/
 .project-governance/generated/
+
+# Claude Code writes a per-machine permission allowlist here whenever a session
+# runs with this directory as its working root. It holds absolute local paths and
+# would ship inside the distributed skill package. Shared .claude/settings.json
+# stays tracked; only the local override is ignored.
+**/.claude/settings.local.json
