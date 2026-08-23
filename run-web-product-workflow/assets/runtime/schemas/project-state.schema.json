@@ -15,7 +15,18 @@
     "source_tasks": {"type": "array", "items": {"type": "object", "required": ["task_id", "ordinal", "status"]}},
     "current_facts": {"type": "array", "items": {"type": "object", "required": ["task_id", "ordinal", "fact"]}},
     "unresolved_items": {"type": "array", "items": {"type": "object", "required": ["task_id", "ordinal", "category", "summary", "reason", "impact", "owner", "reentry_condition"]}},
-    "task_graph": {"type": "array", "items": {"type": "object", "required": ["task_id", "ordinal", "depends_on", "supersedes", "blocked_by"]}},
+    "task_graph": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["task_id", "ordinal", "depends_on", "supersedes", "blocked_by", "next_tasks", "derived_from", "required_by"],
+        "properties": {
+          "next_tasks": {"type": "array", "items": {"type": "object", "required": ["task_id", "relation", "reason"]}},
+          "derived_from": {"type": "array", "items": {"type": "object", "required": ["task_id", "relation", "reason"]}},
+          "required_by": {"type": "array", "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
     "authority_assets": {"type": "array", "items": {"type": "object", "required": ["asset_id", "legacy_kind", "state", "revision", "content_ref", "envelope_sha256"]}}
   }
 }

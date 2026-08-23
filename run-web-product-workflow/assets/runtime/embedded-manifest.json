@@ -253,7 +253,7 @@
       "source": "skill-local:schemas/project-state.schema.json",
       "logical_path": "schemas/project-state.schema.json",
       "embedded": "assets/runtime/schemas/project-state.schema.json",
-      "sha256": "5d89c6c4ce154701504f7e04e7a69f9ed4fd1d7f358dcb98583b55e33ae0eaa4"
+      "sha256": "6dedec5413d0dea3078818ac68dba7c8840ca07236be5aa427677711b9688f72"
     },
     {
       "role": "schema",

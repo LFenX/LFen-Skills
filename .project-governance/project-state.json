@@ -3,7 +3,7 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-08-22T08:22:22Z",
+  "generated_at": "2026-08-23T08:05:11Z",
   "source_digest": "3aeb6cfd8154f6d2e6a7f64024e474fbfb69d515237543ca8b89befa6936d4af",
   "source_tasks": [
     {
@@ -121,14 +121,22 @@
       "ordinal": 1,
       "depends_on": [],
       "supersedes": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
     },
     {
       "task_id": "T-RWPW-20260822-001",
       "ordinal": 2,
       "depends_on": [],
       "supersedes": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": [
+        "T-RWPW-20260822-002"
+      ]
     },
     {
       "task_id": "T-RWPW-20260822-002",
@@ -137,21 +145,30 @@
         "T-RWPW-20260822-001"
       ],
       "supersedes": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
     },
     {
       "task_id": "T-RWPW-20260822-003",
       "ordinal": 4,
       "depends_on": [],
       "supersedes": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
     },
     {
       "task_id": "T-RWPW-20260822-004",
       "ordinal": 5,
       "depends_on": [],
       "supersedes": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
     }
   ],
   "authority_assets": []

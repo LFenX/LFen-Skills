@@ -2777,6 +2777,38 @@ def _authority_assets(root: Path, project_id: str) -> list[dict[str, Any]]:
     return assets
 
 
+def _link_task_graph(task_graph: list[dict[str, Any]], derived: dict[str, list[dict[str, str]]]) -> None:
+    """Fill forward succession edges and derive the reverse ones.
+
+    next_tasks may name a task that does not exist yet -- recording "this run spawned
+    a regression" before the follow-up is created is the normal order -- so unlike
+    depends_on a dangling target is not an error. Reverse edges are built only for
+    targets present in the project; the forward edge keeps the dangling ones visible.
+    """
+
+    by_id = {node["task_id"]: node for node in task_graph}
+    for task_id, links in derived.items():
+        node = by_id.get(task_id)
+        if node is None:
+            continue
+        node["next_tasks"] = [dict(link) for link in links]
+        for link in links:
+            target = by_id.get(link["task_id"])
+            if target is None:
+                continue
+            target["derived_from"].append(
+                {"task_id": task_id, "relation": link["relation"], "reason": link["reason"]}
+            )
+    for node in task_graph:
+        for dependency in node.get("depends_on", []):
+            upstream = by_id.get(dependency)
+            if upstream is not None and node["task_id"] not in upstream["required_by"]:
+                upstream["required_by"].append(node["task_id"])
+    for node in task_graph:
+        node["derived_from"].sort(key=lambda item: (item["task_id"], item["relation"]))
+        node["required_by"].sort()
+
+
 def _validate_task_graph(task_graph: list[dict[str, Any]]) -> None:
     by_id: dict[str, dict[str, Any]] = {}
     ordinals: dict[int, str] = {}
@@ -2827,6 +2859,7 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
     current_facts: list[dict[str, Any]] = []
     unresolved: list[dict[str, Any]] = []
     task_graph: list[dict[str, Any]] = []
+    derived_links: dict[str, list[dict[str, str]]] = {}
     digest_parts: list[bytes] = []
     tasks_root = root / "tasks"
     if tasks_root.exists():
@@ -2853,6 +2886,9 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                         "depends_on": record.get("depends_on", []),
                         "supersedes": record.get("supersedes", []),
                         "blocked_by": record.get("blocked_by", []),
+                        "next_tasks": [],
+                        "derived_from": [],
+                        "required_by": [],
                     }
                 )
                 outcome = record.get("task_outcome")
@@ -2893,6 +2929,8 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                             **item,
                         }
                     )
+                if outcome.get("next_tasks"):
+                    derived_links[record["task_id"]] = list(outcome["next_tasks"])
                 continue
             if not before_path.exists():
                 continue
@@ -2920,6 +2958,9 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                     "depends_on": before.get("depends_on", []),
                     "supersedes": before.get("supersedes", []),
                     "blocked_by": before.get("blocked_by", []),
+                    "next_tasks": [],
+                    "derived_from": [],
+                    "required_by": [],
                 }
             )
             if not after_path.exists():
@@ -2947,6 +2988,9 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                     unresolved.append(
                         {"task_id": after["task_id"], "ordinal": before["ordinal"], "category": category, **item}
                     )
+            if after.get("next_tasks"):
+                derived_links[after["task_id"]] = list(after["next_tasks"])
+    _link_task_graph(task_graph, derived_links)
     _validate_task_graph(task_graph)
     source_tasks.sort(key=lambda item: (item["ordinal"], item["task_id"]))
     current_facts.sort(key=lambda item: (item["ordinal"], item["task_id"]))
