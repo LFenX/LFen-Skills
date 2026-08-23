@@ -197,7 +197,7 @@
       "source": "skill-local:references/spec-source-map.md",
       "logical_path": "references/spec-source-map.md",
       "embedded": "references/spec-source-map.md",
-      "sha256": "0baba57c6f6d6592e650a0be0bbc7383a9deeed805a83cc943bb16488ead3515"
+      "sha256": "8a2c13327ca191fb2d57415aed3cc12cc12e26e9877c69e67368627be7b9ac35"
     },
     {
       "role": "schema",

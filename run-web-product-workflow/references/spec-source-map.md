@@ -7,7 +7,7 @@
 - 运行规范事实源：Skill 的 `assets/runtime/`；其中的规范、映射和 Schema 是受哈希保护的机器运行资产。
 - 稳定逻辑路径：TaskContract、Norm Packet 和历史记录继续使用 `references/...`、`mappings/...`、`schemas/...`。
 - 物理路径：`assets/runtime/embedded-manifest.json` 把逻辑路径唯一解析为磁盘路径。规范逻辑路径 `references/<分类>/...` 对应 `assets/runtime/norms/<分类>/...`；`mappings/...` 对应 `assets/runtime/mappings/...`；`schemas/...` 对应 `assets/runtime/schemas/...`。禁止把逻辑路径当作 skill 根下的文件打开，也禁止绕过 Manifest 自行拼接。
-- `reference/`（无 s）是命令卡；本目录 `references/`（有 s）只放 skill 说明，不是规范快照目录。
+- 命令卡在 `commands/`。本目录 `references/` 只放 skill 说明，不是规范快照目录；以 `references/` 开头的规范逻辑路径解析到 `assets/runtime/norms/`。
 - 任一必需资产缺失、未登记、越界、重复或哈希不符时失败关闭。
 
 ## 2. 固定治理源与索引

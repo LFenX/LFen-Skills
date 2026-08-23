@@ -1014,7 +1014,7 @@ def main(argv: list[str] | None = None) -> int:
     skill_root = Path(__file__).resolve().parent.parent
     project_root = resolve_project_root(skill_root, args.project_root)
     require_test(({
-        "SKILL.md", "agents", "scripts", "references", "reference", "assets"
+        "SKILL.md", "agents", "scripts", "references", "commands", "assets"
     }.issubset({item.name for item in skill_root.iterdir()})), "Skill root must contain the required entrypoint, command references, runtime assets, and UI metadata")
     require_test((skill_root.name == "run-web-product-workflow"), "self-test invariant failed at original line 424: skill_root.name == 'run-web-product-workflow'")
     skill_text = (skill_root / "SKILL.md").read_text(encoding="utf-8")
@@ -1057,28 +1057,45 @@ def main(argv: list[str] | None = None) -> int:
     require_test((all(f"({relative})" in skill_text for relative in reference_files)), "self-test invariant failed at original line 448: all((f'({relative})' in skill_text for relative in reference_files))")
     command_reference_files = sorted(
         path.relative_to(skill_root).as_posix()
-        for path in (skill_root / "reference").glob("*.md")
+        for path in (skill_root / "commands").glob("*.md")
     )
     require_test((set(command_reference_files) == {
-        "reference/init.md",
-        "reference/clarify.md",
-        "reference/plan.md",
-        "reference/run.md",
-        "reference/verify.md",
-        "reference/close.md",
-        "reference/status.md",
-        "reference/migrate.md",
-        "reference/minimal.md",
+        "commands/init.md",
+        "commands/clarify.md",
+        "commands/plan.md",
+        "commands/run.md",
+        "commands/verify.md",
+        "commands/close.md",
+        "commands/status.md",
+        "commands/migrate.md",
+        "commands/minimal.md",
     }), "all command reference files must exist")
     require_test((all(f"({relative})" in skill_text for relative in command_reference_files)), "SKILL.md must link every command reference")
 
+    # The command cards used to live in reference/, one character away from
+    # references/, which is both a bundled-resource directory and the manifest's
+    # logical namespace for the norms. Keep the singular name from coming back.
+    require_test(
+        (not (skill_root / "reference").exists()),
+        "command cards live in commands/; the singular reference/ directory must not return",
+    )
+    singular = sorted(
+        path.relative_to(skill_root).as_posix()
+        for path in list(skill_root.glob("*.md")) + list((skill_root / "commands").glob("*.md"))
+        if re.search(r"(?<![a-z])reference/(?!s)", path.read_text(encoding="utf-8"))
+    )
+    require_test(
+        (not singular),
+        f"these files still point at the retired reference/ directory: {singular}",
+    )
+
     # VC-PPG-DEC-001 16.4 owns the Minimal eligibility conditions, and
     # minimal-task-record.schema.json pins them as const-constrained fields. The table
-    # in reference/minimal.md is the one human-readable projection of that pair. Hold it
+    # in commands/minimal.md is the one human-readable projection of that pair. Hold it
     # to the schema in both directions so the projection cannot silently drift, and keep
     # SKILL.md from growing a third copy -- SKILL.md 7 allows exactly one authoritative
     # definition per fact.
-    minimal_card = (skill_root / "reference" / "minimal.md").read_text(encoding="utf-8")
+    minimal_card = (skill_root / "commands" / "minimal.md").read_text(encoding="utf-8")
     eligibility_schema = read_json(
         skill_root / "assets" / "runtime" / "schemas" / "minimal-task-record.schema.json"
     )["properties"]["eligibility"]
@@ -1090,12 +1107,12 @@ def main(argv: list[str] | None = None) -> int:
     missing_keys = sorted(controlled_keys - projected_keys)
     require_test(
         (not missing_keys),
-        f"reference/minimal.md eligibility table must project every schema field; missing: {missing_keys}",
+        f"commands/minimal.md eligibility table must project every schema field; missing: {missing_keys}",
     )
     stray_keys = sorted(projected_keys - controlled_keys)
     require_test(
         (not stray_keys),
-        f"reference/minimal.md eligibility table names fields the schema does not control: {stray_keys}",
+        f"commands/minimal.md eligibility table names fields the schema does not control: {stray_keys}",
     )
     # VC-PPG-PRO-001 S1 filters Grill Me on materiality alone. "不可发现" appears once
     # in the whole corpus, at PRO-001:116, as the Requestor's duty to volunteer such
@@ -1109,7 +1126,7 @@ def main(argv: list[str] | None = None) -> int:
         (not discoverability_gate),
         f"SKILL.md must filter questions on materiality, not discoverability; found: {discoverability_gate}",
     )
-    clarify_card = (skill_root / "reference" / "clarify.md").read_text(encoding="utf-8")
+    clarify_card = (skill_root / "commands" / "clarify.md").read_text(encoding="utf-8")
     # The S1 exit conditions are the norm's, and a zero-round claim is only legitimate
     # when they demonstrably hold. Keep both in the card that owns the rule.
     missing_exit = [
@@ -1117,7 +1134,7 @@ def main(argv: list[str] | None = None) -> int:
     ]
     require_test(
         (not missing_exit),
-        f"reference/clarify.md must carry the VC-PPG-PRO-001 S1 exit conditions; missing: {missing_exit}",
+        f"commands/clarify.md must carry the VC-PPG-PRO-001 S1 exit conditions; missing: {missing_exit}",
     )
 
     condition_phrases = [

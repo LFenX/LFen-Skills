@@ -24,7 +24,7 @@ metadata:
 
 - `<skill-root>`：本 `SKILL.md` 所在目录。所有治理脚本都是 `<skill-root>/scripts/...`，禁止在消费项目的 `scripts/` 下寻找同名文件。
 - `<project-root>`：含 `.project-governance/` 的消费项目根。不等于 skill 根；工作区若是本 skill 子目录，项目根通常是上一级 Git 仓。
-- `reference/`：命令卡。`references/`：skill 说明（路由图、第一性原理、文档布局）。
+- `commands/`：命令卡，按路由读一张。`references/`：skill 说明（路由图、第一性原理、文档布局）。
 - 规范逻辑路径形如 `references/01_治理基线/...`，磁盘文件在 `assets/runtime/norms/`；禁止把逻辑路径当 skill 根下的文件打开。产品文档里的 `LG_project_docs/.../references/` 是需求外部资料，与规范快照无关。
 - 本 skill 不读取平台 Token、不安装平台插件、不调用平台绑定接口。
 
@@ -34,7 +34,7 @@ metadata:
 
 **判定层——不读任何文件。** 用本文件的路由表和 Minimal 硬边界即可判定意图、载体和风险。任务尚未建立时没有条款检索路径，这是明确边界：此阶段依据本文件与一张命令卡工作，条款检索从任务建立后开始。
 
-**载体层——只读一张命令卡。** 按下方路由表进入对应的 `reference/*.md`，不要顺带读其他卡。
+**载体层——只读一张命令卡。** 按下方路由表进入对应的 `commands/*.md`，不要顺带读其他卡。
 
 **执行层——完整载体每次物质动作前查一次条款。**
 
@@ -60,17 +60,17 @@ python <skill-root>/scripts/get_context.py --task-dir <project-root>/.project-go
 
 | 命令 | 读取 |
 |---|---|
-| init | [reference/init.md](reference/init.md) |
-| clarify | [reference/clarify.md](reference/clarify.md) |
-| plan | [reference/plan.md](reference/plan.md) |
-| run | [reference/run.md](reference/run.md) |
-| verify | [reference/verify.md](reference/verify.md) |
-| close | [reference/close.md](reference/close.md) |
-| status | [reference/status.md](reference/status.md) |
-| migrate | [reference/migrate.md](reference/migrate.md) |
-| minimal | [reference/minimal.md](reference/minimal.md) |
+| init | [commands/init.md](commands/init.md) |
+| clarify | [commands/clarify.md](commands/clarify.md) |
+| plan | [commands/plan.md](commands/plan.md) |
+| run | [commands/run.md](commands/run.md) |
+| verify | [commands/verify.md](commands/verify.md) |
+| close | [commands/close.md](commands/close.md) |
+| status | [commands/status.md](commands/status.md) |
+| migrate | [commands/migrate.md](commands/migrate.md) |
+| minimal | [commands/minimal.md](commands/minimal.md) |
 
-意图可唯一映射时直接进入对应命令；例如“修 bug/缺陷”先判是否有产品面，再判 Minimal 资格，随后走 `minimal` 或 `run`。两可时只问一次。无参数时读取 `reference/status.md` 并运行：
+意图可唯一映射时直接进入对应命令；例如“修 bug/缺陷”先判是否有产品面，再判 Minimal 资格，随后走 `minimal` 或 `run`。两可时只问一次。无参数时读取 `commands/status.md` 并运行：
 
 ```console
 python <skill-root>/scripts/signals.py --project-root <project-root>
@@ -84,9 +84,9 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 
 优先级固定：硬边界 > 用户显式选择 > 自动判定。
 
-资格判定以 VC-PPG-DEC-001 §16.4 为唯一事实源；其九条受控条件的人类可读投影在 [reference/minimal.md](reference/minimal.md)，本文件不复述。九条全部成立才使用 `<project-root>/.project-governance/tasks/<TaskID>/task-record.json` 聚合 TaskContract、RunLedger 和 TaskOutcome。任意一条不成立或为 Unknown，走完整载体。
+资格判定以 VC-PPG-DEC-001 §16.4 为唯一事实源；其九条受控条件的人类可读投影在 [commands/minimal.md](commands/minimal.md)，本文件不复述。九条全部成立才使用 `<project-root>/.project-governance/tasks/<TaskID>/task-record.json` 聚合 TaskContract、RunLedger 和 TaskOutcome。任意一条不成立或为 Unknown，走完整载体。
 
-判定前只需读 [reference/minimal.md](reference/minimal.md) 一张卡；不确定资格时先跑其中的 `manage_minimal_task.py screen`，它按 9 条否决事实给出载体结论和点名理由。Minimal 不改变澄清要求，零轮条件只在 [reference/clarify.md](reference/clarify.md) 表述；满足零轮时 S1 摘要与首次回复合并，不重复询问 `Proceed`。执行中跨越任一硬边界时停止受影响动作并单向升级为完整载体；禁止完整载体降回 Minimal。
+判定前只需读 [commands/minimal.md](commands/minimal.md) 一张卡；不确定资格时先跑其中的 `manage_minimal_task.py screen`，它按 9 条否决事实给出载体结论和点名理由。Minimal 不改变澄清要求，零轮条件只在 [commands/clarify.md](commands/clarify.md) 表述；满足零轮时 S1 摘要与首次回复合并，不重复询问 `Proceed`。执行中跨越任一硬边界时停止受影响动作并单向升级为完整载体；禁止完整载体降回 Minimal。
 
 ## 完整载体
 
@@ -108,7 +108,7 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 
 Ask 只是交互和恢复通道；正式决定、批准和 Gate 以权威事实源为准。工具成功、聊天回复、沉默或 Ask 点击都不等于批准。
 
-写治理文件或 skill runtime 文件前先按 [reference/run.md](reference/run.md) 调用 `<skill-root>/scripts/check_write_guard.py`。守卫失败只警告放行；守卫明确拒绝时停止该写入。
+写治理文件或 skill runtime 文件前先按 [commands/run.md](commands/run.md) 调用 `<skill-root>/scripts/check_write_guard.py`。守卫失败只警告放行；守卫明确拒绝时停止该写入。
 
 发现冲突、越权、关键证据不足或 Stop Condition 时立即停止受影响动作并升级。
 

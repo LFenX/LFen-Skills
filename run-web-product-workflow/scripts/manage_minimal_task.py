@@ -218,9 +218,9 @@ def main() -> int:
             )
             if eligible:
                 print("ELIGIBLE: every VC-PPG-DEC-001 16.4 condition holds; use the Minimal carrier.")
-                print("Next: manage_minimal_task.py init  (see reference/minimal.md)")
+                print("Next: manage_minimal_task.py init  (see commands/minimal.md)")
                 return 0
-            print("NOT-ELIGIBLE: use the full carrier via init_task.py (see reference/init.md).")
+            print("NOT-ELIGIBLE: use the full carrier via init_task.py (see commands/init.md).")
             for reason in reasons:
                 print(f"  - {reason}")
             return 0

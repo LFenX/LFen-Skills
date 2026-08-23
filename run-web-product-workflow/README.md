@@ -42,21 +42,21 @@ python <skill-root>/scripts/manage_minimal_task.py screen --risk Low --single-sc
 
 **`<skill-root>` 不是 `<project-root>`。** 治理脚本永远在 `<skill-root>/scripts/`；治理记录永远写进 `<project-root>/.project-governance/`。工作区若是本 skill 的子目录，项目根通常是上一级 Git 仓。
 
-**`reference/`（无 s）和 `references/`（有 s）是两个不同的目录。** 这是本包最容易踩的坑：
+**`references/` 这个前缀有两种含义。** 命令卡放在 `commands/`，与它无关；真正容易混淆的是 `references/` 既是目录名、又是规范的逻辑命名空间：
 
 | 目录 | 内容 | 谁读 |
 |---|---|---|
-| `reference/` | 9 张命令卡（init/clarify/plan/run/verify/close/status/migrate/minimal） | Agent 按路由按需读一张 |
+| `commands/` | 9 张命令卡（init/clarify/plan/run/verify/close/status/migrate/minimal） | Agent 按路由按需读一张 |
 | `references/` | skill 说明：规范源路由图、第一性原理、项目文档布局 | Agent 按触发读，见 SKILL.md「读取分层」 |
 | `assets/runtime/norms/` | 规范正文快照 | **不直读**，只能过 `get_context.py` 检索 |
 
-规范的逻辑路径写作 `references/01_治理基线/...`，但那是 Manifest 里的逻辑标识，**不是 skill 根下的可打开文件**，磁盘位置在 `assets/runtime/norms/`。递归读取 norms 目录是被明确禁止的——那会一次性烧掉几万行上下文，也正是本 skill 的检索层要解决的问题。
+Manifest 里以 `references/` 开头的逻辑路径共 25 条，其中 **22 条不是该目录下的文件**——`references/01_治理基线/...` 是逻辑标识，磁盘位置在 `assets/runtime/norms/`，直接打开会失败。只有 3 条是 `references/` 下的真文件。递归读取 norms 目录是被明确禁止的——那会一次性烧掉几万行上下文，也正是本 skill 的检索层要解决的问题。
 
 ## 目录结构
 
 ```
 SKILL.md                     Agent 入口，self-test 硬卡 < 200 行
-reference/                   命令卡，按路由读一张
+commands/                    命令卡，按路由读一张
 references/                  skill 说明（路由图 / 第一性原理 / 文档布局）
 scripts/                     28 个治理脚本
 assets/runtime/norms/        规范正文快照（22 份）
