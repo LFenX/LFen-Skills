@@ -1,4 +1,4 @@
-﻿# Vibe Coding 受控产物元模型、领域 Profile 与状态模型 V6.3 Candidate
+# Vibe Coding 受控产物元模型、领域 Profile 与状态模型 V6.3 Candidate
 
 | 文档属性 | 内容 |
 |---|---|
