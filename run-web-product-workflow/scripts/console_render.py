@@ -103,10 +103,21 @@ def shell(model: dict[str, Any], *, path: str, title: str, crumbs: list[tuple[st
     crumb = " / ".join(
         f'<a href="{e(href)}">{e(text)}</a>' if href else f"<b>{e(text)}</b>" for href, text in crumbs
     )
+    prov = model.get("provenance", {})
     stale = ""
     if not model["state_present"]:
         stale = ("<div class='card'><h3>ProjectState 尚未建立</h3><p class='hint'>"
                  "运行 rebuild_project_state.py 后任务与血缘视图才会有内容。</p></div>")
+    elif prov.get("stale"):
+        listed = "".join(f"<li class='mono'>{e(path)}</li>" for path in prov["newer"][:8])
+        more = f"<li>… 另有 {len(prov['newer']) - 8} 个</li>" if len(prov["newer"]) > 8 else ""
+        stale = (
+            "<div class='card' style='border-color:var(--neg)'>"
+            f"<h3>{badge('任务数据已过期', 'neg')}</h3>"
+            "<p class='hint'>任务与血缘来自 ProjectState 快照，而下列任务记录在快照之后被修改过。"
+            "这些页面显示的是旧状态，先运行 <code>rebuild_project_state.py</code> 再据此下结论。</p>"
+            f"<ul class='plain'>{listed}{more}</ul></div>"
+        )
     return f"""<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -117,7 +128,12 @@ def shell(model: dict[str, Any], *, path: str, title: str, crumbs: list[tuple[st
 <aside class="side">
   <div class="brand"><b>治理控制台</b><span>{e(model['project_id'])}</span></div>
   <nav class="nav">{''.join(nav_html)}</nav>
-  <div class="foot">只读视图 · 每次请求实时探查<br>DerivedView 不得作为新事实的唯一来源</div>
+  <div class="foot">
+    只读视图 · DerivedView 不得作为新事实的唯一来源<br>
+    文档 / 生成物 / 完整性：每次请求实时扫描<br>
+    任务 / 血缘：来自 ProjectState 快照<br>
+    <span class="mono">快照生成于 {e(prov.get('generated_at') or '尚未建立')}</span>
+  </div>
 </aside>
 <div class="main">
   <div class="topbar">
@@ -138,6 +154,18 @@ def shell(model: dict[str, Any], *, path: str, title: str, crumbs: list[tuple[st
 # --- pages ------------------------------------------------------------------
 
 
+def docs_empty_note(model: dict[str, Any]) -> str:
+    """No findings can mean healthy or can mean nothing was examined; say which."""
+
+    docs = model["docs"]
+    scanned = len(docs.get("requirements", [])) + len(docs.get("intake", [])) + len(docs.get("archives", []))
+    if not docs.get("present"):
+        return empty("LG_project_docs/ 尚未建立。", "还没有可审计的项目文档，这不是合规结论。")
+    if not scanned:
+        return empty("项目文档目录是空的。", "没有需求目录、待分类或迁移归档可审——「无发现」在这里意味着「无可审」。")
+    return empty("没有文档域审计发现。", f"已检查 {scanned} 个需求 / 待分类 / 归档条目，布局与登记均合规。")
+
+
 def page_overview(model: dict[str, Any]) -> str:
     counts = _counts(model)
     audit = model["derivation"]
@@ -145,11 +173,15 @@ def page_overview(model: dict[str, Any]) -> str:
     worst = max((r["caused_chain_depth"] for r in audit.get("by_task", [])), default=0)
     integrity_errors = len(model["integrity"].get("errors", []))
     docs = model["docs"]
+    recorded = model.get("lineage_recorded", False)
+    unmeasured = "未记录"
     metrics = [
         ("", counts["tasks"], "受控任务"),
-        ("is-neg" if rel.get("affected-by") else "", rel.get("affected-by", 0), "本次引入的衍生"),
-        ("is-pos" if rel.get("observed-from") else "", rel.get("observed-from", 0), "顺带发现的问题"),
-        ("is-neg" if worst >= 3 else "", worst, "最长回归链"),
+        ("is-neg" if rel.get("affected-by") else "",
+         rel.get("affected-by", 0) if recorded else unmeasured, "本次引入的衍生"),
+        ("is-pos" if rel.get("observed-from") else "",
+         rel.get("observed-from", 0) if recorded else unmeasured, "顺带发现的问题"),
+        ("is-neg" if worst >= 3 else "", worst if recorded else unmeasured, "最长回归链"),
         ("is-warn" if counts["unresolved"] else "", counts["unresolved"], "未决项"),
         ("is-neg" if integrity_errors else "is-pos", integrity_errors or "完好", "受保护资产核对"),
     ]
@@ -170,14 +202,14 @@ def page_overview(model: dict[str, Any]) -> str:
         f"<dt>布局外资产</dt><dd>{len(docs.get('stray', []))}</dd></dl>"
     )
     return f"""<h1>总览</h1>
-<p class="lede">控制台每次请求都重新探查 <code>.project-governance</code> 与 <code>LG_project_docs</code>，
-不缓存、不冻结。所有数字都可以点进去看到它的来源记录。</p>
+<p class="lede">文档、生成物与完整性每次请求实时扫描；任务与血缘读自 ProjectState 快照，
+快照时点见左下角，过期会在页面顶部告警。所有数字都可以点进去看到来源记录。</p>
 <div class="grid">{grid}</div>
 <div class="card"><h3>文档域</h3><p class="hint">项目文档目录的规模与形态。</p>{docs_body}
 <p style="margin:12px 0 0"><a href="/docs">查看项目文档 →</a></p></div>
 <div class="card"><h3>待处理的审计发现</h3>
 <p class="hint">布局、登记与纳管方面需要人来决定的事项。</p>
-{finding_rows or empty('没有文档域审计发现。')}
+{finding_rows or docs_empty_note(model)}
 {'<p style="margin:12px 0 0"><a href="/integrity">查看全部 →</a></p>' if findings else ''}</div>"""
 
 
@@ -193,11 +225,12 @@ def page_tasks(model: dict[str, Any]) -> str:
             f'<td>{e(task["status"])}</td>'
             f'<td>{e(task["risk_level"] or "-")}</td>'
             f'<td class="wrap">{e(task["objective"])}</td>'
-            f'<td class="num">{len(task["next_tasks"]) or ""}</td></tr>'
+            f'<td class="num">{len(task["next_tasks"]) or ""}</td>'
+            f'<td class="mono">{e(task.get("updated_at", ""))}</td></tr>' 
         )
     carriers = sorted({t["carrier"] for t in model["tasks"]})
     options = "".join(f"<option value='{e(c)}'>{e(c)}</option>" for c in carriers)
-    body = table(["#序号", "任务", "载体", "状态", "风险", "目标", "#衍生"], rows) or empty(
+    body = table(["#序号", "任务", "载体", "状态", "风险", "目标", "#衍生", "最后更新"], rows) or empty(
         "还没有受控任务。", "用 init_task.py 或 manage_minimal_task.py init 建立第一个任务。"
     )
     return f"""<h1>任务</h1>
@@ -279,6 +312,26 @@ def page_task(model: dict[str, Any], task_id: str) -> str | None:
         f"{table(['文件', '路径', '#字节', '修改时间'], [files])}</div>"
         if files else ""
     )
+    owned = [
+        item
+        for family in model.get("artifacts", [])
+        for item in family["items"]
+        if item.get("task_id") == task["task_id"]
+    ]
+    owned_rows = "".join(
+        f"<tr data-filter='{e(item['path'])}'>"
+        f"<td><a class='mono' href='/preview?path={e(item['path'])}'>{e(item['name'])}</a></td>"
+        f"<td>{badge(item['stage'], 'mute') if item.get('stage') else ''}</td>"
+        f"<td>{badge((item.get('envelope') or {}).get('integrity_status', '无信封'), 'mute')}</td>"
+        f"<td class='num'>{item['size']}</td></tr>"
+        for item in owned
+    )
+    owned_card = (
+        f"<div class='card'><h3>该任务的生成物</h3>"
+        f"<p class='hint'>执行期为该任务编译的检索上下文与审计输出，是它的证据链。</p>"
+        f"{table(['文件', '阶段', '完整性', '#字节'], [owned_rows])}</div>"
+        if owned_rows else ""
+    )
     return f"""<h1 class="mono">{e(task['task_id'])}</h1>
 <p class="lede">{e(task['objective'])}</p>
 <div class="card"><h3>分类</h3>{profile}</div>
@@ -289,6 +342,7 @@ def page_task(model: dict[str, Any], task_id: str) -> str | None:
 {bullets('实际变化', task['actual_changes'])}
 {incomplete_card}
 {lineage_card}
+{owned_card}
 {files_card}"""
 
 
@@ -468,9 +522,10 @@ def page_artifacts(model: dict[str, Any]) -> str:
             status = env.get("integrity_status", "")
             tone = {"Complete": "pos", "Failed": "neg", "Stale": "warn"}.get(status, "mute")
             rows.append(
-                f"<tr data-filter='{e(item['path'])}'>"
+                f"<tr data-filter='{e(item['path'] + ' ' + item.get('task_id', ''))}'>"
                 f"<td><a class='mono' href='/preview?path={e(item['path'])}'>{e(item['name'])}</a></td>"
-                f"<td class='mono'>{e(item['group'] if item['group'] != '.' else '')}</td>"
+                f"<td>{task_link(model, item['task_id']) if item.get('task_id') else ''}"
+                f"{(' ' + badge(item['stage'], 'mute')) if item.get('stage') else ''}</td>"
                 f"<td>{badge(env.get('view_kind', '—'), 'mute')}</td>"
                 f"<td>{badge(status or '无信封', tone)}</td>"
                 f"<td class='num'>{item['size']}</td><td>{e(item['modified'])}</td></tr>"
@@ -482,7 +537,7 @@ def page_artifacts(model: dict[str, Any]) -> str:
             f"<div class='filters'><input type='search' placeholder='筛选…' data-filter-input "
             f"aria-label='筛选{e(family['label'])}'><span class='spacer'></span>"
             f"<span class='result' data-filter-count></span></div>"
-            f"{table(['文件', '分组', 'view_kind', '完整性', '#字节', '修改时间'], rows) or empty('该族下没有生成物。')}</div>"
+            f"{table(['文件', '所属任务', 'view_kind', '完整性', '#字节', '修改时间'], rows) or empty('该族下没有生成物。')}</div>"
         )
     return f"""<h1>生成物</h1>
 <p class="lede">DerivedView 与检索产物。每个文件配一个 <code>.view.json</code> 信封，记录 view_kind、来源清单与快照摘要。</p>

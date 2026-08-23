@@ -191,7 +191,37 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
     except (OSError, json.JSONDecodeError, GovernanceError) as exc:
         entry["error"] = str(exc)
     entry["files"] = [_stat(path, project_root) for path in _iter_files(task_dir)]
+    entry["updated_at"] = max((item["modified"] for item in entry["files"]), default="")
     return entry
+
+
+def state_provenance(project_root: Path, state: dict[str, Any]) -> dict[str, Any]:
+    """Where the task data came from and whether it can still be trusted.
+
+    Documents, artifacts and integrity are scanned live on every request. Tasks and
+    lineage are not: they are read from project-state.json, a generated snapshot. If a
+    task record changed after that snapshot was built, every task view is quietly out
+    of date -- an auditor has to be told, not left to assume.
+    """
+
+    state_path = project_root / GOVERNANCE_DIR / "project-state.json"
+    info: dict[str, Any] = {
+        "present": state_path.is_file(),
+        "generated_at": state.get("generated_at", ""),
+        "stale": False,
+        "newer": [],
+    }
+    if not info["present"]:
+        return info
+    built = state_path.stat().st_mtime
+    tasks_root = project_root / GOVERNANCE_DIR / "tasks"
+    info["newer"] = sorted(
+        _relative(path, project_root.resolve())
+        for path in _iter_files(tasks_root)
+        if path.stat().st_mtime > built + 1
+    )
+    info["stale"] = bool(info["newer"])
+    return info
 
 
 def scan_tasks(project_root: Path, state: dict[str, Any]) -> list[dict[str, Any]]:
@@ -232,6 +262,9 @@ def scan_artifacts(project_root: Path) -> list[dict[str, Any]]:
             entry = _stat(path, project_root)
             entry["envelope"] = envelope
             entry["group"] = _relative(path.parent, generated / name)
+            parts = path.relative_to(root).parts
+            entry["task_id"] = parts[0] if len(parts) > 1 else ""
+            entry["stage"] = parts[1] if len(parts) > 2 else ""
             items.append(entry)
         families.append({"name": name, "label": label, "hint": hint, "items": items})
     return families
@@ -520,6 +553,10 @@ def scan(project_root: Path) -> dict[str, Any]:
         "project_id": state.get("project_id", project_root.name),
         "state_generated_at": state.get("generated_at", ""),
         "state_present": bool(state),
+        "provenance": state_provenance(project_root, state),
+        # Distinguishing "measured and zero" from "never recorded" matters more to a
+        # reviewer than the number itself.
+        "lineage_recorded": any(task["next_tasks"] or task["derived_from"] for task in tasks),
         "tasks": tasks,
         "derivation": audit_console.derivation_audit(state),
         "unresolved": state.get("unresolved_items", []),
