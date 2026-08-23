@@ -13,6 +13,7 @@ sys.dont_write_bytecode = True
 from governance_artifacts import GovernanceError, read_json
 from minimal_task import (
     append_minimal_event,
+    parse_next_tasks,
     screen_minimal_eligibility,
     screening_facts,
     allowed_minimal_change_surfaces,
@@ -102,6 +103,13 @@ def parse_args() -> argparse.Namespace:
     close.add_argument("--change", action="append", default=[])
     close.add_argument("--verification", action="append", required=True)
     close.add_argument(
+        "--next-task",
+        action="append",
+        default=[],
+        metavar="TASK_ID::relation::reason",
+        help="Derived task and its C10 8.2 relation: observed-from, affected-by, addresses, extends or refines",
+    )
+    close.add_argument(
         "--incomplete-item",
         action="append",
         default=[],
@@ -188,6 +196,7 @@ def main() -> int:
                     actual_changes=args.change,
                     verification=args.verification,
                     incomplete_items=args.incomplete_item,
+                    next_tasks=parse_next_tasks(args.next_task, task_id=Path(args.task_dir).resolve().name),
                 )
             )
         elif args.command == "screen":

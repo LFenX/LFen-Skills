@@ -60,7 +60,18 @@
     },
     "decisions": {"type": "array", "items": {"type": "string", "minLength": 1}},
     "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
-    "next_tasks": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "next_tasks": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["task_id", "relation", "reason"],
+        "properties": {
+          "task_id": {"type": "string", "minLength": 1},
+          "relation": {"enum": ["observed-from", "affected-by", "addresses", "extends", "refines"]},
+          "reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
     "artifact_manifest": {
       "type": "array", "minItems": 3,
       "items": {

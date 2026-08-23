@@ -219,6 +219,19 @@
                 }
               }
             },
+            "next_tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["task_id", "relation", "reason"],
+                "properties": {
+                  "task_id": {"type": "string", "minLength": 1},
+                  "relation": {"enum": ["observed-from", "affected-by", "addresses", "extends", "refines"]},
+                  "reason": {"type": "string", "minLength": 1}
+                }
+              }
+            },
             "completed_at": {"type": "string", "format": "date-time"}
           }
         }

@@ -526,6 +526,39 @@ def append_minimal_event(
     return event
 
 
+# C10 8.2 owns the controlled relation vocabulary and forbids establishing a formal
+# link with uncontrolled semantics. Task succession uses the five that apply between
+# tasks; supersedes and replaces already have dedicated fields. The reason is where
+# C10's per-relation obligation lands -- affected-by must state impact type, scope and
+# time; addresses must state the handled scope.
+NEXT_TASK_RELATIONS = ("observed-from", "affected-by", "addresses", "extends", "refines")
+
+
+def parse_next_tasks(values: Iterable[str], *, task_id: str) -> list[dict[str, str]]:
+    """Parse TASK_ID::relation::reason, matching the existing :: argument style."""
+
+    parsed: list[dict[str, str]] = []
+    for raw in values:
+        parts = [part.strip() for part in str(raw).split("::")]
+        if len(parts) != 3 or not all(parts):
+            raise GovernanceError(
+                f"--next-task must use TASK_ID::relation::reason, got {raw!r}"
+            )
+        target, relation, reason = parts
+        if relation not in NEXT_TASK_RELATIONS:
+            raise GovernanceError(
+                f"--next-task relation must be one of {', '.join(NEXT_TASK_RELATIONS)}, got {relation!r}"
+            )
+        if target == task_id:
+            raise GovernanceError(f"--next-task cannot point at the task itself: {target}")
+        parsed.append({"task_id": target, "relation": relation, "reason": reason})
+    seen = [item["task_id"] for item in parsed]
+    duplicates = sorted({value for value in seen if seen.count(value) > 1})
+    if duplicates:
+        raise GovernanceError(f"--next-task repeats a target task: {', '.join(duplicates)}")
+    return parsed
+
+
 def parse_verification(values: Iterable[str]) -> list[dict[str, Any]]:
     checks: list[dict[str, Any]] = []
     for raw in values:
@@ -558,6 +591,7 @@ def close_minimal_record(
     actual_changes: Iterable[str],
     verification: Iterable[str],
     incomplete_items: Iterable[str] = (),
+    next_tasks: Iterable[dict[str, str]] = (),
 ) -> Path:
     if status not in OUTCOME_STATES:
         raise GovernanceError(f"unsupported Minimal outcome: {status}")
@@ -613,6 +647,9 @@ def close_minimal_record(
         "incomplete_items": incomplete,
         "completed_at": completed_at,
     }
+    derived = [dict(item) for item in next_tasks]
+    if derived:
+        record["task_outcome"]["next_tasks"] = derived
     record["completed_at"] = completed_at
     record["lifecycle_state"] = "Completed"
     record["revision"] += 1

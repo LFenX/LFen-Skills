@@ -11,6 +11,7 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 
+from minimal_task import parse_next_tasks
 from governance_artifacts import GovernanceError, OUTCOME_STATES, close_task
 
 
@@ -32,7 +33,13 @@ def parse_args() -> argparse.Namespace:
     legacy.add_argument("--legacy-issues-json-file", type=Path, help="UTF-8 JSON file containing legacy issues")
     parser.add_argument("--decision", action="append", default=[])
     parser.add_argument("--evidence-ref", action="append", default=[])
-    parser.add_argument("--next-task", action="append", default=[])
+    parser.add_argument(
+        "--next-task",
+        action="append",
+        default=[],
+        metavar="TASK_ID::relation::reason",
+        help="Derived task and its C10 8.2 relation: observed-from, affected-by, addresses, extends or refines",
+    )
     manifest = parser.add_mutually_exclusive_group()
     manifest.add_argument("--artifact-manifest-json-base64", help="Base64 UTF-8 terminal Artifact Manifest array")
     manifest.add_argument("--artifact-manifest-json-file", type=Path, help="UTF-8 JSON file containing the terminal Artifact Manifest")
@@ -79,7 +86,7 @@ def main() -> int:
             legacy_issues=legacy,
             decisions=args.decision,
             evidence_refs=args.evidence_ref,
-            next_tasks=args.next_task,
+            next_tasks=parse_next_tasks(args.next_task, task_id=Path(args.task_dir).resolve().name),
             artifact_manifest=manifest,
             source_snapshot=snapshot,
         )

@@ -2228,7 +2228,7 @@
       },
       {
         "script": "close_task.py",
-        "help_sha256": "281b638f4da14d59efa044a33482304e8af72464a007bd599241e9f9fa30150c",
+        "help_sha256": "d8ceb562c941a9440960a719d95aecac65c693be9c42404d73ca80de7e51b48a",
         "options": [
           "--artifact-manifest-json-base64",
           "--artifact-manifest-json-file",
