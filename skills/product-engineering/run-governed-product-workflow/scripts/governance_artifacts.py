@@ -2760,23 +2760,37 @@ def _is_external_declaration(pattern: str) -> bool:
     return value.startswith("/") or value.startswith("..") or re.match(r"^[A-Za-z]:/", value) is not None
 
 
-def _git_changed_paths(root: Path, head: str) -> list[str]:
-    """Every path git says changed since the snapshot: committed plus working tree.
+def _git_changed_paths(root: Path, head: str) -> tuple[list[str], str | None]:
+    """Every path Git says changed since the snapshot: committed plus working tree.
 
-    `-z` throughout: this repository has non-ASCII paths and git quotes those in its
+    Returns the paths and, when a query did not answer, the reason. A failed query is
+    never reported as "nothing changed": the whole point of this check is that it cannot
+    pass without Git actually speaking, so an unreachable baseline has to surface rather
+    than quietly shrink the set of changes being reconciled.
+
+    `-z` throughout: this repository has non-ASCII paths and Git quotes those in its
     default output, which would silently turn a real path into a non-matching literal.
     """
 
-    def run(args: list[str]) -> list[str]:
-        result = subprocess.run(
-            ["git", *args], cwd=root, check=False, capture_output=True,
-        )
+    def run(args: list[str]) -> tuple[list[str] | None, str | None]:
+        try:
+            result = subprocess.run(["git", *args], cwd=root, check=False, capture_output=True)
+        except OSError as exc:
+            return None, f"git {args[0]} could not be run: {exc}"
         if result.returncode != 0:
-            return []
-        return [item for item in result.stdout.decode("utf-8", "replace").split("\x00") if item]
+            detail = result.stderr.decode("utf-8", "replace").strip().splitlines()
+            first = detail[0] if detail else f"exit {result.returncode}"
+            return None, f"git {args[0]} failed: {first}"
+        return [item for item in result.stdout.decode("utf-8", "replace").split("\x00") if item], None
 
-    changed: set[str] = set(run(["diff", "--name-only", "-z", f"{head}..HEAD"]))
-    entries = run(["status", "--porcelain=v1", "-z", "--untracked-files=all"])
+    committed, failure = run(["diff", "--name-only", "-z", f"{head}..HEAD"])
+    if failure is not None:
+        return [], failure
+    entries, failure = run(["status", "--porcelain=v1", "-z", "--untracked-files=all"])
+    if failure is not None:
+        return [], failure
+    changed: set[str] = set(committed or [])
+    entries = entries or []
     index = 0
     while index < len(entries):
         entry = entries[index]
@@ -2788,7 +2802,7 @@ def _git_changed_paths(root: Path, head: str) -> list[str]:
         if code[0] in {"R", "C"} and index < len(entries):
             changed.add(entries[index])
             index += 1
-    return sorted(changed)
+    return sorted(changed), None
 
 
 def reconcile_scope(project_root: Path, before: dict[str, Any]) -> dict[str, Any]:
@@ -2812,7 +2826,13 @@ def reconcile_scope(project_root: Path, before: dict[str, Any]) -> dict[str, Any
     external = [item for item in declared if _is_external_declaration(item)]
     patterns = list(reconcilable) + list(IMPLICIT_SCOPE)
 
-    changed = _git_changed_paths(project_root.resolve(), str(snapshot["head"]))
+    changed, failure = _git_changed_paths(project_root.resolve(), str(snapshot["head"]))
+    if failure is not None:
+        return {
+            "status": "Unverifiable",
+            "reason": failure,
+            "out_of_scope": [], "undeclared_untouched": [], "changed_count": 0,
+        }
     out_of_scope = [
         path for path in changed
         if not any(_scope_pattern_matches(path, pattern) for pattern in patterns)
@@ -2888,6 +2908,13 @@ def close_task(
         raise GovernanceError(f"task outcome already exists: {after_path}; use amend_record.py")
     project_root = task_dir.resolve().parents[2]
     scope_report = reconcile_scope(project_root, before)
+    if scope_report["status"] == "Unverifiable":
+        raise GovernanceError(
+            "scope reconciliation could not run: " + str(scope_report["reason"])
+            + "; the declared scope cannot be checked against Git, and a close is not "
+            "allowed to pass on an unchecked scope -- restore the baseline commit, or "
+            "amend source_snapshot with a reachable one and say why"
+        )
     if scope_report["status"] == "Failed":
         listed = scope_report["out_of_scope"]
         shown = ", ".join(listed[:12])

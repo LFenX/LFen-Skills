@@ -1362,6 +1362,16 @@ def main(argv: list[str] | None = None) -> int:
         (skipped["status"] == "Skipped" and not skipped["out_of_scope"]),
         "without a Git baseline the reconciliation must skip, not fail open on a guess",
     )
+    # A baseline Git cannot resolve is the one way this check could quietly report
+    # "nothing changed" and let a close through unchecked. It has to block instead.
+    unverifiable = reconcile_scope(skill_root, {
+        "source_snapshot": {"vcs": "git", "head_exists": True, "head": "0" * 40},
+        "scope": {"allowed_paths": []},
+    })
+    require_test(
+        (unverifiable["status"] == "Unverifiable" and unverifiable.get("reason")),
+        f"an unresolvable Git baseline must block, not pass quietly; got {unverifiable.get('status')}",
+    )
 
     condition_phrases = [
         row.split("|")[1].strip()
