@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-08-23T11:05:54Z",
-  "source_digest": "3aeb6cfd8154f6d2e6a7f64024e474fbfb69d515237543ca8b89befa6936d4af",
+  "generated_at": "2026-09-03T07:35:18Z",
+  "source_digest": "5b111fd2084e14d275190e18683d02e1d4fceb940d4cdad9b13b7e3706d43676",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -40,6 +40,20 @@
       "status": "Implemented",
       "revision": 1,
       "completed_at": "2026-08-22T08:22:15Z"
+    },
+    {
+      "task_id": "T-CATALOG-20260901-001",
+      "ordinal": 6,
+      "status": "Implemented",
+      "revision": 1,
+      "completed_at": "2026-09-01T09:06:28Z"
+    },
+    {
+      "task_id": "T-CATALOG-20260903-002",
+      "ordinal": 7,
+      "status": "Implemented",
+      "revision": 1,
+      "completed_at": "2026-09-03T07:35:12Z"
     }
   ],
   "current_facts": [
@@ -112,6 +126,31 @@
       "task_id": "T-RWPW-20260822-004",
       "ordinal": 5,
       "fact": "Handoff file run-web-product-workflow/HANDOFF-FIX-ADVERSARIAL-20260822.md was deleted after validation."
+    },
+    {
+      "task_id": "T-CATALOG-20260901-001",
+      "ordinal": 6,
+      "fact": "三个 skill 目录名称与六个已知 junction 目标均保持不变且可访问。"
+    },
+    {
+      "task_id": "T-CATALOG-20260901-001",
+      "ordinal": 6,
+      "fact": "分类目录覆盖 3 个 skill、2 个主分类，并为每个 skill 提供 scope 与 tags。"
+    },
+    {
+      "task_id": "T-CATALOG-20260903-002",
+      "ordinal": 7,
+      "fact": "4 个 skill 已按唯一主分类迁移至 skills/<category>/<skill-name>/，根目录不再保留 skill 实体目录。"
+    },
+    {
+      "task_id": "T-CATALOG-20260903-002",
+      "ordinal": 7,
+      "fact": "4 个 SKILL.md 的 name 与内容哈希保持不变，skill 调用名未改变。"
+    },
+    {
+      "task_id": "T-CATALOG-20260903-002",
+      "ordinal": 7,
+      "fact": "6 个已知 junction 名称保持不变，目标已切换到新的分类物理路径并可访问。"
     }
   ],
   "unresolved_items": [],
@@ -163,6 +202,26 @@
     {
       "task_id": "T-RWPW-20260822-004",
       "ordinal": 5,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-CATALOG-20260901-001",
+      "ordinal": 6,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-CATALOG-20260903-002",
+      "ordinal": 7,
       "depends_on": [],
       "supersedes": [],
       "blocked_by": [],

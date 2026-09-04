@@ -7,5 +7,5 @@
 # content, so ANY end-of-line conversion -- in either direction, on add or on
 # checkout -- changes the hash and breaks the skill. Mark them as binary so git
 # stores and restores the exact bytes.
-run-web-product-workflow/assets/** -text
-run-web-product-workflow/references/** -text
+skills/product-engineering/run-web-product-workflow/assets/** -text
+skills/product-engineering/run-web-product-workflow/references/** -text

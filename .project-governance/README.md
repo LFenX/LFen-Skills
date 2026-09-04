@@ -16,6 +16,7 @@
 
 <!-- LG-MANAGED:START -->
 - `authority/`：目录
+- `console/`：目录
 - `generated/`：目录
 - `project-state.json`：文件
 - `runtime-cache/`：目录

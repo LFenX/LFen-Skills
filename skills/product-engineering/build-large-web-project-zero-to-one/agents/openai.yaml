@@ -1,0 +1,6 @@
+interface:
+  display_name: "从 0 到 1 大型 Web 生产后台构建 SOP"
+  short_description: "从需求说明、产品包到前后端联调验收的大型 Web 项目构建 SOP"
+  default_prompt: "使用 $build-large-web-project-zero-to-one 按需求基线、产品包和前后端绑定流程，从 0 到 1 构建大型 Web 项目。"
+policy:
+  allow_implicit_invocation: true

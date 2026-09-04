@@ -1,9 +1,26 @@
 {
-  "schema_version": 1,
+  "schema_version": 3,
   "catalog": {
     "title": "LFen Skills 分类目录",
-    "max_root_categories": 2,
-    "generated_file": "CATALOG.md"
+    "generated_markdown": "CATALOG.md",
+    "generated_index": "catalog/index.json",
+    "skills_root": "skills",
+    "layout": "skills/<category-path>/<skill-name>",
+    "max_depth": 2,
+    "scopes": {
+      "general": {
+        "name": "通用",
+        "description": "不依赖 LFen 团队或单一项目上下文，可跨项目复用。"
+      },
+      "team": {
+        "name": "团队",
+        "description": "依赖 LFen 团队规范、流程或共享约定。"
+      },
+      "project": {
+        "name": "项目",
+        "description": "面向一个明确项目、系统或业务工作流。"
+      }
+    }
   },
   "categories": [
     {
@@ -20,26 +37,64 @@
       "name": "产品研发",
       "description": "产品定义、研发执行、质量控制、交付与运营流程。",
       "skills": [
+        "build-large-web-project-zero-to-one",
+        "run-koc-feedback-workflow",
         "run-web-product-workflow"
       ],
       "children": []
     }
   ],
+  "skill_metadata": {
+    "match-tabular-records": {
+      "scope": "general",
+      "tags": [
+        "data-matching",
+        "data-quality",
+        "excel"
+      ]
+    },
+    "run-koc-feedback-workflow": {
+      "scope": "project",
+      "tags": [
+        "feedback-management",
+        "feishu-base",
+        "koc"
+      ]
+    },
+    "run-web-product-workflow": {
+      "scope": "team",
+      "tags": [
+        "product-governance",
+        "verification",
+        "web-delivery"
+      ]
+    },
+    "build-large-web-project-zero-to-one": {
+      "scope": "general",
+      "tags": [
+        "agentic-development",
+        "frontend-backend",
+        "product-specification",
+        "sop",
+        "web-admin"
+      ]
+    }
+  },
   "references": [
     {
       "name": "Anthropic Skills",
-      "url": "https://github.com/anthropics/skills#skill-sets",
-      "adopted": "按用户任务与能力用途划分领域，而不是按脚本语言划分。"
+      "url": "https://github.com/anthropics/skills",
+      "adopted": "保持每个 skill 自包含，并按用户任务与能力用途提供概念分类。"
     },
     {
       "name": "Microsoft Skills",
-      "url": "https://github.com/microsoft/skills#adding-new-skills",
-      "adopted": "用一级分类和按需子分类组织目录，并让分类导航独立于 skill 的规范目录。"
+      "url": "https://github.com/microsoft/skills",
+      "adopted": "保留自包含 skill，并以稳定主分类组织物理目录；目录页继续承担跨主题导航和按需选择。"
     },
     {
       "name": "NVIDIA Skills",
-      "url": "https://github.com/NVIDIA/skills#skill-catalog",
-      "adopted": "从元数据自动生成目录，以支持 skill 持续新增和更新。"
+      "url": "https://github.com/NVIDIA/skills",
+      "adopted": "将分类物理目录、导航文档和机器索引统一从单一源生成，并通过自动校验防止路径与内容漂移。"
     }
   ]
 }

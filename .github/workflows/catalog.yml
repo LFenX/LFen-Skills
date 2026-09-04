@@ -1,9 +1,12 @@
 name: Validate skill catalog
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     paths:
-      - "*/SKILL.md"
+      - "skills/**/SKILL.md"
       - "catalog/**"
       - "scripts/update_catalog.py"
       - "CATALOG.md"
@@ -11,7 +14,7 @@ on:
       - ".github/workflows/catalog.yml"
   push:
     paths:
-      - "*/SKILL.md"
+      - "skills/**/SKILL.md"
       - "catalog/**"
       - "scripts/update_catalog.py"
       - "CATALOG.md"
@@ -21,9 +24,11 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: python scripts/update_catalog.py --check
+      - name: Validate taxonomy and generated catalogs
+        run: python scripts/update_catalog.py --check

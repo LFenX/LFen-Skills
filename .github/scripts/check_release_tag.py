@@ -7,7 +7,13 @@ import re
 import sys
 from pathlib import Path
 
-SKILL_MD = Path(__file__).resolve().parents[2] / "run-web-product-workflow" / "SKILL.md"
+SKILL_MD = (
+    Path(__file__).resolve().parents[2]
+    / "skills"
+    / "product-engineering"
+    / "run-web-product-workflow"
+    / "SKILL.md"
+)
 PREFIX = "rwpw-v"
 
 

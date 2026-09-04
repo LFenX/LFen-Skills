@@ -1,0 +1,126 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-CATALOG-20260903-002",
+  "task_id": "T-CATALOG-20260903-002",
+  "revision": 1,
+  "status": "Implemented",
+  "completed_at": "2026-09-03T07:35:12Z",
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "a4616d5f1a6102eeb2c63672f1f5316c5fc39f4a",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 236,
+    "status_digest": "a12953bcb39eaf98d9eb3815d4ce08cfbc1098d5e12a72a1ffaf96c0659e0d1c",
+    "captured_at": "2026-09-03T07:35:12Z"
+  },
+  "established_facts": [
+    "4 个 skill 已按唯一主分类迁移至 skills/<category>/<skill-name>/，根目录不再保留 skill 实体目录。",
+    "4 个 SKILL.md 的 name 与内容哈希保持不变，skill 调用名未改变。",
+    "6 个已知 junction 名称保持不变，目标已切换到新的分类物理路径并可访问。"
+  ],
+  "actual_changes": [
+    "将 match-tabular-records 放入 skills/data-processing，将 build-large-web-project-zero-to-one、run-koc-feedback-workflow、run-web-product-workflow 放入 skills/product-engineering。",
+    "升级 taxonomy schema v3，增加 skills_root 与 layout 约束；生成器强制校验分类源、物理路径、Markdown 和 JSON 索引一致。",
+    "同步 README、CATALOG、catalog/index.json、CI、发布检查脚本、规范源路径和相邻仓库布局解析。",
+    "按受保护运行资产规则重新封存 Manifest，并更新受影响的 NCT-008 检索基线。"
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "Python 3.11 与当前 Python 版本目录生成和漂移校验通过",
+      "evidence_refs": [
+        "python scripts/update_catalog.py --check"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "8 类非法分类配置全部被拒绝，JSON 索引 4 个路径均存在，README/CATALOG 链接 20 个均有效",
+      "evidence_refs": [
+        "NEGATIVE_SUITE_PASS=8/8; LINK_INDEX_PASS=4 skills/20 links"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "4 个 SKILL.md 内容哈希与迁移前一致，根目录旧实体目录均已移除",
+      "evidence_refs": [
+        "SKILL_CONTENT_HASH_PASS=4/4"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "6 个 junction 目标均指向新分类目录且 SKILL.md 可访问",
+      "evidence_refs": [
+        "JUNCTION_TARGET_PASS=6/6"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "RWPW 正反向 self_test、检索契约、规范一致性、裁剪覆盖和任务包校验全部通过",
+      "evidence_refs": [
+        "self-test exit 0; audit_norm_retrieval Passed; audit_norm_consistency Complete"
+      ]
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [
+    "Implemented：目录规范化、junction 同步和全量验证完成，无未完成项。"
+  ],
+  "evidence_refs": [
+    "skills/data-processing/match-tabular-records",
+    "skills/product-engineering/build-large-web-project-zero-to-one",
+    "skills/product-engineering/run-koc-feedback-workflow",
+    "skills/product-engineering/run-web-product-workflow",
+    "catalog/index.json",
+    "junction-regression:6-targets"
+  ],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-CATALOG-20260903-002-before",
+      "content_ref": ".project-governance/tasks/T-CATALOG-20260903-002/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "a4616d5f1a6102eeb2c63672f1f5316c5fc39f4a",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-CATALOG-20260903-002-run",
+      "content_ref": ".project-governance/tasks/T-CATALOG-20260903-002/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "a4616d5f1a6102eeb2c63672f1f5316c5fc39f4a",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-CATALOG-20260903-002-after",
+      "content_ref": ".project-governance/tasks/T-CATALOG-20260903-002/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "a4616d5f1a6102eeb2c63672f1f5316c5fc39f4a",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": []
+}
