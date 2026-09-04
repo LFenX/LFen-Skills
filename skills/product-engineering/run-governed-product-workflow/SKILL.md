@@ -1,6 +1,6 @@
 ---
 name: run-governed-product-workflow
-description: 按团队 V6.3 Candidate 规范推进产品或工程变化，用同一六元模型在 Minimal 与完整流程之间裁剪，并维护需求、计划、执行、验证、验收、发布和证据。用于新产品、新功能、需求修订、带产品面的缺陷修复或工程变更、迁移退役、生产处置，或用户明确要求 Grill Me、Task Profile、Artifact Manifest、VC-PPG、C01-C12、E01-E05 或“最轻框架”时。也用于对已交付产品面做复查与验收——“review 一遍 / 再查一遍 / 是否闭环 / 有没有遗漏 / 需求是否都实现了 / 验收”，此类请求走 verify，按总原则 10 逐条对照需求原文，不抽查。Not for read-only Q&A unrelated to a delivered product change, git one-liners, or edits that do not change product behavior, docs layout, or release. Not for library-internal patches with no product surface, no controlled artifact and no release evidence requirement.
+description: 用于推进具体开发任务：新功能、改需求、修 bug、重构、迁移退役、发布上线、复查验收；前端、后端、脚本、配置、文档同等适用。按团队 V6.3 规范维护可核对的需求、计划、执行、验证、验收和证据，用同一六元模型在 Minimal 与完整载体之间裁剪——小任务只写一个文件，但不因为任务小就跳过澄清和验收。凡是会改变产品行为、外部可见接口、文档布局或发布结果的改动都适用。也用于对已交付内容的复查——“review 一遍 / 再查一遍 / 是否闭环 / 有没有遗漏 / 需求是否都实现了 / 验收”，此类请求走 verify，按总原则 10 逐条对照需求原文，不抽查。用户提到 Grill Me、Task Profile、Artifact Manifest、VC-PPG、C01-C12、E01-E05 或“最轻框架”时同样适用。不用于纯只读问答，以及不改变任何行为的一次性 git 命令。
 metadata:
   version: 6.3.0-candidate
 ---
