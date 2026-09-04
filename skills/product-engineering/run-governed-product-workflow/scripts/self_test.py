@@ -21,6 +21,9 @@ sys.dont_write_bytecode = True
 
 from governance_artifacts import (
     validate_clarification,
+    reconcile_scope,
+    _scope_pattern_matches,
+    _is_external_declaration,
     skill_root_path,
     EXPECTED_MANIFEST_ROLES,
     GovernanceError,
@@ -1332,6 +1335,33 @@ def main(argv: list[str] | None = None) -> int:
         "survey_refs": ["survey://x"], "rounds": [], "basis": "surveyed",
     })
     require_test((not settled), f"a surveyed zero-round record must pass, got {settled}")
+
+    # Scope reconciliation is the first blocker whose two sides are not both written by
+    # the Agent: one is the declaration, the other is Git. The matcher is where its bugs
+    # would hide, so hold each shape allowed_paths actually takes in this repo.
+    for relative, pattern, expected in (
+        ("src/app.py", "src", True),
+        ("src/deep/nested/app.py", "src", True),
+        ("other/lib.py", "src", False),
+        ("srcnot/app.py", "src", False),
+        ("a/b/c.py", "a/**", True),
+        ("scripts/update_catalog.py", "scripts/update_catalog.py", True),
+        (".project-governance/tasks/T/before.json", ".project-governance", True),
+    ):
+        require_test(
+            (_scope_pattern_matches(relative, pattern) is expected),
+            f"scope matcher: {relative!r} vs {pattern!r} should be {expected}",
+        )
+    require_test(
+        (_is_external_declaration("D:/elsewhere/**") and _is_external_declaration("/abs/x")
+         and not _is_external_declaration("src/**")),
+        "declarations outside the repository must be excluded from reconciliation",
+    )
+    skipped = reconcile_scope(Path("."), {"source_snapshot": {"vcs": "filesystem"}, "scope": {"allowed_paths": []}})
+    require_test(
+        (skipped["status"] == "Skipped" and not skipped["out_of_scope"]),
+        "without a Git baseline the reconciliation must skip, not fail open on a guess",
+    )
 
     condition_phrases = [
         row.split("|")[1].strip()

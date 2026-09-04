@@ -45,7 +45,7 @@ python .project-governance/console/console.py start
 ## 装配记录
 
 <!-- LG-MANAGED:START -->
-- 装配时间：`2026-09-04T07:32:18Z`
+- 装配时间：`2026-09-04T14:37:19Z`
 - 来源 skill：`run-governed-product-workflow` 版本 `6.3.0-candidate`
 - 装配时的 skill 路径：`D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow`
 - 快照文件：9 个，哈希记录于 `deployment.json`

@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import fnmatch
 import hashlib
 import json
 import os
@@ -2723,6 +2724,145 @@ def validate_run_lifecycle(
     return errors
 
 
+# Paths this tooling writes on its own behalf, not as part of the task's work. They
+# are always in scope: making every task declare them would fail the check for reasons
+# that have nothing to do with the change under review. Kept deliberately narrow --
+# the docs scaffold README is exempt, the product documentation around it is not.
+IMPLICIT_SCOPE = (".project-governance", "LG_project_docs/README.md")
+
+
+def _scope_pattern_matches(relative: str, pattern: str) -> bool:
+    """Match one changed path against one declared scope entry.
+
+    allowed_paths is written by hand and comes in three shapes: a bare file, a
+    directory that stands for everything under it, and an explicit `**` glob. Treat
+    all three the same way rather than making the author remember which is which.
+    """
+
+    pattern = pattern.replace("\\", "/").strip().rstrip("/")
+    if not pattern:
+        return False
+    base = pattern
+    for suffix in ("/**", "/*"):
+        if base.endswith(suffix):
+            base = base[: -len(suffix)]
+            break
+    base = base.rstrip("/")
+    if relative == base or relative.startswith(base + "/"):
+        return True
+    return fnmatch.fnmatch(relative, pattern)
+
+
+def _is_external_declaration(pattern: str) -> bool:
+    """A declaration git cannot speak about: absolute, drive-qualified or escaping."""
+
+    value = pattern.replace("\\", "/").strip()
+    return value.startswith("/") or value.startswith("..") or re.match(r"^[A-Za-z]:/", value) is not None
+
+
+def _git_changed_paths(root: Path, head: str) -> list[str]:
+    """Every path git says changed since the snapshot: committed plus working tree.
+
+    `-z` throughout: this repository has non-ASCII paths and git quotes those in its
+    default output, which would silently turn a real path into a non-matching literal.
+    """
+
+    def run(args: list[str]) -> list[str]:
+        result = subprocess.run(
+            ["git", *args], cwd=root, check=False, capture_output=True,
+        )
+        if result.returncode != 0:
+            return []
+        return [item for item in result.stdout.decode("utf-8", "replace").split("\x00") if item]
+
+    changed: set[str] = set(run(["diff", "--name-only", "-z", f"{head}..HEAD"]))
+    entries = run(["status", "--porcelain=v1", "-z", "--untracked-files=all"])
+    index = 0
+    while index < len(entries):
+        entry = entries[index]
+        index += 1
+        if len(entry) < 4:
+            continue
+        code, path = entry[:2], entry[3:]
+        changed.add(path)
+        if code[0] in {"R", "C"} and index < len(entries):
+            changed.add(entries[index])
+            index += 1
+    return sorted(changed)
+
+
+def reconcile_scope(project_root: Path, before: dict[str, Any]) -> dict[str, Any]:
+    """Compare the scope a task declared against what git says it actually touched.
+
+    Every other blocker in this system checks a field the Agent filled in itself, so it
+    can be satisfied by typing a value. This one cannot: one side is the declaration,
+    the other is git. A change outside the declared paths is reported by name and the
+    task cannot close until either the change is reverted or the scope is amended.
+    """
+
+    snapshot = before.get("source_snapshot") or {}
+    if snapshot.get("vcs") != "git" or not snapshot.get("head_exists") or not snapshot.get("head"):
+        return {
+            "status": "Skipped",
+            "reason": "no Git baseline in source_snapshot; nothing independent to reconcile against",
+            "out_of_scope": [], "undeclared_untouched": [], "changed_count": 0,
+        }
+    declared = [str(item) for item in (before.get("scope", {}).get("allowed_paths") or [])]
+    reconcilable = [item for item in declared if not _is_external_declaration(item)]
+    external = [item for item in declared if _is_external_declaration(item)]
+    patterns = list(reconcilable) + list(IMPLICIT_SCOPE)
+
+    changed = _git_changed_paths(project_root.resolve(), str(snapshot["head"]))
+    out_of_scope = [
+        path for path in changed
+        if not any(_scope_pattern_matches(path, pattern) for pattern in patterns)
+    ]
+    untouched = [
+        pattern for pattern in reconcilable
+        if not any(_scope_pattern_matches(path, pattern) for path in changed)
+    ]
+    return {
+        "status": "Failed" if out_of_scope else "Passed",
+        "changed_count": len(changed),
+        "out_of_scope": out_of_scope,
+        "undeclared_untouched": untouched,
+        "external_declarations": external,
+    }
+
+
+def _write_scope_reconciliation_view(
+    project_root: Path, before: dict[str, Any], report: dict[str, Any]
+) -> None:
+    """Leave the reconciliation as evidence, not just as a close that happened to pass."""
+
+    root = governance_root(project_root)
+    lines = [
+        f"# Scope Reconciliation: {before['task_id']}",
+        "",
+        f"- Status: {report['status']}",
+        f"- Changed paths seen by Git: {report['changed_count']}",
+        "",
+        "## Declared but untouched",
+        "",
+    ]
+    untouched = report["undeclared_untouched"]
+    lines.extend(f"- {item}" for item in untouched)
+    if not untouched:
+        lines.append("- none")
+    if report.get("external_declarations"):
+        lines.extend(["", "## Outside this repository (not reconcilable)", ""])
+        lines.extend(f"- {item}" for item in report["external_declarations"])
+    _write_derived_view(
+        root=root,
+        content_path=root / "generated" / "scope-reconciliation" / f"{before['task_id']}.md",
+        content="".join(line + chr(10) for line in lines),
+        project_id=before["project_id"],
+        view_id=f"DV-{before['project_id']}-{before['task_id']}-SCOPE-RECON",
+        view_kind="scope-reconciliation",
+        sources=[Path(project_root) / ".project-governance" / "tasks" / before["task_id"] / "before.json"],
+    )
+
+
 def close_task(
     task_dir: Path,
     *,
@@ -2746,6 +2886,17 @@ def close_task(
     after_path = task_dir / "after.json"
     if after_path.exists():
         raise GovernanceError(f"task outcome already exists: {after_path}; use amend_record.py")
+    project_root = task_dir.resolve().parents[2]
+    scope_report = reconcile_scope(project_root, before)
+    if scope_report["status"] == "Failed":
+        listed = scope_report["out_of_scope"]
+        shown = ", ".join(listed[:12])
+        extra = f" (+{len(listed) - 12} more)" if len(listed) > 12 else ""
+        raise GovernanceError(
+            "scope reconciliation failed: changed outside scope.allowed_paths: "
+            + shown + extra
+            + "; revert them, or amend scope.allowed_paths with amend_record.py"
+        )
     events = read_jsonl(task_dir / "run.jsonl")
     changes = [value for value in actual_changes if value]
     execution_required = status == "Implemented" or bool(changes)
@@ -2827,6 +2978,7 @@ def close_task(
     }
     require_valid_json_document(after, "task-after.schema.json", "after")
     atomic_write_json(after_path, after)
+    _write_scope_reconciliation_view(project_root, before, scope_report)
     # Closing a task is the point where its DerivedViews stop being rebuilt, so it is
     # also the point where a Source Pack nothing links to any more can be reclaimed.
     collect_orphan_content_blobs(
