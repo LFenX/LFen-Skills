@@ -182,11 +182,17 @@ def section_text(path: Path, section: str) -> str:
     return "\n".join(lines[start:end]).strip()
 
 
-def render_source_pack(before: dict, resolution: dict) -> str:
-    """Materialize every selected source completely while preserving per-file integrity."""
+def render_source_pack(resolution: dict) -> str:
+    """Materialize every selected source completely while preserving per-file integrity.
+
+    The pack body is a pure function of the resolved source set. Naming the task and
+    stage in the heading made three byte-different copies of the same 1.2 MB within one
+    task and defeated any deduplication; that identity already lives in the DerivedView
+    envelope (`view_id`, `sources`, `content_ref`), which is where it belongs.
+    """
 
     lines = [
-        f"# Complete Norm Source Pack: {before['task_id']} / {resolution['stage']}",
+        "# Complete Norm Source Pack",
         "",
         "This DerivedView contains the complete UTF-8 contents of every governance, index, applicable, and pending source selected by the resolution.",
         "Use the navigation packet and search to read targeted passages; omission from a control card never means N/A.",
@@ -352,11 +358,12 @@ def main() -> int:
         _write_derived_view(
             root=root,
             content_path=source_pack_path,
-            content=render_source_pack(before, resolution),
+            content=render_source_pack(resolution),
             project_id=before["project_id"],
             view_id=f"DV-{before['project_id']}-{before['task_id']}-{stage}-NORM-SOURCES",
             view_kind="compiled-complete-norm-source-pack",
             sources=sources,
+            dedupe_store=root / "generated" / "source-packs",
         )
         retrieval_plan, retrieval_plan_sources = render_retrieval_plan(
             before,

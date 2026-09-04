@@ -9,6 +9,7 @@ import os
 import re
 import subprocess
 import tempfile
+import time
 import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
@@ -2761,6 +2762,11 @@ def close_task(
     }
     require_valid_json_document(after, "task-after.schema.json", "after")
     atomic_write_json(after_path, after)
+    # Closing a task is the point where its DerivedViews stop being rebuilt, so it is
+    # also the point where a Source Pack nothing links to any more can be reclaimed.
+    collect_orphan_content_blobs(
+        governance_root(task_dir.resolve().parents[2]) / "generated" / "source-packs"
+    )
     return after_path
 
 
@@ -3189,6 +3195,62 @@ def write_text(path: Path, value: str) -> None:
         raise
 
 
+def write_content_addressed(content_path: Path, value: str, store: Path) -> Path:
+    """Keep one copy of `value` under its digest and hard-link `content_path` to it.
+
+    A Source Pack is byte-identical across the stages of a task, and across tasks that
+    resolve the same sources, so writing it per stage stored the same 1.2 MB three times
+    over. The store holds one copy per digest while every caller still gets a real file
+    at the contracted path, so ripgrep, the DerivedView hash checks and every existing
+    reader are unaffected. Filesystems that refuse hard links fall back to a full copy.
+    """
+
+    digest = hashlib.sha256(value.encode("utf-8")).hexdigest()
+    blob = store / f"{digest}{content_path.suffix}"
+    if not blob.is_file() or sha256_file(blob) != digest:
+        write_text(blob, value)
+    content_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        if content_path.exists() or content_path.is_symlink():
+            content_path.unlink()
+        os.link(blob, content_path)
+    except OSError:
+        write_text(content_path, value)
+    return blob
+
+
+# A compile writes the blob before it links to it. Collecting only blobs older than
+# this leaves that window alone instead of deleting a pack out from under a run.
+ORPHAN_BLOB_GRACE_SECONDS = 300
+
+
+def collect_orphan_content_blobs(store: Path) -> list[Path]:
+    """Drop content-addressed blobs that no DerivedView links to any more.
+
+    `write_content_addressed` hard-links every consumer to one blob, so a blob back down
+    to a single link is referenced by nothing but the store. Where the filesystem refused
+    a hard link the consumer holds an independent copy, so dropping the blob is still
+    safe. Returns what was removed so a caller can report it.
+    """
+
+    if not store.is_dir():
+        return []
+    cutoff = time.time() - ORPHAN_BLOB_GRACE_SECONDS
+    removed: list[Path] = []
+    for blob in sorted(store.iterdir()):
+        if not blob.is_file():
+            continue
+        info = blob.stat()
+        if info.st_nlink > 1 or info.st_mtime > cutoff:
+            continue
+        try:
+            blob.unlink()
+        except OSError:
+            continue
+        removed.append(blob)
+    return removed
+
+
 def _write_derived_view(
     *,
     root: Path,
@@ -3200,6 +3262,7 @@ def _write_derived_view(
     sources: Iterable[Path],
     legacy_kind: str | None = None,
     source_content_overrides: dict[Path, bytes] | None = None,
+    dedupe_store: Path | None = None,
 ) -> list[Path]:
     source_paths = [path.resolve() for path in sources]
     overrides = {
@@ -3215,7 +3278,10 @@ def _write_derived_view(
             source_refs.append(path.relative_to(root.parent).as_posix())
         except ValueError:
             source_refs.append(str(path))
-    write_text(content_path, content)
+    if dedupe_store is None:
+        write_text(content_path, content)
+    else:
+        write_content_addressed(content_path, content, dedupe_store)
     try:
         content_ref = content_path.resolve().relative_to(root.parent).as_posix()
     except ValueError:
