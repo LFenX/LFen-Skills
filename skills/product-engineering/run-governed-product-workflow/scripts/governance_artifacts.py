@@ -1209,6 +1209,53 @@ def build_default_first_principles_analysis(
     }
 
 
+def validate_clarification(clarification: Any) -> list[str]:
+    """Report why S1 is not settled yet.
+
+    The clarification loop used to exist only as prose in a command card, so nothing
+    could tell a task that skipped it from one that ran it — every record looked the
+    same. These rules give the carrier teeth: a skipped round has to say so out loud
+    and show the survey it rests on, and an answer the requester left ambiguous keeps
+    the task open instead of being quietly resolved by the Agent.
+    """
+
+    if not isinstance(clarification, dict):
+        return ["clarification is required"]
+    errors: list[str] = []
+    state = clarification.get("state")
+    mode = clarification.get("mode")
+    rounds = clarification.get("rounds")
+    if not isinstance(rounds, list):
+        return ["clarification.rounds must be an array"]
+    if mode == "Skipped" and rounds:
+        errors.append("clarification.mode=Skipped must not carry rounds")
+    if mode == "Asked" and not rounds:
+        errors.append("clarification.mode=Asked must carry at least one round")
+    if not str(clarification.get("notice", "")).strip():
+        errors.append("clarification.notice must record the sentence shown to the requester")
+    if not clarification.get("survey_refs"):
+        errors.append("clarification.survey_refs must cite the survey the decision rests on")
+    ordinals = [item.get("ordinal") for item in rounds if isinstance(item, dict)]
+    if ordinals != list(range(1, len(ordinals) + 1)):
+        errors.append("clarification.rounds must be numbered from 1 without gaps")
+    unresolved = [
+        exchange.get("question", "?")
+        for item in rounds
+        if isinstance(item, dict)
+        for exchange in item.get("exchanges", [])
+        if isinstance(exchange, dict)
+        and exchange.get("answer_state") in {"Ambiguous", "Deferred"}
+    ]
+    if state == "Settled" and unresolved:
+        errors.append(
+            "clarification cannot be Settled while answers stay ambiguous or deferred: "
+            + "; ".join(unresolved[:3])
+        )
+    if state != "Settled":
+        errors.append("clarification.state must be Settled before the task leaves S1")
+    return errors
+
+
 def validate_first_principles_analysis(
     analysis: Any,
     *,
@@ -1378,6 +1425,8 @@ def resolve_tailoring(
     confidence_boundary = mapping["confidence_policy"][confidence].get("blocks_from_stage")
     if confidence_boundary and current_stage >= int(confidence_boundary[1:]):
         blocking.append(f"confidence={confidence} blocks {stage}")
+    if current_stage >= 2 and contract_context is not None:
+        blocking.extend(validate_clarification(contract_context.get("clarification")))
     open_questions = task_profile.get("open_questions", [])
     if not isinstance(open_questions, list):
         raise GovernanceError("task_profile.open_questions must be an array")
@@ -1905,6 +1954,7 @@ def initialize_task(
     ordinal: int,
     objective: str,
     request_snapshot: dict[str, str] | None = None,
+    clarification: dict[str, Any] | None = None,
     acceptance: Iterable[str],
     development_types: Iterable[str],
     change_surfaces: Iterable[str],
@@ -2102,6 +2152,20 @@ def initialize_task(
             )
         ]
     verification_plan = verification_values or criteria
+    if not request_snapshot:
+        raise GovernanceError(
+            "request_snapshot is required: the requester's own words are the acceptance baseline"
+        )
+    # Omitting the record must fail closed rather than look like a clean skip, so the
+    # default is a well-formed but unsettled carrier that blocks from S2 onward.
+    clarification_value = clarification or {
+        "state": "Open",
+        "mode": "Asked",
+        "notice": "clarification was not recorded by the caller",
+        "survey_refs": ["none-recorded"],
+        "rounds": [],
+        "basis": "init_task was called without a clarification record; S1 is unsettled",
+    }
     analysis = first_principles_analysis or build_default_first_principles_analysis(
         objective=objective,
         in_scope=scope_in,
@@ -2128,7 +2192,8 @@ def initialize_task(
         "created_at": now_utc(),
         "frozen_at": None,
         "objective": objective.strip(),
-        **({"request_snapshot": request_snapshot} if request_snapshot else {}),
+        "request_snapshot": request_snapshot,
+        "clarification": clarification_value,
         "depends_on": sorted(set(depends_on)),
         "supersedes": sorted(set(supersedes)),
         "blocked_by": [],

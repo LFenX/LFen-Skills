@@ -101,6 +101,8 @@
       "additionalProperties": false,
       "required": [
         "objective",
+        "request_snapshot",
+        "clarification",
         "scope",
         "out_of_scope",
         "allowed_paths",
@@ -121,6 +123,114 @@
             "text": {"type": "string", "minLength": 1},
             "captured_at": {"type": "string", "format": "date-time"},
             "source": {"type": "string"}
+          }
+        },
+        "clarification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "state",
+            "mode",
+            "notice",
+            "survey_refs",
+            "rounds",
+            "basis"
+          ],
+          "properties": {
+            "state": {
+              "enum": [
+                "Open",
+                "Settled"
+              ]
+            },
+            "mode": {
+              "enum": [
+                "Skipped",
+                "Asked"
+              ]
+            },
+            "notice": {
+              "type": "string",
+              "minLength": 1
+            },
+            "survey_refs": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "rounds": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "ordinal",
+                  "asked_at",
+                  "exchanges"
+                ],
+                "properties": {
+                  "ordinal": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "asked_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "exchanges": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "question",
+                        "changes",
+                        "recommended_default",
+                        "answer",
+                        "answer_state"
+                      ],
+                      "properties": {
+                        "question": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "changes": {
+                          "enum": [
+                            "Objective",
+                            "Scope",
+                            "Acceptance",
+                            "Risk",
+                            "Authority"
+                          ]
+                        },
+                        "recommended_default": {
+                          "type": "string"
+                        },
+                        "answer": {
+                          "type": "string"
+                        },
+                        "answer_state": {
+                          "enum": [
+                            "Answered",
+                            "DefaultAccepted",
+                            "Ambiguous",
+                            "Deferred"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "basis": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         },
         "scope": {"type": "string", "minLength": 1},

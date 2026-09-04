@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import json
 import sys
 from pathlib import Path
@@ -43,6 +44,17 @@ def add_common_init(parser: argparse.ArgumentParser) -> None:
         help="用户原始提问原文；任务介绍必须使用同一语言",
     )
     parser.add_argument("--request-language", default="", help="留空则从原文自动判定")
+    clarification = parser.add_mutually_exclusive_group()
+    clarification.add_argument("--clarification-json-base64", help="Base64 UTF-8 JSON object recording the S1 clarification loop")
+    clarification.add_argument("--clarification-json-file", type=Path, help="UTF-8 JSON file recording the S1 clarification loop")
+    parser.add_argument(
+        "--clarification-skipped",
+        action="store_true",
+        help="需求已清晰且与项目现状一致时零轮；必须同时给出 --clarification-notice 与至少一个 --survey-ref",
+    )
+    parser.add_argument("--clarification-notice", default="", help="实际展示给需求提出者的那句话，原文存档")
+    parser.add_argument("--clarification-basis", default="", help="零轮或结束澄清所依据的勘察结论")
+    parser.add_argument("--survey-ref", action="append", default=[], help="勘察证据引用；可重复")
     parser.add_argument("--scope", required=True)
     parser.add_argument("--out-of-scope", action="append", default=[])
     parser.add_argument("--allowed-path", action="append", required=True)
@@ -150,6 +162,38 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def decode_json_input(raw: str | None, file_path: Path | None, expected: type, label: str):
+    if raw is None and file_path is None:
+        return None
+    payload = (
+        file_path.read_text(encoding="utf-8")
+        if file_path is not None
+        else base64.b64decode(raw, validate=True).decode("utf-8")
+    )
+    value = json.loads(payload)
+    if not isinstance(value, expected):
+        raise GovernanceError(f"{label} must decode to {expected.__name__}")
+    return value
+
+
+def resolve_clarification(args: argparse.Namespace) -> dict | None:
+    """Build the S1 record from either a full JSON document or the zero-round flags."""
+
+    value = decode_json_input(
+        args.clarification_json_base64, args.clarification_json_file, dict, "clarification"
+    )
+    if value is None and args.clarification_skipped:
+        value = {
+            "state": "Settled",
+            "mode": "Skipped",
+            "notice": args.clarification_notice,
+            "survey_refs": args.survey_ref,
+            "rounds": [],
+            "basis": args.clarification_basis,
+        }
+    return value
+
+
 def main() -> int:
     args = parse_args()
     try:
@@ -164,6 +208,7 @@ def main() -> int:
                 supersedes=args.supersedes,
                 objective=args.objective,
                 request_snapshot=parse_request_snapshot(args.request_snapshot, language=args.request_language),
+                clarification=resolve_clarification(args),
                 scope=args.scope,
                 acceptance=args.acceptance,
                 delivery_scenario=args.delivery_scenario,

@@ -2293,7 +2293,7 @@
       },
       {
         "script": "init_task.py",
-        "help_sha256": "2894bdbc7f2e33d7abe75b5929caf451127d247261f6be5c098e6194405abdb6",
+        "help_sha256": "d78976ed499d9a28e7e350d2f60395f6ce3905b6a93e148a51a34563ebaa201e",
         "options": [
           "--acceptance",
           "--allowed-path",
@@ -2306,6 +2306,11 @@
           "--baseline-inheritance",
           "--basis",
           "--change-surface",
+          "--clarification-basis",
+          "--clarification-json-base64",
+          "--clarification-json-file",
+          "--clarification-notice",
+          "--clarification-skipped",
           "--confidence",
           "--delivery-scenario",
           "--depends-on",
@@ -2337,6 +2342,7 @@
           "--source-snapshot-json-base64",
           "--source-snapshot-json-file",
           "--supersedes",
+          "--survey-ref",
           "--tailoring-stage",
           "--task-id",
           "--upgrade-minimal-basis",
@@ -2358,7 +2364,7 @@
           "init",
           "--help"
         ],
-        "help_sha256": "ebdc2604d518f7049a22d87428c607db83cffa07cfa25d7b3aa1bd1e250a3dfd",
+        "help_sha256": "7e6d9e6c81d416adacf5d49072ce7b020de023f0f4b0f9083b7699a3f3f6c2bc",
         "options": [
           "--acceptance",
           "--allowed-path",
@@ -2368,6 +2374,11 @@
           "--basis",
           "--causal-link",
           "--change-surface",
+          "--clarification-basis",
+          "--clarification-json-base64",
+          "--clarification-json-file",
+          "--clarification-notice",
+          "--clarification-skipped",
           "--constraint",
           "--decision-criterion",
           "--delivery-scenario",
@@ -2391,6 +2402,7 @@
           "--selected-approach",
           "--selection-source",
           "--supersedes",
+          "--survey-ref",
           "--task-id",
           "--verification",
           "--work-item-id"

@@ -20,6 +20,7 @@ from pathlib import Path
 sys.dont_write_bytecode = True
 
 from governance_artifacts import (
+    validate_clarification,
     skill_root_path,
     EXPECTED_MANIFEST_ROLES,
     GovernanceError,
@@ -133,6 +134,19 @@ def minimal_fixture_record(project_root: Path, task_id: str, *, change_surface: 
         depends_on=[],
         supersedes=[],
         objective="Update one local label.",
+        request_snapshot={
+            "language": "en",
+            "text": "Update one local label.",
+            "captured_at": "2026-08-15T00:00:00Z",
+        },
+        clarification={
+            "state": "Settled",
+            "mode": "Skipped",
+            "notice": "Requirement is unambiguous and matches the repository; skipping the question round.",
+            "survey_refs": ["self-test://survey"],
+            "rounds": [],
+            "basis": "self-test fixture: single label change, fully declared",
+        },
         scope="Change one label.",
         acceptance="The focused test passes.",
         delivery_scenario=delivery_scenario,
@@ -430,6 +444,8 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             depends_on=[],
             supersedes=[],
             objective="Update one local label.",
+            request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
+            clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             scope="Change one label in src/label.txt.",
             acceptance="The focused test passes.",
             delivery_scenario="DS-03",
@@ -739,6 +755,8 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             depends_on=[],
             supersedes=[],
             objective="Update one local label.",
+            request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
+            clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             scope="Change one label.",
             acceptance="The focused test passes.",
             delivery_scenario="DS-03",
@@ -788,6 +806,8 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             depends_on=[],
             supersedes=[],
             objective="Update one local label.",
+            request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
+            clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             scope="Change one label.",
             acceptance="The focused test passes.",
             delivery_scenario="DS-03",
@@ -819,6 +839,8 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             task_id="T-UP-001",
             ordinal=1,
             objective="Handle the expanded multi-file scope.",
+            request_snapshot={"language": "en", "text": "self-test fixture request", "captured_at": "2026-08-15T00:00:00Z"},
+            clarification={"state": "Settled", "mode": "Skipped", "notice": "Scope is fully declared by the fixture; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             acceptance=["All expanded-scope tests pass."],
             development_types=["DT-07"],
             change_surfaces=["Architecture/Multi-repo"],
@@ -1043,6 +1065,19 @@ def new_task(root: Path, task_id: str, ordinal: int, *, project_id: str = "P-TES
         task_id=task_id,
         ordinal=ordinal,
         objective=f"Conformance task {task_id}",
+        request_snapshot={
+            "language": "en",
+            "text": f"Conformance fixture request for {task_id}",
+            "captured_at": "2026-08-15T00:00:00Z",
+        },
+        clarification={
+            "state": "Settled",
+            "mode": "Skipped",
+            "notice": "Requirement is unambiguous and matches the repository; skipping the question round.",
+            "survey_refs": ["self-test://survey"],
+            "rounds": [],
+            "basis": "self-test fixture: the caller declares the full scope",
+        },
         acceptance=["All declared checks pass"],
         delivery_scenario="DS-03",
         development_types=["DT-06"],
@@ -1245,6 +1280,58 @@ def main(argv: list[str] | None = None) -> int:
         (not missing_exit),
         f"commands/clarify.md must carry the VC-PPG-PRO-001 S1 exit conditions; missing: {missing_exit}",
     )
+
+    # The clarification loop failed for years because it lived only as prose in a card
+    # the routing rules forbade reading. These checks hold the repair in place: the
+    # decision is stated where the judgement layer can see it, both outcomes are spoken
+    # aloud, and the carrier that records them is required by both schemas.
+    skip_notice = "你的需求已经描述的非常清楚了，并且和项目现状一致，本次跳过向你提问的阶段"
+    ask_notice = "针对你的需求和项目现状，有几个问题需要你先回答，以保证本需求完成的质量"
+    for label, text in (("SKILL.md", skill_text), ("commands/clarify.md", clarify_card)):
+        missing = [n for n in (skip_notice, ask_notice) if n not in text]
+        require_test(
+            (not missing),
+            f"{label} must carry both clarification notices so a skipped round is never silent",
+        )
+    require_test(
+        ("commands/clarify.md" in skill_text and "建立任务前无条件执行" in skill_text),
+        "SKILL.md must make the clarification decision unconditional at the judgement layer",
+    )
+    require_test(
+        ("Ambiguous" in clarify_card and "必须追问" in clarify_card),
+        "commands/clarify.md must send an ambiguous answer back into another round",
+    )
+    for schema_name, container in (
+        ("task-before.schema.json", lambda doc: doc),
+        ("minimal-task-record.schema.json",
+         lambda doc: doc["properties"]["task_contract"]),
+    ):
+        schema = read_json(skill_root / "assets" / "runtime" / "schemas" / schema_name)
+        node = container(schema)
+        missing = [
+            field for field in ("request_snapshot", "clarification")
+            if field not in node["required"]
+        ]
+        require_test(
+            (not missing),
+            f"{schema_name} must require {missing} so a task cannot be created without archiving them",
+        )
+    unsettled = validate_clarification(
+        {"state": "Open", "mode": "Asked", "notice": "n", "survey_refs": ["s"], "rounds": [], "basis": "b"}
+    )
+    require_test(bool(unsettled), "an unsettled clarification must block")
+    ambiguous = validate_clarification({
+        "state": "Settled", "mode": "Asked", "notice": "n", "survey_refs": ["s"], "basis": "b",
+        "rounds": [{"ordinal": 1, "asked_at": "2026-08-15T00:00:00Z", "exchanges": [
+            {"question": "q", "changes": "Scope", "recommended_default": "d",
+             "answer": "maybe", "answer_state": "Ambiguous"}]}],
+    })
+    require_test(bool(ambiguous), "an ambiguous answer must keep the task open")
+    settled = validate_clarification({
+        "state": "Settled", "mode": "Skipped", "notice": skip_notice,
+        "survey_refs": ["survey://x"], "rounds": [], "basis": "surveyed",
+    })
+    require_test((not settled), f"a surveyed zero-round record must pass, got {settled}")
 
     condition_phrases = [
         row.split("|")[1].strip()
@@ -1942,6 +2029,8 @@ def main(argv: list[str] | None = None) -> int:
                 task_id="T-001",
                 ordinal=1,
                 objective="Reject aliases outside the controlled vocabulary",
+                request_snapshot={"language": "en", "text": "self-test fixture request", "captured_at": "2026-08-15T00:00:00Z"},
+                clarification={"state": "Settled", "mode": "Skipped", "notice": "Scope is fully declared by the fixture; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
                 acceptance=["Alias is rejected"],
                 delivery_scenario="DS-03",
                 development_types=["DT-07"],
@@ -2031,6 +2120,27 @@ def main(argv: list[str] | None = None) -> int:
             "open-questions.json",
             [{"summary": "Non-blocking CLI fixture", "owner": "self-test", "blocking": False}],
         )
+        clarification_file = write_fixture(
+            "clarification.json",
+            {
+                "state": "Settled",
+                "mode": "Asked",
+                "notice": "针对你的需求和项目现状，有几个问题需要你先回答，以保证本需求完成的质量",
+                "survey_refs": ["self-test://survey"],
+                "rounds": [{
+                    "ordinal": 1,
+                    "asked_at": "2026-08-15T00:00:00Z",
+                    "exchanges": [{
+                        "question": "CLI 固件是否只覆盖 UTF-8 文件输入？",
+                        "changes": "Scope",
+                        "recommended_default": "只覆盖文件输入",
+                        "answer": "是，只覆盖文件输入",
+                        "answer_state": "Answered",
+                    }],
+                }],
+                "basis": "勘察确认 CLI 固件仅走文件输入路径",
+            },
+        )
         authority_assessments_file = write_fixture(
             "authority-assessments.json",
             [{
@@ -2048,6 +2158,7 @@ def main(argv: list[str] | None = None) -> int:
             "--ordinal", "1",
             "--objective", "Exercise UTF-8 JSON file inputs",
             "--request-snapshot", "用 UTF-8 JSON 文件输入跑一遍自检",
+            "--clarification-json-file", str(clarification_file),
             "--acceptance", "CLI file inputs are consumed without Base64",
             "--in-scope", "temporary CLI fixture",
             "--delivery-scenario", "DS-03",

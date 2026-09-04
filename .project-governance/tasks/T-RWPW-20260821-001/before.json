@@ -5,7 +5,7 @@
   "work_item_id": "W-RWPW-DOC-GOVERNANCE",
   "task_id": "T-RWPW-20260821-001",
   "ordinal": 1,
-  "revision": 14,
+  "revision": 16,
   "lifecycle_state": "Frozen",
   "created_at": "2026-08-21T09:58:49Z",
   "frozen_at": "2026-08-21T10:40:33Z",
@@ -4087,6 +4087,40 @@
       "reason": "automatically refresh deterministic tailoring after: 按用户 Revise 将第一性原理分析及四项确定性缺陷纳入执行契约",
       "basis": "conversation://user/revise/2026-08-21",
       "changed_at": "2026-08-21T10:36:31Z"
+    },
+    {
+      "from_revision": 14,
+      "to_revision": 15,
+      "path": "clarification",
+      "old_value": null,
+      "new_value": {
+        "state": "Settled",
+        "mode": "Skipped",
+        "notice": "（迁移补录）本任务运行时澄清载体尚不存在，当时未向需求提出者展示任何澄清说明。",
+        "survey_refs": [
+          "legacy://no-survey-recorded"
+        ],
+        "rounds": [],
+        "basis": "schema 迁移补录，不是澄清已执行的证据：本任务早于 clarification 载体，当时既未提问也未记录零轮理由。"
+      },
+      "reason": "schema migration: clarification 与 request_snapshot 成为必填载体",
+      "basis": "legacy-backfill；记录当时的真实情况，不追认未发生的澄清",
+      "changed_at": "2026-09-04T07:12:16Z"
+    },
+    {
+      "from_revision": 15,
+      "to_revision": 16,
+      "path": "request_snapshot",
+      "old_value": null,
+      "new_value": {
+        "language": "zh",
+        "text": "（迁移补录）原始提问未归档：本任务早于 request_snapshot 必填要求。",
+        "captured_at": "2026-08-21T09:58:49Z",
+        "source": "legacy-backfill"
+      },
+      "reason": "schema migration: clarification 与 request_snapshot 成为必填载体",
+      "basis": "legacy-backfill；记录当时的真实情况，不追认未发生的澄清",
+      "changed_at": "2026-09-04T07:12:16Z"
     }
   ],
   "tailoring_resolution": {
@@ -4836,5 +4870,21 @@
       "conversation://user/defect-review/2026-08-21",
       "run-web-product-workflow/references/first-principles-method.md"
     ]
+  },
+  "clarification": {
+    "state": "Settled",
+    "mode": "Skipped",
+    "notice": "（迁移补录）本任务运行时澄清载体尚不存在，当时未向需求提出者展示任何澄清说明。",
+    "survey_refs": [
+      "legacy://no-survey-recorded"
+    ],
+    "rounds": [],
+    "basis": "schema 迁移补录，不是澄清已执行的证据：本任务早于 clarification 载体，当时既未提问也未记录零轮理由。"
+  },
+  "request_snapshot": {
+    "language": "zh",
+    "text": "（迁移补录）原始提问未归档：本任务早于 request_snapshot 必填要求。",
+    "captured_at": "2026-08-21T09:58:49Z",
+    "source": "legacy-backfill"
   }
 }

@@ -79,6 +79,17 @@ def parse_args() -> argparse.Namespace:
         help="Evidence reference proving the Minimal hard boundary was crossed.",
     )
     questions = parser.add_mutually_exclusive_group()
+    clarification = parser.add_mutually_exclusive_group()
+    clarification.add_argument("--clarification-json-base64", help="Base64 UTF-8 JSON object recording the S1 clarification loop")
+    clarification.add_argument("--clarification-json-file", type=Path, help="UTF-8 JSON file recording the S1 clarification loop")
+    parser.add_argument(
+        "--clarification-skipped",
+        action="store_true",
+        help="需求已清晰且与项目现状一致时零轮；必须同时给出 --clarification-notice 与至少一个 --survey-ref",
+    )
+    parser.add_argument("--clarification-notice", default="", help="实际展示给需求提出者的那句话，原文存档")
+    parser.add_argument("--clarification-basis", default="", help="零轮或结束澄清所依据的勘察结论")
+    parser.add_argument("--survey-ref", action="append", default=[], help="勘察证据引用；可重复")
     questions.add_argument("--open-questions-json-base64", help="Base64 UTF-8 JSON array of question objects")
     questions.add_argument("--open-questions-json-file", type=Path, help="UTF-8 JSON file containing an array of question objects")
     manifest = parser.add_mutually_exclusive_group()
@@ -120,6 +131,18 @@ def main() -> int:
         snapshot = decode_json_input(args.source_snapshot_json_base64, args.source_snapshot_json_file, dict, "source snapshot")
         manifest = decode_json_input(args.artifact_manifest_json_base64, args.artifact_manifest_json_file, list, "artifact manifest")
         questions = decode_json_input(args.open_questions_json_base64, args.open_questions_json_file, list, "open questions")
+        clarification = decode_json_input(
+            args.clarification_json_base64, args.clarification_json_file, dict, "clarification"
+        )
+        if clarification is None and args.clarification_skipped:
+            clarification = {
+                "state": "Settled",
+                "mode": "Skipped",
+                "notice": args.clarification_notice,
+                "survey_refs": args.survey_ref,
+                "rounds": [],
+                "basis": args.clarification_basis,
+            }
         authority_assessments = decode_json_input(
             args.authority_assessments_json_base64,
             args.authority_assessments_json_file,
@@ -186,6 +209,7 @@ def main() -> int:
             baseline_inheritance=args.baseline_inheritance,
             basis=args.basis or ["task-initiator-input"],
             open_questions=questions or [],
+            clarification=clarification,
             required_gates=args.required_gate,
             authority_references=args.authority_reference,
             authority_assessments=authority_assessments or [],
