@@ -11,10 +11,10 @@ SKILL_MD = (
     Path(__file__).resolve().parents[2]
     / "skills"
     / "product-engineering"
-    / "run-web-product-workflow"
+    / "run-governed-product-workflow"
     / "SKILL.md"
 )
-PREFIX = "rwpw-v"
+PREFIX = "rgpw-v"
 
 
 def declared_version() -> str:

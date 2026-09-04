@@ -15,12 +15,7 @@
 ## 实际内容
 
 <!-- LG-MANAGED:START -->
-- `authority/`：目录
-- `console/`：目录
-- `generated/`：目录
-- `project-state.json`：文件
-- `runtime-cache/`：目录
-- `tasks/`：目录
+尚未刷新目录清单。
 <!-- LG-MANAGED:END -->
 
 标记区由工具更新；标记外内容可由项目维护者补充。

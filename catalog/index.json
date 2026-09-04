@@ -99,6 +99,30 @@
       ]
     },
     {
+      "name": "run-governed-product-workflow",
+      "description": "按团队 V6.3 Candidate 规范推进产品或工程变化，用同一六元模型在 Minimal 与完整流程之间裁剪，并维护需求、计划、执行、验证、验收、发布和证据。用于新产品、新功能、需求修订、带产品面的缺陷修复或工程变更、迁移退役、生产处置，或用户明确要求 Grill Me、Task Profile、Artifact Manifest、VC-PPG、C01-C12、E01-E05 或“最轻框架”时。也用于对已交付产品面做复查与验收——“review 一遍 / 再查一遍 / 是否闭环 / 有没有遗漏 / 需求是否都实现了 / 验收”，此类请求走 verify，按总原则 10 逐条对照需求原文，不抽查。Not for read-only Q&A unrelated to a delivered product change, git one-liners, or edits that do not change product behavior, docs layout, or release. Not for library-internal patches with no product surface, no controlled artifact and no release evidence requirement.",
+      "path": "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+      "category": {
+        "id": "product-engineering",
+        "name": "产品研发",
+        "path": [
+          "product-engineering"
+        ],
+        "name_path": [
+          "产品研发"
+        ]
+      },
+      "scope": {
+        "id": "team",
+        "name": "团队"
+      },
+      "tags": [
+        "product-delivery",
+        "product-governance",
+        "verification"
+      ]
+    },
+    {
       "name": "run-koc-feedback-workflow",
       "description": "从 KOC 后台反馈 Base 筛选、列举、认领并推进开发登记项，在用户授权后同步澄清、规划、执行、复核、返修和完成状态。用于以飞书多维表格登记项驱动 funplus-UA-KOC-Management-Platform 的缺陷修复、体验优化或新功能；不得处理“唤起开发者”仅为 LFen 的记录。",
       "path": "skills/product-engineering/run-koc-feedback-workflow/SKILL.md",
@@ -120,30 +144,6 @@
         "feedback-management",
         "feishu-base",
         "koc"
-      ]
-    },
-    {
-      "name": "run-web-product-workflow",
-      "description": "按团队 V6.3 Candidate 规范推进 Web 产品或工程变化，用同一六元模型在 Minimal 与完整流程之间裁剪，并维护需求、计划、执行、验证、验收、发布和证据。用于新产品、新功能、需求修订、带产品面的缺陷修复或工程变更、迁移退役、生产处置，或用户明确要求 Grill Me、Task Profile、Artifact Manifest、VC-PPG、C01-C12、E01-E05 或“最轻框架”时。也用于对已交付产品面做复查与验收——“review 一遍 / 再查一遍 / 是否闭环 / 有没有遗漏 / 需求是否都实现了 / 验收”，此类请求走 verify，按总原则 10 逐条对照需求原文，不抽查。Not for read-only Q&A unrelated to a delivered product change, git one-liners, or edits that do not change product behavior, docs layout, or release. Not for backend-only library patches with no Web product surface.",
-      "path": "skills/product-engineering/run-web-product-workflow/SKILL.md",
-      "category": {
-        "id": "product-engineering",
-        "name": "产品研发",
-        "path": [
-          "product-engineering"
-        ],
-        "name_path": [
-          "产品研发"
-        ]
-      },
-      "scope": {
-        "id": "team",
-        "name": "团队"
-      },
-      "tags": [
-        "product-governance",
-        "verification",
-        "web-delivery"
       ]
     }
   ],

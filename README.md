@@ -10,7 +10,7 @@ LFen Skills 是可复用的 Agent Skills 集合。每个 skill 保持自包含�
 | 分类 | 定义 | Skills |
 | --- | --- | --- |
 | [数据处理](CATALOG.md#data-processing) | 结构化数据的匹配、清洗、转换、分析与质量核验。 | [`match-tabular-records`](skills/data-processing/match-tabular-records/SKILL.md) |
-| [产品研发](CATALOG.md#product-engineering) | 产品定义、研发执行、质量控制、交付与运营流程。 | [`build-large-web-project-zero-to-one`](skills/product-engineering/build-large-web-project-zero-to-one/SKILL.md), [`run-koc-feedback-workflow`](skills/product-engineering/run-koc-feedback-workflow/SKILL.md), [`run-web-product-workflow`](skills/product-engineering/run-web-product-workflow/SKILL.md) |
+| [产品研发](CATALOG.md#product-engineering) | 产品定义、研发执行、质量控制、交付与运营流程。 | [`build-large-web-project-zero-to-one`](skills/product-engineering/build-large-web-project-zero-to-one/SKILL.md), [`run-governed-product-workflow`](skills/product-engineering/run-governed-product-workflow/SKILL.md), [`run-koc-feedback-workflow`](skills/product-engineering/run-koc-feedback-workflow/SKILL.md) |
 <!-- catalog-summary:end -->
 
 完整清单、适用范围、标签与参考来源见 [`CATALOG.md`](CATALOG.md)；工具可读取 [`catalog/index.json`](catalog/index.json)。

@@ -1,0 +1,329 @@
+{
+  "schema_version": "6.3-candidate",
+  "layout_version": "skill-runtime-v2",
+  "source_of_truth": "LFen-Skills/skills/product-engineering/run-governed-product-workflow; the embedded runtime assets are the sole editing source of truth for the norms, mappings, schemas and evaluations they contain",
+  "files": [
+    {
+      "role": "norm",
+      "source": "skill-local:references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+      "logical_path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+      "embedded": "assets/runtime/norms/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+      "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+      "logical_path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+      "embedded": "assets/runtime/norms/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+      "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+      "logical_path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+      "embedded": "assets/runtime/norms/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+      "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+      "logical_path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+      "embedded": "assets/runtime/norms/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+      "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md",
+      "logical_path": "references/02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md",
+      "sha256": "afd73ffbde490eb2774af346046034692c83093612d0d60e0649cae8744c1773"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+      "logical_path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+      "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+      "logical_path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C03_PRD_and_Feature_Standard.md",
+      "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+      "logical_path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+      "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+      "logical_path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+      "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+      "logical_path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+      "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+      "logical_path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+      "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+      "logical_path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+      "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+      "logical_path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+      "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+      "logical_path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+      "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+      "logical_path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+      "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+      "logical_path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+      "embedded": "assets/runtime/norms/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+      "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+      "logical_path": "references/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+      "embedded": "assets/runtime/norms/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+      "sha256": "ff37e13d26782b9d926835f82c84bb73719c81ffa6b835cf3e2ac742e90e611a"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md",
+      "logical_path": "references/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md",
+      "embedded": "assets/runtime/norms/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md",
+      "sha256": "7353dcc98f73b6f68d9fb90ab1d0ed4e9ede362d1fcd9c4106685d68b7f57ebd"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+      "logical_path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+      "embedded": "assets/runtime/norms/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+      "sha256": "bb6a10422c6e672f3f67e6dc109c5bfaa594b195924758b21911fe44a18c603b"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+      "logical_path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+      "embedded": "assets/runtime/norms/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+      "sha256": "8cb8a7b01cec9b1c868a1cba27352fef1c6314ff85f1956072af6dee9eeabdf0"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+      "logical_path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+      "embedded": "assets/runtime/norms/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+      "sha256": "326d746628fd6b214527cd28ca71b5ea7b12148d4a0c102efcb0fb43f5c677da"
+    },
+    {
+      "role": "norm",
+      "source": "skill-local:references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+      "logical_path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+      "embedded": "assets/runtime/norms/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+      "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+    },
+    {
+      "role": "mapping",
+      "source": "skill-local:mappings/profile-meta-map.json",
+      "logical_path": "mappings/profile-meta-map.json",
+      "embedded": "assets/runtime/mappings/profile-meta-map.json",
+      "sha256": "7b67698ee0cdadfeddf5e9216b165a128622dff54efe4ad84f150876e77e6f5c"
+    },
+    {
+      "role": "mapping",
+      "source": "skill-local:mappings/tailoring-applicability-map.json",
+      "logical_path": "mappings/tailoring-applicability-map.json",
+      "embedded": "assets/runtime/mappings/tailoring-applicability-map.json",
+      "sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee"
+    },
+    {
+      "role": "mapping",
+      "source": "skill-local:mappings/norm-action-taxonomy.json",
+      "logical_path": "mappings/norm-action-taxonomy.json",
+      "embedded": "assets/runtime/mappings/norm-action-taxonomy.json",
+      "sha256": "d814fc5a9ccf0cc6e547f3a23d534d3100039d73dca59cdc23fbe819bc8b3882"
+    },
+    {
+      "role": "skill-reference",
+      "source": "skill-local:references/first-principles-method.md",
+      "logical_path": "references/first-principles-method.md",
+      "embedded": "references/first-principles-method.md",
+      "sha256": "e9ae33d646a1131445522b84818774c1f482d4090b057b59f37ff584aecc497e"
+    },
+    {
+      "role": "skill-reference",
+      "source": "skill-local:references/project-document-layout.md",
+      "logical_path": "references/project-document-layout.md",
+      "embedded": "references/project-document-layout.md",
+      "sha256": "b4f6d78f5657d0879382679555c3ba8b82c1b0dd8e2edd2b03b7b29cf494297d"
+    },
+    {
+      "role": "skill-reference",
+      "source": "skill-local:references/spec-source-map.md",
+      "logical_path": "references/spec-source-map.md",
+      "embedded": "references/spec-source-map.md",
+      "sha256": "a15dcaf98a835cc42239defff5ef1670a21be723f37f1ea272d959961deb4df3"
+    },
+    {
+      "role": "schema",
+      "source": "skill-local:schemas/authority-asset.schema.json",
+      "logical_path": "schemas/authority-asset.schema.json",
+      "embedded": "assets/runtime/schemas/authority-asset.schema.json",
+      "sha256": "0d578d67a124a9e432f09828661d6e123e027b3a32c168626d2eb8ab9c15c51a"
+    },
+    {
+      "role": "schema",
+      "source": "skill-local:schemas/derived-view.schema.json",
+      "logical_path": "schemas/derived-view.schema.json",
+      "embedded": "assets/runtime/schemas/derived-view.schema.json",
+      "sha256": "91c93a759081eafdd3b082471efd91c87dc7b65ee4363098f237f9d58987dade"
+    },
+    {
+      "role": "schema",
+      "source": "skill-local:schemas/minimal-task-record.schema.json",
+      "logical_path": "schemas/minimal-task-record.schema.json",
+      "embedded": "assets/runtime/schemas/minimal-task-record.schema.json",
+      "sha256": "01c5f8633cbb6da8a9e9e588c69d3308e1403eb3012081f506681bdd92c35973"
+    },
+    {
+      "role": "schema",
+      "source": "skill-local:schemas/norm-consistency-report.schema.json",
+      "logical_path": "schemas/norm-consistency-report.schema.json",
+      "embedded": "assets/runtime/schemas/norm-consistency-report.schema.json",
+      "sha256": "33e99cd44ffe237fe0a7ecc3930d328669fb5a51c6b6c627c4ee9950078e46b3"
+    },
+    {
+      "role": "schema",
+      "source": "skill-local:schemas/norm-index-metadata.schema.json",
+      "logical_path": "schemas/norm-index-metadata.schema.json",
+      "embedded": "assets/runtime/schemas/norm-index-metadata.schema.json",
+      "sha256": "aa3984e3e6f0ac43728fb8efd73d90e6528e803a0ac9a8a1f806d94429edbc9e"
+    },
+    {
+      "role": "schema",
+      "source": "skill-local:schemas/norm-query-result.schema.json",
+      "logical_path": "schemas/norm-query-result.schema.json",
+      "embedded": "assets/runtime/schemas/norm-query-result.schema.json",
+      "sha256": "5e000963dce586ffb3bb027da899470245aa90eb3d206217ede9640ee1a174cf"
+    },
+    {
+      "role": "schema",
+      "source": "skill-local:schemas/norm-query.schema.json",
+      "logical_path": "schemas/norm-query.schema.json",
+      "embedded": "assets/runtime/schemas/norm-query.schema.json",
+      "sha256": "18a00d1808aa76fb9b70d5425afc8081eeb1a05a95e063847e1e86ca3d06b106"
+    },
+    {
+      "role": "schema",
+      "source": "skill-local:schemas/project-state.schema.json",
+      "logical_path": "schemas/project-state.schema.json",
+      "embedded": "assets/runtime/schemas/project-state.schema.json",
+      "sha256": "6dedec5413d0dea3078818ac68dba7c8840ca07236be5aa427677711b9688f72"
+    },
+    {
+      "role": "schema",
+      "source": "skill-local:schemas/run-event.schema.json",
+      "logical_path": "schemas/run-event.schema.json",
+      "embedded": "assets/runtime/schemas/run-event.schema.json",
+      "sha256": "82a9b5a848736594b49ae94593ff06616b025942302be76983cee66019681a3e"
+    },
+    {
+      "role": "schema",
+      "source": "skill-local:schemas/task-after.schema.json",
+      "logical_path": "schemas/task-after.schema.json",
+      "embedded": "assets/runtime/schemas/task-after.schema.json",
+      "sha256": "32320684c264ead10cf35020350dc83643ce64c2d2f16e4f204cf25ef4d3b014"
+    },
+    {
+      "role": "schema",
+      "source": "skill-local:schemas/task-before.schema.json",
+      "logical_path": "schemas/task-before.schema.json",
+      "embedded": "assets/runtime/schemas/task-before.schema.json",
+      "sha256": "76f2519c27735ac7d1cbdc9e3647802be60f802a87a302f888feabc8a45174c9"
+    },
+    {
+      "role": "evaluation",
+      "source": "skill-local:evaluations/norm-retrieval-budgets.json",
+      "logical_path": "evaluations/norm-retrieval-budgets.json",
+      "embedded": "assets/runtime/evaluations/norm-retrieval-budgets.json",
+      "sha256": "d6b3c7ba1434427ef857d69a19c30a05bded3db0068ac25d2054bbc9fa21f54a"
+    },
+    {
+      "role": "evaluation",
+      "source": "skill-local:evaluations/norm-retrieval-gold.json",
+      "logical_path": "evaluations/norm-retrieval-gold.json",
+      "embedded": "assets/runtime/evaluations/norm-retrieval-gold.json",
+      "sha256": "ed6b41bf89a1ef97fc0ff91053310eb6cdb466ccb60865e1f790bacb91c5511a"
+    },
+    {
+      "role": "asset-template",
+      "source": "skill-local:project-templates/console-launcher.py",
+      "logical_path": "project-templates/console-launcher.py",
+      "embedded": "assets/project-templates/console-launcher.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff"
+    },
+    {
+      "role": "asset-template",
+      "source": "skill-local:project-templates/console.README.md",
+      "logical_path": "project-templates/console.README.md",
+      "embedded": "assets/project-templates/console.README.md",
+      "sha256": "a3f46c12127a6221775d3bf0de87d4b29083081333865c23f053d789576e0ee0"
+    },
+    {
+      "role": "asset-template",
+      "source": "skill-local:project-templates/project-docs.README.md",
+      "logical_path": "project-templates/project-docs.README.md",
+      "embedded": "assets/project-templates/project-docs.README.md",
+      "sha256": "b32ba7547408b69f11f4350a067103fe93a89c01b546de1dd6ceeba138b5e43e"
+    },
+    {
+      "role": "asset-template",
+      "source": "skill-local:project-templates/project-governance.README.md",
+      "logical_path": "project-templates/project-governance.README.md",
+      "embedded": "assets/project-templates/project-governance.README.md",
+      "sha256": "e6ffb1cf8b8b167d0d1e1eedf59fcfd3926de112c231bcff37d07697b56c0b43"
+    },
+    {
+      "role": "asset-template",
+      "source": "skill-local:project-templates/requirement.README.md",
+      "logical_path": "project-templates/requirement.README.md",
+      "embedded": "assets/project-templates/requirement.README.md",
+      "sha256": "12c2b84c8f564528e23d19047a849f7a6561e1aa33ad9d415bfeb8f3f391220b"
+    }
+  ]
+}

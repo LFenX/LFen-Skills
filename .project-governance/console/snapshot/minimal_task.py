@@ -21,7 +21,6 @@ from governance_artifacts import (
     require_id,
     runtime_asset_path,
     validate_json_document,
-    validate_clarification,
 )
 
 
@@ -190,11 +189,6 @@ def validate_minimal_record(
         errors.append("Minimal carrier requires E01-E05 to be Inactive")
     if record["task_contract"]["task_profile"]["extension_triggers"] != triggers:
         errors.append("Minimal task profile and eligibility extension triggers must match")
-    # Minimal trims instances and carriers, never the clarification control itself.
-    errors.extend(
-        f"task_contract.{item}"
-        for item in validate_clarification(record["task_contract"].get("clarification"))
-    )
     task_profile = record["task_contract"]["task_profile"]
     errors.extend(
         minimal_applicability_errors(
@@ -257,7 +251,6 @@ def create_minimal_record(
     depends_on: Iterable[str],
     supersedes: Iterable[str],
     objective: str,
-    clarification: dict[str, Any] | None = None,
     scope: str,
     acceptance: str,
     delivery_scenario: str,
@@ -423,15 +416,7 @@ def create_minimal_record(
         },
         "task_contract": {
             "objective": values["objective"],
-            "request_snapshot": request_snapshot,  # 必填：用户原话是验收基准
-            "clarification": clarification or {
-                "state": "Open",
-                "mode": "Asked",
-                "notice": "clarification was not recorded by the caller",
-                "survey_refs": ["none-recorded"],
-                "rounds": [],
-                "basis": "create_minimal_record was called without a clarification record",
-            },
+            **({"request_snapshot": request_snapshot} if request_snapshot else {}),
             "scope": values["scope"],
                 "out_of_scope": out_values,
                 "allowed_paths": allowed,

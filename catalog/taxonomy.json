@@ -38,8 +38,8 @@
       "description": "产品定义、研发执行、质量控制、交付与运营流程。",
       "skills": [
         "build-large-web-project-zero-to-one",
-        "run-koc-feedback-workflow",
-        "run-web-product-workflow"
+        "run-governed-product-workflow",
+        "run-koc-feedback-workflow"
       ],
       "children": []
     }
@@ -61,12 +61,12 @@
         "koc"
       ]
     },
-    "run-web-product-workflow": {
+    "run-governed-product-workflow": {
       "scope": "team",
       "tags": [
+        "product-delivery",
         "product-governance",
-        "verification",
-        "web-delivery"
+        "verification"
       ]
     },
     "build-large-web-project-zero-to-one": {
