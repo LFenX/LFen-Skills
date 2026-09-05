@@ -5,7 +5,7 @@
   "work_item_id": "W-CATALOG-20260903-002",
   "task_id": "T-CATALOG-20260903-002",
   "ordinal": 7,
-  "revision": 14,
+  "revision": 15,
   "lifecycle_state": "Frozen",
   "created_at": "2026-09-03T07:13:22Z",
   "frozen_at": "2026-09-03T07:16:36Z",
@@ -7823,6 +7823,27 @@
       "reason": "schema migration: clarification 与 request_snapshot 成为必填载体",
       "basis": "legacy-backfill；记录当时的真实情况，不追认未发生的澄清",
       "changed_at": "2026-09-04T07:12:16Z"
+    },
+    {
+      "from_revision": 14,
+      "to_revision": 15,
+      "path": "requirement_items",
+      "old_value": null,
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "我需要你将目录规范化，这样我查看时也好按分类看，否则skill一多就难找",
+          "reading": "迁移补录：本条在任务运行时未逐条留证，此处不是逐条核对的结果",
+          "state": "Covered",
+          "evidence_refs": [
+            "legacy://no-item-level-evidence-recorded"
+          ]
+        }
+      ],
+      "reason": "schema migration: requirement_items 成为必填载体",
+      "basis": "legacy-backfill；按原话子句逐条生成，不追认未发生的逐条核对",
+      "changed_at": "2026-09-05T07:30:49Z"
     }
   ],
   "tailoring_resolution": {
@@ -8254,5 +8275,17 @@
     ],
     "rounds": [],
     "basis": "schema 迁移补录，不是澄清已执行的证据：本任务早于 clarification 载体，当时既未提问也未记录零轮理由。"
-  }
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "我需要你将目录规范化，这样我查看时也好按分类看，否则skill一多就难找",
+      "reading": "迁移补录：本条在任务运行时未逐条留证，此处不是逐条核对的结果",
+      "state": "Covered",
+      "evidence_refs": [
+        "legacy://no-item-level-evidence-recorded"
+      ]
+    }
+  ]
 }

@@ -103,6 +103,7 @@
         "objective",
         "request_snapshot",
         "clarification",
+        "requirement_items",
         "scope",
         "out_of_scope",
         "allowed_paths",
@@ -123,6 +124,55 @@
             "text": {"type": "string", "minLength": 1},
             "captured_at": {"type": "string", "format": "date-time"},
             "source": {"type": "string"}
+          }
+        },
+        "requirement_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "source",
+              "quote",
+              "reading",
+              "state",
+              "evidence_refs"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^R-[0-9]{2,}$"
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1
+              },
+              "quote": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reading": {
+                "type": "string",
+                "minLength": 1
+              },
+              "state": {
+                "enum": [
+                  "Open",
+                  "Covered",
+                  "OutOfScope",
+                  "Deferred",
+                  "NotARequirement"
+                ]
+              },
+              "evidence_refs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
           }
         },
         "clarification": {

@@ -5,7 +5,7 @@
   "work_item_id": "W-CATALOG-20260901-001",
   "task_id": "T-CATALOG-20260901-001",
   "ordinal": 6,
-  "revision": 8,
+  "revision": 9,
   "lifecycle_state": "Frozen",
   "created_at": "2026-09-01T08:48:15Z",
   "frozen_at": "2026-09-01T08:50:22Z",
@@ -3824,6 +3824,37 @@
       "reason": "schema migration: clarification 与 request_snapshot 成为必填载体",
       "basis": "legacy-backfill；记录当时的真实情况，不追认未发生的澄清",
       "changed_at": "2026-09-04T07:12:16Z"
+    },
+    {
+      "from_revision": 8,
+      "to_revision": 9,
+      "path": "requirement_items",
+      "old_value": null,
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "现在我需要你对我的skill仓库做优化，参考其他开源skill仓库的分类方法，对本skill仓库做优化",
+          "reading": "迁移补录：本条在任务运行时未逐条留证，此处不是逐条核对的结果",
+          "state": "Covered",
+          "evidence_refs": [
+            "legacy://no-item-level-evidence-recorded"
+          ]
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "注意，很多地方储存的skill用的是本项目某些skill的junction，如果你修改了目录，要同步修改这些junction",
+          "reading": "迁移补录：本条在任务运行时未逐条留证，此处不是逐条核对的结果",
+          "state": "Covered",
+          "evidence_refs": [
+            "legacy://no-item-level-evidence-recorded"
+          ]
+        }
+      ],
+      "reason": "schema migration: requirement_items 成为必填载体",
+      "basis": "legacy-backfill；按原话子句逐条生成，不追认未发生的逐条核对",
+      "changed_at": "2026-09-05T07:30:49Z"
     }
   ],
   "tailoring_resolution": {
@@ -4231,5 +4262,27 @@
     ],
     "rounds": [],
     "basis": "schema 迁移补录，不是澄清已执行的证据：本任务早于 clarification 载体，当时既未提问也未记录零轮理由。"
-  }
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "现在我需要你对我的skill仓库做优化，参考其他开源skill仓库的分类方法，对本skill仓库做优化",
+      "reading": "迁移补录：本条在任务运行时未逐条留证，此处不是逐条核对的结果",
+      "state": "Covered",
+      "evidence_refs": [
+        "legacy://no-item-level-evidence-recorded"
+      ]
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "注意，很多地方储存的skill用的是本项目某些skill的junction，如果你修改了目录，要同步修改这些junction",
+      "reading": "迁移补录：本条在任务运行时未逐条留证，此处不是逐条核对的结果",
+      "state": "Covered",
+      "evidence_refs": [
+        "legacy://no-item-level-evidence-recorded"
+      ]
+    }
+  ]
 }

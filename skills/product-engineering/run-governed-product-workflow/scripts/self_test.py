@@ -21,6 +21,7 @@ sys.dont_write_bytecode = True
 
 from governance_artifacts import (
     validate_clarification,
+    validate_requirement_items,
     reconcile_scope,
     _scope_pattern_matches,
     _is_external_declaration,
@@ -142,6 +143,7 @@ def minimal_fixture_record(project_root: Path, task_id: str, *, change_surface: 
             "text": "Update one local label.",
             "captured_at": "2026-08-15T00:00:00Z",
         },
+        requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "Update one local label.", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
         clarification={
             "state": "Settled",
             "mode": "Skipped",
@@ -448,6 +450,7 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             supersedes=[],
             objective="Update one local label.",
             request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
+            requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test minimal fixture", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             scope="Change one label in src/label.txt.",
             acceptance="The focused test passes.",
@@ -759,6 +762,7 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             supersedes=[],
             objective="Update one local label.",
             request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
+            requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test minimal fixture", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             scope="Change one label.",
             acceptance="The focused test passes.",
@@ -810,6 +814,7 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             supersedes=[],
             objective="Update one local label.",
             request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
+            requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test minimal fixture", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             scope="Change one label.",
             acceptance="The focused test passes.",
@@ -843,6 +848,7 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             ordinal=1,
             objective="Handle the expanded multi-file scope.",
             request_snapshot={"language": "en", "text": "self-test fixture request", "captured_at": "2026-08-15T00:00:00Z"},
+            requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test fixture request", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Scope is fully declared by the fixture; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             acceptance=["All expanded-scope tests pass."],
             development_types=["DT-07"],
@@ -1073,6 +1079,7 @@ def new_task(root: Path, task_id: str, ordinal: int, *, project_id: str = "P-TES
             "text": f"Conformance fixture request for {task_id}",
             "captured_at": "2026-08-15T00:00:00Z",
         },
+        requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": f"Conformance fixture request for {task_id}", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
         clarification={
             "state": "Settled",
             "mode": "Skipped",
@@ -1335,6 +1342,60 @@ def main(argv: list[str] | None = None) -> int:
         "survey_refs": ["survey://x"], "rounds": [], "basis": "surveyed",
     })
     require_test((not settled), f"a surveyed zero-round record must pass, got {settled}")
+
+    # The requirement ledger is checked against a text the Agent did not write, so both
+    # halves have to hold: a quote cannot be invented, and no clause of the request may
+    # go unaccounted for. The second is the one that finds what was silently dropped.
+    def _req_contract(items, answer=None):
+        clarification = {"state": "Settled", "mode": "Skipped", "notice": "n",
+                         "survey_refs": ["s"], "rounds": [], "basis": "b"}
+        if answer is not None:
+            clarification = {**clarification, "mode": "Asked", "rounds": [{
+                "ordinal": 1, "asked_at": "2026-08-15T00:00:00Z",
+                "exchanges": [{"question": "q", "changes": "Scope", "recommended_default": "d",
+                               "answer": answer, "answer_state": "Answered"}]}]}
+        return {"request_snapshot": {"language": "zh", "text": "先改登录页；再加导出按钮",
+                                     "captured_at": "2026-08-15T00:00:00Z"},
+                "clarification": clarification, "requirement_items": items}
+
+    def _item(quote, **over):
+        base = {"id": "R-01", "source": "request_snapshot", "quote": quote,
+                "reading": "r", "state": "Covered", "evidence_refs": ["e://1"]}
+        base.update(over)
+        return base
+
+    complete = [_item("先改登录页"), _item("再加导出按钮", id="R-02")]
+    require_test(
+        (not validate_requirement_items(_req_contract(complete))),
+        "a decomposition covering every clause verbatim must pass",
+    )
+    require_test(
+        (any("not verbatim" in item for item in
+             validate_requirement_items(_req_contract([_item("加一个我没说过的功能")])))),
+        "a quote absent from the requester's words must be rejected",
+    )
+    dropped = validate_requirement_items(_req_contract([_item("先改登录页")]))
+    require_test(
+        (any("再加导出按钮" in item for item in dropped)),
+        f"an unaccounted clause must be named; got {dropped}",
+    )
+    from_answer = validate_requirement_items(_req_contract(complete, answer="顺便把弹窗文案也换掉"))
+    require_test(
+        (any("顺便把弹窗文案也换掉" in item and "clarification:r1.e1" in item for item in from_answer)),
+        f"a clarification answer is a requirement source too and must be covered; got {from_answer}",
+    )
+    still_open = validate_requirement_items(
+        _req_contract([_item("先改登录页", state="Open"), _item("再加导出按钮", id="R-02")]),
+        require_discharge=True,
+    )
+    require_test((any("still Open" in item for item in still_open)),
+                 "an Open item must block the close")
+    no_evidence = validate_requirement_items(
+        _req_contract([_item("先改登录页", evidence_refs=[]), _item("再加导出按钮", id="R-02")]),
+        require_discharge=True,
+    )
+    require_test((any("cites no evidence" in item for item in no_evidence)),
+                 "Covered without evidence must block the close")
 
     # Scope reconciliation is the first blocker whose two sides are not both written by
     # the Agent: one is the declaration, the other is Git. The matcher is where its bugs
@@ -2070,6 +2131,7 @@ def main(argv: list[str] | None = None) -> int:
                 ordinal=1,
                 objective="Reject aliases outside the controlled vocabulary",
                 request_snapshot={"language": "en", "text": "self-test fixture request", "captured_at": "2026-08-15T00:00:00Z"},
+                requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test fixture request", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
                 clarification={"state": "Settled", "mode": "Skipped", "notice": "Scope is fully declared by the fixture; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
                 acceptance=["Alias is rejected"],
                 delivery_scenario="DS-03",
@@ -2160,6 +2222,19 @@ def main(argv: list[str] | None = None) -> int:
             "open-questions.json",
             [{"summary": "Non-blocking CLI fixture", "owner": "self-test", "blocking": False}],
         )
+        requirement_items_file = write_fixture(
+            "requirement-items.json",
+            [
+                {"id": "R-01", "source": "request_snapshot",
+                 "quote": "用 UTF-8 JSON 文件输入跑一遍自检",
+                 "reading": "跑一遍 CLI 文件输入自检", "state": "Covered",
+                 "evidence_refs": ["self-test://cli"]},
+                {"id": "R-02", "source": "clarification:r1.e1",
+                 "quote": "是，只覆盖文件输入",
+                 "reading": "范围限定在文件输入路径", "state": "Covered",
+                 "evidence_refs": ["self-test://cli"]},
+            ],
+        )
         clarification_file = write_fixture(
             "clarification.json",
             {
@@ -2199,6 +2274,7 @@ def main(argv: list[str] | None = None) -> int:
             "--objective", "Exercise UTF-8 JSON file inputs",
             "--request-snapshot", "用 UTF-8 JSON 文件输入跑一遍自检",
             "--clarification-json-file", str(clarification_file),
+            "--requirement-items-json-file", str(requirement_items_file),
             "--acceptance", "CLI file inputs are consumed without Base64",
             "--in-scope", "temporary CLI fixture",
             "--delivery-scenario", "DS-03",

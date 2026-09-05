@@ -5,7 +5,7 @@
   "work_item_id": "W-RWPW-COMPAT-20260822",
   "task_id": "T-RWPW-20260822-002",
   "ordinal": 3,
-  "revision": 7,
+  "revision": 8,
   "lifecycle_state": "Frozen",
   "created_at": "2026-08-22T07:13:36Z",
   "frozen_at": "2026-08-22T07:15:02Z",
@@ -2009,6 +2009,25 @@
       "reason": "schema migration: clarification 与 request_snapshot 成为必填载体",
       "basis": "legacy-backfill；记录当时的真实情况，不追认未发生的澄清",
       "changed_at": "2026-09-04T07:12:16Z"
+    },
+    {
+      "from_revision": 7,
+      "to_revision": 8,
+      "path": "requirement_items",
+      "old_value": null,
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "（迁移补录）原始提问未归档：本任务早于 request_snapshot 必填要求",
+          "reading": "迁移占位文本，非需求",
+          "state": "NotARequirement",
+          "evidence_refs": []
+        }
+      ],
+      "reason": "schema migration: requirement_items 成为必填载体",
+      "basis": "legacy-backfill；按原话子句逐条生成，不追认未发生的逐条核对",
+      "changed_at": "2026-09-05T07:30:49Z"
     }
   ],
   "tailoring_resolution": {
@@ -2387,5 +2406,15 @@
     "text": "（迁移补录）原始提问未归档：本任务早于 request_snapshot 必填要求。",
     "captured_at": "2026-08-22T07:13:36Z",
     "source": "legacy-backfill"
-  }
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "（迁移补录）原始提问未归档：本任务早于 request_snapshot 必填要求",
+      "reading": "迁移占位文本，非需求",
+      "state": "NotARequirement",
+      "evidence_refs": []
+    }
+  ]
 }

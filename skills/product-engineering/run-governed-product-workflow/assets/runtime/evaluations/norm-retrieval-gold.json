@@ -2293,7 +2293,7 @@
       },
       {
         "script": "init_task.py",
-        "help_sha256": "d78976ed499d9a28e7e350d2f60395f6ce3905b6a93e148a51a34563ebaa201e",
+        "help_sha256": "480415beab62e16e87c40210e1e84788eb98f7866243a856a6e75d0e39f29b14",
         "options": [
           "--acceptance",
           "--allowed-path",
@@ -2337,6 +2337,8 @@
           "--request-language",
           "--request-snapshot",
           "--required-gate",
+          "--requirement-items-json-base64",
+          "--requirement-items-json-file",
           "--risk-level",
           "--rollback",
           "--source-snapshot-json-base64",
@@ -2364,7 +2366,7 @@
           "init",
           "--help"
         ],
-        "help_sha256": "7e6d9e6c81d416adacf5d49072ce7b020de023f0f4b0f9083b7699a3f3f6c2bc",
+        "help_sha256": "ebbd010cedf108a1ceef4cee879ce58b863730512ac04bbc9fafb3104849dff5",
         "options": [
           "--acceptance",
           "--allowed-path",
@@ -2397,6 +2399,8 @@
           "--project-root",
           "--request-language",
           "--request-snapshot",
+          "--requirement-items-json-base64",
+          "--requirement-items-json-file",
           "--rollback",
           "--scope",
           "--selected-approach",

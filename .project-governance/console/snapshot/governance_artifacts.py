@@ -1210,6 +1210,94 @@ def build_default_first_principles_analysis(
     }
 
 
+# Strong terminators only. Splitting on commas would fragment a single obligation into
+# pieces no one can quote sensibly; splitting on nothing would let a whole paragraph
+# hide behind one quote.
+_REQUIREMENT_CLAUSE_SPLIT = re.compile("[。！？!?;；" + chr(10) + "]+")
+MIN_CLAUSE_CHARS = 4
+
+
+def _requirement_source_texts(before: dict[str, Any]) -> list[tuple[str, str]]:
+    """Everything the requester actually said, labelled by where it was said."""
+
+    texts: list[tuple[str, str]] = []
+    snapshot = before.get("request_snapshot") or {}
+    if snapshot.get("text"):
+        texts.append(("request_snapshot", str(snapshot["text"])))
+    clarification = before.get("clarification") or {}
+    for round_item in clarification.get("rounds") or []:
+        if not isinstance(round_item, dict):
+            continue
+        for position, exchange in enumerate(round_item.get("exchanges") or [], start=1):
+            if isinstance(exchange, dict) and exchange.get("answer"):
+                texts.append(
+                    (f"clarification:r{round_item.get('ordinal')}.e{position}", str(exchange["answer"]))
+                )
+    return texts
+
+
+def _requirement_clauses(text: str) -> list[str]:
+    return [
+        clause.strip()
+        for clause in _REQUIREMENT_CLAUSE_SPLIT.split(text)
+        if len(clause.strip()) >= MIN_CLAUSE_CHARS
+    ]
+
+
+def validate_requirement_items(
+    before: dict[str, Any], *, require_discharge: bool = False
+) -> list[str]:
+    """Hold the decomposition against the requester's own words.
+
+    Two checks the Agent cannot satisfy by writing something. A quote has to appear
+    verbatim in what the requester said, so an item cannot be invented; and every
+    clause of what they said has to be accounted for by some item, so nothing can be
+    left out by simply not listing it. The second is the one that matters: it asks
+    which parts of the request are unaccounted for, and the answer comes from a text
+    the Agent did not write.
+    """
+
+    items = before.get("requirement_items")
+    if not isinstance(items, list):
+        return ["requirement_items is required"]
+    sources = _requirement_source_texts(before)
+    if not sources:
+        return ["requirement_items cannot be checked without the requester's own words"]
+    by_label = dict(sources)
+    errors: list[str] = []
+
+    identifiers = [item.get("id") for item in items if isinstance(item, dict)]
+    if len(set(identifiers)) != len(identifiers):
+        errors.append("requirement_items ids must be unique")
+
+    for item in items:
+        if not isinstance(item, dict):
+            errors.append("requirement_items entries must be objects")
+            continue
+        label, quote = str(item.get("source", "")), str(item.get("quote", ""))
+        if label not in by_label:
+            errors.append(f"{item.get('id')}: source {label!r} is not one of the requester's texts")
+        elif quote not in by_label[label]:
+            errors.append(f"{item.get('id')}: quote is not verbatim in {label}")
+
+    quotes = [str(item.get("quote", "")) for item in items if isinstance(item, dict)]
+    for label, text in sources:
+        for clause in _requirement_clauses(text):
+            if not any(quote and (quote in clause or clause in quote) for quote in quotes):
+                errors.append(f"{label}: no requirement item accounts for: {clause[:48]}")
+
+    if require_discharge:
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            state, quote = item.get("state"), str(item.get("quote", ""))[:48]
+            if state == "Open":
+                errors.append(f"{item.get('id')} is still Open: {quote}")
+            elif state == "Covered" and not item.get("evidence_refs"):
+                errors.append(f"{item.get('id')} is Covered but cites no evidence: {quote}")
+    return errors
+
+
 def validate_clarification(clarification: Any) -> list[str]:
     """Report why S1 is not settled yet.
 
@@ -1956,6 +2044,7 @@ def initialize_task(
     objective: str,
     request_snapshot: dict[str, str] | None = None,
     clarification: dict[str, Any] | None = None,
+    requirement_items: Iterable[dict[str, Any]] | None = None,
     acceptance: Iterable[str],
     development_types: Iterable[str],
     change_surfaces: Iterable[str],
@@ -2195,6 +2284,7 @@ def initialize_task(
         "objective": objective.strip(),
         "request_snapshot": request_snapshot,
         "clarification": clarification_value,
+        "requirement_items": list(requirement_items or []),
         "depends_on": sorted(set(depends_on)),
         "supersedes": sorted(set(supersedes)),
         "blocked_by": [],
@@ -2242,6 +2332,9 @@ def initialize_task(
         before["task_profile"], stage=tailoring_stage, contract_context=before
     )
     require_valid_json_document(before, "task-before.schema.json", "before")
+    requirement_errors = validate_requirement_items(before)
+    if requirement_errors:
+        raise GovernanceError("; ".join(requirement_errors))
     manifest_errors = validate_artifact_manifest(before["artifact_manifest"], terminal=False)
     if manifest_errors:
         raise GovernanceError("; ".join(manifest_errors))
@@ -2906,6 +2999,12 @@ def close_task(
     after_path = task_dir / "after.json"
     if after_path.exists():
         raise GovernanceError(f"task outcome already exists: {after_path}; use amend_record.py")
+    discharge_errors = validate_requirement_items(before, require_discharge=True)
+    if discharge_errors:
+        raise GovernanceError(
+            "requirement items are not discharged: " + "; ".join(discharge_errors[:8])
+            + "; amend requirement_items with amend_record.py once each is accounted for"
+        )
     project_root = task_dir.resolve().parents[2]
     scope_report = reconcile_scope(project_root, before)
     if scope_report["status"] == "Unverifiable":

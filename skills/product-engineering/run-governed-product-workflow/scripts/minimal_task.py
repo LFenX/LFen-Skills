@@ -22,6 +22,7 @@ from governance_artifacts import (
     runtime_asset_path,
     validate_json_document,
     validate_clarification,
+    validate_requirement_items,
 )
 
 
@@ -195,6 +196,12 @@ def validate_minimal_record(
         f"task_contract.{item}"
         for item in validate_clarification(record["task_contract"].get("clarification"))
     )
+    errors.extend(
+        f"task_contract.{item}"
+        for item in validate_requirement_items(
+            record["task_contract"], require_discharge=record["lifecycle_state"] == "Completed"
+        )
+    )
     task_profile = record["task_contract"]["task_profile"]
     errors.extend(
         minimal_applicability_errors(
@@ -258,6 +265,7 @@ def create_minimal_record(
     supersedes: Iterable[str],
     objective: str,
     clarification: dict[str, Any] | None = None,
+    requirement_items: Iterable[dict[str, Any]] | None = None,
     scope: str,
     acceptance: str,
     delivery_scenario: str,
@@ -424,6 +432,7 @@ def create_minimal_record(
         "task_contract": {
             "objective": values["objective"],
             "request_snapshot": request_snapshot,  # 必填：用户原话是验收基准
+            "requirement_items": list(requirement_items or []),
             "clarification": clarification or {
                 "state": "Open",
                 "mode": "Asked",

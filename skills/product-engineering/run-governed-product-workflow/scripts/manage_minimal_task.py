@@ -55,6 +55,9 @@ def add_common_init(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--clarification-notice", default="", help="实际展示给需求提出者的那句话，原文存档")
     parser.add_argument("--clarification-basis", default="", help="零轮或结束澄清所依据的勘察结论")
     parser.add_argument("--survey-ref", action="append", default=[], help="勘察证据引用；可重复")
+    items = parser.add_mutually_exclusive_group()
+    items.add_argument("--requirement-items-json-base64", help="Base64 UTF-8 JSON array of requirement items")
+    items.add_argument("--requirement-items-json-file", type=Path, help="UTF-8 JSON file: 需求原文逐条拆解")
     parser.add_argument("--scope", required=True)
     parser.add_argument("--out-of-scope", action="append", default=[])
     parser.add_argument("--allowed-path", action="append", required=True)
@@ -209,6 +212,10 @@ def main() -> int:
                 objective=args.objective,
                 request_snapshot=parse_request_snapshot(args.request_snapshot, language=args.request_language),
                 clarification=resolve_clarification(args),
+                requirement_items=decode_json_input(
+                    args.requirement_items_json_base64, args.requirement_items_json_file,
+                    list, "requirement items",
+                ),
                 scope=args.scope,
                 acceptance=args.acceptance,
                 delivery_scenario=args.delivery_scenario,
