@@ -1387,6 +1387,19 @@ def main(argv: list[str] | None = None) -> int:
     })
     require_test((not settled), f"a surveyed zero-round record must pass, got {settled}")
 
+    # Minimal is the common path, so a gate wired only into the full carrier is not a
+    # gate at all. Both entry points have to consume the same decision check.
+    import inspect as _inspect
+    from minimal_task import append_minimal_event as _append_min, close_minimal_record as _close_min
+    for fn, why in (
+        (_append_min, "Minimal execution must require a Proceed decision"),
+        (_close_min, "Minimal close must require an Acceptance decision"),
+    ):
+        require_test(
+            ("require_decision" in _inspect.getsource(fn)),
+            f"{why}; {fn.__name__} does not consult the decision gate",
+        )
+
     # The three gates are the whole ordering model. If the surface stops naming them the
     # next author will reinvent a state machine, which is what made tailoring_resolution
     # the most-amended field in the system.

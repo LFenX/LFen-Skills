@@ -23,6 +23,7 @@ from governance_artifacts import (
     validate_json_document,
     validate_clarification,
     validate_requirement_items,
+    require_decision,
 )
 
 
@@ -535,6 +536,12 @@ def append_minimal_event(
         raise GovernanceError("the first Minimal event must be run_started")
     if events and event_type == "run_started":
         raise GovernanceError("run_started already exists")
+    # Minimal trims carriers, never controls. Wiring the Proceed gate only into the full
+    # carrier would have made the Minimal path -- the common one -- a way around it.
+    if event_type == "run_started":
+        decision_errors = require_decision(record["task_contract"], "Proceed", "execution")
+        if decision_errors:
+            raise GovernanceError("; ".join(decision_errors))
     if event_type == "run_finished":
         raise GovernanceError("run_finished is written by close, not append")
     event = {
@@ -643,6 +650,12 @@ def close_minimal_record(
         raise GovernanceError(f"unsupported Minimal outcome: {status}")
     record_path = minimal_record_path(task_dir)
     record = read_json(record_path)
+    if status == "Implemented":
+        acceptance_errors = require_decision(
+            record["task_contract"], "Acceptance", "an Implemented outcome"
+        )
+        if acceptance_errors:
+            raise GovernanceError("; ".join(acceptance_errors))
     require_valid_minimal_record(record, task_dir=task_dir.resolve())
     if record["lifecycle_state"] in {"Completed", "Upgraded"}:
         raise GovernanceError("Minimal carrier is already terminal")
