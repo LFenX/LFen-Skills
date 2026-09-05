@@ -1368,6 +1368,15 @@ def main(argv: list[str] | None = None) -> int:
     })
     require_test((not settled), f"a surveyed zero-round record must pass, got {settled}")
 
+    # The three gates are the whole ordering model. If the surface stops naming them the
+    # next author will reinvent a state machine, which is what made tailoring_resolution
+    # the most-amended field in the system.
+    for phrase in ("三道门", "clarification.state", "Proceed", "Acceptance", "run_started"):
+        require_test(
+            (phrase in skill_text),
+            f"SKILL.md must name the gate that actually blocks: missing {phrase!r}",
+        )
+
     # Only a person can give Proceed or Acceptance. This cannot prove one was given --
     # the response is typed by whoever runs the Agent -- but an absent decision now
     # stops the run instead of looking exactly like a decision that was made.

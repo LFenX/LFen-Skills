@@ -75,6 +75,18 @@ python <skill-root>/scripts/get_context.py --task-dir <project-root>/.project-go
 
 轮次、追问与退出条件见 [commands/clarify.md](commands/clarify.md)。
 
+## 三道门
+
+阶段顺序不做状态机——能被跳过的阶段描述，就不该写成强制阶段。只守三处，中间怎么走不管：
+
+| 门 | 条件 | 谁拦的 |
+|---|---|---|
+| 出 S1 | `clarification.state` 为 `Settled`，且没有回答停在 `Ambiguous` / `Deferred` | `resolve_tailoring` 从 S2 起返回 blocker |
+| 进 S5 | 存在 `Proceed` 决定；需求台账已按原话逐句覆盖 | `append_run_event` 拒绝 `run_started`；建任务时校验覆盖 |
+| 出 S6 | 每条需求已交代且有证据；存在 `Acceptance` 决定；声明范围与 git 实际改动一致 | `close_task` 三处阻断 |
+
+`tailoring_stage` 是给裁剪算 blocker 用的，不是状态机；三道门之外不设顺序校验。
+
 ## 路由
 
 用户第一词匹配命令时，只读对应文件：
