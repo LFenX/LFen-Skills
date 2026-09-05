@@ -21,6 +21,7 @@ sys.dont_write_bytecode = True
 
 from governance_artifacts import (
     validate_clarification,
+    reconcile_required_gates,
     current_tailoring,
     validate_tailoring_resolution,
     require_decision,
@@ -1387,6 +1388,42 @@ def main(argv: list[str] | None = None) -> int:
     })
     require_test((not settled), f"a surveyed zero-round record must pass, got {settled}")
 
+    # A declared gate and a gate that was passed are different facts. Only the second
+    # one is worth keeping, and until now only the first was checked.
+    def _gated(gates):
+        return {"authority": {"required_gates": gates}}
+
+    def _gate_event(summary, status="succeeded", refs=()):
+        return {"event_type": "human_gate", "summary": summary, "status": status,
+                "evidence_refs": list(refs)}
+
+    require_test((reconcile_required_gates(_gated([]), []) == []),
+                 "a task with no declared gates has nothing to reconcile")
+    require_test((reconcile_required_gates(_gated(["release-approval"]), []) ),
+                 "a declared gate with no ledger entry must block the close")
+    require_test(
+        (reconcile_required_gates(_gated(["release-approval"]),
+                                  [_gate_event("release-approval passed")]) == []),
+        "a gate named in a succeeded ledger entry counts as passed",
+    )
+    require_test(
+        (reconcile_required_gates(_gated(["release-approval"]),
+                                  [_gate_event("release-approval", status="failed")])),
+        "a failed gate event does not satisfy the gate",
+    )
+    require_test(
+        (reconcile_required_gates(_gated(["security-privacy-review"]),
+                                  [_gate_event("review done", refs=["e://security-privacy-review"])]) == []),
+        "a gate named in an evidence ref counts as passed",
+    )
+    missing_named = reconcile_required_gates(_gated(["release-approval", "human-acceptance"]),
+                                             [_gate_event("release-approval passed")])
+    require_test(
+        (any("human-acceptance" in item and "release-approval" not in item.split(":")[-1]
+             for item in missing_named)),
+        f"the unmet gate must be named on its own; got {missing_named}",
+    )
+
     # Minimal is the common path, so a gate wired only into the full carrier is not a
     # gate at all. Both entry points have to consume the same decision check.
     import inspect as _inspect
@@ -2034,6 +2071,9 @@ def main(argv: list[str] | None = None) -> int:
             lambda: append_run_event(task_dir, run_id="RUN-OTHER", attempt_id="A-002", event_type="mutation", summary="Invalid run", status="succeeded"),
         )
         append_run_event(task_dir, run_id="RUN-001", attempt_id="A-002", event_type="verification", summary="Validated generated JSON and task relationships", status="succeeded", exit_code=0, evidence_refs=["self-test://validation"])
+        # The contract declares independent-review, so the ledger has to show it was
+        # passed. Declaring a gate and going through one are different facts.
+        append_run_event(task_dir, run_id="RUN-001", attempt_id="A-002", event_type="human_gate", summary="independent-review passed", status="succeeded", evidence_refs=["self-test://independent-review"])
         append_run_event(task_dir, run_id="RUN-001", attempt_id="A-002", event_type="run_finished", summary="Finished isolated self-test run", status="succeeded")
         expect_governance_error(
             "late event after run_finished",

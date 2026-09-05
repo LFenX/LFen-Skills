@@ -1298,6 +1298,49 @@ def validate_requirement_items(
     return errors
 
 
+GATE_EVENT_TYPES = {"human_gate", "authority_decision_reference"}
+GATE_SATISFIED_STATUSES = {"succeeded", "recorded"}
+
+
+def reconcile_required_gates(
+    before: dict[str, Any], events: Iterable[dict[str, Any]]
+) -> list[str]:
+    """Hold each declared gate against a ledger entry that names it.
+
+    required_gates was only ever checked for being declared. Nothing asked whether the
+    gate was passed, so "release-approval is required" and "release-approval happened"
+    produced identical records -- a production release could close having named the gate
+    and never gone through it. Declaring a control and satisfying it are different
+    facts, and only one of them was being kept.
+
+    The ledger is append-only and written as the work happens, which makes it the right
+    place to look: a gate that was passed leaves an entry at the time, naming the gate
+    in its summary or one of its evidence refs.
+    """
+
+    required = list((before.get("authority") or {}).get("required_gates") or [])
+    if not required:
+        return []
+    recorded: list[str] = []
+    for event in events:
+        if not isinstance(event, dict):
+            continue
+        if event.get("event_type") not in GATE_EVENT_TYPES:
+            continue
+        if event.get("status") not in GATE_SATISFIED_STATUSES:
+            continue
+        recorded.append(str(event.get("summary", "")))
+        recorded.extend(str(ref) for ref in event.get("evidence_refs") or [])
+    missing = [gate for gate in required if not any(gate in item for item in recorded)]
+    if not missing:
+        return []
+    return [
+        "required gates were declared but never recorded as passed: " + ", ".join(missing)
+        + "; append a human_gate or authority_decision_reference event naming each gate "
+        "in its summary or an evidence ref"
+    ]
+
+
 def require_decision(before: dict[str, Any], kind: str, at: str) -> list[str]:
     """Refuse to move past a point only a person can authorise without their answer on record.
 
@@ -3110,6 +3153,9 @@ def close_task(
             raise GovernanceError(f"verification[{position}].result is invalid")
         item.setdefault("evidence_refs", [])
     if status == "Implemented":
+        gate_errors = reconcile_required_gates(before, events)
+        if gate_errors:
+            raise GovernanceError("; ".join(gate_errors))
         if not events or events[-1].get("status") != "succeeded":
             raise GovernanceError("Implemented requires a succeeded run_finished event")
         if not any(

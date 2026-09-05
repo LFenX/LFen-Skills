@@ -20,6 +20,8 @@ python <skill-root>/scripts/rebuild_project_state.py --project-root <project-roo
 python <skill-root>/scripts/generate_review_views.py --project-root <project-root> --project-id <ProjectID>
 ```
 
+收尾为 `Implemented` 时，`authority.required_gates` 里的每一道门都必须在账本里有记录：一条 `human_gate` 或 `authority_decision_reference` 事件，状态为 `succeeded` 或 `recorded`，并在 summary 或某个 evidence ref 里写出门的名字。**声明了门和走过了门是两件事**，缺哪道会被点名。账本是追加式的，`run_finished` 之后不能再补记——门要在它通过的当时就写进去。
+
 TaskOutcome 写明成立事实、实际变化、验证、遗留项、责任人和后续 TaskID。TaskOutcome 建立后修订必须使用：
 
 ```console
