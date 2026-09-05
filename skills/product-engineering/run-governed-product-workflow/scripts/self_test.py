@@ -1720,6 +1720,43 @@ def main(argv: list[str] | None = None) -> int:
     conflict_profile["applicability_facts"]["data_ai_impact"] = "Unknown"
     conflict_resolution = resolve_tailoring(conflict_profile, stage="S4")
     require_test((conflict_resolution["blocking_reasons"]), "self-test invariant failed at original line 593: conflict_resolution['blocking_reasons']")
+    # S7 was the one stage with no test at all. A production release carries three
+    # controls that would each fail open in silence if the mapping drifted: it must be
+    # classified onto Deploy/Operations, it must declare the release-approval gate, and
+    # an external effect needs the permission for it before the run can even start.
+    release_profile = copy.deepcopy(union_profile)
+    release_profile["applicability_facts"]["production_release"] = "Yes"
+    release_profile["applicability_facts"]["external_system_effect"] = "Yes"
+    release_profile["extension_triggers"]["E05"] = "Active"
+    release_profile["extension_evidence_refs"]["E05"] = ["self-test://ops"]
+    misclassified = resolve_tailoring(release_profile, stage="S7")
+    require_test(
+        (any("production_release=Yes requires one of change_surfaces: Deploy/Operations" in item
+             for item in misclassified["blocking_reasons"])),
+        f"a production release must be classified onto Deploy/Operations; got {misclassified['blocking_reasons']}",
+    )
+    release_profile["change_surfaces"] = ["Deploy/Operations"]
+    release_contract = {
+        "authority": {"required_gates": [], "execution_permissions": ["read", "edit-in-scope", "validate"]},
+    }
+    ungated = resolve_tailoring(release_profile, stage="S7", contract_context=release_contract)
+    require_test(
+        (any("release-approval" in item for item in ungated["blocking_reasons"])),
+        f"a production release must declare the release-approval gate; got {ungated['blocking_reasons']}",
+    )
+    require_test(
+        (any("external-effect" in item for item in ungated["blocking_reasons"])),
+        f"an external effect needs its permission before the run starts; got {ungated['blocking_reasons']}",
+    )
+    released = resolve_tailoring(release_profile, stage="S7", contract_context={
+        "authority": {"required_gates": ["release-approval"],
+                      "execution_permissions": ["read", "edit-in-scope", "validate", "external-effect", "rollback"]},
+    })
+    require_test(
+        ({"C11", "C12", "E05"} <= set(released["applicable_standards"])),
+        f"a production release must activate C11, C12 and E05; got {released['applicable_standards']}",
+    )
+
     pending_profile = copy.deepcopy(union_profile)
     pending_profile["extension_triggers"]["E01"] = "Pending"
     pending_resolution = resolve_tailoring(pending_profile, stage="S1")
