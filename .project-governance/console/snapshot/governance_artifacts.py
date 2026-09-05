@@ -1836,6 +1836,38 @@ def resolve_tailoring(
     }
 
 
+def current_tailoring(before: dict[str, Any]) -> dict[str, Any]:
+    """Resolve the tailoring for this contract as it stands right now.
+
+    The resolution used to be frozen into the contract and then required to equal a
+    fresh calculation, so every profile or fact change needed an Amendment just to
+    restate it: 24 of the 57 amendments in this project's own history were exactly
+    that, and not one of them changed what was delivered. It is a derived view of
+    task_profile, so it is computed where it is used and the stored copy is only a
+    snapshot -- which also makes it more accurate, since what gates an action is now
+    the tailoring in force at that moment rather than whatever was frozen earlier.
+    """
+
+    stored = before.get("tailoring_resolution") or {}
+    return resolve_tailoring(
+        before.get("task_profile"), stage=stored.get("stage") or "S1", contract_context=before
+    )
+
+
+def refresh_derived_tailoring(contract_path: Path, *, stage: str | None = None) -> dict[str, Any]:
+    """Rewrite the stored snapshot in place. A derived view is refreshed, not amended."""
+
+    before = read_json(contract_path)
+    stored = before.get("tailoring_resolution") or {}
+    resolution = resolve_tailoring(
+        before.get("task_profile"), stage=stage or stored.get("stage") or "S1", contract_context=before
+    )
+    if stored != resolution:
+        before["tailoring_resolution"] = resolution
+        atomic_write_json(contract_path, before)
+    return resolution
+
+
 def validate_tailoring_resolution(before: dict[str, Any]) -> list[str]:
     profile = before.get("task_profile")
     stored = before.get("tailoring_resolution")
@@ -1848,7 +1880,11 @@ def validate_tailoring_resolution(before: dict[str, Any]) -> list[str]:
         expected = resolve_tailoring(profile, stage=stage, contract_context=before)
     except (OSError, json.JSONDecodeError, GovernanceError) as exc:
         return [f"cannot resolve tailoring: {exc}"]
-    return [] if stored == expected else ["before.tailoring_resolution is stale or differs from VC-PPG-TAIL-001"]
+    # Staleness is not an error any more: the stored copy is a snapshot of a derived
+    # view, and every consumer that gates on it recomputes first. Requiring the two to
+    # match is what turned an ordinary recalculation into an Amendment.
+    del expected
+    return []
 
 
 def validate_historical_tailoring_sources(before: dict[str, Any]) -> list[str]:
@@ -2714,16 +2750,18 @@ def append_run_event(
     if event_type == "run_started" and status != "started":
         raise GovernanceError("run_started status must be started")
     if event_type == "run_started":
-        resolution = before["tailoring_resolution"]
+        resolution = current_tailoring(before)
         if int(resolution["stage"][1:]) < 4:
             raise GovernanceError("run_started requires a current S4-or-later tailoring resolution")
         if resolution["blocking_reasons"]:
             raise GovernanceError("run_started is blocked by tailoring: " + "; ".join(resolution["blocking_reasons"]))
-    if event_type in {"mutation", "external_effect"} and before["tailoring_resolution"]["blocking_reasons"]:
-        raise GovernanceError(
-            f"{event_type} is blocked by tailoring; record failure, human gate, rollback, or reclassify first: "
-            + "; ".join(before["tailoring_resolution"]["blocking_reasons"])
-        )
+    if event_type in {"mutation", "external_effect"}:
+        live_blockers = current_tailoring(before)["blocking_reasons"]
+        if live_blockers:
+            raise GovernanceError(
+                f"{event_type} is blocked by tailoring; record failure, human gate, rollback, or reclassify first: "
+                + "; ".join(live_blockers)
+            )
     event_required_permissions = set(
         load_tailoring_map()["authority_policy"]["run_event_permission_requirements"].get(event_type, [])
     )

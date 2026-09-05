@@ -17,6 +17,7 @@ from governance_artifacts import (
     EXTENSION_STATES,
     GovernanceError,
     amend_record_batch,
+    refresh_derived_tailoring,
     read_json,
     resolve_tailoring,
 )
@@ -103,18 +104,19 @@ def main() -> int:
         changes = []
         if profile != before["task_profile"]:
             changes.append({"path": "task_profile", "value": profile})
-        if resolution != before.get("tailoring_resolution"):
-            changes.append({"path": "tailoring_resolution", "value": resolution, "allow_add": "tailoring_resolution" not in before})
+        if changes:
+            updated = amend_record_batch(
+                args.task_contract,
+                changes=changes,
+                reason=args.reason,
+                basis=args.basis,
+            )
+            print(f"AMENDED: {args.task_contract} revision {updated['revision']}")
+        # The resolution itself is a derived view, so it is refreshed rather than
+        # amended -- restating a recalculation was never a change to the contract.
+        resolution = refresh_derived_tailoring(args.task_contract, stage=args.stage)
         if not changes:
-            print(f"CURRENT: {args.task_contract} already matches {args.stage}")
-            return 0
-        updated = amend_record_batch(
-            args.task_contract,
-            changes=changes,
-            reason=args.reason,
-            basis=args.basis,
-        )
-        print(f"AMENDED: {args.task_contract} revision {updated['revision']}")
+            print(f"REFRESHED: {args.task_contract} tailoring now reflects {args.stage}")
         for blocker in resolution["blocking_reasons"]:
             print(f"BLOCKED: {blocker}")
     except (OSError, ValueError, KeyError, json.JSONDecodeError, GovernanceError) as exc:

@@ -21,6 +21,8 @@ sys.dont_write_bytecode = True
 
 from governance_artifacts import (
     validate_clarification,
+    current_tailoring,
+    validate_tailoring_resolution,
     require_decision,
     validate_requirement_items,
     reconcile_scope,
@@ -423,6 +425,23 @@ def run_consumer_bootstrap_fixture() -> dict[str, object]:
     with tempfile.TemporaryDirectory(prefix="v63-consumer-bootstrap-") as temp:
         root = Path(temp)
         task_dir = new_task(root, "T-CONSUMER", 1)
+        # tailoring_resolution is a derived view now. A stale snapshot is not an error,
+        # and nothing gates on it: what blocks an action is the tailoring resolved at the
+        # moment of that action. Requiring the two to match is what made restating a
+        # recalculation cost an Amendment, 24 times in this project alone.
+        stale_contract = read_json(task_dir / "before.json")
+        stale_contract["tailoring_resolution"] = {
+            **stale_contract["tailoring_resolution"],
+            "blocking_reasons": ["stale placeholder"],
+        }
+        require_test(
+            (validate_tailoring_resolution(stale_contract) == []),
+            "a stale tailoring snapshot must not be an error; it is a derived view",
+        )
+        require_test(
+            (current_tailoring(stale_contract)["blocking_reasons"] != ["stale placeholder"]),
+            "gating must use the tailoring resolved now, not the stored snapshot",
+        )
         metadata_path, report_path, index_path = bootstrap_project_runtime(task_dir)
         require_test((read_json(metadata_path)["status"] == "Ready"), "self-test invariant failed at original line 339: read_json(metadata_path)['status'] == 'Ready'")
         require_test((report_path.is_file()), 'self-test invariant failed at original line 340: report_path.is_file()')

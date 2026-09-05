@@ -4,7 +4,7 @@
   "title": "V6.3 TaskContract",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "meta_type", "project_id", "work_item_id", "task_id", "ordinal", "revision", "lifecycle_state", "created_at", "frozen_at", "objective", "request_snapshot", "clarification", "requirement_items", "decisions", "depends_on", "supersedes", "blocked_by", "source_snapshot", "scope", "authority", "acceptance", "plan", "task_profile", "tailoring_resolution", "artifact_manifest", "amendments"],
+  "required": ["schema_version", "meta_type", "project_id", "work_item_id", "task_id", "ordinal", "revision", "lifecycle_state", "created_at", "frozen_at", "objective", "request_snapshot", "clarification", "requirement_items", "decisions", "depends_on", "supersedes", "blocked_by", "source_snapshot", "scope", "authority", "acceptance", "plan", "task_profile", "artifact_manifest", "amendments"],
   "properties": {
     "schema_version": {"const": "6.3-candidate"},
     "meta_type": {"const": "TaskContract"},

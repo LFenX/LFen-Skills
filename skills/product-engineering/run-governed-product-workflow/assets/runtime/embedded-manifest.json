@@ -274,7 +274,7 @@
       "source": "skill-local:schemas/task-before.schema.json",
       "logical_path": "schemas/task-before.schema.json",
       "embedded": "assets/runtime/schemas/task-before.schema.json",
-      "sha256": "23565eb067d40feaeebdf0f97fb866b58dcea0b84f59471b1bb4ad83651760d3"
+      "sha256": "e6fcaa931141d6f24419d38d338b84ca8631b094b2155fcaa90c30586392dc90"
     },
     {
       "role": "evaluation",
