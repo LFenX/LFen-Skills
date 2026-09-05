@@ -5,7 +5,7 @@
   "work_item_id": "W-CATALOG-20260903-002",
   "task_id": "T-CATALOG-20260903-002",
   "ordinal": 7,
-  "revision": 15,
+  "revision": 16,
   "lifecycle_state": "Frozen",
   "created_at": "2026-09-03T07:13:22Z",
   "frozen_at": "2026-09-03T07:16:36Z",
@@ -7844,6 +7844,16 @@
       "reason": "schema migration: requirement_items 成为必填载体",
       "basis": "legacy-backfill；按原话子句逐条生成，不追认未发生的逐条核对",
       "changed_at": "2026-09-05T07:30:49Z"
+    },
+    {
+      "from_revision": 15,
+      "to_revision": 16,
+      "path": "decisions",
+      "old_value": null,
+      "new_value": [],
+      "reason": "schema migration: decisions 成为必填载体",
+      "basis": "legacy-backfill；当时未记录任何人的决定，留空即为如实",
+      "changed_at": "2026-09-05T07:38:33Z"
     }
   ],
   "tailoring_resolution": {
@@ -8287,5 +8297,6 @@
         "legacy://no-item-level-evidence-recorded"
       ]
     }
-  ]
+  ],
+  "decisions": []
 }

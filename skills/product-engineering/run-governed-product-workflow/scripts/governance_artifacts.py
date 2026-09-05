@@ -1298,6 +1298,29 @@ def validate_requirement_items(
     return errors
 
 
+def require_decision(before: dict[str, Any], kind: str, at: str) -> list[str]:
+    """Refuse to move past a point only a person can authorise without their answer on record.
+
+    The norm says acceptance, scope trade-offs, approval and release are the human's
+    to make, and that a tool succeeding, a chat reply or silence is not approval. Until
+    now nothing recorded who decided what: "nobody approved" and "someone approved"
+    looked identical in the file. This does not prove a decision happened -- the
+    response is still typed by whoever runs the Agent -- but it turns an invisible
+    absence into one that shows up and stops the run.
+    """
+
+    decisions = before.get("decisions")
+    if not isinstance(decisions, list):
+        return ["decisions is required"]
+    for item in decisions:
+        if isinstance(item, dict) and item.get("kind") == kind and str(item.get("response", "")).strip():
+            return []
+    return [
+        f"no {kind} decision is recorded, so {at} cannot proceed; capture what was shown "
+        f"and the answer verbatim in decisions[] with amend_record.py"
+    ]
+
+
 def validate_clarification(clarification: Any) -> list[str]:
     """Report why S1 is not settled yet.
 
@@ -2045,6 +2068,7 @@ def initialize_task(
     request_snapshot: dict[str, str] | None = None,
     clarification: dict[str, Any] | None = None,
     requirement_items: Iterable[dict[str, Any]] | None = None,
+    decisions: Iterable[dict[str, Any]] | None = None,
     acceptance: Iterable[str],
     development_types: Iterable[str],
     change_surfaces: Iterable[str],
@@ -2285,6 +2309,7 @@ def initialize_task(
         "request_snapshot": request_snapshot,
         "clarification": clarification_value,
         "requirement_items": list(requirement_items or []),
+        "decisions": list(decisions or []),
         "depends_on": sorted(set(depends_on)),
         "supersedes": sorted(set(supersedes)),
         "blocked_by": [],
@@ -2649,6 +2674,10 @@ def append_run_event(
     tailoring_errors = validate_tailoring_resolution(before)
     if tailoring_errors:
         raise GovernanceError("invalid tailoring resolution: " + "; ".join(tailoring_errors))
+    if event_type == "run_started":
+        decision_errors = require_decision(before, "Proceed", "execution")
+        if decision_errors:
+            raise GovernanceError("; ".join(decision_errors))
     if before.get("legacy_run_policy") and before.get("created_at", "") >= LEGACY_RUN_POLICY_CUTOFF:
         raise GovernanceError("legacy_run_policy is restricted to tasks created before enforcement")
     events = read_jsonl(ledger_path)
@@ -2999,6 +3028,10 @@ def close_task(
     after_path = task_dir / "after.json"
     if after_path.exists():
         raise GovernanceError(f"task outcome already exists: {after_path}; use amend_record.py")
+    if status == "Implemented":
+        acceptance_errors = require_decision(before, "Acceptance", "an Implemented outcome")
+        if acceptance_errors:
+            raise GovernanceError("; ".join(acceptance_errors))
     discharge_errors = validate_requirement_items(before, require_discharge=True)
     if discharge_errors:
         raise GovernanceError(

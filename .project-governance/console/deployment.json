@@ -1,5 +1,5 @@
 {
-  "deployed_at": "2026-09-05T07:36:01Z",
+  "deployed_at": "2026-09-05T07:39:49Z",
   "skill_name": "run-governed-product-workflow",
   "skill_version": "6.3.0-candidate",
   "skill_root": "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow",
@@ -11,9 +11,9 @@
     "console_model.py": "9d5ad71daf7a77027a62ffcf646dc857e10a08ffb43e91e73ab2f55deb0fa1fd",
     "console_render.py": "6ff726efdc2db34dee27fe808d022d94e3f598d9ef9b73da673f89cfa06a9f5b",
     "deploy_console.py": "6bf3f895686a94a1864db043b31fff48f2d07c9c8199dec1d574e31af2ffeac3",
-    "governance_artifacts.py": "2c4884a30e6811572b8bf99a15efe47d82b76dc36541ea2f4dbf7037e555fb03",
+    "governance_artifacts.py": "7815ece7bd834c5aa4ea6096f5a832240d16995f84d943ed89bbbfe5c725f68f",
     "manage_project_docs.py": "e294b50e76f1b557d128940c1fa231772bde2f5c45a6ad6d8fe2d3d63de3380c",
-    "minimal_task.py": "2d05eb85c5558f1c295abbe739024b9c9a46762b6cc08b291ad481139aef95c6"
+    "minimal_task.py": "b07499886df74dea7de63e88abc60f439e879ea64ec575dc83039a752bad6647"
   },
   "note": "snapshot 为逐字节固定的控制台代码；skill_root 仅用于完整性页，可被 LG_SKILL_ROOT 覆盖。"
 }

@@ -2293,7 +2293,7 @@
       },
       {
         "script": "init_task.py",
-        "help_sha256": "480415beab62e16e87c40210e1e84788eb98f7866243a856a6e75d0e39f29b14",
+        "help_sha256": "25b0e0313fad4cb31de330eae47beb2ff516ed9d15314268ac16525b3214a05b",
         "options": [
           "--acceptance",
           "--allowed-path",
@@ -2312,6 +2312,8 @@
           "--clarification-notice",
           "--clarification-skipped",
           "--confidence",
+          "--decisions-json-base64",
+          "--decisions-json-file",
           "--delivery-scenario",
           "--depends-on",
           "--development-type",
@@ -2366,7 +2368,7 @@
           "init",
           "--help"
         ],
-        "help_sha256": "ebbd010cedf108a1ceef4cee879ce58b863730512ac04bbc9fafb3104849dff5",
+        "help_sha256": "0fc89fe186718ee79d7bb016bdc975ed2690422d1e04d96ba9b1b761aa87c8d6",
         "options": [
           "--acceptance",
           "--allowed-path",
@@ -2383,6 +2385,8 @@
           "--clarification-skipped",
           "--constraint",
           "--decision-criterion",
+          "--decisions-json-base64",
+          "--decisions-json-file",
           "--delivery-scenario",
           "--depends-on",
           "--development-type",

@@ -21,6 +21,7 @@ sys.dont_write_bytecode = True
 
 from governance_artifacts import (
     validate_clarification,
+    require_decision,
     validate_requirement_items,
     reconcile_scope,
     _scope_pattern_matches,
@@ -144,6 +145,10 @@ def minimal_fixture_record(project_root: Path, task_id: str, *, change_surface: 
             "captured_at": "2026-08-15T00:00:00Z",
         },
         requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "Update one local label.", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
+        decisions=[
+            {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+            {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+        ],
         clarification={
             "state": "Settled",
             "mode": "Skipped",
@@ -451,6 +456,10 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             objective="Update one local label.",
             request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
             requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test minimal fixture", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
+            decisions=[
+                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+            ],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             scope="Change one label in src/label.txt.",
             acceptance="The focused test passes.",
@@ -763,6 +772,10 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             objective="Update one local label.",
             request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
             requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test minimal fixture", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
+            decisions=[
+                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+            ],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             scope="Change one label.",
             acceptance="The focused test passes.",
@@ -815,6 +828,10 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             objective="Update one local label.",
             request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
             requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test minimal fixture", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
+            decisions=[
+                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+            ],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             scope="Change one label.",
             acceptance="The focused test passes.",
@@ -849,6 +866,10 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             objective="Handle the expanded multi-file scope.",
             request_snapshot={"language": "en", "text": "self-test fixture request", "captured_at": "2026-08-15T00:00:00Z"},
             requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test fixture request", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
+            decisions=[
+                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+            ],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Scope is fully declared by the fixture; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
             acceptance=["All expanded-scope tests pass."],
             development_types=["DT-07"],
@@ -1080,6 +1101,10 @@ def new_task(root: Path, task_id: str, ordinal: int, *, project_id: str = "P-TES
             "captured_at": "2026-08-15T00:00:00Z",
         },
         requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": f"Conformance fixture request for {task_id}", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
+        decisions=[
+            {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+            {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+        ],
         clarification={
             "state": "Settled",
             "mode": "Skipped",
@@ -1342,6 +1367,24 @@ def main(argv: list[str] | None = None) -> int:
         "survey_refs": ["survey://x"], "rounds": [], "basis": "surveyed",
     })
     require_test((not settled), f"a surveyed zero-round record must pass, got {settled}")
+
+    # Only a person can give Proceed or Acceptance. This cannot prove one was given --
+    # the response is typed by whoever runs the Agent -- but an absent decision now
+    # stops the run instead of looking exactly like a decision that was made.
+    def _dec(**over):
+        base = {"id": "D-01", "kind": "Proceed", "presented": "p", "response": "Proceed",
+                "decided_by": "someone", "decided_at": "2026-08-15T00:00:00Z"}
+        base.update(over)
+        return base
+
+    require_test((require_decision({"decisions": [_dec()]}, "Proceed", "execution") == []),
+                 "a recorded Proceed must let execution through")
+    require_test((require_decision({"decisions": []}, "Proceed", "execution")),
+                 "an absent Proceed must block execution")
+    require_test((require_decision({"decisions": [_dec(response="   ")]}, "Proceed", "execution")),
+                 "a Proceed with a blank response is not a decision")
+    require_test((require_decision({"decisions": [_dec()]}, "Acceptance", "close")),
+                 "a Proceed does not stand in for Acceptance")
 
     # The requirement ledger is checked against a text the Agent did not write, so both
     # halves have to hold: a quote cannot be invented, and no clause of the request may
@@ -2132,6 +2175,10 @@ def main(argv: list[str] | None = None) -> int:
                 objective="Reject aliases outside the controlled vocabulary",
                 request_snapshot={"language": "en", "text": "self-test fixture request", "captured_at": "2026-08-15T00:00:00Z"},
                 requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test fixture request", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"]}],
+                decisions=[
+                    {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+                    {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+                ],
                 clarification={"state": "Settled", "mode": "Skipped", "notice": "Scope is fully declared by the fixture; skipping the question round.", "survey_refs": ["self-test://survey"], "rounds": [], "basis": "self-test fixture"},
                 acceptance=["Alias is rejected"],
                 delivery_scenario="DS-03",
@@ -2222,6 +2269,17 @@ def main(argv: list[str] | None = None) -> int:
             "open-questions.json",
             [{"summary": "Non-blocking CLI fixture", "owner": "self-test", "blocking": False}],
         )
+        decisions_file = write_fixture(
+            "decisions.json",
+            [
+                {"id": "D-01", "kind": "Proceed", "presented": "范围与验收",
+                 "response": "Proceed", "decided_by": "self-test",
+                 "decided_at": "2026-08-15T00:00:00Z"},
+                {"id": "D-02", "kind": "Acceptance", "presented": "验证结果",
+                 "response": "接受", "decided_by": "self-test",
+                 "decided_at": "2026-08-15T00:00:00Z"},
+            ],
+        )
         requirement_items_file = write_fixture(
             "requirement-items.json",
             [
@@ -2275,6 +2333,7 @@ def main(argv: list[str] | None = None) -> int:
             "--request-snapshot", "用 UTF-8 JSON 文件输入跑一遍自检",
             "--clarification-json-file", str(clarification_file),
             "--requirement-items-json-file", str(requirement_items_file),
+            "--decisions-json-file", str(decisions_file),
             "--acceptance", "CLI file inputs are consumed without Base64",
             "--in-scope", "temporary CLI fixture",
             "--delivery-scenario", "DS-03",

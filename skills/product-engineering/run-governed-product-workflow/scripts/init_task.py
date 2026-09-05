@@ -90,6 +90,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--clarification-notice", default="", help="实际展示给需求提出者的那句话，原文存档")
     parser.add_argument("--clarification-basis", default="", help="零轮或结束澄清所依据的勘察结论")
     parser.add_argument("--survey-ref", action="append", default=[], help="勘察证据引用；可重复")
+    decisions = parser.add_mutually_exclusive_group()
+    decisions.add_argument("--decisions-json-base64", help="Base64 UTF-8 JSON array of human decisions")
+    decisions.add_argument("--decisions-json-file", type=Path, help="UTF-8 JSON file: Proceed/Acceptance 等人的决定")
     items = parser.add_mutually_exclusive_group()
     items.add_argument("--requirement-items-json-base64", help="Base64 UTF-8 JSON array of requirement items")
     items.add_argument("--requirement-items-json-file", type=Path, help="UTF-8 JSON file: 需求原文逐条拆解")
@@ -134,6 +137,9 @@ def main() -> int:
         snapshot = decode_json_input(args.source_snapshot_json_base64, args.source_snapshot_json_file, dict, "source snapshot")
         manifest = decode_json_input(args.artifact_manifest_json_base64, args.artifact_manifest_json_file, list, "artifact manifest")
         questions = decode_json_input(args.open_questions_json_base64, args.open_questions_json_file, list, "open questions")
+        decisions_value = decode_json_input(
+            args.decisions_json_base64, args.decisions_json_file, list, "decisions"
+        )
         requirement_items = decode_json_input(
             args.requirement_items_json_base64, args.requirement_items_json_file, list, "requirement items"
         )
@@ -217,6 +223,7 @@ def main() -> int:
             open_questions=questions or [],
             clarification=clarification,
             requirement_items=requirement_items,
+            decisions=decisions_value,
             required_gates=args.required_gate,
             authority_references=args.authority_reference,
             authority_assessments=authority_assessments or [],

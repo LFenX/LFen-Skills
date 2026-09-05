@@ -5,7 +5,7 @@
   "work_item_id": "W-RWPW-20260822-004",
   "task_id": "T-RWPW-20260822-004",
   "ordinal": 5,
-  "revision": 4,
+  "revision": 5,
   "lifecycle_state": "Frozen",
   "created_at": "2026-08-22T08:11:11Z",
   "frozen_at": "2026-08-22T08:12:08Z",
@@ -417,6 +417,16 @@
       "reason": "schema migration: requirement_items 成为必填载体",
       "basis": "legacy-backfill；按原话子句逐条生成，不追认未发生的逐条核对",
       "changed_at": "2026-09-05T07:30:49Z"
+    },
+    {
+      "from_revision": 4,
+      "to_revision": 5,
+      "path": "decisions",
+      "old_value": null,
+      "new_value": [],
+      "reason": "schema migration: decisions 成为必填载体",
+      "basis": "legacy-backfill；当时未记录任何人的决定，留空即为如实",
+      "changed_at": "2026-09-05T07:38:33Z"
     }
   ],
   "tailoring_resolution": {
@@ -760,5 +770,6 @@
       "state": "NotARequirement",
       "evidence_refs": []
     }
-  ]
+  ],
+  "decisions": []
 }

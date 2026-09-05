@@ -266,6 +266,7 @@ def create_minimal_record(
     objective: str,
     clarification: dict[str, Any] | None = None,
     requirement_items: Iterable[dict[str, Any]] | None = None,
+    decisions: Iterable[dict[str, Any]] | None = None,
     scope: str,
     acceptance: str,
     delivery_scenario: str,
@@ -433,6 +434,7 @@ def create_minimal_record(
             "objective": values["objective"],
             "request_snapshot": request_snapshot,  # 必填：用户原话是验收基准
             "requirement_items": list(requirement_items or []),
+            "decisions": list(decisions or []),
             "clarification": clarification or {
                 "state": "Open",
                 "mode": "Asked",
