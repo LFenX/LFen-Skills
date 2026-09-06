@@ -154,6 +154,7 @@ def main() -> int:
                 "survey_refs": args.survey_ref,
                 "rounds": [],
                 "basis": args.clarification_basis,
+                "reopened_by": [],
             }
         authority_assessments = decode_json_input(
             args.authority_assessments_json_base64,

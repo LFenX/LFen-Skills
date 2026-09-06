@@ -1286,6 +1286,33 @@ def validate_requirement_items(
             if not any(quote and (quote in clause or clause in quote) for quote in quotes):
                 errors.append(f"{label}: no requirement item accounts for: {clause[:48]}")
 
+    # A clause nobody can say how to verify is a clause that was not understood. Tying
+    # every requirement to an acceptance criterion makes "not specific enough" a
+    # structural fact instead of a feeling: if it cannot be tied, the answer is to ask,
+    # not to invent a criterion -- inventing one is what principle 10 exists to stop.
+    # The full carrier holds acceptance.criteria as a list; Minimal holds a single
+    # string. Both are the same control, so both index the same way.
+    acceptance = before.get("acceptance")
+    if isinstance(acceptance, dict):
+        criteria = acceptance.get("criteria") or []
+    elif isinstance(acceptance, str) and acceptance.strip():
+        criteria = [acceptance]
+    else:
+        criteria = []
+    for item in items:
+        if not isinstance(item, dict) or item.get("state") == "NotARequirement":
+            continue
+        refs = item.get("acceptance_refs")
+        if not refs:
+            errors.append(
+                f"{item.get('id')} has no acceptance criterion: {str(item.get('quote',''))[:40]}"
+                " -- if none can be written, that is a question for the requester"
+            )
+            continue
+        for ref in refs:
+            if not isinstance(ref, int) or not 0 <= ref < len(criteria):
+                errors.append(f"{item.get('id')}: acceptance_refs[{ref}] is out of range")
+
     if require_discharge:
         for item in items:
             if not isinstance(item, dict):
@@ -1364,6 +1391,39 @@ def require_decision(before: dict[str, Any], kind: str, at: str) -> list[str]:
     ]
 
 
+CLARIFICATION_REOPEN_FAILURE_THRESHOLD = 2
+
+
+def validate_survey_refs(project_root: Path, clarification: Any) -> list[str]:
+    """A zero-round claim has to point at something real.
+
+    Skipping the question round used to cost four arbitrary strings: a notice, a basis
+    and any non-empty survey_refs. `["looked at it"]` passed. The survey is the whole
+    justification for not asking, so at least one of its references must resolve to a
+    file that actually exists -- the one half of this record the Agent cannot invent.
+    """
+
+    if not isinstance(clarification, dict):
+        return ["clarification is required"]
+    refs = [str(item) for item in clarification.get("survey_refs") or []]
+    if not refs:
+        return ["clarification.survey_refs must cite the survey the decision rests on"]
+    root = Path(project_root).resolve()
+    for ref in refs:
+        candidate = ref.split("://", 1)[-1] if "://" in ref else ref
+        candidate = candidate.rsplit(":", 1)[0] if re.search(r":\d", candidate) else candidate
+        target = (root / candidate.strip()).resolve()
+        # A file, not a directory: "." resolves and proves nothing, and the point of the
+        # reference is to name what was actually read.
+        if target.is_file() and target != root:
+            return []
+    return [
+        "clarification.survey_refs cites nothing that exists in the project: "
+        + ", ".join(refs[:4])
+        + "; a survey that justifies not asking has to name a real file, as path or path:line"
+    ]
+
+
 def validate_clarification(clarification: Any) -> list[str]:
     """Report why S1 is not settled yet.
 
@@ -1408,6 +1468,21 @@ def validate_clarification(clarification: Any) -> list[str]:
         )
     if state != "Settled":
         errors.append("clarification.state must be Settled before the task leaves S1")
+    # Being wrong is evidence the understanding was wrong. Each reopening has to be
+    # answered by its own round: flipping the state back is not asking anything.
+    reopened = [str(item) for item in clarification.get("reopened_by") or []]
+    if reopened:
+        if mode != "Asked":
+            errors.append(
+                "clarification was reopened by " + "; ".join(reopened)
+                + ", so it can no longer be Skipped -- ask, do not re-assert"
+            )
+        if len(rounds) < len(reopened):
+            errors.append(
+                f"clarification was reopened {len(reopened)} time(s) but carries "
+                f"{len(rounds)} round(s); each reopening needs its own round: "
+                + "; ".join(reopened)
+            )
     return errors
 
 
@@ -2358,6 +2433,7 @@ def initialize_task(
         "survey_refs": ["none-recorded"],
         "rounds": [],
         "basis": "init_task was called without a clarification record; S1 is unsettled",
+        "reopened_by": [],
     }
     analysis = first_principles_analysis or build_default_first_principles_analysis(
         objective=objective,
@@ -2436,6 +2512,9 @@ def initialize_task(
         before["task_profile"], stage=tailoring_stage, contract_context=before
     )
     require_valid_json_document(before, "task-before.schema.json", "before")
+    survey_errors = validate_survey_refs(project_root, before.get("clarification"))
+    if survey_errors:
+        raise GovernanceError("; ".join(survey_errors))
     requirement_errors = validate_requirement_items(before)
     if requirement_errors:
         raise GovernanceError("; ".join(requirement_errors))
@@ -2626,6 +2705,31 @@ def _refresh_tailoring_after_amendment(
     )
 
 
+CLARIFICATION_REOPEN_PATHS = ("objective", "scope", "acceptance")
+
+
+def reopen_clarification(document: dict[str, Any], reason: str) -> bool:
+    """Send S1 back to Open because something says the understanding was wrong.
+
+    Changing what is being built, what is in scope, or what counts as done is evidence
+    that the original reading missed something. So is failing the same task twice. Both
+    used to leave clarification sitting at Settled forever: an Agent could be wrong
+    repeatedly and the record still said the requirement was understood on the first
+    pass. Reopening puts the existing S2 blocker back in the way, so the next material
+    action cannot happen until someone has actually asked.
+    """
+
+    clarification = document.get("clarification")
+    if not isinstance(clarification, dict):
+        return False
+    reopened = clarification.setdefault("reopened_by", [])
+    if not isinstance(reopened, list) or reason in reopened:
+        return False
+    reopened.append(reason)
+    clarification["state"] = "Open"
+    return True
+
+
 def amend_record(
     path: Path,
     *,
@@ -2646,6 +2750,8 @@ def amend_record(
     if not isinstance(from_revision, int):
         raise GovernanceError(f"{path}: revision must be an integer")
     document["revision"] = from_revision + 1
+    if dotted_path.split(".")[0] in CLARIFICATION_REOPEN_PATHS:
+        reopen_clarification(document, f"amendment:{dotted_path}")
     amendments = document.setdefault("amendments", [])
     if not isinstance(amendments, list):
         raise GovernanceError(f"{path}: amendments must be an array")
@@ -2701,6 +2807,8 @@ def amend_record_batch(
             document, dotted_path, change["value"], allow_add=bool(change.get("allow_add"))
         )
         document["revision"] = from_revision + 1
+        if dotted_path.split(".")[0] in CLARIFICATION_REOPEN_PATHS:
+            reopen_clarification(document, f"amendment:{dotted_path}")
         amendments.append(
             {
                 "from_revision": from_revision,
@@ -2840,9 +2948,19 @@ def append_run_event(
         "redactions": list(redactions),
     }
     require_valid_json_document(event, "run-event.schema.json", f"run[{sequence}]")
+    contract_changed = False
     if not events:
         before["lifecycle_state"] = "Frozen"
         before["frozen_at"] = event["timestamp"]
+        contract_changed = True
+    # One failure can be the environment. Two on the same task is the plan being wrong,
+    # and a wrong plan usually means the request was read wrong -- which is a question
+    # for the requester, not another attempt.
+    if event_type == "failure":
+        failures = sum(1 for item in events if item.get("event_type") == "failure") + 1
+        if failures >= CLARIFICATION_REOPEN_FAILURE_THRESHOLD:
+            contract_changed |= reopen_clarification(before, f"failures:{failures}")
+    if contract_changed:
         require_valid_json_document(before, "task-before.schema.json", "before")
         atomic_write_json(before_path, before)
     append_jsonl(ledger_path, event)
@@ -3113,6 +3231,9 @@ def close_task(
         acceptance_errors = require_decision(before, "Acceptance", "an Implemented outcome")
         if acceptance_errors:
             raise GovernanceError("; ".join(acceptance_errors))
+    survey_errors = validate_survey_refs(task_dir.resolve().parents[2], before.get("clarification"))
+    if survey_errors:
+        raise GovernanceError("; ".join(survey_errors))
     discharge_errors = validate_requirement_items(before, require_discharge=True)
     if discharge_errors:
         raise GovernanceError(

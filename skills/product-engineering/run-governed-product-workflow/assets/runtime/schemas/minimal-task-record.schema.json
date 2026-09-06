@@ -187,7 +187,8 @@
               "quote",
               "reading",
               "state",
-              "evidence_refs"
+              "evidence_refs",
+              "acceptance_refs"
             ],
             "properties": {
               "id": {
@@ -221,7 +222,8 @@
                   "type": "string",
                   "minLength": 1
                 }
-              }
+            },
+              "acceptance_refs": {"type": "array", "items": {"type": "integer", "minimum": 0}}
             }
           }
         },
@@ -234,7 +236,8 @@
             "notice",
             "survey_refs",
             "rounds",
-            "basis"
+            "basis",
+            "reopened_by"
           ],
           "properties": {
             "state": {
@@ -330,7 +333,8 @@
             "basis": {
               "type": "string",
               "minLength": 1
-            }
+            },
+            "reopened_by": {"type": "array", "items": {"type": "string", "minLength": 1}}
           }
         },
         "scope": {"type": "string", "minLength": 1},

@@ -23,6 +23,7 @@ from governance_artifacts import (
     validate_json_document,
     validate_clarification,
     validate_requirement_items,
+    validate_survey_refs,
     require_decision,
 )
 
@@ -398,6 +399,9 @@ def create_minimal_record(
     timestamp = now_utc()
     triggers = {extension: "Inactive" for extension in EXTENSIONS}
     content_ref = f".project-governance/tasks/{task_id}/task-record.json"
+    survey_errors = validate_survey_refs(project_root, clarification)
+    if survey_errors:
+        raise GovernanceError("; ".join(survey_errors))
     record = {
         "schema_version": "6.3-candidate",
         "carrier_version": "minimal-task-record-v1",
@@ -443,6 +447,7 @@ def create_minimal_record(
                 "survey_refs": ["none-recorded"],
                 "rounds": [],
                 "basis": "create_minimal_record was called without a clarification record",
+                "reopened_by": [],
             },
             "scope": values["scope"],
                 "out_of_scope": out_values,

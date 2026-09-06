@@ -196,6 +196,7 @@ def resolve_clarification(args: argparse.Namespace) -> dict | None:
             "survey_refs": args.survey_ref,
             "rounds": [],
             "basis": args.clarification_basis,
+            "reopened_by": [],
         }
     return value
 

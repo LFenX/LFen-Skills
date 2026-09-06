@@ -5,7 +5,7 @@
   "work_item_id": "W-CATALOG-20260901-001",
   "task_id": "T-CATALOG-20260901-001",
   "ordinal": 6,
-  "revision": 10,
+  "revision": 12,
   "lifecycle_state": "Frozen",
   "created_at": "2026-09-01T08:48:15Z",
   "frozen_at": "2026-09-01T08:50:22Z",
@@ -3865,6 +3865,63 @@
       "reason": "schema migration: decisions 成为必填载体",
       "basis": "legacy-backfill；当时未记录任何人的决定，留空即为如实",
       "changed_at": "2026-09-05T07:38:33Z"
+    },
+    {
+      "from_revision": 10,
+      "to_revision": 11,
+      "path": "requirement_items",
+      "old_value": null,
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "现在我需要你对我的skill仓库做优化，参考其他开源skill仓库的分类方法，对本skill仓库做优化",
+          "reading": "迁移补录：本条在任务运行时未逐条留证，此处不是逐条核对的结果",
+          "state": "Covered",
+          "evidence_refs": [
+            "legacy://no-item-level-evidence-recorded"
+          ],
+          "acceptance_refs": [
+            0
+          ]
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "注意，很多地方储存的skill用的是本项目某些skill的junction，如果你修改了目录，要同步修改这些junction",
+          "reading": "迁移补录：本条在任务运行时未逐条留证，此处不是逐条核对的结果",
+          "state": "Covered",
+          "evidence_refs": [
+            "legacy://no-item-level-evidence-recorded"
+          ],
+          "acceptance_refs": [
+            0
+          ]
+        }
+      ],
+      "reason": "schema migration: requirement_items.acceptance_refs 与 clarification.reopened_by 成为必填",
+      "basis": "legacy-backfill；判据挂载按实际覆盖关系填写，未发生过重开故 reopened_by 为空",
+      "changed_at": "2026-09-05T14:58:50Z"
+    },
+    {
+      "from_revision": 11,
+      "to_revision": 12,
+      "path": "clarification",
+      "old_value": null,
+      "new_value": {
+        "state": "Settled",
+        "mode": "Skipped",
+        "notice": "（迁移补录）本任务运行时澄清载体尚不存在，当时未向需求提出者展示任何澄清说明。",
+        "survey_refs": [
+          "legacy://no-survey-recorded"
+        ],
+        "rounds": [],
+        "basis": "schema 迁移补录，不是澄清已执行的证据：本任务早于 clarification 载体，当时既未提问也未记录零轮理由。",
+        "reopened_by": []
+      },
+      "reason": "schema migration: requirement_items.acceptance_refs 与 clarification.reopened_by 成为必填",
+      "basis": "legacy-backfill；判据挂载按实际覆盖关系填写，未发生过重开故 reopened_by 为空",
+      "changed_at": "2026-09-05T14:58:50Z"
     }
   ],
   "tailoring_resolution": {
@@ -4271,7 +4328,8 @@
       "legacy://no-survey-recorded"
     ],
     "rounds": [],
-    "basis": "schema 迁移补录，不是澄清已执行的证据：本任务早于 clarification 载体，当时既未提问也未记录零轮理由。"
+    "basis": "schema 迁移补录，不是澄清已执行的证据：本任务早于 clarification 载体，当时既未提问也未记录零轮理由。",
+    "reopened_by": []
   },
   "requirement_items": [
     {
@@ -4282,6 +4340,9 @@
       "state": "Covered",
       "evidence_refs": [
         "legacy://no-item-level-evidence-recorded"
+      ],
+      "acceptance_refs": [
+        0
       ]
     },
     {
@@ -4292,6 +4353,9 @@
       "state": "Covered",
       "evidence_refs": [
         "legacy://no-item-level-evidence-recorded"
+      ],
+      "acceptance_refs": [
+        0
       ]
     }
   ],

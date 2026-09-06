@@ -218,7 +218,7 @@
       "source": "skill-local:schemas/minimal-task-record.schema.json",
       "logical_path": "schemas/minimal-task-record.schema.json",
       "embedded": "assets/runtime/schemas/minimal-task-record.schema.json",
-      "sha256": "ae4700caa27975997ca0bd474bb18c5de8d456cc095094015c7bcf481329563b"
+      "sha256": "7a0a40d8da4ee675274895ce7235eee67f8772dcef643fa2d63088741a3c7a77"
     },
     {
       "role": "schema",
@@ -274,7 +274,7 @@
       "source": "skill-local:schemas/task-before.schema.json",
       "logical_path": "schemas/task-before.schema.json",
       "embedded": "assets/runtime/schemas/task-before.schema.json",
-      "sha256": "e6fcaa931141d6f24419d38d338b84ca8631b094b2155fcaa90c30586392dc90"
+      "sha256": "b8e7261c8a03b888ab477fdd776666a307ce05af51094a6a712d8c2b60b87d6f"
     },
     {
       "role": "evaluation",
