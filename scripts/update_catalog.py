@@ -22,6 +22,8 @@ REQUIRED_SCOPE_IDS = {"general", "team", "project"}
 TAXONOMY_SCHEMA_VERSION = 3
 README_START = "<!-- catalog-summary:start -->"
 README_END = "<!-- catalog-summary:end -->"
+SKILLS_START = "<!-- catalog-detail:start -->"
+SKILLS_END = "<!-- catalog-detail:end -->"
 
 
 class CatalogError(ValueError):
@@ -540,29 +542,43 @@ def render_index(
     return json.dumps(index, ensure_ascii=False, indent=2) + "\n"
 
 
+def render_skill_table(taxonomy: dict[str, Any], skills: dict[str, Skill]) -> str:
+    lines = [
+        "| 分类 | Skill | 能力说明 |",
+        "| --- | --- | --- |",
+    ]
+    for category in taxonomy["categories"]:
+        lines.append(
+            f"| [**{category['name']}**](CATALOG.md#{category['id']}) |  | "
+            f"{escape_table(str(category['description']))} |"
+        )
+        for name in collect_node_skills(category):
+            skill = skills[name]
+            lines.append(
+                f"|  | [`{name}`]({skill_relative_path(skill)}/SKILL.md) | "
+                f"{escape_table(str(skill.description))} |"
+            )
+    return "\n".join(lines)
+
+
 def render_readme(current: str, taxonomy: dict[str, Any], skills: dict[str, Skill]) -> str:
     start = current.find(README_START)
     end = current.find(README_END)
     if start < 0 or end < 0 or end < start:
         raise CatalogError("README.md 缺少有效的分类摘要标记")
 
-    lines = [
-        README_START,
-        "| 分类 | 定义 | Skills |",
-        "| --- | --- | --- |",
-    ]
-    for category in taxonomy["categories"]:
-        skill_links = [
-            f"[`{name}`]({skill_relative_path(skills[name])}/SKILL.md)"
-            for name in collect_node_skills(category)
-        ]
-        lines.append(
-            f"| [{category['name']}](CATALOG.md#{category['id']}) | "
-            f"{escape_table(str(category['description']))} | {', '.join(skill_links)} |"
-        )
-    lines.append(README_END)
-    block = "\n".join(lines)
+    block = "\n".join([README_START, render_skill_table(taxonomy, skills), README_END])
     return current[:start] + block + current[end + len(README_END) :]
+
+
+def render_skills_page(current: str, taxonomy: dict[str, Any], skills: dict[str, Skill]) -> str:
+    start = current.find(SKILLS_START)
+    end = current.find(SKILLS_END)
+    if start < 0 or end < 0 or end < start:
+        raise CatalogError("SKILLS.md 缺少有效的分类明细标记")
+
+    block = "\n".join([SKILLS_START, render_skill_table(taxonomy, skills), SKILLS_END])
+    return current[:start] + block + current[end + len(SKILLS_END) :]
 
 
 def main() -> int:
@@ -581,6 +597,9 @@ def main() -> int:
         readme_path = ROOT / "README.md"
         readme = readme_path.read_text(encoding="utf-8")
         rendered_readme = render_readme(readme, taxonomy, skills)
+        skills_page_path = ROOT / "SKILLS.md"
+        skills_page = skills_page_path.read_text(encoding="utf-8")
+        rendered_skills_page = render_skills_page(skills_page, taxonomy, skills)
 
         if args.check:
             if not catalog_path.exists() or catalog_path.read_text(encoding="utf-8") != rendered_catalog:
@@ -593,6 +612,8 @@ def main() -> int:
                 )
             if readme != rendered_readme:
                 raise CatalogError("README.md 的分类摘要不是最新版本；运行 python scripts/update_catalog.py")
+            if skills_page != rendered_skills_page:
+                raise CatalogError("SKILLS.md 的分类明细不是最新版本；运行 python scripts/update_catalog.py")
             print(
                 f"分类目录校验通过：{len(skills)} 个 skill，{len(taxonomy['categories'])} 个一级分类，"
                 "Markdown 与 JSON 目录一致"
@@ -603,8 +624,9 @@ def main() -> int:
         index_path.parent.mkdir(parents=True, exist_ok=True)
         index_path.write_text(rendered_index, encoding="utf-8", newline="\n")
         readme_path.write_text(rendered_readme, encoding="utf-8", newline="\n")
+        skills_page_path.write_text(rendered_skills_page, encoding="utf-8", newline="\n")
         print(
-            f"已更新 README.md、{catalog_path.relative_to(ROOT)} 与 {index_path.relative_to(ROOT)}："
+            f"已更新 README.md、SKILLS.md、{catalog_path.relative_to(ROOT)} 与 {index_path.relative_to(ROOT)}："
             f"{len(skills)} 个 skill"
         )
         return 0
