@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="gViolet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#A78BFA"/>
+      <stop offset="1" stop-color="#6366F1"/>
+    </linearGradient>
+    <linearGradient id="gCyan" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+    <linearGradient id="gAmber" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FBBF24"/>
+      <stop offset="1" stop-color="#F43F5E"/>
+    </linearGradient>
+  </defs>
+
+  <!-- top hexagon: code -->
+  <polygon points="338.3,197.5 256,245 173.7,197.5 173.7,102.5 256,55 338.3,102.5"
+           fill="url(#gViolet)" stroke="#FFFFFF" stroke-width="12" stroke-linejoin="round"/>
+  <polyline points="234,118 204,150 234,182" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="278,118 308,150 278,182" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- bottom-left hexagon: data grid -->
+  <polygon points="173.8,340 91.5,387.5 9.2,340 9.2,245 91.5,197.5 173.8,245"
+           fill="url(#gCyan)" stroke="#FFFFFF" stroke-width="12" stroke-linejoin="round"/>
+  <rect x="52.5" y="253.5" width="34" height="34" rx="8" fill="#FFFFFF"/>
+  <rect x="96.5" y="253.5" width="34" height="34" rx="8" fill="#FFFFFF"/>
+  <rect x="52.5" y="297.5" width="34" height="34" rx="8" fill="#FFFFFF"/>
+  <rect x="96.5" y="297.5" width="34" height="34" rx="8" fill="#FFFFFF"/>
+
+  <!-- bottom-right hexagon: layers -->
+  <polygon points="502.8,340 420.5,387.5 338.2,340 338.2,245 420.5,197.5 502.8,245"
+           fill="url(#gAmber)" stroke="#FFFFFF" stroke-width="12" stroke-linejoin="round"/>
+  <polygon points="420.5,254 453,273 420.5,292 388,273" fill="#FFFFFF"/>
+  <polyline points="388,303 420.5,322 453,303" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="388,333 420.5,352 453,333" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
