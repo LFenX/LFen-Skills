@@ -3,6 +3,10 @@
 </p>
 
 <p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Manrope&size=22&pause=1200&color=8B5CF6&center=true&vCenter=true&width=700&lines=%E6%88%91%E8%87%AA%E5%B7%B1%E5%B7%A5%E4%BD%9C%E5%AD%A6%E4%B9%A0%E4%B8%AD%E6%B2%89%E6%B7%80%E7%9A%84+Agent+Skills;%E5%AF%B9%E4%BD%A0%E6%9C%89%E7%94%A8+%C2%B7+%E6%AC%A2%E8%BF%8E%E8%87%AA%E5%8F%96;%E4%B8%80%E6%9D%A1%E5%91%BD%E4%BB%A4%E5%AE%89%E8%A3%85%E5%88%B0+7+%E4%B8%AA%E5%B9%B3%E5%8F%B0" alt="我自己工作学习中沉淀的 Agent Skills">
+</p>
+
+<p align="center">
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
@@ -15,10 +19,6 @@
   <img src="https://img.shields.io/badge/README-8B5CF6?style=flat" alt="README">
   <a href="SKILLS.md"><img src="https://img.shields.io/badge/Skills_%E4%B8%80%E8%A7%88-475569?style=flat" alt="Skills 一览"></a>
   <a href="README.en.md"><img src="https://img.shields.io/badge/English-475569?style=flat" alt="English"></a>
-</p>
-
-<p align="center">
-  <img src="assets/install-demo.gif" alt="安装演示" width="88%">
 </p>
 
 ## 安装
@@ -36,7 +36,7 @@ curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
 ```
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Manrope&size=22&pause=1200&color=8B5CF6&center=true&vCenter=true&width=700&lines=%E6%88%91%E8%87%AA%E5%B7%B1%E5%B7%A5%E4%BD%9C%E5%AD%A6%E4%B9%A0%E4%B8%AD%E6%B2%89%E6%B7%80%E7%9A%84+Agent+Skills;%E5%AF%B9%E4%BD%A0%E6%9C%89%E7%94%A8+%C2%B7+%E6%AC%A2%E8%BF%8E%E8%87%AA%E5%8F%96;%E4%B8%80%E6%9D%A1%E5%91%BD%E4%BB%A4%E5%AE%89%E8%A3%85%E5%88%B0+7+%E4%B8%AA%E5%B9%B3%E5%8F%B0" alt="我自己工作学习中沉淀的 Agent Skills">
+  <img src="assets/install-demo.gif" alt="安装演示" width="100%">
 </p>
 
 运行后按提示选平台、选 skill 即可。skill 以 junction（Windows）/ symlink 链接到本地 `~/.lfenskills` 克隆，之后 `git pull` 原地更新。
