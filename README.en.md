@@ -3,8 +3,7 @@
 </p>
 
 <p align="center">
-  Agent Skills distilled from my own work and study — feel free to take whatever is useful to you.<br>
-  Every skill is self-contained, installed to 7 platforms with one command.
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1200&color=8B5CF6&center=true&vCenter=true&width=700&lines=Agent+Skills+distilled+from+my+work+and+study;Take+whatever+is+useful+to+you;One+command+%C2%B7+7+platforms" alt="Agent Skills distilled from my work and study">
 </p>
 
 <p align="center">
@@ -20,6 +19,10 @@
   <img src="https://img.shields.io/badge/%F0%9F%8F%A0_README-8B5CF6?style=for-the-badge" alt="README">
   <a href="SKILLS.en.md"><img src="https://img.shields.io/badge/%F0%9F%93%A6_Skills-334155?style=for-the-badge" alt="Skills"></a>
   <a href="README.md"><img src="https://img.shields.io/badge/%F0%9F%8C%90_%E4%B8%AD%E6%96%87-334155?style=for-the-badge" alt="中文"></a>
+</p>
+
+<p align="center">
+  <img src="assets/install-demo.gif" alt="install demo" width="88%">
 </p>
 
 ## Install

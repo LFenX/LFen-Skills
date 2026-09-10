@@ -3,8 +3,7 @@
 </p>
 
 <p align="center">
-  我自己工作学习中沉淀的 Agent Skills，对你有用欢迎自取。<br>
-  每个 skill 自包含，一条命令安装到 7 个平台。
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1200&color=8B5CF6&center=true&vCenter=true&width=700&lines=%E6%88%91%E8%87%AA%E5%B7%B1%E5%B7%A5%E4%BD%9C%E5%AD%A6%E4%B9%A0%E4%B8%AD%E6%B2%89%E6%B7%80%E7%9A%84+Agent+Skills;%E5%AF%B9%E4%BD%A0%E6%9C%89%E7%94%A8+%C2%B7+%E6%AC%A2%E8%BF%8E%E8%87%AA%E5%8F%96;%E4%B8%80%E6%9D%A1%E5%91%BD%E4%BB%A4%E5%AE%89%E8%A3%85%E5%88%B0+7+%E4%B8%AA%E5%B9%B3%E5%8F%B0" alt="我自己工作学习中沉淀的 Agent Skills">
 </p>
 
 <p align="center">
@@ -20,6 +19,10 @@
   <img src="https://img.shields.io/badge/%F0%9F%8F%A0_README-8B5CF6?style=for-the-badge" alt="README">
   <a href="SKILLS.md"><img src="https://img.shields.io/badge/%F0%9F%93%A6_Skills_%E4%B8%80%E8%A7%88-334155?style=for-the-badge" alt="Skills 一览"></a>
   <a href="README.en.md"><img src="https://img.shields.io/badge/%F0%9F%8C%90_English-334155?style=for-the-badge" alt="English"></a>
+</p>
+
+<p align="center">
+  <img src="assets/install-demo.gif" alt="安装演示" width="88%">
 </p>
 
 ## 安装
