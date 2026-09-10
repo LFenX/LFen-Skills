@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.svg" alt="LFen Skills" width="460">
+  <img src="assets/banner.svg" alt="LFen Skills" width="100%">
 </p>
 
 <p align="center">
@@ -9,13 +9,17 @@
 
 <p align="center">
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
-    <img src="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml/badge.svg?style=flat-square" alt="Catalog CI">
+    <img src="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml/badge.svg?style=for-the-badge" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/github/license/LFenX/LFen-Skills?style=flat-square" alt="license">
+  <img src="https://img.shields.io/badge/skills-5-8B5CF6?style=for-the-badge" alt="skills">
+  <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=for-the-badge" alt="platforms">
+  <img src="https://img.shields.io/github/license/LFenX/LFen-Skills?style=for-the-badge" alt="license">
 </p>
 
 <p align="center">
-  <b>🏠 README</b> &nbsp;·&nbsp; <a href="SKILLS.md">📦 Skills 一览</a> &nbsp;·&nbsp; <a href="README.en.md">English</a>
+  <img src="https://img.shields.io/badge/%F0%9F%8F%A0_README-8B5CF6?style=for-the-badge" alt="README">
+  <a href="SKILLS.md"><img src="https://img.shields.io/badge/%F0%9F%93%A6_Skills_%E4%B8%80%E8%A7%88-334155?style=for-the-badge" alt="Skills 一览"></a>
+  <a href="README.en.md"><img src="https://img.shields.io/badge/%F0%9F%8C%90_English-334155?style=for-the-badge" alt="English"></a>
 </p>
 
 ## 安装
@@ -81,3 +85,7 @@ curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
 ## 许可证
 
 [MIT](LICENSE)
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:8B5CF6,50:22D3EE,100:F59E0B&height=100&section=footer" width="100%" alt="">
+</p>

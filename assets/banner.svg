@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" width="1000" height="280">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#14122B"/>
+      <stop offset="0.55" stop-color="#1E1B4B"/>
+      <stop offset="1" stop-color="#2E1065"/>
+    </linearGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#A78BFA"/>
+      <stop offset="0.5" stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#FBBF24"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1000" height="280" rx="24" fill="url(#bg)"/>
+
+  <g fill="none" stroke="url(#brand)" stroke-width="2" opacity="0.18">
+    <polygon points="167.9,85 90,130 12.1,85 12.1,-5 90,-50 167.9,-5"/>
+    <polygon points="990.6,285 930,320 869.4,285 869.4,215 930,180 990.6,215"/>
+  </g>
+  <polygon points="813.8,68 800,76 786.2,68 786.2,52 800,44 813.8,52" fill="#FBBF24" opacity="0.22"/>
+  <polygon points="212.1,228 200,235 187.9,228 187.9,214 200,207 212.1,214" fill="#22D3EE" opacity="0.22"/>
+  <circle cx="850" cy="210" r="4" fill="#A78BFA" opacity="0.5"/>
+  <circle cx="150" cy="80" r="4" fill="#22D3EE" opacity="0.5"/>
+
+  <text x="500" y="140" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="76" font-weight="800" letter-spacing="2">
+    <tspan fill="#FFFFFF">LFen</tspan><tspan dx="16" font-weight="600" fill="url(#brand)">Skills</tspan><tspan fill="#F59E0B">.</tspan>
+  </text>
+  <text x="500" y="190" text-anchor="middle" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="19" letter-spacing="3" fill="#A5B4FC">REUSABLE AGENT SKILLS · 可复用的 AGENT SKILLS 集合</text>
+  <rect x="400" y="214" width="200" height="5" rx="2.5" fill="url(#brand)"/>
+</svg>
