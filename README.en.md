@@ -3,10 +3,6 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Manrope&size=22&pause=1200&color=8B5CF6&center=true&vCenter=true&width=700&lines=Agent+Skills+distilled+from+my+work+and+study;Take+whatever+is+useful+to+you;One+command+%C2%B7+7+platforms" alt="Agent Skills distilled from my work and study">
-</p>
-
-<p align="center">
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
@@ -38,6 +34,10 @@ iwr https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
 ```bash
 curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash
 ```
+
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Manrope&size=22&pause=1200&color=8B5CF6&center=true&vCenter=true&width=700&lines=Agent+Skills+distilled+from+my+work+and+study;Take+whatever+is+useful+to+you;One+command+%C2%B7+7+platforms" alt="Agent Skills distilled from my work and study">
+</p>
 
 Follow the prompts to pick platforms and skills. Skills are linked (junction on Windows, symlink elsewhere) to a local clone at `~/.lfenskills`, so a plain `git pull` there updates everything in place.
 
