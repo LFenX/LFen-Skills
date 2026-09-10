@@ -5,33 +5,55 @@
 <h1 align="center">LFen Skills</h1>
 
 <p align="center">
-  可复用的 Agent Skills 集合 · Reusable Agent Skills for AI Coding Assistants
+  <b>给 AI 编码助手装技能，一条命令装进 7 个平台。</b><br>
+  自包含的 Agent Skills 集合，junction 链接、`git pull` 原地更新、单一配置源自动生成分类目录
 </p>
 
 <p align="center">
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
-    <img src="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml/badge.svg" alt="Catalog CI">
+    <img src="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml/badge.svg?style=flat-square" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/Skills-5-8B5CF6" alt="Skills">
-  <img src="https://img.shields.io/badge/Platforms-7-0EA5E9" alt="Platforms">
-  <img src="https://img.shields.io/badge/License-MIT-2ea44f" alt="License">
-  <img src="https://img.shields.io/badge/PRs-welcome-F59E0B" alt="PRs Welcome">
+  <img src="https://img.shields.io/badge/skills-5-8B5CF6?style=flat-square" alt="skills">
+  <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat-square" alt="platforms">
+  <img src="https://img.shields.io/github/license/LFenX/LFen-Skills?style=flat-square" alt="license">
 </p>
+
+```text
+  ██╗     ███████╗███████╗███╗   ██╗
+  ██║     ██╔════╝██╔════╝████╗  ██║
+  ██║     █████╗  █████╗  ██╔██╗ ██║
+  ██║     ██╔══╝  ██╔══╝  ██║╚██╗██║
+  ███████╗██║     ███████╗██║ ╚████║
+  ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═══╝
+  Skills install
+
+  Select target platforms:
+
+   › [x] OpenCode       (also covers Cline/Warp/Zed/Kilo +17 more)
+     [x] Claude Code
+     [ ] Codex
+     [ ] Cursor
+     [ ] Gemini CLI
+     [ ] GitHub Copilot
+     [ ] Windsurf
+
+  [↑↓] Navigate  [Space] Toggle  [a] Select All  [Enter] Confirm  [q] Quit
+```
 
 <p align="center">🌐 语言 / Language</p>
 
 <details open>
 <summary>&nbsp;🇨🇳&nbsp; 中文</summary>
 
-## ✨ 亮点
+## 为什么不是复制粘贴？
 
-- **自包含**：每个 skill 独立成目录，附带自己的说明、脚本与资源，可单独安装与复用
-- **跨平台**：一键安装到 OpenCode、Claude Code、Codex、Cursor、Gemini CLI、Copilot、Windsurf 等平台
-- **单一配置源**：分类只维护在 `catalog/taxonomy.json`，README 摘要、`CATALOG.md`、`catalog/index.json` 全部由脚本生成
-- **CI 防漂移**：自动校验遗漏、重复归类、物理路径、非法元数据与生成物漂移
-- **三维分类**：主分类定位能力域，适用范围界定复用边界，标签支持跨领域检索
+| | 手动复制 skill 文件夹 | 用安装脚本 |
+| --- | --- | --- |
+| 装到多个平台 | 每个平台复制一遍 | 菜单里一次勾选 7 个 |
+| 更新 | 逐个重新复制，容易漏 | 克隆目录 `git pull`，所有 junction 原地生效 |
+| 装没装、装在哪 | 自己翻目录 | `-Status` 一条命令列出 |
 
-## 🚀 快速安装
+## 一条命令装好
 
 **Windows**
 
@@ -45,9 +67,7 @@ iwr https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
 curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash
 ```
 
-运行后：**↑↓** 选择平台，**空格** 勾选 skill（**A** 全选），**Enter** 开始安装。重启 AI 工具即可使用。
-
-**其他命令**
+装完重启 AI 工具即可。常用命令：
 
 ```powershell
 .\install.ps1 -Status                    # 查看各平台安装状态
@@ -55,11 +75,14 @@ curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
 .\install.ps1 -All -AllSkills -Force     # 静默全量安装
 ```
 
-## 💡 工作原理
+## 看一眼就能用
 
-Skill 以 symlink（Windows 下为 NTFS junction）形式链接到本地 `~/.lfenskills` 的 git 克隆。日常更新只需在克隆目录执行 `git pull`，所有已链接的 skill 原地生效，无需重新安装。
+- skill 都在 `skills/<分类>/<名称>/`，每个自包含，单独拷走也能用
+- 更新已装 skill：进 `~/.lfenskills` 执行 `git pull`，无需重装
+- 完整清单看 [`CATALOG.md`](CATALOG.md)，工具读 [`catalog/index.json`](catalog/index.json)
+- 加新 skill：写 `SKILL.md` → 登记 `catalog/taxonomy.json` → `python scripts/update_catalog.py --check`
 
-## 🖥 支持平台
+## 支持平台
 
 | 平台 | Skill 目录 | 备注 |
 | --- | --- | --- |
@@ -71,24 +94,7 @@ Skill 以 symlink（Windows 下为 NTFS junction）形式链接到本地 `~/.lfe
 | GitHub Copilot | `~/.copilot/skills/` | |
 | Windsurf | `~/.codeium/windsurf/skills/` | |
 
-## 🗂 仓库结构
-
-```text
-LFen-skills/
-├── skills/                    # 自包含 skill，按主分类组织
-│   ├── data-processing/       # 数据处理
-│   ├── product-engineering/   # 产品研发
-│   └── dev-tools/             # 开发工具
-├── catalog/                   # 分类源（taxonomy.json）与机器可读索引（index.json）
-├── scripts/
-│   └── update_catalog.py      # 目录生成与校验脚本
-├── assets/                    # Logo 等静态资源
-├── install.sh                 # macOS / Linux 安装脚本
-├── install.ps1                # Windows 安装脚本
-└── CATALOG.md                 # 生成的分类目录（勿直接编辑）
-```
-
-## 📦 Skill 分类一览
+## Skill 分类一览
 
 <!-- catalog-summary:start -->
 | 分类 | 定义 | Skills |
@@ -98,61 +104,37 @@ LFen-skills/
 | [开发工具](CATALOG.md#dev-tools) | 开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。 | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) |
 <!-- catalog-summary:end -->
 
-完整清单、适用范围、标签与参考来源见 [`CATALOG.md`](CATALOG.md)；工具可读取 [`catalog/index.json`](catalog/index.json)。
+## 分类模型
 
-## 🧭 分类模型
+每个 skill 只归入一个最具体的叶子分类；`scope` 区分通用 / 团队 / 项目级复用边界，不表示质量；跨领域检索走标签，不重复归类。分类的唯一配置源是 `catalog/taxonomy.json`，README 摘要、`CATALOG.md`、`catalog/index.json` 全部由脚本生成、CI 校验，请勿直接编辑。
 
-分类采用三个互补维度：
-
-1. **主分类**：按用户任务与能力域组织，每个 skill 只能归入一个最具体的叶子分类。
-2. **适用范围**：区分通用、团队和项目级能力，不表示质量等级。
-3. **标签**：表达跨领域主题和检索关键词，不通过重复归类实现多维导航。
-
-分类树最多两层。只有同一领域形成多个稳定主题后才增加子分类；物理目录与分类源一一对应，避免“文档分类”和“文件位置”分离。
-
-## ➕ 新增 Skill
+## 新增 Skill
 
 1. 在 `skills/<主分类>/` 下新增 `<skill-name>/SKILL.md`，目录名必须与 frontmatter 的 `name` 一致。
 2. 将 skill 名称加入 `catalog/taxonomy.json` 的同名叶子分类，并在 `skill_metadata` 中填写 `scope` 与排序后的 `tags`。
-3. 运行 `python scripts/update_catalog.py` 更新 README 摘要、`CATALOG.md` 和 `catalog/index.json`。
-4. 运行 `python scripts/update_catalog.py --check` 检查遗漏、重复归类、物理路径、非法元数据和生成物漂移，然后提交推送——CI 会自动校验。
+3. 运行 `python scripts/update_catalog.py` 重新生成 README 摘要、`CATALOG.md` 和 `catalog/index.json`。
+4. 运行 `python scripts/update_catalog.py --check` 检查遗漏、重复归类、非法元数据和生成物漂移，然后提交推送——CI 会自动校验。
 
-## 🔧 常用命令
+## 参考仓库
 
-```bash
-# 重新生成 README 摘要、CATALOG.md 与 catalog/index.json
-python scripts/update_catalog.py
-
-# 校验配置、物理目录与全部生成物是否一致（CI 同款检查）
-python scripts/update_catalog.py --check
-```
-
-`catalog/taxonomy.json` 是人工维护的唯一分类源；各 `SKILL.md` 的 `name` 与 `description` 是能力元数据源。README 摘要、`CATALOG.md` 和 `catalog/index.json` 都是可重建生成物，请勿直接编辑。移动目录时，必须同步所有外部 junction 目标。
-
-## 📚 参考仓库
-
-- [Anthropic Skills](https://github.com/anthropics/skills)：每个 skill 保持自包含，并按用户任务与能力用途提供概念分类。
-- [Microsoft Skills](https://github.com/microsoft/skills)：保持 skill 自包含，并在目录页按语言和领域主题分层展示、强调按需选择。
-- [NVIDIA Skills](https://github.com/NVIDIA/skills)：使用产品域、注册元数据和自动校验支持规模化发现与维护。
-
-## 📜 许可证
-
-[MIT](LICENSE)
+- [Anthropic Skills](https://github.com/anthropics/skills)：自包含 skill，按用户任务与能力用途分类。
+- [Microsoft Skills](https://github.com/microsoft/skills)：稳定主分类目录，按语言和领域分层导航。
+- [NVIDIA Skills](https://github.com/NVIDIA/skills)：注册元数据 + 自动校验，支撑规模化发现与维护。
 
 </details>
 
 <details>
 <summary>&nbsp;🇬🇧&nbsp; English</summary>
 
-## Highlights
+## Why not copy-paste?
 
-- **Self-contained**: every skill lives in its own folder with instructions, scripts, and assets — install and reuse individually
-- **Cross-platform**: one-click install to OpenCode, Claude Code, Codex, Cursor, Gemini CLI, Copilot, Windsurf, and more
-- **Single source of truth**: categories are maintained only in `catalog/taxonomy.json`; the README summary, `CATALOG.md`, and `catalog/index.json` are all generated
-- **CI drift protection**: automated validation catches missing entries, duplicate assignments, path mismatches, illegal metadata, and generated-file drift
-- **Three-dimensional taxonomy**: primary categories locate the capability domain, scope defines reuse boundaries, and tags enable cross-domain discovery
+| | Copying skill folders by hand | Using the install script |
+| --- | --- | --- |
+| Install to multiple platforms | Copy once per platform | Tick 7 platforms in one menu |
+| Updates | Re-copy each skill, easy to miss | `git pull` in the clone, every junction updates in place |
+| What's installed where | Hunt through directories | One `-Status` command lists it all |
 
-## Quick Install
+## One Command to Install
 
 **Windows**
 
@@ -166,9 +148,7 @@ iwr https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
 curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash
 ```
 
-After running: pick a platform with **↑↓**, toggle skills with **Space** (or **A** for all), **Enter** to install. Restart your AI tool and you're done.
-
-**Other commands**
+Restart your AI tool and you're done. Other commands:
 
 ```powershell
 .\install.ps1 -Status                    # Show what's installed where
@@ -176,9 +156,12 @@ After running: pick a platform with **↑↓**, toggle skills with **Space** (or
 .\install.ps1 -All -AllSkills -Force     # Silent full install
 ```
 
-## How It Works
+## Look Once and Use
 
-Skills are installed as symlinks (or NTFS junctions on Windows) pointing into a local git clone at `~/.lfenskills`. Run `git pull` there to update all linked skills in place — no reinstall needed.
+- Skills live in `skills/<category>/<name>/` — each is self-contained, so you can copy a single one too
+- Update installed skills: run `git pull` in `~/.lfenskills` — no reinstall needed
+- Full catalog in [`CATALOG.md`](CATALOG.md); tools can read [`catalog/index.json`](catalog/index.json)
+- Add a skill: write `SKILL.md` → register in `catalog/taxonomy.json` → `python scripts/update_catalog.py --check`
 
 ## Platform Support
 
@@ -192,23 +175,6 @@ Skills are installed as symlinks (or NTFS junctions on Windows) pointing into a 
 | GitHub Copilot | `~/.copilot/skills/` | |
 | Windsurf | `~/.codeium/windsurf/skills/` | |
 
-## Repository Layout
-
-```text
-LFen-skills/
-├── skills/                    # Self-contained skills, organized by category
-│   ├── data-processing/       # Data processing
-│   ├── product-engineering/   # Product engineering
-│   └── dev-tools/             # Dev tooling
-├── catalog/                   # Taxonomy source and machine-readable index
-├── scripts/
-│   └── update_catalog.py      # Catalog generator and validator
-├── assets/                    # Logo and static assets
-├── install.sh                 # macOS / Linux installer
-├── install.ps1                # Windows installer
-└── CATALOG.md                 # Generated catalog (do not edit directly)
-```
-
 ## Skill Catalog
 
 <!-- catalog-summary:start -->
@@ -219,33 +185,35 @@ LFen-skills/
 | [Dev Tools](CATALOG.md#dev-tools) | 开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。 | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) |
 <!-- catalog-summary:end -->
 
-Full details, scopes, tags, and references live in [`CATALOG.md`](CATALOG.md); tools can read [`catalog/index.json`](catalog/index.json).
-
 ## Taxonomy Model
 
-The taxonomy uses three complementary dimensions:
-
-1. **Primary category**: organized by user task and capability domain — each skill belongs to exactly one leaf category.
-2. **Scope**: general, team, or project — defines reuse boundaries, not quality levels.
-3. **Tags**: cross-domain themes and discovery keywords, instead of duplicate categorization.
-
-The tree is at most two levels deep. Subcategories are added only when a domain has multiple stable themes. Physical directories map one-to-one with the taxonomy so documentation never drifts from file locations.
+Each skill belongs to exactly one most-specific leaf category. `scope` marks reuse boundaries (general / team / project), not quality. Cross-domain discovery goes through tags, never duplicate categorization. The single source of truth is `catalog/taxonomy.json`; the README summary, `CATALOG.md`, and `catalog/index.json` are all generated and CI-validated — do not edit them directly.
 
 ## Adding a New Skill
 
 1. Create `skills/<category>/<skill-name>/SKILL.md` — the directory name must match the frontmatter `name`.
-2. Add the skill to the matching leaf category in `catalog/taxonomy.json` and fill in `scope` and sorted `tags` under `skill_metadata`.
+2. Add the skill to the matching leaf category in `catalog/taxonomy.json`, with `scope` and sorted `tags` under `skill_metadata`.
 3. Run `python scripts/update_catalog.py` to regenerate the README summary, `CATALOG.md`, and `catalog/index.json`.
-4. Run `python scripts/update_catalog.py --check` to verify assignments, paths, metadata, and generated files, then commit and push — CI validates everything automatically.
+4. Run `python scripts/update_catalog.py --check` to verify everything, then commit and push — CI validates automatically.
 
 ## References
 
-- [Anthropic Skills](https://github.com/anthropics/skills): self-contained skills with conceptual categorization by user task.
-- [Microsoft Skills](https://github.com/microsoft/skills): self-contained skills with layered directory navigation.
-- [NVIDIA Skills](https://github.com/NVIDIA/skills): auto-generated indices with registered metadata and validation.
-
-## License
-
-[MIT](LICENSE)
+- [Anthropic Skills](https://github.com/anthropics/skills): self-contained skills categorized by user task.
+- [Microsoft Skills](https://github.com/microsoft/skills): stable category directories with layered navigation.
+- [NVIDIA Skills](https://github.com/NVIDIA/skills): registered metadata plus automated validation at scale.
 
 </details>
+
+<br>
+
+<p align="center">
+  <a href="CATALOG.md">CATALOG.md</a> ·
+  <a href="catalog/index.json">catalog/index.json</a> ·
+  <a href="install.ps1">install.ps1</a> ·
+  <a href="install.sh">install.sh</a> ·
+  <a href="LICENSE">License</a>
+</p>
+
+<p align="center">
+  <sub>MIT License · LFen Skills</sub>
+</p>
