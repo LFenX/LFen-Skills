@@ -16,9 +16,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/%E2%97%8F_README-8B5CF6?style=flat" alt="README">
-  <a href="SKILLS.en.md"><img src="https://img.shields.io/badge/Skills-94A3B8?style=flat" alt="Skills"></a>
-  <a href="README.md"><img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-94A3B8?style=flat" alt="中文"></a>
+  <a href="README.en.md"><img src="https://img.shields.io/badge/%E2%97%8F_README-8B5CF6?style=flat" alt="README"></a>
+  <a href="SKILLS.en.md"><img src="https://img.shields.io/badge/Skills-64748B?style=flat" alt="Skills"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-64748B?style=flat" alt="中文"></a>
 </p>
 
 ## Install

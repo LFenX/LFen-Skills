@@ -16,9 +16,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/%E2%97%8F_README-8B5CF6?style=flat" alt="README">
-  <a href="SKILLS.md"><img src="https://img.shields.io/badge/Skills_%E4%B8%80%E8%A7%88-94A3B8?style=flat" alt="Skills 一览"></a>
-  <a href="README.en.md"><img src="https://img.shields.io/badge/English-94A3B8?style=flat" alt="English"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/%E2%97%8F_README-8B5CF6?style=flat" alt="README"></a>
+  <a href="SKILLS.md"><img src="https://img.shields.io/badge/Skills_%E4%B8%80%E8%A7%88-64748B?style=flat" alt="Skills 一览"></a>
+  <a href="README.en.md"><img src="https://img.shields.io/badge/English-64748B?style=flat" alt="English"></a>
 </p>
 
 ## 安装
