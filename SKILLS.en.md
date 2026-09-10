@@ -12,9 +12,9 @@
 </p>
 
 <p align="center">
-  <a href="README.en.md"><img src="https://img.shields.io/badge/README-475569?style=flat" alt="README"></a>
-  <img src="https://img.shields.io/badge/Skills-8B5CF6?style=flat" alt="Skills">
-  <a href="SKILLS.md"><img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-475569?style=flat" alt="中文"></a>
+  <a href="README.en.md"><img src="https://img.shields.io/badge/README-94A3B8?style=flat" alt="README"></a>
+  <img src="https://img.shields.io/badge/%E2%97%8F_Skills-8B5CF6?style=flat" alt="Skills">
+  <a href="SKILLS.md"><img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-94A3B8?style=flat" alt="中文"></a>
 </p>
 
 ---
