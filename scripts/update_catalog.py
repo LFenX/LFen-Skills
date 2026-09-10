@@ -548,6 +548,14 @@ def render_index(
     return json.dumps(index, ensure_ascii=False, indent=2) + "\n"
 
 
+def first_sentence(text: str, lang: str) -> str:
+    terminator = ". " if lang == "en" else "。"
+    index = text.find(terminator)
+    if index < 0:
+        return text
+    return text[: index + len(terminator)].strip()
+
+
 def render_skill_table(taxonomy: dict[str, Any], skills: dict[str, Skill], lang: str = "zh") -> str:
     if lang == "en":
         header = ("| Category | Skill | Description |", "| --- | --- | --- |")
@@ -558,7 +566,7 @@ def render_skill_table(taxonomy: dict[str, Any], skills: dict[str, Skill], lang:
         category_name = category["name_en"] if lang == "en" else category["name"]
         category_description = category["description_en"] if lang == "en" else category["description"]
         lines.append(
-            f"| [**{category_name}**](CATALOG.md#{category['id']}) |  | "
+            f"| [**{category_name.replace(' ', '&nbsp;')}**](CATALOG.md#{category['id']}) |  | "
             f"{escape_table(str(category_description))} |"
         )
         for name in collect_node_skills(category):
@@ -566,7 +574,7 @@ def render_skill_table(taxonomy: dict[str, Any], skills: dict[str, Skill], lang:
             skill_description = skill.description_en if lang == "en" else skill.description
             lines.append(
                 f"|  | [`{name}`]({skill_relative_path(skill)}/SKILL.md) | "
-                f"{escape_table(skill_description)} |"
+                f"{escape_table(first_sentence(skill_description, lang))} |"
             )
     return "\n".join(lines)
 
