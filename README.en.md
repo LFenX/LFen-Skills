@@ -3,22 +3,22 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1200&color=8B5CF6&center=true&vCenter=true&width=700&lines=Agent+Skills+distilled+from+my+work+and+study;Take+whatever+is+useful+to+you;One+command+%C2%B7+7+platforms" alt="Agent Skills distilled from my work and study">
+  <img src="https://readme-typing-svg.demolab.com?font=Manrope&size=22&pause=1200&color=8B5CF6&center=true&vCenter=true&width=700&lines=Agent+Skills+distilled+from+my+work+and+study;Take+whatever+is+useful+to+you;One+command+%C2%B7+7+platforms" alt="Agent Skills distilled from my work and study">
 </p>
 
 <p align="center">
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat-square&label=catalog" alt="Catalog CI">
+    <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/skills-5-8B5CF6?style=flat-square" alt="skills">
-  <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat-square" alt="platforms">
-  <img src="https://img.shields.io/badge/license-MIT-475569?style=flat-square" alt="license">
+  <img src="https://img.shields.io/badge/skills-5-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
+  <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat&labelColor=1E1B4B" alt="platforms">
+  <img src="https://img.shields.io/badge/license-MIT-475569?style=flat&labelColor=1E1B4B" alt="license">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/README-8B5CF6?style=flat-square" alt="README">
-  <a href="SKILLS.en.md"><img src="https://img.shields.io/badge/SKILLS-334155?style=flat-square" alt="Skills"></a>
-  <a href="README.md"><img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-334155?style=flat-square" alt="中文"></a>
+  <img src="https://img.shields.io/badge/README-8B5CF6?style=flat" alt="README">
+  <a href="SKILLS.en.md"><img src="https://img.shields.io/badge/Skills-475569?style=flat" alt="Skills"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-475569?style=flat" alt="中文"></a>
 </p>
 
 <p align="center">
