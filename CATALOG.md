@@ -29,7 +29,7 @@
 
 | Skill | 适用范围 | 标签 | 能力说明 |
 | --- | --- | --- | --- |
-| [`match-tabular-records`](skills/data-processing/match-tabular-records/SKILL.md) | 通用 | `data-matching`, `data-quality`, `excel` | Reconcile two CSV/XLSX tables by one field or an ordered composite of multiple fields, with configurable exact, text, identifier, number, date, or datetime normalization. Produce an inner join, two directional unmatched-detail sheets, optional secondary-key matching, duplicate and invalid-key audits, subset statistics, and a validated formatted Excel workbook. Use for cross-file matching, inclusion checks, list reconciliation, data coverage analysis, or record comparison by IDs, names, titles, authors, dates, account fields, order numbers, or any user-specified key columns. |
+| [`match-tabular-records`](skills/data-processing/match-tabular-records/SKILL.md) | 通用 | `data-matching`, `data-quality`, `excel` | 按单个字段或有序多字段组合键对账两张 CSV/XLSX 表，支持精确、文本、编号、数字、日期、日期时间等可配置归一化。产出 inner join 匹配表、双向不匹配详情、可选的次键补充匹配、重复键与非法键审计、子集统计，以及校验过的格式化 Excel 工作簿。用于跨文件匹配、包含性检查、名单对账、数据覆盖率分析，或按 ID、名称、标题、作者、日期、账号字段、订单号等任意用户指定的键列比对记录。 |
 
 <a id="product-engineering"></a>
 ## 产品研发
