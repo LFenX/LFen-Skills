@@ -8,17 +8,17 @@
 
 <p align="center">
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
-    <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=for-the-badge&label=catalog" alt="Catalog CI">
+    <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat-square&label=catalog" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/skills-5-8B5CF6?style=for-the-badge" alt="skills">
-  <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=for-the-badge" alt="platforms">
-  <img src="https://img.shields.io/badge/license-MIT-475569?style=for-the-badge" alt="license">
+  <img src="https://img.shields.io/badge/skills-5-8B5CF6?style=flat-square" alt="skills">
+  <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat-square" alt="platforms">
+  <img src="https://img.shields.io/badge/license-MIT-475569?style=flat-square" alt="license">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/README-8B5CF6?style=for-the-badge" alt="README">
-  <a href="SKILLS.md"><img src="https://img.shields.io/badge/SKILLS_%E4%B8%80%E8%A7%88-334155?style=for-the-badge" alt="Skills 一览"></a>
-  <a href="README.en.md"><img src="https://img.shields.io/badge/ENGLISH-334155?style=for-the-badge" alt="English"></a>
+  <img src="https://img.shields.io/badge/README-8B5CF6?style=flat-square" alt="README">
+  <a href="SKILLS.md"><img src="https://img.shields.io/badge/SKILLS_%E4%B8%80%E8%A7%88-334155?style=flat-square" alt="Skills 一览"></a>
+  <a href="README.en.md"><img src="https://img.shields.io/badge/ENGLISH-334155?style=flat-square" alt="English"></a>
 </p>
 
 <p align="center">

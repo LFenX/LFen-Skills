@@ -71,7 +71,7 @@ function Show-Menu($title, $items, $multi, $checkedList) {
 
             $chk = ""
             if ($multi) {
-                $chk = if ($checkedList[$i]) { (ac cyan "[x] ") } else { "[ ] " }
+                $chk = if ($checkedList[$i]) { (ac cyan "[✓] ") } else { "[ ] " }
             }
 
             $extra = @()
