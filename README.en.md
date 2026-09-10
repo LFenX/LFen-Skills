@@ -79,7 +79,7 @@ Detailed introductions for every skill live on the **[Skills](SKILLS.en.md)** pa
 
 ## Adding a Skill
 
-1. Create `skills/<category>/<skill-name>/SKILL.md` — the directory name must match the frontmatter `name`.
+1. Create `skills/<category>/<skill-name>/SKILL.md` — the directory name must match the frontmatter `name`, and the frontmatter must include `name`, `description` (Chinese), and `description_en` (English).
 2. Add the skill to the matching leaf category in `catalog/taxonomy.json`, with `scope` and sorted `tags` under `skill_metadata`.
 3. Run `python scripts/update_catalog.py` to regenerate the README summary, `CATALOG.md`, and `catalog/index.json`.
 4. Run `python scripts/update_catalog.py --check` to verify, then commit and push.

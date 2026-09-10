@@ -99,7 +99,7 @@ curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
 
 ## 新增 Skill
 
-1. 在 `skills/<主分类>/` 下新增 `<skill-name>/SKILL.md`，目录名必须与 frontmatter 的 `name` 一致。
+1. 在 `skills/<主分类>/` 下新增 `<skill-name>/SKILL.md`，目录名必须与 frontmatter 的 `name` 一致，frontmatter 必须包含 `name`、`description`（中文）和 `description_en`（英文）。
 2. 将 skill 名称加入 `catalog/taxonomy.json` 的同名叶子分类，并在 `skill_metadata` 中填写 `scope` 与排序后的 `tags`。
 3. 运行 `python scripts/update_catalog.py` 重新生成 README 摘要、`CATALOG.md` 和 `catalog/index.json`。
 4. 运行 `python scripts/update_catalog.py --check` 检查遗漏、重复归类、非法元数据和生成物漂移，然后提交推送。
