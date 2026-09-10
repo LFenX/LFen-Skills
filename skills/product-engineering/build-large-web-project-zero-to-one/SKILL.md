@@ -1,6 +1,7 @@
 ---
 name: build-large-web-project-zero-to-one
 description: "从基础产品说明到前后端联调和验收，使用需求追溯、PRD、产品包、飞书云文档/多维表格留痕、模板或指定 UI、控件绑定与返修闭环，协助 Coding Agent 从 0 到 1 构建复杂大型 Web 生产后台。适用于新项目交付；不用于仅治理审计、单点 bug、纯后端库修改或已交付产品复查。"
+description_en: "From a basic product brief to frontend-backend integration and acceptance, using requirement tracing, PRD, product package, Feishu doc and base records, template or designated UI, control binding, and rework loops to help a coding agent build a complex large-scale web admin from zero to one. Use for new project delivery. Not for governance-only audits, single-point bugs, pure backend library changes, or re-reviews of delivered products."
 ---
 
 # 从 0 到 1 大型 Web 生产后台构建 SOP

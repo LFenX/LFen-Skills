@@ -1,6 +1,7 @@
 ---
 name: run-koc-feedback-workflow
 description: 从 KOC 后台反馈 Base 筛选、列举、认领并推进开发登记项，在用户授权后同步澄清、规划、执行、复核、返修和完成状态。用于以飞书多维表格登记项驱动 funplus-UA-KOC-Management-Platform 的缺陷修复、体验优化或新功能；不得处理“唤起开发者”仅为 LFen 的记录。
+description_en: "Filter, list, claim, and drive development items from the KOC feedback base, syncing clarification, planning, execution, review, rework, and completion status after user authorization. Use for base-item-driven defect fixes, experience improvements, or new features of funplus-UA-KOC-Management-Platform. Do not process records whose evoking developer is only LFen."
 ---
 
 # KOC 反馈开发工作流

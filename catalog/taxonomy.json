@@ -26,7 +26,9 @@
     {
       "id": "data-processing",
       "name": "数据处理",
+      "name_en": "Data Processing",
       "description": "结构化数据的匹配、清洗、转换、分析与质量核验。",
+      "description_en": "Matching, cleaning, transforming, analyzing, and verifying structured data.",
       "skills": [
         "match-tabular-records"
       ],
@@ -35,7 +37,9 @@
     {
       "id": "product-engineering",
       "name": "产品研发",
+      "name_en": "Product Engineering",
       "description": "产品定义、研发执行、质量控制、交付与运营流程。",
+      "description_en": "Product definition, development execution, quality control, delivery, and operations.",
       "skills": [
         "build-large-web-project-zero-to-one",
         "run-governed-product-workflow",
@@ -46,7 +50,9 @@
     {
       "id": "dev-tools",
       "name": "开发工具",
+      "name_en": "Dev Tools",
       "description": "开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。",
+      "description_en": "Setup, integration, troubleshooting, and maintenance for dev environments, toolchains, and AI coding assistants.",
       "skills": [
         "add-opencode-model-provider"
       ],

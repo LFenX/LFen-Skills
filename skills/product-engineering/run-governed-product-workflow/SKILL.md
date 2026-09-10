@@ -1,6 +1,7 @@
 ---
 name: run-governed-product-workflow
 description: 用于推进具体开发任务：新功能、改需求、修 bug、重构、迁移退役、发布上线、复查验收；前端、后端、脚本、配置、文档同等适用。按团队 V6.3 规范维护可核对的需求、计划、执行、验证、验收和证据，用同一六元模型在 Minimal 与完整载体之间裁剪——小任务只写一个文件，但不因为任务小就跳过澄清和验收。凡是会改变产品行为、外部可见接口、文档布局或发布结果的改动都适用。也用于对已交付内容的复查——“review 一遍 / 再查一遍 / 是否闭环 / 有没有遗漏 / 需求是否都实现了 / 验收”，此类请求走 verify，按总原则 10 逐条对照需求原文，不抽查。用户提到 Grill Me、Task Profile、Artifact Manifest、VC-PPG、C01-C12、E01-E05 或“最轻框架”时同样适用。不用于纯只读问答，以及不改变任何行为的一次性 git 命令。
+description_en: "Drive concrete development tasks such as new features, requirement changes, bug fixes, refactors, migrations and retirement, releases, and re-acceptance — frontend, backend, scripts, config, and docs alike. Maintains verifiable requirements, plans, execution, verification, acceptance, and evidence per the team V6.3 norms, scaling between the Minimal and full carrier with the same six-element model — a small task keeps just one file but never skips clarification or acceptance. Applies to any change that alters product behavior, externally visible interfaces, documentation layout, or release outcomes. Also for reviewing delivered work — review again, check closed-loop, anything missed, all requirements implemented, acceptance — via verify, checked item by item against the original requirement text without sampling. Applies when the user mentions Grill Me, Task Profile, Artifact Manifest, VC-PPG, C01-C12, E01-E05, or the lightest framework. Not for pure read-only Q&A or one-off git commands that change no behavior."
 metadata:
   version: 6.3.0-candidate
 ---

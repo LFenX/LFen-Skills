@@ -17,6 +17,21 @@
   <a href="SKILLS.md"><img src="https://img.shields.io/badge/%E4%B8%AD%E6%96%87-64748B?style=flat" alt="中文"></a>
 </p>
 
+## Index
+
+<!-- catalog-detail:start -->
+| Category | Skill | Description |
+| --- | --- | --- |
+| [**Data Processing**](CATALOG.md#data-processing) |  | Matching, cleaning, transforming, analyzing, and verifying structured data. |
+|  | [`match-tabular-records`](skills/data-processing/match-tabular-records/SKILL.md) | Reconcile two CSV/XLSX tables by one field or an ordered composite of multiple fields, with configurable exact, text, identifier, number, date, or datetime normalization. Produce an inner join, two directional unmatched-detail sheets, optional secondary-key matching, duplicate and invalid-key audits, subset statistics, and a validated formatted Excel workbook. Use for cross-file matching, inclusion checks, list reconciliation, data coverage analysis, or record comparison by IDs, names, titles, authors, dates, account fields, order numbers, or any user-specified key columns. |
+| [**Product Engineering**](CATALOG.md#product-engineering) |  | Product definition, development execution, quality control, delivery, and operations. |
+|  | [`build-large-web-project-zero-to-one`](skills/product-engineering/build-large-web-project-zero-to-one/SKILL.md) | From a basic product brief to frontend-backend integration and acceptance, using requirement tracing, PRD, product package, Feishu doc and base records, template or designated UI, control binding, and rework loops to help a coding agent build a complex large-scale web admin from zero to one. Use for new project delivery. Not for governance-only audits, single-point bugs, pure backend library changes, or re-reviews of delivered products. |
+|  | [`run-governed-product-workflow`](skills/product-engineering/run-governed-product-workflow/SKILL.md) | Drive concrete development tasks such as new features, requirement changes, bug fixes, refactors, migrations and retirement, releases, and re-acceptance — frontend, backend, scripts, config, and docs alike. Maintains verifiable requirements, plans, execution, verification, acceptance, and evidence per the team V6.3 norms, scaling between the Minimal and full carrier with the same six-element model — a small task keeps just one file but never skips clarification or acceptance. Applies to any change that alters product behavior, externally visible interfaces, documentation layout, or release outcomes. Also for reviewing delivered work — review again, check closed-loop, anything missed, all requirements implemented, acceptance — via verify, checked item by item against the original requirement text without sampling. Applies when the user mentions Grill Me, Task Profile, Artifact Manifest, VC-PPG, C01-C12, E01-E05, or the lightest framework. Not for pure read-only Q&A or one-off git commands that change no behavior. |
+|  | [`run-koc-feedback-workflow`](skills/product-engineering/run-koc-feedback-workflow/SKILL.md) | Filter, list, claim, and drive development items from the KOC feedback base, syncing clarification, planning, execution, review, rework, and completion status after user authorization. Use for base-item-driven defect fixes, experience improvements, or new features of funplus-UA-KOC-Management-Platform. Do not process records whose evoking developer is only LFen. |
+| [**Dev Tools**](CATALOG.md#dev-tools) |  | Setup, integration, troubleshooting, and maintenance for dev environments, toolchains, and AI coding assistants. |
+|  | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) | Connect opencode to third-party OpenAI-compatible model providers such as a LiteLLM gateway. Covers provider configuration structure, model registration, gateway verification, and common error troubleshooting. Use when adding a new model provider, configuring the provider section of opencode.json, or when a model config does not take effect. |
+<!-- catalog-detail:end -->
+
 ---
 
 ## 📊 Data Processing

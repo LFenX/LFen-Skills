@@ -34,6 +34,7 @@ class CatalogError(ValueError):
 class Skill:
     name: str
     description: str
+    description_en: str
     directory: Path
 
 
@@ -74,7 +75,7 @@ def unquote_yaml_scalar(value: str) -> str:
     return value
 
 
-def parse_frontmatter(skill_file: Path) -> tuple[str, str]:
+def parse_frontmatter(skill_file: Path) -> tuple[str, str, str]:
     text = skill_file.read_text(encoding="utf-8-sig")
     lines = text.splitlines()
     if not lines or lines[0].strip() != "---":
@@ -88,7 +89,7 @@ def parse_frontmatter(skill_file: Path) -> tuple[str, str]:
     fields: dict[str, str] = {}
     index = 1
     while index < end:
-        match = re.match(r"^(name|description):\s*(.*)$", lines[index])
+        match = re.match(r"^(name|description_en|description):\s*(.*)$", lines[index])
         if not match:
             index += 1
             continue
@@ -108,9 +109,10 @@ def parse_frontmatter(skill_file: Path) -> tuple[str, str]:
 
     name = fields.get("name", "").strip()
     description = fields.get("description", "").strip()
-    if not name or not description:
-        raise CatalogError(f"{skill_file.relative_to(ROOT)} 必须包含 name 和 description")
-    return name, description
+    description_en = fields.get("description_en", "").strip()
+    if not name or not description or not description_en:
+        raise CatalogError(f"{skill_file.relative_to(ROOT)} 必须包含 name、description 和 description_en")
+    return name, description, description_en
 
 
 def discover_skills() -> dict[str, Skill]:
@@ -134,14 +136,14 @@ def discover_skills() -> dict[str, Skill]:
     for skill_file in skill_files:
         directory = skill_file.parent
 
-        name, description = parse_frontmatter(skill_file)
+        name, description, description_en = parse_frontmatter(skill_file)
         if not SKILL_NAME_PATTERN.fullmatch(name):
             raise CatalogError(f"skill 名称不合规：{name}")
         if name != directory.name:
             raise CatalogError(f"目录名 {directory.name} 与 SKILL.md name {name} 不一致")
         if name in skills:
             raise CatalogError(f"skill 名称重复：{name}")
-        skills[name] = Skill(name=name, description=description, directory=directory)
+        skills[name] = Skill(name=name, description=description, description_en=description_en, directory=directory)
 
     if not skills:
         raise CatalogError("skills/ 目录未发现任何 SKILL.md")
@@ -182,7 +184,7 @@ def validate_node(
 ) -> None:
     if not isinstance(node, dict):
         raise CatalogError("分类节点必须是对象")
-    required = ("id", "name", "description", "skills", "children")
+    required = ("id", "name", "name_en", "description", "description_en", "skills", "children")
     missing = [key for key in required if key not in node]
     if missing:
         raise CatalogError(f"分类节点缺少字段：{', '.join(missing)}")
@@ -199,6 +201,10 @@ def validate_node(
         raise CatalogError(f"分类 {category_id} 的 name 必须是非空字符串")
     if not isinstance(description, str) or not description.strip():
         raise CatalogError(f"分类 {name} 的 description 必须是非空字符串")
+    if not isinstance(node["name_en"], str) or not node["name_en"].strip():
+        raise CatalogError(f"分类 {name} 的 name_en 必须是非空字符串")
+    if not isinstance(node["description_en"], str) or not node["description_en"].strip():
+        raise CatalogError(f"分类 {name} 的 description_en 必须是非空字符串")
     if depth > max_depth:
         raise CatalogError(f"分类 {name} 深度为 {depth}，超过上限 {max_depth}")
     if not isinstance(node["skills"], list) or not isinstance(node["children"], list):
@@ -542,21 +548,25 @@ def render_index(
     return json.dumps(index, ensure_ascii=False, indent=2) + "\n"
 
 
-def render_skill_table(taxonomy: dict[str, Any], skills: dict[str, Skill]) -> str:
-    lines = [
-        "| 分类 | Skill | 能力说明 |",
-        "| --- | --- | --- |",
-    ]
+def render_skill_table(taxonomy: dict[str, Any], skills: dict[str, Skill], lang: str = "zh") -> str:
+    if lang == "en":
+        header = ("| Category | Skill | Description |", "| --- | --- | --- |")
+    else:
+        header = ("| 分类 | Skill | 能力说明 |", "| --- | --- | --- |")
+    lines = list(header)
     for category in taxonomy["categories"]:
+        category_name = category["name_en"] if lang == "en" else category["name"]
+        category_description = category["description_en"] if lang == "en" else category["description"]
         lines.append(
-            f"| [**{category['name']}**](CATALOG.md#{category['id']}) |  | "
-            f"{escape_table(str(category['description']))} |"
+            f"| [**{category_name}**](CATALOG.md#{category['id']}) |  | "
+            f"{escape_table(str(category_description))} |"
         )
         for name in collect_node_skills(category):
             skill = skills[name]
+            skill_description = skill.description_en if lang == "en" else skill.description
             lines.append(
                 f"|  | [`{name}`]({skill_relative_path(skill)}/SKILL.md) | "
-                f"{escape_table(str(skill.description))} |"
+                f"{escape_table(skill_description)} |"
             )
     return "\n".join(lines)
 
@@ -567,17 +577,17 @@ def render_readme(current: str, taxonomy: dict[str, Any], skills: dict[str, Skil
     if start < 0 or end < 0 or end < start:
         raise CatalogError("README.md 缺少有效的分类摘要标记")
 
-    block = "\n".join([README_START, render_skill_table(taxonomy, skills), README_END])
+    block = "\n".join([README_START, render_skill_table(taxonomy, skills, "zh"), README_END])
     return current[:start] + block + current[end + len(README_END) :]
 
 
-def render_skills_page(current: str, taxonomy: dict[str, Any], skills: dict[str, Skill]) -> str:
+def render_skills_page(current: str, taxonomy: dict[str, Any], skills: dict[str, Skill], lang: str = "zh") -> str:
     start = current.find(SKILLS_START)
     end = current.find(SKILLS_END)
     if start < 0 or end < 0 or end < start:
-        raise CatalogError("SKILLS.md 缺少有效的分类明细标记")
+        raise CatalogError("SKILLS 页面缺少有效的分类明细标记")
 
-    block = "\n".join([SKILLS_START, render_skill_table(taxonomy, skills), SKILLS_END])
+    block = "\n".join([SKILLS_START, render_skill_table(taxonomy, skills, lang), SKILLS_END])
     return current[:start] + block + current[end + len(SKILLS_END) :]
 
 
@@ -599,7 +609,10 @@ def main() -> int:
         rendered_readme = render_readme(readme, taxonomy, skills)
         skills_page_path = ROOT / "SKILLS.md"
         skills_page = skills_page_path.read_text(encoding="utf-8")
-        rendered_skills_page = render_skills_page(skills_page, taxonomy, skills)
+        rendered_skills_page = render_skills_page(skills_page, taxonomy, skills, "zh")
+        skills_en_page_path = ROOT / "SKILLS.en.md"
+        skills_en_page = skills_en_page_path.read_text(encoding="utf-8")
+        rendered_skills_en_page = render_skills_page(skills_en_page, taxonomy, skills, "en")
 
         if args.check:
             if not catalog_path.exists() or catalog_path.read_text(encoding="utf-8") != rendered_catalog:
@@ -614,6 +627,8 @@ def main() -> int:
                 raise CatalogError("README.md 的分类摘要不是最新版本；运行 python scripts/update_catalog.py")
             if skills_page != rendered_skills_page:
                 raise CatalogError("SKILLS.md 的分类明细不是最新版本；运行 python scripts/update_catalog.py")
+            if skills_en_page != rendered_skills_en_page:
+                raise CatalogError("SKILLS.en.md 的分类明细不是最新版本；运行 python scripts/update_catalog.py")
             print(
                 f"分类目录校验通过：{len(skills)} 个 skill，{len(taxonomy['categories'])} 个一级分类，"
                 "Markdown 与 JSON 目录一致"
@@ -625,8 +640,9 @@ def main() -> int:
         index_path.write_text(rendered_index, encoding="utf-8", newline="\n")
         readme_path.write_text(rendered_readme, encoding="utf-8", newline="\n")
         skills_page_path.write_text(rendered_skills_page, encoding="utf-8", newline="\n")
+        skills_en_page_path.write_text(rendered_skills_en_page, encoding="utf-8", newline="\n")
         print(
-            f"已更新 README.md、SKILLS.md、{catalog_path.relative_to(ROOT)} 与 {index_path.relative_to(ROOT)}："
+            f"已更新 README.md、SKILLS.md、SKILLS.en.md、{catalog_path.relative_to(ROOT)} 与 {index_path.relative_to(ROOT)}："
             f"{len(skills)} 个 skill"
         )
         return 0

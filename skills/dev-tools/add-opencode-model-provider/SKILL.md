@@ -1,6 +1,7 @@
 ---
 name: add-opencode-model-provider
 description: "为 opencode 接入第三方 OpenAI 兼容模型供应商（如 LiteLLM 网关）。覆盖 provider 配置结构、模型注册、网关验证、常见错误排查。当用户要添加新的模型供应商、配置 opencode.json 的 provider 段、或模型配置后不生效时使用。"
+description_en: "Connect opencode to third-party OpenAI-compatible model providers such as a LiteLLM gateway. Covers provider configuration structure, model registration, gateway verification, and common error troubleshooting. Use when adding a new model provider, configuring the provider section of opencode.json, or when a model config does not take effect."
 ---
 
 # 为 opencode 接入第三方模型供应商
