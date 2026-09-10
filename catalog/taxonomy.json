@@ -42,6 +42,15 @@
         "run-koc-feedback-workflow"
       ],
       "children": []
+    },
+    {
+      "id": "dev-tools",
+      "name": "开发工具",
+      "description": "开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。",
+      "skills": [
+        "add-opencode-model-provider"
+      ],
+      "children": []
     }
   ],
   "skill_metadata": {
@@ -77,6 +86,15 @@
         "product-specification",
         "sop",
         "web-admin"
+      ]
+    },
+    "add-opencode-model-provider": {
+      "scope": "general",
+      "tags": [
+        "model-provider",
+        "openai-compatible",
+        "opencode",
+        "tool-configuration"
       ]
     }
   },

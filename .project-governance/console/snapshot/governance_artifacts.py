@@ -11,6 +11,7 @@ import re
 import subprocess
 import tempfile
 import time
+from contextlib import contextmanager
 import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
@@ -279,6 +280,30 @@ def _matches_json_type(value: Any, expected: str) -> bool:
 
 def _validate_schema_node(value: Any, schema: dict[str, Any], location: str) -> list[str]:
     errors: list[str] = []
+    # Evaluate the composition and conditional keywords used by the runtime schemas.
+    # A branch is valid only when it produces no errors; this keeps the validator
+    # deterministic while preserving the existing location-aware diagnostics.
+    for keyword in ("allOf", "anyOf", "oneOf"):
+        branches = schema.get(keyword)
+        if isinstance(branches, list) and all(isinstance(item, dict) for item in branches):
+            branch_errors = [
+                _validate_schema_node(value, branch, location)
+                for branch in branches
+            ]
+            valid_count = sum(not item for item in branch_errors)
+            if keyword == "allOf":
+                for item in branch_errors:
+                    errors.extend(item)
+            elif keyword == "anyOf" and valid_count == 0:
+                errors.append(f"{location}: must match at least one schema branch")
+            elif keyword == "oneOf" and valid_count != 1:
+                errors.append(f"{location}: must match exactly one schema branch")
+    condition = schema.get("if")
+    if isinstance(condition, dict):
+        condition_errors = _validate_schema_node(value, condition, location)
+        branch = schema.get("then") if not condition_errors else schema.get("else")
+        if isinstance(branch, dict):
+            errors.extend(_validate_schema_node(value, branch, location))
     expected = schema.get("type")
     if expected is not None:
         expected_types = [expected] if isinstance(expected, str) else expected
@@ -293,12 +318,16 @@ def _validate_schema_node(value: Any, schema: dict[str, Any], location: str) -> 
     if isinstance(value, str):
         if len(value) < schema.get("minLength", 0):
             errors.append(f"{location}: string is shorter than minLength")
+        if len(value) > schema.get("maxLength", float("inf")):
+            errors.append(f"{location}: string is longer than maxLength")
         pattern = schema.get("pattern")
         if pattern and re.search(pattern, value) is None:
             errors.append(f"{location}: does not match pattern {pattern}")
         if schema.get("format") == "date-time":
             try:
-                datetime.fromisoformat(value.replace("Z", "+00:00"))
+                parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+                if parsed.tzinfo is None:
+                    raise ValueError("timezone required")
             except ValueError:
                 errors.append(f"{location}: is not a valid date-time")
     if isinstance(value, (int, float)) and not isinstance(value, bool):
@@ -308,6 +337,8 @@ def _validate_schema_node(value: Any, schema: dict[str, Any], location: str) -> 
     if isinstance(value, list):
         if len(value) < schema.get("minItems", 0):
             errors.append(f"{location}: has fewer than minItems entries")
+        if len(value) > schema.get("maxItems", float("inf")):
+            errors.append(f"{location}: has more than maxItems entries")
         if schema.get("uniqueItems"):
             encoded = [json.dumps(item, sort_keys=True, ensure_ascii=False) for item in value]
             if len(encoded) != len(set(encoded)):
@@ -324,6 +355,8 @@ def _validate_schema_node(value: Any, schema: dict[str, Any], location: str) -> 
                     errors.append(f"{location}.{key}: required property is missing")
         if len(value) < schema.get("minProperties", 0):
             errors.append(f"{location}: has fewer than minProperties entries")
+        if len(value) > schema.get("maxProperties", float("inf")):
+            errors.append(f"{location}: has more than maxProperties entries")
         properties = schema.get("properties", {})
         if isinstance(properties, dict):
             for key, child in value.items():
@@ -332,6 +365,10 @@ def _validate_schema_node(value: Any, schema: dict[str, Any], location: str) -> 
                     errors.extend(_validate_schema_node(child, child_schema, f"{location}.{key}"))
                 elif schema.get("additionalProperties") is False:
                     errors.append(f"{location}.{key}: additional property is not allowed")
+                elif isinstance(schema.get("additionalProperties"), dict):
+                    errors.extend(
+                        _validate_schema_node(child, schema["additionalProperties"], f"{location}.{key}")
+                    )
     return errors
 
 
@@ -368,6 +405,30 @@ def append_jsonl(path: Path, value: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8", newline="\n") as stream:
         stream.write(json.dumps(value, ensure_ascii=False, separators=(",", ":")) + "\n")
+
+
+@contextmanager
+def ledger_lock(path: Path, timeout: float = 10.0):
+    """Cross-process exclusive lock using an atomic lock file."""
+    lock_path = path.with_name(path.name + ".lock")
+    deadline = time.monotonic() + timeout
+    fd = None
+    while fd is None:
+        try:
+            fd = os.open(lock_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError:
+            if time.monotonic() >= deadline:
+                raise GovernanceError(f"timed out waiting for ledger lock: {path}")
+            time.sleep(0.01)
+    try:
+        os.write(fd, str(os.getpid()).encode())
+        yield
+    finally:
+        os.close(fd)
+        try:
+            os.unlink(lock_path)
+        except FileNotFoundError:
+            pass
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -2832,7 +2893,7 @@ def amend_record_batch(
     return document
 
 
-def append_run_event(
+def _append_run_event_unlocked(
     task_dir: Path,
     *,
     run_id: str,
@@ -2967,6 +3028,12 @@ def append_run_event(
     return event
 
 
+def append_run_event(task_dir: Path, **kwargs: Any) -> dict[str, Any]:
+    """Append a RunLedger event while serializing concurrent writers."""
+    with ledger_lock(task_dir / "run.jsonl"):
+        return _append_run_event_unlocked(task_dir, **kwargs)
+
+
 def validate_run_lifecycle(
     before: dict[str, Any], events: list[dict[str, Any]], *, terminal_required: bool
 ) -> list[str]:
@@ -2977,7 +3044,9 @@ def validate_run_lifecycle(
     current_attempt = events[0].get("attempt_id")
     seen_attempts: set[Any] = {current_attempt}
     finished = False
-    previous_timestamp = ""
+    previous_timestamp = None
+    seen_event_ids: set[str] = set()
+    seen_run_started = False
     legacy_policy = before.get("legacy_run_policy", {})
     legacy_sequences: set[Any] = set()
     if isinstance(legacy_policy, dict) and legacy_policy:
@@ -2992,6 +3061,11 @@ def validate_run_lifecycle(
                     errors.append(f"legacy_run_policy sequence {sequence} is not a retry event")
     for position, event in enumerate(events, 1):
         errors.extend(validate_json_document(event, "run-event.schema.json", f"run[{position}]"))
+        event_id = event.get("event_id")
+        if event_id in seen_event_ids:
+            errors.append(f"run[{position}].event_id is duplicated")
+        elif isinstance(event_id, str):
+            seen_event_ids.add(event_id)
         if event.get("sequence") != position:
             errors.append(f"run[{position}].sequence must be {position}")
         if event.get("project_id") != before.get("project_id"):
@@ -3001,10 +3075,20 @@ def validate_run_lifecycle(
         if event.get("run_id") != run_id:
             errors.append(f"run[{position}].run_id differs from the first event")
         timestamp = event.get("timestamp")
-        if isinstance(timestamp, str) and previous_timestamp and timestamp < previous_timestamp:
-            errors.append(f"run[{position}].timestamp is earlier than the prior event")
+        parsed_timestamp = None
         if isinstance(timestamp, str):
-            previous_timestamp = timestamp
+            try:
+                parsed_timestamp = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+                if parsed_timestamp.tzinfo is None:
+                    errors.append(f"run[{position}].timestamp must include timezone")
+                else:
+                    parsed_timestamp = parsed_timestamp.astimezone(timezone.utc)
+            except ValueError:
+                pass
+        if parsed_timestamp is not None and previous_timestamp and parsed_timestamp < previous_timestamp:
+            errors.append(f"run[{position}].timestamp is earlier than the prior event")
+        if parsed_timestamp is not None:
+            previous_timestamp = parsed_timestamp
         event_type = event.get("event_type")
         attempt = event.get("attempt_id")
         if position == 1:
@@ -3012,6 +3096,9 @@ def validate_run_lifecycle(
                 errors.append("first run event must be run_started")
             if event.get("status") != "started":
                 errors.append("run_started status must be started")
+            seen_run_started = True
+        elif event_type == "run_started":
+            errors.append("run ledger may contain only one run_started event")
         elif finished:
             errors.append(f"run[{position}] occurs after run_finished")
         if event_type == "retry":

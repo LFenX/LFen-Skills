@@ -20,7 +20,7 @@ import sys
 import tempfile
 import time
 import unicodedata
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -296,6 +296,11 @@ def query_digest(
     material = {
         "request": normalized_request(request),
         "page": page,
+        # A task may be queried before and after run_started freezes its
+        # contract.  Bind the digest to the freeze boundary so a pre-freeze
+        # immutable publication is retained as history and a post-freeze
+        # request gets a fresh target instead of colliding with it.
+        "task_contract_frozen_at": environment.task_contract.get("frozen_at"),
         "tailoring_resolution_sha256": environment.tailoring_sha256,
         "normative_sources_sha256": environment.index_metadata["normative_sources_sha256"],
         "consistency_report_sha256": environment.index_metadata["consistency_report_sha256"],
@@ -2483,7 +2488,43 @@ def validate_query_output_directory(task_dir: Path, result_path: Path) -> None:
         raise GovernanceError("query result fallback page is invalid")
     expected = execute_query(request, environment, page=page)
     if canonical_tree(stored) != canonical_tree(expected):
-        raise GovernanceError("active query result does not reproduce from its request and current inputs")
+        # A publication made before run_started freezes the contract is an
+        # immutable historical view.  The current environment necessarily has
+        # a different frozen_at and therefore a different query digest.  Replay
+        # it against the pre-freeze contract while still checking every source
+        # and byte-level envelope; any other drift remains a hard failure.
+        generated_at = envelope.get("generated_at")
+        frozen_at = environment.task_contract.get("frozen_at")
+        try:
+            generated_time = datetime.fromisoformat(str(generated_at).replace("Z", "+00:00"))
+            frozen_time = datetime.fromisoformat(str(frozen_at).replace("Z", "+00:00"))
+        except (TypeError, ValueError) as exc:
+            raise GovernanceError(
+                "active query result does not reproduce from its request and current inputs"
+            ) from exc
+        if (
+            frozen_time.tzinfo is None
+            or generated_time.tzinfo is None
+            or generated_time >= frozen_time
+        ):
+            raise GovernanceError("active query result does not reproduce from its request and current inputs")
+        historical_contract = dict(environment.task_contract)
+        historical_contract["frozen_at"] = None
+        historical_environment = replace(environment, task_contract=historical_contract)
+        historical_request = request
+        historical_expected = execute_query(historical_request, historical_environment, page=page)
+        if canonical_tree(stored) != canonical_tree(historical_expected):
+            raise GovernanceError("active query result does not reproduce from its request and historical inputs")
+        write_query_outputs(
+            historical_environment,
+            request_path,
+            historical_request,
+            historical_expected,
+            result_path.parent,
+            _lock_held=True,
+            _verify_only=True,
+        )
+        return
     write_query_outputs(
         environment,
         request_path,

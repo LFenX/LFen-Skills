@@ -989,6 +989,7 @@ def audit(
     current_normative_digest = normative_sources_digest(source_catalog, default_mapping_path())
     current_rule_set_sha256 = sha256_file(default_tailoring_map_path())
     task_contract_snapshot_verified = True
+    task_contract_bound = bool(verify_task_contract)
     if not verify_task_contract:
         # No task is bound to this audit, so there is no frozen TaskContract to
         # compare against. Record that the baseline was not established instead of
@@ -1012,6 +1013,7 @@ def audit(
         # 16.4). Reporting that as a missing snapshot states an absence that cannot be
         # remediated without abandoning the carrier the task legitimately chose.
         task_contract_snapshot_verified = False
+        task_contract_bound = False
         findings.append(
             make_finding(
                 severity="Observation",
@@ -1120,6 +1122,7 @@ def audit(
         "profile_meta_map_sha256": sha256_file(default_mapping_path()),
         "normative_sources_sha256": current_normative_digest,
         "task_contract_snapshot_verified": task_contract_snapshot_verified,
+        "task_contract_bound": task_contract_bound,
         "protected_asset_sha256": dict(sorted(before_hashes.items())),
         "auditor_sha256": sha256_file(Path(__file__).resolve()),
     }

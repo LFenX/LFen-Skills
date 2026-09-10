@@ -218,14 +218,14 @@
       "source": "skill-local:schemas/minimal-task-record.schema.json",
       "logical_path": "schemas/minimal-task-record.schema.json",
       "embedded": "assets/runtime/schemas/minimal-task-record.schema.json",
-      "sha256": "7a0a40d8da4ee675274895ce7235eee67f8772dcef643fa2d63088741a3c7a77"
+      "sha256": "f1dc49a93e82de2d91138c679b9c17266d1673090c0ede6d934005322af3d0cd"
     },
     {
       "role": "schema",
       "source": "skill-local:schemas/norm-consistency-report.schema.json",
       "logical_path": "schemas/norm-consistency-report.schema.json",
       "embedded": "assets/runtime/schemas/norm-consistency-report.schema.json",
-      "sha256": "33e99cd44ffe237fe0a7ecc3930d328669fb5a51c6b6c627c4ee9950078e46b3"
+      "sha256": "d8a2bc5c29f111e1d5d45cd1dcf8078b6dc1ca974d8a96360527bc1cd8563611"
     },
     {
       "role": "schema",

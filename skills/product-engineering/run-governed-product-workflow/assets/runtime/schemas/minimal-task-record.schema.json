@@ -396,7 +396,10 @@
         "properties": {
           "sequence": {"type": "integer", "minimum": 1},
           "timestamp": {"type": "string", "format": "date-time"},
-          "event_type": {"enum": ["run_started", "mutation", "verification", "failure", "run_finished", "upgrade_triggered"]},
+          "run_id": {"type": "string", "minLength": 1},
+          "event_id": {"type": "string", "minLength": 1},
+          "attempt_id": {"type": "string", "minLength": 1},
+          "event_type": {"enum": ["run_started", "mutation", "verification", "failure", "retry", "run_finished", "upgrade_triggered"]},
           "summary": {"type": "string", "minLength": 1},
           "status": {"enum": ["started", "recorded", "succeeded", "failed", "blocked"]},
           "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}

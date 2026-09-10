@@ -80,6 +80,7 @@
         "profile_meta_map_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
         "normative_sources_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
         "task_contract_snapshot_verified": {"type": "boolean"},
+        "task_contract_bound": {"type": "boolean"},
         "protected_asset_sha256": {
           "type": "object",
           "minProperties": 1,
@@ -166,7 +167,10 @@
       "then": {
         "properties": {
           "audit_status": {"const": "Complete"},
-          "inputs": {"properties": {"task_contract_snapshot_verified": {"const": true}}},
+          "inputs": {
+            "if": {"properties": {"task_contract_bound": {"const": true}}, "required": ["task_contract_bound"]},
+            "then": {"properties": {"task_contract_snapshot_verified": {"const": true}}}
+          },
           "summary": {"properties": {"by_severity": {"properties": {"Blocker": {"const": 0}, "Major": {"const": 0}}}}},
           "protected_assets_unchanged": {"const": true},
           "next_gate": {"enum": ["T-013-eligible", "T-014-eligible"]}

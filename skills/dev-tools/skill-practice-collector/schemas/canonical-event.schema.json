@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "skill-practice-event.v1",
+  "type": "object",
+  "required": ["schema_version", "event_id", "task_id", "run_id", "attempt_id", "sequence", "skill_name", "event_type", "payload"],
+  "properties": {
+    "schema_version": {"const": "skill-practice-event.v1"},
+    "event_id": {"type": "string", "minLength": 1}, "task_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1}, "attempt_id": {"type": "string", "minLength": 1},
+    "sequence": {"type": "integer", "minimum": 1}, "skill_name": {"type": "string", "minLength": 1},
+    "skill_version": {"type": ["string", "null"]}, "producer_id_hash": {"type": ["string", "null"]},
+    "project_id_hash": {"type": ["string", "null"]}, "stage": {"type": ["string", "null"]},
+    "event_type": {"type": "string", "minLength": 1}, "status": {"type": ["string", "null"]},
+    "occurred_at": {"type": ["string", "null"], "format": "date-time"},
+    "duration_ms": {"type": ["integer", "number", "null"], "minimum": 0}, "wait_ms": {"type": ["integer", "number", "null"], "minimum": 0},
+    "payload": {}
+  },
+  "additionalProperties": true
+}

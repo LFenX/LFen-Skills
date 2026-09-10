@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -25,6 +26,7 @@ from governance_artifacts import (
     validate_requirement_items,
     validate_survey_refs,
     require_decision,
+    ledger_lock,
 )
 
 
@@ -35,6 +37,7 @@ MINIMAL_EVENT_TYPES = {
     "mutation",
     "verification",
     "failure",
+    "retry",
     "run_finished",
     "upgrade_triggered",
 }
@@ -226,6 +229,27 @@ def validate_minimal_record(
         errors.append("Minimal RunLedger must begin with run_started")
     if sum(event.get("event_type") == "run_started" for event in events) > 1:
         errors.append("Minimal RunLedger may contain only one run_started")
+    seen_event_ids: set[str] = set()
+    previous_timestamp: datetime | None = None
+    for event in events:
+        event_id = event.get("event_id")
+        if isinstance(event_id, str):
+            if event_id in seen_event_ids:
+                errors.append("Minimal RunLedger event_id values must be unique")
+            seen_event_ids.add(event_id)
+        timestamp = event.get("timestamp")
+        if isinstance(timestamp, str):
+            try:
+                parsed = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+                if parsed.tzinfo is None:
+                    errors.append("Minimal RunLedger timestamps must include timezone")
+                else:
+                    parsed = parsed.astimezone(timezone.utc)
+                    if previous_timestamp is not None and parsed < previous_timestamp:
+                        errors.append("Minimal RunLedger timestamps must be nondecreasing in UTC")
+                    previous_timestamp = parsed
+            except ValueError:
+                pass
     outcome = record["task_outcome"]
     lifecycle = record["lifecycle_state"]
     if outcome is None:
@@ -519,7 +543,7 @@ def create_minimal_record(
     return record_path
 
 
-def append_minimal_event(
+def _append_minimal_event_unlocked(
     task_dir: Path,
     *,
     event_type: str,
@@ -552,6 +576,9 @@ def append_minimal_event(
     event = {
         "sequence": len(events) + 1,
         "timestamp": now_utc(),
+        "run_id": f"{record['task_id']}-run-001",
+        "event_id": f"{record['task_id']}-run-001-E{len(events)+1:04d}",
+        "attempt_id": "attempt-001",
         "event_type": event_type,
         "summary": summary.strip(),
         "status": status,
@@ -559,12 +586,26 @@ def append_minimal_event(
     }
     if not event["summary"]:
         raise GovernanceError("Minimal event summary is required")
+    if event_type == "retry":
+        if status != "started":
+            raise GovernanceError("retry status must be started")
+        current_attempt = events[-1].get("attempt_id", "attempt-001") if events else "attempt-001"
+        if not any(e.get("event_type") == "failure" and e.get("status") in {"failed", "blocked"} for e in events):
+            raise GovernanceError("retry requires a prior failed or blocked event")
+        event["attempt_id"] = f"{current_attempt}-retry-{len(events)+1:03d}"
     events.append(event)
     record["lifecycle_state"] = "Frozen"
     record["revision"] += 1
     require_valid_minimal_record(record, task_dir=task_dir.resolve())
     atomic_write_json(record_path, record)
     return event
+
+
+def append_minimal_event(task_dir: Path, **kwargs: Any) -> dict[str, Any]:
+    """Append a Minimal event while serializing concurrent writers."""
+    # Decision gate is enforced by _append_minimal_event_unlocked via require_decision.
+    with ledger_lock(minimal_record_path(task_dir)):
+        return _append_minimal_event_unlocked(task_dir, **kwargs)
 
 
 # C10 8.2 owns the controlled relation vocabulary and forbids establishing a formal
