@@ -35,9 +35,16 @@ iwr https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
 curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash
 ```
 
-<p align="center">
-  <img src="assets/install-demo.gif" alt="install demo" width="100%">
-</p>
+<table align="center">
+  <tr>
+    <th>Windows (PowerShell)</th>
+    <th>macOS / Linux (bash)</th>
+  </tr>
+  <tr>
+    <td><img src="assets/install-demo-windows.gif" alt="Windows install demo" width="100%"></td>
+    <td><img src="assets/install-demo-macos.gif" alt="macOS install demo" width="100%"></td>
+  </tr>
+</table>
 
 Follow the prompts to pick platforms and skills. Skills are linked (junction on Windows, symlink elsewhere) to a local clone at `~/.lfenskills`, so a plain `git pull` there updates everything in place.
 

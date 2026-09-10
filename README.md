@@ -35,9 +35,16 @@ iwr https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
 curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash
 ```
 
-<p align="center">
-  <img src="assets/install-demo.gif" alt="安装演示" width="100%">
-</p>
+<table align="center">
+  <tr>
+    <th>Windows（PowerShell）</th>
+    <th>macOS / Linux（bash）</th>
+  </tr>
+  <tr>
+    <td><img src="assets/install-demo-windows.gif" alt="Windows 安装演示" width="100%"></td>
+    <td><img src="assets/install-demo-macos.gif" alt="macOS 安装演示" width="100%"></td>
+  </tr>
+</table>
 
 运行后按提示选平台、选 skill 即可。skill 以 junction（Windows）/ symlink 链接到本地 `~/.lfenskills` 克隆，之后 `git pull` 原地更新。
 
