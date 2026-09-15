@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-09-05T08:05:32Z",
-  "source_digest": "00568e6ad76f3488cc15d3ea1599b93acdc0f48c08d5327e1358d5272c541f23",
+  "generated_at": "2026-09-15T04:03:35Z",
+  "source_digest": "a8402decda6d97be27cc3f6d3f29083313bc7d2cccdcf8367da5b48b39429983",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -54,6 +54,18 @@
       "status": "Implemented",
       "revision": 1,
       "completed_at": "2026-09-03T07:35:12Z"
+    },
+    {
+      "task_id": "T-COLLECTOR-20260909-003",
+      "ordinal": 8,
+      "status": "Active"
+    },
+    {
+      "task_id": "T-CLARIFY-20260914-004",
+      "ordinal": 9,
+      "status": "Implemented",
+      "revision": 1,
+      "completed_at": "2026-09-15T04:03:33Z"
     }
   ],
   "current_facts": [
@@ -151,6 +163,36 @@
       "task_id": "T-CATALOG-20260903-002",
       "ordinal": 7,
       "fact": "6 个已知 junction 名称保持不变，目标已切换到新的分类物理路径并可访问。"
+    },
+    {
+      "task_id": "T-CLARIFY-20260914-004",
+      "ordinal": 9,
+      "fact": "validate_clarification 支持 follows_up：Ambiguous/Deferred 回答被后续轮次的追问点名、且追问链最终答成 Answered/DefaultAccepted 时视为已解决；未点名或链上仍未决时继续阻断"
+    },
+    {
+      "task_id": "T-CLARIFY-20260914-004",
+      "ordinal": 9,
+      "fact": "follows_up 指向不存在、同轮或更晚、或已解决的回答时校验报错"
+    },
+    {
+      "task_id": "T-CLARIFY-20260914-004",
+      "ordinal": 9,
+      "fact": "amend_record 与 amend_record_batch 拒绝把未决回答改标为已决、拒绝删除已记录的回答或轮次；改回未决、新增轮次、补 follows_up 仍允许"
+    },
+    {
+      "task_id": "T-CLARIFY-20260914-004",
+      "ordinal": 9,
+      "fact": "task-before 与 minimal-task-record 两个 schema 的 exchange 接受可选 follows_up，已按字节编辑并重封 46 个受保护资产"
+    },
+    {
+      "task_id": "T-CLARIFY-20260914-004",
+      "ordinal": 9,
+      "fact": "funplus T-VERSION-BADGE-HISTORY-PANEL-20260904-01 在 2026-09-04 的改标修订在新防护下会被拒绝"
+    },
+    {
+      "task_id": "T-CLARIFY-20260914-004",
+      "ordinal": 9,
+      "fact": "修改 governance_artifacts.py 后其他项目已装配的控制台快照变为过期，由安装任务 T-INSTALL-20260914-005 处理"
     }
   ],
   "unresolved_items": [],
@@ -222,6 +264,26 @@
     {
       "task_id": "T-CATALOG-20260903-002",
       "ordinal": 7,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-COLLECTOR-20260909-003",
+      "ordinal": 8,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-CLARIFY-20260914-004",
+      "ordinal": 9,
       "depends_on": [],
       "supersedes": [],
       "blocked_by": [],

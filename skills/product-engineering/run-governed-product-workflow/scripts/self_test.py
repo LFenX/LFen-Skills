@@ -36,6 +36,7 @@ from governance_artifacts import (
     _write_derived_view,
     atomic_write_json,
     amend_record,
+    amend_record_batch,
     append_run_event,
     capture_source_snapshot,
     close_task,
@@ -1394,6 +1395,111 @@ def main(argv: list[str] | None = None) -> int:
         "survey_refs": ["surveyed.md"], "rounds": [], "basis": "surveyed", "reopened_by": [],
     })
     require_test((not settled), f"a surveyed zero-round record must pass, got {settled}")
+
+    # An open answer is closed by a later answer that follows it up, and by nothing
+    # else. Before follows_up existed a record that asked again honestly could never
+    # settle, so the only way through was to relabel the first answer -- and a real
+    # task did exactly that. Both halves are held here: the honest path settles, and
+    # the shortcut is refused at the amendment boundary.
+    def _asked(*rounds):
+        return {"state": "Settled", "mode": "Asked", "notice": "n", "survey_refs": ["surveyed.md"],
+                "basis": "b", "reopened_by": [],
+                "rounds": [{"ordinal": index, "asked_at": "2026-09-14T00:00:00Z", "exchanges": list(exchanges)}
+                           for index, exchanges in enumerate(rounds, start=1)]}
+
+    def _answer(state, follows_up=None):
+        exchange = {"question": "q", "changes": "Scope", "recommended_default": "d",
+                    "answer": "a", "answer_state": state}
+        if follows_up is not None:
+            exchange["follows_up"] = follows_up
+        return exchange
+
+    require_test(
+        (not validate_clarification(_asked([_answer("Ambiguous")], [_answer("Answered", "r1.e1")]))),
+        "an ambiguous answer followed up and answered in a later round must settle",
+    )
+    require_test(
+        (not validate_clarification(_asked([_answer("Deferred")], [_answer("DefaultAccepted", "r1.e1")]))),
+        "a deferred answer followed up and accepted by default must settle",
+    )
+    require_test(
+        (not validate_clarification(_asked([_answer("Ambiguous")], [_answer("Ambiguous", "r1.e1")],
+                                           [_answer("Answered", "r2.e1")]))),
+        "a chain of follow-ups that ends in a clear answer must resolve every open link",
+    )
+    require_test(
+        (bool(validate_clarification(_asked([_answer("Ambiguous")], [_answer("Answered")])))),
+        "a later answer that does not name the open one must not resolve it",
+    )
+    require_test(
+        (bool(validate_clarification(_asked([_answer("Ambiguous")], [_answer("Ambiguous", "r1.e1")])))),
+        "a follow-up that is itself still ambiguous must not resolve what it follows",
+    )
+    require_test(
+        (not validate_clarification(_asked([_answer("Answered")]))),
+        "a record without follows_up and without open answers must keep settling",
+    )
+    for label, record, expected in (
+        ("a follow-up naming no recorded answer",
+         _asked([_answer("Ambiguous")], [_answer("Answered", "r9.e1")]), "not a recorded answer"),
+        ("a follow-up naming an answer in its own round",
+         _asked([_answer("Ambiguous"), _answer("Answered", "r1.e1")]), "earlier round"),
+        ("a follow-up naming an answer from a later round",
+         _asked([_answer("Answered", "r2.e1")], [_answer("Ambiguous")]), "earlier round"),
+        ("a follow-up naming an answer that was already answered",
+         _asked([_answer("Answered")], [_answer("Answered", "r1.e1")]), "already answered"),
+    ):
+        problems = validate_clarification(record)
+        require_test((any(expected in item for item in problems)), f"{label} must be refused, got {problems}")
+    for schema_name, container in (
+        ("task-before.schema.json", lambda doc: doc),
+        ("minimal-task-record.schema.json", lambda doc: doc["properties"]["task_contract"]),
+    ):
+        exchange = container(read_json(skill_root / "assets" / "runtime" / "schemas" / schema_name))[
+            "properties"]["clarification"]["properties"]["rounds"]["items"]["properties"]["exchanges"]["items"]
+        require_test(
+            ("follows_up" in exchange["properties"] and "follows_up" not in exchange["required"]),
+            f"{schema_name} must accept an optional follows_up on every answer",
+        )
+    with tempfile.TemporaryDirectory(prefix="v63-clarification-history-") as temp:
+        history_before = new_task(Path(temp), "T-HISTORY", 1) / "before.json"
+        followed = _asked([_answer("Ambiguous")], [_answer("Answered", "r1.e1")])
+        amend_record(history_before, dotted_path="clarification", new_value=followed,
+                     reason="record a follow-up round", basis="self-test")
+        relabelled = copy.deepcopy(followed)
+        relabelled["rounds"][0]["exchanges"][0]["answer_state"] = "Answered"
+        expect_governance_error(
+            "an amendment relabelling an open answer as answered",
+            lambda: amend_record(history_before, dotted_path="clarification", new_value=relabelled,
+                                 reason="relabel", basis="self-test"),
+        )
+        expect_governance_error(
+            "a batch amendment relabelling an open answer as answered",
+            lambda: amend_record_batch(history_before, changes=[{"path": "clarification", "value": relabelled}],
+                                       reason="relabel", basis="self-test"),
+        )
+        erased = copy.deepcopy(followed)
+        erased["rounds"] = [dict(erased["rounds"][1], ordinal=1)]
+        expect_governance_error(
+            "an amendment erasing a recorded answer",
+            lambda: amend_record(history_before, dotted_path="clarification", new_value=erased,
+                                 reason="erase", basis="self-test"),
+        )
+        reopened_answer = copy.deepcopy(followed)
+        reopened_answer["state"] = "Open"
+        reopened_answer["rounds"][1]["exchanges"][0]["answer_state"] = "Ambiguous"
+        amend_record(history_before, dotted_path="clarification", new_value=reopened_answer,
+                     reason="the follow-up answer turned out ambiguous", basis="self-test")
+        pursued = copy.deepcopy(reopened_answer)
+        pursued["state"] = "Settled"
+        pursued["rounds"].append({"ordinal": 3, "asked_at": "2026-09-14T00:00:00Z",
+                                  "exchanges": [_answer("Answered", "r2.e1")]})
+        amend_record(history_before, dotted_path="clarification", new_value=pursued,
+                     reason="pursue the reopened answer", basis="self-test")
+        require_test(
+            (not validate_clarification(read_json(history_before)["clarification"])),
+            "moving an answer back to open and pursuing it in a new round must stay possible",
+        )
 
     # Skipping the question round is the cheap path, so it has to cost evidence: a
     # survey reference that resolves to a file someone could have read. "looked at it"

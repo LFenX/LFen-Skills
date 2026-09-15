@@ -1485,6 +1485,57 @@ def validate_survey_refs(project_root: Path, clarification: Any) -> list[str]:
     ]
 
 
+UNRESOLVED_ANSWER_STATES = frozenset({"Ambiguous", "Deferred"})
+RESOLVED_ANSWER_STATES = frozenset({"Answered", "DefaultAccepted"})
+
+
+def _labelled_exchanges(clarification: Any) -> dict[str, tuple[Any, dict[str, Any]]]:
+    """Every recorded answer under its r<round>.e<position> label, with its round ordinal.
+
+    The label is the one the requirement ledger already uses for an answer as a source,
+    so a follow-up and a ledger entry name the same answer the same way.
+    """
+
+    labelled: dict[str, tuple[Any, dict[str, Any]]] = {}
+    if not isinstance(clarification, dict):
+        return labelled
+    for round_item in clarification.get("rounds") or []:
+        if not isinstance(round_item, dict):
+            continue
+        for position, exchange in enumerate(round_item.get("exchanges") or [], start=1):
+            if isinstance(exchange, dict):
+                labelled[f"r{round_item.get('ordinal')}.e{position}"] = (round_item.get("ordinal"), exchange)
+    return labelled
+
+
+def _guard_clarification_history(before: Any, after: Any) -> None:
+    """Refuse an amendment that closes an open answer by editing it instead of asking.
+
+    An ambiguous or deferred answer is resolved by a later answer that follows it up;
+    that is the only way the record can show the question was actually asked again.
+    Relabelling the open answer, or removing it, reaches the same Settled state with
+    nothing asked -- and a real task did exactly that before this guard existed.
+    Answers can still move back to open, gain a follows_up link, or be joined by new
+    rounds.
+    """
+
+    previous, current = _labelled_exchanges(before), _labelled_exchanges(after)
+    problems: list[str] = []
+    for label, (_, exchange) in previous.items():
+        if label not in current:
+            problems.append(f"{label} would be removed")
+            continue
+        old_state = exchange.get("answer_state")
+        new_state = current[label][1].get("answer_state")
+        if old_state in UNRESOLVED_ANSWER_STATES and new_state in RESOLVED_ANSWER_STATES:
+            problems.append(f"{label} would be relabelled from {old_state} to {new_state}")
+    if problems:
+        raise GovernanceError(
+            "an amendment cannot resolve or erase a recorded answer: " + "; ".join(problems)
+            + " -- ask again in a later round and name the open answer with follows_up"
+        )
+
+
 def validate_clarification(clarification: Any) -> list[str]:
     """Report why S1 is not settled yet.
 
@@ -1514,18 +1565,48 @@ def validate_clarification(clarification: Any) -> list[str]:
     ordinals = [item.get("ordinal") for item in rounds if isinstance(item, dict)]
     if ordinals != list(range(1, len(ordinals) + 1)):
         errors.append("clarification.rounds must be numbered from 1 without gaps")
+    # An open answer is closed only by a later answer that says which one it follows up,
+    # and only once that follow-up is itself resolved. Matching questions by their text
+    # cannot tell a rephrased follow-up from a new question, so the link is declared --
+    # and it has to point back at an answer that was still open.
+    labelled = _labelled_exchanges(clarification)
+    followers: dict[str, list[str]] = {}
+    for label, (ordinal, exchange) in labelled.items():
+        target = exchange.get("follows_up")
+        if target is None:
+            continue
+        if target not in labelled:
+            errors.append(f"{label}.follows_up names {target}, which is not a recorded answer")
+            continue
+        target_ordinal, target_exchange = labelled[target]
+        if not (isinstance(ordinal, int) and isinstance(target_ordinal, int) and target_ordinal < ordinal):
+            errors.append(f"{label}.follows_up must name an answer from an earlier round, not {target}")
+            continue
+        if target_exchange.get("answer_state") not in UNRESOLVED_ANSWER_STATES:
+            errors.append(
+                f"{label}.follows_up names {target}, which was already answered; "
+                "a follow-up pursues an answer that is still open"
+            )
+            continue
+        followers.setdefault(target, []).append(label)
+
+    def resolved(label: str) -> bool:
+        # Followers always sit in strictly later rounds, so this cannot loop.
+        exchange = labelled[label][1]
+        if exchange.get("answer_state") not in UNRESOLVED_ANSWER_STATES:
+            return True
+        return any(resolved(follower) for follower in followers.get(label, []))
+
     unresolved = [
         exchange.get("question", "?")
-        for item in rounds
-        if isinstance(item, dict)
-        for exchange in item.get("exchanges", [])
-        if isinstance(exchange, dict)
-        and exchange.get("answer_state") in {"Ambiguous", "Deferred"}
+        for label, (_, exchange) in labelled.items()
+        if exchange.get("answer_state") in UNRESOLVED_ANSWER_STATES and not resolved(label)
     ]
     if state == "Settled" and unresolved:
         errors.append(
             "clarification cannot be Settled while answers stay ambiguous or deferred: "
             + "; ".join(unresolved[:3])
+            + " -- follow each one up in a later round and name it with follows_up"
         )
     if state != "Settled":
         errors.append("clarification.state must be Settled before the task leaves S1")
@@ -2806,7 +2887,13 @@ def amend_record(
     document = read_json(path)
     if document.get("meta_type") not in {"TaskContract", "TaskOutcome"}:
         raise GovernanceError("only TaskContract and TaskOutcome can use this amendment flow")
+    clarification_before = (
+        json.loads(json.dumps(document.get("clarification")))
+        if dotted_path.split(".")[0] == "clarification" else None
+    )
     old_value = _set_dotted_path(document, dotted_path, new_value, allow_add=allow_add)
+    if clarification_before is not None:
+        _guard_clarification_history(clarification_before, document.get("clarification"))
     from_revision = document.get("revision")
     if not isinstance(from_revision, int):
         raise GovernanceError(f"{path}: revision must be an integer")
@@ -2854,6 +2941,9 @@ def amend_record_batch(
     amendments = document.setdefault("amendments", [])
     if not isinstance(amendments, list):
         raise GovernanceError(f"{path}: amendments must be an array")
+    # Compared once, start against end: a batch that erases an open answer in one change
+    # and re-adds it as answered in the next is still a relabel.
+    clarification_before = json.loads(json.dumps(document.get("clarification")))
     applied = 0
     for change in changes:
         dotted_path = change.get("path")
@@ -2885,6 +2975,7 @@ def amend_record_batch(
         applied += 1
     if not applied:
         raise GovernanceError("batch amendment requires at least one change")
+    _guard_clarification_history(clarification_before, document.get("clarification"))
     _refresh_tailoring_after_amendment(document, amendments, reason=reason, basis=basis)
     schema_name = "task-before.schema.json" if document["meta_type"] == "TaskContract" else "task-after.schema.json"
     require_valid_json_document(document, schema_name, path.name)

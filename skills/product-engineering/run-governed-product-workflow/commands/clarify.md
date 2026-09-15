@@ -65,6 +65,10 @@ VC-PPG-PRO-001 §S1 规定的动作是「检查仓库、文档、环境和 Basel
 
 回答本身会引入新的分歧点——新范围、新约束、新依赖、与现有实现的冲突——它们是下一轮的提问来源。轮次从 1 连续编号。
 
+**追问怎么记。** 追问放在后面的轮次，并在追问那条回答上写 `follows_up`，点名被追问的回答，写法 `r<轮次>.e<序号>`，例如 `r1.e1`。只有追问最终得到 `Answered` 或 `DefaultAccepted`，原来那条才算解决；追问本身又有歧义时，再往下追问并点名它，整条链解决才算解决。点名只能指向更早轮次里仍未解决的回答。
+
+**不得改标。** 原来那条的 `answer_state` 保持 `Ambiguous`/`Deferred` 不动。用修订把它改成 `Answered`/`DefaultAccepted`，或删掉已记录的回答或轮次，会被 `amend_record.py` 拒绝——那等于没问就宣布问过了。
+
 ## 5. 什么时候可以停
 
 S1 出口条件（VC-PPG-PRO-001 §S1）全部成立才可结束澄清：
@@ -86,9 +90,10 @@ S1 出口条件（VC-PPG-PRO-001 §S1）全部成立才可结束澄清：
 | `clarification.notice` | 第 3 节那句话的实际原文 |
 | `clarification.survey_refs` | 第 1 节勘察结论的引用，零轮时同样必填 |
 | `clarification.rounds[].exchanges[]` | 问题、绑定的变更项、推荐默认、**用户回答原话**、回答状态 |
+| `clarification.rounds[].exchanges[].follows_up` | 只写在追问那条回答上，点名被追问的更早回答，写法 `r<轮次>.e<序号>` |
 | `clarification.basis` | 结束澄清或判零轮所依据的勘察结论 |
 
-未归档、未 `Settled`、或仍有 `Ambiguous`/`Deferred` 时，`resolve_tailoring` 从 S2 起返回 blocker，任务进不了二次确认与计划。这是机器强制，不靠自觉。
+未归档、未 `Settled`、或仍有未被追问解决的 `Ambiguous`/`Deferred` 时，`resolve_tailoring` 从 S2 起返回 blocker，任务进不了二次确认与计划。这是机器强制，不靠自觉。
 
 ## 7. 每轮同步第一性原理分析
 
