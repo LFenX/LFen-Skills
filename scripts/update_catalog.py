@@ -579,13 +579,19 @@ def render_skill_table(taxonomy: dict[str, Any], skills: dict[str, Skill], lang:
     return "\n".join(lines)
 
 
-def render_readme(current: str, taxonomy: dict[str, Any], skills: dict[str, Skill]) -> str:
+def render_readme(
+    current: str,
+    taxonomy: dict[str, Any],
+    skills: dict[str, Skill],
+    lang: str = "zh",
+    filename: str = "README.md",
+) -> str:
     start = current.find(README_START)
     end = current.find(README_END)
     if start < 0 or end < 0 or end < start:
-        raise CatalogError("README.md 缺少有效的分类摘要标记")
+        raise CatalogError(f"{filename} 缺少有效的分类摘要标记")
 
-    block = "\n".join([README_START, render_skill_table(taxonomy, skills, "zh"), README_END])
+    block = "\n".join([README_START, render_skill_table(taxonomy, skills, lang), README_END])
     return current[:start] + block + current[end + len(README_END) :]
 
 
@@ -614,7 +620,10 @@ def main() -> int:
         index_path = ROOT / taxonomy["catalog"]["generated_index"]
         readme_path = ROOT / "README.md"
         readme = readme_path.read_text(encoding="utf-8")
-        rendered_readme = render_readme(readme, taxonomy, skills)
+        rendered_readme = render_readme(readme, taxonomy, skills, "zh", "README.md")
+        readme_en_path = ROOT / "README.en.md"
+        readme_en = readme_en_path.read_text(encoding="utf-8")
+        rendered_readme_en = render_readme(readme_en, taxonomy, skills, "en", "README.en.md")
         skills_page_path = ROOT / "SKILLS.md"
         skills_page = skills_page_path.read_text(encoding="utf-8")
         rendered_skills_page = render_skills_page(skills_page, taxonomy, skills, "zh")
@@ -633,6 +642,8 @@ def main() -> int:
                 )
             if readme != rendered_readme:
                 raise CatalogError("README.md 的分类摘要不是最新版本；运行 python scripts/update_catalog.py")
+            if readme_en != rendered_readme_en:
+                raise CatalogError("README.en.md 的分类摘要不是最新版本；运行 python scripts/update_catalog.py")
             if skills_page != rendered_skills_page:
                 raise CatalogError("SKILLS.md 的分类明细不是最新版本；运行 python scripts/update_catalog.py")
             if skills_en_page != rendered_skills_en_page:
@@ -647,10 +658,12 @@ def main() -> int:
         index_path.parent.mkdir(parents=True, exist_ok=True)
         index_path.write_text(rendered_index, encoding="utf-8", newline="\n")
         readme_path.write_text(rendered_readme, encoding="utf-8", newline="\n")
+        readme_en_path.write_text(rendered_readme_en, encoding="utf-8", newline="\n")
         skills_page_path.write_text(rendered_skills_page, encoding="utf-8", newline="\n")
         skills_en_page_path.write_text(rendered_skills_en_page, encoding="utf-8", newline="\n")
         print(
-            f"已更新 README.md、SKILLS.md、SKILLS.en.md、{catalog_path.relative_to(ROOT)} 与 {index_path.relative_to(ROOT)}："
+            f"已更新 README.md、README.en.md、SKILLS.md、SKILLS.en.md、"
+            f"{catalog_path.relative_to(ROOT)} 与 {index_path.relative_to(ROOT)}："
             f"{len(skills)} 个 skill"
         )
         return 0
