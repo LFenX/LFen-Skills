@@ -1,0 +1,4 @@
+interface:
+  display_name: "记录 Skill 问题"
+  short_description: "确认后按 JSON 分开记录观察与推理，落盘前必须征求人的意见"
+  default_prompt: "使用 $record-skill-incident 把已确认的 skill 问题整理成 JSON：观察与推理分开标注。默认写到 D:/skill_problem/<skill-name>/，目录不存在则创建。先向我确认是否创建文件、归到哪个 skill 文件夹、文件名，未同意前不要写盘。"

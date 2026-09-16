@@ -57,6 +57,17 @@
         "add-opencode-model-provider"
       ],
       "children": []
+    },
+    {
+      "id": "debug",
+      "name": "调试排障",
+      "name_en": "Debugging",
+      "description": "记录和拆解已确认的执行问题，把可核对观察与推理分开。",
+      "description_en": "Record and unpack confirmed execution problems, keeping observations separate from inferences.",
+      "skills": [
+        "record-skill-incident"
+      ],
+      "children": []
     }
   ],
   "skill_metadata": {
@@ -101,6 +112,14 @@
         "openai-compatible",
         "opencode",
         "tool-configuration"
+      ]
+    },
+    "record-skill-incident": {
+      "scope": "general",
+      "tags": [
+        "incident-record",
+        "skill-debug",
+        "skill-incident"
       ]
     }
   },

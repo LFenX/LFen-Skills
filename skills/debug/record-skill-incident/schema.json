@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lfenskills.local/schemas/record-skill-incident.json",
+  "title": "Skill incident record",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "document_id",
+    "created_at",
+    "language",
+    "title",
+    "epistemic_rule",
+    "observed_facts",
+    "file_placement"
+  ],
+  "properties": {
+    "document_id": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "minLength": 1 },
+    "language": { "type": "string", "minLength": 2 },
+    "title": { "type": "string", "minLength": 1 },
+    "purpose": { "type": "string" },
+    "epistemic_rule": {
+      "type": "object",
+      "required": ["observed_fact", "inferred"],
+      "properties": {
+        "observed_fact": { "type": "string" },
+        "inferred": { "type": "string" }
+      }
+    },
+    "related_work": { "type": "object" },
+    "incident_summary": { "type": "object" },
+    "observed_facts": {
+      "description": "Only items that can be opened and read in a file or ledger.",
+      "type": "object"
+    },
+    "inferred_causes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/inference" }
+    },
+    "causal_chain": { "type": "object" },
+    "skill_versus_model": { "type": "object" },
+    "counterfactuals_inferred": {
+      "type": "object",
+      "properties": {
+        "inferred": { "const": true },
+        "not_a_fact": { "const": true }
+      }
+    },
+    "attribution_table": { "type": "array" },
+    "file_placement": {
+      "type": "object",
+      "required": ["skill_name", "directory", "path", "not_in_project"],
+      "properties": {
+        "skill_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Directory name of the skill under discussion, not record-skill-incident."
+        },
+        "directory": {
+          "type": "string",
+          "minLength": 1,
+          "description": "D:/skill_problem/<skill-name>"
+        },
+        "path": { "type": "string", "minLength": 1 },
+        "not_in_project": { "type": "boolean" },
+        "project_root_avoided": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "observation": {
+      "type": "object",
+      "required": ["id", "source", "text"],
+      "properties": {
+        "id": { "type": "string" },
+        "source": { "type": "string" },
+        "text": { "type": "string" }
+      }
+    },
+    "inference": {
+      "type": "object",
+      "required": ["inferred", "not_a_fact", "hypothesis"],
+      "properties": {
+        "inferred": { "const": true },
+        "not_a_fact": { "const": true },
+        "hypothesis": { "type": "string" },
+        "confidence": { "type": "string" },
+        "basis": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

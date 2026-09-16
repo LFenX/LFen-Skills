@@ -9,14 +9,15 @@
 | [数据处理](#data-processing) | 结构化数据的匹配、清洗、转换、分析与质量核验。 | 1 |
 | [产品研发](#product-engineering) | 产品定义、研发执行、质量控制、交付与运营流程。 | 3 |
 | [开发工具](#dev-tools) | 开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。 | 1 |
+| [调试排障](#debug) | 记录和拆解已确认的执行问题，把可核对观察与推理分开。 | 1 |
 
-共收录 **5** 个 skill。机器可读目录见 [`catalog/index.json`](catalog/index.json)。
+共收录 **6** 个 skill。机器可读目录见 [`catalog/index.json`](catalog/index.json)。
 
 ## 适用范围
 
 | 范围 | 定义 | Skill 数量 |
 | --- | --- | ---: |
-| 通用 | 不依赖 LFen 团队或单一项目上下文，可跨项目复用。 | 3 |
+| 通用 | 不依赖 LFen 团队或单一项目上下文，可跨项目复用。 | 4 |
 | 团队 | 依赖 LFen 团队规范、流程或共享约定。 | 1 |
 | 项目 | 面向一个明确项目、系统或业务工作流。 | 1 |
 
@@ -50,6 +51,15 @@
 | Skill | 适用范围 | 标签 | 能力说明 |
 | --- | --- | --- | --- |
 | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) | 通用 | `model-provider`, `openai-compatible`, `opencode`, `tool-configuration` | 为 opencode 接入第三方 OpenAI 兼容模型供应商（如 LiteLLM 网关）。覆盖 provider 配置结构、模型注册、网关验证、常见错误排查。当用户要添加新的模型供应商、配置 opencode.json 的 provider 段、或模型配置后不生效时使用。 |
+
+<a id="debug"></a>
+## 调试排障
+
+记录和拆解已确认的执行问题，把可核对观察与推理分开。
+
+| Skill | 适用范围 | 标签 | 能力说明 |
+| --- | --- | --- | --- |
+| [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | 通用 | `incident-record`, `skill-debug`, `skill-incident` | 把已确认的 Agent Skill 问题整理成 JSON：可核对观察与推理原因必须分开。落盘默认写到 D:/skill_problem/<skill-name>/，没有 skill_problem 或该 skill 目录时先创建。创建实际文档前必须向人征求是否落盘和文件名。用于讨论 skill 规范缺失、模型未执行规范、门禁只申报不走、复查用派生物自验，并且人已经确认问题属实、要求留档的时候。未征求意见不得写文件；不得把推理写成事实。 |
 
 ## 分类演进规则
 

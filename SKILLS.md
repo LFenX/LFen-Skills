@@ -6,7 +6,7 @@
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/skills-5-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
+  <img src="https://img.shields.io/badge/skills-6-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
   <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat&labelColor=1E1B4B" alt="platforms">
   <img src="https://img.shields.io/badge/license-MIT-475569?style=flat&labelColor=1E1B4B" alt="license">
 </p>
@@ -30,6 +30,8 @@
 |  | [`run-koc-feedback-workflow`](skills/product-engineering/run-koc-feedback-workflow/SKILL.md) | 从 KOC 后台反馈 Base 筛选、列举、认领并推进开发登记项，在用户授权后同步澄清、规划、执行、复核、返修和完成状态。 |
 | [**开发工具**](CATALOG.md#dev-tools) |  | 开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。 |
 |  | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) | 为 opencode 接入第三方 OpenAI 兼容模型供应商（如 LiteLLM 网关）。 |
+| [**调试排障**](CATALOG.md#debug) |  | 记录和拆解已确认的执行问题，把可核对观察与推理分开。 |
+|  | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | 把已确认的 Agent Skill 问题整理成 JSON：可核对观察与推理原因必须分开。 |
 <!-- catalog-detail:end -->
 
 ---
@@ -94,6 +96,21 @@
 给 opencode 接入第三方 OpenAI 兼容模型供应商（如 LiteLLM 网关）：provider 配置结构、模型注册、网关验证、常见错误排查。
 
 **适用**：添加新的模型供应商、配置 `opencode.json` 的 provider 段、或模型配置后不生效时。
+
+---
+
+## 🪲 调试排障
+
+> 记录和拆解已确认的执行问题，把可核对观察与推理分开
+
+### [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md)
+
+![通用](https://img.shields.io/badge/%E9%80%9A%E7%94%A8-2ea44f?style=flat-square)
+`incident-record` `skill-debug` `skill-incident`
+
+讨论并确认某个 Agent Skill 出了问题后，按固定 JSON 分开记录可核对观察与推理原因。落盘默认写到 `D:/skill_problem/<skill-name>/`，目录不存在则创建。创建实际文档前必须向人征求是否落盘和文件名。
+
+**适用**：人已确认 skill 规范缺失、模型未执行规范、门禁只申报不走、或复查用派生物自验，并要求留档的时候。
 
 ---
 
