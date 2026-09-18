@@ -1,0 +1,173 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-INSTALL-20260914-005",
+  "task_id": "T-INSTALL-20260914-005",
+  "revision": 1,
+  "status": "Implemented",
+  "completed_at": "2026-09-18T14:25:31Z",
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "daf93b62ce1de24564b47a888771ac474f562436",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 11,
+    "status_digest": "199710446d13f8ef68bc3f2d58ec184da7c9ee2f750e4be396abaceb55eb93bd",
+    "captured_at": "2026-09-18T14:25:31Z"
+  },
+  "established_facts": [
+    "四个入口（~/.claude、~/.codex、~/.agents、~/.cursor 下的 skills）各有 catalog 全部 6 个 skill 的 junction，均指向 ~/.lfenskills/skills/<分类>/<名称>；~/.lfenskills 从 GitHub 克隆，与 origin/main 一致",
+    "Codex 原 match-tabular-records 实体拷贝完整移入 ~/.agents/skills-quarantine/match-tabular-records-20260918T134502Z；三个悬空的 run-web-product-workflow junction 已删除（只删链接）",
+    "Task C 的 daf93b6 已 push，Skill gates 在 3.11、3.12、3.13 上通过；Task A 的 21ca332 此前已随用户 2026-09-16 的 push 上线",
+    "scripts/check_install_links.py 按与两个安装器状态模式相同的规则报告缺失、悬空、拷贝、指错并在有问题时以 1 退出，同时报告安装克隆是否落后远端；update_catalog.py 在 skill 目录移动或移除时提醒并运行该检查",
+    "install.ps1 与 install.sh 只安装含 SKILL.md 的目录，平台开关只作用于所选平台，状态模式不再 git pull，安装与更新修复指进安装克隆的链接，真实目录只提示不删除",
+    "install.ps1 原有两处致命缺陷已修：着色函数 ac 被内置别名 Add-Content 覆盖（输出消失并在当前目录生成以颜色命名的文件），以及无 BOM 的 UTF-8 在中文 Windows 的 PowerShell 5.1 下无法解析；文件改为纯 ASCII（BOM 会破坏 iwr | iex）",
+    "此前把着色文字消失归因于 PowerShell 5.1 重定向行为是误判，真实原因是 ac 别名冲突",
+    "未重新装配任何项目的控制台，四个项目 .project-governance/console 逐文件哈希与开始前相同"
+  ],
+  "actual_changes": [
+    "install.ps1",
+    "install.sh",
+    "scripts/check_install_links.py",
+    "scripts/test_check_install_links.py",
+    "scripts/update_catalog.py",
+    "CATALOG.md（第 5 条分类演进规则）",
+    "README.md",
+    "README.en.md",
+    ".github/workflows/catalog.yml",
+    "家目录：四个入口的 junction 改指 ~/.lfenskills 并装齐 6 个 skill；Codex 拷贝移入 quarantine；删除三个悬空 junction；新建 ~/.lfenskills 与 ~/.lfenskills-version",
+    "GitHub：push daf93b6（Task C）到 origin/main"
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "daf93b6 的 Skill gates 在 3.11、3.12、3.13 上 success",
+      "evidence_refs": [
+        "RUN-001-E0004"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "check_install_links 单元测试在 Windows 3.13/3.11 与 WSL 3.14 下 OK，--check 与 bash -n 通过",
+      "evidence_refs": [
+        "RUN-001-E0014"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "install.ps1 场景 34/34，状态判定与检查脚本逐项一致",
+      "evidence_refs": [
+        "RUN-001-E0015"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "真实安装后检查脚本 24 个正常、-Status 0 问题、opencode 列出 6 个 skill、控制台与非 LFen 条目未变",
+      "evidence_refs": [
+        "RUN-001-E0016"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "全新克隆提交再检出后 9 个文件逐字节一致，三道门、catalog 检查、install.ps1 34/34、install.sh 36/36",
+      "evidence_refs": [
+        "RUN-001-E0017"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "目录移动端到端：update_catalog 提醒并点名仍指向旧位置的入口，--check 不提醒",
+      "evidence_refs": [
+        "RUN-001-E0018"
+      ]
+    }
+  ],
+  "incomplete_items": [
+    {
+      "summary": "Cursor 是否在家目录层面读取 .claude、.codex、.agents 下的 skill 未核实",
+      "reason": "Cursor 没有可在命令行列出技能的入口，需在 Cursor 界面查看",
+      "impact": "不影响 ~/.cursor/skills 本身已装齐 6 个 skill；只影响是否会出现重复条目",
+      "owner": "requester",
+      "reentry_condition": "在 Cursor 的技能列表中看到 6 个 LFen skill 且无重复或报错"
+    }
+  ],
+  "legacy_issues": [
+    {
+      "summary": "install.sh 依赖 bash 4 的关联数组，macOS 自带的 bash 3.2 无法运行",
+      "reason": "原有实现，不在本任务的 3 个缺陷之内",
+      "impact": "macOS 用户需先安装新版 bash",
+      "owner": "maintainer",
+      "reentry_condition": "决定支持 bash 3.2 时另开任务改写数据结构"
+    },
+    {
+      "summary": "install.sh 在 ~/.lfenskills 存在但不是 git 克隆时会先 rm -rf 再克隆",
+      "reason": "原有行为，本任务未改",
+      "impact": "该位置若有非克隆内容会被删除",
+      "owner": "maintainer",
+      "reentry_condition": "改为拒绝并提示后再处理"
+    },
+    {
+      "summary": "install.ps1 的方向键交互菜单（安装与更新）未做自动化测试",
+      "reason": "ReadKey 交互无法在非交互进程中驱动",
+      "impact": "交互路径只经代码复用间接覆盖（与已测的静默与状态模式共用函数）",
+      "owner": "maintainer",
+      "reentry_condition": "下次改动交互菜单时手工走查一遍"
+    },
+    {
+      "summary": "commands/run.md 中执行就绪校验与 get_context 的先后说明与实际要求不符",
+      "reason": "Task A 执行时发现，按范围只记录",
+      "impact": "照文档顺序会先遇到执行就绪校验失败",
+      "owner": "maintainer",
+      "reentry_condition": "下次修改 run-governed-product-workflow 文档时一并修正"
+    }
+  ],
+  "decisions": [],
+  "evidence_refs": [],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-INSTALL-20260914-005-before",
+      "content_ref": ".project-governance/tasks/T-INSTALL-20260914-005/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "daf93b62ce1de24564b47a888771ac474f562436",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-INSTALL-20260914-005-run",
+      "content_ref": ".project-governance/tasks/T-INSTALL-20260914-005/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "daf93b62ce1de24564b47a888771ac474f562436",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-INSTALL-20260914-005-after",
+      "content_ref": ".project-governance/tasks/T-INSTALL-20260914-005/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "daf93b62ce1de24564b47a888771ac474f562436",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": []
+}

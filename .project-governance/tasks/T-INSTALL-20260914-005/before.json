@@ -1,0 +1,2614 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "TaskContract",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-INSTALL-20260914-005",
+  "task_id": "T-INSTALL-20260914-005",
+  "ordinal": 11,
+  "revision": 6,
+  "lifecycle_state": "Frozen",
+  "created_at": "2026-09-18T13:36:47Z",
+  "frozen_at": "2026-09-18T13:39:26Z",
+  "objective": "修复各 coding agent 的技能安装入口：按安装器模型改指 ~/.lfenskills 并装齐 catalog 的 6 个 skill，修好安装器，加本地安装入口检查并在目录移动时提醒，发布到 GitHub",
+  "request_snapshot": {
+    "language": "zh-CN",
+    "text": "1、2、3 全做",
+    "captured_at": "2026-09-18T13:36:47Z"
+  },
+  "clarification": {
+    "state": "Settled",
+    "mode": "Asked",
+    "notice": "针对你的需求和项目现状，有几个问题需要你先回答，以保证本需求完成的质量",
+    "survey_refs": [
+      "install.ps1",
+      "install.sh",
+      "scripts/update_catalog.py",
+      "catalog/taxonomy.json",
+      "README.md:38",
+      ".github/workflows/catalog.yml",
+      "skills/product-engineering/run-governed-product-workflow/scripts/deploy_console.py",
+      "catalog/index.json"
+    ],
+    "rounds": [
+      {
+        "ordinal": 1,
+        "asked_at": "2026-09-14T10:20:08Z",
+        "exchanges": [
+          {
+            "question": "catalog 里 5 个 skill 各装到哪些 agent 入口？它决定第 1 项要补建哪些 junction，也决定第 3 项的检查器把什么判成「缺失」（影响：Scope + Acceptance）。现状：governed 修好后四处都有；koc 只在 codex、agents；match-tabular 只在 codex；build-large-web-project-zero-to-one 和 add-opencode-model-provider 哪都没装。",
+            "changes": "Scope",
+            "recommended_default": "全部装到四个入口（推荐）",
+            "answer": "先从远端pull skill最新修改",
+            "answer_state": "Ambiguous"
+          }
+        ]
+      },
+      {
+        "ordinal": 2,
+        "asked_at": "2026-09-14T10:30:21Z",
+        "exchanges": [
+          {
+            "question": "各 agent 的 junction 应该指向哪一份仓库？（影响：Scope + 风险）现在全部指向 D: 开发仓；远端新加的安装器和 README 写的是指向 ~/.lfenskills 克隆，再靠 git pull 更新。",
+            "changes": "Scope",
+            "recommended_default": "改指 ~/.lfenskills（推荐）",
+            "answer": "改指 ~/.lfenskills（推荐）",
+            "answer_state": "Answered"
+          },
+          {
+            "question": "catalog 里 5 个 skill 各装到哪些 agent 入口？（影响：Scope + Acceptance）现状：governed 修好后四处都有；koc 只在 codex、agents；match-tabular 只在 codex；build-large-web-project-zero-to-one 和 add-opencode-model-provider 哪都没装。",
+            "changes": "Scope",
+            "recommended_default": "全部装到四个入口（推荐）",
+            "answer": "全部装到四个入口（推荐）",
+            "answer_state": "Answered",
+            "follows_up": "r1.e1"
+          },
+          {
+            "question": "安装器里核实的 3 个问题，这次要不要一起修？（影响：Scope）① 没有 SKILL.md 的 skill-practice-collector 会被当成 skill 装进去；② install.ps1 的平台开关没被用上，静默模式总是装到全部 7 个平台；③ 安装、更新和 -Status 看不见也清不掉悬空的旧名入口。",
+            "changes": "Scope",
+            "recommended_default": "一起修（推荐）",
+            "answer": "一起修（推荐）",
+            "answer_state": "Answered"
+          }
+        ]
+      },
+      {
+        "ordinal": 3,
+        "asked_at": "2026-09-15T04:08:50Z",
+        "exchanges": [
+          {
+            "question": "Task B 第 2 项重新装配控制台，范围怎么定？（影响：Scope）Task A 改了 governance_artifacts.py，另外 4 个项目的控制台现在全过期了，原先只打算处理 QA-API 和 website_console_next。",
+            "changes": "Scope",
+            "recommended_default": "4 个项目全部重装（推荐）",
+            "answer": "不要重装，跳过这个task",
+            "answer_state": "Answered"
+          },
+          {
+            "question": "~/.lfenskills 从哪里拿代码？（影响：风险 + 授权）按你选的方式，它从 GitHub 克隆；但本仓领先 GitHub 1 个提交（Task A 的修复 69a7732 还没 push），照原样装，agent 用的就是没有这个修复的版本。",
+            "changes": "Authority",
+            "recommended_default": "先 push 再从 GitHub 克隆（推荐）",
+            "answer": "先 push 再从 GitHub 克隆（推荐）",
+            "answer_state": "Answered"
+          },
+          {
+            "question": "Task B 收尾后，也提交一个本地 commit 吗？（影响：授权）Task A 的提交授权只覆盖 A。",
+            "changes": "Authority",
+            "recommended_default": "提交本地 commit（推荐）",
+            "answer": "提交本地 commit（推荐）",
+            "answer_state": "Answered"
+          }
+        ]
+      },
+      {
+        "ordinal": 4,
+        "asked_at": "2026-09-15T04:26:51Z",
+        "exchanges": [
+          {
+            "question": "GitHub 上的 Skill gates 从我上一轮的提交起，就一直在 Python 3.11/3.12 上失败（3.13 通过，本机用的是 3.13，所以一直没发现）。原因是 init_task.py 的 --help 在 3.11/3.12 下折行时少打一对互斥组的方括号，和用 3.13 生成的契约哈希对不上；只影响自检，脚本实际运行不受影响。按原计划 push，CI 还是会因为这个老问题变红，看不出这次改动的好坏。怎么处理？（影响：风险 + Scope）",
+            "changes": "Risk",
+            "recommended_default": "先修 CI 再 push（推荐）",
+            "answer": "先修 CI 再 push（推荐）",
+            "answer_state": "Answered"
+          }
+        ]
+      }
+    ],
+    "basis": "勘察：四个入口的真实状态（3 个悬空的旧名 junction，.agents 与 .cursor 缺 run-governed-product-workflow，Codex 的 match-tabular-records 是旧版实体拷贝）；本地开发仓曾落后 origin 22 个提交；远端 install.ps1 与 install.sh 以 ~/.lfenskills 为安装源，且有 3 个已核实的缺陷；Task A 修改 governance_artifacts.py 后 4 个项目的控制台快照过期；本地领先 origin 1 个提交。第 1 轮回答没有回答安装范围，记为 Ambiguous；第 2 轮用 follows_up r1.e1 重新追问并得到明确回答。澄清中发现的校验器缺陷已由 T-CLARIFY-20260914-004 修复。第 3 轮三问均明确回答。第 4 轮（2026-09-15）问 Skill gates 在 3.11/3.12 上失败怎么处理，答「先修 CI 再 push（推荐）」，已由 T-CI-20260915-006 修复并本地提交 daf93b6（实测根因与当时提问里的描述不同：是 ≤3.12 把创建顺序与参数顺序相反的相邻互斥组并成一对括号）。2026-09-16 用户经 Cursor 提交并 push 了 6e848a5（新增 record-skill-incident）与 bb112d3，Task A 的 21ca332 随之进入 origin/main；~/.cursor/skills 新出现指向 D: 开发仓的 record-skill-incident junction。",
+    "reopened_by": []
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "1、2、3 全做",
+      "reading": "第 1 项：修复各 agent 技能入口——删悬空旧名入口、补齐入口、Codex 拷贝移入 quarantine 换成 junction",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0007",
+        "RUN-001-E0008",
+        "RUN-001-E0016"
+      ],
+      "acceptance_refs": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "1、2、3 全做",
+      "reading": "第 2 项：重新装配过期的控制台快照——第 3 轮用户决定不做",
+      "state": "OutOfScope",
+      "evidence_refs": [
+        "clarification:r3.e1"
+      ],
+      "acceptance_refs": [
+        10
+      ]
+    },
+    {
+      "id": "R-03",
+      "source": "request_snapshot",
+      "quote": "1、2、3 全做",
+      "reading": "第 3 项：本地检查脚本对照 catalog 与各入口真实 junction，报缺失/悬空/拷贝/指错，并在 update_catalog.py 检测到目录移动时自动运行",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0009",
+        "RUN-001-E0010",
+        "RUN-001-E0014",
+        "RUN-001-E0015",
+        "RUN-001-E0018"
+      ],
+      "acceptance_refs": [
+        3,
+        4,
+        9
+      ]
+    },
+    {
+      "id": "R-04",
+      "source": "clarification:r1.e1",
+      "quote": "先从远端pull skill最新修改",
+      "reading": "先把本地开发仓同步到远端最新；已在澄清阶段完成（快进 b22e336..0988bb1）",
+      "state": "Covered",
+      "evidence_refs": [
+        "git:pull --ff-only b22e336..0988bb1"
+      ],
+      "acceptance_refs": [
+        11
+      ]
+    },
+    {
+      "id": "R-05",
+      "source": "clarification:r2.e1",
+      "quote": "改指 ~/.lfenskills（推荐）",
+      "reading": "四个入口的 junction 改指 ~/.lfenskills 克隆，以后在那里 git pull 更新",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0006",
+        "RUN-001-E0016"
+      ],
+      "acceptance_refs": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "R-06",
+      "source": "clarification:r2.e2",
+      "quote": "全部装到四个入口（推荐）",
+      "reading": "catalog 的全部 skill 装到 Claude、Codex、OpenCode(.agents)、Cursor 四个入口，检查脚本要求全覆盖；现为 6 个，含用户 2026-09-16 新增的 record-skill-incident",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0016"
+      ],
+      "acceptance_refs": [
+        0,
+        3,
+        8
+      ]
+    },
+    {
+      "id": "R-07",
+      "source": "clarification:r2.e3",
+      "quote": "一起修（推荐）",
+      "reading": "修好安装器的 3 个问题：只认含 SKILL.md 的目录、平台开关、状态与清理按检查规则",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0011",
+        "RUN-001-E0012",
+        "RUN-001-E0015",
+        "RUN-001-E0017"
+      ],
+      "acceptance_refs": [
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "id": "R-08",
+      "source": "clarification:r3.e1",
+      "quote": "不要重装，跳过这个task",
+      "reading": "不重新装配任何项目的控制台",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0016"
+      ],
+      "acceptance_refs": [
+        10
+      ]
+    },
+    {
+      "id": "R-09",
+      "source": "clarification:r3.e2",
+      "quote": "先 push 再从 GitHub 克隆（推荐）",
+      "reading": "先 push 再从 GitHub 克隆 ~/.lfenskills：Task A 的提交已随用户 2026-09-16 的 push 进入 origin/main，本任务先 push Task C 的提交 daf93b6 再克隆；Task B 提交后同样 push（收尾后执行）",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0002",
+        "RUN-001-E0003",
+        "RUN-001-E0006"
+      ],
+      "acceptance_refs": [
+        2
+      ]
+    },
+    {
+      "id": "R-10",
+      "source": "clarification:r3.e3",
+      "quote": "提交本地 commit（推荐）",
+      "reading": "授权 Task B 收尾后提交一个本地 commit；提交前在全新克隆中复验",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0017"
+      ],
+      "acceptance_refs": [
+        12
+      ]
+    },
+    {
+      "id": "R-11",
+      "source": "clarification:r4.e1",
+      "quote": "先修 CI 再 push（推荐）",
+      "reading": "push 前先修好 CI（T-CI-20260915-006 已完成）；本任务 push Task C 的提交后，确认 Skill gates 在 3.11、3.12、3.13 上都通过，再从 GitHub 克隆 ~/.lfenskills",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0002",
+        "RUN-001-E0004"
+      ],
+      "acceptance_refs": [
+        2
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "DEC-001",
+      "kind": "ReleaseApproval",
+      "presented": "~/.lfenskills 从哪里拿代码：先 push 再从 GitHub 克隆（Task A 的提交 push 到 origin/main，~/.lfenskills 按安装器原样从 GitHub 克隆；Task B 提交后同样 push；push 会触发 CI，内容公开）",
+      "response": "先 push 再从 GitHub 克隆（推荐）",
+      "decided_by": "user",
+      "decided_at": "2026-09-15T04:09:21Z",
+      "evidence_ref": "conversation:AskUserQuestion「推送」回答：先 push 再从 GitHub 克隆（推荐）"
+    },
+    {
+      "id": "DEC-002",
+      "kind": "Proceed",
+      "presented": "二次确认：会做——记录四个入口与四个控制台现状；push Task C（daf93b6），Skill gates 三个版本通过后从 GitHub 克隆 ~/.lfenskills；Codex 的 match-tabular-records 拷贝移入 quarantine、删三个悬空 junction（只删链接）；修 install.ps1 与 install.sh；新增 check_install_links.py 与测试并接入 catalog CI；update_catalog.py 目录移动时提醒；README 两份说明；用修好的安装器把 catalog 的 6 个 skill 装到四个入口（Cursor 的 record-skill-incident 也改指）；本地与全新克隆验证；验收后提交本地 commit 并 push、~/.lfenskills 快进、看门禁。不做——重装控制台、收敛入口、清理缓存与 quarantine、Gemini/Copilot/Windsurf、改 skill 运行时、force push。风险——push 公开发布，C 的 CI 有版本失败就停下不克隆；改指后要 push 再 pull 才生效。默认项——「全部」包含 9 月 16 日新增的 record-skill-incident，共 6 个。",
+      "response": "Proceed",
+      "decided_by": "user",
+      "decided_at": "2026-09-18T13:39:08Z",
+      "evidence_ref": "conversation:AskUserQuestion「二次确认」回答：Proceed"
+    },
+    {
+      "id": "DEC-003",
+      "kind": "Acceptance",
+      "presented": "验收（逐条对照）：11 条需求原文——第 1、3 项与改指 ~/.lfenskills、全部装到四个入口、一起修、先修 CI 再 push 已实现；第 2 项按第 3 轮「不要重装，跳过这个task」不做且控制台逐文件未变；pull 在建任务前完成；Task C 已 push 并从 GitHub 克隆，Task B 的 commit 与 push 按决定在收尾后执行，提交前的全新克隆复验已完成。13 条判据全部满足（E0002–E0018）。另说明顺带修复的 3 个安装器原有缺陷（ac 与 Add-Content 别名冲突、PS 5.1 中文系统无法解析、真实目录被整个删除），更正此前「PS 5.1 重定向丢着色文字」的误判，列出遗留：install.sh 需 bash 4 与非克隆目录会被删、交互菜单未自动化测试、Cursor 读取范围待确认。",
+      "response": "接受",
+      "decided_by": "user",
+      "decided_at": "2026-09-18T14:25:18Z",
+      "evidence_ref": "conversation:AskUserQuestion「验收」回答：接受"
+    }
+  ],
+  "depends_on": [
+    "T-CLARIFY-20260914-004",
+    "T-CI-20260915-006"
+  ],
+  "supersedes": [],
+  "blocked_by": [],
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "daf93b62ce1de24564b47a888771ac474f562436",
+    "head_exists": true,
+    "dirty": false,
+    "dirty_entries": 0,
+    "status_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "captured_at": "2026-09-18T13:36:47Z"
+  },
+  "scope": {
+    "in_scope": [
+      "技能入口迁移到 ~/.lfenskills 并装齐 catalog 的 6 个 skill，清理悬空旧名入口，Codex 拷贝移入 quarantine",
+      "推送 Task C 与 Task B 的提交并从 GitHub 克隆 ~/.lfenskills",
+      "安装器修复（install.ps1 与 install.sh）",
+      "安装入口检查脚本 scripts/check_install_links.py 及测试与 CI",
+      "update_catalog.py 目录移动时的安装入口提醒",
+      "README 与 README.en.md 安装与维护说明"
+    ],
+    "out_of_scope": [
+      "重新装配各项目控制台（用户第 3 轮原话：不要重装，跳过这个task）",
+      "收敛入口目录，四处都保留",
+      "清理 Codex 插件缓存、~/.agents/skills-quarantine 已有内容与 Temp 下的旧 skill 拷贝",
+      "Gemini、Copilot、Windsurf 的安装",
+      "其他项目文档里残留的旧 skill 名",
+      "commands/run.md 中执行就绪校验与 get_context 的顺序说明（只记录）",
+      "skill-practice-collector 本身的内容"
+    ],
+    "allowed_paths": [
+      "install.ps1",
+      "install.sh",
+      "scripts/check_install_links.py",
+      "scripts/test_check_install_links.py",
+      "scripts/update_catalog.py",
+      "README.md",
+      "README.en.md",
+      "CATALOG.md",
+      "SKILLS.md",
+      "SKILLS.en.md",
+      "catalog/index.json",
+      ".github/workflows/catalog.yml",
+      ".github/scripts",
+      ".project-governance/generated",
+      "C:/Users/Administrator/.claude/skills",
+      "C:/Users/Administrator/.codex/skills",
+      "C:/Users/Administrator/.agents/skills",
+      "C:/Users/Administrator/.cursor/skills",
+      "C:/Users/Administrator/.agents/skills-quarantine",
+      "C:/Users/Administrator/.lfenskills",
+      "C:/Users/Administrator/.lfenskills-version"
+    ],
+    "forbidden_actions": [
+      "重新装配任何项目的控制台",
+      "删除 junction 指向的目标目录或其内容",
+      "删除 Codex 那份 match-tabular-records 拷贝（只移入 quarantine）",
+      "给 Gemini、Copilot、Windsurf 建技能目录",
+      "force push 或改写 origin 已有历史",
+      "修改 skill 运行时（skills/product-engineering/run-governed-product-workflow）"
+    ]
+  },
+  "authority": {
+    "execution_permissions": [
+      "read",
+      "edit-in-scope",
+      "validate",
+      "external-effect",
+      "rollback"
+    ],
+    "required_gates": [
+      "release-approval"
+    ],
+    "stop_conditions": [
+      "scope-expansion",
+      "authority-conflict",
+      "critical-evidence-missing"
+    ],
+    "authority_references": [
+      "conversation:2026-09-14 用户原话「1、2、3 全做」",
+      "conversation:2026-09-14 第 2 轮回答：改指 ~/.lfenskills（推荐）；全部装到四个入口（推荐）；一起修（推荐）",
+      "conversation:2026-09-15 第 3 轮回答：不要重装，跳过这个task；先 push 再从 GitHub 克隆（推荐）；提交本地 commit（推荐）",
+      "conversation:2026-09-15 第 4 轮回答：先修 CI 再 push（推荐）"
+    ],
+    "authority_assessments": [
+      {
+        "reference": "conversation:2026-09-14 用户原话「1、2、3 全做」",
+        "source_kind": "UserDirective",
+        "status": "Valid",
+        "scope_refs": [
+          "技能入口迁移到 ~/.lfenskills 并装齐 catalog 的 6 个 skill，清理悬空旧名入口，Codex 拷贝移入 quarantine",
+          "安装器修复（install.ps1 与 install.sh）",
+          "安装入口检查脚本 scripts/check_install_links.py 及测试与 CI",
+          "update_catalog.py 目录移动时的安装入口提醒",
+          "README 与 README.en.md 安装与维护说明"
+        ],
+        "evidence_refs": [
+          "conversation:用户原话「1、2、3 全做」"
+        ],
+        "verified_at": "2026-09-18T13:35:47Z",
+        "expires_at": null
+      },
+      {
+        "reference": "conversation:2026-09-14 第 2 轮回答：改指 ~/.lfenskills（推荐）；全部装到四个入口（推荐）；一起修（推荐）",
+        "source_kind": "UserDirective",
+        "status": "Valid",
+        "scope_refs": [
+          "技能入口迁移到 ~/.lfenskills 并装齐 catalog 的 6 个 skill，清理悬空旧名入口，Codex 拷贝移入 quarantine",
+          "安装器修复（install.ps1 与 install.sh）"
+        ],
+        "evidence_refs": [
+          "conversation:AskUserQuestion「链接目标」「安装范围」「安装器」回答"
+        ],
+        "verified_at": "2026-09-18T13:35:47Z",
+        "expires_at": null
+      },
+      {
+        "reference": "conversation:2026-09-15 第 3 轮回答：不要重装，跳过这个task；先 push 再从 GitHub 克隆（推荐）；提交本地 commit（推荐）",
+        "source_kind": "UserDirective",
+        "status": "Valid",
+        "scope_refs": [
+          "推送 Task C 与 Task B 的提交并从 GitHub 克隆 ~/.lfenskills"
+        ],
+        "evidence_refs": [
+          "conversation:AskUserQuestion「控制台范围」「推送」「B 提交」回答"
+        ],
+        "verified_at": "2026-09-18T13:35:47Z",
+        "expires_at": null
+      },
+      {
+        "reference": "conversation:2026-09-15 第 4 轮回答：先修 CI 再 push（推荐）",
+        "source_kind": "UserDirective",
+        "status": "Valid",
+        "scope_refs": [
+          "推送 Task C 与 Task B 的提交并从 GitHub 克隆 ~/.lfenskills"
+        ],
+        "evidence_refs": [
+          "conversation:AskUserQuestion「CI 红了」回答：先修 CI 再 push（推荐）"
+        ],
+        "verified_at": "2026-09-18T13:35:47Z",
+        "expires_at": null
+      }
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      "~/.claude/skills、~/.codex/skills、~/.agents/skills、~/.cursor/skills 中 catalog 的 6 个 skill 全部是指向 ~/.lfenskills/skills/<分类>/<名称> 的 junction，SKILL.md 可读",
+      "四个入口里没有悬空入口、没有指向 D: 开发仓的入口、没有实体拷贝；Codex 原 match-tabular-records 拷贝完整保存在 ~/.agents/skills-quarantine 下",
+      "Task C 的提交 daf93b6 已 push 到 origin/main，push 后 Skill gates 在 Python 3.11、3.12、3.13 上均通过；~/.lfenskills 从 GitHub 克隆且 HEAD 与 origin/main 一致（Task A 的 21ca332 已随用户 2026-09-16 的 push 进入 origin/main）",
+      "scripts/check_install_links.py 逐项报出缺失、悬空、拷贝、指错并在有缺陷时非零退出，同时报告安装克隆是否落后远端；自动化测试覆盖这几类与正常情况",
+      "update_catalog.py 检测到 skill 目录移动或改名时自动运行安装入口检查并打印提醒，不因安装状态失败；--check 行为不变",
+      "install.ps1 与 install.sh 只把含 SKILL.md 的目录当作 skill，skill-practice-collector 不再被安装",
+      "install.ps1 的平台开关只装到所选平台，不为未选平台建目录",
+      "install.ps1 与 install.sh 的状态模式按与检查脚本相同的规则报告缺失、悬空、拷贝、指错；安装与更新会清掉指向安装克隆但目标已不存在的入口",
+      "opencode debug skill 列出全部 6 个 LFen skill 且没有报错",
+      "README 与 README.en.md 写明安装、状态检查以及移动目录后如何核对安装入口",
+      "不重新装配任何项目的控制台，各项目 .project-governance/console 保持原样",
+      "建任务前本地开发仓已按用户要求快进到远端最新（b22e336..0988bb1）",
+      "Task B 的改动在全新克隆中提交后检出，三道门、catalog 检查与安装器测试通过"
+    ],
+    "decision_owner": "task-initiator"
+  },
+  "plan": {
+    "steps": [
+      "记录四个入口与四个项目控制台的现状清单；push Task C 的提交 daf93b6 到 origin/main，确认 Skill gates 在 3.11、3.12、3.13 上通过后从 GitHub 克隆 ~/.lfenskills",
+      "把 Codex 的 match-tabular-records 拷贝移入 ~/.agents/skills-quarantine，删除三个悬空的 run-web-product-workflow 入口",
+      "修复 install.ps1 与 install.sh：只认含 SKILL.md 的目录、修好平台开关、状态模式按检查规则报告、安装与更新清理指向安装克隆的悬空入口",
+      "新增 scripts/check_install_links.py 及测试，并接入 catalog CI",
+      "在 update_catalog.py 检测到 skill 目录移动或改名时运行安装入口检查并提醒",
+      "更新 README 与 README.en.md 的安装、状态检查与维护说明",
+      "用修复后的安装器把 catalog 的 6 个 skill 装到 Claude、Codex、OpenCode、Cursor 四个入口（含把 Cursor 里指向 D: 开发仓的 record-skill-incident 改指安装克隆），并用检查脚本与 opencode debug skill 核对",
+      "本地运行三道门、catalog 检查、install.ps1 本机测试与 install.sh 的 WSL 测试，并在全新克隆中复验提交后的字节",
+      "收尾后提交本地 commit 并 push，~/.lfenskills 快进到 origin/main，再查看 push 后的门禁结果"
+    ],
+    "verification": [
+      "check_install_links.py 对本机四个入口 exit 0，报告无缺陷",
+      "opencode debug skill 列出 6 个 LFen skill",
+      "install.ps1 在临时 USERPROFILE 下测试：只装含 SKILL.md 的目录、平台开关、状态分类、清理悬空入口",
+      "install.sh 在 WSL Ubuntu 临时 HOME 下测试同样的场景",
+      "test_check_install_links.py 通过",
+      "update_catalog.py --check exit 0，模拟目录改名时打印安装入口提醒",
+      "三道门 exit 0，全新克隆提交再检出后复验通过",
+      "push Task C 后经 GitHub Actions 公共 API 确认 Skill gates 在 3.11、3.12、3.13 上通过；~/.lfenskills 的 HEAD 与 origin/main 一致",
+      "四个项目 console 目录的哈希清单与开始前一致"
+    ],
+    "rollback": [
+      "按开始时记录的四个入口清单恢复原 junction：rmdir 删除链接后 mklink /J 重建",
+      "把 ~/.agents/skills-quarantine 里的 match-tabular-records 拷贝移回 ~/.codex/skills",
+      "git revert 本任务相关提交并 push，撤销发布",
+      "删除 ~/.lfenskills 与 ~/.lfenskills-version"
+    ]
+  },
+  "first_principles_analysis": {
+    "method_version": "first-principles-v1",
+    "depth": "Standard",
+    "outcome": "各 agent 通过四个入口读到的是 GitHub 上最新的 catalog 全部 6 个 skill；安装器和检查脚本对同一磁盘状态给出同样的判定；目录移动时维护者当场得到提醒",
+    "facts": [
+      {
+        "id": "F1",
+        "statement": "四个入口里有 3 个悬空的 run-web-product-workflow junction，.agents 与 .cursor 没有 run-governed-product-workflow",
+        "evidence_refs": [
+          "conversation:2026-09-14 junction 诊断"
+        ]
+      },
+      {
+        "id": "F2",
+        "statement": "Codex 的 match-tabular-records 是实体拷贝，5 个不同文件都是 repo 历史里的旧版本",
+        "evidence_refs": [
+          "conversation:2026-09-14 git hash-object 与 find-object 核对"
+        ]
+      },
+      {
+        "id": "F3",
+        "statement": "所有 junction 指向本地开发仓，而本地开发仓曾落后 origin 22 个提交",
+        "evidence_refs": [
+          "git:pull --ff-only b22e336..0988bb1"
+        ]
+      },
+      {
+        "id": "F4",
+        "statement": "远端安装器以 ~/.lfenskills 为安装源，平台目录与各 agent 实际读取的目录一致",
+        "evidence_refs": [
+          "install.ps1",
+          "install.sh"
+        ]
+      },
+      {
+        "id": "F5",
+        "statement": "安装器把没有 SKILL.md 的 skill-practice-collector 当作 skill；install.ps1 的平台开关没有被使用；状态模式只按当前 skill 名查找，看不见悬空入口",
+        "evidence_refs": [
+          "install.ps1",
+          "install.sh"
+        ]
+      },
+      {
+        "id": "F6",
+        "statement": "README 规定移动目录时必须同步外部 junction，但仓库里没有任何检查",
+        "evidence_refs": [
+          "README.md:38"
+        ]
+      },
+      {
+        "id": "F7",
+        "statement": "本机 Windows PowerShell 5.1 下 Remove-Item -Recurse -Force 删除 junction 不会删除目标内容",
+        "evidence_refs": [
+          "conversation:2026-09-14 scratchpad junction 删除实验"
+        ]
+      },
+      {
+        "id": "F8",
+        "statement": "本机未开启长路径；WSL Ubuntu 可以用来测试 install.sh",
+        "evidence_refs": [
+          "conversation:LongPathsEnabled=0",
+          "conversation:wsl bash 5.3.9"
+        ]
+      },
+      {
+        "id": "F9",
+        "statement": "本地 main 领先 origin 1 个提交，即 Task C 的修复 daf93b6；Task A 的 21ca332 已随用户 2026-09-16 的 push 进入 origin/main",
+        "evidence_refs": [
+          "git:status main...origin/main [ahead 1]"
+        ]
+      },
+      {
+        "id": "F10",
+        "statement": "用户 2026-09-16 新增 record-skill-incident，catalog 现有 6 个 skill；~/.cursor/skills 新出现指向 D: 开发仓的 record-skill-incident junction",
+        "evidence_refs": [
+          "git:6e848a5",
+          "conversation:2026-09-18 四个入口勘察"
+        ]
+      },
+      {
+        "id": "F11",
+        "statement": "origin/main 上 bb112d3 的 Skill gates 在 3.11、3.12 上 Gate 1 失败，3.13 通过；T-CI-20260915-006 的修复还没 push",
+        "evidence_refs": [
+          "https://github.com/LFenX/LFen-Skills/actions/runs/35107220577"
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "id": "C1",
+        "statement": "CI 看不到家目录，安装入口检查只能在本地执行",
+        "source_refs": [
+          ".github/workflows/catalog.yml"
+        ]
+      },
+      {
+        "id": "C2",
+        "statement": "不重新装配任何项目的控制台",
+        "source_refs": [
+          "clarification:r3.e1"
+        ]
+      },
+      {
+        "id": "C3",
+        "statement": "只删链接不删目标；Codex 那份拷贝只移入 quarantine",
+        "source_refs": [
+          "conversation:第 1 项修法说明"
+        ]
+      },
+      {
+        "id": "C4",
+        "statement": "push 需要用户授权，已在第 3 轮获得",
+        "source_refs": [
+          "clarification:r3.e2"
+        ]
+      },
+      {
+        "id": "C5",
+        "statement": "先修 CI 再 push，push 后要看到三个 Python 版本的门禁都通过",
+        "source_refs": [
+          "clarification:r4.e1"
+        ]
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "A1",
+        "statement": "Codex、OpenCode、Cursor 能容忍同名 skill 出现在多个入口",
+        "validation": "安装后看 opencode debug skill 输出；Codex 此前对 .codex 与 .agents 里重复的 koc 只列出一次"
+      }
+    ],
+    "unknowns": [
+      {
+        "id": "U1",
+        "statement": "Cursor 是否在家目录层面读取 .claude、.codex、.agents 下的 skill",
+        "owner": "requester",
+        "resolution_condition": "在 Cursor 中实际查看技能列表",
+        "blocking": false
+      },
+      {
+        "id": "U2",
+        "statement": "push 后 GitHub Actions 的门禁结果",
+        "owner": "agent",
+        "resolution_condition": "push 后通过 GitHub 公共 API 查看运行结论",
+        "blocking": false
+      }
+    ],
+    "fundamentals": [
+      {
+        "id": "P1",
+        "statement": "agent 能用到的版本取决于入口指向的仓库状态，入口或仓库任一落后，agent 都跟着落后",
+        "derived_from": [
+          "F1",
+          "F3",
+          "F9",
+          "F10"
+        ]
+      },
+      {
+        "id": "P2",
+        "statement": "安装入口在仓库之外，只能靠一个读得到磁盘的本地检查去核对，靠文档约定不住",
+        "derived_from": [
+          "F6",
+          "C1"
+        ]
+      },
+      {
+        "id": "P3",
+        "statement": "安装器与检查脚本必须按同一套规则判定，否则会一边说装好了、一边说坏了",
+        "derived_from": [
+          "F4",
+          "F5"
+        ]
+      },
+      {
+        "id": "P4",
+        "statement": "改家目录和发布到 GitHub 都要能回退：只删链接、拷贝进 quarantine、发布可 revert",
+        "derived_from": [
+          "F2",
+          "F7",
+          "C3",
+          "C4"
+        ]
+      },
+      {
+        "id": "P5",
+        "statement": "发布前门禁要在所有支持的 Python 版本上变绿，否则看不出发布内容的好坏",
+        "derived_from": [
+          "F11",
+          "C5"
+        ]
+      }
+    ],
+    "causal_links": [
+      {
+        "from_ref": "F3",
+        "to_ref": "P1",
+        "rationale": "入口指向的仓库落后，agent 就读到旧版本",
+        "evidence_refs": [
+          "git:pull --ff-only b22e336..0988bb1"
+        ]
+      },
+      {
+        "from_ref": "F6",
+        "to_ref": "F1",
+        "rationale": "只有文档约定、没有检查，改名时漏掉了三个入口",
+        "evidence_refs": [
+          "README.md:38"
+        ]
+      }
+    ],
+    "alternatives": [
+      {
+        "id": "O0",
+        "description": "维持现状，只告诉用户手动修入口",
+        "status": "Rejected",
+        "derived_from": [
+          "P1"
+        ],
+        "tradeoffs": [
+          "不改任何东西",
+          "悬空入口和旧版拷贝继续存在，下次改名还会重演"
+        ]
+      },
+      {
+        "id": "O1",
+        "description": "按安装器模型迁到 ~/.lfenskills，修好安装器并加本地检查脚本，先 push 再从 GitHub 克隆",
+        "status": "Selected",
+        "derived_from": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5"
+        ],
+        "tradeoffs": [
+          "改完 skill 要 push 再 pull，agent 才用得上",
+          "要同时维护 PowerShell 与 bash 两份状态规则"
+        ]
+      },
+      {
+        "id": "O2",
+        "description": "入口继续指向 D: 开发仓，只修坏掉的入口",
+        "status": "Rejected",
+        "derived_from": [
+          "P1"
+        ],
+        "tradeoffs": [
+          "改动立刻生效",
+          "未提交的改动、切分支、落后远端都会直接影响所有 agent；用户已选 ~/.lfenskills"
+        ]
+      },
+      {
+        "id": "O3",
+        "description": "不 push，从本地开发仓克隆 ~/.lfenskills",
+        "status": "Rejected",
+        "derived_from": [
+          "P1",
+          "P4"
+        ],
+        "tradeoffs": [
+          "不对外发布",
+          "偏离安装器模型；用户已选先 push 再克隆"
+        ]
+      }
+    ],
+    "decision_criteria": [
+      {
+        "id": "K1",
+        "statement": "四个入口里 catalog 的全部 6 个 skill 都指向安装克隆且可读，没有悬空、拷贝或指错",
+        "source_refs": [
+          "request_snapshot",
+          "clarification:r2.e2"
+        ]
+      },
+      {
+        "id": "K2",
+        "statement": "安装器与检查脚本对同一磁盘状态给出同样的缺失、悬空、拷贝、指错判定",
+        "source_refs": [
+          "clarification:r2.e3"
+        ]
+      },
+      {
+        "id": "K3",
+        "statement": "目录移动或改名时，维护者在 update_catalog.py 当场看到哪些安装入口会受影响",
+        "source_refs": [
+          "request_snapshot"
+        ]
+      },
+      {
+        "id": "K4",
+        "statement": "每一步都能回退，且不重装控制台、不删目标内容",
+        "source_refs": [
+          "clarification:r3.e1"
+        ]
+      },
+      {
+        "id": "K5",
+        "statement": "push 后 Skill gates 在 3.11、3.12、3.13 上都通过",
+        "source_refs": [
+          "clarification:r4.e1"
+        ]
+      }
+    ],
+    "selected_approach": "O1",
+    "derivation": [
+      {
+        "plan_step": "记录四个入口与四个项目控制台的现状清单；push Task C 的提交 daf93b6 到 origin/main，确认 Skill gates 在 3.11、3.12、3.13 上通过后从 GitHub 克隆 ~/.lfenskills",
+        "derived_from": [
+          "P1",
+          "P4",
+          "P5"
+        ],
+        "supports": [
+          "K1",
+          "K4",
+          "K5"
+        ]
+      },
+      {
+        "plan_step": "把 Codex 的 match-tabular-records 拷贝移入 ~/.agents/skills-quarantine，删除三个悬空的 run-web-product-workflow 入口",
+        "derived_from": [
+          "P4"
+        ],
+        "supports": [
+          "K1",
+          "K4"
+        ]
+      },
+      {
+        "plan_step": "修复 install.ps1 与 install.sh：只认含 SKILL.md 的目录、修好平台开关、状态模式按检查规则报告、安装与更新清理指向安装克隆的悬空入口",
+        "derived_from": [
+          "P3"
+        ],
+        "supports": [
+          "K2"
+        ]
+      },
+      {
+        "plan_step": "新增 scripts/check_install_links.py 及测试，并接入 catalog CI",
+        "derived_from": [
+          "P2",
+          "P3"
+        ],
+        "supports": [
+          "K1",
+          "K2"
+        ]
+      },
+      {
+        "plan_step": "在 update_catalog.py 检测到 skill 目录移动或改名时运行安装入口检查并提醒",
+        "derived_from": [
+          "P2"
+        ],
+        "supports": [
+          "K3"
+        ]
+      },
+      {
+        "plan_step": "更新 README 与 README.en.md 的安装、状态检查与维护说明",
+        "derived_from": [
+          "P2"
+        ],
+        "supports": [
+          "K3"
+        ]
+      },
+      {
+        "plan_step": "用修复后的安装器把 catalog 的 6 个 skill 装到 Claude、Codex、OpenCode、Cursor 四个入口（含把 Cursor 里指向 D: 开发仓的 record-skill-incident 改指安装克隆），并用检查脚本与 opencode debug skill 核对",
+        "derived_from": [
+          "P1"
+        ],
+        "supports": [
+          "K1"
+        ]
+      },
+      {
+        "plan_step": "本地运行三道门、catalog 检查、install.ps1 本机测试与 install.sh 的 WSL 测试，并在全新克隆中复验提交后的字节",
+        "derived_from": [
+          "P3",
+          "P4"
+        ],
+        "supports": [
+          "K2",
+          "K4"
+        ]
+      },
+      {
+        "plan_step": "收尾后提交本地 commit 并 push，~/.lfenskills 快进到 origin/main，再查看 push 后的门禁结果",
+        "derived_from": [
+          "P1",
+          "P5"
+        ],
+        "supports": [
+          "K1",
+          "K5"
+        ]
+      }
+    ],
+    "validation_refs": [
+      "scripts/check_install_links.py",
+      "install.ps1",
+      "install.sh"
+    ],
+    "source_refs": [
+      "install.ps1",
+      "install.sh",
+      "scripts/update_catalog.py",
+      "README.md"
+    ]
+  },
+  "task_profile": {
+    "delivery_scenario": "DS-03",
+    "development_types": [
+      "DT-09",
+      "DT-06",
+      "DT-03"
+    ],
+    "primary_development_type": "DT-09",
+    "development_type_scopes": {
+      "DT-09": [
+        "技能入口迁移到 ~/.lfenskills 并装齐 catalog 的 6 个 skill，清理悬空旧名入口，Codex 拷贝移入 quarantine",
+        "推送 Task C 与 Task B 的提交并从 GitHub 克隆 ~/.lfenskills"
+      ],
+      "DT-06": [
+        "安装器修复（install.ps1 与 install.sh）"
+      ],
+      "DT-03": [
+        "安装器修复（install.ps1 与 install.sh）",
+        "安装入口检查脚本 scripts/check_install_links.py 及测试与 CI",
+        "update_catalog.py 目录移动时的安装入口提醒",
+        "README 与 README.en.md 安装与维护说明"
+      ]
+    },
+    "change_surfaces": [
+      "Deploy/Operations",
+      "Agent/Collaboration",
+      "API/Integration"
+    ],
+    "risk_level": "Medium",
+    "extension_triggers": {
+      "E01": "Inactive",
+      "E02": "Inactive",
+      "E03": "Inactive",
+      "E04": "Inactive",
+      "E05": "Active"
+    },
+    "extension_evidence_refs": {
+      "E01": [],
+      "E02": [],
+      "E03": [],
+      "E04": [],
+      "E05": [
+        "install.ps1",
+        "install.sh"
+      ]
+    },
+    "baseline_inheritance": [
+      "Revise"
+    ],
+    "mode": "Normal",
+    "confidence": "Medium",
+    "basis": [
+      "四个入口有悬空旧名 junction 与旧版实体拷贝、本地开发仓曾落后远端；远端安装器以 ~/.lfenskills 为安装源但有 3 个缺陷；用户四轮澄清确定：改指 ~/.lfenskills、catalog 全部 skill 装到四个入口（现为 6 个）、一起修安装器、不重装控制台、先 push 再克隆、收尾后提交、先修 CI 再 push（已由 T-CI-20260915-006 完成，本地提交 daf93b6）"
+    ],
+    "open_questions": [],
+    "applicability_facts": {
+      "product_intent_change": "No",
+      "initiative_scope_change": "No",
+      "requirement_change": "Yes",
+      "external_behavior_change": "Yes",
+      "design_change": "Yes",
+      "architecture_impact": "No",
+      "security_privacy_impact": "No",
+      "data_ai_impact": "No",
+      "formal_knowledge_records": "No",
+      "operations_impact": "Yes",
+      "production_release": "Yes",
+      "irreversible_change": "No",
+      "actual_execution": "Yes",
+      "authority_available": "Yes",
+      "migration_retirement": "Yes",
+      "external_system_effect": "Yes",
+      "formal_review_or_gate": "Yes"
+    }
+  },
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-INSTALL-20260914-005-before",
+      "content_ref": ".project-governance/tasks/T-INSTALL-20260914-005/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "daf93b62ce1de24564b47a888771ac474f562436",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-INSTALL-20260914-005-run",
+      "content_ref": ".project-governance/tasks/T-INSTALL-20260914-005/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "daf93b62ce1de24564b47a888771ac474f562436",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-INSTALL-20260914-005-after",
+      "content_ref": ".project-governance/tasks/T-INSTALL-20260914-005/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "daf93b62ce1de24564b47a888771ac474f562436",
+      "human_confirmation_refs": []
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "path": "depends_on",
+      "old_value": [],
+      "new_value": [
+        "T-CLARIFY-20260914-004",
+        "T-CI-20260915-006"
+      ],
+      "reason": "建任务的驱动脚本没有把 spec 里的 depends_on 传给 init_task.py，记录里依赖为空；按 spec 补上：本任务要 push 的 Task C 修复与 Task A 的澄清校验修复",
+      "basis": "scratchpad:task_b/spec.json depends_on；init_task_from_spec.py 缺 --depends-on 已修正",
+      "changed_at": "2026-09-18T13:37:16Z"
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "path": "tailoring_resolution",
+      "old_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+        "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+        "resolver_sha256": "e2c655a368fc3c477dc9df126f34c72bc94360066cdb590cd3ecec2eb0d4a169",
+        "task_contract_schema_sha256": "fbfab5ffc08a2eac0211e6ecce46e7629751040103410171da1358fef1805f13",
+        "input_digest": "d2d80c0797e187ee3ac787a473e6f95502c82ece3375c04113b4ab6827f5b026",
+        "stage": "S2",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E05"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C07",
+          "C12",
+          "E05"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_system_effect=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:migration_retirement=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:operations_impact=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:production_release=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:API/Integration",
+          "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+          "VC-PPG-TAIL-001:change_surfaces:Deploy/Operations",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:development_types:DT-09",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Active",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+            "sections": [
+              "7",
+              "10",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E05",
+            "path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+            "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+            "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+            "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+          },
+          {
+            "source_id": "E05",
+            "path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+            "sha256": "326d746628fd6b214527cd28ca71b5ea7b12148d4a0c102efcb0fb43f5c677da"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+            "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 97,
+          "total": 137,
+          "sha256": "07d2e28419ac2d7f96ce3bb22543b4942a3b4fedcc58e7067aa23ab244c952af"
+        }
+      },
+      "new_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+        "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+        "resolver_sha256": "e2c655a368fc3c477dc9df126f34c72bc94360066cdb590cd3ecec2eb0d4a169",
+        "task_contract_schema_sha256": "fbfab5ffc08a2eac0211e6ecce46e7629751040103410171da1358fef1805f13",
+        "input_digest": "b10be0420df04ced5639a20b3414695c92e56cffc3af643e9a9bbe4ba8cc4ecd",
+        "stage": "S2",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "E05"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C07",
+          "C12",
+          "E05"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_system_effect=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:migration_retirement=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:operations_impact=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:production_release=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:API/Integration",
+          "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+          "VC-PPG-TAIL-001:change_surfaces:Deploy/Operations",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:development_types:DT-09",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Active",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+            "sections": [
+              "7",
+              "10",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "E05",
+            "path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "13",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+            "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+            "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+            "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+          },
+          {
+            "source_id": "E05",
+            "path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+            "sha256": "326d746628fd6b214527cd28ca71b5ea7b12148d4a0c102efcb0fb43f5c677da"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+            "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 97,
+          "total": 137,
+          "sha256": "07d2e28419ac2d7f96ce3bb22543b4942a3b4fedcc58e7067aa23ab244c952af"
+        }
+      },
+      "reason": "automatically refresh deterministic tailoring after: 建任务的驱动脚本没有把 spec 里的 depends_on 传给 init_task.py，记录里依赖为空；按 spec 补上：本任务要 push 的 Task C 修复与 Task A 的澄清校验修复",
+      "basis": "scratchpad:task_b/spec.json depends_on；init_task_from_spec.py 缺 --depends-on 已修正",
+      "changed_at": "2026-09-18T13:37:16Z"
+    },
+    {
+      "from_revision": 3,
+      "to_revision": 4,
+      "path": "decisions",
+      "old_value": [
+        {
+          "id": "DEC-001",
+          "kind": "ReleaseApproval",
+          "presented": "~/.lfenskills 从哪里拿代码：先 push 再从 GitHub 克隆（Task A 的提交 push 到 origin/main，~/.lfenskills 按安装器原样从 GitHub 克隆；Task B 提交后同样 push；push 会触发 CI，内容公开）",
+          "response": "先 push 再从 GitHub 克隆（推荐）",
+          "decided_by": "user",
+          "decided_at": "2026-09-15T04:09:21Z",
+          "evidence_ref": "conversation:AskUserQuestion「推送」回答：先 push 再从 GitHub 克隆（推荐）"
+        }
+      ],
+      "new_value": [
+        {
+          "id": "DEC-001",
+          "kind": "ReleaseApproval",
+          "presented": "~/.lfenskills 从哪里拿代码：先 push 再从 GitHub 克隆（Task A 的提交 push 到 origin/main，~/.lfenskills 按安装器原样从 GitHub 克隆；Task B 提交后同样 push；push 会触发 CI，内容公开）",
+          "response": "先 push 再从 GitHub 克隆（推荐）",
+          "decided_by": "user",
+          "decided_at": "2026-09-15T04:09:21Z",
+          "evidence_ref": "conversation:AskUserQuestion「推送」回答：先 push 再从 GitHub 克隆（推荐）"
+        },
+        {
+          "id": "DEC-002",
+          "kind": "Proceed",
+          "presented": "二次确认：会做——记录四个入口与四个控制台现状；push Task C（daf93b6），Skill gates 三个版本通过后从 GitHub 克隆 ~/.lfenskills；Codex 的 match-tabular-records 拷贝移入 quarantine、删三个悬空 junction（只删链接）；修 install.ps1 与 install.sh；新增 check_install_links.py 与测试并接入 catalog CI；update_catalog.py 目录移动时提醒；README 两份说明；用修好的安装器把 catalog 的 6 个 skill 装到四个入口（Cursor 的 record-skill-incident 也改指）；本地与全新克隆验证；验收后提交本地 commit 并 push、~/.lfenskills 快进、看门禁。不做——重装控制台、收敛入口、清理缓存与 quarantine、Gemini/Copilot/Windsurf、改 skill 运行时、force push。风险——push 公开发布，C 的 CI 有版本失败就停下不克隆；改指后要 push 再 pull 才生效。默认项——「全部」包含 9 月 16 日新增的 record-skill-incident，共 6 个。",
+          "response": "Proceed",
+          "decided_by": "user",
+          "decided_at": "2026-09-18T13:39:08Z",
+          "evidence_ref": "conversation:AskUserQuestion「二次确认」回答：Proceed"
+        }
+      ],
+      "reason": "记录用户在二次确认中给出的 Proceed 决定",
+      "basis": "conversation:AskUserQuestion「二次确认」用户原话：Proceed",
+      "changed_at": "2026-09-18T13:39:08Z"
+    },
+    {
+      "from_revision": 4,
+      "to_revision": 5,
+      "path": "requirement_items",
+      "old_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "1、2、3 全做",
+          "reading": "第 1 项：修复各 agent 技能入口——删悬空旧名入口、补齐入口、Codex 拷贝移入 quarantine 换成 junction",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "1、2、3 全做",
+          "reading": "第 2 项：重新装配过期的控制台快照——第 3 轮用户决定不做",
+          "state": "OutOfScope",
+          "evidence_refs": [
+            "clarification:r3.e1"
+          ],
+          "acceptance_refs": [
+            10
+          ]
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "1、2、3 全做",
+          "reading": "第 3 项：本地检查脚本对照 catalog 与各入口真实 junction，报缺失/悬空/拷贝/指错，并在 update_catalog.py 检测到目录移动时自动运行",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            3,
+            4,
+            9
+          ]
+        },
+        {
+          "id": "R-04",
+          "source": "clarification:r1.e1",
+          "quote": "先从远端pull skill最新修改",
+          "reading": "先把本地开发仓同步到远端最新；已在澄清阶段完成（快进 b22e336..0988bb1）",
+          "state": "Covered",
+          "evidence_refs": [
+            "git:pull --ff-only b22e336..0988bb1"
+          ],
+          "acceptance_refs": [
+            11
+          ]
+        },
+        {
+          "id": "R-05",
+          "source": "clarification:r2.e1",
+          "quote": "改指 ~/.lfenskills（推荐）",
+          "reading": "四个入口的 junction 改指 ~/.lfenskills 克隆，以后在那里 git pull 更新",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            0,
+            2
+          ]
+        },
+        {
+          "id": "R-06",
+          "source": "clarification:r2.e2",
+          "quote": "全部装到四个入口（推荐）",
+          "reading": "catalog 的全部 skill 装到 Claude、Codex、OpenCode(.agents)、Cursor 四个入口，检查脚本要求全覆盖；现为 6 个，含用户 2026-09-16 新增的 record-skill-incident",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            0,
+            3,
+            8
+          ]
+        },
+        {
+          "id": "R-07",
+          "source": "clarification:r2.e3",
+          "quote": "一起修（推荐）",
+          "reading": "修好安装器的 3 个问题：只认含 SKILL.md 的目录、平台开关、状态与清理按检查规则",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "id": "R-08",
+          "source": "clarification:r3.e1",
+          "quote": "不要重装，跳过这个task",
+          "reading": "不重新装配任何项目的控制台",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            10
+          ]
+        },
+        {
+          "id": "R-09",
+          "source": "clarification:r3.e2",
+          "quote": "先 push 再从 GitHub 克隆（推荐）",
+          "reading": "先 push 再从 GitHub 克隆 ~/.lfenskills：Task A 的提交已随用户 2026-09-16 的 push 进入 origin/main，本任务先 push Task C 的提交 daf93b6 再克隆；Task B 提交后同样 push（收尾后执行）",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            2
+          ]
+        },
+        {
+          "id": "R-10",
+          "source": "clarification:r3.e3",
+          "quote": "提交本地 commit（推荐）",
+          "reading": "授权 Task B 收尾后提交一个本地 commit；提交前在全新克隆中复验",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            12
+          ]
+        },
+        {
+          "id": "R-11",
+          "source": "clarification:r4.e1",
+          "quote": "先修 CI 再 push（推荐）",
+          "reading": "push 前先修好 CI（T-CI-20260915-006 已完成）；本任务 push Task C 的提交后，确认 Skill gates 在 3.11、3.12、3.13 上都通过，再从 GitHub 克隆 ~/.lfenskills",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            2
+          ]
+        }
+      ],
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "1、2、3 全做",
+          "reading": "第 1 项：修复各 agent 技能入口——删悬空旧名入口、补齐入口、Codex 拷贝移入 quarantine 换成 junction",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0007",
+            "RUN-001-E0008",
+            "RUN-001-E0016"
+          ],
+          "acceptance_refs": [
+            0,
+            1
+          ]
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "1、2、3 全做",
+          "reading": "第 2 项：重新装配过期的控制台快照——第 3 轮用户决定不做",
+          "state": "OutOfScope",
+          "evidence_refs": [
+            "clarification:r3.e1"
+          ],
+          "acceptance_refs": [
+            10
+          ]
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "1、2、3 全做",
+          "reading": "第 3 项：本地检查脚本对照 catalog 与各入口真实 junction，报缺失/悬空/拷贝/指错，并在 update_catalog.py 检测到目录移动时自动运行",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0009",
+            "RUN-001-E0010",
+            "RUN-001-E0014",
+            "RUN-001-E0015",
+            "RUN-001-E0018"
+          ],
+          "acceptance_refs": [
+            3,
+            4,
+            9
+          ]
+        },
+        {
+          "id": "R-04",
+          "source": "clarification:r1.e1",
+          "quote": "先从远端pull skill最新修改",
+          "reading": "先把本地开发仓同步到远端最新；已在澄清阶段完成（快进 b22e336..0988bb1）",
+          "state": "Covered",
+          "evidence_refs": [
+            "git:pull --ff-only b22e336..0988bb1"
+          ],
+          "acceptance_refs": [
+            11
+          ]
+        },
+        {
+          "id": "R-05",
+          "source": "clarification:r2.e1",
+          "quote": "改指 ~/.lfenskills（推荐）",
+          "reading": "四个入口的 junction 改指 ~/.lfenskills 克隆，以后在那里 git pull 更新",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0006",
+            "RUN-001-E0016"
+          ],
+          "acceptance_refs": [
+            0,
+            2
+          ]
+        },
+        {
+          "id": "R-06",
+          "source": "clarification:r2.e2",
+          "quote": "全部装到四个入口（推荐）",
+          "reading": "catalog 的全部 skill 装到 Claude、Codex、OpenCode(.agents)、Cursor 四个入口，检查脚本要求全覆盖；现为 6 个，含用户 2026-09-16 新增的 record-skill-incident",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0016"
+          ],
+          "acceptance_refs": [
+            0,
+            3,
+            8
+          ]
+        },
+        {
+          "id": "R-07",
+          "source": "clarification:r2.e3",
+          "quote": "一起修（推荐）",
+          "reading": "修好安装器的 3 个问题：只认含 SKILL.md 的目录、平台开关、状态与清理按检查规则",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0011",
+            "RUN-001-E0012",
+            "RUN-001-E0015",
+            "RUN-001-E0017"
+          ],
+          "acceptance_refs": [
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "id": "R-08",
+          "source": "clarification:r3.e1",
+          "quote": "不要重装，跳过这个task",
+          "reading": "不重新装配任何项目的控制台",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0016"
+          ],
+          "acceptance_refs": [
+            10
+          ]
+        },
+        {
+          "id": "R-09",
+          "source": "clarification:r3.e2",
+          "quote": "先 push 再从 GitHub 克隆（推荐）",
+          "reading": "先 push 再从 GitHub 克隆 ~/.lfenskills：Task A 的提交已随用户 2026-09-16 的 push 进入 origin/main，本任务先 push Task C 的提交 daf93b6 再克隆；Task B 提交后同样 push（收尾后执行）",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0002",
+            "RUN-001-E0003",
+            "RUN-001-E0006"
+          ],
+          "acceptance_refs": [
+            2
+          ]
+        },
+        {
+          "id": "R-10",
+          "source": "clarification:r3.e3",
+          "quote": "提交本地 commit（推荐）",
+          "reading": "授权 Task B 收尾后提交一个本地 commit；提交前在全新克隆中复验",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0017"
+          ],
+          "acceptance_refs": [
+            12
+          ]
+        },
+        {
+          "id": "R-11",
+          "source": "clarification:r4.e1",
+          "quote": "先修 CI 再 push（推荐）",
+          "reading": "push 前先修好 CI（T-CI-20260915-006 已完成）；本任务 push Task C 的提交后，确认 Skill gates 在 3.11、3.12、3.13 上都通过，再从 GitHub 克隆 ~/.lfenskills",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0002",
+            "RUN-001-E0004"
+          ],
+          "acceptance_refs": [
+            2
+          ]
+        }
+      ],
+      "reason": "逐条对照需求原文与验收判据后，全部 Open 需求条目有证据覆盖；R-09 中 Task B 的 push 与 R-10 的 commit 按用户决定在收尾后执行，提交前的全新克隆复验已完成",
+      "basis": "RUN-001 E0002 至 E0018；用户验收回答：接受",
+      "changed_at": "2026-09-18T14:25:18Z"
+    },
+    {
+      "from_revision": 5,
+      "to_revision": 6,
+      "path": "decisions",
+      "old_value": [
+        {
+          "id": "DEC-001",
+          "kind": "ReleaseApproval",
+          "presented": "~/.lfenskills 从哪里拿代码：先 push 再从 GitHub 克隆（Task A 的提交 push 到 origin/main，~/.lfenskills 按安装器原样从 GitHub 克隆；Task B 提交后同样 push；push 会触发 CI，内容公开）",
+          "response": "先 push 再从 GitHub 克隆（推荐）",
+          "decided_by": "user",
+          "decided_at": "2026-09-15T04:09:21Z",
+          "evidence_ref": "conversation:AskUserQuestion「推送」回答：先 push 再从 GitHub 克隆（推荐）"
+        },
+        {
+          "id": "DEC-002",
+          "kind": "Proceed",
+          "presented": "二次确认：会做——记录四个入口与四个控制台现状；push Task C（daf93b6），Skill gates 三个版本通过后从 GitHub 克隆 ~/.lfenskills；Codex 的 match-tabular-records 拷贝移入 quarantine、删三个悬空 junction（只删链接）；修 install.ps1 与 install.sh；新增 check_install_links.py 与测试并接入 catalog CI；update_catalog.py 目录移动时提醒；README 两份说明；用修好的安装器把 catalog 的 6 个 skill 装到四个入口（Cursor 的 record-skill-incident 也改指）；本地与全新克隆验证；验收后提交本地 commit 并 push、~/.lfenskills 快进、看门禁。不做——重装控制台、收敛入口、清理缓存与 quarantine、Gemini/Copilot/Windsurf、改 skill 运行时、force push。风险——push 公开发布，C 的 CI 有版本失败就停下不克隆；改指后要 push 再 pull 才生效。默认项——「全部」包含 9 月 16 日新增的 record-skill-incident，共 6 个。",
+          "response": "Proceed",
+          "decided_by": "user",
+          "decided_at": "2026-09-18T13:39:08Z",
+          "evidence_ref": "conversation:AskUserQuestion「二次确认」回答：Proceed"
+        }
+      ],
+      "new_value": [
+        {
+          "id": "DEC-001",
+          "kind": "ReleaseApproval",
+          "presented": "~/.lfenskills 从哪里拿代码：先 push 再从 GitHub 克隆（Task A 的提交 push 到 origin/main，~/.lfenskills 按安装器原样从 GitHub 克隆；Task B 提交后同样 push；push 会触发 CI，内容公开）",
+          "response": "先 push 再从 GitHub 克隆（推荐）",
+          "decided_by": "user",
+          "decided_at": "2026-09-15T04:09:21Z",
+          "evidence_ref": "conversation:AskUserQuestion「推送」回答：先 push 再从 GitHub 克隆（推荐）"
+        },
+        {
+          "id": "DEC-002",
+          "kind": "Proceed",
+          "presented": "二次确认：会做——记录四个入口与四个控制台现状；push Task C（daf93b6），Skill gates 三个版本通过后从 GitHub 克隆 ~/.lfenskills；Codex 的 match-tabular-records 拷贝移入 quarantine、删三个悬空 junction（只删链接）；修 install.ps1 与 install.sh；新增 check_install_links.py 与测试并接入 catalog CI；update_catalog.py 目录移动时提醒；README 两份说明；用修好的安装器把 catalog 的 6 个 skill 装到四个入口（Cursor 的 record-skill-incident 也改指）；本地与全新克隆验证；验收后提交本地 commit 并 push、~/.lfenskills 快进、看门禁。不做——重装控制台、收敛入口、清理缓存与 quarantine、Gemini/Copilot/Windsurf、改 skill 运行时、force push。风险——push 公开发布，C 的 CI 有版本失败就停下不克隆；改指后要 push 再 pull 才生效。默认项——「全部」包含 9 月 16 日新增的 record-skill-incident，共 6 个。",
+          "response": "Proceed",
+          "decided_by": "user",
+          "decided_at": "2026-09-18T13:39:08Z",
+          "evidence_ref": "conversation:AskUserQuestion「二次确认」回答：Proceed"
+        },
+        {
+          "id": "DEC-003",
+          "kind": "Acceptance",
+          "presented": "验收（逐条对照）：11 条需求原文——第 1、3 项与改指 ~/.lfenskills、全部装到四个入口、一起修、先修 CI 再 push 已实现；第 2 项按第 3 轮「不要重装，跳过这个task」不做且控制台逐文件未变；pull 在建任务前完成；Task C 已 push 并从 GitHub 克隆，Task B 的 commit 与 push 按决定在收尾后执行，提交前的全新克隆复验已完成。13 条判据全部满足（E0002–E0018）。另说明顺带修复的 3 个安装器原有缺陷（ac 与 Add-Content 别名冲突、PS 5.1 中文系统无法解析、真实目录被整个删除），更正此前「PS 5.1 重定向丢着色文字」的误判，列出遗留：install.sh 需 bash 4 与非克隆目录会被删、交互菜单未自动化测试、Cursor 读取范围待确认。",
+          "response": "接受",
+          "decided_by": "user",
+          "decided_at": "2026-09-18T14:25:18Z",
+          "evidence_ref": "conversation:AskUserQuestion「验收」回答：接受"
+        }
+      ],
+      "reason": "记录用户的验收决定",
+      "basis": "conversation:AskUserQuestion「验收」用户原话：接受",
+      "changed_at": "2026-09-18T14:25:18Z"
+    }
+  ],
+  "tailoring_resolution": {
+    "rule_set_id": "VC-PPG-TAIL-001",
+    "rule_set_version": "6.3 Candidate",
+    "rule_set_status": "In Review",
+    "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+    "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+    "resolver_sha256": "e2c655a368fc3c477dc9df126f34c72bc94360066cdb590cd3ecec2eb0d4a169",
+    "task_contract_schema_sha256": "fbfab5ffc08a2eac0211e6ecce46e7629751040103410171da1358fef1805f13",
+    "input_digest": "b10be0420df04ced5639a20b3414695c92e56cffc3af643e9a9bbe4ba8cc4ecd",
+    "stage": "S8",
+    "applicable_standards": [
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E05"
+    ],
+    "pending_standards": [],
+    "stage_context_standards": [
+      "C04",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E05"
+    ],
+    "control_strength": "standard",
+    "independent_review": false,
+    "explicit_human_gate": false,
+    "blocking_reasons": [],
+    "rule_ids": [
+      "VC-PPG-TAIL-001:always_applicable",
+      "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_system_effect=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:formal_review_or_gate=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:migration_retirement=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:operations_impact=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:production_release=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+      "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+      "VC-PPG-TAIL-001:change_surfaces:API/Integration",
+      "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+      "VC-PPG-TAIL-001:change_surfaces:Deploy/Operations",
+      "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+      "VC-PPG-TAIL-001:development_types:DT-03",
+      "VC-PPG-TAIL-001:development_types:DT-06",
+      "VC-PPG-TAIL-001:development_types:DT-09",
+      "VC-PPG-TAIL-001:execution_modes:Normal",
+      "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E04:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E05:Active",
+      "VC-PPG-TAIL-001:risk_levels:Medium"
+    ],
+    "source_sections": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sections": [
+          "2",
+          "10",
+          "12"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "22",
+          "23"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sections": [
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sections": [
+          "9",
+          "14",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "9"
+        ]
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E05",
+        "path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      }
+    ],
+    "complete_source_files": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+      },
+      {
+        "source_id": "E05",
+        "path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+        "sha256": "326d746628fd6b214527cd28ca71b5ea7b12148d4a0c102efcb0fb43f5c677da"
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+      }
+    ],
+    "profile_coverage_digest": {
+      "applicable": 97,
+      "total": 137,
+      "sha256": "07d2e28419ac2d7f96ce3bb22543b4942a3b4fedcc58e7067aa23ab244c952af"
+    }
+  }
+}

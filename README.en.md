@@ -53,13 +53,31 @@ curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
 
 </details>
 
-Follow the prompts to pick platforms and skills. Skills are linked (junction on Windows, symlink elsewhere) to a local clone at `~/.lfenskills`, so a plain `git pull` there updates everything in place.
+Follow the prompts to pick platforms and skills. Skills are linked (junction on Windows, symlink elsewhere) to a local clone at `~/.lfenskills` (only directories holding a `SKILL.md` are installed), so a plain `git pull` there updates everything in place.
 
 ```powershell
-.\install.ps1 -Status                    # Show what's installed where
+.\install.ps1 -Status                    # Per platform: missing, dangling, copied or mislinked entries
 .\install.ps1 -Update                    # Selectively refresh skills
+.\install.ps1 -Claude -Codex -AllSkills  # Install to the named platforms only
 .\install.ps1 -All -AllSkills -Force     # Silent full install
 ```
+
+```bash
+bash install.sh --status                 # Same as above
+bash install.sh --update --all-skills    # Refresh every installed skill
+bash install.sh --claude --codex --all-skills
+```
+
+### Checking install entries
+
+Install entries live outside the repository, so moving or renaming a skill directory can leave them dangling or pointing at an old version. Installing and updating relink skills that moved and remove links into `~/.lfenskills` whose target is gone or is not a skill; a real directory named like a skill (a copy) is never deleted or replaced — move it away first. You can check at any time from the repository or from `~/.lfenskills`:
+
+```bash
+python scripts/check_install_links.py                                          # Platforms with LFen skills installed
+python scripts/check_install_links.py --platform claude,codex,opencode,cursor  # Require every skill on these platforms
+```
+
+It exits 1 when anything is missing, dangling, copied or mislinked; an install clone that is behind the remote is reported but not counted as a problem. The rules are the same as `install.ps1 -Status` and `install.sh --status`.
 
 ## Skills
 
@@ -105,6 +123,8 @@ Full catalog in [`CATALOG.md`](CATALOG.md); machine-readable index in [`catalog/
 2. Add the skill to the matching leaf category in `catalog/taxonomy.json`, with `scope` and sorted `tags` under `skill_metadata`.
 3. Run `python scripts/update_catalog.py` to regenerate `README.md`, `README.en.md`, `SKILLS.md`, `SKILLS.en.md`, `CATALOG.md`, and `catalog/index.json`.
 4. Run `python scripts/update_catalog.py --check` to verify, then commit and push.
+
+When you move or rename an existing skill directory, step 3 lists the install entries that still point at the old location and runs the install entry check. After pushing, run `git -C ~/.lfenskills pull` on each machine, then `install.ps1 -Update` or `bash install.sh --update`, and confirm with `python scripts/check_install_links.py`.
 
 ## License
 

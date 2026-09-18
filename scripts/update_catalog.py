@@ -465,7 +465,8 @@ def render_catalog(taxonomy: dict[str, Any], skills: dict[str, Skill]) -> str:
             "2. 横向检索使用 `tags`，不得通过重复归类表达跨领域能力。",
             "3. `scope` 只描述复用边界：通用、团队或项目，不表示质量等级。",
             f"4. 分类树最多 {catalog['max_depth']} 层；只有同一领域形成多个稳定主题后才增加子分类。",
-            "5. 物理目录统一为 `skills/<category-path>/<skill-name>/`；skill 名称不变，外部安装入口通过 junction 指向该物理路径。",
+            "5. 物理目录统一为 `skills/<category-path>/<skill-name>/`；skill 名称不变。外部安装入口以 junction（Windows）或 symlink"
+            " 指向安装克隆 `~/.lfenskills` 中的该路径；目录移动或改名后，生成器会提醒并运行 `python scripts/check_install_links.py` 核对各入口。",
             "6. Markdown 与 JSON 目录均由生成器重建；遗漏、重复、路径不一致、非法元数据或生成物漂移会使校验失败。",
             "",
             "## 参考仓库与采纳点",
@@ -605,6 +606,31 @@ def render_skills_page(current: str, taxonomy: dict[str, Any], skills: dict[str,
     return current[:start] + block + current[end + len(SKILLS_END) :]
 
 
+def indexed_skill_paths(index_path: Path) -> dict[str, str]:
+    """Skill directories as the index on disk recorded them before this run; empty if unreadable."""
+
+    try:
+        index = json.loads(index_path.read_text(encoding="utf-8"))
+        return {item["name"]: item["path"].rsplit("/", 1)[0] for item in index["skills"]}
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        return {}
+
+
+def install_entry_reminder(old_paths: dict[str, str], new_paths: dict[str, str]) -> list[str]:
+    """目录移动或改名时提醒核对各 agent 的安装入口；只打印，任何异常都不影响目录更新。"""
+
+    if all(new_paths.get(name) == path for name, path in old_paths.items()):
+        return []
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import check_install_links
+
+        home = Path.home()
+        return check_install_links.move_reminder(old_paths, new_paths, home, home / ".lfenskills")
+    except Exception as exc:  # noqa: BLE001 -- a reminder must never fail the catalog update
+        return [f"提醒：skill 目录有移动或改名，但安装入口检查没有运行：{exc}"]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="生成或校验 LFen Skills 分类目录")
     parser.add_argument("--check", action="store_true", help="只检查配置、README、Markdown 与 JSON 目录是否一致")
@@ -654,6 +680,7 @@ def main() -> int:
             )
             return 0
 
+        previous_paths = indexed_skill_paths(index_path)
         catalog_path.write_text(rendered_catalog, encoding="utf-8", newline="\n")
         index_path.parent.mkdir(parents=True, exist_ok=True)
         index_path.write_text(rendered_index, encoding="utf-8", newline="\n")
@@ -666,6 +693,9 @@ def main() -> int:
             f"{catalog_path.relative_to(ROOT)} 与 {index_path.relative_to(ROOT)}："
             f"{len(skills)} 个 skill"
         )
+        current_paths = {name: skill_relative_path(skill) for name, skill in skills.items()}
+        for line in install_entry_reminder(previous_paths, current_paths):
+            print(line)
         return 0
     except (CatalogError, OSError, KeyError, TypeError) as exc:
         print(f"错误：{exc}", file=sys.stderr)

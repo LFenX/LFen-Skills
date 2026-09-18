@@ -53,13 +53,31 @@ curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
 
 </details>
 
-运行后按提示选平台、选 skill 即可。skill 以 junction（Windows）/ symlink 链接到本地 `~/.lfenskills` 克隆，之后 `git pull` 原地更新。
+运行后按提示选平台、选 skill 即可。skill 以 junction（Windows）/ symlink 链接到本地 `~/.lfenskills` 克隆（只有含 `SKILL.md` 的目录会被装上），之后在那里 `git pull` 原地更新。
 
 ```powershell
-.\install.ps1 -Status                    # 查看各平台安装状态
+.\install.ps1 -Status                    # 各平台安装状态：缺失、悬空、实体拷贝、指错
 .\install.ps1 -Update                    # 选择性刷新 skill
+.\install.ps1 -Claude -Codex -AllSkills  # 只装到指定平台
 .\install.ps1 -All -AllSkills -Force     # 静默全量安装
 ```
+
+```bash
+bash install.sh --status                 # 同上
+bash install.sh --update --all-skills    # 刷新全部已装 skill
+bash install.sh --claude --codex --all-skills
+```
+
+### 核对安装入口
+
+安装入口在仓库之外，skill 目录一移动或改名，入口就可能悬空或指向旧版本。安装与更新会把移动过的 skill 重新链接、删掉指向 `~/.lfenskills` 里已不存在或不是 skill 的链接；与 skill 同名的真实目录（实体拷贝）不会被删除或替换，需要先自行移走。任何时候都可以在仓库或 `~/.lfenskills` 里运行：
+
+```bash
+python scripts/check_install_links.py                                          # 检查已装 LFen skill 的平台
+python scripts/check_install_links.py --platform claude,codex,opencode,cursor  # 要求这些平台装齐全部 skill
+```
+
+发现缺失、悬空、实体拷贝或指错时以 1 退出；安装克隆落后远端只提示，不算问题。规则与 `install.ps1 -Status`、`install.sh --status` 相同。
 
 ## Skills
 
@@ -105,6 +123,8 @@ curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
 2. 将 skill 名称加入 `catalog/taxonomy.json` 的同名叶子分类，并在 `skill_metadata` 中填写 `scope` 与排序后的 `tags`。
 3. 运行 `python scripts/update_catalog.py` 重新生成 `README.md`、`README.en.md`、`SKILLS.md`、`SKILLS.en.md`、`CATALOG.md` 和 `catalog/index.json`。
 4. 运行 `python scripts/update_catalog.py --check` 检查遗漏、重复归类、非法元数据和生成物漂移，然后提交推送。
+
+移动或改名已有 skill 的目录时，第 3 步会列出仍指向旧位置的安装入口并运行安装入口检查。推送后在每台机器上运行 `git -C ~/.lfenskills pull`，再运行 `install.ps1 -Update` 或 `bash install.sh --update`，最后用 `python scripts/check_install_links.py` 确认。
 
 ## 许可证
 

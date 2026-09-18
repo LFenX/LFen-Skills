@@ -2,6 +2,8 @@
 # Online:  iwr https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
 # Local:   .\install.ps1
 # Silent:  .\install.ps1 -All -AllSkills -Force
+#          .\install.ps1 -Claude -Codex -Skills "skill1,skill2"   (only the platforms named)
+# Status:  .\install.ps1 -Status   (same rules as scripts/check_install_links.py)
 
 param(
     [switch]$All, [switch]$AllSkills, [switch]$Force,
@@ -16,7 +18,7 @@ $repoUrl = "https://github.com/LFenX/LFen-Skills.git"
 $repoDir = "$env:USERPROFILE\.lfenskills"
 $skillsRoot = "$repoDir\skills"
 $versionFile = "$env:USERPROFILE\.lfenskills-version"
-$host.UI.RawUI.CursorSize = 0
+try { $host.UI.RawUI.CursorSize = 0 } catch {}  # not every host has a console cursor
 
 # ANSI escape codes
 $ansi = @{
@@ -31,22 +33,37 @@ $ansi = @{
     gray  = "$([char]27)[90m"
     white = "$([char]27)[37m"
 }
-function ac($c, $t) { "$($ansi[$c])$t$($ansi.reset)" }
+# Not "ac": that is the built-in alias of Add-Content, and an alias wins over a function, so
+# every coloured line used to print nothing and append its text to a file named after the colour.
+function Paint($c, $t) { "$($ansi[$c])$t$($ansi.reset)" }
+
+# Every non-ASCII glyph is built from its code point so this file stays ASCII: Windows
+# PowerShell 5.1 reads a script without a BOM in the system code page (GBK on Chinese
+# Windows), which splits UTF-8 bytes and breaks parsing; a BOM would fix that but breaks
+# `iwr ... | iex`, where the BOM arrives as a character in front of param().
+$glyph = @{ pointer = [char]0x203A; check = [char]0x2713; up = [char]0x2191; down = [char]0x2193; dot = [char]0x2022 }
 
 function banner($mode) {
     Clear-Host
     Write-Host ""
-    Write-Host (ac cyan "  ██╗     ███████╗███████╗███╗   ██╗")
-    Write-Host (ac cyan "  ██║     ██╔════╝██╔════╝████╗  ██║")
-    Write-Host (ac cyan "  ██║     █████╗  █████╗  ██╔██╗ ██║")
-    Write-Host (ac cyan "  ██║     ██╔══╝  ██╔══╝  ██║╚██╗██║")
-    Write-Host (ac cyan "  ███████╗██║     ███████╗██║ ╚████║")
-    Write-Host (ac cyan "  ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═══╝")
-    Write-Host (ac yellow "  Skills $mode")
+    # Box-drawing art kept as ASCII placeholders and mapped back at run time (why: see $glyph).
+    $box = @{ '#' = [char]0x2588; '[' = [char]0x2554; ']' = [char]0x2557; '{' = [char]0x255A; '}' = [char]0x255D; '=' = [char]0x2550; '|' = [char]0x2551 }
+    foreach ($row in @(
+        "##]     #######]#######]###]   ##]",
+        "##|     ##[====}##[====}####]  ##|",
+        "##|     #####]  #####]  ##[##] ##|",
+        "##|     ##[==}  ##[==}  ##|{##]##|",
+        "#######]##|     #######]##| {####|",
+        "{======}{=}     {======}{=}  {===}"
+    )) {
+        $line = -join ($row.ToCharArray() | ForEach-Object { if ($box.ContainsKey([string]$_)) { $box[[string]$_] } else { $_ } })
+        Write-Host (Paint cyan "  $line")
+    }
+    Write-Host (Paint yellow "  Skills $mode")
     Write-Host ""
 }
 
-# ─── Platforms ───
+# --- Platforms ---
 $platforms = @(
     @{key="opencode"; label="OpenCode";           dir="$env:USERPROFILE\.agents\skills";          note="also covers Cline/Warp/Zed/Kilo +17 more"}
     @{key="claude";   label="Claude Code";        dir="$env:USERPROFILE\.claude\skills";           note=""}
@@ -57,26 +74,26 @@ $platforms = @(
     @{key="windsurf"; label="Windsurf";           dir="$env:USERPROFILE\.codeium\windsurf\skills"; note=""}
 )
 
-# ─── Arrow-key menu engine ───
+# --- Arrow-key menu engine ---
 function Show-Menu($title, $items, $multi, $checkedList) {
     $selected = 0; $total = $items.Count
 
     while ($true) {
         $startLine = [Console]::CursorTop
-        if ($title) { Write-Host (ac yellow "  $title") }
+        if ($title) { Write-Host (Paint yellow "  $title") }
 
         for ($i = 0; $i -lt $total; $i++) {
-            $cursor = if ($i -eq $selected) { (ac cyan "  ›") } else { "   " }
-            $name = if ($i -eq $selected) { (ac cyan $items[$i].label) } else { $items[$i].label }
+            $cursor = if ($i -eq $selected) { (Paint cyan "  $($glyph.pointer)") } else { "   " }
+            $name = if ($i -eq $selected) { (Paint cyan $items[$i].label) } else { $items[$i].label }
 
             $chk = ""
             if ($multi) {
-                $chk = if ($checkedList[$i]) { (ac cyan "[✓] ") } else { "[ ] " }
+                $chk = if ($checkedList[$i]) { (Paint cyan "[$($glyph.check)] ") } else { "[ ] " }
             }
 
             $extra = @()
             if ($items[$i].extra) { $extra += $items[$i].extra }
-            if ($items[$i].note) { $extra += (ac gray "($($items[$i].note))") }
+            if ($items[$i].note) { $extra += (Paint gray "($($items[$i].note))") }
             if ($items[$i].status) { $extra += $items[$i].status }
 
             $line = "$cursor $chk$name"
@@ -85,9 +102,9 @@ function Show-Menu($title, $items, $multi, $checkedList) {
         }
 
         if ($multi) {
-            Write-Host (ac gray "`n  [↑↓] Navigate  [Space] Toggle  [a] Select All  [Enter] Confirm  [q] Quit")
+            Write-Host (Paint gray "`n  [$($glyph.up)$($glyph.down)] Navigate  [Space] Toggle  [a] Select All  [Enter] Confirm  [q] Quit")
         } else {
-            Write-Host (ac gray "`n  [↑↓] Navigate  [Enter] Select  [q] Quit")
+            Write-Host (Paint gray "`n  [$($glyph.up)$($glyph.down)] Navigate  [Enter] Select  [q] Quit")
         }
 
         $key = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").VirtualKeyCode
@@ -115,121 +132,252 @@ function Show-Menu($title, $items, $multi, $checkedList) {
     }
 }
 
-# ═══════════════════ SILENT MODE ═══════════════════
-if ($Force -or ($All -and $AllSkills)) {
-    if (-not (Test-Path "$repoDir\.git")) {
-        git clone $repoUrl $repoDir 2>&1 | Out-Null
-    } else {
-        git -C $repoDir pull 2>&1 | Out-Null
-    }
-    $repoSkills = @{}
-    Get-ChildItem $skillsRoot -Directory | ForEach-Object {
-        $cat = $_.Name
-        Get-ChildItem $_.FullName -Directory | ForEach-Object { $repoSkills[$_.Name] = $_.FullName }
-    }
-    if ($Skills) { $names = $Skills -split ',' | ForEach-Object { $_.Trim() } }
-    else { $names = $repoSkills.Keys }
-
-    $targets = if ($Force -or $All) { $platforms }
-    else {
-        @()
-        if ($OpenCode) { $platforms[0]; if ($OpenCode) { $platforms | Where-Object key -eq "opencode" } }
-        # simplified
-        foreach ($p in $platforms) {
-            if (($p.key -eq "opencode" -and $OpenCode) -or ($p.key -eq "claude" -and $Claude) -or
-                ($p.key -eq "codex" -and $Codex) -or ($p.key -eq "cursor" -and $Cursor) -or
-                ($p.key -eq "gemini" -and $Gemini) -or ($p.key -eq "copilot" -and $Copilot) -or
-                ($p.key -eq "windsurf" -and $Windsurf)) { $p }
-        }
-    }
-
-    foreach ($p in $targets) {
-        New-Item -ItemType Directory -Path $p.dir -Force | Out-Null
-        foreach ($name in $names) {
-            if (-not $repoSkills[$name]) { continue }
-            $link = "$($p.dir)\$name"
-            if (Test-Path $link) { Remove-Item $link -Recurse -Force }
-            New-Item -ItemType Junction -Path $link -Target $repoSkills[$name] | Out-Null
-        }
-        Write-Host (ac green "  + $($p.key): $($names.Count) skills")
-    }
-    git -C $repoDir rev-parse HEAD | Out-File $versionFile -Encoding ascii -NoNewline
-    Write-Host (ac magenta "`n  Done. Restart your AI coding tool to load the new skills.")
-    exit 0
+# --- Git, catalog and entry rules ---
+# Same rules as scripts/check_install_links.py:
+#   catalog      every directory under skills\ that holds a SKILL.md
+#   missing      a catalog skill with no entry on a platform that has LFen skills installed
+#   dangling     a link whose target no longer exists, whoever created it
+#   copy         a real directory named like a catalog skill (git pull never updates it)
+#   wrong target a link named like a catalog skill that does not point at it in the clone,
+#                or a link into the clone that does not point at a catalog skill
+function Invoke-Git {
+    # Windows PowerShell turns git's progress on stderr into errors under "Stop".
+    $saved = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
+    try { $out = & git @args 2>$null } finally { $ErrorActionPreference = $saved }
+    return $out
 }
 
-# ═══════════════════ STATUS MODE ═══════════════════
+function Sync-Repo {
+    if (-not (Test-Path "$repoDir\.git")) {
+        Invoke-Git clone $repoUrl $repoDir | Out-Null
+    } else {
+        Invoke-Git -C $repoDir pull | Out-Null
+    }
+    if (-not (Test-Path "$repoDir\.git")) {
+        Write-Host (Paint red "  Could not clone $repoUrl into $repoDir."); exit 1
+    }
+}
+
+function Save-Version {
+    Invoke-Git -C $repoDir rev-parse HEAD | Out-File $versionFile -Encoding ascii -NoNewline
+}
+
+function Get-CatalogSkills {
+    $catalog = @{}
+    if (-not (Test-Path -LiteralPath $skillsRoot)) { return $catalog }
+    $root = [IO.Path]::GetFullPath($skillsRoot).TrimEnd('\')
+    Get-ChildItem -LiteralPath $skillsRoot -Recurse -Filter SKILL.md -File | Sort-Object FullName | ForEach-Object {
+        $dir = $_.Directory
+        if (-not $catalog.ContainsKey($dir.Name)) {
+            $category = $dir.Parent.FullName.Substring($root.Length).TrimStart('\') -replace '\\', '/'
+            $catalog[$dir.Name] = @{ Path = $dir.FullName; Category = $category }
+        }
+    }
+    return $catalog
+}
+
+function Test-IsLink($item) { return [bool]($item.Attributes -band [IO.FileAttributes]::ReparsePoint) }
+
+function Get-LinkTarget($item) {
+    $target = @($item.Target | Where-Object { $_ }) | Select-Object -First 1
+    if (-not $target) { return $null }
+    $target = "$target" -replace '^\\\\\?\\', ''
+    if (-not [IO.Path]::IsPathRooted($target)) { $target = Join-Path (Split-Path -Parent $item.FullName) $target }
+    return [IO.Path]::GetFullPath($target)
+}
+
+function Get-NormalPath($path) { return [IO.Path]::GetFullPath($path).TrimEnd('\') }
+
+function Test-SamePath($first, $second) {
+    return [string]::Equals((Get-NormalPath $first), (Get-NormalPath $second), [StringComparison]::OrdinalIgnoreCase)
+}
+
+function Test-InsideSkillsRoot($path) {
+    return (Get-NormalPath $path).StartsWith((Get-NormalPath $skillsRoot) + '\', [StringComparison]::OrdinalIgnoreCase)
+}
+
+# Removes the link itself, never what it points at.
+function Remove-Link($path) { [IO.Directory]::Delete($path, $false) }
+
+function Install-SkillLink($dir, $name, $targetPath) {
+    $link = Join-Path $dir $name
+    $existing = Get-Item -LiteralPath $link -Force -ErrorAction SilentlyContinue
+    if ($existing) {
+        if (-not (Test-IsLink $existing)) {
+            Write-Host (Paint yellow "    ! $name is a real directory in $dir; left in place (move it away, then rerun)")
+            return $false
+        }
+        Remove-Link $link
+    }
+    New-Item -ItemType Junction -Path $link -Target $targetPath | Out-Null
+    return $true
+}
+
+# Links into the install clone are the installer's own: one named like a catalog skill that
+# does not reach it (the skill moved) is linked again; any other (the skill was renamed or
+# removed, or was never a skill) is unlinked. Links pointing anywhere else are left alone.
+function Repair-CloneLinks($dir, $catalog) {
+    if (-not (Test-Path -LiteralPath $dir)) { return }
+    foreach ($item in @(Get-ChildItem -LiteralPath $dir -Force -ErrorAction SilentlyContinue)) {
+        if (-not (Test-IsLink $item)) { continue }
+        $target = Get-LinkTarget $item
+        if (-not $target -or -not (Test-InsideSkillsRoot $target)) { continue }
+        if ($catalog.ContainsKey($item.Name)) {
+            $expected = $catalog[$item.Name].Path
+            if ((Test-Path -LiteralPath $target) -and (Test-SamePath $target $expected)) { continue }
+            if (Install-SkillLink $dir $item.Name $expected) {
+                Write-Host (Paint yellow "    ~ relinked $($item.Name) -> $expected")
+            }
+        } else {
+            Remove-Link $item.FullName
+            Write-Host (Paint yellow "    - removed $($item.Name) -> $target (not a catalog skill)")
+        }
+    }
+}
+
+function Get-EntryReport($dir, $catalog, [bool]$requireAll) {
+    $findings = New-Object System.Collections.ArrayList
+    $present = @{}; $ok = 0; $installed = $false
+    $exists = Test-Path -LiteralPath $dir
+    if ($exists) {
+        foreach ($item in @(Get-ChildItem -LiteralPath $dir -Force -ErrorAction SilentlyContinue | Sort-Object Name)) {
+            $name = $item.Name
+            $known = $catalog.ContainsKey($name)
+            if (Test-IsLink $item) {
+                $target = Get-LinkTarget $item
+                $intoClone = [bool]($target -and (Test-InsideSkillsRoot $target))
+                if ($known) { $present[$name] = $true }
+                if ($known -or $intoClone) { $installed = $true }
+                if (-not $target -or -not (Test-Path -LiteralPath $target)) {
+                    [void]$findings.Add(@{ Kind = "dangling"; Name = $name; Detail = "-> $target" })
+                } elseif ($known) {
+                    if (Test-SamePath $target $catalog[$name].Path) { $ok++ }
+                    else { [void]$findings.Add(@{ Kind = "wrong target"; Name = $name; Detail = "-> $target (expected $($catalog[$name].Path))" }) }
+                } elseif ($intoClone) {
+                    [void]$findings.Add(@{ Kind = "wrong target"; Name = $name; Detail = "-> $target (not a catalog skill)" })
+                }
+            } elseif ($item.PSIsContainer -and $known) {
+                $present[$name] = $true; $installed = $true
+                [void]$findings.Add(@{ Kind = "copy"; Name = $name; Detail = "(real directory; git pull never updates it)" })
+            }
+        }
+    }
+    if ($installed -or $requireAll) {
+        foreach ($name in ($catalog.Keys | Sort-Object)) {
+            if (-not $present.ContainsKey($name)) { [void]$findings.Add(@{ Kind = "missing"; Name = $name; Detail = "" }) }
+        }
+    }
+    return @{ Exists = $exists; Installed = $installed; Ok = $ok; Findings = @($findings) }
+}
+
+function Get-CloneStatus {
+    $head = Invoke-Git -C $repoDir rev-parse --short HEAD
+    if ($LASTEXITCODE -ne 0) { return "not a git clone; cannot tell whether it is behind" }
+    Invoke-Git -C $repoDir fetch --quiet | Out-Null
+    $note = if ($LASTEXITCODE -ne 0) { "; fetch failed, compared with the last fetched state" } else { "" }
+    $counts = Invoke-Git -C $repoDir rev-list --left-right --count 'HEAD...@{upstream}'
+    if ($LASTEXITCODE -ne 0 -or -not $counts) { return "HEAD $head, no upstream branch$note" }
+    $parts = "$counts".Trim() -split '\s+'
+    $state = if ([int]$parts[1] -gt 0) { "behind the remote by $($parts[1]) commit(s); run: git -C `"$repoDir`" pull" }
+             else { "up to date with the remote" }
+    if ([int]$parts[0] -gt 0) { $state += ", $($parts[0]) local commit(s) not pushed" }
+    return "HEAD $head, $state$note"
+}
+
+# =================== STATUS MODE ===================
 if ($Status) {
     banner "Status"
     if (-not (Test-Path "$repoDir\.git")) {
-        Write-Host (ac red "  Not installed yet. Run without -Status to install."); exit 1
+        Write-Host (Paint red "  Not installed yet. Run without -Status to install."); exit 1
     }
-    git -C $repoDir pull 2>&1 | Out-Null
-    $repoSkills = @{}
-    Get-ChildItem $skillsRoot -Directory | ForEach-Object {
-        Get-ChildItem $_.FullName -Directory | ForEach-Object { $repoSkills[$_.Name] = $_.FullName }
-    }
+    $catalog = Get-CatalogSkills
+    Write-Host (Paint gray "  Install clone: $repoDir ($($catalog.Count) skills, $(Get-CloneStatus))")
+    $problems = 0
     foreach ($p in $platforms) {
-        Write-Host (ac cyan "`n  [$($p.label)]  $($p.dir)")
-        if (Test-Path $p.dir) {
-            $found = @(Get-ChildItem $p.dir -Directory -ErrorAction SilentlyContinue | Where-Object { $repoSkills.ContainsKey($_.Name) })
-            if ($found.Count -gt 0) {
-                foreach ($f in $found) {
-                    $link = $false
-                    try { $item = Get-Item $f.FullName -Force; $link = ($item.Attributes -band 0x400) -eq 0x400 } catch {}
-                    $icon = if ($link) { (ac green "  +") } else { (ac yellow "  ?") }
-                    Write-Host "$icon $($f.Name)"
-                }
-            } else { Write-Host (ac gray "      (none)") }
-        } else { Write-Host (ac gray "      (not detected)") }
+        $report = Get-EntryReport $p.dir $catalog $false
+        Write-Host (Paint cyan "`n  [$($p.label)]  $($p.dir)")
+        if ($report.Findings.Count -eq 0 -and -not $report.Exists) { Write-Host (Paint gray "      (not detected)"); continue }
+        if ($report.Findings.Count -eq 0 -and -not $report.Installed) { Write-Host (Paint gray "      (no LFen skills installed)"); continue }
+        Write-Host (Paint green "      $($report.Ok) ok")
+        foreach ($f in $report.Findings) {
+            Write-Host ("    " + (Paint yellow ("! {0,-13}" -f $f.Kind)) + " $($f.Name) $($f.Detail)")
+        }
+        $problems += $report.Findings.Count
     }
-    Write-Host ""; exit 0
+    if ($problems -gt 0) {
+        Write-Host (Paint yellow "`n  $problems problem(s). Rerun the installer or -Update to relink; move real directories away first.`n")
+        exit 1
+    }
+    Write-Host (Paint green "`n  No problems found.`n"); exit 0
 }
 
-# ═══════════════════ MAIN TUI ═══════════════════
+# =================== SILENT MODE ===================
+$switchOn = @{ opencode = $OpenCode; claude = $Claude; codex = $Codex; cursor = $Cursor
+               gemini = $Gemini; copilot = $Copilot; windsurf = $Windsurf }
+$chosen = @($platforms | Where-Object { $All -or $switchOn[$_.key] })
+if (-not $Update -and ($Force -or $All -or $AllSkills -or $Skills -or $chosen.Count -gt 0)) {
+    if ($chosen.Count -eq 0) {
+        Write-Host (Paint red "  No platform selected. Add -All, or platform switches such as -Claude -Codex."); exit 1
+    }
+    Sync-Repo
+    $catalog = Get-CatalogSkills
+    $names = @($catalog.Keys | Sort-Object)
+    if ($Skills) {
+        $asked = @($Skills -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+        $unknown = @($asked | Where-Object { -not $catalog.ContainsKey($_) })
+        if ($unknown.Count -gt 0) { Write-Host (Paint yellow "  ! not in the catalog, skipped: $($unknown -join ', ')") }
+        $names = @($asked | Where-Object { $catalog.ContainsKey($_) })
+    }
+    foreach ($p in $chosen) {
+        New-Item -ItemType Directory -Path $p.dir -Force | Out-Null
+        Repair-CloneLinks $p.dir $catalog
+        $count = 0
+        foreach ($name in $names) { if (Install-SkillLink $p.dir $name $catalog[$name].Path) { $count++ } }
+        Write-Host (Paint green "  + $($p.key): $count skills")
+    }
+    Save-Version
+    Write-Host (Paint magenta "`n  Done. Restart your AI coding tool to load the new skills.")
+    exit 0
+}
+
+# =================== MAIN TUI ===================
 banner "Installer"
 
-# ─── Sync repo ───
+# --- Sync repo ---
 if (-not (Test-Path "$repoDir\.git")) {
-    Write-Host (ac yellow "  Cloning LFen-Skills...") -NoNewline
-    git clone $repoUrl $repoDir 2>&1 | Out-Null
-    Write-Host (ac green " Done")
+    Write-Host (Paint yellow "  Cloning LFen-Skills...") -NoNewline
+    Sync-Repo
+    Write-Host (Paint green " Done")
 } else {
     $lastHash = if (Test-Path $versionFile) { (Get-Content $versionFile).Trim() } else { "" }
-    Write-Host (ac yellow "  Updating LFen-Skills...") -NoNewline
-    git -C $repoDir pull 2>&1 | Out-Null
-    $currentHash = (git -C $repoDir rev-parse HEAD).Trim()
+    Write-Host (Paint yellow "  Updating LFen-Skills...") -NoNewline
+    Sync-Repo
+    $currentHash = "$(Invoke-Git -C $repoDir rev-parse HEAD)".Trim()
     if ($lastHash -and $lastHash -ne $currentHash) {
-        Write-Host (ac green " Done")
-        $log = git -C $repoDir log --oneline "$lastHash..$currentHash" 2>&1
+        Write-Host (Paint green " Done")
+        $log = Invoke-Git -C $repoDir log --oneline "$lastHash..$currentHash"
         if ($log) {
-            Write-Host (ac cyan "  Updated:")
-            $log | ForEach-Object { Write-Host (ac gray "    $_") }
+            Write-Host (Paint cyan "  Updated:")
+            $log | ForEach-Object { Write-Host (Paint gray "    $_") }
         }
     } else {
-        Write-Host (ac green " Done")
+        Write-Host (Paint green " Done")
     }
 }
 Write-Host ""
 
-# ─── Discover skills ───
-$repoSkills = @{}
-Get-ChildItem $skillsRoot -Directory | ForEach-Object {
-    $cat = $_.Name
-    Get-ChildItem $_.FullName -Directory | ForEach-Object { $repoSkills[$_.Name] = @{ Path = $_.FullName; Category = $cat } }
-}
+# --- Discover skills ---
+$repoSkills = Get-CatalogSkills
 
-# ─── Build platform menu with live detection ───
+# --- Build platform menu with live detection ---
 $platMenu = @()
 foreach ($p in $platforms) {
     $detected = Test-Path $p.dir
-    $installed = $false
-    if ($detected) {
-        $installed = @(Get-ChildItem $p.dir -Directory -ErrorAction SilentlyContinue | Where-Object { $repoSkills.ContainsKey($_.Name) }).Count -gt 0
-    }
-    $tag = if ($installed) { (ac green " • installed") }
-           elseif ($detected) { (ac gray " • detected") }
-           else { (ac gray " • not found") }
+    $installed = $detected -and (Get-EntryReport $p.dir $repoSkills $false).Installed
+    $tag = if ($installed) { (Paint green " $($glyph.dot) installed") }
+           elseif ($detected) { (Paint gray " $($glyph.dot) detected") }
+           else { (Paint gray " $($glyph.dot) not found") }
 
     $platMenu += @{
         label = $p.label
@@ -240,7 +388,7 @@ foreach ($p in $platforms) {
     }
 }
 
-# ─── UPDATE MODE ───
+# --- UPDATE MODE ---
 if ($Update) {
     $idx = Show-Menu "Select platform to update:" $platMenu $false $null
     $plat = $platforms[$idx]
@@ -254,32 +402,32 @@ if ($Update) {
         }
     }
     if ($installedMenu.Count -eq 0) {
-        Write-Host (ac red "`n  No LFen skills installed on $($plat.label). Use install mode."); exit 1
+        Write-Host (Paint red "`n  No LFen skills installed on $($plat.label). Use install mode."); exit 1
     }
 
     $checked = @{}
     $selectedIdx = Show-Menu "Select skills to update (Space = toggle):" $installedMenu $true $checked
 
-    if ($selectedIdx.Count -eq 0) { Write-Host (ac gray "`n  Nothing selected."); exit 0 }
+    if ($selectedIdx.Count -eq 0) { Write-Host (Paint gray "`n  Nothing selected."); exit 0 }
 
-    Write-Host (ac yellow "`n  Updating on $($plat.label)...")
+    Write-Host (Paint yellow "`n  Updating on $($plat.label)...")
+    Repair-CloneLinks $plat.dir $repoSkills
     foreach ($i in $selectedIdx) {
         $s = $installedMenu[$i]
-        $link = "$($plat.dir)\$($s.label)"
-        Remove-Item $link -Recurse -Force -ErrorAction SilentlyContinue
-        New-Item -ItemType Junction -Path $link -Target $repoSkills[$s.label].Path | Out-Null
-        Write-Host (ac green "    + $($s.label)")
+        if (Install-SkillLink $plat.dir $s.label $repoSkills[$s.label].Path) {
+            Write-Host (Paint green "    + $($s.label)")
+        }
     }
-    git -C $repoDir rev-parse HEAD | Out-File $versionFile -Encoding ascii -NoNewline
-    Write-Host (ac green "`n  Done.`n")
+    Save-Version
+    Write-Host (Paint green "`n  Done.`n")
     exit 0
 }
 
-# ─── INSTALL MODE: Step 1 - Platform ───
+# --- INSTALL MODE: Step 1 - Platform ---
 $idx = Show-Menu "Select target platform:" $platMenu $false $null
 $selectedPlat = @($platforms[$idx])
 
-# ─── INSTALL MODE: Step 2 - Skills ───
+# --- INSTALL MODE: Step 2 - Skills ---
 $skillMenu = @()
 foreach ($name in ($repoSkills.Keys | Sort-Object)) {
     $skillMenu += @{ label = $name; extra = $repoSkills[$name].Category; note = "" }
@@ -287,30 +435,29 @@ foreach ($name in ($repoSkills.Keys | Sort-Object)) {
 
 $checked = @{}
 $selectedSkillIdx = Show-Menu "Select skills to install (Space = toggle, A = all):" $skillMenu $true $checked
-if ($selectedSkillIdx.Count -eq 0) { Write-Host (ac gray "`n  Nothing selected."); exit 0 }
+if ($selectedSkillIdx.Count -eq 0) { Write-Host (Paint gray "`n  Nothing selected."); exit 0 }
 $selectedSkills = $selectedSkillIdx | ForEach-Object { $skillMenu[$_] }
 
-# ─── Install ───
+# --- Install ---
 Clear-Host
 banner "Installer"
-Write-Host (ac yellow "  Installing...`n")
+Write-Host (Paint yellow "  Installing...`n")
 
 foreach ($plat in $selectedPlat) {
     New-Item -ItemType Directory -Path $plat.dir -Force | Out-Null
-    Write-Host (ac cyan "  $($plat.label)")
+    Write-Host (Paint cyan "  $($plat.label)")
+    Repair-CloneLinks $plat.dir $repoSkills
 
     foreach ($skill in $selectedSkills) {
-        $link = "$($plat.dir)\$($skill.label)"
-        if (Test-Path $link) { Remove-Item $link -Recurse -Force -ErrorAction SilentlyContinue }
-        New-Item -ItemType Junction -Path $link -Target $repoSkills[$skill.label].Path | Out-Null
-        Write-Host (ac green "    + $($skill.label)") -NoNewline
-        Write-Host (ac gray " [$($skill.extra)]")
+        if (-not (Install-SkillLink $plat.dir $skill.label $repoSkills[$skill.label].Path)) { continue }
+        Write-Host (Paint green "    + $($skill.label)") -NoNewline
+        Write-Host (Paint gray " [$($skill.extra)]")
     }
     Write-Host ""
 }
 
-git -C $repoDir rev-parse HEAD | Out-File $versionFile -Encoding ascii -NoNewline
+Save-Version
 
 $sc = $selectedSkills.Count; $pc = $selectedPlat.Count
-Write-Host (ac green "  Installed $sc skills to $pc platform(s).")
-Write-Host (ac magenta "  Restart your AI coding tool to load the new skills.`n")
+Write-Host (Paint green "  Installed $sc skills to $pc platform(s).")
+Write-Host (Paint magenta "  Restart your AI coding tool to load the new skills.`n")
