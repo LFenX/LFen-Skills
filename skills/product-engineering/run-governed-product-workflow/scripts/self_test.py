@@ -58,7 +58,7 @@ from governance_artifacts import (
     validate_task_directory,
 )
 from sync_embedded_references import publish
-from audit_norm_retrieval import claim_mandatory_target_identity, validate_contracts
+from audit_norm_retrieval import canonical_help, claim_mandatory_target_identity, validate_contracts
 from build_norm_index import (
     bootstrap_project_runtime,
     prune_runtime_index_cache,
@@ -1880,6 +1880,43 @@ def main(argv: list[str] | None = None) -> int:
     require_test(
         retrieval_validation["compatibility"]["cli_contract_count"] == len(gold_contracts),
         "CLI compatibility closure must execute every gold help contract",
+    )
+    # The same parser as rendered by Python 3.12 and 3.13: up to 3.12, adjacent mutually
+    # exclusive groups created out of argument order print as one bracket pair.
+    help_312 = (
+        "usage: tool.py [-h] --task-id TASK_ID\n"
+        "               [--items-base64 ITEMS_BASE64 | --items-file ITEMS_FILE  --questions-base64 QUESTIONS_BASE64 | --questions-file QUESTIONS_FILE]\n"
+        "               [--stage STAGE]\n"
+        "\n"
+        "options:\n"
+        "  --stage STAGE  stage (default: S1)\n"
+    )
+    help_313 = (
+        "usage: tool.py [-h] --task-id TASK_ID\n"
+        "               [--items-base64 ITEMS_BASE64 |\n"
+        "               --items-file ITEMS_FILE]\n"
+        "               [--questions-base64 QUESTIONS_BASE64 |\n"
+        "               --questions-file QUESTIONS_FILE]\n"
+        "               [--stage STAGE]\n"
+        "\n"
+        "options:\n"
+        "  --stage STAGE  stage (default: S1)\n"
+    )
+    require_test(
+        canonical_help(help_312) == canonical_help(help_313),
+        "a CLI help contract must not depend on how the interpreter brackets exclusive groups",
+    )
+    require_test(
+        canonical_help(help_313.replace("--stage", "--phase")) != canonical_help(help_313),
+        "a renamed flag must still change a CLI help contract",
+    )
+    require_test(
+        canonical_help(help_313.replace("(default: S1)", "(default: S2)")) != canonical_help(help_313),
+        "changed help text must still change a CLI help contract",
+    )
+    require_test(
+        "(default: S1)" in canonical_help(help_313),
+        "grouping punctuation may only be dropped from the usage paragraph",
     )
     require_test((retrieval_validation["requirement_coverage"] == 41), "self-test invariant failed at original line 528: retrieval_validation['requirement_coverage'] == 41")
     require_test((retrieval_validation["acceptance_coverage"] == 25), "self-test invariant failed at original line 529: retrieval_validation['acceptance_coverage'] == 25")

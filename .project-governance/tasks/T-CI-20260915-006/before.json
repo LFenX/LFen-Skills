@@ -1,0 +1,1856 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "TaskContract",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-CI-20260915-006",
+  "task_id": "T-CI-20260915-006",
+  "ordinal": 10,
+  "revision": 6,
+  "lifecycle_state": "Frozen",
+  "created_at": "2026-09-15T04:32:49Z",
+  "frozen_at": "2026-09-15T05:33:22Z",
+  "objective": "修复 CLI 帮助契约的跨版本比对，让 Skill gates 在 Python 3.11、3.12、3.13 上都能通过，然后再推送",
+  "request_snapshot": {
+    "language": "zh-CN",
+    "text": "先修 CI 再 push（推荐）",
+    "captured_at": "2026-09-15T04:32:49Z"
+  },
+  "clarification": {
+    "state": "Settled",
+    "mode": "Skipped",
+    "notice": "你的需求已经描述的非常清楚了，并且和项目现状一致，本次跳过向你提问的阶段",
+    "survey_refs": [
+      "skills/product-engineering/run-governed-product-workflow/scripts/audit_norm_retrieval.py:122",
+      "skills/product-engineering/run-governed-product-workflow/scripts/audit_norm_retrieval.py:789",
+      "skills/product-engineering/run-governed-product-workflow/assets/runtime/evaluations/norm-retrieval-gold.json",
+      "skills/product-engineering/run-governed-product-workflow/assets/runtime/embedded-manifest.json:288",
+      "skills/product-engineering/run-governed-product-workflow/scripts/self_test.py:1867",
+      ".github/workflows/skill-gates.yml"
+    ],
+    "rounds": [],
+    "basis": "勘察：GitHub Actions 公共 API 显示 Skill gates 自 2026-09-10 b22e336 那次推送起在 Python 3.11 与 3.12 的 Gate 1 失败、3.13 通过；本地用现有 3.11 环境复现为「init_task.py --help: CLI help contract changed」；20 个契约中只有 init_task.py 在 3.11/3.12 与 3.13 之间不同，差异是 3.12 及以下在 usage 折行处少打互斥组的一对方括号；该金标哈希由 5df53d5 在 3.13 下写入；金标是受保护资产。用户在选项中确定了做法：让规范化忽略这类随版本变化的括号渲染，在三个版本上重算并确认一致，重封金标，三个版本自检通过后再 push。三种候选规范化实测都让 20 个契约跨版本一致，选只处理 usage 段的方案作为默认，列入二次确认。",
+    "reopened_by": []
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "先修 CI 再 push（推荐）",
+      "reading": "修好导致 Skill gates 在 Python 3.11/3.12 失败的帮助契约比对，并加回归断言防止再只在某个版本上暴露",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0002",
+        "RUN-001-E0003",
+        "RUN-001-E0005",
+        "RUN-001-E0006",
+        "RUN-001-E0008"
+      ],
+      "acceptance_refs": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "先修 CI 再 push（推荐）",
+      "reading": "在 3.11、3.12、3.13 下重算 20 个契约并确认一致，重封受保护金标",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0004",
+        "RUN-001-E0007",
+        "RUN-001-E0009"
+      ],
+      "acceptance_refs": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "R-03",
+      "source": "request_snapshot",
+      "quote": "先修 CI 再 push（推荐）",
+      "reading": "三个版本本地自检通过后再 push；push 在 T-INSTALL-20260914-005 中与 Task A 一起执行",
+      "state": "Covered",
+      "evidence_refs": [
+        "RUN-001-E0006",
+        "RUN-001-E0008",
+        "RUN-001-E0009"
+      ],
+      "acceptance_refs": [
+        3,
+        5
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "DEC-001",
+      "kind": "Proceed",
+      "presented": "二次确认：会做——canonical_help 比对前去掉 usage 段的括号与竖线；self_test 加不依赖解释器的回归断言；三个版本重算 20 个契约并确认一致；按字节替换金标哈希并重封；3.11 与 3.13 跑三道门、3.12 核对契约、全新克隆复验；收尾后提交本地 commit 不 push。不做——push（放到 Task B 与 A 一起）、改 CI 矩阵、安装器与入口。风险——3.12 完整 self_test 需 push 后由 CI 确认；usage 分组符号不再受哈希保护。默认项——规范化只处理 usage 段。",
+      "response": "Proceed",
+      "decided_by": "user",
+      "decided_at": "2026-09-15T05:33:02Z",
+      "evidence_ref": "conversation:AskUserQuestion「二次确认」回答：Proceed"
+    },
+    {
+      "id": "DEC-002",
+      "kind": "Acceptance",
+      "presented": "验收（逐条对照）：需求原文「先修 CI 再 push（推荐）」拆出的 6 条验收判据全部已实现——canonical_help 只在 usage 段去掉括号与竖线（E0002、E0005）；20 个契约三版本一致且等于金标（E0009）；不依赖解释器的回归断言，旧实现下失败（E0003、E0005）；3.11 与 3.13 三道门、3.12 契约核对通过（E0006、E0008、E0009）；金标只换 20 个哈希并重封、46 个文件独立重算一致（E0004、E0007）；全新克隆提交再检出后三道门通过（E0008）。R-01、R-02 已实现，R-03 本任务不 push。另说明 3 点：根因更正为 ≤3.12 合并创建顺序与参数顺序相反的相邻互斥组；用户 9 月 16 日的 6e848a5、bb112d3 使基线前移到 bb112d3，Task A 已随之上 origin；3.12 完整 self_test 本机无 jsonschema，待 push 后 CI 确认。",
+      "response": "接受",
+      "decided_by": "user",
+      "decided_at": "2026-09-18T13:32:13Z",
+      "evidence_ref": "conversation:AskUserQuestion「验收」回答：接受"
+    }
+  ],
+  "depends_on": [],
+  "supersedes": [],
+  "blocked_by": [],
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "bb112d363637ef34f8893f105e8f031efedf607e",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 2,
+    "status_digest": "c13bc95be134c6e1a5a7008b32da97777ce846c604190a4fba69395b19a54fe8",
+    "captured_at": "2026-09-18T13:22:29Z"
+  },
+  "scope": {
+    "in_scope": [
+      "CLI 帮助契约规范化（audit_norm_retrieval.py 的 canonical_help）",
+      "受保护金标中 20 个 help_sha256 的重算与重封",
+      "self_test.py 帮助契约规范化回归断言"
+    ],
+    "out_of_scope": [
+      "push（在 T-INSTALL-20260914-005 中与 Task A 一起执行）",
+      "CI 工作流的 Python 版本矩阵（保持 3.11、3.12、3.13 不变）",
+      "安装器与安装入口（T-INSTALL-20260914-005）"
+    ],
+    "allowed_paths": [
+      "skills/product-engineering/run-governed-product-workflow/scripts/audit_norm_retrieval.py",
+      "skills/product-engineering/run-governed-product-workflow/scripts/self_test.py",
+      "skills/product-engineering/run-governed-product-workflow/assets/runtime/evaluations/norm-retrieval-gold.json",
+      "skills/product-engineering/run-governed-product-workflow/assets/runtime/embedded-manifest.json",
+      ".project-governance/generated"
+    ],
+    "forbidden_actions": [
+      "从 CI 矩阵里去掉 Python 3.11 或 3.12",
+      "修改金标里帮助契约哈希以外的内容",
+      "修改规范正文（assets/runtime/norms）",
+      "在本任务内 push"
+    ]
+  },
+  "authority": {
+    "execution_permissions": [
+      "read",
+      "edit-in-scope",
+      "validate"
+    ],
+    "required_gates": [],
+    "stop_conditions": [
+      "scope-expansion",
+      "authority-conflict",
+      "critical-evidence-missing"
+    ],
+    "authority_references": [
+      "conversation:2026-09-15 用户选择「先修 CI 再 push（推荐）」"
+    ],
+    "authority_assessments": [
+      {
+        "reference": "conversation:2026-09-15 用户选择「先修 CI 再 push（推荐）」",
+        "source_kind": "UserDirective",
+        "status": "Valid",
+        "scope_refs": [
+          "CLI 帮助契约规范化（audit_norm_retrieval.py 的 canonical_help）",
+          "受保护金标中 20 个 help_sha256 的重算与重封",
+          "self_test.py 帮助契约规范化回归断言"
+        ],
+        "evidence_refs": [
+          "conversation:AskUserQuestion「CI 红了」回答：先修 CI 再 push（推荐）"
+        ],
+        "verified_at": "2026-09-15T04:31:49Z",
+        "expires_at": null
+      }
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      "canonical_help 在比对前去掉 usage 段里随 Python 版本变化的括号与竖线，参数名、元变量、帮助文字与描述仍计入哈希",
+      "20 个 CLI 帮助契约在 Python 3.11、3.12、3.13 下得到同一个规范化哈希，且与金标一致",
+      "self_test 新增不依赖解释器的回归断言：只差互斥组括号的两份帮助输出规范化后相同，参数名或帮助文字不同则不同",
+      "Python 3.11 与 3.13 下 self_test、audit_norm_retrieval、audit_norm_consistency 均通过；Python 3.12 下 20 个契约核对通过",
+      "金标只按字节替换 20 个哈希值并重封，受保护资产完整性校验通过",
+      "改动在全新克隆中提交后检出，三道门通过"
+    ],
+    "decision_owner": "task-initiator"
+  },
+  "plan": {
+    "steps": [
+      "在 canonical_help 中比对前去掉 usage 段的括号与竖线，并更新说明",
+      "在 self_test.py 增加不依赖解释器的帮助契约规范化回归断言",
+      "用 Python 3.11、3.12、3.13 分别生成 20 个契约的规范化哈希并确认一致",
+      "按字节把金标里的 20 个 help_sha256 换成新值并重封 embedded-manifest",
+      "在 3.11 与 3.13 下运行三道门，在 3.12 下核对 20 个契约，并在全新克隆中复验提交后的字节"
+    ],
+    "verification": [
+      "20 个契约在 3.11、3.12、3.13 下规范化哈希一致且与新金标一致",
+      "Python 3.13 下 self_test、audit_norm_retrieval、audit_norm_consistency exit 0",
+      "Python 3.11 下 self_test、audit_norm_retrieval、audit_norm_consistency exit 0",
+      "重封后受保护资产完整性校验通过",
+      "全新克隆提交再检出后三道门 exit 0"
+    ],
+    "rollback": [
+      "git restore audit_norm_retrieval.py、self_test.py、金标与 embedded-manifest.json 并重跑三道门；若已提交则 git revert 该提交"
+    ]
+  },
+  "first_principles_analysis": {
+    "method_version": "first-principles-v1",
+    "depth": "Standard",
+    "outcome": "CLI 帮助契约只绑定脚本接受的命令行，不再绑定某个 Python 版本的排版；Skill gates 在三个版本上一致",
+    "facts": [
+      {
+        "id": "F1",
+        "statement": "Skill gates 自 b22e336 那次推送起在 Python 3.11 与 3.12 的 Gate 1 失败，3.13 通过",
+        "evidence_refs": [
+          "github-api:actions/runs/34490123862/jobs"
+        ]
+      },
+      {
+        "id": "F2",
+        "statement": "本地用 Python 3.11 运行 self_test，失败于 init_task.py --help: CLI help contract changed",
+        "evidence_refs": [
+          "conversation:2026-09-15 v311 self_test 复现"
+        ]
+      },
+      {
+        "id": "F3",
+        "statement": "差异是 3.12 及以下在 usage 折行处少打互斥组的一对方括号，其余内容规范化后相同",
+        "evidence_refs": [
+          "conversation:2026-09-15 三版本 token 对比"
+        ]
+      },
+      {
+        "id": "F4",
+        "statement": "20 个契约中只有 init_task.py 在版本间不同",
+        "evidence_refs": [
+          "conversation:2026-09-15 三版本契约对比"
+        ]
+      },
+      {
+        "id": "F5",
+        "statement": "当前 init_task.py 的金标哈希由 5df53d5 在 Python 3.13 下写入",
+        "evidence_refs": [
+          "git:log -S 25b0e0313fad4cb31de330eae47beb2ff516ed9d15314268ac16525b3214a05b"
+        ]
+      },
+      {
+        "id": "F6",
+        "statement": "只在 usage 段去掉括号与竖线后，20 个契约在三个版本下哈希一致",
+        "evidence_refs": [
+          "conversation:2026-09-15 候选规范化实测"
+        ]
+      },
+      {
+        "id": "F7",
+        "statement": "金标 norm-retrieval-gold.json 是受保护资产",
+        "evidence_refs": [
+          "skills/product-engineering/run-governed-product-workflow/assets/runtime/embedded-manifest.json:288"
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "id": "C1",
+        "statement": "金标只能按字节编辑并重封",
+        "source_refs": [
+          "skills/product-engineering/run-governed-product-workflow/assets/runtime/embedded-manifest.json"
+        ]
+      },
+      {
+        "id": "C2",
+        "statement": "CI 矩阵必须保留 3.11、3.12、3.13：skill 声称使用者能在每个支持的版本上自检",
+        "source_refs": [
+          ".github/workflows/skill-gates.yml"
+        ]
+      },
+      {
+        "id": "C3",
+        "statement": "本机 3.12 环境没有 jsonschema，完整 self_test 在 3.12 上只能由 push 后的 CI 确认",
+        "source_refs": [
+          "conversation:2026-09-15 uv 离线安装失败"
+        ]
+      }
+    ],
+    "assumptions": [
+      {
+        "id": "A1",
+        "statement": "usage 段的括号与竖线只表达分组，参数名、元变量和帮助文字的变化仍会改变哈希",
+        "validation": "self_test 回归断言：只差括号的两份输出相同，改参数名或帮助文字则不同"
+      }
+    ],
+    "unknowns": [
+      {
+        "id": "U1",
+        "statement": "Python 3.12 下完整 self_test 的结果",
+        "owner": "agent",
+        "resolution_condition": "push 后通过 GitHub 公共 API 查看 Skill gates 的 3.12 任务",
+        "blocking": false
+      }
+    ],
+    "fundamentals": [
+      {
+        "id": "P1",
+        "statement": "帮助契约要保护的是脚本接受的命令行，而不是某个解释器的排版",
+        "derived_from": [
+          "F1",
+          "F3",
+          "F4"
+        ]
+      },
+      {
+        "id": "P2",
+        "statement": "受保护基线只能重算并重封，且要能证明各版本得到同一个值",
+        "derived_from": [
+          "F6",
+          "F7",
+          "C1"
+        ]
+      },
+      {
+        "id": "P3",
+        "statement": "不能靠缩小 CI 覆盖的版本让检查变绿",
+        "derived_from": [
+          "C2",
+          "F1"
+        ]
+      }
+    ],
+    "causal_links": [
+      {
+        "from_ref": "F5",
+        "to_ref": "F1",
+        "rationale": "在 3.13 下写入的哈希包含 3.13 的括号渲染，3.11/3.12 渲染不同于是对不上",
+        "evidence_refs": [
+          "git:log -S 25b0e0313fad4cb31de330eae47beb2ff516ed9d15314268ac16525b3214a05b"
+        ]
+      },
+      {
+        "from_ref": "F3",
+        "to_ref": "P1",
+        "rationale": "差异只在分组符号，与脚本接受什么参数无关",
+        "evidence_refs": [
+          "conversation:2026-09-15 三版本 token 对比"
+        ]
+      }
+    ],
+    "alternatives": [
+      {
+        "id": "O0",
+        "description": "维持现状，CI 在 3.11/3.12 上继续失败",
+        "status": "Rejected",
+        "derived_from": [
+          "P1"
+        ],
+        "tradeoffs": [
+          "不改代码",
+          "CI 信号失效，使用者在 3.11/3.12 上自检误报失败"
+        ]
+      },
+      {
+        "id": "O1",
+        "description": "canonical_help 只在 usage 段去掉括号与竖线后再比对，重算金标并重封",
+        "status": "Selected",
+        "derived_from": [
+          "P1",
+          "P2",
+          "P3"
+        ],
+        "tradeoffs": [
+          "usage 里的分组符号不再受保护",
+          "参数名、元变量、帮助文字与描述仍受保护"
+        ]
+      },
+      {
+        "id": "O2",
+        "description": "只对 options 段计算哈希",
+        "status": "Rejected",
+        "derived_from": [
+          "P1"
+        ],
+        "tradeoffs": [
+          "同样能跨版本一致",
+          "usage 里的位置参数与子命令结构不再受保护"
+        ]
+      },
+      {
+        "id": "O3",
+        "description": "从 CI 矩阵里去掉 3.11 与 3.12",
+        "status": "Rejected",
+        "derived_from": [
+          "P3"
+        ],
+        "tradeoffs": [
+          "立刻变绿",
+          "掩盖问题，使用者在这两个版本上自检仍会误报"
+        ]
+      }
+    ],
+    "decision_criteria": [
+      {
+        "id": "K1",
+        "statement": "20 个契约在三个版本下得到同一个哈希",
+        "source_refs": [
+          "request_snapshot"
+        ]
+      },
+      {
+        "id": "K2",
+        "statement": "参数名、元变量、帮助文字变化仍会被检出",
+        "source_refs": [
+          "skills/product-engineering/run-governed-product-workflow/scripts/audit_norm_retrieval.py:122"
+        ]
+      },
+      {
+        "id": "K3",
+        "statement": "受保护资产完整性通过，CI 矩阵不缩小",
+        "source_refs": [
+          ".github/workflows/skill-gates.yml"
+        ]
+      }
+    ],
+    "selected_approach": "O1",
+    "derivation": [
+      {
+        "plan_step": "在 canonical_help 中比对前去掉 usage 段的括号与竖线，并更新说明",
+        "derived_from": [
+          "P1"
+        ],
+        "supports": [
+          "K1",
+          "K2"
+        ]
+      },
+      {
+        "plan_step": "在 self_test.py 增加不依赖解释器的帮助契约规范化回归断言",
+        "derived_from": [
+          "P1"
+        ],
+        "supports": [
+          "K2"
+        ]
+      },
+      {
+        "plan_step": "用 Python 3.11、3.12、3.13 分别生成 20 个契约的规范化哈希并确认一致",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1"
+        ]
+      },
+      {
+        "plan_step": "按字节把金标里的 20 个 help_sha256 换成新值并重封 embedded-manifest",
+        "derived_from": [
+          "P2"
+        ],
+        "supports": [
+          "K3"
+        ]
+      },
+      {
+        "plan_step": "在 3.11 与 3.13 下运行三道门，在 3.12 下核对 20 个契约，并在全新克隆中复验提交后的字节",
+        "derived_from": [
+          "P2",
+          "P3"
+        ],
+        "supports": [
+          "K1",
+          "K3"
+        ]
+      }
+    ],
+    "validation_refs": [
+      "skills/product-engineering/run-governed-product-workflow/scripts/self_test.py"
+    ],
+    "source_refs": [
+      "skills/product-engineering/run-governed-product-workflow/scripts/audit_norm_retrieval.py",
+      ".github/workflows/skill-gates.yml"
+    ]
+  },
+  "task_profile": {
+    "delivery_scenario": "DS-03",
+    "development_types": [
+      "DT-06"
+    ],
+    "primary_development_type": "DT-06",
+    "development_type_scopes": {
+      "DT-06": [
+        "CLI 帮助契约规范化（audit_norm_retrieval.py 的 canonical_help）",
+        "受保护金标中 20 个 help_sha256 的重算与重封",
+        "self_test.py 帮助契约规范化回归断言"
+      ]
+    },
+    "change_surfaces": [
+      "API/Integration"
+    ],
+    "risk_level": "Medium",
+    "extension_triggers": {
+      "E01": "Inactive",
+      "E02": "Inactive",
+      "E03": "Inactive",
+      "E04": "Inactive",
+      "E05": "Inactive"
+    },
+    "extension_evidence_refs": {
+      "E01": [],
+      "E02": [],
+      "E03": [],
+      "E04": [],
+      "E05": []
+    },
+    "baseline_inheritance": [
+      "Revise"
+    ],
+    "mode": "Normal",
+    "confidence": "High",
+    "basis": [
+      "Skill gates 自 b22e336 那次推送起在 3.11/3.12 的 Gate 1 失败，本地 3.11 复现为 init_task.py --help 契约不一致；用户选择先修 CI 再 push"
+    ],
+    "open_questions": [],
+    "applicability_facts": {
+      "product_intent_change": "No",
+      "initiative_scope_change": "No",
+      "requirement_change": "No",
+      "external_behavior_change": "Yes",
+      "design_change": "No",
+      "architecture_impact": "No",
+      "security_privacy_impact": "No",
+      "data_ai_impact": "No",
+      "formal_knowledge_records": "No",
+      "operations_impact": "No",
+      "production_release": "No",
+      "irreversible_change": "No",
+      "actual_execution": "Yes",
+      "authority_available": "Yes",
+      "migration_retirement": "No",
+      "external_system_effect": "No",
+      "formal_review_or_gate": "No"
+    }
+  },
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-CI-20260915-006-before",
+      "content_ref": ".project-governance/tasks/T-CI-20260915-006/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "21ca332da419fe313cc91457cffdd876bf6e9c46",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-CI-20260915-006-run",
+      "content_ref": ".project-governance/tasks/T-CI-20260915-006/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "21ca332da419fe313cc91457cffdd876bf6e9c46",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-CI-20260915-006-after",
+      "content_ref": ".project-governance/tasks/T-CI-20260915-006/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "21ca332da419fe313cc91457cffdd876bf6e9c46",
+      "human_confirmation_refs": []
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "path": "decisions",
+      "old_value": [],
+      "new_value": [
+        {
+          "id": "DEC-001",
+          "kind": "Proceed",
+          "presented": "二次确认：会做——canonical_help 比对前去掉 usage 段的括号与竖线；self_test 加不依赖解释器的回归断言；三个版本重算 20 个契约并确认一致；按字节替换金标哈希并重封；3.11 与 3.13 跑三道门、3.12 核对契约、全新克隆复验；收尾后提交本地 commit 不 push。不做——push（放到 Task B 与 A 一起）、改 CI 矩阵、安装器与入口。风险——3.12 完整 self_test 需 push 后由 CI 确认；usage 分组符号不再受哈希保护。默认项——规范化只处理 usage 段。",
+          "response": "Proceed",
+          "decided_by": "user",
+          "decided_at": "2026-09-15T05:33:02Z",
+          "evidence_ref": "conversation:AskUserQuestion「二次确认」回答：Proceed"
+        }
+      ],
+      "reason": "记录用户在二次确认中给出的 Proceed 决定",
+      "basis": "conversation:AskUserQuestion「二次确认」用户原话：Proceed",
+      "changed_at": "2026-09-15T05:33:02Z"
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "path": "source_snapshot",
+      "old_value": {
+        "repository": "LFen-Skills",
+        "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+        "vcs": "git",
+        "branch": "main",
+        "head": "21ca332da419fe313cc91457cffdd876bf6e9c46",
+        "head_exists": true,
+        "dirty": false,
+        "dirty_entries": 0,
+        "status_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "captured_at": "2026-09-15T04:32:49Z"
+      },
+      "new_value": {
+        "repository": "LFen-Skills",
+        "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+        "vcs": "git",
+        "branch": "main",
+        "head": "bb112d363637ef34f8893f105e8f031efedf607e",
+        "head_exists": true,
+        "dirty": true,
+        "dirty_entries": 2,
+        "status_digest": "c13bc95be134c6e1a5a7008b32da97777ce846c604190a4fba69395b19a54fe8",
+        "captured_at": "2026-09-18T13:22:29Z"
+      },
+      "reason": "用户于 2026-09-16 经 Cursor 在 main 上提交并 push 了 6e848a5（新增 record-skill-incident）与 bb112d3（README.en 索引同步），与本任务无关；本任务此时尚未改动任何仓库文件（账本只有 run_started），基线前移到 bb112d3，范围核对才只针对本任务自己的改动",
+      "basis": "git reflog：6e848a5 2026-09-16 22:12:24 +0800、bb112d3 22:14:47 +0800，均带 Co-authored-by: Cursor；git diff 21ca332..bb112d3 -- skills/product-engineering 为空；git status 只有本任务目录未跟踪",
+      "changed_at": "2026-09-18T13:22:29Z"
+    },
+    {
+      "from_revision": 3,
+      "to_revision": 4,
+      "path": "tailoring_resolution",
+      "old_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+        "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+        "resolver_sha256": "e2c655a368fc3c477dc9df126f34c72bc94360066cdb590cd3ecec2eb0d4a169",
+        "task_contract_schema_sha256": "fbfab5ffc08a2eac0211e6ecce46e7629751040103410171da1358fef1805f13",
+        "input_digest": "1e1411e07ba8ecf29f601cd3eb250172e88acede7358b3530b1f11a1d9bebcf1",
+        "stage": "S4",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:API/Integration",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+            "sections": [
+              "7",
+              "10",
+              "12",
+              "13",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+            "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+            "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+            "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+            "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 87,
+          "total": 137,
+          "sha256": "4fa073bf1104094f6ebe645d0a35af1637ceb25c0db58041e0dfca5bf5ce6b4b"
+        }
+      },
+      "new_value": {
+        "rule_set_id": "VC-PPG-TAIL-001",
+        "rule_set_version": "6.3 Candidate",
+        "rule_set_status": "In Review",
+        "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+        "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+        "resolver_sha256": "e2c655a368fc3c477dc9df126f34c72bc94360066cdb590cd3ecec2eb0d4a169",
+        "task_contract_schema_sha256": "fbfab5ffc08a2eac0211e6ecce46e7629751040103410171da1358fef1805f13",
+        "input_digest": "29de272fa2449732ec1fcaf882ef3209f9dbba8ceae8b01fe4c45b82367b5dd5",
+        "stage": "S4",
+        "applicable_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12"
+        ],
+        "pending_standards": [],
+        "stage_context_standards": [
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12"
+        ],
+        "control_strength": "standard",
+        "independent_review": false,
+        "explicit_human_gate": false,
+        "blocking_reasons": [],
+        "rule_ids": [
+          "VC-PPG-TAIL-001:always_applicable",
+          "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+          "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+          "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+          "VC-PPG-TAIL-001:change_surfaces:API/Integration",
+          "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+          "VC-PPG-TAIL-001:development_types:DT-06",
+          "VC-PPG-TAIL-001:execution_modes:Normal",
+          "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E04:Inactive",
+          "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+          "VC-PPG-TAIL-001:risk_levels:Medium"
+        ],
+        "source_sections": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+            "sections": [
+              "2",
+              "10",
+              "12"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "22",
+              "23"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+            "sections": [
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+            "sections": [
+              "7",
+              "10",
+              "12",
+              "13",
+              "15",
+              "17"
+            ]
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "9"
+            ]
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sections": [
+              "3",
+              "7",
+              "8",
+              "10",
+              "12",
+              "15",
+              "17",
+              "18"
+            ]
+          }
+        ],
+        "complete_source_files": [
+          {
+            "source_id": "VC-PPG-COM-001",
+            "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+            "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+          },
+          {
+            "source_id": "VC-PPG-COM-002",
+            "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+            "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+          },
+          {
+            "source_id": "VC-PPG-DEC-001",
+            "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+            "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+          },
+          {
+            "source_id": "VC-PPG-PRO-001",
+            "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+            "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+          },
+          {
+            "source_id": "C02",
+            "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+            "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+          },
+          {
+            "source_id": "C03",
+            "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+            "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+          },
+          {
+            "source_id": "C04",
+            "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+            "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+          },
+          {
+            "source_id": "C05",
+            "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+            "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+          },
+          {
+            "source_id": "C06",
+            "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+            "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+          },
+          {
+            "source_id": "C07",
+            "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+            "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+          },
+          {
+            "source_id": "C08",
+            "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+            "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+          },
+          {
+            "source_id": "C09",
+            "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+            "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+          },
+          {
+            "source_id": "C10",
+            "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+            "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+          },
+          {
+            "source_id": "C11",
+            "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+            "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+          },
+          {
+            "source_id": "C12",
+            "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+            "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+          },
+          {
+            "source_id": "VC-PPG-IDX-001",
+            "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+            "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+          }
+        ],
+        "profile_coverage_digest": {
+          "applicable": 87,
+          "total": 137,
+          "sha256": "4fa073bf1104094f6ebe645d0a35af1637ceb25c0db58041e0dfca5bf5ce6b4b"
+        }
+      },
+      "reason": "automatically refresh deterministic tailoring after: 用户于 2026-09-16 经 Cursor 在 main 上提交并 push 了 6e848a5（新增 record-skill-incident）与 bb112d3（README.en 索引同步），与本任务无关；本任务此时尚未改动任何仓库文件（账本只有 run_started），基线前移到 bb112d3，范围核对才只针对本任务自己的改动",
+      "basis": "git reflog：6e848a5 2026-09-16 22:12:24 +0800、bb112d3 22:14:47 +0800，均带 Co-authored-by: Cursor；git diff 21ca332..bb112d3 -- skills/product-engineering 为空；git status 只有本任务目录未跟踪",
+      "changed_at": "2026-09-18T13:22:29Z"
+    },
+    {
+      "from_revision": 4,
+      "to_revision": 5,
+      "path": "requirement_items",
+      "old_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "先修 CI 再 push（推荐）",
+          "reading": "修好导致 Skill gates 在 Python 3.11/3.12 失败的帮助契约比对，并加回归断言防止再只在某个版本上暴露",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "先修 CI 再 push（推荐）",
+          "reading": "在 3.11、3.12、3.13 下重算 20 个契约并确认一致，重封受保护金标",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            1,
+            4
+          ]
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "先修 CI 再 push（推荐）",
+          "reading": "三个版本本地自检通过后再 push；push 在 T-INSTALL-20260914-005 中与 Task A 一起执行",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            3,
+            5
+          ]
+        }
+      ],
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "先修 CI 再 push（推荐）",
+          "reading": "修好导致 Skill gates 在 Python 3.11/3.12 失败的帮助契约比对，并加回归断言防止再只在某个版本上暴露",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0002",
+            "RUN-001-E0003",
+            "RUN-001-E0005",
+            "RUN-001-E0006",
+            "RUN-001-E0008"
+          ],
+          "acceptance_refs": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "先修 CI 再 push（推荐）",
+          "reading": "在 3.11、3.12、3.13 下重算 20 个契约并确认一致，重封受保护金标",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0004",
+            "RUN-001-E0007",
+            "RUN-001-E0009"
+          ],
+          "acceptance_refs": [
+            1,
+            4
+          ]
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "先修 CI 再 push（推荐）",
+          "reading": "三个版本本地自检通过后再 push；push 在 T-INSTALL-20260914-005 中与 Task A 一起执行",
+          "state": "Covered",
+          "evidence_refs": [
+            "RUN-001-E0006",
+            "RUN-001-E0008",
+            "RUN-001-E0009"
+          ],
+          "acceptance_refs": [
+            3,
+            5
+          ]
+        }
+      ],
+      "reason": "逐条对照需求原文与验收判据后，全部需求条目有证据覆盖；R-03 只覆盖本地三版本自检，push 按约定在 T-INSTALL-20260914-005",
+      "basis": "RUN-001 mutation E0002 至 E0004、verification E0005 至 E0009；用户验收回答：接受",
+      "changed_at": "2026-09-18T13:32:13Z"
+    },
+    {
+      "from_revision": 5,
+      "to_revision": 6,
+      "path": "decisions",
+      "old_value": [
+        {
+          "id": "DEC-001",
+          "kind": "Proceed",
+          "presented": "二次确认：会做——canonical_help 比对前去掉 usage 段的括号与竖线；self_test 加不依赖解释器的回归断言；三个版本重算 20 个契约并确认一致；按字节替换金标哈希并重封；3.11 与 3.13 跑三道门、3.12 核对契约、全新克隆复验；收尾后提交本地 commit 不 push。不做——push（放到 Task B 与 A 一起）、改 CI 矩阵、安装器与入口。风险——3.12 完整 self_test 需 push 后由 CI 确认；usage 分组符号不再受哈希保护。默认项——规范化只处理 usage 段。",
+          "response": "Proceed",
+          "decided_by": "user",
+          "decided_at": "2026-09-15T05:33:02Z",
+          "evidence_ref": "conversation:AskUserQuestion「二次确认」回答：Proceed"
+        }
+      ],
+      "new_value": [
+        {
+          "id": "DEC-001",
+          "kind": "Proceed",
+          "presented": "二次确认：会做——canonical_help 比对前去掉 usage 段的括号与竖线；self_test 加不依赖解释器的回归断言；三个版本重算 20 个契约并确认一致；按字节替换金标哈希并重封；3.11 与 3.13 跑三道门、3.12 核对契约、全新克隆复验；收尾后提交本地 commit 不 push。不做——push（放到 Task B 与 A 一起）、改 CI 矩阵、安装器与入口。风险——3.12 完整 self_test 需 push 后由 CI 确认；usage 分组符号不再受哈希保护。默认项——规范化只处理 usage 段。",
+          "response": "Proceed",
+          "decided_by": "user",
+          "decided_at": "2026-09-15T05:33:02Z",
+          "evidence_ref": "conversation:AskUserQuestion「二次确认」回答：Proceed"
+        },
+        {
+          "id": "DEC-002",
+          "kind": "Acceptance",
+          "presented": "验收（逐条对照）：需求原文「先修 CI 再 push（推荐）」拆出的 6 条验收判据全部已实现——canonical_help 只在 usage 段去掉括号与竖线（E0002、E0005）；20 个契约三版本一致且等于金标（E0009）；不依赖解释器的回归断言，旧实现下失败（E0003、E0005）；3.11 与 3.13 三道门、3.12 契约核对通过（E0006、E0008、E0009）；金标只换 20 个哈希并重封、46 个文件独立重算一致（E0004、E0007）；全新克隆提交再检出后三道门通过（E0008）。R-01、R-02 已实现，R-03 本任务不 push。另说明 3 点：根因更正为 ≤3.12 合并创建顺序与参数顺序相反的相邻互斥组；用户 9 月 16 日的 6e848a5、bb112d3 使基线前移到 bb112d3，Task A 已随之上 origin；3.12 完整 self_test 本机无 jsonschema，待 push 后 CI 确认。",
+          "response": "接受",
+          "decided_by": "user",
+          "decided_at": "2026-09-18T13:32:13Z",
+          "evidence_ref": "conversation:AskUserQuestion「验收」回答：接受"
+        }
+      ],
+      "reason": "记录用户的验收决定",
+      "basis": "conversation:AskUserQuestion「验收」用户原话：接受",
+      "changed_at": "2026-09-18T13:32:13Z"
+    }
+  ],
+  "tailoring_resolution": {
+    "rule_set_id": "VC-PPG-TAIL-001",
+    "rule_set_version": "6.3 Candidate",
+    "rule_set_status": "In Review",
+    "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+    "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+    "resolver_sha256": "e2c655a368fc3c477dc9df126f34c72bc94360066cdb590cd3ecec2eb0d4a169",
+    "task_contract_schema_sha256": "fbfab5ffc08a2eac0211e6ecce46e7629751040103410171da1358fef1805f13",
+    "input_digest": "29de272fa2449732ec1fcaf882ef3209f9dbba8ceae8b01fe4c45b82367b5dd5",
+    "stage": "S8",
+    "applicable_standards": [
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12"
+    ],
+    "pending_standards": [],
+    "stage_context_standards": [
+      "C04",
+      "C09",
+      "C10",
+      "C11",
+      "C12"
+    ],
+    "control_strength": "standard",
+    "independent_review": false,
+    "explicit_human_gate": false,
+    "blocking_reasons": [],
+    "rule_ids": [
+      "VC-PPG-TAIL-001:always_applicable",
+      "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+      "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+      "VC-PPG-TAIL-001:change_surfaces:API/Integration",
+      "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+      "VC-PPG-TAIL-001:development_types:DT-06",
+      "VC-PPG-TAIL-001:execution_modes:Normal",
+      "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E04:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+      "VC-PPG-TAIL-001:risk_levels:Medium"
+    ],
+    "source_sections": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sections": [
+          "2",
+          "10",
+          "12"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "22",
+          "23"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sections": [
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sections": [
+          "9",
+          "14",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "9"
+        ]
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      }
+    ],
+    "complete_source_files": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+      }
+    ],
+    "profile_coverage_digest": {
+      "applicable": 87,
+      "total": 137,
+      "sha256": "4fa073bf1104094f6ebe645d0a35af1637ceb25c0db58041e0dfca5bf5ce6b4b"
+    }
+  }
+}

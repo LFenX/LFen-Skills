@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-09-15T04:03:35Z",
-  "source_digest": "a8402decda6d97be27cc3f6d3f29083313bc7d2cccdcf8367da5b48b39429983",
+  "generated_at": "2026-09-18T13:32:26Z",
+  "source_digest": "825ca4bcabac706de76c806d20cccaffb4a2108fdd1cec04cb12259ccd4d3bd9",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -64,8 +64,15 @@
       "task_id": "T-CLARIFY-20260914-004",
       "ordinal": 9,
       "status": "Implemented",
-      "revision": 1,
+      "revision": 2,
       "completed_at": "2026-09-15T04:03:33Z"
+    },
+    {
+      "task_id": "T-CI-20260915-006",
+      "ordinal": 10,
+      "status": "Implemented",
+      "revision": 1,
+      "completed_at": "2026-09-18T13:32:25Z"
     }
   ],
   "current_facts": [
@@ -193,9 +200,50 @@
       "task_id": "T-CLARIFY-20260914-004",
       "ordinal": 9,
       "fact": "修改 governance_artifacts.py 后其他项目已装配的控制台快照变为过期，由安装任务 T-INSTALL-20260914-005 处理"
+    },
+    {
+      "task_id": "T-CI-20260915-006",
+      "ordinal": 10,
+      "fact": "canonical_help 在比对前去掉 usage 段（第一个空行之前）的 [ ] ( ) |，参数名、元变量、帮助文字与描述仍计入哈希"
+    },
+    {
+      "task_id": "T-CI-20260915-006",
+      "ordinal": 10,
+      "fact": "Skill gates 在 3.11/3.12 上 Gate 1 失败的原因：init_task.py 的 questions 互斥组先于 items 组创建、参数却加在其后，Python ≤3.12 的 argparse 因此把相邻两组并成一对括号（与是否折行无关），3.13 已修正；此前把原因说成“折行丢括号”不准确"
+    },
+    {
+      "task_id": "T-CI-20260915-006",
+      "ordinal": 10,
+      "fact": "20 个 CLI 帮助契约在 Python 3.11.15、3.12.13、3.13.0 下规范化哈希一致，已按字节写入金标并重封 46 个受保护文件；options 列表不变"
+    },
+    {
+      "task_id": "T-CI-20260915-006",
+      "ordinal": 10,
+      "fact": "self_test 新增 4 条不依赖解释器的断言，数据取自同一解析器在 3.12 与 3.13 下的实测输出；换回旧实现时第一条失败"
+    },
+    {
+      "task_id": "T-CI-20260915-006",
+      "ordinal": 10,
+      "fact": "usage 段里表示可选与分组的符号不再受哈希保护，options 列表仍锁定有哪些参数"
+    },
+    {
+      "task_id": "T-CI-20260915-006",
+      "ordinal": 10,
+      "fact": "任务基线由 21ca332 前移到 bb112d3：用户 2026-09-16 经 Cursor 提交并 push 了 6e848a5 与 bb112d3，Task A 的 21ca332 随之进入 origin/main；两者都未改动本 Skill"
     }
   ],
-  "unresolved_items": [],
+  "unresolved_items": [
+    {
+      "task_id": "T-CI-20260915-006",
+      "ordinal": 10,
+      "category": "incomplete_items",
+      "summary": "Python 3.12 下完整 self_test 未在本机运行",
+      "reason": "本机 3.12 解释器没有 jsonschema，未获下载许可；本机只在 3.12 下核对了 20 个契约",
+      "impact": "3.12 上契约以外的自检项只能由 CI 确认",
+      "owner": "T-INSTALL-20260914-005（push 后查看 GitHub Actions）",
+      "reentry_condition": "push 后 Skill gates 的 gates (3.12) 作业结论为 success"
+    }
+  ],
   "task_graph": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -284,6 +332,16 @@
     {
       "task_id": "T-CLARIFY-20260914-004",
       "ordinal": 9,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-CI-20260915-006",
+      "ordinal": 10,
       "depends_on": [],
       "supersedes": [],
       "blocked_by": [],

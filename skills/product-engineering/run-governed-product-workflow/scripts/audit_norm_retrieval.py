@@ -124,15 +124,23 @@ def canonical_help(text: str) -> str:
 
     argparse renders the same parser differently across Python versions: line
     wrapping changed between 3.11 and 3.13 (9 of this Skill's 19 pinned scripts
-    differ), and the options section was titled "optional arguments:" before
-    3.10. Neither says anything about the command line a script accepts, so
-    hashing raw output couples this contract to one interpreter and fails for
-    reasons unrelated to what it protects. Collapse those two rendering
-    differences and hash what remains -- flags, metavars, help strings and the
-    description all still change the digest.
+    differ), the options section was titled "optional arguments:" before 3.10,
+    and up to 3.12 two adjacent mutually exclusive groups print as one pair of
+    brackets when the group created first holds the later arguments
+    ("[--a A | --b B] [--c C | --d D]" comes out as "[--a A | --b B  --c C |
+    --d D]"; 3.13 fixed that). None of it says anything about the command line
+    a script accepts, so hashing raw output couples this contract to one
+    interpreter and fails for reasons unrelated to what it protects. Collapse
+    those rendering differences -- grouping punctuation is dropped from the
+    usage paragraph only -- and hash what remains: flags, metavars, help
+    strings and the description all still change the digest. Whether an
+    option is optional or grouped is no longer pinned by the digest; the
+    options list still pins which flags exist.
     """
 
     text = text.replace("\r\n", "\n")
+    usage, gap, rest = text.partition("\n\n")
+    text = re.sub(r"[\[\]()|]", " ", usage) + gap + rest
     text = re.sub(r"^optional arguments:", "options:", text, flags=re.MULTILINE)
     return re.sub(r"\s+", " ", text).strip()
 

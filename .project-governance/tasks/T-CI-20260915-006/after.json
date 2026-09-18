@@ -1,0 +1,128 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-CI-20260915-006",
+  "task_id": "T-CI-20260915-006",
+  "revision": 1,
+  "status": "Implemented",
+  "completed_at": "2026-09-18T13:32:25Z",
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "bb112d363637ef34f8893f105e8f031efedf607e",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 6,
+    "status_digest": "1cca06d7eed85b68991b8bc7b9aa65d5dd02e64b3d133d5b1c89120d8edec3cf",
+    "captured_at": "2026-09-18T13:32:25Z"
+  },
+  "established_facts": [
+    "canonical_help 在比对前去掉 usage 段（第一个空行之前）的 [ ] ( ) |，参数名、元变量、帮助文字与描述仍计入哈希",
+    "Skill gates 在 3.11/3.12 上 Gate 1 失败的原因：init_task.py 的 questions 互斥组先于 items 组创建、参数却加在其后，Python ≤3.12 的 argparse 因此把相邻两组并成一对括号（与是否折行无关），3.13 已修正；此前把原因说成“折行丢括号”不准确",
+    "20 个 CLI 帮助契约在 Python 3.11.15、3.12.13、3.13.0 下规范化哈希一致，已按字节写入金标并重封 46 个受保护文件；options 列表不变",
+    "self_test 新增 4 条不依赖解释器的断言，数据取自同一解析器在 3.12 与 3.13 下的实测输出；换回旧实现时第一条失败",
+    "usage 段里表示可选与分组的符号不再受哈希保护，options 列表仍锁定有哪些参数",
+    "任务基线由 21ca332 前移到 bb112d3：用户 2026-09-16 经 Cursor 提交并 push 了 6e848a5 与 bb112d3，Task A 的 21ca332 随之进入 origin/main；两者都未改动本 Skill"
+  ],
+  "actual_changes": [
+    "skills/product-engineering/run-governed-product-workflow/scripts/audit_norm_retrieval.py",
+    "skills/product-engineering/run-governed-product-workflow/scripts/self_test.py",
+    "skills/product-engineering/run-governed-product-workflow/assets/runtime/evaluations/norm-retrieval-gold.json",
+    "skills/product-engineering/run-governed-product-workflow/assets/runtime/embedded-manifest.json"
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "self_test 新增断言能区分新旧 canonical_help（旧实现下第一条失败）",
+      "evidence_refs": [
+        "RUN-001-E0005"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "工作区 Python 3.13 三道门 exit 0",
+      "evidence_refs": [
+        "RUN-001-E0006"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "46 个受保护文件独立重算 SHA-256，工作区与全新克隆均 0 条不一致",
+      "evidence_refs": [
+        "RUN-001-E0007"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "全新克隆提交再检出后 4 个文件逐字节一致，Python 3.11 与 3.13 三道门 exit 0",
+      "evidence_refs": [
+        "RUN-001-E0008"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "20 个契约在 3.11、3.12、3.13 下规范化哈希一致且等于金标",
+      "evidence_refs": [
+        "RUN-001-E0009"
+      ]
+    }
+  ],
+  "incomplete_items": [
+    {
+      "summary": "Python 3.12 下完整 self_test 未在本机运行",
+      "reason": "本机 3.12 解释器没有 jsonschema，未获下载许可；本机只在 3.12 下核对了 20 个契约",
+      "impact": "3.12 上契约以外的自检项只能由 CI 确认",
+      "owner": "T-INSTALL-20260914-005（push 后查看 GitHub Actions）",
+      "reentry_condition": "push 后 Skill gates 的 gates (3.12) 作业结论为 success"
+    }
+  ],
+  "legacy_issues": [],
+  "decisions": [],
+  "evidence_refs": [],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-CI-20260915-006-before",
+      "content_ref": ".project-governance/tasks/T-CI-20260915-006/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "21ca332da419fe313cc91457cffdd876bf6e9c46",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-CI-20260915-006-run",
+      "content_ref": ".project-governance/tasks/T-CI-20260915-006/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "21ca332da419fe313cc91457cffdd876bf6e9c46",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-CI-20260915-006-after",
+      "content_ref": ".project-governance/tasks/T-CI-20260915-006/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "21ca332da419fe313cc91457cffdd876bf6e9c46",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": []
+}
