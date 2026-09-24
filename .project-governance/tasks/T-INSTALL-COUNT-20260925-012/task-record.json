@@ -1,0 +1,311 @@
+{
+  "schema_version": "6.3-candidate",
+  "carrier_version": "minimal-task-record-v1",
+  "carrier_mode": "Minimal",
+  "meta_types": [
+    "TaskContract",
+    "RunLedger",
+    "TaskOutcome"
+  ],
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "WI-INSTALL-COUNT-20260925",
+  "task_id": "T-INSTALL-COUNT-20260925-012",
+  "ordinal": 12,
+  "depends_on": [],
+  "supersedes": [],
+  "blocked_by": [],
+  "revision": 7,
+  "lifecycle_state": "Frozen",
+  "created_at": "2026-09-24T16:53:14Z",
+  "completed_at": null,
+  "selection": {
+    "source": "automatic",
+    "basis": [
+      "用户截图与源码共同证明问题是汇总计数而非额外安装。"
+    ],
+    "authority_refs": [
+      "user://request/2026-09-25/fix-and-upload-pr"
+    ]
+  },
+  "eligibility": {
+    "risk_level": "Low",
+    "reversible": true,
+    "single_scope": true,
+    "external_system_effect": false,
+    "production_release": false,
+    "security_privacy_impact": false,
+    "extension_triggers": {
+      "E01": "Inactive",
+      "E02": "Inactive",
+      "E03": "Inactive",
+      "E04": "Inactive",
+      "E05": "Inactive"
+    },
+    "blocking_unknowns": [],
+    "special_gates": [],
+    "evidence_refs": [
+      "install.ps1:439",
+      "install.ps1:451",
+      "install.ps1:461",
+      "scripts/test_check_install_links.py:193",
+      "git://origin/main@ffa5c7a"
+    ]
+  },
+  "task_contract": {
+    "objective": "修复 Windows 安装脚本单选一个 Skill 时把汇总数量显示为 3 的错误，并通过独立 PR 交付。",
+    "request_snapshot": {
+      "language": "zh",
+      "text": "修复并上传给我PR链接",
+      "captured_at": "2026-09-24T16:53:14Z"
+    },
+    "requirement_items": [
+      {
+        "source": "request_snapshot",
+        "reading": "修复 install.ps1 仅选择一个 Skill 时汇总显示为三个的计数错误",
+        "state": "Covered",
+        "acceptance_refs": [
+          0
+        ],
+        "id": "R-01",
+        "quote": "修复",
+        "evidence_refs": [
+          "install.ps1:439",
+          "install.ps1:461"
+        ]
+      },
+      {
+        "source": "request_snapshot",
+        "reading": "将修复推送至独立 GitHub 分支并提供 Pull Request 链接",
+        "state": "Covered",
+        "acceptance_refs": [
+          0
+        ],
+        "id": "R-02",
+        "quote": "上传给我PR链接",
+        "evidence_refs": [
+          "git://origin/main@ffa5c7a"
+        ]
+      }
+    ],
+    "decisions": [
+      {
+        "decided_at": "2026-09-24T16:53:14Z",
+        "decided_by": "requester",
+        "response": "修复并上传给我PR链接",
+        "id": "D-01",
+        "presented": "修复 install.ps1 单选计数错误，保持安装行为不变，验证后推送独立分支并提供 PR 链接",
+        "kind": "Proceed"
+      }
+    ],
+    "clarification": {
+      "state": "Settled",
+      "mode": "Skipped",
+      "notice": "你的需求已经描述的非常清楚了，并且和项目现状一致，本次跳过向你提问的阶段。",
+      "survey_refs": [
+        "install.ps1:439"
+      ],
+      "rounds": [],
+      "basis": "截图只显示一个安装条目；install.ps1 将单个 Hashtable 的三个字段误当成 Skill 数量，修复路径唯一。",
+      "reopened_by": []
+    },
+    "scope": "修正 install.ps1 安装模式的单选汇总计数，并增加对应回归断言。",
+    "out_of_scope": [
+      "不调整更新模式、平台选择、Junction 创建或多选安装逻辑。"
+    ],
+    "allowed_paths": [
+      "install.ps1",
+      "scripts/test_check_install_links.py",
+      ".project-governance/tasks/T-INSTALL-COUNT-20260925-012/task-record.json",
+      ".project-governance/project-state.json",
+      ".project-governance/README.md",
+      "LG_project_docs"
+    ],
+    "forbidden_actions": [
+      "不直接合并 main，不改变 Install-SkillLink 与 Repair-CloneLinks。"
+    ],
+    "acceptance": "单选一个 Skill 时汇总数量为 1；多选语义不变；现有安装链接测试和新增回归断言全部通过；修复分支已推送并可提供 PR 链接。",
+    "task_profile": {
+      "delivery_scenario": "DS-03",
+      "development_type": "DT-06",
+      "change_surface": "UI/UX",
+      "risk_level": "Low",
+      "extension_triggers": {
+        "E01": "Inactive",
+        "E02": "Inactive",
+        "E03": "Inactive",
+        "E04": "Inactive",
+        "E05": "Inactive"
+      }
+    },
+    "plan": {
+      "selected_approach": "用 @(...) 包裹 selectedSkills 的管道结果，强制单选与多选都保持数组语义，并在现有安装器测试中锁定该约束。",
+      "alternative_rejected": "保持当前实现；它会继续把单个菜单项 Hashtable 的 label、extra、note 三个字段计为三个 Skill。",
+      "steps": [
+        "将 selectedSkills 赋值改为显式数组。",
+        "增加单选集合形状的回归断言，并保持 install.ps1 纯 ASCII。",
+        "运行定向测试、目录校验和差异检查后提交推送。"
+      ],
+      "verification": "运行 scripts/test_check_install_links.py、PowerShell 单选/多选计数验证、install.ps1 ASCII/BOM 检查与 git diff --check。",
+      "rollback": "回退本任务提交即可恢复原实现；不涉及数据迁移或外部运行状态。"
+    },
+    "first_principles_analysis": {
+      "outcome": "修复 Windows 安装脚本单选一个 Skill 时把汇总数量显示为 3 的错误，并通过独立 PR 交付。",
+      "facts": [
+        "截图的安装明细只有一个 + match-tabular-records，但汇总显示 Installed 3 skills。",
+        "selectedSkills 单选时为 Hashtable，Count 返回 label、extra、note 三个键。"
+      ],
+      "constraints": [
+        "install.ps1 必须保持纯 ASCII 且无 BOM，以兼容 Windows PowerShell 5.1 与 iwr | iex。"
+      ],
+      "assumptions": [
+        "用数组子表达式包裹现有管道不会改变多选迭代顺序；通过回归测试验证。"
+      ],
+      "unknowns": [],
+      "fundamentals": [
+        "安装目标集合必须保持集合类型，不能让单元素管道自动退化为对象。",
+        "汇总数量必须表示用户选择的 Skill 数量。"
+      ],
+      "causal_chain": [
+        "强制 selectedSkills 为数组会使单选 Count 从 Hashtable 字段数 3 变为数组元素数 1，同时保留多选行为。"
+      ],
+      "alternatives": [
+        "用 @(...) 包裹 selectedSkills 的管道结果，强制单选与多选都保持数组语义，并在现有安装器测试中锁定该约束。",
+        "保持当前实现；它会继续把单个菜单项 Hashtable 的 label、extra、note 三个字段计为三个 Skill。"
+      ],
+      "decision_criteria": [
+        "单选显示 1、多选数量不变、安装逻辑不变、脚本编码约束继续通过。"
+      ],
+      "selected_approach": "用 @(...) 包裹 selectedSkills 的管道结果，强制单选与多选都保持数组语义，并在现有安装器测试中锁定该约束。",
+      "validation": "运行 scripts/test_check_install_links.py、PowerShell 单选/多选计数验证、install.ps1 ASCII/BOM 检查与 git diff --check。"
+    },
+    "source_snapshot": {
+      "repository": "LFen-Skills",
+      "root": "C:\\Users\\Administrator\\.codex\\worktrees\\366d\\LFen-Skills",
+      "vcs": "git",
+      "branch": "codex/fix-installer-single-selection-count",
+      "head": "ffa5c7a0fe00ce386cebbd2e0067bec3ec7e0145",
+      "head_exists": true,
+      "dirty": false,
+      "dirty_entries": 0,
+      "status_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "captured_at": "2026-09-24T16:53:14Z"
+    }
+  },
+  "run_ledger": [
+    {
+      "sequence": 1,
+      "timestamp": "2026-09-24T16:53:34Z",
+      "run_id": "T-INSTALL-COUNT-20260925-012-run-001",
+      "event_id": "T-INSTALL-COUNT-20260925-012-run-001-E0001",
+      "attempt_id": "attempt-001",
+      "event_type": "run_started",
+      "summary": "开始修复 install.ps1 单选汇总计数，并补充回归验证。",
+      "status": "started",
+      "evidence_refs": [
+        "user://request/2026-09-25/fix-and-upload-pr"
+      ]
+    },
+    {
+      "sequence": 2,
+      "timestamp": "2026-09-24T16:53:56Z",
+      "run_id": "T-INSTALL-COUNT-20260925-012-run-001",
+      "event_id": "T-INSTALL-COUNT-20260925-012-run-001-E0002",
+      "attempt_id": "attempt-001",
+      "event_type": "mutation",
+      "summary": "将安装模式的单选结果强制物化为数组，并增加源码级回归断言。",
+      "status": "recorded",
+      "evidence_refs": [
+        "install.ps1:439",
+        "scripts/test_check_install_links.py"
+      ]
+    },
+    {
+      "sequence": 3,
+      "timestamp": "2026-09-24T16:54:22Z",
+      "run_id": "T-INSTALL-COUNT-20260925-012-run-001",
+      "event_id": "T-INSTALL-COUNT-20260925-012-run-001-E0003",
+      "attempt_id": "attempt-001",
+      "event_type": "verification",
+      "summary": "11 项安装入口测试通过；PowerShell 单选计数为 1、多选计数为 2；脚本语法、ASCII/BOM 约束、目录校验和 git diff 检查通过。",
+      "status": "succeeded",
+      "evidence_refs": [
+        "command://python scripts/test_check_install_links.py",
+        "command://PowerShell selection smoke test",
+        "command://python scripts/update_catalog.py --check",
+        "command://git diff --check"
+      ]
+    },
+    {
+      "sequence": 4,
+      "timestamp": "2026-09-24T16:55:04Z",
+      "run_id": "T-INSTALL-COUNT-20260925-012-run-001",
+      "event_id": "T-INSTALL-COUNT-20260925-012-run-001-E0004",
+      "attempt_id": "attempt-001",
+      "event_type": "failure",
+      "summary": "发现 Minimal 初始化器因本机旧版 Skill 自动重装配了项目控制台快照，产生超出本任务范围的附带改动；将恢复这些文件后继续。",
+      "status": "failed",
+      "evidence_refs": [
+        "git-diff://.project-governance/console"
+      ]
+    },
+    {
+      "sequence": 5,
+      "timestamp": "2026-09-24T16:55:52Z",
+      "run_id": "T-INSTALL-COUNT-20260925-012-run-001",
+      "event_id": "T-INSTALL-COUNT-20260925-012-run-001-E0005",
+      "attempt_id": "attempt-001",
+      "event_type": "mutation",
+      "summary": "已恢复旧版 Skill 意外重装配的控制台与治理 README，附带改动归零。",
+      "status": "recorded",
+      "evidence_refs": [
+        "hash://governance_artifacts.py@e2c655a368fc3c477dc9df126f34c72bc94360066cdb590cd3ecec2eb0d4a169"
+      ]
+    },
+    {
+      "sequence": 6,
+      "timestamp": "2026-09-24T16:56:20Z",
+      "run_id": "T-INSTALL-COUNT-20260925-012-run-001",
+      "event_id": "T-INSTALL-COUNT-20260925-012-run-001-E0006",
+      "attempt_id": "attempt-001",
+      "event_type": "verification",
+      "summary": "恢复附带改动后重新验证：11 项测试、PowerShell 单选/多选计数、脚本语法、目录一致性、Minimal 记录和 diff 检查全部通过。",
+      "status": "succeeded",
+      "evidence_refs": [
+        "command://python scripts/test_check_install_links.py",
+        "command://PowerShell parser and selection smoke test",
+        "command://python scripts/update_catalog.py --check",
+        "command://manage_minimal_task.py validate",
+        "command://git diff --check"
+      ]
+    }
+  ],
+  "task_outcome": null,
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "action": "Create/Revise",
+      "content_ref": ".project-governance/tasks/T-INSTALL-COUNT-20260925-012/task-record.json",
+      "outcome": "Planned"
+    },
+    {
+      "meta_type": "RunLedger",
+      "action": "Create/Revise",
+      "content_ref": ".project-governance/tasks/T-INSTALL-COUNT-20260925-012/task-record.json",
+      "outcome": "Planned"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "action": "Create/Revise",
+      "content_ref": ".project-governance/tasks/T-INSTALL-COUNT-20260925-012/task-record.json",
+      "outcome": "Planned"
+    }
+  ],
+  "upgrade": {
+    "required": false,
+    "triggered_at": null,
+    "reason": null,
+    "basis": null,
+    "full_carrier_ref": null
+  },
+  "amendments": []
+}
