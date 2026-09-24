@@ -30,6 +30,7 @@
       "description": "结构化数据的匹配、清洗、转换、分析与质量核验。",
       "description_en": "Matching, cleaning, transforming, analyzing, and verifying structured data.",
       "skills": [
+        "fetch-xhs-interaction-metrics",
         "match-tabular-records"
       ],
       "children": []
@@ -71,6 +72,14 @@
     }
   ],
   "skill_metadata": {
+    "fetch-xhs-interaction-metrics": {
+      "scope": "general",
+      "tags": [
+        "browser-automation",
+        "data-extraction",
+        "xiaohongshu"
+      ]
+    },
     "match-tabular-records": {
       "scope": "general",
       "tags": [
