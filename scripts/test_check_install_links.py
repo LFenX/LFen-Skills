@@ -190,6 +190,13 @@ class InstallLinksTest(unittest.TestCase):
 
 
 class InstallerSourceTest(unittest.TestCase):
+    def test_single_skill_selection_is_kept_as_an_array(self) -> None:
+        text = (Path(__file__).resolve().parents[1] / "install.ps1").read_text(encoding="ascii")
+        self.assertIn(
+            "$selectedSkills = @($selectedSkillIdx | ForEach-Object { $skillMenu[$_] })",
+            text,
+        )
+
     def test_install_ps1_stays_ascii_without_a_bom(self) -> None:
         # Windows PowerShell 5.1 reads a script without a BOM in the system code page (GBK on
         # Chinese Windows), where UTF-8 bytes swallow quotes and the script no longer parses;
