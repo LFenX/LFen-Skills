@@ -6,18 +6,18 @@
 
 | 一级分类 | 定义 | Skill 数量 |
 | --- | --- | ---: |
-| [数据处理](#data-processing) | 结构化数据的匹配、清洗、转换、分析与质量核验。 | 1 |
+| [数据处理](#data-processing) | 结构化数据的匹配、清洗、转换、分析与质量核验。 | 2 |
 | [产品研发](#product-engineering) | 产品定义、研发执行、质量控制、交付与运营流程。 | 3 |
 | [开发工具](#dev-tools) | 开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。 | 1 |
 | [调试排障](#debug) | 记录和拆解已确认的执行问题，把可核对观察与推理分开。 | 1 |
 
-共收录 **6** 个 skill。机器可读目录见 [`catalog/index.json`](catalog/index.json)。
+共收录 **7** 个 skill。机器可读目录见 [`catalog/index.json`](catalog/index.json)。
 
 ## 适用范围
 
 | 范围 | 定义 | Skill 数量 |
 | --- | --- | ---: |
-| 通用 | 不依赖 LFen 团队或单一项目上下文，可跨项目复用。 | 4 |
+| 通用 | 不依赖 LFen 团队或单一项目上下文，可跨项目复用。 | 5 |
 | 团队 | 依赖 LFen 团队规范、流程或共享约定。 | 1 |
 | 项目 | 面向一个明确项目、系统或业务工作流。 | 1 |
 
@@ -30,6 +30,7 @@
 
 | Skill | 适用范围 | 标签 | 能力说明 |
 | --- | --- | --- | --- |
+| [`fetch-xhs-interaction-metrics`](skills/data-processing/fetch-xhs-interaction-metrics/SKILL.md) | 通用 | `browser-automation`, `data-extraction`, `xiaohongshu` | 根据公开小红书笔记链接提取点赞、收藏、评论及可见的分享数，优先使用页面结构化状态、网络响应和 DOM；仅在所需字段缺失且遇到登录墙或 App 限制时进入已有浏览器会话兜底。用于单条或少量小红书图文/视频笔记的互动数据核取，不用于直播间、私密内容或绕过验证码与访问控制。 |
 | [`match-tabular-records`](skills/data-processing/match-tabular-records/SKILL.md) | 通用 | `data-matching`, `data-quality`, `excel` | 按单个字段或有序多字段组合键对账两张 CSV/XLSX 表，支持精确、文本、编号、数字、日期、日期时间等可配置归一化。产出 inner join 匹配表、双向不匹配详情、可选的次键补充匹配、重复键与非法键审计、子集统计，以及校验过的格式化 Excel 工作簿。用于跨文件匹配、包含性检查、名单对账、数据覆盖率分析，或按 ID、名称、标题、作者、日期、账号字段、订单号等任意用户指定的键列比对记录。 |
 
 <a id="product-engineering"></a>

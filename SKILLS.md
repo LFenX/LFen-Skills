@@ -23,6 +23,7 @@
 | 分类 | Skill | 能力说明 |
 | --- | --- | --- |
 | [**数据处理**](CATALOG.md#data-processing) |  | 结构化数据的匹配、清洗、转换、分析与质量核验。 |
+|  | [`fetch-xhs-interaction-metrics`](skills/data-processing/fetch-xhs-interaction-metrics/SKILL.md) | 根据公开小红书笔记链接提取点赞、收藏、评论及可见的分享数，优先使用页面结构化状态、网络响应和 DOM；仅在所需字段缺失且遇到登录墙或 App 限制时进入已有浏览器会话兜底。 |
 |  | [`match-tabular-records`](skills/data-processing/match-tabular-records/SKILL.md) | 按单个字段或有序多字段组合键对账两张 CSV/XLSX 表，支持精确、文本、编号、数字、日期、日期时间等可配置归一化。 |
 | [**产品研发**](CATALOG.md#product-engineering) |  | 产品定义、研发执行、质量控制、交付与运营流程。 |
 |  | [`build-large-web-project-zero-to-one`](skills/product-engineering/build-large-web-project-zero-to-one/SKILL.md) | 从基础产品说明到前后端联调和验收，使用需求追溯、PRD、产品包、飞书云文档/多维表格留痕、模板或指定 UI、控件绑定与返修闭环，协助 Coding Agent 从 0 到 1 构建复杂大型 Web 生产后台。 |

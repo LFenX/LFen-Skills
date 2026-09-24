@@ -6,7 +6,7 @@
     "skills_root": "skills",
     "layout": "skills/<category-path>/<skill-name>"
   },
-  "skill_count": 6,
+  "skill_count": 7,
   "scopes": {
     "general": {
       "name": "通用",
@@ -32,7 +32,7 @@
       "name_path": [
         "数据处理"
       ],
-      "skill_count": 1
+      "skill_count": 2
     },
     {
       "id": "product-engineering",
@@ -121,6 +121,30 @@
         "product-specification",
         "sop",
         "web-admin"
+      ]
+    },
+    {
+      "name": "fetch-xhs-interaction-metrics",
+      "description": "根据公开小红书笔记链接提取点赞、收藏、评论及可见的分享数，优先使用页面结构化状态、网络响应和 DOM；仅在所需字段缺失且遇到登录墙或 App 限制时进入已有浏览器会话兜底。用于单条或少量小红书图文/视频笔记的互动数据核取，不用于直播间、私密内容或绕过验证码与访问控制。",
+      "path": "skills/data-processing/fetch-xhs-interaction-metrics/SKILL.md",
+      "category": {
+        "id": "data-processing",
+        "name": "数据处理",
+        "path": [
+          "data-processing"
+        ],
+        "name_path": [
+          "数据处理"
+        ]
+      },
+      "scope": {
+        "id": "general",
+        "name": "通用"
+      },
+      "tags": [
+        "browser-automation",
+        "data-extraction",
+        "xiaohongshu"
       ]
     },
     {

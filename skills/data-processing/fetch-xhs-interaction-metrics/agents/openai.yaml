@@ -1,0 +1,4 @@
+interface:
+  display_name: "小红书互动数据抓取"
+  short_description: "按需抓取小红书笔记互动数据，失败时才进入浏览器兜底"
+  default_prompt: "Use $fetch-xhs-interaction-metrics to extract interaction metrics from a Xiaohongshu note URL with conditional fallback."
