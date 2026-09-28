@@ -69,6 +69,17 @@
         "record-skill-incident"
       ],
       "children": []
+    },
+    {
+      "id": "ai-complaint-system",
+      "name": "Ai Complaint System",
+      "name_en": "Ai Complaint System",
+      "description": "AI 客诉系统的部署、升级与运行维护。",
+      "description_en": "Deployment, upgrades, and operations for the AI complaint system.",
+      "skills": [
+        "aics-cloud-upgrade"
+      ],
+      "children": []
     }
   ],
   "skill_metadata": {
@@ -129,6 +140,15 @@
         "incident-record",
         "skill-debug",
         "skill-incident"
+      ]
+    },
+    "aics-cloud-upgrade": {
+      "scope": "project",
+      "tags": [
+        "aics",
+        "deployment",
+        "docker",
+        "maintenance"
       ]
     }
   },

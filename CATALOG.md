@@ -10,8 +10,9 @@
 | [产品研发](#product-engineering) | 产品定义、研发执行、质量控制、交付与运营流程。 | 3 |
 | [开发工具](#dev-tools) | 开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。 | 1 |
 | [调试排障](#debug) | 记录和拆解已确认的执行问题，把可核对观察与推理分开。 | 1 |
+| [Ai Complaint System](#ai-complaint-system) | AI 客诉系统的部署、升级与运行维护。 | 1 |
 
-共收录 **7** 个 skill。机器可读目录见 [`catalog/index.json`](catalog/index.json)。
+共收录 **8** 个 skill。机器可读目录见 [`catalog/index.json`](catalog/index.json)。
 
 ## 适用范围
 
@@ -19,7 +20,7 @@
 | --- | --- | ---: |
 | 通用 | 不依赖 LFen 团队或单一项目上下文，可跨项目复用。 | 5 |
 | 团队 | 依赖 LFen 团队规范、流程或共享约定。 | 1 |
-| 项目 | 面向一个明确项目、系统或业务工作流。 | 1 |
+| 项目 | 面向一个明确项目、系统或业务工作流。 | 2 |
 
 ## 分类明细
 
@@ -61,6 +62,15 @@
 | Skill | 适用范围 | 标签 | 能力说明 |
 | --- | --- | --- | --- |
 | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | 通用 | `incident-record`, `skill-debug`, `skill-incident` | 把已确认的 Agent Skill 问题整理成 JSON：可核对观察与推理原因必须分开。落盘默认写到 D:/skill_problem/<skill-name>/，没有 skill_problem 或该 skill 目录时先创建。创建实际文档前必须向人征求是否落盘和文件名。用于讨论 skill 规范缺失、模型未执行规范、门禁只申报不走、复查用派生物自验，并且人已经确认问题属实、要求留档的时候。未征求意见不得写文件；不得把推理写成事实。 |
+
+<a id="ai-complaint-system"></a>
+## Ai Complaint System
+
+AI 客诉系统的部署、升级与运行维护。
+
+| Skill | 适用范围 | 标签 | 能力说明 |
+| --- | --- | --- | --- |
+| [`aics-cloud-upgrade`](skills/ai-complaint-system/aics-cloud-upgrade/SKILL.md) | 项目 | `aics`, `deployment`, `docker`, `maintenance` | 在本机按顺序升级 AI 客诉系统。用户说升级服务、拉取新镜像、重启 AICS 容器或挂维护页时使用。 先确认镜像标签并拉取，读镜像说明，把维护页挂到 80 端口，停容器并备份生产库且不恢复旧 dump， 核对发信总闸和全部邮箱 SMTP，做迁移与读取模型对拍，启动后检查每个容器，再把 80 端口切回正式服务。 |
 
 ## 分类演进规则
 

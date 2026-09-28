@@ -1,0 +1,4 @@
+interface:
+  display_name: "升级 AI 客诉系统"
+  short_description: "先挂维护页，再按镜像说明升级生产服务，检查通过后切回正式入口"
+  default_prompt: "使用 $aics-cloud-upgrade 升级本机 AI 客诉系统。先确认镜像标签并拉取，读镜像说明，挂维护页后再停容器。生产库只备份不做旧 dump 覆盖。对拍通过后启动并检查每个容器，最后再切回正式服务。"

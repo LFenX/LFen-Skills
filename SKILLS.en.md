@@ -33,6 +33,8 @@
 |  | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) | Connect opencode to third-party OpenAI-compatible model providers such as a LiteLLM gateway. |
 | [**Debugging**](CATALOG.md#debug) |  | Record and unpack confirmed execution problems, keeping observations separate from inferences. |
 |  | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | Record a confirmed Agent Skill incident as JSON, keeping verifiable observations separate from inferred causes. |
+| [**Ai&nbsp;Complaint&nbsp;System**](CATALOG.md#ai-complaint-system) |  | Deployment, upgrades, and operations for the AI complaint system. |
+|  | [`aics-cloud-upgrade`](skills/ai-complaint-system/aics-cloud-upgrade/SKILL.md) | Upgrade the on-host AICS stack from the Tencent CCR image ccr.ccs.tencentyun.com/aics/aics. |
 <!-- catalog-detail:end -->
 
 ---

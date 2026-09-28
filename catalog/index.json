@@ -6,7 +6,7 @@
     "skills_root": "skills",
     "layout": "skills/<category-path>/<skill-name>"
   },
-  "skill_count": 7,
+  "skill_count": 8,
   "scopes": {
     "general": {
       "name": "通用",
@@ -69,6 +69,18 @@
         "调试排障"
       ],
       "skill_count": 1
+    },
+    {
+      "id": "ai-complaint-system",
+      "name": "Ai Complaint System",
+      "description": "AI 客诉系统的部署、升级与运行维护。",
+      "path": [
+        "ai-complaint-system"
+      ],
+      "name_path": [
+        "Ai Complaint System"
+      ],
+      "skill_count": 1
     }
   ],
   "skills": [
@@ -95,6 +107,31 @@
         "openai-compatible",
         "opencode",
         "tool-configuration"
+      ]
+    },
+    {
+      "name": "aics-cloud-upgrade",
+      "description": "在本机按顺序升级 AI 客诉系统。用户说升级服务、拉取新镜像、重启 AICS 容器或挂维护页时使用。 先确认镜像标签并拉取，读镜像说明，把维护页挂到 80 端口，停容器并备份生产库且不恢复旧 dump， 核对发信总闸和全部邮箱 SMTP，做迁移与读取模型对拍，启动后检查每个容器，再把 80 端口切回正式服务。",
+      "path": "skills/ai-complaint-system/aics-cloud-upgrade/SKILL.md",
+      "category": {
+        "id": "ai-complaint-system",
+        "name": "Ai Complaint System",
+        "path": [
+          "ai-complaint-system"
+        ],
+        "name_path": [
+          "Ai Complaint System"
+        ]
+      },
+      "scope": {
+        "id": "project",
+        "name": "项目"
+      },
+      "tags": [
+        "aics",
+        "deployment",
+        "docker",
+        "maintenance"
       ]
     },
     {

@@ -104,6 +104,8 @@ python scripts/check_install_links.py --platform claude,codex,opencode,cursor  #
 |  | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) | 为 opencode 接入第三方 OpenAI 兼容模型供应商（如 LiteLLM 网关）。 |
 | [**调试排障**](CATALOG.md#debug) |  | 记录和拆解已确认的执行问题，把可核对观察与推理分开。 |
 |  | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | 把已确认的 Agent Skill 问题整理成 JSON：可核对观察与推理原因必须分开。 |
+| [**Ai&nbsp;Complaint&nbsp;System**](CATALOG.md#ai-complaint-system) |  | AI 客诉系统的部署、升级与运行维护。 |
+|  | [`aics-cloud-upgrade`](skills/ai-complaint-system/aics-cloud-upgrade/SKILL.md) | 在本机按顺序升级 AI 客诉系统。 |
 <!-- catalog-summary:end -->
 
 完整清单见 [`CATALOG.md`](CATALOG.md)；机器可读索引见 [`catalog/index.json`](catalog/index.json)。
