@@ -4,9 +4,9 @@
 
 <p align="center">
   <sub>MARK ZUCKERBERG · HARVARD COMMENCEMENT 2017</sub><br><br>
-  <small>“<strong>You just have to get started.</strong><br>
-  If I had to understand everything about connecting people<br>
-  before I began, I never would have started Facebook.”</small><br><br>
+  <small>“Ideas don’t come out fully formed.<br>
+  They only become clear as you work on them.<br>
+  <strong>You just have to get started.</strong>”</small><br><br>
   <sub><a href="https://news.harvard.edu/gazette/story/2017/05/mark-zuckerbergs-speech-as-written-for-harvards-class-of-2017/">Read the speech ↗</a></sub>
 </p>
 
