@@ -3,8 +3,13 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Manrope&size=22&pause=1200&color=8B5CF6&center=true&vCenter=true&width=700&lines=Agent+Skills+distilled+from+my+work+and+study;Take+whatever+is+useful+to+you;One+command+%C2%B7+7+platforms" alt="Agent Skills distilled from my work and study">
+  <small><em>“Ideas don’t come out fully formed.<br>
+  They only become clear as you work on them.<br>
+  You just have to get started.”</em><br><br>
+  He would never have started Facebook if he had waited to understand every detail of connecting people.</small>
 </p>
+
+<p align="center"><small>— <a href="https://news.harvard.edu/gazette/story/2017/05/mark-zuckerbergs-speech-as-written-for-harvards-class-of-2017/">Mark Zuckerberg · Harvard Commencement 2017</a></small></p>
 
 <p align="center">
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
