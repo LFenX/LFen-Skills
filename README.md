@@ -2,14 +2,16 @@
   <img src="assets/banner.svg" alt="LFen Skills" width="100%">
 </p>
 
-<p align="center">
-  <small><em>“Ideas don’t come out fully formed.<br>
-  They only become clear as you work on them.<br>
-  You just have to get started.”</em><br><br>
-  He would never have started Facebook if he had waited to understand every detail of connecting people.</small>
-</p>
-
-<p align="center"><small>— <a href="https://news.harvard.edu/gazette/story/2017/05/mark-zuckerbergs-speech-as-written-for-harvards-class-of-2017/">Mark Zuckerberg · Harvard Commencement 2017</a></small></p>
+<table align="center" role="presentation">
+  <tr>
+    <td align="center">
+      <small>“<strong>You just have to get started.</strong><br>
+      If I had to understand everything about connecting people<br>
+      before I began, I never would have started Facebook.”</small><br><br>
+      <sub>— <a href="https://news.harvard.edu/gazette/story/2017/05/mark-zuckerbergs-speech-as-written-for-harvards-class-of-2017/">Mark Zuckerberg · Harvard Commencement 2017</a></sub>
+    </td>
+  </tr>
+</table>
 
 <p align="center">
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
