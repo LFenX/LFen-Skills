@@ -2,16 +2,13 @@
   <img src="assets/banner.svg" alt="LFen Skills" width="100%">
 </p>
 
-<table align="center" role="presentation">
-  <tr>
-    <td align="center">
-      <small>“<strong>You just have to get started.</strong><br>
-      If I had to understand everything about connecting people<br>
-      before I began, I never would have started Facebook.”</small><br><br>
-      <sub>— <a href="https://news.harvard.edu/gazette/story/2017/05/mark-zuckerbergs-speech-as-written-for-harvards-class-of-2017/">Mark Zuckerberg · Harvard Commencement 2017</a></sub>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <sub>MARK ZUCKERBERG · HARVARD COMMENCEMENT 2017</sub><br><br>
+  <small>“<strong>You just have to get started.</strong><br>
+  If I had to understand everything about connecting people<br>
+  before I began, I never would have started Facebook.”</small><br><br>
+  <sub><a href="https://news.harvard.edu/gazette/story/2017/05/mark-zuckerbergs-speech-as-written-for-harvards-class-of-2017/">Read the speech ↗</a></sub>
+</p>
 
 <p align="center">
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
