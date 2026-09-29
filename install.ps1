@@ -436,7 +436,7 @@ foreach ($name in ($repoSkills.Keys | Sort-Object)) {
 $checked = @{}
 $selectedSkillIdx = Show-Menu "Select skills to install (Space = toggle, A = all):" $skillMenu $true $checked
 if ($selectedSkillIdx.Count -eq 0) { Write-Host (Paint gray "`n  Nothing selected."); exit 0 }
-$selectedSkills = $selectedSkillIdx | ForEach-Object { $skillMenu[$_] }
+$selectedSkills = @($selectedSkillIdx | ForEach-Object { $skillMenu[$_] })
 
 # --- Install ---
 Clear-Host
