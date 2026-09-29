@@ -2,12 +2,14 @@
 # LFen Skills 安装/更新 (Linux / macOS)
 # 用法:
 #   curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash -s -- --codex --skill skill1
 #   bash install.sh                          # 交互式安装
 #   bash install.sh --status                 # 查看当前状态（规则同 scripts/check_install_links.py）
 #   bash install.sh --update                 # 交互式更新
 #   bash install.sh --update --all-skills    # 更新全部已有skill
 #   bash install.sh --all --all-skills       # 全平台 + 全skill
 #   bash install.sh --cursor --skills "skill1,skill2"
+#   bash install.sh --codex --skill skill1
 
 set -euo pipefail
 
@@ -16,17 +18,20 @@ REPO_DIR="$HOME/.lfenskills"
 SKILLS_ROOT="$REPO_DIR/skills"
 VERSION_FILE="$HOME/.lfenskills-version"
 
-declare -A TARGETS
-TARGETS=(
-    [opencode]="$HOME/.agents/skills"
-    [claude]="$HOME/.claude/skills"
-    [codex]="$HOME/.codex/skills"
-    [cursor]="$HOME/.cursor/skills"
-    [gemini]="$HOME/.gemini/skills"
-    [copilot]="$HOME/.copilot/skills"
-    [windsurf]="$HOME/.codeium/windsurf/skills"
-)
 PLATFORM_ORDER=(opencode claude codex cursor gemini copilot windsurf)
+
+target_for_platform() {
+    case "$1" in
+        opencode) TARGET_DIR="$HOME/.agents/skills" ;;
+        claude) TARGET_DIR="$HOME/.claude/skills" ;;
+        codex) TARGET_DIR="$HOME/.codex/skills" ;;
+        cursor) TARGET_DIR="$HOME/.cursor/skills" ;;
+        gemini) TARGET_DIR="$HOME/.gemini/skills" ;;
+        copilot) TARGET_DIR="$HOME/.copilot/skills" ;;
+        windsurf) TARGET_DIR="$HOME/.codeium/windsurf/skills" ;;
+        *) echo "Unknown platform: $1" >&2; return 1 ;;
+    esac
+}
 
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
 CYAN='\033[0;36m'; MAGENTA='\033[0;35m'; DARK='\033[2m'; NC='\033[0m'
@@ -35,6 +40,7 @@ MODE="install"
 ALL=false; OPENCODE=false; CLAUDE=false; CODEX=false
 CURSOR=false; GEMINI=false; COPILOT=false; WINDSURF=false
 ALL_SKILLS=false; SKILLS_FILTER=""
+SKILLS_OPTION=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -47,13 +53,59 @@ while [[ $# -gt 0 ]]; do
         --copilot)        COPILOT=true ;;
         --windsurf)       WINDSURF=true ;;
         --all-skills)     ALL_SKILLS=true ;;
-        --skills)         SKILLS_FILTER="$2"; shift ;;
+        --skill|--skills)
+            if [ "$#" -lt 2 ] || [ -z "$2" ]; then
+                echo "Missing skill name after $1" >&2; exit 2
+            fi
+            if [ "$1" = "--skill" ] && [ -n "$SKILLS_OPTION" ] || [ "$SKILLS_OPTION" = "--skill" ]; then
+                echo "Specify --skill or --skills only once" >&2; exit 2
+            fi
+            SKILLS_OPTION="$1"
+            SKILLS_FILTER="$2"
+            shift ;;
         --update|-u)      MODE="update" ;;
         --status|-s)      MODE="status" ;;
         *) echo -e "${RED}Unknown option: $1${NC}"; exit 1 ;;
     esac
     shift
 done
+
+if [ "$ALL_SKILLS" = true ] && [ "$SKILLS_OPTION" = "--skill" ]; then
+    echo "--all-skills cannot be combined with $SKILLS_OPTION" >&2; exit 2
+fi
+if [ "$SKILLS_OPTION" = "--skill" ] && [[ "$SKILLS_FILTER" == *,* ]]; then
+    echo "--skill accepts exactly one skill name; use --skills for a comma-separated list" >&2; exit 2
+fi
+if [ "$MODE" != "install" ] && [ -n "$SKILLS_OPTION" ]; then
+    echo "$SKILLS_OPTION is available in install mode only" >&2; exit 2
+fi
+
+HAS_INPUT_TTY=false
+if [ -t 0 ] || ( : </dev/tty ) 2>/dev/null; then HAS_INPUT_TTY=true; fi
+HAS_PLATFORM_FLAGS=false
+if $ALL || $OPENCODE || $CLAUDE || $CODEX || $CURSOR || $GEMINI || $COPILOT || $WINDSURF; then
+    HAS_PLATFORM_FLAGS=true
+fi
+if [ "$MODE" = "install" ] && [ "$HAS_INPUT_TTY" = false ]; then
+    if [ "$HAS_PLATFORM_FLAGS" = false ] || { [ "$ALL_SKILLS" = false ] && [ -z "$SKILLS_OPTION" ]; }; then
+        echo "Interactive selection requires a terminal. For one skill, run: curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash -s -- --codex --skill SKILL_NAME" >&2
+        exit 2
+    fi
+fi
+if [ "$MODE" = "update" ] && [ "$HAS_INPUT_TTY" = false ] && [ "$ALL_SKILLS" = false ]; then
+    echo "Interactive selection requires a terminal. Use --all-skills for a non-interactive update." >&2
+    exit 2
+fi
+
+read_choice() {
+    local prompt="$1"
+    if [ -t 0 ]; then
+        read -rp "$prompt" CHOICE
+    else
+        read -rp "$prompt" CHOICE </dev/tty
+    fi
+}
+CHOICE_PATTERN='^[0-9]+(,[0-9]+)*$'
 
 LABEL="Installer"
 [ "$MODE" = "update" ] && LABEL="Updater"
@@ -67,14 +119,23 @@ if [ "$MODE" = "status" ]; then
         echo -e "${RED}  Not installed yet. Run without --status to install.${NC}\n"; exit 1
     fi
 elif [ ! -d "$REPO_DIR/.git" ]; then
+    if [ -e "$REPO_DIR" ] || [ -L "$REPO_DIR" ]; then
+        echo -e "${RED}  $REPO_DIR exists but is not an LFen-Skills Git clone. Move it away before installing.${NC}" >&2
+        exit 1
+    fi
     echo -e "${YELLOW}[sync] Cloning LFen-Skills...${NC}"
-    rm -rf "$REPO_DIR"
-    git clone "$REPO_URL" "$REPO_DIR" > /dev/null 2>&1
+    if ! git clone "$REPO_URL" "$REPO_DIR" </dev/null; then
+        echo -e "${RED}  Clone failed.${NC}" >&2
+        exit 1
+    fi
 else
     LAST_HASH=""
     [ -f "$VERSION_FILE" ] && LAST_HASH=$(cat "$VERSION_FILE" 2>/dev/null || echo "")
 
-    git -C "$REPO_DIR" pull > /dev/null 2>&1
+    if ! git -C "$REPO_DIR" pull </dev/null; then
+        echo -e "${RED}  Git pull failed; installation stopped.${NC}" >&2
+        exit 1
+    fi
     CURRENT_HASH=$(git -C "$REPO_DIR" rev-parse HEAD)
 
     if [ -n "$LAST_HASH" ] && [ "$LAST_HASH" != "$CURRENT_HASH" ]; then
@@ -87,17 +148,48 @@ else
 fi
 
 # ========== discover repo skills: every directory holding a SKILL.md ==========
-declare -A SKILL_PATHS SKILL_CATEGORIES
+# Indexed arrays keep this script compatible with the Bash 3.2 shipped with macOS.
+SKILL_NAMES=(); SKILL_DIRS=(); SKILL_CATEGORIES=()
+catalog_index() {
+    local i
+    for ((i=0; i<${#SKILL_NAMES[@]}; i++)); do
+        if [ "${SKILL_NAMES[$i]}" = "$1" ]; then SKILL_INDEX=$i; return 0; fi
+    done
+    return 1
+}
+is_catalog() { catalog_index "$1"; }
+catalog_path() { catalog_index "$1" && SKILL_PATH="${SKILL_DIRS[$SKILL_INDEX]}"; }
+catalog_category() { catalog_index "$1" && SKILL_CATEGORY="${SKILL_CATEGORIES[$SKILL_INDEX]}"; }
+
 while IFS= read -r -d '' skill_file; do
     dir=$(dirname "$skill_file")
     name=$(basename "$dir")
-    [ -n "${SKILL_PATHS[$name]+x}" ] && continue
     rel="${dir#"$SKILLS_ROOT"/}"
-    SKILL_PATHS[$name]="$dir"
-    SKILL_CATEGORIES[$name]=$(dirname "$rel")
-done < <(find "$SKILLS_ROOT" -type f -name SKILL.md -print0 | sort -z)
+    if catalog_index "$name"; then
+        # The former sorted discovery kept the first path for duplicate names.
+        if [[ "$dir" < "${SKILL_DIRS[$SKILL_INDEX]}" ]]; then
+            SKILL_DIRS[$SKILL_INDEX]="$dir"
+            SKILL_CATEGORIES[$SKILL_INDEX]=$(dirname "$rel")
+        fi
+    else
+        SKILL_NAMES+=("$name")
+        SKILL_DIRS+=("$dir")
+        SKILL_CATEGORIES+=("$(dirname "$rel")")
+    fi
+done < <(find "$SKILLS_ROOT" -type f -name SKILL.md -print0)
 
-ALL_NAMES=($(printf '%s\n' "${!SKILL_PATHS[@]}" | sort))
+# Sort indexed catalog entries while keeping names, paths and categories aligned.
+for ((i=1; i<${#SKILL_NAMES[@]}; i++)); do
+    j=$i
+    while ((j > 0)) && [[ "${SKILL_NAMES[$j]}" < "${SKILL_NAMES[$((j - 1))]}" ]]; do
+        prev=$((j - 1))
+        tmp="${SKILL_NAMES[$j]}"; SKILL_NAMES[$j]="${SKILL_NAMES[$prev]}"; SKILL_NAMES[$prev]="$tmp"
+        tmp="${SKILL_DIRS[$j]}"; SKILL_DIRS[$j]="${SKILL_DIRS[$prev]}"; SKILL_DIRS[$prev]="$tmp"
+        tmp="${SKILL_CATEGORIES[$j]}"; SKILL_CATEGORIES[$j]="${SKILL_CATEGORIES[$prev]}"; SKILL_CATEGORIES[$prev]="$tmp"
+        j=$prev
+    done
+done
+ALL_NAMES=("${SKILL_NAMES[@]+"${SKILL_NAMES[@]}"}")
 if [ ${#ALL_NAMES[@]} -eq 0 ]; then
     echo -e "${RED}No skills found in $SKILLS_ROOT${NC}"; exit 1
 fi
@@ -110,8 +202,6 @@ fi
 #   wrong target a link named like a catalog skill that does not point at it in the clone,
 #                or a link into the clone that does not point at a catalog skill
 SKILLS_ROOT_REAL=$(cd -P "$SKILLS_ROOT" 2>/dev/null && pwd -P || echo "$SKILLS_ROOT")
-
-is_catalog() { [ -n "${SKILL_PATHS[$1]+x}" ]; }
 
 physical() { (cd -P "$1" 2>/dev/null && pwd -P); }
 
@@ -133,14 +223,14 @@ into_clone() {
 
 remove_link() {  # the link itself, never what it points at
     case "$(uname -s)" in
-        MINGW*|MSYS*|CYGWIN*) cmd.exe /c "rmdir \"$(cygpath -w "$1")\"" >/dev/null 2>&1 ;;
+        MINGW*|MSYS*|CYGWIN*) MSYS_NO_PATHCONV=1 cmd.exe /c rmdir "$(cygpath -w "$1")" </dev/null >/dev/null 2>&1 ;;
         *) rm -f "$1" ;;
     esac
 }
 
 make_link() {
     case "$(uname -s)" in
-        MINGW*|MSYS*|CYGWIN*) cmd.exe /c "mklink /J \"$(cygpath -w "$2")\" \"$(cygpath -w "$1")\"" >/dev/null 2>&1 ;;
+        MINGW*|MSYS*|CYGWIN*) MSYS_NO_PATHCONV=1 cmd.exe /c mklink /J "$(cygpath -w "$2")" "$(cygpath -w "$1")" </dev/null >/dev/null 2>&1 ;;
         *) ln -s "$1" "$2" ;;
     esac
 }
@@ -154,7 +244,11 @@ install_link() {
         echo -e "   ${YELLOW}! $2 is a real directory in $1; left in place (move it away, then rerun)${NC}"
         return 1
     fi
-    make_link "${SKILL_PATHS[$2]}" "$link"
+    catalog_path "$2"
+    if ! make_link "$SKILL_PATH" "$link" || [ ! -e "$link" ]; then
+        echo -e "   ${RED}! Failed to link $2 in $1${NC}" >&2
+        return 1
+    fi
 }
 
 # Links into the install clone are the installer's own: one named like a catalog skill that
@@ -170,9 +264,10 @@ repair_clone_links() {
         into_clone "$target" || continue
         name=$(basename "$entry")
         if is_catalog "$name"; then
-            if [ -e "$entry" ] && [ "$(physical "$entry")" = "$(physical "${SKILL_PATHS[$name]}")" ]; then continue; fi
+            catalog_path "$name"
+            if [ -e "$entry" ] && [ "$(physical "$entry")" = "$(physical "$SKILL_PATH")" ]; then continue; fi
             install_link "$1" "$name"
-            echo -e "   ${YELLOW}~ relinked $name -> ${SKILL_PATHS[$name]}${NC}"
+            echo -e "   ${YELLOW}~ relinked $name -> $SKILL_PATH${NC}"
         else
             remove_link "$entry"
             echo -e "   ${YELLOW}- removed $name -> $target (not a catalog skill)${NC}"
@@ -183,35 +278,37 @@ repair_clone_links() {
 # Fills REPORT_OK, REPORT_INSTALLED and REPORT_LINES ("kind|name|detail") for one directory.
 inspect_platform() {
     local dir="$1" require_all="$2" entry name target
-    local -A present=()
+    local present=()
     REPORT_OK=0; REPORT_INSTALLED=false; REPORT_LINES=()
     if [ -d "$dir" ]; then
         while IFS= read -r -d '' entry; do
             name=$(basename "$entry")
             if [ -L "$entry" ]; then
                 target=$(link_target "$entry")
-                if is_catalog "$name"; then present[$name]=1; fi
+                if is_catalog "$name"; then present[$SKILL_INDEX]=1; fi
                 if is_catalog "$name" || into_clone "$target"; then REPORT_INSTALLED=true; fi
                 if [ ! -e "$entry" ]; then
                     REPORT_LINES+=("dangling|$name|-> $target")
                 elif is_catalog "$name"; then
-                    if [ "$(physical "$entry")" = "$(physical "${SKILL_PATHS[$name]}")" ]; then
+                    catalog_path "$name"
+                    if [ "$(physical "$entry")" = "$(physical "$SKILL_PATH")" ]; then
                         REPORT_OK=$((REPORT_OK + 1))
                     else
-                        REPORT_LINES+=("wrong target|$name|-> $target (expected ${SKILL_PATHS[$name]})")
+                        REPORT_LINES+=("wrong target|$name|-> $target (expected $SKILL_PATH)")
                     fi
                 elif into_clone "$target"; then
                     REPORT_LINES+=("wrong target|$name|-> $target (not a catalog skill)")
                 fi
             elif [ -d "$entry" ] && is_catalog "$name"; then
-                present[$name]=1; REPORT_INSTALLED=true
+                present[$SKILL_INDEX]=1; REPORT_INSTALLED=true
                 REPORT_LINES+=("copy|$name|(real directory; git pull never updates it)")
             fi
-        done < <(find "$dir" -mindepth 1 -maxdepth 1 -print0 | sort -z)
+        done < <(find "$dir" -mindepth 1 -maxdepth 1 -print0)
     fi
     if [ "$REPORT_INSTALLED" = true ] || [ "$require_all" = true ]; then
-        for name in "${ALL_NAMES[@]}"; do
-            [ -n "${present[$name]+x}" ] || REPORT_LINES+=("missing|$name|")
+        for ((i=0; i<${#ALL_NAMES[@]}; i++)); do
+            name="${ALL_NAMES[$i]}"
+            [ -n "${present[$i]+x}" ] || REPORT_LINES+=("missing|$name|")
         done
     fi
 }
@@ -233,7 +330,8 @@ if [ "$MODE" = "status" ]; then
     echo -e "  ${DARK}Install clone: $REPO_DIR (${#ALL_NAMES[@]} skills, $(clone_status))${NC}"
     PROBLEMS=0
     for platform in "${PLATFORM_ORDER[@]}"; do
-        dir="${TARGETS[$platform]}"
+        target_for_platform "$platform"
+        dir="$TARGET_DIR"
         inspect_platform "$dir" false
         echo -e "\n  ${CYAN}[$platform]${NC} $dir"
         if [ ${#REPORT_LINES[@]} -eq 0 ] && [ ! -d "$dir" ]; then
@@ -262,38 +360,42 @@ fi
 # ========== Update mode ==========
 if [ "$MODE" = "update" ]; then
     for platform in "${PLATFORM_ORDER[@]}"; do
-        repair_clone_links "${TARGETS[$platform]}"
+        target_for_platform "$platform"
+        repair_clone_links "$TARGET_DIR"
     done
     echo -e "\n${YELLOW}  Installed skills (select to update):${NC}\n"
 
-    declare -A FIRST_IDX IDX_NAME IDX_CAT IDX_PLATFORMS
-    idx=1; seen=()
+    IDX_NAME=(); IDX_CAT=(); IDX_PLATFORMS=(); seen=()
 
     for platform in "${PLATFORM_ORDER[@]}"; do
-        dir="${TARGETS[$platform]}"; [ ! -d "$dir" ] && continue
+        target_for_platform "$platform"
+        dir="$TARGET_DIR"; [ ! -d "$dir" ] && continue
         for name in "${ALL_NAMES[@]}"; do
             link="$dir/$name"
             if [ -L "$link" ]; then
-                if [[ ! " ${seen[*]:-} " =~ " ${name} " ]]; then
+                idx=-1
+                for ((i=0; i<${#IDX_NAME[@]}; i++)); do
+                    if [ "${IDX_NAME[$i]}" = "$name" ]; then idx=$i; break; fi
+                done
+                if [ "$idx" -lt 0 ]; then
+                    idx=${#IDX_NAME[@]}
                     seen+=("$name")
-                    FIRST_IDX[$name]=$idx
-                    IDX_NAME[$idx]="$name"
-                    IDX_CAT[$idx]="${SKILL_CATEGORIES[$name]}"
+                    IDX_NAME+=("$name")
+                    catalog_category "$name"
+                    IDX_CAT+=("$SKILL_CATEGORY")
                     IDX_PLATFORMS[$idx]=""
-                    idx=$((idx + 1))
                 fi
-                i="${FIRST_IDX[$name]}"
-                IDX_PLATFORMS[$i]="${IDX_PLATFORMS[$i]}$platform,"
+                IDX_PLATFORMS[$idx]="${IDX_PLATFORMS[$idx]}$platform,"
             fi
         done
     done
 
     # strip trailing comma
-    for k in "${!IDX_PLATFORMS[@]}"; do
+    for ((k=0; k<${#IDX_PLATFORMS[@]}; k++)); do
         IDX_PLATFORMS[$k]=${IDX_PLATFORMS[$k]%,}
     done
 
-    total=$((idx - 1))
+    total=${#IDX_NAME[@]}
     if [ "$total" -eq 0 ]; then
         echo -e "${RED}  No LFen skills currently installed. Use install mode instead.${NC}\n"
         exit 1
@@ -302,24 +404,25 @@ if [ "$MODE" = "update" ]; then
     if [ "$ALL_SKILLS" = true ]; then
         SELECTED_NAMES=("${seen[@]}")
     else
-        for ((i=1; i<=total; i++)); do
-            printf "  [$i] %s %s (%s)\n" "${IDX_NAME[$i]}" "[${IDX_CAT[$i]}]" "${IDX_PLATFORMS[$i]}"
+        for ((i=0; i<total; i++)); do
+            printf "  [%s] %s %s (%s)\n" "$((i + 1))" "${IDX_NAME[$i]}" "[${IDX_CAT[$i]}]" "${IDX_PLATFORMS[$i]}"
         done
         echo "  [a] All"
         echo "  [f] Full reinstall (including missing skills)"
         echo ""
-        read -rp "  Enter choice: " CHOICE
+        read_choice "  Enter choice: "
 
         if [ "$CHOICE" = "a" ]; then
             SELECTED_NAMES=("${seen[@]}")
         elif [ "$CHOICE" = "f" ]; then
             MODE="install"; ALL_SKILLS=true
-        elif [[ "$CHOICE" =~ ^[0-9]+(,[0-9]+)*$ ]]; then
+        elif [[ "$CHOICE" =~ $CHOICE_PATTERN ]]; then
             IFS=',' read -ra IDX <<< "$CHOICE"
             SELECTED_NAMES=()
             for i in "${IDX[@]}"; do
                 i=$(echo "$i" | xargs)
-                [ -n "${IDX_NAME[$i]:-}" ] && SELECTED_NAMES+=("${IDX_NAME[$i]}")
+                j=$((i - 1))
+                [ "$j" -ge 0 ] && [ "$j" -lt "$total" ] && SELECTED_NAMES+=("${IDX_NAME[$j]}")
             done
         else
             echo -e "${RED}Invalid choice, exiting.${NC}"; exit 1
@@ -328,14 +431,24 @@ if [ "$MODE" = "update" ]; then
 
     if [ "$MODE" = "update" ] && [ "${#SELECTED_NAMES[@]}" -gt 0 ]; then
         echo -e "\n${YELLOW}  Updating...${NC}"
+        UPDATE_ERRORS=0
         for name in "${SELECTED_NAMES[@]}"; do
             for platform in "${PLATFORM_ORDER[@]}"; do
-                link="${TARGETS[$platform]}/$name"
-                if [ -L "$link" ] && install_link "${TARGETS[$platform]}" "$name"; then
-                    echo -e "   ${GREEN}+ [$platform] $name${NC}"
+                target_for_platform "$platform"
+                link="$TARGET_DIR/$name"
+                if [ -L "$link" ]; then
+                    if install_link "$TARGET_DIR" "$name"; then
+                        echo -e "   ${GREEN}+ [$platform] $name${NC}"
+                    else
+                        UPDATE_ERRORS=$((UPDATE_ERRORS + 1))
+                    fi
                 fi
             done
         done
+        if [ "$UPDATE_ERRORS" -gt 0 ]; then
+            echo -e "${RED}  Update failed for $UPDATE_ERRORS skill link(s).${NC}" >&2
+            exit 1
+        fi
         git -C "$REPO_DIR" rev-parse HEAD > "$VERSION_FILE"
         echo -e "\n${GREEN}  Update done.${NC}\n"
         exit 0
@@ -343,17 +456,7 @@ if [ "$MODE" = "update" ]; then
 fi
 
 # ========== Step 3: choose platforms ==========
-HAS_FLAGS=false
-$ALL && HAS_FLAGS=true
-$OPENCODE && HAS_FLAGS=true
-$CLAUDE && HAS_FLAGS=true
-$CODEX && HAS_FLAGS=true
-$CURSOR && HAS_FLAGS=true
-$GEMINI && HAS_FLAGS=true
-$COPILOT && HAS_FLAGS=true
-$WINDSURF && HAS_FLAGS=true
-
-if [ "$MODE" = "install" ] && ! $HAS_FLAGS; then
+if [ "$MODE" = "install" ] && [ "$HAS_PLATFORM_FLAGS" = false ]; then
     echo -e "${YELLOW}  Select target platform(s):${NC}"
     echo "  [1] All (installs to all 7 unique paths below)"
     echo "  [2] OpenCode (.agents/skills)  -- also covers Cline, Warp, Zed, Kilo, Kimi, Droid, +14 more"
@@ -364,7 +467,7 @@ if [ "$MODE" = "install" ] && ! $HAS_FLAGS; then
     echo "  [7] GitHub Copilot (.copilot/skills)"
     echo "  [8] Windsurf (.codeium/windsurf/skills)"
     echo ""
-    read -rp "  Enter choice (1-8): " CHOICE
+    read_choice "  Enter choice (1-8): "
     case "$CHOICE" in
         1) ALL=true ;;
         2) OPENCODE=true ;;
@@ -398,11 +501,15 @@ elif [ -n "$SKILLS_FILTER" ]; then
     IFS=',' read -ra ASKED <<< "$SKILLS_FILTER"
     SELECTED_NAMES=()
     for name in "${ASKED[@]}"; do
-        name=$(echo "$name" | xargs)
+        name="${name#"${name%%[![:space:]]*}"}"
+        name="${name%"${name##*[![:space:]]}"}"
         [ -z "$name" ] && continue
         if is_catalog "$name"; then
             SELECTED_NAMES+=("$name")
         else
+            if [ "$SKILLS_OPTION" = "--skill" ]; then
+                echo -e "${RED}Unknown skill: $name${NC}" >&2; exit 1
+            fi
             echo -e "${YELLOW}  ! not in the catalog, skipped: $name${NC}"
         fi
     done
@@ -410,21 +517,21 @@ else
     echo -e "\n${YELLOW}  Select skills to install:${NC}"
     for i in "${!ALL_NAMES[@]}"; do
         idx=$((i + 1))
-        printf "  [$idx] %s %s\n" "${ALL_NAMES[$i]}" "[${SKILL_CATEGORIES[${ALL_NAMES[$i]}]}]"
+        printf "  [$idx] %s %s\n" "${ALL_NAMES[$i]}" "[${SKILL_CATEGORIES[$i]}]"
     done
     echo "  [a] All"
     echo ""
-    read -rp "  Enter choice (number, comma-separated, or 'a'): " CHOICE
+    read_choice "  Enter choice (number, comma-separated, or 'a'): "
 
     if [ "$CHOICE" = "a" ]; then
         SELECTED_NAMES=("${ALL_NAMES[@]}")
-    elif [[ "$CHOICE" =~ ^[0-9]+(,[0-9]+)*$ ]]; then
+    elif [[ "$CHOICE" =~ $CHOICE_PATTERN ]]; then
         IFS=',' read -ra IDX <<< "$CHOICE"
         SELECTED_NAMES=()
         for i in "${IDX[@]}"; do
             i=$(echo "$i" | xargs)
             j=$((i - 1))
-            [ -n "${ALL_NAMES[$j]:-}" ] && SELECTED_NAMES+=("${ALL_NAMES[$j]}")
+            [ "$j" -ge 0 ] && [ "$j" -lt "${#ALL_NAMES[@]}" ] && SELECTED_NAMES+=("${ALL_NAMES[$j]}")
         done
     else
         echo -e "${RED}Invalid choice, exiting.${NC}"; exit 1
@@ -432,27 +539,36 @@ else
 fi
 
 if [ ${#SELECTED_NAMES[@]} -eq 0 ]; then
-    echo -e "${RED}No skills selected.${NC}"; exit 0
+    echo -e "${RED}No skills selected.${NC}" >&2; exit 1
 fi
 
 # ========== Step 5: install ==========
 echo -e "\n${YELLOW}  Installing...${NC}"
 
+INSTALL_ERRORS=0
 for platform in "${SELECTED_TARGETS[@]}"; do
-    TARGET_DIR="${TARGETS[$platform]}"
+    target_for_platform "$platform"
     mkdir -p "$TARGET_DIR"
-    repair_clone_links "$TARGET_DIR"
+    if [ "$SKILLS_OPTION" != "--skill" ]; then repair_clone_links "$TARGET_DIR"; fi
     for name in "${SELECTED_NAMES[@]}"; do
         if install_link "$TARGET_DIR" "$name"; then
             echo -e "   ${GREEN}+ [$platform] $name${NC}"
+        else
+            INSTALL_ERRORS=$((INSTALL_ERRORS + 1))
         fi
     done
 done
+
+if [ "$INSTALL_ERRORS" -gt 0 ]; then
+    echo -e "${RED}  Installation failed for $INSTALL_ERRORS skill link(s).${NC}" >&2
+    exit 1
+fi
 
 git -C "$REPO_DIR" rev-parse HEAD > "$VERSION_FILE"
 
 echo -e "\n${GREEN}  Done!${NC}"
 for platform in "${SELECTED_TARGETS[@]}"; do
-    echo -e "  $platform: ${#SELECTED_NAMES[@]} skills -> ${TARGETS[$platform]}"
+    target_for_platform "$platform"
+    echo -e "  $platform: ${#SELECTED_NAMES[@]} skills -> $TARGET_DIR"
 done
 echo -e "\n${MAGENTA}  Restart your AI coding tool to load the new skills.${NC}\n"

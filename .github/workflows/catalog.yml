@@ -11,6 +11,7 @@ on:
       - "scripts/update_catalog.py"
       - "scripts/check_install_links.py"
       - "scripts/test_check_install_links.py"
+      - "scripts/test_installers.py"
       - "install.ps1"
       - "install.sh"
       - "CATALOG.md"
@@ -26,6 +27,7 @@ on:
       - "scripts/update_catalog.py"
       - "scripts/check_install_links.py"
       - "scripts/test_check_install_links.py"
+      - "scripts/test_installers.py"
       - "install.ps1"
       - "install.sh"
       - "CATALOG.md"
@@ -50,5 +52,18 @@ jobs:
       # on symlinks here and on junctions locally.
       - name: Test the install entry checker
         run: python scripts/test_check_install_links.py
+      - name: Test installer command paths
+        run: python scripts/test_installers.py
       - name: Syntax-check install.sh
         run: bash -n install.sh
+
+  installer-windows:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Test Windows installer command paths
+        run: python scripts/test_installers.py

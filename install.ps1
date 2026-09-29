@@ -1,5 +1,6 @@
 # LFen Skills - Terminal UI Installer
-# Online:  iwr https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
+# Online:  iwr -UseBasicParsing https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
+# One skill: & ([scriptblock]::Create((iwr -UseBasicParsing https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1).Content)) -Codex -Skill "match-tabular-records"
 # Local:   .\install.ps1
 # Silent:  .\install.ps1 -All -AllSkills -Force
 #          .\install.ps1 -Claude -Codex -Skills "skill1,skill2"   (only the platforms named)
@@ -9,7 +10,7 @@ param(
     [switch]$All, [switch]$AllSkills, [switch]$Force,
     [switch]$OpenCode, [switch]$Claude, [switch]$Codex,
     [switch]$Cursor, [switch]$Gemini, [switch]$Copilot, [switch]$Windsurf,
-    [string]$Skills = "",
+    [string]$Skills = "", [string]$Skill = "",
     [switch]$Update, [switch]$Status
 )
 
@@ -151,11 +152,14 @@ function Invoke-Git {
 function Sync-Repo {
     if (-not (Test-Path "$repoDir\.git")) {
         Invoke-Git clone $repoUrl $repoDir | Out-Null
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host (Paint red "  Could not clone $repoUrl into $repoDir."); exit 1
+        }
     } else {
         Invoke-Git -C $repoDir pull | Out-Null
-    }
-    if (-not (Test-Path "$repoDir\.git")) {
-        Write-Host (Paint red "  Could not clone $repoUrl into $repoDir."); exit 1
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host (Paint red "  Could not update $repoDir. Run git -C `"$repoDir`" pull to inspect the error, then rerun."); exit 1
+        }
     }
 }
 
@@ -285,6 +289,10 @@ function Get-CloneStatus {
     return "HEAD $head, $state$note"
 }
 
+if ($Skill -and ($Update -or $Status)) {
+    Write-Host (Paint red "  -Skill is available in install mode only."); exit 1
+}
+
 # =================== STATUS MODE ===================
 if ($Status) {
     banner "Status"
@@ -316,25 +324,45 @@ if ($Status) {
 $switchOn = @{ opencode = $OpenCode; claude = $Claude; codex = $Codex; cursor = $Cursor
                gemini = $Gemini; copilot = $Copilot; windsurf = $Windsurf }
 $chosen = @($platforms | Where-Object { $All -or $switchOn[$_.key] })
-if (-not $Update -and ($Force -or $All -or $AllSkills -or $Skills -or $chosen.Count -gt 0)) {
+if ($Skill -and $Skills) {
+    Write-Host (Paint red "  Use either -Skill or -Skills, not both."); exit 1
+}
+if ($Skill -and $AllSkills) {
+    Write-Host (Paint red "  -Skill cannot be combined with -AllSkills."); exit 1
+}
+if (-not $Update -and ($Force -or $All -or $AllSkills -or $Skills -or $Skill -or $chosen.Count -gt 0)) {
     if ($chosen.Count -eq 0) {
         Write-Host (Paint red "  No platform selected. Add -All, or platform switches such as -Claude -Codex."); exit 1
     }
     Sync-Repo
     $catalog = Get-CatalogSkills
     $names = @($catalog.Keys | Sort-Object)
-    if ($Skills) {
+    if ($Skill) {
+        if (-not $catalog.ContainsKey($Skill)) {
+            Write-Host (Paint red "  Skill not in the catalog: $Skill"); exit 1
+        }
+        $names = @($Skill)
+    } elseif ($Skills) {
         $asked = @($Skills -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
         $unknown = @($asked | Where-Object { -not $catalog.ContainsKey($_) })
         if ($unknown.Count -gt 0) { Write-Host (Paint yellow "  ! not in the catalog, skipped: $($unknown -join ', ')") }
         $names = @($asked | Where-Object { $catalog.ContainsKey($_) })
     }
+    if ($names.Count -eq 0) {
+        Write-Host (Paint red "  No catalog skills selected."); exit 1
+    }
     foreach ($p in $chosen) {
         New-Item -ItemType Directory -Path $p.dir -Force | Out-Null
-        Repair-CloneLinks $p.dir $catalog
-        $count = 0
-        foreach ($name in $names) { if (Install-SkillLink $p.dir $name $catalog[$name].Path) { $count++ } }
+        if (-not $Skill) { Repair-CloneLinks $p.dir $catalog }
+        $count = 0; $failed = 0
+        foreach ($name in $names) {
+            if (Install-SkillLink $p.dir $name $catalog[$name].Path) { $count++ }
+            else { $failed++ }
+        }
         Write-Host (Paint green "  + $($p.key): $count skills")
+        if ($failed -gt 0) {
+            Write-Host (Paint red "  Failed to install $failed skill(s) on $($p.key)."); exit 1
+        }
     }
     Save-Version
     Write-Host (Paint magenta "`n  Done. Restart your AI coding tool to load the new skills.")
@@ -412,11 +440,17 @@ if ($Update) {
 
     Write-Host (Paint yellow "`n  Updating on $($plat.label)...")
     Repair-CloneLinks $plat.dir $repoSkills
+    $failed = 0
     foreach ($i in $selectedIdx) {
         $s = $installedMenu[$i]
         if (Install-SkillLink $plat.dir $s.label $repoSkills[$s.label].Path) {
             Write-Host (Paint green "    + $($s.label)")
+        } else {
+            $failed++
         }
+    }
+    if ($failed -gt 0) {
+        Write-Host (Paint red "`n  Failed to update $failed skill(s).`n"); exit 1
     }
     Save-Version
     Write-Host (Paint green "`n  Done.`n")
@@ -448,16 +482,21 @@ foreach ($plat in $selectedPlat) {
     Write-Host (Paint cyan "  $($plat.label)")
     Repair-CloneLinks $plat.dir $repoSkills
 
+    $installedCount = 0; $failed = 0
     foreach ($skill in $selectedSkills) {
-        if (-not (Install-SkillLink $plat.dir $skill.label $repoSkills[$skill.label].Path)) { continue }
+        if (-not (Install-SkillLink $plat.dir $skill.label $repoSkills[$skill.label].Path)) { $failed++; continue }
+        $installedCount++
         Write-Host (Paint green "    + $($skill.label)") -NoNewline
         Write-Host (Paint gray " [$($skill.extra)]")
     }
     Write-Host ""
 }
 
+if ($failed -gt 0) {
+    Write-Host (Paint red "  Failed to install $failed skill(s).`n"); exit 1
+}
 Save-Version
 
-$sc = $selectedSkills.Count; $pc = $selectedPlat.Count
+$sc = $installedCount; $pc = $selectedPlat.Count
 Write-Host (Paint green "  Installed $sc skills to $pc platform(s).")
 Write-Host (Paint magenta "  Restart your AI coding tool to load the new skills.`n")

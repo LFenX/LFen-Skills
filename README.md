@@ -30,7 +30,7 @@
 **Windows**
 
 ```powershell
-iwr https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
+iwr -UseBasicParsing https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
 ```
 
 **macOS / Linux**
@@ -38,6 +38,26 @@ iwr https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
 ```bash
 curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash
 ```
+
+### 一行安装指定 skill
+
+在命令末尾指定目标平台和 skill 名称，无需进入菜单。以下命令只把 `match-tabular-records` 安装到 Codex；其他平台可使用 `OpenCode`、`Claude`、`Cursor`、`Gemini`、`Copilot`、`Windsurf` 对应的 PowerShell 开关，或同名的小写 Bash 开关。skill 名称见 [`SKILLS.md`](SKILLS.md)。
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create((iwr -UseBasicParsing https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1).Content)) -Codex -Skill match-tabular-records
+```
+
+**macOS / Linux**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash -s -- --codex --skill match-tabular-records
+```
+
+本地脚本可用 `.\install.ps1 -Codex -Skill match-tabular-records` 或 `bash install.sh --codex --skill match-tabular-records`。单项参数 `-Skill` / `--skill` 遇到未知名称时以非零状态退出。
+
+`-Status` / `--status` 仍按全量 skill 清单检查；只安装一个 skill 后，其余 skill 会显示为缺失。
 
 <details open>
 <summary><b>Windows（PowerShell）</b></summary>

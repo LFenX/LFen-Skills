@@ -30,7 +30,7 @@
 **Windows**
 
 ```powershell
-iwr https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
+iwr -UseBasicParsing https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
 ```
 
 **macOS / Linux**
@@ -38,6 +38,26 @@ iwr https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 | iex
 ```bash
 curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash
 ```
+
+### Install one skill in one command
+
+Specify the target platform and skill name at the end of the command to skip the menus. These examples install only `match-tabular-records` for Codex. Other platform switches use `OpenCode`, `Claude`, `Cursor`, `Gemini`, `Copilot`, or `Windsurf` in PowerShell, or the same names in lowercase in Bash. Skill names are listed in [`SKILLS.en.md`](SKILLS.en.md).
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create((iwr -UseBasicParsing https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1).Content)) -Codex -Skill match-tabular-records
+```
+
+**macOS / Linux**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash -s -- --codex --skill match-tabular-records
+```
+
+For local files, use `.\install.ps1 -Codex -Skill match-tabular-records` or `bash install.sh --codex --skill match-tabular-records`. The singular `-Skill` / `--skill` option exits with a nonzero status for an unknown name.
+
+`-Status` / `--status` still checks the full skill catalog. After installing one skill, it reports the remaining skills as missing.
 
 <details open>
 <summary><b>Windows (PowerShell)</b></summary>
