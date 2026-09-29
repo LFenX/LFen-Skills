@@ -22,8 +22,21 @@ REQUIRED_SCOPE_IDS = {"general", "team", "project"}
 TAXONOMY_SCHEMA_VERSION = 3
 README_START = "<!-- catalog-summary:start -->"
 README_END = "<!-- catalog-summary:end -->"
+INSTALL_START = "<!-- install-commands:start -->"
+INSTALL_END = "<!-- install-commands:end -->"
 SKILLS_START = "<!-- catalog-detail:start -->"
 SKILLS_END = "<!-- catalog-detail:end -->"
+INSTALL_PS_URL = "https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1"
+INSTALL_SH_URL = "https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh"
+INSTALL_PLATFORMS = (
+    ("OpenCode", "OpenCode", "opencode"),
+    ("Claude Code", "Claude", "claude"),
+    ("Codex", "Codex", "codex"),
+    ("Cursor", "Cursor", "cursor"),
+    ("Gemini CLI", "Gemini", "gemini"),
+    ("GitHub Copilot", "Copilot", "copilot"),
+    ("Windsurf", "Windsurf", "windsurf"),
+)
 
 
 class CatalogError(ValueError):
@@ -580,6 +593,51 @@ def render_skill_table(taxonomy: dict[str, Any], skills: dict[str, Skill], lang:
     return "\n".join(lines)
 
 
+def render_install_commands(skills: dict[str, Skill], lang: str = "zh") -> str:
+    windows_label = "Windows（PowerShell）" if lang == "zh" else "Windows (PowerShell)"
+    unix_label = "macOS / Linux（Bash）" if lang == "zh" else "macOS / Linux (Bash)"
+    lines: list[str] = []
+    for name in sorted(skills):
+        lines.extend([f'<details name="install-skill">', f"<summary><code>{name}</code></summary>", ""])
+        for label, ps_switch, bash_switch in INSTALL_PLATFORMS:
+            lines.extend(
+                [
+                    f'<details name="install-platform-{name}">',
+                    f"<summary>{label}</summary>",
+                    "",
+                    f"**{windows_label}**",
+                    "",
+                    "```powershell",
+                    "& ([scriptblock]::Create(",
+                    f"  (irm {INSTALL_PS_URL} -ErrorAction Stop)",
+                    f")) -{ps_switch} -Skill {name}",
+                    "```",
+                    "",
+                    f"**{unix_label}**",
+                    "",
+                    "```bash",
+                    "bash -o pipefail -c '",
+                    f"  curl -fsSL {INSTALL_SH_URL} |",
+                    f"    bash -s -- --{bash_switch} --skill {name}",
+                    "'",
+                    "```",
+                    "",
+                    "</details>",
+                    "",
+                ]
+            )
+        lines.extend(["</details>", ""])
+    return "\n".join(lines).rstrip()
+
+
+def sync_skill_count_badge(current: str, skill_count: int, filename: str) -> str:
+    badge = re.compile(r"(https://img\.shields\.io/badge/skills-)\d+(-)")
+    rendered, badge_count = badge.subn(rf"\g<1>{skill_count}\g<2>", current, count=1)
+    if badge_count != 1:
+        raise CatalogError(f"{filename} 缺少 skill 数量徽章")
+    return rendered
+
+
 def render_readme(
     current: str,
     taxonomy: dict[str, Any],
@@ -593,7 +651,16 @@ def render_readme(
         raise CatalogError(f"{filename} 缺少有效的分类摘要标记")
 
     block = "\n".join([README_START, render_skill_table(taxonomy, skills, lang), README_END])
-    return current[:start] + block + current[end + len(README_END) :]
+    rendered = current[:start] + block + current[end + len(README_END) :]
+
+    install_start = rendered.find(INSTALL_START)
+    install_end = rendered.find(INSTALL_END)
+    if install_start < 0 or install_end < 0 or install_end < install_start:
+        raise CatalogError(f"{filename} 缺少有效的安装命令标记")
+    install_block = "\n".join([INSTALL_START, render_install_commands(skills, lang), INSTALL_END])
+    rendered = rendered[:install_start] + install_block + rendered[install_end + len(INSTALL_END) :]
+
+    return sync_skill_count_badge(rendered, len(skills), filename)
 
 
 def render_skills_page(current: str, taxonomy: dict[str, Any], skills: dict[str, Skill], lang: str = "zh") -> str:
@@ -603,7 +670,9 @@ def render_skills_page(current: str, taxonomy: dict[str, Any], skills: dict[str,
         raise CatalogError("SKILLS 页面缺少有效的分类明细标记")
 
     block = "\n".join([SKILLS_START, render_skill_table(taxonomy, skills, lang), SKILLS_END])
-    return current[:start] + block + current[end + len(SKILLS_END) :]
+    rendered = current[:start] + block + current[end + len(SKILLS_END) :]
+    filename = "SKILLS.en.md" if lang == "en" else "SKILLS.md"
+    return sync_skill_count_badge(rendered, len(skills), filename)
 
 
 def indexed_skill_paths(index_path: Path) -> dict[str, str]:
@@ -667,9 +736,9 @@ def main() -> int:
                     f"{index_path.relative_to(ROOT)} 不是最新版本；运行 python scripts/update_catalog.py"
                 )
             if readme != rendered_readme:
-                raise CatalogError("README.md 的分类摘要不是最新版本；运行 python scripts/update_catalog.py")
+                raise CatalogError("README.md 的生成内容不是最新版本；运行 python scripts/update_catalog.py")
             if readme_en != rendered_readme_en:
-                raise CatalogError("README.en.md 的分类摘要不是最新版本；运行 python scripts/update_catalog.py")
+                raise CatalogError("README.en.md 的生成内容不是最新版本；运行 python scripts/update_catalog.py")
             if skills_page != rendered_skills_page:
                 raise CatalogError("SKILLS.md 的分类明细不是最新版本；运行 python scripts/update_catalog.py")
             if skills_en_page != rendered_skills_en_page:

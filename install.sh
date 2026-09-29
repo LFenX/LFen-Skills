@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # LFen Skills 安装/更新 (Linux / macOS)
 # 用法:
-#   curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash
-#   curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash -s -- --codex --skill skill1
+#   bash -o pipefail -c 'curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash'
+#   bash -o pipefail -c 'curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash -s -- --codex --skill skill1'
 #   bash install.sh                          # 交互式安装
 #   bash install.sh --status                 # 查看当前状态（规则同 scripts/check_install_links.py）
 #   bash install.sh --update                 # 交互式更新
@@ -88,7 +88,7 @@ if $ALL || $OPENCODE || $CLAUDE || $CODEX || $CURSOR || $GEMINI || $COPILOT || $
 fi
 if [ "$MODE" = "install" ] && [ "$HAS_INPUT_TTY" = false ]; then
     if [ "$HAS_PLATFORM_FLAGS" = false ] || { [ "$ALL_SKILLS" = false ] && [ -z "$SKILLS_OPTION" ]; }; then
-        echo "Interactive selection requires a terminal. For one skill, run: curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash -s -- --codex --skill SKILL_NAME" >&2
+        echo "Interactive selection requires a terminal. For one skill, run: bash -o pipefail -c 'curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash -s -- --codex --skill SKILL_NAME'" >&2
         exit 2
     fi
 fi

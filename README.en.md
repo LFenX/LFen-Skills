@@ -14,7 +14,7 @@
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/skills-6-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
+  <img src="https://img.shields.io/badge/skills-8-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
   <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat&labelColor=1E1B4B" alt="platforms">
   <img src="https://img.shields.io/badge/license-MIT-475569?style=flat&labelColor=1E1B4B" alt="license">
 </p>
@@ -36,24 +36,1288 @@ iwr -UseBasicParsing https://raw.githubusercontent.com/LFenX/LFen-Skills/main/in
 **macOS / Linux**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash
+'
 ```
 
-### Install one skill in one command
+### Choose a command for one skill
 
-Specify the target platform and skill name at the end of the command to skip the menus. These examples install only `match-tabular-records` for Codex. Other platform switches use `OpenCode`, `Claude`, `Cursor`, `Gemini`, `Copilot`, or `Windsurf` in PowerShell, or the same names in lowercase in Bash. Skill names are listed in [`SKILLS.en.md`](SKILLS.en.md).
+Expand a skill, then a target platform, and copy the full command for your operating system. This list is generated from `skills/`; skill descriptions are in [`SKILLS.en.md`](SKILLS.en.md).
+
+<!-- install-commands:start -->
+<details name="install-skill">
+<summary><code>add-opencode-model-provider</code></summary>
+
+<details name="install-platform-add-opencode-model-provider">
+<summary>OpenCode</summary>
 
 **Windows (PowerShell)**
 
 ```powershell
-& ([scriptblock]::Create((iwr -UseBasicParsing https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1).Content)) -Codex -Skill match-tabular-records
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill add-opencode-model-provider
 ```
 
-**macOS / Linux**
+**macOS / Linux (Bash)**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh | bash -s -- --codex --skill match-tabular-records
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill add-opencode-model-provider
+'
 ```
+
+</details>
+
+<details name="install-platform-add-opencode-model-provider">
+<summary>Claude Code</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill add-opencode-model-provider
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill add-opencode-model-provider
+'
+```
+
+</details>
+
+<details name="install-platform-add-opencode-model-provider">
+<summary>Codex</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill add-opencode-model-provider
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill add-opencode-model-provider
+'
+```
+
+</details>
+
+<details name="install-platform-add-opencode-model-provider">
+<summary>Cursor</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill add-opencode-model-provider
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill add-opencode-model-provider
+'
+```
+
+</details>
+
+<details name="install-platform-add-opencode-model-provider">
+<summary>Gemini CLI</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill add-opencode-model-provider
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill add-opencode-model-provider
+'
+```
+
+</details>
+
+<details name="install-platform-add-opencode-model-provider">
+<summary>GitHub Copilot</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill add-opencode-model-provider
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill add-opencode-model-provider
+'
+```
+
+</details>
+
+<details name="install-platform-add-opencode-model-provider">
+<summary>Windsurf</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill add-opencode-model-provider
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill add-opencode-model-provider
+'
+```
+
+</details>
+
+</details>
+
+<details name="install-skill">
+<summary><code>aics-cloud-upgrade</code></summary>
+
+<details name="install-platform-aics-cloud-upgrade">
+<summary>OpenCode</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill aics-cloud-upgrade
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill aics-cloud-upgrade
+'
+```
+
+</details>
+
+<details name="install-platform-aics-cloud-upgrade">
+<summary>Claude Code</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill aics-cloud-upgrade
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill aics-cloud-upgrade
+'
+```
+
+</details>
+
+<details name="install-platform-aics-cloud-upgrade">
+<summary>Codex</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill aics-cloud-upgrade
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill aics-cloud-upgrade
+'
+```
+
+</details>
+
+<details name="install-platform-aics-cloud-upgrade">
+<summary>Cursor</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill aics-cloud-upgrade
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill aics-cloud-upgrade
+'
+```
+
+</details>
+
+<details name="install-platform-aics-cloud-upgrade">
+<summary>Gemini CLI</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill aics-cloud-upgrade
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill aics-cloud-upgrade
+'
+```
+
+</details>
+
+<details name="install-platform-aics-cloud-upgrade">
+<summary>GitHub Copilot</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill aics-cloud-upgrade
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill aics-cloud-upgrade
+'
+```
+
+</details>
+
+<details name="install-platform-aics-cloud-upgrade">
+<summary>Windsurf</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill aics-cloud-upgrade
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill aics-cloud-upgrade
+'
+```
+
+</details>
+
+</details>
+
+<details name="install-skill">
+<summary><code>build-large-web-project-zero-to-one</code></summary>
+
+<details name="install-platform-build-large-web-project-zero-to-one">
+<summary>OpenCode</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill build-large-web-project-zero-to-one
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill build-large-web-project-zero-to-one
+'
+```
+
+</details>
+
+<details name="install-platform-build-large-web-project-zero-to-one">
+<summary>Claude Code</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill build-large-web-project-zero-to-one
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill build-large-web-project-zero-to-one
+'
+```
+
+</details>
+
+<details name="install-platform-build-large-web-project-zero-to-one">
+<summary>Codex</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill build-large-web-project-zero-to-one
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill build-large-web-project-zero-to-one
+'
+```
+
+</details>
+
+<details name="install-platform-build-large-web-project-zero-to-one">
+<summary>Cursor</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill build-large-web-project-zero-to-one
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill build-large-web-project-zero-to-one
+'
+```
+
+</details>
+
+<details name="install-platform-build-large-web-project-zero-to-one">
+<summary>Gemini CLI</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill build-large-web-project-zero-to-one
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill build-large-web-project-zero-to-one
+'
+```
+
+</details>
+
+<details name="install-platform-build-large-web-project-zero-to-one">
+<summary>GitHub Copilot</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill build-large-web-project-zero-to-one
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill build-large-web-project-zero-to-one
+'
+```
+
+</details>
+
+<details name="install-platform-build-large-web-project-zero-to-one">
+<summary>Windsurf</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill build-large-web-project-zero-to-one
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill build-large-web-project-zero-to-one
+'
+```
+
+</details>
+
+</details>
+
+<details name="install-skill">
+<summary><code>fetch-xhs-interaction-metrics</code></summary>
+
+<details name="install-platform-fetch-xhs-interaction-metrics">
+<summary>OpenCode</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill fetch-xhs-interaction-metrics
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill fetch-xhs-interaction-metrics
+'
+```
+
+</details>
+
+<details name="install-platform-fetch-xhs-interaction-metrics">
+<summary>Claude Code</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill fetch-xhs-interaction-metrics
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill fetch-xhs-interaction-metrics
+'
+```
+
+</details>
+
+<details name="install-platform-fetch-xhs-interaction-metrics">
+<summary>Codex</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill fetch-xhs-interaction-metrics
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill fetch-xhs-interaction-metrics
+'
+```
+
+</details>
+
+<details name="install-platform-fetch-xhs-interaction-metrics">
+<summary>Cursor</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill fetch-xhs-interaction-metrics
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill fetch-xhs-interaction-metrics
+'
+```
+
+</details>
+
+<details name="install-platform-fetch-xhs-interaction-metrics">
+<summary>Gemini CLI</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill fetch-xhs-interaction-metrics
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill fetch-xhs-interaction-metrics
+'
+```
+
+</details>
+
+<details name="install-platform-fetch-xhs-interaction-metrics">
+<summary>GitHub Copilot</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill fetch-xhs-interaction-metrics
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill fetch-xhs-interaction-metrics
+'
+```
+
+</details>
+
+<details name="install-platform-fetch-xhs-interaction-metrics">
+<summary>Windsurf</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill fetch-xhs-interaction-metrics
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill fetch-xhs-interaction-metrics
+'
+```
+
+</details>
+
+</details>
+
+<details name="install-skill">
+<summary><code>match-tabular-records</code></summary>
+
+<details name="install-platform-match-tabular-records">
+<summary>OpenCode</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill match-tabular-records
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill match-tabular-records
+'
+```
+
+</details>
+
+<details name="install-platform-match-tabular-records">
+<summary>Claude Code</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill match-tabular-records
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill match-tabular-records
+'
+```
+
+</details>
+
+<details name="install-platform-match-tabular-records">
+<summary>Codex</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill match-tabular-records
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill match-tabular-records
+'
+```
+
+</details>
+
+<details name="install-platform-match-tabular-records">
+<summary>Cursor</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill match-tabular-records
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill match-tabular-records
+'
+```
+
+</details>
+
+<details name="install-platform-match-tabular-records">
+<summary>Gemini CLI</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill match-tabular-records
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill match-tabular-records
+'
+```
+
+</details>
+
+<details name="install-platform-match-tabular-records">
+<summary>GitHub Copilot</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill match-tabular-records
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill match-tabular-records
+'
+```
+
+</details>
+
+<details name="install-platform-match-tabular-records">
+<summary>Windsurf</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill match-tabular-records
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill match-tabular-records
+'
+```
+
+</details>
+
+</details>
+
+<details name="install-skill">
+<summary><code>record-skill-incident</code></summary>
+
+<details name="install-platform-record-skill-incident">
+<summary>OpenCode</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill record-skill-incident
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill record-skill-incident
+'
+```
+
+</details>
+
+<details name="install-platform-record-skill-incident">
+<summary>Claude Code</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill record-skill-incident
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill record-skill-incident
+'
+```
+
+</details>
+
+<details name="install-platform-record-skill-incident">
+<summary>Codex</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill record-skill-incident
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill record-skill-incident
+'
+```
+
+</details>
+
+<details name="install-platform-record-skill-incident">
+<summary>Cursor</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill record-skill-incident
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill record-skill-incident
+'
+```
+
+</details>
+
+<details name="install-platform-record-skill-incident">
+<summary>Gemini CLI</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill record-skill-incident
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill record-skill-incident
+'
+```
+
+</details>
+
+<details name="install-platform-record-skill-incident">
+<summary>GitHub Copilot</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill record-skill-incident
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill record-skill-incident
+'
+```
+
+</details>
+
+<details name="install-platform-record-skill-incident">
+<summary>Windsurf</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill record-skill-incident
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill record-skill-incident
+'
+```
+
+</details>
+
+</details>
+
+<details name="install-skill">
+<summary><code>run-governed-product-workflow</code></summary>
+
+<details name="install-platform-run-governed-product-workflow">
+<summary>OpenCode</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill run-governed-product-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill run-governed-product-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-governed-product-workflow">
+<summary>Claude Code</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill run-governed-product-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill run-governed-product-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-governed-product-workflow">
+<summary>Codex</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill run-governed-product-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill run-governed-product-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-governed-product-workflow">
+<summary>Cursor</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill run-governed-product-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill run-governed-product-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-governed-product-workflow">
+<summary>Gemini CLI</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill run-governed-product-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill run-governed-product-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-governed-product-workflow">
+<summary>GitHub Copilot</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill run-governed-product-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill run-governed-product-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-governed-product-workflow">
+<summary>Windsurf</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill run-governed-product-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill run-governed-product-workflow
+'
+```
+
+</details>
+
+</details>
+
+<details name="install-skill">
+<summary><code>run-koc-feedback-workflow</code></summary>
+
+<details name="install-platform-run-koc-feedback-workflow">
+<summary>OpenCode</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill run-koc-feedback-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill run-koc-feedback-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-koc-feedback-workflow">
+<summary>Claude Code</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill run-koc-feedback-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill run-koc-feedback-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-koc-feedback-workflow">
+<summary>Codex</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill run-koc-feedback-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill run-koc-feedback-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-koc-feedback-workflow">
+<summary>Cursor</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill run-koc-feedback-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill run-koc-feedback-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-koc-feedback-workflow">
+<summary>Gemini CLI</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill run-koc-feedback-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill run-koc-feedback-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-koc-feedback-workflow">
+<summary>GitHub Copilot</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill run-koc-feedback-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill run-koc-feedback-workflow
+'
+```
+
+</details>
+
+<details name="install-platform-run-koc-feedback-workflow">
+<summary>Windsurf</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill run-koc-feedback-workflow
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill run-koc-feedback-workflow
+'
+```
+
+</details>
+
+</details>
+<!-- install-commands:end -->
 
 For local files, use `.\install.ps1 -Codex -Skill match-tabular-records` or `bash install.sh --codex --skill match-tabular-records`. The singular `-Skill` / `--skill` option exits with a nonzero status for an unknown name.
 
