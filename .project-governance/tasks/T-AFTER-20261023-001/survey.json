@@ -1,0 +1,48 @@
+{
+  "observed_at": "2026-10-23T08:05:02.081779Z",
+  "request": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+  "facts": [
+    {
+      "finding": "Full close_task 和 Minimal close 在生成结果之前要求肯定 Acceptance",
+      "refs": [
+        "skills/product-engineering/run-governed-product-workflow/scripts/governance_artifacts.py:3728",
+        "skills/product-engineering/run-governed-product-workflow/scripts/minimal_task.py:881"
+      ]
+    },
+    {
+      "finding": "signals 将 after 是否存在当成是否待验收，不能表达有结果但待验收",
+      "refs": [
+        "skills/product-engineering/run-governed-product-workflow/scripts/signals.py:66"
+      ]
+    },
+    {
+      "finding": "当前仓 11 个 Full 任务中 1 个没有 after；安装仓 13 个中 1 个没有 after。此统计不代表其他消费项目。",
+      "refs": [
+        ".project-governance/tasks/T-COLLECTOR-20260909-003/before.json"
+      ]
+    }
+  ],
+  "constraints": [
+    "保留现有目录、文件名和载体；after 保存工程结果，用户决定独立",
+    "不补造历史人的决定；旧记录保留原读取含义",
+    "继续核对真实执行授权、需求覆盖、工程验证与范围"
+  ],
+  "selected_approach": "新生成的 TaskOutcome 增加 user_decision，默认 Pending；Full after 与 Minimal task_outcome 均先留存结果，后续用证据更新字段",
+  "alternatives": [
+    {
+      "approach": "保持等待验收后才写结果",
+      "rejected_because": "重现用户指出的结果缺档"
+    },
+    {
+      "approach": "另增待验收文件或通用状态体系",
+      "rejected_because": "扩展载体并增加维护成本，现有 after 字段即可表达"
+    }
+  ],
+  "unknowns": [],
+  "verification_plan": [
+    "Full/Minimal 无肯定验收可留存工程结果且不标为验收通过",
+    "延后外部决定可凭来源补记并保留工程事实及历史",
+    "伪造、过期版本和缺证明的通过仍拒绝",
+    "历史记录、状态汇总及控制台、原有自检和膨胀回归保持兼容"
+  ]
+}

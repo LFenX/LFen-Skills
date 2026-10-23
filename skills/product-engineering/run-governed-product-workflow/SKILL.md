@@ -22,7 +22,7 @@ metadata:
 8. 相同事实只维护一份权威定义；其他文件引用或按需生成。
 9. 问题拆解、方案制定和重大修订必须应用 [第一性原理执行规范](references/first-principles-method.md)。
 10. 复查与验收以**需求原文**为基准，**逐条对照，不抽查**。任务卡、完成判据、验收清单等 Agent 起草的派生物只能作为补充，不能替代原文：它们在起草时就可能漏掉原文里的要求，拿它们验自己写的实现，查多少遍都不会红。执行方式见 [commands/verify.md](commands/verify.md)。
-11. 实现和工程验证完成后，必须向人交付可核对的结果并主动发起一次真实 Acceptance 确认。已有覆盖本次交付版本与范围、仍有效的明确验收通过决定时不重复询问；没有回答、回答含糊、拒绝或推迟时均不得记作验收通过。待答规则见 [commands/verify.md](commands/verify.md)，正式收尾见 [commands/close.md](commands/close.md)。
+11. 实现和工程验证完成后必须先保存工程结果，再交付可核对的版本与证据；用户决定保存在结果的 `user_decision` 字段，默认 `Pending`，不控制 `after.json` / `task_outcome` 是否生成。用户可稍后通过可核对的外部来源作决定，无需回到原对话重复回答；无真实决定不得标为验收通过。记录方式见 [commands/verify.md](commands/verify.md) 和 [commands/close.md](commands/close.md)。
 
 ## 路径约定
 
@@ -87,11 +87,11 @@ python <skill-root>/scripts/get_context.py --task-dir <project-root>/.project-go
 |---|---|---|
 | 出 S1 | `clarification.state` 为 `Settled`，且没有回答停在 `Ambiguous` / `Deferred` | `resolve_tailoring` 从 S2 起返回 blocker |
 | 进 S5 | 存在 `Proceed` 决定；需求台账已按原话逐句覆盖 | `append_run_event` 拒绝 `run_started`；建任务时校验覆盖 |
-| 出 S6 | 每条需求已交代且有证据；存在 `Acceptance` 决定；声明范围与 git 实际改动一致 | `close_task` 三处阻断 |
+| 工程收尾 | 每条需求已交代且有证据；工程验证、required Gate 和范围核对满足要求；独立留存用户决定 | `close_task` 校验工程事实；`Acceptance` 不控制结果文件是否存在 |
 
 `tailoring_stage` 是给裁剪算 blocker 用的，不是状态机；三道门之外不设顺序校验。
 
-工程验证通过不是出 S6，也不是人的 Acceptance。未取得本次交付的有效肯定验收时，应明确报告“待人验收”，保留实际验证与未覆盖项；不得为了生成 `after.json` / `task_outcome` 而伪标 `Implemented`、`Deferred` 或 `Blocked`。“待人验收”是对真实进度的说明，不新增正式终态。
+`Implemented` 表示工程实现及必要验证已完成，不等于人的 Acceptance。结果文件应保留实际验证与未覆盖项；未取得有效用户决定时写 `user_decision: {"outcome": "Pending"}`。待人验收不阻止工程留档，也不伪装成用户批准、拒绝、推迟或工程阻断。
 
 ## 路由
 
@@ -137,7 +137,7 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 
 - `<project-root>/.project-governance/tasks/<TaskID>/before.json`：执行前 TaskContract。
 - `<project-root>/.project-governance/tasks/<TaskID>/run.jsonl`：只追加 RunLedger。
-- `<project-root>/.project-governance/tasks/<TaskID>/after.json`：终态 TaskOutcome。
+- `<project-root>/.project-governance/tasks/<TaskID>/after.json`：工程结果 TaskOutcome，包含独立用户决定。
 
 首次 `run_started` 会冻结 TaskContract。之后 Scope、Acceptance、Authority、Plan 或 Task Profile 变化必须先停止受影响动作，再用 `<skill-root>/scripts/amend_record.py` 或 `<skill-root>/scripts/refresh_tailoring_resolution.py` 修订；禁止静默覆盖。
 
@@ -153,7 +153,7 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 
 Ask 只是交互和恢复通道；正式决定、批准和 Gate 以权威事实源为准。工具成功、聊天回复、沉默或 Ask 点击都不等于批准。
 
-决定必须保留实际展示内容、回答原话、决定人与时间、真实来源引用及明确 `outcome`；肯定决定为 `Approved`，拒绝和推迟不能当作批准。Acceptance 还须绑定当前已验证交付的 `subject_sha256`，required Gate 使用结构化 proof；操作见 [verify](commands/verify.md) 和 [close](commands/close.md)。Agent 补齐字段不证明人已作决定，结构校验不能代替事实核验。
+实际用户决定保留展示内容、回答原话、决定人与时间、真实来源引用及 `outcome=Approved|Rejected|Deferred`，并绑定已保存工程结果的 `subject_sha256`。没有决定时仅写 `Pending`，不编造人、时间或答复。Proceed 和 required Gate 仍分别核验；工程留档不代表发布批准。操作见 [verify](commands/verify.md) 和 [close](commands/close.md)。
 
 写治理文件或 skill runtime 文件前先按 [commands/run.md](commands/run.md) 调用 `<skill-root>/scripts/check_write_guard.py`。守卫失败只警告放行；守卫明确拒绝时停止该写入。
 
@@ -184,4 +184,4 @@ Ask 只是交互和恢复通道；正式决定、批准和 Gate 以权威事实�
 
 二次确认是执行停点，不是排版：澄清 `Settled` 后固定展示要解决的问题、期望结果、本次会做、本次不做、如何验收、主要风险或未知、采用的默认项，并以 Ask：Proceed / Revise / Stop 结束，等到答复才继续。
 
-完工交接同样是人侧停点。先提交交付对象与版本、从完整 `request_snapshot` 和真实澄清回答独立穷举的覆盖结果、实际证据及未验项，再请求“验收通过 / 需要返修 / 暂不验收”。不得用开工 Proceed、测试全绿、沉默或另一版本的验收代替本次 Acceptance。拟以 `Implemented` 收尾时，完整载体须在真实 Acceptance 和各 required Gate 已记录后写成功的 `run_finished` 并 close；Minimal 在确认后调用 close，由其写入最终事件。没有真实答复时保持待人验收，不补写人的决定；真实失败、取消或其他未完成结果仍按各自事实记录，不套用验收通过流程。
+完工时先保存工程结果并交付版本、原文覆盖、实际证据及未验项，明确 `user_decision` 当前状态。完整载体核对工程 Gate 后结束 Run 并 close；Minimal 的 close 写最终事件及 outcome。无需等待即时验收回答，也不要求用户返回原对话；后续按真实来源修订结果中的用户决定并保留历史。旧文件未单列该字段时保留其原有读取与证明规则，不自动补造决定。

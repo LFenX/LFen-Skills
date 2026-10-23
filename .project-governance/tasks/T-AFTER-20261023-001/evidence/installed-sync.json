@@ -1,0 +1,30 @@
+{
+  "verified_at": "2026-10-23T08:54:11.652067Z",
+  "installed": "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow",
+  "source_sha256": "197ced418016fd2ab245cf5d4f4c6a877273743df56e082d50ab6b0d980262e2",
+  "files_compared": 95,
+  "updated_files": [
+    "README.md",
+    "SKILL.md",
+    "assets/project-templates/project-governance.README.md",
+    "assets/runtime/embedded-manifest.json",
+    "assets/runtime/evaluations/norm-retrieval-gold.json",
+    "assets/runtime/schemas/minimal-task-record.schema.json",
+    "assets/runtime/schemas/project-state.schema.json",
+    "assets/runtime/schemas/task-after.schema.json",
+    "commands/close.md",
+    "commands/minimal.md",
+    "commands/run.md",
+    "commands/status.md",
+    "commands/verify.md",
+    "scripts/console_model.py",
+    "scripts/console_render.py",
+    "scripts/get_approval_subject.py",
+    "scripts/governance_artifacts.py",
+    "scripts/manage_minimal_task.py",
+    "scripts/minimal_task.py",
+    "scripts/self_test.py",
+    "scripts/signals.py"
+  ],
+  "mismatches": []
+}

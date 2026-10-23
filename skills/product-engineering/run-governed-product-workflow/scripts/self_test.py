@@ -411,14 +411,17 @@ def run_verification_recovery_fixture() -> dict[str, object]:
         old_answer.update(id="D-EARLY", subject_sha256=subject)
         record_minimal_review(task_dir, decisions=[old_answer],
             requirement_items=fixture_discharge_items(recovered["task_contract"]), reason="fixture", basis="fixture")
-        expect_governance_error("recovery never bypasses verification-before-Acceptance chronology",
-            lambda: close_minimal_record(task_dir, status="Implemented", established_facts=["fixture"],
-            actual_changes=[], verification=["Passed::fixture::test.log"]))
+        close_minimal_record(task_dir, status="Implemented", established_facts=["fixture"],
+                             actual_changes=[], verification=["Passed::fixture::test.log"])
+        saved = read_json(record_path)
+        require_test(saved["task_outcome"]["user_decision"] == {"outcome": "Pending"},
+                     "recovered engineering result must be saved without treating an early answer as valid acceptance")
         checks += 1
         old_answer.update(id="D-VALID", decided_at=datetime.now(timezone.utc).isoformat())
-        record_minimal_review(task_dir, decisions=[old_answer], reason="synthetic later answer", basis="self-test only")
-        close_minimal_record(task_dir, status="Implemented", established_facts=["fixture"], actual_changes=[],
-                             verification=["Passed::fixture::test.log"])
+        from governance_artifacts import user_decision_subject_sha256
+        later = {key: old_answer[key] for key in ("outcome", "presented", "response", "decided_by", "decided_at", "evidence_ref")}
+        later["subject_sha256"] = user_decision_subject_sha256(minimal_approval_contract(saved), saved["run_ledger"], saved["task_outcome"])
+        record_minimal_review(task_dir, user_decision=later, reason="synthetic later answer", basis="self-test only")
         require_test(not validate_minimal_record(read_json(record_path), task_dir=task_dir), "recovered task did not close validly")
         checks += 1
     return {"status": "Passed", "checks": checks}
@@ -777,7 +780,7 @@ def run_failure_and_terminal_fixture() -> dict[str, object]:
         close_task(task, status="Implemented", established_facts=["synthetic flow verified"], actual_changes=["temporary fixture"], verification=[{"summary":"fixture verified", "result":"Passed", "evidence_refs":["self-test://verified-source/v1"]}])
         require_test(not validate_task_directory(task), "legitimate complete carrier must validate")
         good = read_json(task / "before.json")
-        for mutate in (lambda b:b.update(decisions=[d for d in b["decisions"] if d["kind"] != "Acceptance"]),
+        for mutate in (lambda b:b.update(decisions=[d for d in b["decisions"] if d["kind"] != "Proceed"]),
                        lambda b:b["requirement_items"][0].update(state="Open"),
                        lambda b:b["authority"].update(required_gates=["unpassed-gate"])):
             invalid = copy.deepcopy(good); mutate(invalid); atomic_write_json(task / "before.json", invalid)
@@ -2135,6 +2138,127 @@ def run_amendment_growth_fixture() -> dict[str, object]:
     return {"status": "Passed", "checks": checks}
 
 
+def run_saved_result_user_decision_fixture() -> dict[str, object]:
+    """Engineering results survive delayed acceptance; actual decisions remain source-bound."""
+    from governance_artifacts import now_utc, read_jsonl, user_decision_subject_sha256, user_decision_label, initial_user_decision
+    from minimal_task import record_minimal_review, minimal_approval_contract
+
+    checks = 0
+
+    def check(condition: bool, message: str) -> None:
+        nonlocal checks
+        require_test(condition, message)
+        checks += 1
+
+    def answer(before: dict, events: list, outcome: dict, state: str = "Approved") -> dict:
+        return {"outcome": state, "presented": "Synthetic saved engineering result",
+                "response": f"Synthetic external answer: {state}", "decided_by": "synthetic-user",
+                "decided_at": now_utc(), "evidence_ref": "self-test://external-review-source",
+                "subject_sha256": user_decision_subject_sha256(before, events, outcome)}
+
+    with tempfile.TemporaryDirectory(prefix="v63-saved-result-") as temp:
+        root = Path(temp)
+        task = new_task(root, "T-SAVED-RESULT", 1)
+        append_run_event(task, run_id="RUN-SAVED", attempt_id="A01", event_type="run_started", summary="Start synthetic work", status="started")
+        append_run_event(task, run_id="RUN-SAVED", attempt_id="A01", event_type="verification", summary="Verify synthetic delivery", status="succeeded", evidence_refs=["self-test://saved-result-check"])
+        record_fixture_acceptance(task)
+        before = read_json(task / "before.json")
+        before["decisions"] = [item for item in before["decisions"] if item["kind"] != "Acceptance"]
+        atomic_write_json(task / "before.json", before)
+        append_run_event(task, run_id="RUN-SAVED", attempt_id="A01", event_type="human_gate", summary="Synthetic independent engineering gate", status="succeeded", evidence_refs=["self-test://independent-check"], gate={
+            "id": "independent-review", "outcome": "Passed", "subject_sha256": approval_subject_sha256(before, read_jsonl(task / "run.jsonl")),
+            "decided_by": "synthetic-reviewer", "decided_at": now_utc(), "authority_ref": "self-test://authority"})
+        append_run_event(task, run_id="RUN-SAVED", attempt_id="A01", event_type="run_finished", summary="Engineering work finished", status="succeeded")
+        after_path = close_task(task, status="Implemented", established_facts=["Synthetic delivery verified"], actual_changes=["Synthetic authorized change"], verification=[{
+            "summary": "Synthetic delivery check", "result": "Passed", "evidence_refs": ["self-test://saved-result-check"]}])
+        outcome = read_json(after_path)
+        events = read_jsonl(task / "run.jsonl")
+        check(outcome["user_decision"] == {"outcome": "Pending"}, "Full result must exist before a human answer")
+        check(not validate_task_directory(task), "Full pending result must satisfy engineering invariants")
+        check(outcome["verification"][0]["result"] == "Passed" and outcome["actual_changes"], "pending result lost the delivery facts")
+        pending_signal = active_task_signal(task)
+        check(pending_signal["pending_acceptance"] and pending_signal["engineering_recorded"], "saved results must still show pending acceptance")
+        check(all(item["command"] != "run" for item in recommendations([pending_signal])), "waiting for a human must not recommend repeating engineering work")
+        state = read_json(rebuild_project_state(root, "P-TEST"))
+        check(state["source_tasks"][0]["user_decision"] == "Pending", "project state must distinguish engineering result and user decision")
+        entry = console_model._task_entry(task, {"task_id": task.name}, "Implemented", root)
+        check(user_decision_label(entry["user_decision"]) == "待用户验收", "console must not label a pending result as accepted")
+        public_status = subprocess.run([sys.executable, "-X", "utf8", str(skill_root_path() / "scripts/signals.py"), "--project-root", str(root)], capture_output=True, text=True, encoding="utf-8")
+        check(public_status.returncode == 0 and json.loads(public_status.stdout)["task_progress"][0]["engineering_recorded"]
+              and json.loads(public_status.stdout)["task_progress"][0]["user_decision"] == "Pending", "public status must expose the independent saved result and pending decision")
+        before_bytes, ledger_bytes, pending_bytes = (task / "before.json").read_bytes(), (task / "run.jsonl").read_bytes(), after_path.read_bytes()
+        real_answer = answer(before, events, outcome)
+        known = copy.deepcopy(before)
+        known_answer = {**real_answer, "id": "D-KNOWN", "kind": "Acceptance", "subject_sha256": approval_subject_sha256(before, events)}
+        known["decisions"].append(known_answer)
+        carried = initial_user_decision(known, events, outcome)
+        check(carried["outcome"] == "Approved" and carried["response"] == real_answer["response"]
+              and carried["evidence_ref"] == real_answer["evidence_ref"], "an existing real answer for this delivery must be retained without another question")
+        legacy_answer = {key: value for key, value in known_answer.items() if key not in {"outcome", "subject_sha256", "evidence_ref"}}
+        enriched_answer = {**known_answer, "id": "D-ENRICHED", "enriches": "D-KNOWN"}
+        known["decisions"] = [*before["decisions"], legacy_answer, enriched_answer]
+        check(initial_user_decision(known, events, outcome)["outcome"] == "Approved", "evidence-backed enrichment must not turn an existing answer into Pending")
+        known["decisions"] = [*before["decisions"], {**known_answer, "subject_sha256": "0" * 64}]
+        check(initial_user_decision(known, events, outcome) == {"outcome": "Pending"}, "an answer for a different delivery must not be silently carried forward")
+        invalid = []
+        for key in ("presented", "response", "decided_by", "evidence_ref"):
+            bad = dict(real_answer); bad[key] = ""; invalid.append(bad)
+        for key, value in (("subject_sha256", "0" * 64), ("decided_at", "2099-01-01T00:00:00Z"), ("decided_at", "2000-01-01T00:00:00Z")):
+            bad = dict(real_answer); bad[key] = value; invalid.append(bad)
+        invalid.append({"outcome": "Pending", "decided_by": "invented"})
+        for bad in invalid:
+            expect_governance_error("invalid actual decision must be rejected", lambda: amend_record(after_path, dotted_path="user_decision", new_value=bad, reason="synthetic invalid answer", basis="self-test://negative"))
+            check(after_path.read_bytes() == pending_bytes, "a rejected decision changed the saved engineering result")
+        amend_record(after_path, dotted_path="user_decision", new_value=real_answer, reason="record a later external review", basis="self-test://external-review-source")
+        accepted = read_json(after_path)
+        check(accepted["user_decision"] == real_answer and not validate_task_directory(task), "a later evidence-backed decision must validate")
+        check((task / "before.json").read_bytes() == before_bytes and (task / "run.jsonl").read_bytes() == ledger_bytes, "a later answer must not rewrite the contract or append to a finished run")
+        check({k:v for k,v in accepted.items() if k not in {"user_decision", "revision", "amendments"}} == {k:v for k,v in outcome.items() if k not in {"user_decision", "revision", "amendments"}}, "a later user decision changed engineering facts")
+        check(not active_task_signal(task)["pending_acceptance"], "approved results must stop showing pending acceptance")
+        accepted_bytes = after_path.read_bytes()
+        expect_governance_error("a verdict cannot be flipped independently of its actual source", lambda: amend_record(after_path, dotted_path="user_decision.outcome", new_value="Rejected", reason="synthetic unsupported flip", basis="self-test://negative"))
+        check(after_path.read_bytes() == accepted_bytes, "a partial verdict update changed the saved decision")
+        expect_governance_error("old approval cannot authorise a different verification version", lambda: amend_record(after_path, dotted_path="verification", new_value=[{"summary": "different unreviewed delivery", "result": "Passed", "evidence_refs": ["self-test://different-source/v2"]}], reason="synthetic stale answer", basis="self-test://negative"))
+        check(after_path.read_bytes() == accepted_bytes, "stale approval allowed a delivery change")
+        amend_record(after_path, dotted_path="actual_changes", new_value=["Corrected description of the same verified delivery"], reason="correct result prose without changing delivery", basis="self-test://report-correction")
+        accepted = read_json(after_path)
+        check(accepted["user_decision"] == real_answer, "correcting result prose must not erase a real answer or require the user to repeat it")
+        rejection = answer(before, events, accepted, "Rejected")
+        amend_record(after_path, dotted_path="user_decision", new_value=rejection, reason="later actual external rejection", basis="self-test://external-review-source")
+        rejected_bytes = after_path.read_bytes()
+        expect_governance_error("an older approval cannot overwrite a later rejection", lambda: amend_record(after_path, dotted_path="user_decision", new_value=real_answer, reason="synthetic old approval", basis="self-test://negative"))
+        check(after_path.read_bytes() == rejected_bytes and read_json(after_path)["status"] == "Implemented", "rejection must remain separate from engineering status")
+        legacy = dict(outcome); legacy.pop("user_decision")
+        atomic_write_json(after_path, legacy)
+        check(any("Acceptance" in item for item in validate_task_directory(task)), "old current-format records must not silently bypass their original acceptance proof")
+        after_path.write_bytes(rejected_bytes)
+
+        mini = minimal_fixture_record(root, "T-SAVED-MINIMAL")
+        append_minimal_event(mini.parent, event_type="run_started", summary="Start synthetic Minimal work", status="started")
+        append_minimal_event(mini.parent, event_type="verification", summary="Verify Minimal delivery", status="succeeded", evidence_refs=["self-test://minimal-check"])
+        record_fixture_acceptance(mini.parent)
+        record = read_json(mini)
+        record["task_contract"]["decisions"] = [item for item in record["task_contract"]["decisions"] if item["kind"] != "Acceptance"]
+        atomic_write_json(mini, record)
+        close_minimal_record(mini.parent, status="Implemented", established_facts=["Synthetic Minimal verified"], actual_changes=["Synthetic Minimal edit"], verification=["Passed::Synthetic Minimal check::self-test://minimal-check"])
+        completed = read_json(mini)
+        check(completed["task_outcome"]["user_decision"] == {"outcome": "Pending"}, "Minimal must save its result before a human answer")
+        check(not validate_minimal_record(completed, task_dir=mini.parent), "Minimal pending result must validate")
+        check(active_task_signal(mini.parent)["pending_acceptance"], "Completed Minimal engineering work can still await the user")
+        mini_answer = answer(minimal_approval_contract(completed), completed["run_ledger"], completed["task_outcome"])
+        payload = root / "external-decision.json"
+        atomic_write_json(payload, mini_answer)
+        command = subprocess.run([sys.executable, "-X", "utf8", str(skill_root_path() / "scripts/manage_minimal_task.py"), "record-review", str(mini.parent), "--user-decision-json-file", str(payload), "--reason", "later external review", "--basis", "self-test://external-review-source"], capture_output=True, text=True, encoding="utf-8")
+        check(command.returncode == 0, f"Minimal later-decision CLI failed: {command.stdout}{command.stderr}")
+        updated = read_json(mini)
+        check(updated["task_contract"] == completed["task_contract"] and updated["run_ledger"] == completed["run_ledger"], "Minimal later decision rewrote execution history")
+        check(updated["task_outcome"]["user_decision"] == mini_answer and not active_task_signal(mini.parent)["pending_acceptance"], "Minimal later approval was not saved independently")
+        check(not validate_minimal_record(updated, task_dir=mini.parent), "Minimal later answer invalidated the saved result")
+        command = subprocess.run([sys.executable, "-X", "utf8", str(skill_root_path() / "scripts/get_approval_subject.py"), str(mini.parent)], capture_output=True, text=True, encoding="utf-8")
+        check(command.returncode == 0 and command.stdout.strip() == mini_answer["subject_sha256"], "approval subject must bind the saved result after close")
+    return {"status": "Passed", "checks": checks}
+
+
 def resolve_project_root(skill_root: Path, explicit_root: str | None) -> Path:
     if explicit_root:
         project_root = Path(explicit_root).resolve()
@@ -2754,6 +2878,7 @@ def main(argv: list[str] | None = None) -> int:
     new_query_history_validation = run_new_query_history_fixture()
     document_governance_validation = run_document_governance_fixture()
     amendment_growth_validation = run_amendment_growth_fixture()
+    saved_result_validation = run_saved_result_user_decision_fixture()
     approval_time_validation = run_approval_time_fixture()
     closed_scope_history_validation = run_closed_scope_history_fixture()
     historical_proof_compatibility_validation = run_historical_proof_compatibility_fixture()
@@ -3850,6 +3975,7 @@ def main(argv: list[str] | None = None) -> int:
         "new_query_history": new_query_history_validation,
         "document_governance": document_governance_validation,
         "amendment_growth": amendment_growth_validation,
+        "saved_result_user_decision": saved_result_validation,
         "approval_time": approval_time_validation,
         "closed_scope_history": closed_scope_history_validation,
         "historical_proof_compatibility": historical_proof_compatibility_validation,

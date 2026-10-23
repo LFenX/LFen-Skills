@@ -1606,7 +1606,7 @@ def proof_validation_for_read(
     decisions = logical_contract.get("decisions", [])
     requirements = requirements if isinstance(requirements, list) else []
     decisions = decisions if isinstance(decisions, list) else []
-    current_signal = bool(versions) or "scope_reconciliation" in (outcome or {}) or any(
+    current_signal = bool(versions) or "scope_reconciliation" in (outcome or {}) or "user_decision" in (outcome or {}) or any(
         isinstance(item, dict) and "review" in item for item in requirements
     ) or any(isinstance(item, dict) and ("outcome" in item or "subject_sha256" in item) for item in decisions
     ) or any(isinstance(event, dict) and "gate" in event for event in events)
@@ -2669,6 +2669,13 @@ def require_record_semantics(path: Path, document: dict[str, Any]) -> None:
                     before_manifest=before.get("artifact_manifest"),
                 )
             )
+            if "user_decision" in document:
+                events = read_jsonl(path.parent / "run.jsonl")
+                if document.get("status") == "Implemented":
+                    errors.extend(validate_implemented_contract(before, events, document.get("verification", []), outcome=document))
+                    errors.extend(validate_closed_scope_evidence(before, document))
+                else:
+                    errors.extend(validate_user_decision(before, events, document))
     if errors:
         raise GovernanceError("; ".join(errors))
 
@@ -3128,6 +3135,8 @@ def _set_dotted_path(
         raise GovernanceError(
             "tailoring_resolution is derived; use refresh_tailoring_resolution.py instead of an amendment"
         )
+    if document.get("meta_type") == "TaskOutcome" and parts[0] == "user_decision" and len(parts) != 1:
+        raise GovernanceError("update the complete user_decision with its actual answer and source")
     owner: dict[str, Any] = document
     for part in parts[:-1]:
         child = owner.get(part)
@@ -3174,6 +3183,17 @@ def _amendment_reopens_clarification(path: str, old_value: Any, new_value: Any) 
     return path.split(".")[0] in CLARIFICATION_REOPEN_PATHS
 
 
+def guard_user_decision_update(previous: Any, current: Any) -> None:
+    """A later rejection cannot be overwritten with an older approval."""
+    if not isinstance(previous, dict) or not isinstance(current, dict) or previous == current:
+        return
+    if previous.get("outcome") not in {"Approved", "Rejected", "Deferred"}:
+        return
+    prior_time, current_time = _parse_instant(previous.get("decided_at")), _parse_instant(current.get("decided_at"))
+    if current.get("outcome") == "Pending" or prior_time is None or current_time is None or current_time <= prior_time:
+        raise GovernanceError("preserve the recorded user decision; a replacement needs a later actual decision with its source")
+
+
 def reopen_clarification(document: dict[str, Any], reason: str) -> bool:
     """Reopen a substantive uncertainty; failure counts are not requirement evidence."""
 
@@ -3201,6 +3221,7 @@ def amend_record(
     if not reason.strip() or not basis.strip():
         raise GovernanceError("amendment reason and basis are required")
     document = read_json(path)
+    previous_user_decision = json.loads(json.dumps(document.get("user_decision")))
     if document.get("meta_type") not in {"TaskContract", "TaskOutcome"}:
         raise GovernanceError("only TaskContract and TaskOutcome can use this amendment flow")
     clarification_before = (
@@ -3213,6 +3234,8 @@ def amend_record(
         require_valid_json_document(document, schema_name, path.name)
         require_record_semantics(path, document)
         return document
+    if document.get("meta_type") == "TaskOutcome":
+        guard_user_decision_update(previous_user_decision, document.get("user_decision"))
     if clarification_before is not None:
         _guard_clarification_history(clarification_before, document.get("clarification"))
     from_revision = document.get("revision")
@@ -3261,6 +3284,7 @@ def amend_record_batch(
     if not changes:
         raise GovernanceError("batch amendment requires at least one change")
     document = read_json(path)
+    previous_user_decision = json.loads(json.dumps(document.get("user_decision")))
     if document.get("meta_type") not in {"TaskContract", "TaskOutcome"}:
         raise GovernanceError("only TaskContract and TaskOutcome can use this amendment flow")
     amendments = document.setdefault("amendments", [])
@@ -3306,6 +3330,8 @@ def amend_record_batch(
         require_valid_json_document(document, schema_name, path.name)
         require_record_semantics(path, document)
         return document
+    if document.get("meta_type") == "TaskOutcome":
+        guard_user_decision_update(previous_user_decision, document.get("user_decision"))
     _guard_clarification_history(clarification_before, document.get("clarification"))
     if not ((path.parent / "after.json").is_file() and all(
             _is_historical_read_annotation(document, item) for item in amendments[prior_amendment_count:])):
@@ -3718,16 +3744,20 @@ def _write_scope_reconciliation_view(
 
 def validate_implemented_contract(
     before: dict[str, Any], events: Iterable[dict[str, Any]], checks: Iterable[dict[str, Any]],
-    *, minimal: bool = False,
+    *, minimal: bool = False, outcome: dict[str, Any] | None = None, engineering_only: bool = False,
 ) -> list[str]:
     """One terminal invariant for producers, direct-file validation and derived state."""
     events, checks = list(events), list(checks)
     errors = validate_clarification(before.get("clarification"))
     errors.extend(validate_requirement_items(before, require_discharge=True))
     errors.extend(require_decision(before, "Proceed", "an Implemented outcome"))
-    errors.extend(require_decision(before, "Acceptance", "an Implemented outcome",
-                                   subject_sha256=approval_subject_sha256(before, events),
-                                   not_before=(_verified_delivery_event(events) or {}).get("timestamp")))
+    if outcome is not None and "user_decision" in outcome:
+        errors.extend(validate_user_decision(before, events, outcome))
+    elif not engineering_only:
+        # Existing outcomes without the new field retain their original proof rules.
+        errors.extend(require_decision(before, "Acceptance", "an Implemented outcome",
+                                       subject_sha256=approval_subject_sha256(before, events),
+                                       not_before=(_verified_delivery_event(events) or {}).get("timestamp")))
     if not minimal:
         errors.extend(reconcile_required_gates(before, events))
     if not events or events[-1].get("event_type") != "run_finished" or events[-1].get("status") != "succeeded":
@@ -3745,6 +3775,69 @@ def validate_implemented_contract(
 
 def _fact_sha256(value: Any) -> str:
     return hashlib.sha256(json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+def user_decision_subject_sha256(before: dict[str, Any], events: Iterable[dict[str, Any]], outcome: dict[str, Any]) -> str:
+    """Bind the actual delivery version; correcting report prose does not require a new answer."""
+    return _fact_sha256({
+        "task_id": before.get("task_id"),
+        "verified_delivery": approval_subject_sha256(before, events),
+        "engineering_delivery": {key: outcome[key] for key in
+                                 ("status", "source_snapshot", "verification", "scope_reconciliation") if key in outcome},
+    })
+
+
+def validate_user_decision(before: dict[str, Any], events: Iterable[dict[str, Any]], outcome: dict[str, Any]) -> list[str]:
+    """Pending is an honest absence of a decision; any actual decision needs its real source."""
+    decision = outcome.get("user_decision")
+    if not isinstance(decision, dict):
+        return ["user_decision must be an object"]
+    state = decision.get("outcome")
+    if state == "Pending":
+        return [] if set(decision) == {"outcome"} else ["Pending user_decision must not invent an answer, actor or proof"]
+    if state not in {"Approved", "Rejected", "Deferred"}:
+        return ["user_decision.outcome must be Pending, Approved, Rejected or Deferred"]
+    errors = []
+    for key in ("presented", "response", "decided_by", "decided_at", "evidence_ref", "subject_sha256"):
+        if not isinstance(decision.get(key), str) or not decision[key].strip():
+            errors.append(f"user_decision.{key} requires the actual decision and source")
+    decided_at = _parse_instant(decision.get("decided_at"))
+    verified_at = _parse_instant((_verified_delivery_event(events) or {}).get("timestamp") or outcome.get("completed_at"))
+    if decided_at is None or verified_at is None or not (verified_at <= decided_at <= datetime.now(timezone.utc)):
+        errors.append("user_decision must have a real timezone-aware time after the delivered version was verified")
+    if decision.get("subject_sha256") != user_decision_subject_sha256(before, events, outcome):
+        errors.append("user_decision subject_sha256 does not match the saved engineering result")
+    return errors
+
+
+def user_decision_label(decision: Any) -> str:
+    labels = {"Pending": "待用户验收", "Approved": "用户验收通过", "Rejected": "用户验收未通过", "Deferred": "用户推迟验收"}
+    state = decision.get("outcome") if isinstance(decision, dict) else decision
+    return labels.get(state, "历史记录未单列用户决定")
+
+
+def initial_user_decision(before: dict[str, Any], events: Iterable[dict[str, Any]], outcome: dict[str, Any]) -> dict[str, Any]:
+    """Carry an existing version-bound real answer forward; absence remains Pending."""
+    events = list(events)
+    subject = approval_subject_sha256(before, events)
+    all_decisions = before.get("decisions", [])
+    errors, enriched = validate_decision_enrichments(all_decisions)
+    if errors:
+        return {"outcome": "Pending"}
+    decisions = [item for item in all_decisions if isinstance(item, dict) and item.get("kind") == "Acceptance" and str(item.get("id")) not in enriched]
+    dated = [(_parse_instant(item.get("decided_at")), item) for item in decisions]
+    if not dated or any(instant is None for instant, _ in dated):
+        return {"outcome": "Pending"}
+    latest_time = max(instant for instant, _ in dated)
+    latest = [item for instant, item in dated if instant == latest_time]
+    if len({(item.get("outcome"), item.get("subject_sha256")) for item in latest}) != 1:
+        return {"outcome": "Pending"}
+    source = latest[-1]
+    if not subject or source.get("subject_sha256") != subject:
+        return {"outcome": "Pending"}
+    decision = {key: source.get(key) for key in ("outcome", "presented", "response", "decided_by", "decided_at", "evidence_ref")}
+    decision["subject_sha256"] = user_decision_subject_sha256(before, events, outcome)
+    return decision if not validate_user_decision(before, events, {**outcome, "user_decision": decision}) else {"outcome": "Pending"}
 
 
 def validate_closed_scope_evidence(before: dict[str, Any], after: dict[str, Any]) -> list[str]:
@@ -3837,7 +3930,7 @@ def close_task(
             raise GovernanceError(f"verification[{position}].result is invalid")
         item.setdefault("evidence_refs", [])
     if status == "Implemented":
-        terminal_errors = validate_implemented_contract(before, events, checks)
+        terminal_errors = validate_implemented_contract(before, events, checks, engineering_only=True)
         if terminal_errors:
             raise GovernanceError("; ".join(terminal_errors))
     if artifact_manifest is None:
@@ -3871,6 +3964,7 @@ def close_task(
         "task_id": before["task_id"],
         "revision": 1,
         "status": status,
+        "user_decision": {"outcome": "Pending"},
         "completed_at": now_utc(),
         "source_snapshot": source_snapshot or capture_source_snapshot(task_dir.resolve().parents[2]),
         "established_facts": [value for value in established_facts if value],
@@ -3891,6 +3985,7 @@ def close_task(
         "delivery_sha256": _fact_sha256(after["source_snapshot"]),
     }
     after["scope_reconciliation"]["report_sha256"] = _fact_sha256(after["scope_reconciliation"])
+    after["user_decision"] = initial_user_decision(before, events, after)
     if status == "Implemented":
         scope_errors = validate_closed_scope_evidence(before, after)
         if scope_errors:
@@ -4082,6 +4177,7 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                         "task_id": record["task_id"],
                         "ordinal": record["ordinal"],
                         "status": outcome["status"],
+                        "user_decision": (outcome.get("user_decision") or {}).get("outcome"),
                         "revision": record["revision"],
                         "completed_at": outcome["completed_at"],
                         "carrier_mode": "Minimal",
@@ -4156,6 +4252,7 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                     "task_id": after["task_id"],
                     "ordinal": before["ordinal"],
                     "status": after["status"],
+                    "user_decision": (after.get("user_decision") or {}).get("outcome"),
                     "revision": after["revision"],
                     "completed_at": after["completed_at"],
                     "proof_validation": proof_validation,
@@ -4243,7 +4340,7 @@ def render_task_review(before: dict[str, Any], after: dict[str, Any] | None) -> 
     ]
     lines.extend(f"- {item}" for item in before["acceptance"]["criteria"])
     if after is None:
-        lines.extend(["", "## Outcome", "", "No terminal outcome recorded."])
+        lines.extend(["", "## Outcome", "", "No engineering result recorded."])
         return "\n".join(lines) + "\n"
     lines.extend(
         [
@@ -4251,6 +4348,7 @@ def render_task_review(before: dict[str, Any], after: dict[str, Any] | None) -> 
             "## Outcome",
             "",
             f"- Status: {after['status']}",
+            f"- User decision: {user_decision_label(after.get('user_decision'))}",
             f"- Revision: {after['revision']}",
             "",
             "## Established facts",
@@ -4848,8 +4946,10 @@ def validate_task_directory(task_dir: Path) -> list[str]:
             )
             if (after.get("status") == "Implemented"
                     and proof_validation["status"] != "HistoricalNotRevalidated"):
-                errors.extend(validate_implemented_contract(before, events, after.get("verification", [])))
+                errors.extend(validate_implemented_contract(before, events, after.get("verification", []), outcome=after))
                 errors.extend(validate_closed_scope_evidence(before, after))
+            elif "user_decision" in after:
+                errors.extend(validate_user_decision(before, events, after))
     else:
         _, proof_errors = proof_validation_for_read(before, events, None)
         errors.extend(proof_errors)

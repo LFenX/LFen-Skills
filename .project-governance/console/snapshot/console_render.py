@@ -15,6 +15,7 @@ from typing import Any, Iterable
 
 import audit_console
 import console_model
+from governance_artifacts import proof_validation_label, user_decision_label
 
 RELATION_LABELS = audit_console.RELATION_LABELS
 SEVERITY_BADGE = {"warn": "warn", "info": "mute", "error": "neg"}
@@ -252,7 +253,7 @@ def _task_row(model: dict[str, Any], task: dict[str, Any], *, depth: int, root_i
         f"<td class='num'>{e(task['ordinal']) if depth == 0 else ''}</td>"
         f"<td>{lead}</td>"
         f"<td>{badge(task['carrier'], 'mute')}</td>"
-        f"<td>{e(task['status'])}</td>"
+        f"<td>{e(task['status'])}<div class='detail'>{e(user_decision_label(task.get('user_decision')))}</div><div class='detail'>{e(proof_validation_label(task.get('proof_validation', {})))}</div></td>"
         f"<td>{e(task['risk_level'] or '-')}</td>"
         f"<td class='wrap'>{e(task['objective'])}"
         + (f"<div class='detail'>{e(reason)}</div>" if reason else "")
@@ -418,6 +419,8 @@ def page_task(model: dict[str, Any], task_id: str) -> str | None:
         f"<dl class='kv'>"
         f"<dt>载体</dt><dd>{badge(task['carrier'], 'mute')} {e(task.get('lifecycle', ''))}</dd>"
         f"<dt>状态</dt><dd>{e(task['status'])}</dd>"
+        f"<dt>证明校验</dt><dd>{e(proof_validation_label(task.get('proof_validation', {})))}</dd>"
+        f"<dt>用户决定</dt><dd>{e(user_decision_label(task.get('user_decision')))}</dd>"
         f"<dt>Delivery Scenario</dt><dd>{e(task['delivery_scenario'] or '-')}</dd>"
         f"<dt>Development Type</dt><dd>{e('、'.join(task['development_types']) or '-')}</dd>"
         f"<dt>Change Surface</dt><dd>{e('、'.join(task['change_surfaces']) or '-')}</dd>"

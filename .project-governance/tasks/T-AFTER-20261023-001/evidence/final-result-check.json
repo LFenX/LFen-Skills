@@ -1,0 +1,21 @@
+{
+  "verified_at": "2026-10-23T08:57:45.752709Z",
+  "result_file": ".project-governance/tasks/T-AFTER-20261023-001/after.json",
+  "engineering_status": "Implemented",
+  "user_decision": {
+    "outcome": "Pending"
+  },
+  "validation_errors": [],
+  "signal": {
+    "task_id": "T-AFTER-20261023-001",
+    "carrier": "Full",
+    "lifecycle_state": "Frozen",
+    "unknown_blockers": [],
+    "pending_acceptance": true,
+    "engineering_recorded": true,
+    "user_decision": "Pending",
+    "minimal_eligibility": null,
+    "upgrade_pending": false,
+    "upgrade_reason": null
+  }
+}

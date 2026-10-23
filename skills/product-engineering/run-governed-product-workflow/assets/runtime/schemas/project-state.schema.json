@@ -4,40 +4,178 @@
   "title": "V6.3 ProjectState",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "meta_type", "project_id", "generated", "generated_at", "source_digest", "source_tasks", "current_facts", "unresolved_items", "task_graph", "authority_assets"],
+  "required": [
+    "schema_version",
+    "meta_type",
+    "project_id",
+    "generated",
+    "generated_at",
+    "source_digest",
+    "source_tasks",
+    "current_facts",
+    "unresolved_items",
+    "task_graph",
+    "authority_assets"
+  ],
   "properties": {
-    "schema_version": {"const": "6.3-candidate"},
-    "meta_type": {"const": "ProjectState"},
-    "project_id": {"type": "string", "minLength": 1},
-    "generated": {"const": true},
-    "generated_at": {"type": "string", "format": "date-time"},
-    "source_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-    "source_tasks": {"type": "array", "items": {
-      "type": "object", "required": ["task_id", "ordinal", "status"],
-      "properties": {"proof_validation": {
-        "type": "object", "additionalProperties": false,
-        "required": ["policy", "mode", "status"],
+    "schema_version": {
+      "const": "6.3-candidate"
+    },
+    "meta_type": {
+      "const": "ProjectState"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated": {
+      "const": true
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "source_tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "task_id",
+          "ordinal",
+          "status"
+        ],
         "properties": {
-          "policy": {"const": "implemented-proof-v1"},
-          "mode": {"enum": ["HistoricalRead", "Current", "ActiveRead"]},
-          "status": {"enum": ["HistoricalNotRevalidated", "CurrentVerified", "ActivePendingTerminal"]}
+          "proof_validation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "policy",
+              "mode",
+              "status"
+            ],
+            "properties": {
+              "policy": {
+                "const": "implemented-proof-v1"
+              },
+              "mode": {
+                "enum": [
+                  "HistoricalRead",
+                  "Current",
+                  "ActiveRead"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "HistoricalNotRevalidated",
+                  "CurrentVerified",
+                  "ActivePendingTerminal"
+                ]
+              }
+            }
+          },
+          "user_decision": {
+            "enum": [
+              null,
+              "Pending",
+              "Approved",
+              "Rejected",
+              "Deferred"
+            ]
+          }
         }
-      }}
-    }},
-    "current_facts": {"type": "array", "items": {"type": "object", "required": ["task_id", "ordinal", "fact"]}},
-    "unresolved_items": {"type": "array", "items": {"type": "object", "required": ["task_id", "ordinal", "category", "summary", "reason", "impact", "owner", "reentry_condition"]}},
+      }
+    },
+    "current_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "task_id",
+          "ordinal",
+          "fact"
+        ]
+      }
+    },
+    "unresolved_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "task_id",
+          "ordinal",
+          "category",
+          "summary",
+          "reason",
+          "impact",
+          "owner",
+          "reentry_condition"
+        ]
+      }
+    },
     "task_graph": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["task_id", "ordinal", "depends_on", "supersedes", "blocked_by", "next_tasks", "derived_from", "required_by"],
+        "required": [
+          "task_id",
+          "ordinal",
+          "depends_on",
+          "supersedes",
+          "blocked_by",
+          "next_tasks",
+          "derived_from",
+          "required_by"
+        ],
         "properties": {
-          "next_tasks": {"type": "array", "items": {"type": "object", "required": ["task_id", "relation", "reason"]}},
-          "derived_from": {"type": "array", "items": {"type": "object", "required": ["task_id", "relation", "reason"]}},
-          "required_by": {"type": "array", "items": {"type": "string", "minLength": 1}}
+          "next_tasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "task_id",
+                "relation",
+                "reason"
+              ]
+            }
+          },
+          "derived_from": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "task_id",
+                "relation",
+                "reason"
+              ]
+            }
+          },
+          "required_by": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
         }
       }
     },
-    "authority_assets": {"type": "array", "items": {"type": "object", "required": ["asset_id", "legacy_kind", "state", "revision", "content_ref", "envelope_sha256"]}}
+    "authority_assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "asset_id",
+          "legacy_kind",
+          "state",
+          "revision",
+          "content_ref",
+          "envelope_sha256"
+        ]
+      }
+    }
   }
 }

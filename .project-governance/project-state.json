@@ -3,83 +3,161 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-09-18T14:25:32Z",
-  "source_digest": "59e517213eaa7c41efed253e19d10a23b2dd1d0e5a4ca988e536e0b57b27ee73",
+  "generated_at": "2026-10-23T08:57:45.521930Z",
+  "source_digest": "48e414cdfa108e1f5050358d795b01400435d329f87edb3158c8ab6e8292e8ed",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
       "ordinal": 1,
       "status": "Implemented",
+      "user_decision": null,
       "revision": 1,
-      "completed_at": "2026-08-21T11:02:16Z"
+      "completed_at": "2026-08-21T11:02:16Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "HistoricalRead",
+        "status": "HistoricalNotRevalidated"
+      }
     },
     {
       "task_id": "T-RWPW-20260822-001",
       "ordinal": 2,
       "status": "Implemented",
+      "user_decision": null,
       "revision": 1,
-      "completed_at": "2026-08-22T07:11:11Z"
+      "completed_at": "2026-08-22T07:11:11Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "HistoricalRead",
+        "status": "HistoricalNotRevalidated"
+      }
     },
     {
       "task_id": "T-RWPW-20260822-002",
       "ordinal": 3,
       "status": "Implemented",
+      "user_decision": null,
       "revision": 1,
-      "completed_at": "2026-08-22T07:19:25Z"
+      "completed_at": "2026-08-22T07:19:25Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "HistoricalRead",
+        "status": "HistoricalNotRevalidated"
+      }
     },
     {
       "task_id": "T-RWPW-20260822-003",
       "ordinal": 4,
       "status": "Implemented",
+      "user_decision": null,
       "revision": 1,
-      "completed_at": "2026-08-22T07:54:14Z"
+      "completed_at": "2026-08-22T07:54:14Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "HistoricalRead",
+        "status": "HistoricalNotRevalidated"
+      }
     },
     {
       "task_id": "T-RWPW-20260822-004",
       "ordinal": 5,
       "status": "Implemented",
+      "user_decision": null,
       "revision": 1,
-      "completed_at": "2026-08-22T08:22:15Z"
+      "completed_at": "2026-08-22T08:22:15Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "HistoricalRead",
+        "status": "HistoricalNotRevalidated"
+      }
     },
     {
       "task_id": "T-CATALOG-20260901-001",
       "ordinal": 6,
       "status": "Implemented",
+      "user_decision": null,
       "revision": 1,
-      "completed_at": "2026-09-01T09:06:28Z"
+      "completed_at": "2026-09-01T09:06:28Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "HistoricalRead",
+        "status": "HistoricalNotRevalidated"
+      }
     },
     {
       "task_id": "T-CATALOG-20260903-002",
       "ordinal": 7,
       "status": "Implemented",
+      "user_decision": null,
       "revision": 1,
-      "completed_at": "2026-09-03T07:35:12Z"
+      "completed_at": "2026-09-03T07:35:12Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "HistoricalRead",
+        "status": "HistoricalNotRevalidated"
+      }
     },
     {
       "task_id": "T-COLLECTOR-20260909-003",
       "ordinal": 8,
-      "status": "Active"
+      "status": "Active",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "ActiveRead",
+        "status": "ActivePendingTerminal"
+      }
     },
     {
       "task_id": "T-CLARIFY-20260914-004",
       "ordinal": 9,
       "status": "Implemented",
+      "user_decision": null,
       "revision": 2,
-      "completed_at": "2026-09-15T04:03:33Z"
+      "completed_at": "2026-09-15T04:03:33Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "HistoricalRead",
+        "status": "HistoricalNotRevalidated"
+      }
     },
     {
       "task_id": "T-CI-20260915-006",
       "ordinal": 10,
       "status": "Implemented",
+      "user_decision": null,
       "revision": 1,
-      "completed_at": "2026-09-18T13:32:25Z"
+      "completed_at": "2026-09-18T13:32:25Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "HistoricalRead",
+        "status": "HistoricalNotRevalidated"
+      }
     },
     {
       "task_id": "T-INSTALL-20260914-005",
       "ordinal": 11,
       "status": "Implemented",
+      "user_decision": null,
       "revision": 1,
-      "completed_at": "2026-09-18T14:25:31Z"
+      "completed_at": "2026-09-18T14:25:31Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "HistoricalRead",
+        "status": "HistoricalNotRevalidated"
+      }
+    },
+    {
+      "task_id": "T-AFTER-20261023-001",
+      "ordinal": 14,
+      "status": "Implemented",
+      "user_decision": "Pending",
+      "revision": 1,
+      "completed_at": "2026-10-23T08:56:56.790066Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "Current",
+        "status": "CurrentVerified"
+      }
     }
   ],
   "current_facts": [
@@ -277,6 +355,21 @@
       "task_id": "T-INSTALL-20260914-005",
       "ordinal": 11,
       "fact": "未重新装配任何项目的控制台，四个项目 .project-governance/console 逐文件哈希与开始前相同"
+    },
+    {
+      "task_id": "T-AFTER-20261023-001",
+      "ordinal": 14,
+      "fact": "工程结果生成不再等待用户即时验收；Full 和 Minimal 均先留档"
+    },
+    {
+      "task_id": "T-AFTER-20261023-001",
+      "ordinal": 14,
+      "fact": "36 项新回归及完整自检通过；95 个安装入口文件与冻结版本一致"
+    },
+    {
+      "task_id": "T-AFTER-20261023-001",
+      "ordinal": 14,
+      "fact": "本任务没有用户 Acceptance，user_decision 如实保持 Pending；中间失败及重试证据保留"
     }
   ],
   "unresolved_items": [
@@ -457,6 +550,16 @@
         "T-CLARIFY-20260914-004",
         "T-CI-20260915-006"
       ],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-AFTER-20261023-001",
+      "ordinal": 14,
+      "depends_on": [],
       "supersedes": [],
       "blocked_by": [],
       "next_tasks": [],

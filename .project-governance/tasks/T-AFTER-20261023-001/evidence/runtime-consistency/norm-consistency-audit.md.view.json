@@ -1,0 +1,16 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "DerivedView",
+  "project_id": "P-AINATIVE-SPEC",
+  "view_id": "DV-RUNTIME-ONLY-NORM-AUDIT-MD",
+  "view_kind": "norm-consistency-audit-review",
+  "legacy_kind": null,
+  "generated_at": "2026-10-23T08:41:07.832107Z",
+  "generator": "run-governed-product-workflow/scripts/governance_artifacts.py",
+  "source_snapshot": "5215942ac72343347e5828531f5b329ced3d87f96da07811cc79cf44067ddef2",
+  "sources": [
+    ".project-governance/tasks/T-AFTER-20261023-001/evidence/runtime-consistency/norm-consistency-audit.json"
+  ],
+  "content_ref": ".project-governance/tasks/T-AFTER-20261023-001/evidence/runtime-consistency/norm-consistency-audit.md",
+  "integrity_status": "Complete"
+}

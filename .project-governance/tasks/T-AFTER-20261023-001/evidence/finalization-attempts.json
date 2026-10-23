@@ -1,0 +1,5 @@
+{
+  "observed_error": "TypeError: generate_views() takes 1 positional argument but 2 were given",
+  "impact": "发生在 after 已成功生成、校验通过且项目状态已重建之后；审阅视图未由该错误调用生成",
+  "correction": "改用已公开的 generate_review_views.py --project-root ... --project-id P-LFEN-SKILLS，实际退出码 0"
+}

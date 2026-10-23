@@ -34,6 +34,10 @@ from governance_artifacts import (
     proof_validation_for_read,
     proof_validation_label,
     require_current_proof_contract,
+    validate_user_decision,
+    guard_user_decision_update,
+    user_decision_label,
+    initial_user_decision,
 )
 
 
@@ -296,7 +300,9 @@ def validate_minimal_record(
         if any(item.get("outcome") != "Created" for item in record["artifact_manifest"]):
             errors.append("Completed Minimal carrier requires Created manifest outcomes")
         if outcome.get("status") == "Implemented" and not historical:
-            errors.extend(validate_implemented_contract(minimal_approval_contract(record), events, outcome.get("verification", []), minimal=True))
+            errors.extend(validate_implemented_contract(minimal_approval_contract(record), events, outcome.get("verification", []), minimal=True, outcome=outcome))
+        elif "user_decision" in outcome:
+            errors.extend(validate_user_decision(minimal_approval_contract(record), events, outcome))
     upgrade = record["upgrade"]
     if lifecycle == "Upgraded" and not upgrade.get("required"):
         errors.append("Upgraded Minimal carrier requires an upgrade reason")
@@ -788,6 +794,7 @@ def record_minimal_review(
     requirement_items: list[dict[str, Any]] | None = None, reason: str, basis: str,
     adopt_proof_contract: bool = False,
     verification_receipt: dict[str, Any] | None = None,
+    user_decision: dict[str, Any] | None = None,
 ) -> Path:
     """Append real decisions and discharge evidence without rewriting a frozen scope."""
     if not reason.strip() or not basis.strip():
@@ -808,8 +815,13 @@ def record_minimal_review(
                 raise GovernanceError("proof_contract_version is already present and cannot be changed")
             record["proof_contract_version"] = PROOF_CONTRACT_VERSION
         require_valid_minimal_record(record, task_dir=task_dir.resolve())
-        if record["lifecycle_state"] in {"Completed", "Upgraded"}:
-            raise GovernanceError("cannot update review facts on a terminal Minimal carrier")
+        additional = list(decisions)
+        if record["lifecycle_state"] == "Upgraded":
+            raise GovernanceError("cannot update review facts on an upgraded Minimal carrier")
+        if record["lifecycle_state"] == "Completed" and (
+                user_decision is None or additional or requirement_items is not None
+                or adopt_proof_contract or verification_receipt is not None):
+            raise GovernanceError("a completed Minimal carrier only permits an evidence-backed user_decision update")
         contract = record["task_contract"]
         changes = []
         if adopt_proof_contract:
@@ -822,7 +834,6 @@ def record_minimal_review(
             record["run_ledger"] = old_events + [event]
             changes.append({"path": "run_ledger", "old_value": old_events, "new_value": record["run_ledger"],
                             "recovery_receipt": verification_receipt})
-        additional = list(decisions)
         if additional:
             existing_ids = {item["id"] for item in contract["decisions"]}
             new_ids = [item.get("id") for item in additional]
@@ -850,6 +861,16 @@ def record_minimal_review(
                     raise GovernanceError("scope trade-offs require a full carrier; review may only discharge or reopen an item")
             contract["requirement_items"] = requirement_items
             changes.append({"path": "task_contract.requirement_items", "old_value": old, "new_value": requirement_items})
+        if user_decision is not None:
+            outcome = record.get("task_outcome")
+            if record["lifecycle_state"] != "Completed" or not isinstance(outcome, dict) or "user_decision" not in outcome:
+                raise GovernanceError("user_decision updates require an existing engineering result with that field")
+            old_decision = outcome["user_decision"]
+            guard_user_decision_update(old_decision, user_decision)
+            if old_decision == user_decision and not changes:
+                return path
+            outcome["user_decision"] = user_decision
+            changes.append({"path": "task_outcome.user_decision", "old_value": old_decision, "new_value": user_decision})
         if not changes:
             raise GovernanceError("review update contains no decisions or requirement evidence")
         prior_revision = record["revision"]
@@ -876,13 +897,6 @@ def _close_minimal_record_unlocked(
     record_path = minimal_record_path(task_dir)
     record = read_json(record_path)
     require_current_proof_contract(record)
-    if status == "Implemented":
-        acceptance_errors = require_decision(
-            minimal_approval_contract(record), "Acceptance", "an Implemented outcome",
-            subject_sha256=approval_subject_sha256(minimal_approval_contract(record), record["run_ledger"]),
-        )
-        if acceptance_errors:
-            raise GovernanceError("; ".join(acceptance_errors))
     require_valid_minimal_record(record, task_dir=task_dir.resolve())
     if record["lifecycle_state"] in {"Completed", "Upgraded"}:
         raise GovernanceError("Minimal carrier is already terminal")
@@ -930,6 +944,7 @@ def _close_minimal_record_unlocked(
         )
     record["task_outcome"] = {
         "status": status,
+        "user_decision": {"outcome": "Pending"},
         "established_facts": [value for value in established_facts if value],
         "actual_changes": changes,
         "verification": checks,
@@ -944,6 +959,7 @@ def _close_minimal_record_unlocked(
     record["revision"] += 1
     for item in record["artifact_manifest"]:
         item["outcome"] = "Created"
+    record["task_outcome"]["user_decision"] = initial_user_decision(minimal_approval_contract(record), record["run_ledger"], record["task_outcome"])
     require_valid_minimal_record(record, task_dir=task_dir.resolve())
     atomic_write_json(record_path, record)
     return record_path
@@ -1024,6 +1040,7 @@ def render_minimal_review(record: dict[str, Any]) -> str:
         "",
         "- Carrier: Minimal aggregate (TaskContract + RunLedger + TaskOutcome)",
         f"- Status: {status}",
+        f"- User decision: {user_decision_label((outcome or {}).get('user_decision'))}",
         "- Proof validation: " + proof_validation_label(
             proof_validation_for_read(record, record["run_ledger"], outcome, minimal=True)[0]),
         f"- Objective: {record['task_contract']['objective']}",

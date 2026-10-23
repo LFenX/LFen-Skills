@@ -56,9 +56,15 @@ python <skill-root>/scripts/manage_minimal_task.py append <project-root>/.projec
 
 收尾：
 
-先按 [verify](verify.md) 独立对照完整用户原话和真实回答，交付本次版本的实际证据、条件成立/不成立对照和未验项，再主动请求一次真实 Acceptance。已存在覆盖同版本、同范围且仍有效的明确验收通过决定时不重复问；零轮澄清与不重复 Proceed 均不等于省略 Acceptance。
+先按 [verify](verify.md) 独立对照原话，核对工程验证并交付版本、证据和未验项。close 先生成 `task_outcome` 并结束工程 Run，`user_decision` 默认 `Pending`；不等待用户即时回复，不要求回到原对话，也不把 `Implemented` 当成人已验收。
 
-没有明确肯定回答时保持待人验收，不写 `Implemented`，不为生成 `task_outcome` 伪标 `Deferred` / `Blocked`。真实 Acceptance 记录后再执行 close；该命令自动写 `run_finished`，不要提前封账。结构校验、手写 outcome 和测试通过均不能替代人的验收。
+用户稍后从可核对的来源作出决定时，可在已完成的载体上单独更新：
+
+```console
+python <skill-root>/scripts/manage_minimal_task.py record-review <project-root>/.project-governance/tasks/<TaskID> --user-decision-json-file <actual-decision.json> --reason <实际补记原因> --basis <真实来源>
+```
+
+该更新只改结果中的用户决定并保留修订历史，不重写契约、工程事实或已结束账本。字段与版本绑定见 [verify](verify.md)。
 
 完工后的原文复核与真实人侧决定通过专用接口补录，不重新 init、不直接手写 outcome：
 
@@ -66,7 +72,7 @@ python <skill-root>/scripts/manage_minimal_task.py append <project-root>/.projec
 python <skill-root>/scripts/manage_minimal_task.py record-review <project-root>/.project-governance/tasks/<TaskID> --decisions-json-file <new-decisions.json> --requirement-items-json-file <complete-requirement-items.json> --reason <reason> --basis <evidence-ref>
 ```
 
-两个 JSON 参数至少提供一个，可只传决定或只传需求复核。决定文件是新增决定的数组，使用新唯一 ID；禁止改旧回答或覆盖已有决定。完整需求台账保留原 `id`、`source`、`quote` 和 `acceptance_refs`，只修订实际 reading、Open/Covered 状态、证据与 `review`；本接口不能改 Scope。工具保留 amendments。
+活动任务的两个 JSON 参数至少提供一个，可只传决定或只传需求复核；已完成任务只允许前述独立 user_decision 补记。决定文件是新增决定的数组，使用新唯一 ID；禁止改旧回答或覆盖已有决定。完整需求台账保留原 `id`、`source`、`quote` 和 `acceptance_refs`，只修订实际 reading、Open/Covered 状态、证据与 `review`；本接口不能改 Scope。工具保留 amendments。
 
 旧活动记录可单独使用 `record-review --adopt-proof-contract --reason <实际原因> --basis <真实依据>` 正式采用当前证明契约；原有决定保留，不据此补造批准。采用后新追加执行和 close 仍按当前门禁核验。旧终态仅兼容读取，状态原样保留并标明未追溯补验，不能借此再次执行或收尾；完整规则见 [verify](verify.md)。
 

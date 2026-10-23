@@ -1,0 +1,29 @@
+[
+  {
+    "check": "runtime-retrieval",
+    "exit_code": 0,
+    "status": "Passed",
+    "summary": null
+  },
+  {
+    "check": "runtime-consistency",
+    "exit_code": 0,
+    "status": "Complete",
+    "summary": {
+      "by_category": {
+        "task_contract_snapshot_not_applicable": 1
+      },
+      "by_severity": {
+        "Blocker": 0,
+        "Major": 0,
+        "Minor": 0,
+        "Observation": 1
+      },
+      "total_findings": 1
+    }
+  },
+  {
+    "check": "all-11-schemas",
+    "status": "Passed"
+  }
+]

@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 sys.dont_write_bytecode = True
-from governance_artifacts import GovernanceError, approval_subject_sha256, read_json, read_jsonl
+from governance_artifacts import GovernanceError, approval_subject_sha256, user_decision_subject_sha256, read_json, read_jsonl
 
 
 def main() -> int:
@@ -18,11 +18,14 @@ def main() -> int:
         if (args.task_dir / "before.json").is_file():
             before = read_json(args.task_dir / "before.json")
             events = read_jsonl(args.task_dir / "run.jsonl")
+            outcome = read_json(args.task_dir / "after.json") if (args.task_dir / "after.json").is_file() else None
         else:
             from minimal_task import minimal_approval_contract
             record = read_json(args.task_dir / "task-record.json")
             before, events = minimal_approval_contract(record), record["run_ledger"]
-        subject = approval_subject_sha256(before, events)
+            outcome = record.get("task_outcome")
+        subject = (user_decision_subject_sha256(before, events, outcome)
+                   if isinstance(outcome, dict) and "user_decision" in outcome else approval_subject_sha256(before, events))
         if not subject:
             raise GovernanceError("no current succeeded verification with evidence; verify the actual delivery first")
     except (OSError, KeyError, ValueError, GovernanceError) as exc:

@@ -1,0 +1,14 @@
+{
+  "failures": [
+    {
+      "attempt": 1,
+      "error": "clarification 轮次与问答字段名不符合现有 Schema；初始化在写入 before 前拒绝",
+      "correction": "按现有 Schema 使用 ordinal/asked_at/changes/answer"
+    },
+    {
+      "attempt": 2,
+      "error": "真实澄清回答缺少单独的需求覆盖条目；初始化在写入 before 前拒绝",
+      "correction": "新增引用 clarification:r1.e1 原话的 R-03"
+    }
+  ]
+}

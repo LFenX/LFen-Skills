@@ -16,7 +16,7 @@ python <skill-root>/scripts/append_run_event.py <project-root>/.project-governan
 
 上述查询用于 S5 范围内编辑；先核对当前 CLI help、动作契约和 Task 阶段，并完整消费实际返回的上下文。`run_started` 仍是账本事件，不能把它误作 S5 的查询 action；当前动作契约把 `run_started` 查询限定在 S4，把 `edit_in_scope` 限定在 S5。阶段不符时用官方工具对齐，不靠反复调用错误 action 绕过。已经开始的同一 Run 不重复追加 `run_started`。
 
-执行门需要真实 Proceed 决定：保留实际展示、回答原话、决定人、时间和 `evidence_ref`，明确 `outcome=Approved`；仅有 kind、非空文字或过去的拒绝/推迟不能充当批准。决定记录不得伪造，格式检查不证明人已授权。真实 Acceptance 仍在完工交接阶段单独核验，不能沿用 Proceed。
+执行门需要真实 Proceed 决定：保留实际展示、回答原话、决定人、时间和 `evidence_ref`，明确 `outcome=Approved`；仅有 kind、非空文字或过去的拒绝/推迟不能充当批准。决定记录不得伪造，格式检查不证明人已授权。用户验收单独写入工程结果的 `user_decision`，不能沿用 Proceed，也不控制结果文件生成。
 
 新物质事件要求当前 `proof_contract_version` 和有效 Proceed。旧活动任务缺少版本时，先按 [verify](verify.md) 的正式 Amendment 采用当前契约；补版本不能补授权，也不能把历史终态兼容用于新执行。
 
@@ -30,6 +30,6 @@ Amendment 只记录真实字段变更：同值写入返回 `UNCHANGED`，不改�
 
 失败次数不证明出现新需求或新授权缺口。先核对原始目标、Scope、验收、Authority、安全边界和持续授权；同范围内的工具参数、编码、依赖、夹具、断言或实现修正，在这些条件未变且没有新阻断未知时，保留原失败和 FER，记录修正与新 Attempt 后继续获批验证，不重复索取相同授权。出现真实新未知、影响扩大、权限变化或未明副作用时仍须停止并澄清；机器明确 Blocked/REFUSED 时按官方路径处理，不伪造回答、删失败或另建载体绕行。
 
-工程验证完成并拟以 `Implemented` 收尾时，先按 [verify](verify.md) 完成真实验收交接。完整载体在记录真实 Acceptance 和 required Gate 后才写成功的 `run_finished`，再按 [close](close.md) 生成 outcome；不得用成功测试或提前封账代替人侧验收。真实失败或阻断仍按实际结果记录并收尾，不假装已验收，也不为记录失败索要肯定验收。
+工程验证完成并拟以 `Implemented` 留档时，按 [verify](verify.md) 核对原话覆盖、工程验证和 required Gate，完整载体结束 Run 后按 [close](close.md) 生成 outcome。没有人的答复时结果中的 `user_decision` 为 `Pending`；用户可稍后凭真实来源更新，不要求返回原对话。真实失败或阻断按实际结果留档，测试与文件生成均不代表人已验收。
 
 本地 norm index 只保留当前活动 digest。旧缓存不是审计档案。

@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\self_test.py", line 3979, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\self_test.py", line 3380, in main
+    amend_record(
+    ~~~~~~~~~~~~^
+        task_dir / "after.json",
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        basis="self-test",
+        ^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\governance_artifacts.py", line 3266, in amend_record
+    require_record_semantics(path, document)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\governance_artifacts.py", line 2680, in require_record_semantics
+    raise GovernanceError("; ".join(errors))
+governance_artifacts.GovernanceError: user_decision subject_sha256 does not match the saved engineering result

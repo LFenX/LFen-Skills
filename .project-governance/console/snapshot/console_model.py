@@ -42,7 +42,7 @@ from manage_project_docs import (
 META_TYPES = (
     ("TaskContract", "任务执行前", "保存 Task Profile、适用性事实、确定性裁剪快照、权限、验收和计划；Run 开始时冻结，修订必须留痕", "tasks/<TaskID>/before.json"),
     ("RunLedger", "任务执行中", "只追加重要事件", "tasks/<TaskID>/run.jsonl"),
-    ("TaskOutcome", "任务终态", "已成立事实和遗留问题的任务级事实源", "tasks/<TaskID>/after.json"),
+    ("TaskOutcome", "工程结果", "交付事实、验证、遗留问题和独立用户决定的任务级事实源", "tasks/<TaskID>/after.json"),
     ("ProjectState", "跨任务当前状态", "从终态和权威资产物化，不直接编辑", "project-state.json"),
     ("AuthorityAsset", "项目长期事实", "需求、设计、决定、证据、基线等权威对象", "authority/"),
     ("DerivedView", "按需审核与查询", "可重建，禁止直接承载新权威事实", "generated/"),
@@ -117,6 +117,8 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
         "task_id": node["task_id"],
         "ordinal": node.get("ordinal", 0),
         "status": status,
+        "proof_validation": node.get("proof_validation", {}),
+        "user_decision": None,
         "carrier": "未知",
         "objective": "",
         "risk_level": "",
@@ -170,6 +172,7 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
                     for event in record.get("run_ledger", [])
                 ],
                 established_facts=outcome.get("established_facts", []),
+                user_decision=outcome.get("user_decision"),
                 actual_changes=outcome.get("actual_changes", []),
                 incomplete_items=outcome.get("incomplete_items", []),
                 lifecycle=record.get("lifecycle_state", ""),
@@ -220,6 +223,7 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
             after_path = task_dir / "after.json"
             if after_path.is_file():
                 after = read_json(after_path)
+                entry["user_decision"] = after.get("user_decision")
                 entry["established_facts"] = after.get("established_facts", [])
                 entry["actual_changes"] = after.get("actual_changes", [])
                 entry["incomplete_items"] = after.get("incomplete_items", [])
@@ -265,10 +269,12 @@ def state_provenance(project_root: Path, state: dict[str, Any]) -> dict[str, Any
 def scan_tasks(project_root: Path, state: dict[str, Any]) -> list[dict[str, Any]]:
     tasks_root = project_root / GOVERNANCE_DIR / "tasks"
     status_by_id = {item["task_id"]: item.get("status", "Active") for item in state.get("source_tasks", [])}
+    proof_by_id = {item["task_id"]: item.get("proof_validation", {}) for item in state.get("source_tasks", [])}
     entries = []
     for node in sorted(state.get("task_graph", []), key=lambda item: item.get("ordinal", 0)):
         entries.append(
-            _task_entry(tasks_root / node["task_id"], node, status_by_id.get(node["task_id"], "Active"), project_root)
+            _task_entry(tasks_root / node["task_id"], {**node, "proof_validation": proof_by_id.get(node["task_id"], {})},
+                        status_by_id.get(node["task_id"], "Active"), project_root)
         )
     return entries
 

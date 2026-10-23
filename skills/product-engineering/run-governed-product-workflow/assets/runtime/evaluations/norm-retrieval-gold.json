@@ -2526,7 +2526,7 @@
           "record-review",
           "--help"
         ],
-        "help_sha256": "cf5565a371b2c5611357457177d24a858f36950ba33f5720078705557320e90f",
+        "help_sha256": "029bfb552886d9bdae1211d951063d37bb4d1d05772ca48f9aca049e910eb5eb",
         "options": [
           "--adopt-proof-contract",
           "--basis",
@@ -2534,6 +2534,7 @@
           "--help",
           "--reason",
           "--requirement-items-json-file",
+          "--user-decision-json-file",
           "--verification-json-file"
         ]
       },

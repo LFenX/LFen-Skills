@@ -1,0 +1,1265 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskContract",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-AFTER-20261023",
+  "task_id": "T-AFTER-20261023-001",
+  "ordinal": 14,
+  "revision": 4,
+  "lifecycle_state": "Frozen",
+  "created_at": "2026-10-23T08:06:46.702075Z",
+  "frozen_at": "2026-10-23T08:08:41.079690Z",
+  "objective": "使工程交付结果先保存，人的验收决定独立记录在结果字段中",
+  "request_snapshot": {
+    "language": "zh",
+    "text": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+    "captured_at": "2026-10-23T08:05:02.081779Z",
+    "source": "user-directive://current-thread/2026-10-23/after-file-user-decision"
+  },
+  "clarification": {
+    "state": "Settled",
+    "mode": "Asked",
+    "notice": "缺少用户验收时，不能直接补写成功的 after.json。我先核对任务记录和收尾规则，区分正常的待验收状态、遗漏收尾，以及失败或取消任务未落记录的问题。",
+    "survey_refs": [
+      ".project-governance/tasks/T-AFTER-20261023-001/survey.json"
+    ],
+    "rounds": [
+      {
+        "ordinal": 1,
+        "asked_at": "2026-10-23T08:05:02.081779Z",
+        "exchanges": [
+          {
+            "question": "你指出的是哪一类情况？当前规则把 after.json 限定为终态记录；两类情况的修复方式不同。",
+            "changes": "Acceptance",
+            "recommended_default": "工程已完成、尚未人工验收，但缺少交付结果记录",
+            "answer": "工程已完成、尚未人工验收，但缺少交付结果记录",
+            "answer_state": "Answered"
+          }
+        ]
+      }
+    ],
+    "basis": "用户已明确将用户决定改为 after 内字段，不再控制工程结果文件是否存在。asked_at 使用本地登记时刻，平台未提供原消息的精确时间。",
+    "reopened_by": []
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+      "reading": "工程完成时留存交付结果，不等待人的验收回答",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log",
+        ".project-governance/tasks/T-AFTER-20261023-001/evidence/source-files-197ced418016fd2a.json"
+      ],
+      "acceptance_refs": [
+        0
+      ],
+      "review": {
+        "source_sha256": "6ff71a525557fc1a7c662a55bbe2934a435fdbb030d1dcc18c4fb44bb7699fa3",
+        "conditions": [
+          "工程完成时用户尚未即时给出验收决定",
+          "用户在工程留档之后从原对话以外的来源作决定"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "Full 和 Minimal 均无有效 Acceptance，工程验证和必要 Gate 满足",
+            "expected": "保存工程结果，user_decision 为 Pending",
+            "actual": "隔离回归两种载体均保存结果且独立显示待用户验收",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "已有同一验证版本的真实决定或合法证据结构补录",
+            "expected": "保留已有决定，不索取重复答复；不同版本不沿用",
+            "actual": "已有决定及 enrich 补录保留为 Approved，错误版本保持 Pending",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "Met",
+            "input": "工程结果已存在，以外部真实来源补记稍后的决定",
+            "expected": "独立更新 user_decision，工程事实和已结束账本保留",
+            "actual": "Full 与 Minimal 更新通过；原契约、账本及工程内容保留",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "NotMet",
+            "input": "尚无真实决定，或存在无来源、旧版本、未来时间及较早批准覆盖较晚拒绝的输入",
+            "expected": "保持原记录，不将其视为用户通过",
+            "actual": "无决定结果为 Pending；各不合规输入被拒绝且未改写原文件",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+      "reading": "用户决定存入 after 字段并默认待验收，支持稍后根据真实证据更新，无需返回原对话",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log",
+        ".project-governance/tasks/T-AFTER-20261023-001/evidence/source-files-197ced418016fd2a.json"
+      ],
+      "acceptance_refs": [
+        1
+      ],
+      "review": {
+        "source_sha256": "6ff71a525557fc1a7c662a55bbe2934a435fdbb030d1dcc18c4fb44bb7699fa3",
+        "conditions": [
+          "工程完成时用户尚未即时给出验收决定",
+          "用户在工程留档之后从原对话以外的来源作决定"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "Full 和 Minimal 均无有效 Acceptance，工程验证和必要 Gate 满足",
+            "expected": "保存工程结果，user_decision 为 Pending",
+            "actual": "隔离回归两种载体均保存结果且独立显示待用户验收",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "已有同一验证版本的真实决定或合法证据结构补录",
+            "expected": "保留已有决定，不索取重复答复；不同版本不沿用",
+            "actual": "已有决定及 enrich 补录保留为 Approved，错误版本保持 Pending",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "Met",
+            "input": "工程结果已存在，以外部真实来源补记稍后的决定",
+            "expected": "独立更新 user_decision，工程事实和已结束账本保留",
+            "actual": "Full 与 Minimal 更新通过；原契约、账本及工程内容保留",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "NotMet",
+            "input": "尚无真实决定，或存在无来源、旧版本、未来时间及较早批准覆盖较晚拒绝的输入",
+            "expected": "保持原记录，不将其视为用户通过",
+            "actual": "无决定结果为 Pending；各不合规输入被拒绝且未改写原文件",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-03",
+      "source": "clarification:r1.e1",
+      "quote": "工程已完成、尚未人工验收，但缺少交付结果记录",
+      "reading": "工程验证结束后的结果记录独立于用户验收是否已回答",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log",
+        ".project-governance/tasks/T-AFTER-20261023-001/evidence/source-files-197ced418016fd2a.json"
+      ],
+      "acceptance_refs": [
+        0
+      ],
+      "review": {
+        "source_sha256": "b8d7993ce7d5449406bfcb3451b462eddc83899f4f84aa9187292f3dac710fd6",
+        "conditions": [
+          "工程完成时用户尚未即时给出验收决定"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "Full 和 Minimal 均无有效 Acceptance，工程验证和必要 Gate 满足",
+            "expected": "保存工程结果，user_decision 为 Pending",
+            "actual": "隔离回归两种载体均保存结果且独立显示待用户验收",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "已有同一验证版本的真实决定或合法证据结构补录",
+            "expected": "保留已有决定，不索取重复答复；不同版本不沿用",
+            "actual": "已有决定及 enrich 补录保留为 Approved，错误版本保持 Pending",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D-01",
+      "kind": "Proceed",
+      "presented": "按用户给定方案将用户决定独立为 after 字段，同步 Full、Minimal、校验、展示和回归；保留历史含义。",
+      "response": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+      "decided_by": "user",
+      "decided_at": "2026-10-23T08:05:02.081779Z",
+      "evidence_ref": "user-directive://current-thread/2026-10-23/after-file-user-decision",
+      "outcome": "Approved"
+    }
+  ],
+  "depends_on": [],
+  "supersedes": [],
+  "blocked_by": [],
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "ed859f2eb31e3aa3e422550fca563caafbf89817",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 3,
+    "status_digest": "46ed0e987603a3a5e0fee814c8a95568bb394276e5ee5a59cfc289d8b8ee4cd7",
+    "captured_at": "2026-10-23T08:06:46.448690Z"
+  },
+  "scope": {
+    "in_scope": [
+      "流程技能工程结果和用户决定解耦"
+    ],
+    "out_of_scope": [
+      "批量回填历史任务、推定用户验收、修改生产项目"
+    ],
+    "allowed_paths": [
+      "skills/product-engineering/run-governed-product-workflow",
+      ".project-governance/tasks/T-AFTER-20261023-001",
+      "update_log/2026-10-23-governed-workflow-user-decision.md",
+      ".project-governance/console",
+      ".project-governance/project-state.json",
+      "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow"
+    ],
+    "forbidden_actions": [
+      "伪造人的决定",
+      "静默改写既有历史",
+      "扩大到消费项目的业务逻辑"
+    ]
+  },
+  "authority": {
+    "execution_permissions": [
+      "read",
+      "edit-in-scope",
+      "validate",
+      "external-effect"
+    ],
+    "required_gates": [],
+    "stop_conditions": [
+      "scope-expansion",
+      "authority-conflict",
+      "critical-evidence-missing"
+    ],
+    "authority_references": [
+      "user-directive://current-thread/2026-10-23/after-file-user-decision"
+    ],
+    "authority_assessments": [
+      {
+        "reference": "user-directive://current-thread/2026-10-23/after-file-user-decision",
+        "source_kind": "Policy",
+        "status": "Valid",
+        "scope_refs": [
+          "流程技能工程结果和用户决定解耦"
+        ],
+        "evidence_refs": [
+          ".project-governance/tasks/T-AFTER-20261023-001/survey.json"
+        ],
+        "verified_at": "2026-10-23T08:05:02.081779Z",
+        "expires_at": null
+      }
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      "工程结果不因缺少人工验收而缺档",
+      "用户决定独立、可追溯且不伪造；延后更新不要求返回原对话"
+    ],
+    "decision_owner": "task-initiator"
+  },
+  "plan": {
+    "steps": [
+      "定位收尾、结果校验与展示的耦合点",
+      "将用户决定独立为结果字段，保留历史语义",
+      "执行正反向、延后验收和历史兼容验证",
+      "记录工程结果并同步已授权的 GitHub 来源"
+    ],
+    "verification": [
+      "Full/Minimal 无肯定验收可留存工程结果且不标为验收通过",
+      "延后外部决定可凭来源补记并保留工程事实及历史",
+      "伪造、过期版本和缺证明的通过仍拒绝",
+      "历史记录、状态汇总及控制台、原有自检和膨胀回归保持兼容"
+    ],
+    "rollback": [
+      "只撤销本任务拥有的改动，保留已有已提交修复与历史记录"
+    ]
+  },
+  "first_principles_analysis": {
+    "method_version": "first-principles-v1",
+    "depth": "Concise",
+    "outcome": "使工程交付结果先保存，人的验收决定独立记录在结果字段中",
+    "facts": [
+      {
+        "id": "F1",
+        "statement": "任务发起人已确认目标：使工程交付结果先保存，人的验收决定独立记录在结果字段中",
+        "evidence_refs": [
+          "user-directive://current-thread/2026-10-23/after-file-user-decision"
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "id": "C1",
+        "statement": "执行范围仅限：流程技能工程结果和用户决定解耦",
+        "source_refs": [
+          "user-directive://current-thread/2026-10-23/after-file-user-decision"
+        ]
+      },
+      {
+        "id": "C2",
+        "statement": "执行必须遵守允许路径、排除范围和禁止动作；allowed=['skills/product-engineering/run-governed-product-workflow', '.project-governance/tasks/T-AFTER-20261023-001', 'update_log/2026-10-23-governed-workflow-user-decision.md']；out=['批量回填历史任务、推定用户验收、修改生产项目']；forbidden=['伪造人的决定', '静默改写既有历史', '扩大到消费项目的业务逻辑']",
+        "source_refs": [
+          "user-directive://current-thread/2026-10-23/after-file-user-decision"
+        ]
+      }
+    ],
+    "assumptions": [],
+    "unknowns": [],
+    "fundamentals": [
+      {
+        "id": "P1",
+        "statement": "任何方案必须直接改变已确认的目标状态，而不是只完成活动清单。",
+        "derived_from": [
+          "F1"
+        ]
+      },
+      {
+        "id": "P2",
+        "statement": "任何方案必须保持已确认的范围、权限和禁止边界。",
+        "derived_from": [
+          "C1",
+          "C2"
+        ]
+      }
+    ],
+    "causal_links": [
+      {
+        "from_ref": "P1",
+        "to_ref": "O1",
+        "rationale": "选定方案必须产生目标状态变化。",
+        "evidence_refs": [
+          "user-directive://current-thread/2026-10-23/after-file-user-decision"
+        ]
+      },
+      {
+        "from_ref": "P2",
+        "to_ref": "O1",
+        "rationale": "选定方案必须在授权边界内可执行。",
+        "evidence_refs": [
+          "user-directive://current-thread/2026-10-23/after-file-user-decision"
+        ]
+      }
+    ],
+    "alternatives": [
+      {
+        "id": "O0",
+        "description": "保持现状，不实施本任务变更",
+        "status": "Rejected",
+        "derived_from": [
+          "F1"
+        ],
+        "tradeoffs": [
+          "无新增实施成本",
+          "不能达到已确认目标"
+        ]
+      },
+      {
+        "id": "O1",
+        "description": "按已确认计划在授权范围内实施并验证",
+        "status": "Selected",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "tradeoffs": [
+          "直接覆盖验收标准",
+          "需要实施与回归验证成本"
+        ]
+      }
+    ],
+    "decision_criteria": [
+      {
+        "id": "K1",
+        "statement": "工程结果不因缺少人工验收而缺档",
+        "source_refs": [
+          "user-directive://current-thread/2026-10-23/after-file-user-decision"
+        ]
+      },
+      {
+        "id": "K2",
+        "statement": "用户决定独立、可追溯且不伪造；延后更新不要求返回原对话",
+        "source_refs": [
+          "user-directive://current-thread/2026-10-23/after-file-user-decision"
+        ]
+      }
+    ],
+    "selected_approach": "O1",
+    "derivation": [
+      {
+        "plan_step": "定位收尾、结果校验与展示的耦合点",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2"
+        ]
+      },
+      {
+        "plan_step": "将用户决定独立为结果字段，保留历史语义",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2"
+        ]
+      },
+      {
+        "plan_step": "执行正反向、延后验收和历史兼容验证",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2"
+        ]
+      },
+      {
+        "plan_step": "记录工程结果并同步已授权的 GitHub 来源",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2"
+        ]
+      }
+    ],
+    "validation_refs": [
+      "Full/Minimal 无肯定验收可留存工程结果且不标为验收通过",
+      "延后外部决定可凭来源补记并保留工程事实及历史",
+      "伪造、过期版本和缺证明的通过仍拒绝",
+      "历史记录、状态汇总及控制台、原有自检和膨胀回归保持兼容"
+    ],
+    "source_refs": [
+      "user-directive://current-thread/2026-10-23/after-file-user-decision"
+    ]
+  },
+  "task_profile": {
+    "delivery_scenario": "DS-03",
+    "development_types": [
+      "DT-06"
+    ],
+    "primary_development_type": "DT-06",
+    "development_type_scopes": {
+      "DT-06": [
+        "流程技能工程结果和用户决定解耦"
+      ]
+    },
+    "change_surfaces": [
+      "Agent/Collaboration",
+      "Data/Schema",
+      "API/Integration"
+    ],
+    "risk_level": "Low",
+    "extension_triggers": {
+      "E01": "Inactive",
+      "E02": "Inactive",
+      "E03": "Active",
+      "E04": "Active",
+      "E05": "Inactive"
+    },
+    "extension_evidence_refs": {
+      "E01": [],
+      "E02": [],
+      "E03": [
+        ".project-governance/tasks/T-AFTER-20261023-001/survey.json"
+      ],
+      "E04": [
+        ".project-governance/tasks/T-AFTER-20261023-001/survey.json"
+      ],
+      "E05": []
+    },
+    "baseline_inheritance": [
+      "Revise"
+    ],
+    "mode": "Normal",
+    "confidence": "Medium",
+    "basis": [
+      "user-directive://current-thread/2026-10-23/after-file-user-decision"
+    ],
+    "open_questions": [],
+    "applicability_facts": {
+      "product_intent_change": "No",
+      "initiative_scope_change": "No",
+      "requirement_change": "Yes",
+      "external_behavior_change": "Yes",
+      "design_change": "Yes",
+      "architecture_impact": "No",
+      "security_privacy_impact": "No",
+      "data_ai_impact": "Yes",
+      "formal_knowledge_records": "Yes",
+      "operations_impact": "No",
+      "production_release": "No",
+      "irreversible_change": "No",
+      "actual_execution": "Yes",
+      "authority_available": "Yes",
+      "migration_retirement": "No",
+      "external_system_effect": "Yes",
+      "formal_review_or_gate": "No"
+    }
+  },
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-AFTER-20261023-001-before",
+      "content_ref": ".project-governance/tasks/T-AFTER-20261023-001/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "ed859f2eb31e3aa3e422550fca563caafbf89817",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-AFTER-20261023-001-run",
+      "content_ref": ".project-governance/tasks/T-AFTER-20261023-001/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "ed859f2eb31e3aa3e422550fca563caafbf89817",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-AFTER-20261023-001-after",
+      "content_ref": ".project-governance/tasks/T-AFTER-20261023-001/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "ed859f2eb31e3aa3e422550fca563caafbf89817",
+      "human_confirmation_refs": []
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "path": "scope.allowed_paths",
+      "old_value": [
+        "skills/product-engineering/run-governed-product-workflow",
+        ".project-governance/tasks/T-AFTER-20261023-001",
+        "update_log/2026-10-23-governed-workflow-user-decision.md"
+      ],
+      "new_value": [
+        "skills/product-engineering/run-governed-product-workflow",
+        ".project-governance/tasks/T-AFTER-20261023-001",
+        "update_log/2026-10-23-governed-workflow-user-decision.md",
+        ".project-governance/console",
+        ".project-governance/project-state.json"
+      ],
+      "reason": "官方运行时引导已更新现有控制台快照；将状态展示的派生部署和项目状态显式纳入路径，同步实际依赖，不扩大产品目标",
+      "basis": "user-directive://current-thread/2026-10-23/after-file-user-decision",
+      "changed_at": "2026-10-23T08:43:59.411582Z"
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "path": "scope.allowed_paths",
+      "old_value": [
+        "skills/product-engineering/run-governed-product-workflow",
+        ".project-governance/tasks/T-AFTER-20261023-001",
+        "update_log/2026-10-23-governed-workflow-user-decision.md",
+        ".project-governance/console",
+        ".project-governance/project-state.json"
+      ],
+      "new_value": [
+        "skills/product-engineering/run-governed-product-workflow",
+        ".project-governance/tasks/T-AFTER-20261023-001",
+        "update_log/2026-10-23-governed-workflow-user-decision.md",
+        ".project-governance/console",
+        ".project-governance/project-state.json",
+        "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow"
+      ],
+      "reason": "沿用本会话已确认的技能入口同步范围，登记其真实目标绝对路径；仅同步本技能已验证文件",
+      "basis": "user-directive://current-thread/2026-10-23/after-file-user-decision",
+      "changed_at": "2026-10-23T08:49:45.101257Z"
+    },
+    {
+      "from_revision": 3,
+      "to_revision": 4,
+      "path": "requirement_items",
+      "old_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+          "reading": "工程完成时留存交付结果，不等待人的验收回答",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            0
+          ]
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+          "reading": "用户决定存入 after 字段并默认待验收，支持稍后根据真实证据更新，无需返回原对话",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            1
+          ]
+        },
+        {
+          "id": "R-03",
+          "source": "clarification:r1.e1",
+          "quote": "工程已完成、尚未人工验收，但缺少交付结果记录",
+          "reading": "工程验证结束后的结果记录独立于用户验收是否已回答",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            0
+          ]
+        }
+      ],
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+          "reading": "工程完成时留存交付结果，不等待人的验收回答",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log",
+            ".project-governance/tasks/T-AFTER-20261023-001/evidence/source-files-197ced418016fd2a.json"
+          ],
+          "acceptance_refs": [
+            0
+          ],
+          "review": {
+            "source_sha256": "6ff71a525557fc1a7c662a55bbe2934a435fdbb030d1dcc18c4fb44bb7699fa3",
+            "conditions": [
+              "工程完成时用户尚未即时给出验收决定",
+              "用户在工程留档之后从原对话以外的来源作决定"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "Full 和 Minimal 均无有效 Acceptance，工程验证和必要 Gate 满足",
+                "expected": "保存工程结果，user_decision 为 Pending",
+                "actual": "隔离回归两种载体均保存结果且独立显示待用户验收",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "已有同一验证版本的真实决定或合法证据结构补录",
+                "expected": "保留已有决定，不索取重复答复；不同版本不沿用",
+                "actual": "已有决定及 enrich 补录保留为 Approved，错误版本保持 Pending",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+                ]
+              },
+              {
+                "condition": 1,
+                "branch": "Met",
+                "input": "工程结果已存在，以外部真实来源补记稍后的决定",
+                "expected": "独立更新 user_decision，工程事实和已结束账本保留",
+                "actual": "Full 与 Minimal 更新通过；原契约、账本及工程内容保留",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+                ]
+              },
+              {
+                "condition": 1,
+                "branch": "NotMet",
+                "input": "尚无真实决定，或存在无来源、旧版本、未来时间及较早批准覆盖较晚拒绝的输入",
+                "expected": "保持原记录，不将其视为用户通过",
+                "actual": "无决定结果为 Pending；各不合规输入被拒绝且未改写原文件",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+          "reading": "用户决定存入 after 字段并默认待验收，支持稍后根据真实证据更新，无需返回原对话",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log",
+            ".project-governance/tasks/T-AFTER-20261023-001/evidence/source-files-197ced418016fd2a.json"
+          ],
+          "acceptance_refs": [
+            1
+          ],
+          "review": {
+            "source_sha256": "6ff71a525557fc1a7c662a55bbe2934a435fdbb030d1dcc18c4fb44bb7699fa3",
+            "conditions": [
+              "工程完成时用户尚未即时给出验收决定",
+              "用户在工程留档之后从原对话以外的来源作决定"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "Full 和 Minimal 均无有效 Acceptance，工程验证和必要 Gate 满足",
+                "expected": "保存工程结果，user_decision 为 Pending",
+                "actual": "隔离回归两种载体均保存结果且独立显示待用户验收",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "已有同一验证版本的真实决定或合法证据结构补录",
+                "expected": "保留已有决定，不索取重复答复；不同版本不沿用",
+                "actual": "已有决定及 enrich 补录保留为 Approved，错误版本保持 Pending",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+                ]
+              },
+              {
+                "condition": 1,
+                "branch": "Met",
+                "input": "工程结果已存在，以外部真实来源补记稍后的决定",
+                "expected": "独立更新 user_decision，工程事实和已结束账本保留",
+                "actual": "Full 与 Minimal 更新通过；原契约、账本及工程内容保留",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+                ]
+              },
+              {
+                "condition": 1,
+                "branch": "NotMet",
+                "input": "尚无真实决定，或存在无来源、旧版本、未来时间及较早批准覆盖较晚拒绝的输入",
+                "expected": "保持原记录，不将其视为用户通过",
+                "actual": "无决定结果为 Pending；各不合规输入被拒绝且未改写原文件",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-03",
+          "source": "clarification:r1.e1",
+          "quote": "工程已完成、尚未人工验收，但缺少交付结果记录",
+          "reading": "工程验证结束后的结果记录独立于用户验收是否已回答",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log",
+            ".project-governance/tasks/T-AFTER-20261023-001/evidence/source-files-197ced418016fd2a.json"
+          ],
+          "acceptance_refs": [
+            0
+          ],
+          "review": {
+            "source_sha256": "b8d7993ce7d5449406bfcb3451b462eddc83899f4f84aa9187292f3dac710fd6",
+            "conditions": [
+              "工程完成时用户尚未即时给出验收决定"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "Full 和 Minimal 均无有效 Acceptance，工程验证和必要 Gate 满足",
+                "expected": "保存工程结果，user_decision 为 Pending",
+                "actual": "隔离回归两种载体均保存结果且独立显示待用户验收",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "已有同一验证版本的真实决定或合法证据结构补录",
+                "expected": "保留已有决定，不索取重复答复；不同版本不沿用",
+                "actual": "已有决定及 enrich 补录保留为 Approved，错误版本保持 Pending",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "reason": "独立逐条对照用户完整原话和真实澄清回答，登记条件成立与不成立的实际回归证据",
+      "basis": ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log",
+      "changed_at": "2026-10-23T08:54:11.828223Z"
+    }
+  ],
+  "tailoring_resolution": {
+    "rule_set_id": "VC-PPG-TAIL-001",
+    "rule_set_version": "6.3 Candidate",
+    "rule_set_status": "In Review",
+    "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+    "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+    "resolver_sha256": "090b1cd32acfaebe468f4a37e6fe2790be55c2796cebe30cf1115a5cec0c654f",
+    "task_contract_schema_sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045",
+    "input_digest": "c04cece47b4eb54d9ddd8ae4a04fb6a03601c355ab96655ab1d060921c0f0fb7",
+    "stage": "S8",
+    "applicable_standards": [
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E03",
+      "E04"
+    ],
+    "pending_standards": [],
+    "stage_context_standards": [
+      "C04",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E03",
+      "E04"
+    ],
+    "control_strength": "minimum",
+    "independent_review": false,
+    "explicit_human_gate": false,
+    "blocking_reasons": [],
+    "rule_ids": [
+      "VC-PPG-TAIL-001:always_applicable",
+      "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:data_ai_impact=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_system_effect=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+      "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+      "VC-PPG-TAIL-001:change_surfaces:API/Integration",
+      "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+      "VC-PPG-TAIL-001:change_surfaces:Data/Schema",
+      "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+      "VC-PPG-TAIL-001:development_types:DT-06",
+      "VC-PPG-TAIL-001:execution_modes:Normal",
+      "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E03:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+      "VC-PPG-TAIL-001:risk_levels:Low"
+    ],
+    "source_sections": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sections": [
+          "2",
+          "10",
+          "12"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "22",
+          "23"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sections": [
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sections": [
+          "9",
+          "14",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "9"
+        ]
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E03",
+        "path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      }
+    ],
+    "complete_source_files": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+      },
+      {
+        "source_id": "E03",
+        "path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+        "sha256": "bb6a10422c6e672f3f67e6dc109c5bfaa594b195924758b21911fe44a18c603b"
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sha256": "8cb8a7b01cec9b1c868a1cba27352fef1c6314ff85f1956072af6dee9eeabdf0"
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+      }
+    ],
+    "profile_coverage_digest": {
+      "applicable": 104,
+      "total": 137,
+      "sha256": "5589b7e6ebcaec0cdddd357ebd77c7184c2833836a8bcea351e4746a74a1fdfc"
+    }
+  }
+}

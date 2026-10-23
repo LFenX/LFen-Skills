@@ -68,26 +68,48 @@ python <skill-root>/scripts/audit_norm_consistency.py --project-root <project-ro
 
 验收决定、发布批准和风险接受不能由验证脚本代替。
 
-## 工程验证后的真实验收交接
+## 工程结果留档与独立用户决定
 
-实现和工程验证完成后，必须主动向人提交一次可验收的交付：交付对象、版本和范围，原文逐条覆盖结果，实际执行的验证与证据，失败、未验项、未通过 Gate 和残留限制。不得只说“测试已绿，请确认”。必要验证或 Gate 尚未满足时，明确说明尚不能正式收尾，不将其藏在“完成”结论中。
+实现和工程验证结束后，先保存可核对的工程结果：对象与版本、原文逐条覆盖、成立事实、实际变化、验证与证据、未完成项、未通过的工程 Gate 和残留限制。`Implemented` 表示工程实现及必要验证完成；其他真实结果使用对应状态。人的决定不控制 `after.json` / `task_outcome` 是否生成，工程结果存在也不等于 Acceptance 或发布批准。
 
-没有覆盖同一交付版本与范围的有效明确验收通过决定时，交付后请求人选择“验收通过 / 需要返修 / 暂不验收”，并等待真实回答。已有该决定且交付未发生使其失效的变化时，核对决定及证据后直接进入 close，不重复询问。
+Full 的 `after.json` 与 Minimal 的 `task_outcome` 使用同一个 `user_decision` 字段。无有效决定时为：
 
-- 明确验收通过：保留实际展示内容、回答原话、决定人、时间与对应证据，按正式工具记录 Acceptance；其他 required Gate 分别核验，不能由 Acceptance 一并替代。
-- 要求返修：保留原验证和回答，依实际问题修正并重新验证；不得沿用已失效版本的验收。
-- 推迟、未答或含糊：明确报告“待人验收”及待答内容，保留实际证据，不虚构肯定决定。
+```json
+{"outcome": "Pending"}
+```
 
-Proceed、验证通过、沉默、消息已读、普通确认收到和工具成功均不构成 Acceptance。不得为了补齐 `after.json` 或 `task_outcome` 把待人验收写成 `Implemented`、`Deferred` 或 `Blocked`。
+`Pending` 不编造答复、决定人、决定时间或证据。已有绑定同一验证版本且可核对的真实决定时，生成器保留实际决定；不存在时仍须先留档并交付结果，无需等待即时回复、反复询问或要求用户回到原对话。用户稍后在其他可访问来源中的明确答复同样可以作为证据，必须核对实际对象、版本与原话，不能从沉默、测试成功、普通收到或文件存在推断通过。
 
-实际验证成功后，用当前工具取得已验证交付的绑定摘要：
+实际决定的 `outcome` 为 `Approved`、`Rejected` 或 `Deferred`，并完整保留：
+
+| 字段 | 内容 |
+|---|---|
+| `presented` | 用户当时看到的交付对象、版本和验收信息 |
+| `response` | 用户实际回答原文 |
+| `decided_by` / `decided_at` | 实际决定人及含时区的真实决定时间 |
+| `evidence_ref` | 可核对的实际来源；可以来自原对话以外 |
+| `subject_sha256` | 已保存工程结果的绑定摘要 |
+
+结果生成后，用现有工具读取该结果的绑定摘要：
 
 ```console
 python <skill-root>/scripts/get_approval_subject.py <project-root>/.project-governance/tasks/<TaskID>
 ```
 
-该摘要绑定原文、范围、验收判据及带证据的已验证交付；证据引用必须定位不可变的实际源或产物版本。没有中间材料动作且引用完全相同的重复成功验证，复用该交付首次验证的批准锚点，不重复索取同一验收。不同版本证据，或之后发生 mutation、external_effect、rollback、failure、retry、失败验证，会使原绑定失效；必须重新验证，不能把旧验收摘要抄到新交付。摘要不证明证据为真，也不证明人已经批准。仅记录决定或需求交代不构成交付变更。
+该摘要绑定实际交付快照、验证结果和契约；更正工程结果的说明文字不要求用户重复验收。用户决定本身、修订号和修订历史不参与绑定。结果尚未生成时，同一工具仍返回工程 Gate 使用的验证交付摘要。摘要检查不证明人实际作过决定，真实来源和回答仍须核对。
 
-真实决定须保留 `presented`、`response` 原话、`decided_by`、含时区的真实 `decided_at`、`evidence_ref`，并显式记录 `outcome=Approved|Rejected|Deferred`。`Implemented` 要求本次 Acceptance 为 `Approved` 且 `subject_sha256` 等于上述当前摘要；否定、推迟和缺少明确结果不能当成通过。新决定使用新 ID、保留旧历史；按实际决定时间判断先后，补录较早批准不能掩盖较晚拒绝，同时间冲突按未决处理。决定必须在对应交付验证后作出。完整载体用官方 Amendment 记录，Minimal 用 `record-review`。这些字段由 Agent 整理，不因此证明答复或审批真实发生，必须引用真实人侧来源。旧记录已有真实明确授权及来源时，可据原证据补结构字段，不要求人对同一授权重新回答；缺证据时不得猜补。
+将真实决定整理成完整 JSON 文件后，Full 更新现有 after 字段：
 
-拟以 `Implemented` 收尾时，完整载体先记录验证与实际人侧决定、所需 Gate，再写成功的 `run_finished`，然后 close；Minimal 先完成真实验收交接，再调用 close，由 close 追加 `run_finished`。真实失败、取消或其他未完成结果按各自事实记录，不要求先取得肯定验收。已封账的历史记录不得倒改或补造决定；按官方修订路径如实处理。
+```console
+python <skill-root>/scripts/amend_record.py <project-root>/.project-governance/tasks/<TaskID>/after.json --path user_decision --value-json-file <actual-decision.json> --reason <实际补记原因> --basis <真实来源>
+```
+
+Minimal 更新聚合载体中的结果字段：
+
+```console
+python <skill-root>/scripts/manage_minimal_task.py record-review <project-root>/.project-governance/tasks/<TaskID> --user-decision-json-file <actual-decision.json> --reason <实际补记原因> --basis <真实来源>
+```
+
+两者保留修订历史和原工程事实，不向已结束 Run 补事件。无来源、错误版本、未来时间、早于交付验证的决定，以及用较早批准覆盖较晚拒绝，均不得记入。`Rejected` / `Deferred` 仍保留已保存工程结果；返修按实际范围启动后续任务，不把人的选择改写成工程事实。
+
+缺少 `user_decision` 的旧文件继续按原有证明和历史兼容规则读取，不能把“没有字段”当成新的 `Pending` 或 `Approved`，也不批量补造人的决定。新的生成器始终写该字段。`Proceed`、工程 required Gate 和发布权限保持各自的校验，不能用工程结果留档替代。

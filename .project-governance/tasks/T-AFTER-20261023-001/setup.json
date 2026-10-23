@@ -1,0 +1,199 @@
+{
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-AFTER-20261023",
+  "task_id": "T-AFTER-20261023-001",
+  "ordinal": 14,
+  "objective": "使工程交付结果先保存，人的验收决定独立记录在结果字段中",
+  "request_snapshot": {
+    "language": "zh",
+    "text": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+    "captured_at": "2026-10-23T08:05:02.081779Z",
+    "source": "user-directive://current-thread/2026-10-23/after-file-user-decision"
+  },
+  "clarification": {
+    "state": "Settled",
+    "mode": "Asked",
+    "notice": "缺少用户验收时，不能直接补写成功的 after.json。我先核对任务记录和收尾规则，区分正常的待验收状态、遗漏收尾，以及失败或取消任务未落记录的问题。",
+    "survey_refs": [
+      ".project-governance/tasks/T-AFTER-20261023-001/survey.json"
+    ],
+    "rounds": [
+      {
+        "ordinal": 1,
+        "asked_at": "2026-10-23T08:05:02.081779Z",
+        "exchanges": [
+          {
+            "question": "你指出的是哪一类情况？当前规则把 after.json 限定为终态记录；两类情况的修复方式不同。",
+            "changes": "Acceptance",
+            "recommended_default": "工程已完成、尚未人工验收，但缺少交付结果记录",
+            "answer": "工程已完成、尚未人工验收，但缺少交付结果记录",
+            "answer_state": "Answered"
+          }
+        ]
+      }
+    ],
+    "basis": "用户已明确将用户决定改为 after 内字段，不再控制工程结果文件是否存在。asked_at 使用本地登记时刻，平台未提供原消息的精确时间。",
+    "reopened_by": []
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+      "reading": "工程完成时留存交付结果，不等待人的验收回答",
+      "state": "Open",
+      "evidence_refs": [],
+      "acceptance_refs": [
+        0
+      ]
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+      "reading": "用户决定存入 after 字段并默认待验收，支持稍后根据真实证据更新，无需返回原对话",
+      "state": "Open",
+      "evidence_refs": [],
+      "acceptance_refs": [
+        1
+      ]
+    },
+    {
+      "id": "R-03",
+      "source": "clarification:r1.e1",
+      "quote": "工程已完成、尚未人工验收，但缺少交付结果记录",
+      "reading": "工程验证结束后的结果记录独立于用户验收是否已回答",
+      "state": "Open",
+      "evidence_refs": [],
+      "acceptance_refs": [
+        0
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D-01",
+      "kind": "Proceed",
+      "presented": "按用户给定方案将用户决定独立为 after 字段，同步 Full、Minimal、校验、展示和回归；保留历史含义。",
+      "response": "这是一个问题，等于说很多时候其实用户来不及立刻做验收，而后续验收后也不愿回到对话再说一遍，所以我的建议是，将用户决定作为after文件中的一个字段，而不是影响after文件是否存在的因素",
+      "decided_by": "user",
+      "decided_at": "2026-10-23T08:05:02.081779Z",
+      "evidence_ref": "user-directive://current-thread/2026-10-23/after-file-user-decision",
+      "outcome": "Approved"
+    }
+  ],
+  "acceptance": [
+    "工程结果不因缺少人工验收而缺档",
+    "用户决定独立、可追溯且不伪造；延后更新不要求返回原对话"
+  ],
+  "development_types": [
+    "DT-06"
+  ],
+  "primary_development_type": "DT-06",
+  "change_surfaces": [
+    "Agent/Collaboration",
+    "Data/Schema",
+    "API/Integration"
+  ],
+  "risk_level": "Low",
+  "delivery_scenario": "DS-03",
+  "baseline_inheritance": [
+    "Revise"
+  ],
+  "in_scope": [
+    "流程技能工程结果和用户决定解耦"
+  ],
+  "out_of_scope": [
+    "批量回填历史任务、推定用户验收、修改生产项目"
+  ],
+  "allowed_paths": [
+    "skills/product-engineering/run-governed-product-workflow",
+    ".project-governance/tasks/T-AFTER-20261023-001",
+    "update_log/2026-10-23-governed-workflow-user-decision.md"
+  ],
+  "forbidden_actions": [
+    "伪造人的决定",
+    "静默改写既有历史",
+    "扩大到消费项目的业务逻辑"
+  ],
+  "extension_triggers": {
+    "E01": "Inactive",
+    "E02": "Inactive",
+    "E03": "Active",
+    "E04": "Active",
+    "E05": "Inactive"
+  },
+  "extension_evidence_refs": {
+    "E01": [],
+    "E02": [],
+    "E03": [
+      ".project-governance/tasks/T-AFTER-20261023-001/survey.json"
+    ],
+    "E04": [
+      ".project-governance/tasks/T-AFTER-20261023-001/survey.json"
+    ],
+    "E05": []
+  },
+  "applicability_facts": {
+    "architecture_impact": "No",
+    "formal_review_or_gate": "No",
+    "security_privacy_impact": "No",
+    "initiative_scope_change": "No",
+    "external_system_effect": "Yes",
+    "external_behavior_change": "Yes",
+    "actual_execution": "Yes",
+    "authority_available": "Yes",
+    "data_ai_impact": "Yes",
+    "production_release": "No",
+    "product_intent_change": "No",
+    "migration_retirement": "No",
+    "irreversible_change": "No",
+    "formal_knowledge_records": "Yes",
+    "operations_impact": "No",
+    "design_change": "Yes",
+    "requirement_change": "Yes"
+  },
+  "tailoring_stage": "S4",
+  "execution_permissions": [
+    "read",
+    "edit-in-scope",
+    "validate",
+    "external-effect"
+  ],
+  "authority_references": [
+    "user-directive://current-thread/2026-10-23/after-file-user-decision"
+  ],
+  "authority_assessments": [
+    {
+      "reference": "user-directive://current-thread/2026-10-23/after-file-user-decision",
+      "source_kind": "Policy",
+      "status": "Valid",
+      "scope_refs": [
+        "流程技能工程结果和用户决定解耦"
+      ],
+      "evidence_refs": [
+        ".project-governance/tasks/T-AFTER-20261023-001/survey.json"
+      ],
+      "verified_at": "2026-10-23T08:05:02.081779Z",
+      "expires_at": null
+    }
+  ],
+  "basis": [
+    "user-directive://current-thread/2026-10-23/after-file-user-decision"
+  ],
+  "plan_steps": [
+    "定位收尾、结果校验与展示的耦合点",
+    "将用户决定独立为结果字段，保留历史语义",
+    "执行正反向、延后验收和历史兼容验证",
+    "记录工程结果并同步已授权的 GitHub 来源"
+  ],
+  "plan_verification": [
+    "Full/Minimal 无肯定验收可留存工程结果且不标为验收通过",
+    "延后外部决定可凭来源补记并保留工程事实及历史",
+    "伪造、过期版本和缺证明的通过仍拒绝",
+    "历史记录、状态汇总及控制台、原有自检和膨胀回归保持兼容"
+  ],
+  "rollback": [
+    "只撤销本任务拥有的改动，保留已有已提交修复与历史记录"
+  ]
+}

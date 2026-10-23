@@ -218,7 +218,7 @@
       "source": "skill-local:schemas/minimal-task-record.schema.json",
       "logical_path": "schemas/minimal-task-record.schema.json",
       "embedded": "assets/runtime/schemas/minimal-task-record.schema.json",
-      "sha256": "3c62811c6e5d45741f6571bc1e7110bb62ce35e2544c0c99a380b9dea77db602"
+      "sha256": "ccd165e08d6cc6cad1f26b4a25a2ae70c36cc8df2a814f1c3f4d7c70c8fbe86f"
     },
     {
       "role": "schema",
@@ -253,7 +253,7 @@
       "source": "skill-local:schemas/project-state.schema.json",
       "logical_path": "schemas/project-state.schema.json",
       "embedded": "assets/runtime/schemas/project-state.schema.json",
-      "sha256": "a4b085fee161db4bd70b7b21092fa0a80914784ed8f2ba564ac646b892ec343b"
+      "sha256": "5e57cb7a9f066af7fb09d666bf352b080efaa03c6394133b59da7b9242805e45"
     },
     {
       "role": "schema",
@@ -267,7 +267,7 @@
       "source": "skill-local:schemas/task-after.schema.json",
       "logical_path": "schemas/task-after.schema.json",
       "embedded": "assets/runtime/schemas/task-after.schema.json",
-      "sha256": "92eeda101f4aee01096707491c3e38a18eb36415e7a23f0d574bcc1faa3a2415"
+      "sha256": "93028764539c8af23116caa846d9cc58614ace73b316d4a35b449f1502e79e26"
     },
     {
       "role": "schema",
@@ -288,7 +288,7 @@
       "source": "skill-local:evaluations/norm-retrieval-gold.json",
       "logical_path": "evaluations/norm-retrieval-gold.json",
       "embedded": "assets/runtime/evaluations/norm-retrieval-gold.json",
-      "sha256": "60b93c0a84583b8a9136ce5e5d28cbb161780bb45606a4b2d53255d358b8ee2f"
+      "sha256": "77607c4a67e91751f2bedb15b3e2b822bb2a4257d3cb18dc459b812fd21c587c"
     },
     {
       "role": "asset-template",
@@ -316,7 +316,7 @@
       "source": "skill-local:project-templates/project-governance.README.md",
       "logical_path": "project-templates/project-governance.README.md",
       "embedded": "assets/project-templates/project-governance.README.md",
-      "sha256": "e6ffb1cf8b8b167d0d1e1eedf59fcfd3926de112c231bcff37d07697b56c0b43"
+      "sha256": "f1567be225a10f8f368a7b826c8d1f150c518722bf87ed5f8bb90255baa9f88e"
     },
     {
       "role": "asset-template",

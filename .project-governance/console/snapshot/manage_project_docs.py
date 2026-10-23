@@ -437,7 +437,10 @@ def apply_migration_plan(
 
 
 def is_package_root_document(relative: Path) -> bool:
-    return len(relative.parts) == 1 and PACKAGE_DOC_RE.fullmatch(relative.name) is not None
+    if len(relative.parts) != 1:
+        return False
+    # Python's root requirements.txt is an install manifest, not a product requirement document.
+    return relative.name.casefold() == "requirements.txt" or PACKAGE_DOC_RE.fullmatch(relative.name) is not None
 
 
 def validate_docs_tree(project_root: Path) -> list[str]:

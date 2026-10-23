@@ -58,12 +58,16 @@ def unknown_blockers(before: dict[str, Any]) -> list[str]:
 
 
 def full_carrier_signal(task_dir: Path, before: dict[str, Any], after_path: Path) -> dict[str, Any]:
+    outcome = read_json(after_path) if after_path.is_file() else None
+    decision = (outcome or {}).get("user_decision") or {}
     return {
         "task_id": before.get("task_id", task_dir.name),
         "carrier": "Full",
         "lifecycle_state": before.get("lifecycle_state"),
         "unknown_blockers": unknown_blockers(before) if not after_path.is_file() else [],
-        "pending_acceptance": not after_path.is_file(),
+        "pending_acceptance": decision.get("outcome") in {"Pending", "Deferred"} if outcome else True,
+        "engineering_recorded": outcome is not None,
+        "user_decision": decision.get("outcome"),
         "minimal_eligibility": None,
         "upgrade_pending": False,
         "upgrade_reason": None,
@@ -97,7 +101,10 @@ def active_task_signal(task_dir: Path) -> dict[str, Any] | None:
         "carrier": "Minimal",
         "lifecycle_state": lifecycle,
         "unknown_blockers": blockers,
-        "pending_acceptance": False if terminal else record.get("task_outcome") is None,
+        "pending_acceptance": ((record.get("task_outcome") or {}).get("user_decision") or {}).get("outcome") in {"Pending", "Deferred"}
+                              if terminal else record.get("task_outcome") is None,
+        "engineering_recorded": record.get("task_outcome") is not None,
+        "user_decision": ((record.get("task_outcome") or {}).get("user_decision") or {}).get("outcome"),
         "minimal_eligibility": record.get("eligibility", {}),
         "upgrade_pending": upgrade_pending,
         "upgrade_reason": upgrade.get("reason") if upgrade_pending else None,
@@ -159,7 +166,7 @@ def recommendations(signals: list[dict[str, Any]]) -> list[dict[str, str]]:
             {"command": "init", "reason": "No governed task package exists."},
             {"command": "status", "reason": "Create or inspect project governance state first."},
         ]
-    active = [item for item in signals if item.get("pending_acceptance")]
+    active = [item for item in signals if item.get("pending_acceptance") and not item.get("engineering_recorded")]
     if any(item.get("unknown_blockers") for item in active):
         return [
             {"command": "clarify", "reason": "Blocking Unknown facts remain open."},
@@ -171,6 +178,8 @@ def recommendations(signals: list[dict[str, Any]]) -> list[dict[str, str]]:
             {"command": "verify", "reason": "Close evidence before acceptance."},
             {"command": "close", "reason": "Write TaskOutcome after verification."},
         ]
+    if any(item.get("engineering_recorded") and item.get("pending_acceptance") for item in signals):
+        return [{"command": "status", "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"}]
     if any(item.get("upgrade_pending") for item in signals):
         return [
             {"command": "init", "reason": "Complete the one-way Minimal to full-carrier upgrade with upgrade parameters."},
@@ -211,6 +220,8 @@ def main(argv: list[str] | None = None) -> int:
             "pending_acceptance_tasks": [
                 item["task_id"] for item in tasks if item.get("pending_acceptance")
             ],
+            "task_progress": [{key: item.get(key) for key in
+                               ("task_id", "engineering_recorded", "user_decision", "pending_acceptance")} for item in tasks],
             "snapshot_stale": [
                 item for item in (snapshot_stale(project_root, path) for path in task_dirs(project_root)) if item
             ],

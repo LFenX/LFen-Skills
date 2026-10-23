@@ -1,0 +1,8 @@
+{
+  "observed_at": "2026-10-23T08:32:53.706777Z",
+  "command": "self_test.py --project-root D:/LFEN_project/dev_project/LFen-Skills",
+  "exit_code": 1,
+  "observed_error": "negative test did not fail: recovery never bypasses verification-before-Acceptance chronology",
+  "cause": "旧回归仍将缺少即时有效 Acceptance 等同于不能保存工程结果，与用户新需求冲突。",
+  "correction": "改为断言工程结果可保存、早于验证的答复仍为 Pending，随后外部真实决定可单独更新；原工程证明与拒绝/推迟约束保留。"
+}

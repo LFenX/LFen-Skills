@@ -6,7 +6,7 @@
 
 - `tasks/<TaskID>/before.json`：执行前 TaskContract。
 - `tasks/<TaskID>/run.jsonl`：只追加 RunLedger。
-- `tasks/<TaskID>/after.json`：终态 TaskOutcome。
+- `tasks/<TaskID>/after.json`：工程结果 TaskOutcome，含独立 `user_decision`；无需等待即时用户验收即可留档。
 - `authority/`：按触发登记的 AuthorityAsset。
 - `generated/`：可重建的 DerivedView、上下文、审计和迁移视图。
 - `runtime-cache/`：可重建的本地运行缓存。

@@ -1,0 +1,130 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-AFTER-20261023",
+  "task_id": "T-AFTER-20261023-001",
+  "revision": 1,
+  "status": "Implemented",
+  "user_decision": {
+    "outcome": "Pending"
+  },
+  "completed_at": "2026-10-23T08:56:56.790066Z",
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "ed859f2eb31e3aa3e422550fca563caafbf89817",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 48,
+    "status_digest": "6c29c1d118e8d3c37f685e2ca36bf5b0f906c42eccd27a29c438f0d2a30b1353",
+    "captured_at": "2026-10-23T08:56:56.524845Z",
+    "delivery_files_ref": ".project-governance/tasks/T-AFTER-20261023-001/evidence/source-files-197ced418016fd2a.json",
+    "delivery_files_sha256": "197ced418016fd2ab245cf5d4f4c6a877273743df56e082d50ab6b0d980262e2"
+  },
+  "established_facts": [
+    "工程结果生成不再等待用户即时验收；Full 和 Minimal 均先留档",
+    "36 项新回归及完整自检通过；95 个安装入口文件与冻结版本一致",
+    "本任务没有用户 Acceptance，user_decision 如实保持 Pending；中间失败及重试证据保留"
+  ],
+  "actual_changes": [
+    "分离工程结果与用户决定，支持稍后凭外部真实来源更新",
+    "同步 Schema、CLI、状态汇总、控制台、审阅页和技能指引；保留旧记录语义",
+    "更新本机现有技能入口，逐字节核对 95 个分发文件"
+  ],
+  "verification": [
+    {
+      "summary": "完整自检及36项结果与决定回归，含40项历史兼容和22项膨胀回归",
+      "result": "Passed",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AFTER-20261023-001/evidence/self-test-final.log"
+      ],
+      "required": true
+    },
+    {
+      "summary": "受保护运行资产与全部11份Schema检查",
+      "result": "Passed",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AFTER-20261023-001/evidence/validation-summary.json"
+      ],
+      "required": true
+    },
+    {
+      "summary": "安装入口95文件内容与冻结版本一致",
+      "result": "Passed",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AFTER-20261023-001/evidence/installed-sync.json"
+      ],
+      "required": true
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [],
+  "evidence_refs": [
+    ".project-governance/tasks/T-AFTER-20261023-001/run.jsonl",
+    ".project-governance/tasks/T-AFTER-20261023-001/evidence/source-files-197ced418016fd2a.json",
+    "update_log/2026-10-23-governed-workflow-user-decision.md"
+  ],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-AFTER-20261023-001-before",
+      "content_ref": ".project-governance/tasks/T-AFTER-20261023-001/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "ed859f2eb31e3aa3e422550fca563caafbf89817",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-AFTER-20261023-001-run",
+      "content_ref": ".project-governance/tasks/T-AFTER-20261023-001/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "ed859f2eb31e3aa3e422550fca563caafbf89817",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-AFTER-20261023-001-after",
+      "content_ref": ".project-governance/tasks/T-AFTER-20261023-001/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "ed859f2eb31e3aa3e422550fca563caafbf89817",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": [],
+  "scope_reconciliation": {
+    "status": "Passed",
+    "changed_count": 48,
+    "out_of_scope": [],
+    "undeclared_untouched": [
+      ".project-governance/project-state.json"
+    ],
+    "external_declarations": [
+      "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow"
+    ],
+    "baseline_sha256": "f23987f0e3aed98a4a7185643aa6ac3f25a2af00b093e1cfe9a2179e1648bad8",
+    "scope_sha256": "bdeefe0bb7ae50622e89978aef9cb7cb7b7ec89df32adbc4312ff65dc52621b3",
+    "delivery_sha256": "2bdcccad4a6ebd7c0511dad916d68d0245bddd207c83da8b9e65daa3b6ecc483",
+    "report_sha256": "42757129fd1ed5fd9a6c69e24eb4c76dec8ccdceb88653ee001ab3b43173f0cd"
+  }
+}

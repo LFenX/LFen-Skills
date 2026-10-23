@@ -125,6 +125,7 @@ def parse_args() -> argparse.Namespace:
     review.add_argument("task_dir", type=Path)
     review.add_argument("--decisions-json-file", type=Path)
     review.add_argument("--requirement-items-json-file", type=Path)
+    review.add_argument("--user-decision-json-file", type=Path, help="Record a later user decision on the saved engineering result, with actual source evidence")
     review.add_argument("--verification-json-file", type=Path,
                         help="Recover a previously unrecorded Passed verification using original time and unchanged source/evidence SHA-256 manifests")
     review.add_argument("--reason", required=True)
@@ -273,6 +274,7 @@ def main() -> int:
                 decisions=decode_json_input(None, args.decisions_json_file, list, "decisions") or [],
                 requirement_items=decode_json_input(None, args.requirement_items_json_file, list, "requirement items"),
                 verification_receipt=decode_json_input(None, args.verification_json_file, dict, "verification receipt"),
+                user_decision=decode_json_input(None, args.user_decision_json_file, dict, "user decision"),
                 reason=args.reason, basis=args.basis, adopt_proof_contract=args.adopt_proof_contract))
         elif args.command == "close":
             print(
