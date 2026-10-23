@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-10-23T13:52:34.724922Z",
-  "source_digest": "a1c444debbddbd5b275547420dece16ba87b6c10e15da733b9a8f6cdd73d1c86",
+  "generated_at": "2026-10-23T14:32:31.459228Z",
+  "source_digest": "eab469d172abd09b7ea1148ff07c83cca0c90c82b585016d44b04548f0071858",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -164,7 +164,7 @@
       "ordinal": 15,
       "status": "Implemented",
       "user_decision": "Pending",
-      "revision": 9,
+      "revision": 10,
       "completed_at": "2026-10-23T09:34:07.840577Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",
@@ -218,6 +218,19 @@
       "user_decision": "Pending",
       "revision": 1,
       "completed_at": "2026-10-23T13:26:02.689300Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "Current",
+        "status": "CurrentVerified"
+      }
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-006",
+      "ordinal": 20,
+      "status": "Implemented",
+      "user_decision": "Pending",
+      "revision": 1,
+      "completed_at": "2026-10-23T14:31:49.937846Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",
         "mode": "Current",
@@ -510,6 +523,26 @@
       "task_id": "T-ADVERSARIAL-20261023-005",
       "ordinal": 19,
       "fact": "三版本GitHub门禁通过；失败、拒绝与恢复保留原记录；用户验收未收到，保持Pending"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-006",
+      "ordinal": 20,
+      "fact": "第六轮公开API/CLI独立确认空白授权凭据可启动并通过；本次原会话有真实完整同意且仍未结束"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-006",
+      "ordinal": 20,
+      "fact": "新增40项边界检查与原始CLI反例确认拒绝纯空白且不写入；含真实文字的原话与前后空白原样保留"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-006",
+      "ordinal": 20,
+      "fact": "协议50/边界145、源码和安装组合完整自测与受保护规范审计实际通过；安装96文件稳定，保留add9aff独立治理补丁"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-006",
+      "ordinal": 20,
+      "fact": "源码及第五/六轮报告证据已发布，三Python版本GitHub门禁成功；原始日志空行如实保留，未宣称全部归档格式通过；人工验收Pending"
     }
   ],
   "unresolved_items": [
@@ -718,7 +751,8 @@
         "T-ADVERSARIAL-20261023-002",
         "T-ADVERSARIAL-20261023-003",
         "T-ADVERSARIAL-20261023-004",
-        "T-ADVERSARIAL-20261023-005"
+        "T-ADVERSARIAL-20261023-005",
+        "T-ADVERSARIAL-20261023-006"
       ]
     },
     {
@@ -760,6 +794,18 @@
     {
       "task_id": "T-ADVERSARIAL-20261023-005",
       "ordinal": 19,
+      "depends_on": [
+        "T-ADVERSARIAL-20261023-001"
+      ],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-006",
+      "ordinal": 20,
       "depends_on": [
         "T-ADVERSARIAL-20261023-001"
       ],

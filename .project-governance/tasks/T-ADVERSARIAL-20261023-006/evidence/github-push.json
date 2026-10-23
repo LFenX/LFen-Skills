@@ -1,0 +1,9 @@
+{
+  "checked_at": "2026-10-23T14:29:02.004161Z",
+  "head_sha": "9b1d89f1b5f481e51af8abb1bd9a5704ab23ea65",
+  "origin_main": "9b1d89f1b5f481e51af8abb1bd9a5704ab23ea65",
+  "source_sha256": "b3c52807836222f13a4a85acd5ce53add8e2a1a98eaf7856331580885cbf8a66",
+  "verified_source_git_byte_files": 96,
+  "verified_archive_git_byte_files": 988,
+  "staged_check_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-006/evidence/staged-checks.json"
+}

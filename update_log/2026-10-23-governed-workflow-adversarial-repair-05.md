@@ -12,3 +12,5 @@
 - 完整源码自检14:20:27–14:21:43 UTC exit0；安装组合14:22:49–14:24:07 UTC exit0，96文件稳定且保留add9aff治理补丁。
 - 规范检索、运行时一致性、skill与目录、源码格式检查通过；原始归档空行继续保留，不宣称全暂存格式检查通过。
 - 新源码冻结b3c52807836222f13a4a85acd5ce53add8e2a1a98eaf7856331580885cbf8a66，GitHub发布及门禁待完成；实际审查未收敛，人工验收Pending。
+
+- 发布：9b1d89f1b5f481e51af8abb1bd9a5704ab23ea65已推送origin/main；Actions39969885547三版本门禁实际成功，release按策略skipped。工程结果保存Implemented/ManagedByParent，用户决定Pending；下一轮独立审查仍待执行。

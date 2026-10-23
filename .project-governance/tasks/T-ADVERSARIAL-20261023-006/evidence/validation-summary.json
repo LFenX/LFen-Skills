@@ -78,6 +78,40 @@
   "limitations": [
     "工程夹具不是实际无问题轮次；当前修复仍需后续完整独立审查",
     "安装端独立治理补丁add9aff保留，仅此96文件稳定组合实际验证；两聊天协调继续冻结",
-    "GitHub三版本门禁待本次源码推送后实际核对"
-  ]
+    "源码9b1d89f已发布，GitHub Python3.11/3.12/3.13门禁实际成功；release按策略skipped"
+  ],
+  "github_publication": {
+    "checked_at": "2026-10-23T14:30:55.082967Z",
+    "head_sha": "9b1d89f1b5f481e51af8abb1bd9a5704ab23ea65",
+    "run_id": 39969885547,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39969885547",
+    "jobs": [
+      {
+        "name": "gates (3.13)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39969885547/job/120469444314"
+      },
+      {
+        "name": "gates (3.11)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39969885547/job/120469444869"
+      },
+      {
+        "name": "gates (3.12)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39969885547/job/120469444904"
+      },
+      {
+        "name": "release",
+        "status": "completed",
+        "conclusion": "skipped",
+        "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39969885547/job/120470142132"
+      }
+    ]
+  }
 }
