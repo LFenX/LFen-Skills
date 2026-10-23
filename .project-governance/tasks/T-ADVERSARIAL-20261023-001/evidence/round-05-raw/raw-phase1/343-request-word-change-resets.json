@@ -1,0 +1,19 @@
+{
+  "started_at": "2026-10-23T13:38:34.142501Z",
+  "ended_at": "2026-10-23T13:38:34.145037Z",
+  "actual": {
+    "status": "Stale",
+    "clean_streak": 0,
+    "rounds": 1,
+    "open_findings": [],
+    "reviewed_delivery": {
+      "task_id": "T-REQUIREMENT-BINDING",
+      "subject_sha256": "b989fd383ba0c47b3aa6b2ff5b1f382fe4aba226a4a1a2c91c6e02623fa2eeaf",
+      "requirements_sha256": "8e19164258965bead385b2a524e82f396fa6f28f48a30ade866d96671316a7ea"
+    },
+    "current_delivery": {
+      "task_id": "T-REQUIREMENT-BINDING",
+      "subject_sha256": "e5285aa25a5e32e75832dd54d340577f434ec37bb252dee51e55816995e0c34f"
+    }
+  }
+}

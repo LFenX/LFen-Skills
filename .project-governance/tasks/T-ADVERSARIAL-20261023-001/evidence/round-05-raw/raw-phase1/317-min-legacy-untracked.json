@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-legacy\\.project-governance\\tasks\\T-MIN-LEGACY"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:38:29.863588Z",
+  "ended_at": "2026-10-23T13:38:29.956105Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"LegacyUntracked\",\n  \"clean_streak\": 0,\n  \"rounds\": 0,\n  \"open_findings\": [],\n  \"current_delivery\": {\n    \"task_id\": \"T-MIN-LEGACY\",\n    \"subject_sha256\": \"b2ef203948bbff0e77540863993a38363f0de91790e0288f7dfb60c770ee0486\"\n  },\n  \"requirements_sha256\": \"ab9b574736d7d79ec8a1bfaec51a1449c87e6515c4481252aaeb9468c8ce58c9\",\n  \"delivery_task_id\": \"T-MIN-LEGACY\",\n  \"subject_sha256\": \"b2ef203948bbff0e77540863993a38363f0de91790e0288f7dfb60c770ee0486\"\n}\n",
+  "stderr": ""
+}

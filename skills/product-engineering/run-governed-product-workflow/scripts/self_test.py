@@ -2380,6 +2380,37 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
             return result
 
         for minimal in (False, True):
+            auth_task = finish("T-BLANK-MIN" if minimal else "T-BLANK-FULL", 80, minimal)
+            auth_path = load(auth_task)[0]
+            blank_values = (" ", "\t\r\n", "\u3000\u00a0\u2003")
+            for field in ("prompt", "evidence_ref"):
+                for blank in blank_values:
+                    offer = {"event": "Offer", "recorded_at": ga.now_utc(), "prompt": "Synthetic actual question", "evidence_ref": "self-test://actual-offer"}
+                    offer[field] = blank
+                    unchanged = auth_path.read_bytes()
+                    expect_governance_error("whitespace-only offer text", lambda value=offer: write(auth_task, value))
+                    check(auth_path.read_bytes() == unchanged, "blank offer fields must not write either carrier")
+            write(auth_task, {"event": "Offer", "recorded_at": ga.now_utc(), "prompt": "Synthetic actual question", "evidence_ref": "self-test://actual-offer"})
+            for field in ("response", "decided_by", "evidence_ref"):
+                for blank in blank_values:
+                    decision = {"event": "Decision", "recorded_at": ga.now_utc(), "outcome": "Accepted", "response": "Synthetic explicit consent", "decided_by": "synthetic-user", "evidence_ref": "self-test://actual-consent"}
+                    decision[field] = blank
+                    unchanged = auth_path.read_bytes()
+                    expect_governance_error("whitespace-only authorization", lambda value=decision: write(auth_task, value))
+                    check(auth_path.read_bytes() == unchanged and review_status(auth_task)["status"] == "AwaitingUser", "blank consent fields must not enroll or write either carrier")
+            padded = {"event": "Decision", "recorded_at": ga.now_utc(), "outcome": "Accepted", "response": " \t Synthetic explicit consent \u3000", "decided_by": " synthetic-user ", "evidence_ref": " self-test://actual-consent "}
+            write(auth_task, padded)
+            check(all(load(auth_task)[1]["adversarial_review"][-1][field] == padded[field] for field in ("response", "decided_by", "evidence_ref")), "real consent text and surrounding whitespace must remain unchanged")
+            for field, value in (("reviewer", " \t "), ("evidence_refs", ["\u3000"])):
+                candidate = entry(auth_task, "blank-" + field, **{field: value})
+                unchanged = auth_path.read_bytes()
+                expect_governance_error("whitespace-only round evidence", lambda value=candidate: write(auth_task, value))
+                check(auth_path.read_bytes() == unchanged, "round text and evidence items must contain actual text")
+            for field, value in (("reason", " \t "), ("evidence_refs", ["\u3000"])):
+                candidate = {"event": "Blocked", "recorded_at": ga.now_utc(), "reason": "Synthetic actual blocker", "evidence_refs": ["self-test://actual-blocker"], field: value}
+                unchanged = auth_path.read_bytes()
+                expect_governance_error("whitespace-only blocked evidence", lambda value=candidate: write(auth_task, value))
+                check(auth_path.read_bytes() == unchanged, "blocked reasons and evidence items must contain actual text")
             task = finish("T-BOUND-MIN" if minimal else "T-BOUND-FULL", 1, minimal)
             start(task, "Deferred")
             choose(task, "Accepted")

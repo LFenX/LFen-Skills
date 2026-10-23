@@ -1,0 +1,23 @@
+{
+  "id": "M38",
+  "condition": "Passed session rejects Blocked without new real decision",
+  "input": {
+    "event": "Blocked",
+    "recorded_at": "2026-10-23T13:58:59.561578Z",
+    "reason": "SYNTHETIC post-session block",
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/ended"
+    ]
+  },
+  "expected": "Reject invalid append",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "the review session has ended; record a real new user decision before restarting",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_suite.py\", line 8, in op\n    try:return write_entry(task,entry)\n               ~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 374, in append_review\n    raise GovernanceError(\"the review session has ended; record a real new user decision before restarting\")\ngovernance_artifacts.GovernanceError: the review session has ended; record a real new user decision before restarting\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/M38.json"
+  ]
+}

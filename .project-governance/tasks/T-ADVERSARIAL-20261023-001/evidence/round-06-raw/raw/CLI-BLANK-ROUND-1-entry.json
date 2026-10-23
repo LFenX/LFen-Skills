@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "cli-round-1",
+  "recorded_at": "2026-10-23T14:03:05.745381Z",
+  "started_at": "2026-10-23T14:03:05.744434Z",
+  "reviewer": "synthetic-ar06-reviewer",
+  "delivery_task_id": "T-CLI-BLANK",
+  "subject_sha256": "89644e371ebec03fb103f829c6f1e058ce4ec7769753fd27d9c9b146b401a803",
+  "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\cli-blank\\.project-governance\\tasks\\T-CLI-BLANK\\evidence\\synthetic-cli-round-1.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "synthetic-ar06://temp-only/round/cli-round-1"
+  ],
+  "findings": [],
+  "resolutions": []
+}

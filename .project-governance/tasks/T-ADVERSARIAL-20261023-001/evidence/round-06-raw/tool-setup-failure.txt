@@ -1,0 +1,1 @@
+First setup command used Bash brace-list syntax in PowerShell rg arguments. PowerShell parser rejected before any command ran (Missing argument in parameter list). Corrected command used separate literal file paths. Harness/tool invocation error, not product finding.

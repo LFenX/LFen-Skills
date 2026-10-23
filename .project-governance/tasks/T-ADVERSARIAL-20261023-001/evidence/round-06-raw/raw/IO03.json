@@ -1,0 +1,19 @@
+{
+  "id": "IO03",
+  "condition": "All rejected protocol appends retained exactly the prior stored files",
+  "input": {
+    "rejected_snapshot_count": 44
+  },
+  "expected": "each before snapshot equals after",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "checked": 44,
+      "mismatches": []
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/IO03.json"
+  ]
+}

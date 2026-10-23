@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-ambiguous\\.project-governance\\tasks\\T-MIN-REPAIR-B"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:43:57.391820Z",
+  "ended_at": "2026-10-23T13:43:57.489890Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"ManagedByParent\",\n  \"parent_task_id\": \"T-MIN-AMBIGUOUS\",\n  \"clean_streak\": 0,\n  \"rounds\": 0,\n  \"open_findings\": [],\n  \"requirements_sha256\": \"80c18a0d058ac29f483f912d5afa150418c1030656e9cf9e65b5967cf5f433ac\",\n  \"delivery_task_id\": \"T-MIN-REPAIR-B\",\n  \"subject_sha256\": \"b8492497aaed0702d9bcc2e71126fbe6c46b00d6bf6fbc903d5f1acde5d0dae0\"\n}\n",
+  "stderr": ""
+}

@@ -1,0 +1,8 @@
+{
+  "event": "Blocked",
+  "reason": "synthetic",
+  "evidence_refs": [
+    "ar05-fixture://blocked"
+  ],
+  "recorded_at": "2026-10-23T13:32:50.819500Z"
+}

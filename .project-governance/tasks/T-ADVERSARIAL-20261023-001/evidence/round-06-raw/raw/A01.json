@@ -1,0 +1,35 @@
+{
+  "id": "A01",
+  "condition": "Actual frozen 005 delivery reads as Implemented/ManagedByParent with independent Pending decision",
+  "input": {
+    "task": "T-ADVERSARIAL-20261023-005"
+  },
+  "expected": "valid; ManagedByParent; expected saved subject",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "validation": [],
+      "status_cli": {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-X",
+          "utf8",
+          "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+          "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-005"
+        ],
+        "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z",
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"ManagedByParent\",\n  \"parent_task_id\": \"T-ADVERSARIAL-20261023-001\",\n  \"clean_streak\": 0,\n  \"rounds\": 0,\n  \"open_findings\": [],\n  \"requirements_sha256\": \"2a2c9846b90fd23626f505fcfbf38ec03eb831482d58d8ecc543662509b44ada\",\n  \"delivery_task_id\": \"T-ADVERSARIAL-20261023-005\",\n  \"subject_sha256\": \"1ec6406b7c95580a24ef77723932c6bfd76fbd1a40bbf900f685f7261fd6acac\"\n}\n",
+        "stderr": "",
+        "at": "2026-10-23T14:07:25.135396Z"
+      },
+      "decision": {
+        "outcome": "Pending"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/A01.json"
+  ]
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "AR06-F01",
+    "severity": "P2",
+    "status": "Confirmed",
+    "title": "空白授权关键字段被接受，并可生成审查 Passed",
+    "requirement_refs": [
+      "R04",
+      "R06",
+      "R07"
+    ],
+    "locations": [
+      {
+        "file": "skills/product-engineering/run-governed-product-workflow/scripts/adversarial_review.py",
+        "line": 24,
+        "detail": "共享 text 仅 minLength=1，空格/制表符通过，Decision 三个关键字段复用此定义。"
+      },
+      {
+        "file": "skills/product-engineering/run-governed-product-workflow/scripts/adversarial_review.py",
+        "line": 36,
+        "detail": "Decision.response、decided_by、evidence_ref 未要求包含非空白字符。"
+      },
+      {
+        "file": "skills/product-engineering/run-governed-product-workflow/scripts/adversarial_review.py",
+        "line": 139,
+        "detail": "状态重放仅凭 outcome=Accepted 置 accepted=True，不拒绝空白回答、身份、来源。"
+      }
+    ],
+    "condition": "已保存的 Implemented 工程结果有真实形状的 Offer；Decision.outcome=Accepted，但 response=\" \\t \"、decided_by=\" \"、evidence_ref=\"\\t\"。仅合成 Temp 夹具。",
+    "expected": "拒绝没有实际回答、实际决定人和可核对来源的空白 Decision；保持 AwaitingUser，禁止 Round 计数。",
+    "actual": "Full 与 Minimal 的公开 append_review 均接受；公开 CLI 也 exit 0 并显示 InProgress；随后两份独立非空报告使状态达到 Passed、clean_streak=2。",
+    "impact": "机器门禁把实际缺失的授权凭据当作有效同意，能生成具有 Passed 状态的无有效授权审查会话。当前真实任务的用户同意记录完整；本发现不否定其实际授权。",
+    "root_cause": "JSON Schema minLength 检查字符长度，不能排除全部由空白字符组成的值；运行时未补充非空白校验。",
+    "minimum_reproduction": [
+      "在 Temp 中用 review_cases.create 建立 Full 或 Minimal 已完工任务，并写入 Offer。",
+      "使用公开 adversarial_review.py --entry-json-file 写入 raw/CLI-BLANK-DECISION-entry.json 形状的空白 Decision。",
+      "公开 CLI 返回 exit0/InProgress（raw/CLI-BLANK-DECISION-command.json）。",
+      "追加两份独立报告并只读查询；得到 Passed、clean_streak=2（raw/CLI-BLANK-STATE-command.json）。"
+    ],
+    "case_ids": [
+      "F46",
+      "M46",
+      "CLI01",
+      "CLI02"
+    ],
+    "evidence_refs": [
+      "raw/F46.json",
+      "raw/M46.json",
+      "raw/CLI-BLANK-DECISION-entry.json",
+      "raw/CLI-BLANK-DECISION-command.json",
+      "raw/CLI-BLANK-ROUND-1-command.json",
+      "raw/CLI-BLANK-ROUND-2-command.json",
+      "raw/CLI-BLANK-STATE-command.json",
+      "source-excerpts.json"
+    ],
+    "recommended_direction": "在共享 schema 或公共追加/重放入口拒绝 Offer/Decision 关键字段的全空白值，保留合法回答原文；同步 Full/Minimal schema 并补 API/CLI 反例。此报告不修改实现。"
+  }
+]

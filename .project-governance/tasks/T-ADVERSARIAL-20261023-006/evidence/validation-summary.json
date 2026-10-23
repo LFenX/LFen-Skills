@@ -1,0 +1,83 @@
+{
+  "verified_at": "2026-10-23T14:25:47.750273Z",
+  "status": "Passed",
+  "source_sha256": "b3c52807836222f13a4a85acd5ce53add8e2a1a98eaf7856331580885cbf8a66",
+  "source_files": 96,
+  "protocol_checks": 50,
+  "boundary_checks": 145,
+  "full_self_test": {
+    "started_at": "2026-10-23T14:20:27.089886Z",
+    "finished_at": "2026-10-23T14:21:43.488636Z",
+    "exit_code": 0,
+    "log": ".project-governance/tasks/T-ADVERSARIAL-20261023-006/evidence/self-test-A01.log"
+  },
+  "installed_self_test": {
+    "started_at": "2026-10-23T14:22:49.352272Z",
+    "finished_at": "2026-10-23T14:24:07.477507Z",
+    "exit_code": 0,
+    "installed_files_stable": true,
+    "file_count": 96,
+    "log": ".project-governance/tasks/T-ADVERSARIAL-20261023-006/evidence/installed-self-test-A01.log",
+    "source_sha256": "b3c52807836222f13a4a85acd5ce53add8e2a1a98eaf7856331580885cbf8a66",
+    "preserved_peer_governance_sha256": "add9aff766c9b5ddb3eed0cdf5da8f7e464707648f5ea4870c98a462002ae153"
+  },
+  "runtime_consistency_summary": {
+    "by_category": {
+      "task_contract_snapshot_not_applicable": 1
+    },
+    "by_severity": {
+      "Blocker": 0,
+      "Major": 0,
+      "Minor": 0,
+      "Observation": 1
+    },
+    "total_findings": 1
+  },
+  "runtime_retrieval": "Passed; runtime-retrieval.log",
+  "static_checks": {
+    "checked_at": "2026-10-23T14:21:27.954183Z",
+    "checks": [
+      {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "C:/Users/Administrator/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+          "skills/product-engineering/run-governed-product-workflow"
+        ],
+        "exit_code": 0,
+        "output": "Skill is valid!\n"
+      },
+      {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "scripts/update_catalog.py",
+          "--check"
+        ],
+        "exit_code": 0,
+        "output": "分类目录校验通过：8 个 skill，5 个一级分类，Markdown 与 JSON 目录一致\n"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check",
+          "--",
+          "skills/product-engineering/run-governed-product-workflow"
+        ],
+        "exit_code": 0,
+        "output": ""
+      }
+    ]
+  },
+  "public_original_counterexamples": "Passed; fresh Full/Minimal public CLI refused with unchanged outcome; padded valid original retained and synthetic positive pair succeeded",
+  "limitations": [
+    "工程夹具不是实际无问题轮次；当前修复仍需后续完整独立审查",
+    "安装端独立治理补丁add9aff保留，仅此96文件稳定组合实际验证；两聊天协调继续冻结",
+    "GitHub三版本门禁待本次源码推送后实际核对"
+  ]
+}

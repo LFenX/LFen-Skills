@@ -1,0 +1,22 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-evidence\\.project-governance\\tasks\\T-MIN-EVIDENCE",
+    "--entry-json-file",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\inputs\\214-min-first-after-mutation.json",
+    "--reason",
+    "AR05 synthetic protocol test",
+    "--basis",
+    "ar05-fixture://synthetic-user-and-review"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:35:21.424445Z",
+  "ended_at": "2026-10-23T13:35:21.578128Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 2,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-MIN-EVIDENCE\",\n    \"subject_sha256\": \"1093bc7fb70c0cad954539e3a3ece54b211f70aef69ab4c5e1d66642758fe635\",\n    \"requirements_sha256\": \"d164709c18a9cee9b25d46f881e5e45f6aedb0b069ec5426e4cfdb0b7ca44a88\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-MIN-EVIDENCE\",\n    \"subject_sha256\": \"1093bc7fb70c0cad954539e3a3ece54b211f70aef69ab4c5e1d66642758fe635\"\n  },\n  \"requirements_sha256\": \"d164709c18a9cee9b25d46f881e5e45f6aedb0b069ec5426e4cfdb0b7ca44a88\",\n  \"delivery_task_id\": \"T-MIN-EVIDENCE\",\n  \"subject_sha256\": \"1093bc7fb70c0cad954539e3a3ece54b211f70aef69ab4c5e1d66642758fe635\"\n}\n",
+  "stderr": ""
+}

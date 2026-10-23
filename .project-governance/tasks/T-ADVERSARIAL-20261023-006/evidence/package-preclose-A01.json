@@ -1,0 +1,5 @@
+{
+  "checked_at": "2026-10-23T14:26:48.040272Z",
+  "exit_code": 0,
+  "output": "VALID MAPPING: 6 meta types; 137/137 legacy profiles resolved; counts={'AuthorityAsset': 119, 'DerivedView': 11, 'ProjectState': 0, 'RunLedger': 2, 'TaskContract': 2, 'TaskOutcome': 3}\nEXECUTION READY: V6.3 default task directory; 6 meta types; 137 compatibility profiles available.\n"
+}

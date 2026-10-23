@@ -1,0 +1,3339 @@
+[
+  {
+    "id": "AR05-C001",
+    "name": "full-before-completion",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/001-full-before-completion.json",
+      "inputs/001-full-before-completion.json"
+    ]
+  },
+  {
+    "id": "AR05-C002",
+    "name": "full-pending-independent",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/002-full-not-offered.json"
+    ]
+  },
+  {
+    "id": "AR05-C003",
+    "name": "full-round-without-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/005-full-round-without-offer.json",
+      "inputs/005-full-round-without-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C004",
+    "name": "full-decision-without-question",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/006-full-decision-without-question.json",
+      "inputs/006-full-decision-without-question.json"
+    ]
+  },
+  {
+    "id": "AR05-C005",
+    "name": "full-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/007-full-offer.json",
+      "inputs/007-full-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C006",
+    "name": "full-silence-is-not-consent",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/010-full-silence-is-not-consent.json",
+      "inputs/010-full-silence-is-not-consent.json"
+    ]
+  },
+  {
+    "id": "AR05-C007",
+    "name": "full-decline",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/011-full-decline.json",
+      "inputs/011-full-decline.json"
+    ]
+  },
+  {
+    "id": "AR05-C008",
+    "name": "full-decline-blocks-review",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/014-full-decline-blocks-review.json",
+      "inputs/014-full-decline-blocks-review.json"
+    ]
+  },
+  {
+    "id": "AR05-C009",
+    "name": "full-defer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/015-full-defer.json",
+      "inputs/015-full-defer.json"
+    ]
+  },
+  {
+    "id": "AR05-C010",
+    "name": "full-defer-blocks-review",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/018-full-defer-blocks-review.json",
+      "inputs/018-full-defer-blocks-review.json"
+    ]
+  },
+  {
+    "id": "AR05-C011",
+    "name": "full-late-explicit-start",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/019-full-late-explicit-start.json",
+      "inputs/019-full-late-explicit-start.json"
+    ]
+  },
+  {
+    "id": "AR05-C012",
+    "name": "full-no-recursive-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/020-full-no-recursive-offer.json",
+      "inputs/020-full-no-recursive-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C013",
+    "name": "full-active-declined",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/021-full-active-declined.json",
+      "inputs/021-full-active-declined.json"
+    ]
+  },
+  {
+    "id": "AR05-C014",
+    "name": "full-active-deferred",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/022-full-active-deferred.json",
+      "inputs/022-full-active-deferred.json"
+    ]
+  },
+  {
+    "id": "AR05-C015",
+    "name": "full-active-accepted",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/023-full-active-accepted.json",
+      "inputs/023-full-active-accepted.json"
+    ]
+  },
+  {
+    "id": "AR05-C016",
+    "name": "full-first-clean",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/026-full-first-clean.json",
+      "inputs/026-full-first-clean.json"
+    ]
+  },
+  {
+    "id": "AR05-C017",
+    "name": "full-count-one",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/027-full-first-count.json"
+    ]
+  },
+  {
+    "id": "AR05-C018",
+    "name": "full-blocked-resets",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/028-full-blocked-resets.json",
+      "inputs/028-full-blocked-resets.json"
+    ]
+  },
+  {
+    "id": "AR05-C019",
+    "name": "full-after-block-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/031-full-after-block-first.json",
+      "inputs/031-full-after-block-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C020",
+    "name": "full-stop",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/032-full-stop.json",
+      "inputs/032-full-stop.json"
+    ]
+  },
+  {
+    "id": "AR05-C021",
+    "name": "full-stop-blocks-review",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/035-full-stop-blocks-review.json",
+      "inputs/035-full-stop-blocks-review.json"
+    ]
+  },
+  {
+    "id": "AR05-C022",
+    "name": "full-restart-after-stop",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/036-full-restart-after-stop.json",
+      "inputs/036-full-restart-after-stop.json"
+    ]
+  },
+  {
+    "id": "AR05-C023",
+    "name": "full-incomplete",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/039-full-incomplete.json",
+      "inputs/039-full-incomplete.json"
+    ]
+  },
+  {
+    "id": "AR05-C024",
+    "name": "full-count-incomplete",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/040-full-incomplete-count.json"
+    ]
+  },
+  {
+    "id": "AR05-C025",
+    "name": "full-unreviewed-resets",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/043-full-unreviewed-resets.json",
+      "inputs/043-full-unreviewed-resets.json"
+    ]
+  },
+  {
+    "id": "AR05-C026",
+    "name": "full-finding-resets",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/046-full-finding-resets.json",
+      "inputs/046-full-finding-resets.json"
+    ]
+  },
+  {
+    "id": "AR05-C027",
+    "name": "full-unresolved-not-clean",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/049-full-unresolved-not-clean.json",
+      "inputs/049-full-unresolved-not-clean.json"
+    ]
+  },
+  {
+    "id": "AR05-C028",
+    "name": "full-open-findings-count",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/050-full-open-count.json"
+    ]
+  },
+  {
+    "id": "AR05-C029",
+    "name": "full-same-version-fixed-rejected",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/053-full-same-version-fixed-rejected.json",
+      "inputs/053-full-same-version-fixed-rejected.json"
+    ]
+  },
+  {
+    "id": "AR05-C030",
+    "name": "full-evidenced-false-positive",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/056-full-evidenced-false-positive.json",
+      "inputs/056-full-evidenced-false-positive.json"
+    ]
+  },
+  {
+    "id": "AR05-C031",
+    "name": "full-second-clean-passes",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/059-full-second-clean-passes.json",
+      "inputs/059-full-second-clean-passes.json"
+    ]
+  },
+  {
+    "id": "AR05-C032",
+    "name": "full-acceptance-still-pending",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/060-full-passed.json"
+    ]
+  },
+  {
+    "id": "AR05-C033",
+    "name": "full-ended-blocks-third",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/063-full-ended-blocks-third.json",
+      "inputs/063-full-ended-blocks-third.json"
+    ]
+  },
+  {
+    "id": "AR05-C034",
+    "name": "full-ended-blocks-blocked",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/064-full-ended-blocks-blocked.json",
+      "inputs/064-full-ended-blocks-blocked.json"
+    ]
+  },
+  {
+    "id": "AR05-C035",
+    "name": "full-new-session-explicit",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/065-full-new-session-explicit.json",
+      "inputs/065-full-new-session-explicit.json"
+    ]
+  },
+  {
+    "id": "AR05-C036",
+    "name": "full-new-session-counts-from-zero",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/068-full-new-session-counts-from-zero.json",
+      "inputs/068-full-new-session-counts-from-zero.json"
+    ]
+  },
+  {
+    "id": "AR05-C037",
+    "name": "min-before-completion",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/069-min-before-completion.json",
+      "inputs/069-min-before-completion.json"
+    ]
+  },
+  {
+    "id": "AR05-C038",
+    "name": "min-pending-independent",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/070-min-not-offered.json"
+    ]
+  },
+  {
+    "id": "AR05-C039",
+    "name": "min-round-without-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/073-min-round-without-offer.json",
+      "inputs/073-min-round-without-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C040",
+    "name": "min-decision-without-question",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/074-min-decision-without-question.json",
+      "inputs/074-min-decision-without-question.json"
+    ]
+  },
+  {
+    "id": "AR05-C041",
+    "name": "min-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/075-min-offer.json",
+      "inputs/075-min-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C042",
+    "name": "min-silence-is-not-consent",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/078-min-silence-is-not-consent.json",
+      "inputs/078-min-silence-is-not-consent.json"
+    ]
+  },
+  {
+    "id": "AR05-C043",
+    "name": "min-decline",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/079-min-decline.json",
+      "inputs/079-min-decline.json"
+    ]
+  },
+  {
+    "id": "AR05-C044",
+    "name": "min-decline-blocks-review",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/082-min-decline-blocks-review.json",
+      "inputs/082-min-decline-blocks-review.json"
+    ]
+  },
+  {
+    "id": "AR05-C045",
+    "name": "min-defer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/083-min-defer.json",
+      "inputs/083-min-defer.json"
+    ]
+  },
+  {
+    "id": "AR05-C046",
+    "name": "min-defer-blocks-review",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/086-min-defer-blocks-review.json",
+      "inputs/086-min-defer-blocks-review.json"
+    ]
+  },
+  {
+    "id": "AR05-C047",
+    "name": "min-late-explicit-start",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/087-min-late-explicit-start.json",
+      "inputs/087-min-late-explicit-start.json"
+    ]
+  },
+  {
+    "id": "AR05-C048",
+    "name": "min-no-recursive-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/088-min-no-recursive-offer.json",
+      "inputs/088-min-no-recursive-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C049",
+    "name": "min-active-declined",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/089-min-active-declined.json",
+      "inputs/089-min-active-declined.json"
+    ]
+  },
+  {
+    "id": "AR05-C050",
+    "name": "min-active-deferred",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/090-min-active-deferred.json",
+      "inputs/090-min-active-deferred.json"
+    ]
+  },
+  {
+    "id": "AR05-C051",
+    "name": "min-active-accepted",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/091-min-active-accepted.json",
+      "inputs/091-min-active-accepted.json"
+    ]
+  },
+  {
+    "id": "AR05-C052",
+    "name": "min-first-clean",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/094-min-first-clean.json",
+      "inputs/094-min-first-clean.json"
+    ]
+  },
+  {
+    "id": "AR05-C053",
+    "name": "min-count-one",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/095-min-first-count.json"
+    ]
+  },
+  {
+    "id": "AR05-C054",
+    "name": "min-blocked-resets",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/096-min-blocked-resets.json",
+      "inputs/096-min-blocked-resets.json"
+    ]
+  },
+  {
+    "id": "AR05-C055",
+    "name": "min-after-block-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/099-min-after-block-first.json",
+      "inputs/099-min-after-block-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C056",
+    "name": "min-stop",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/100-min-stop.json",
+      "inputs/100-min-stop.json"
+    ]
+  },
+  {
+    "id": "AR05-C057",
+    "name": "min-stop-blocks-review",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/103-min-stop-blocks-review.json",
+      "inputs/103-min-stop-blocks-review.json"
+    ]
+  },
+  {
+    "id": "AR05-C058",
+    "name": "min-restart-after-stop",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/104-min-restart-after-stop.json",
+      "inputs/104-min-restart-after-stop.json"
+    ]
+  },
+  {
+    "id": "AR05-C059",
+    "name": "min-incomplete",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/107-min-incomplete.json",
+      "inputs/107-min-incomplete.json"
+    ]
+  },
+  {
+    "id": "AR05-C060",
+    "name": "min-count-incomplete",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/108-min-incomplete-count.json"
+    ]
+  },
+  {
+    "id": "AR05-C061",
+    "name": "min-unreviewed-resets",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/111-min-unreviewed-resets.json",
+      "inputs/111-min-unreviewed-resets.json"
+    ]
+  },
+  {
+    "id": "AR05-C062",
+    "name": "min-finding-resets",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/114-min-finding-resets.json",
+      "inputs/114-min-finding-resets.json"
+    ]
+  },
+  {
+    "id": "AR05-C063",
+    "name": "min-unresolved-not-clean",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/117-min-unresolved-not-clean.json",
+      "inputs/117-min-unresolved-not-clean.json"
+    ]
+  },
+  {
+    "id": "AR05-C064",
+    "name": "min-open-findings-count",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/118-min-open-count.json"
+    ]
+  },
+  {
+    "id": "AR05-C065",
+    "name": "min-same-version-fixed-rejected",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/121-min-same-version-fixed-rejected.json",
+      "inputs/121-min-same-version-fixed-rejected.json"
+    ]
+  },
+  {
+    "id": "AR05-C066",
+    "name": "min-evidenced-false-positive",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/124-min-evidenced-false-positive.json",
+      "inputs/124-min-evidenced-false-positive.json"
+    ]
+  },
+  {
+    "id": "AR05-C067",
+    "name": "min-second-clean-passes",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/127-min-second-clean-passes.json",
+      "inputs/127-min-second-clean-passes.json"
+    ]
+  },
+  {
+    "id": "AR05-C068",
+    "name": "min-acceptance-still-pending",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/128-min-passed.json"
+    ]
+  },
+  {
+    "id": "AR05-C069",
+    "name": "min-ended-blocks-third",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/131-min-ended-blocks-third.json",
+      "inputs/131-min-ended-blocks-third.json"
+    ]
+  },
+  {
+    "id": "AR05-C070",
+    "name": "min-ended-blocks-blocked",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/132-min-ended-blocks-blocked.json",
+      "inputs/132-min-ended-blocks-blocked.json"
+    ]
+  },
+  {
+    "id": "AR05-C071",
+    "name": "min-new-session-explicit",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/133-min-new-session-explicit.json",
+      "inputs/133-min-new-session-explicit.json"
+    ]
+  },
+  {
+    "id": "AR05-C072",
+    "name": "min-new-session-counts-from-zero",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/136-min-new-session-counts-from-zero.json",
+      "inputs/136-min-new-session-counts-from-zero.json"
+    ]
+  },
+  {
+    "id": "AR05-C073",
+    "name": "full-evidence-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/137-full-evidence-offer.json",
+      "inputs/137-full-evidence-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C074",
+    "name": "full-evidence-accept",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/138-full-evidence-accept.json",
+      "inputs/138-full-evidence-accept.json"
+    ]
+  },
+  {
+    "id": "AR05-C075",
+    "name": "full-wrong-delivery-sha",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/141-full-wrong-delivery-sha.json",
+      "inputs/141-full-wrong-delivery-sha.json"
+    ]
+  },
+  {
+    "id": "AR05-C076",
+    "name": "full-wrong-request-sha",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/142-full-wrong-request-sha.json",
+      "inputs/142-full-wrong-request-sha.json"
+    ]
+  },
+  {
+    "id": "AR05-C077",
+    "name": "full-invalid-task-id",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/143-full-invalid-task-id.json",
+      "inputs/143-full-invalid-task-id.json"
+    ]
+  },
+  {
+    "id": "AR05-C078",
+    "name": "full-false-completion-claim",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/144-full-false-completion-claim.json",
+      "inputs/144-full-false-completion-claim.json"
+    ]
+  },
+  {
+    "id": "AR05-C079",
+    "name": "full-false-report-sha",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/145-full-false-report-sha.json",
+      "inputs/145-full-false-report-sha.json"
+    ]
+  },
+  {
+    "id": "AR05-C080",
+    "name": "full-false-completion-time",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/146-full-false-completion-time.json",
+      "inputs/146-full-false-completion-time.json"
+    ]
+  },
+  {
+    "id": "AR05-C081",
+    "name": "full-false-verification-time",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/147-full-false-verification-time.json",
+      "inputs/147-full-false-verification-time.json"
+    ]
+  },
+  {
+    "id": "AR05-C082",
+    "name": "full-before-delivery",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/148-full-before-delivery.json",
+      "inputs/148-full-before-delivery.json"
+    ]
+  },
+  {
+    "id": "AR05-C083",
+    "name": "full-future-start",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/149-full-future-start.json",
+      "inputs/149-full-future-start.json"
+    ]
+  },
+  {
+    "id": "AR05-C084",
+    "name": "full-naive-start",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/150-full-naive-start.json",
+      "inputs/150-full-naive-start.json"
+    ]
+  },
+  {
+    "id": "AR05-C085",
+    "name": "full-before-prior-record",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/151-full-before-prior-record.json",
+      "inputs/151-full-before-prior-record.json"
+    ]
+  },
+  {
+    "id": "AR05-C086",
+    "name": "full-future-record",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/152-full-future-record.json",
+      "inputs/152-full-future-record.json"
+    ]
+  },
+  {
+    "id": "AR05-C087",
+    "name": "full-naive-record",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/153-full-naive-record.json",
+      "inputs/153-full-naive-record.json"
+    ]
+  },
+  {
+    "id": "AR05-C088",
+    "name": "full-outside-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/154-full-outside-report.json",
+      "inputs/154-full-outside-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C089",
+    "name": "full-empty-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/155-full-empty-report.json",
+      "inputs/155-full-empty-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C090",
+    "name": "full-remote-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/156-full-remote-report.json",
+      "inputs/156-full-remote-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C091",
+    "name": "full-missing-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/157-full-missing-report.json",
+      "inputs/157-full-missing-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C092",
+    "name": "full-valid-first-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/158-full-valid-first-report.json",
+      "inputs/158-full-valid-first-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C093",
+    "name": "full-alias-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/159-full-alias-report.json",
+      "inputs/159-full-alias-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C094",
+    "name": "full-copied-report-content",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/160-full-copied-report-content.json",
+      "inputs/160-full-copied-report-content.json"
+    ]
+  },
+  {
+    "id": "AR05-C095",
+    "name": "full-duplicate-round-id",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/163-full-duplicate-round-id.json",
+      "inputs/163-full-duplicate-round-id.json"
+    ]
+  },
+  {
+    "id": "AR05-C096",
+    "name": "full-unknown-resolution",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/164-full-unknown-resolution.json",
+      "inputs/164-full-unknown-resolution.json"
+    ]
+  },
+  {
+    "id": "AR05-C097",
+    "name": "full-false-incomplete-claim-on-second",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/165-full-false-incomplete-claim-on-second.json",
+      "inputs/165-full-false-incomplete-claim-on-second.json"
+    ]
+  },
+  {
+    "id": "AR05-C098",
+    "name": "full-report-mutation-resets",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/166-full-mutated-report-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C099",
+    "name": "full-historic-content-reuse-still-blocked",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/167-full-historic-content-reuse-still-blocked.json",
+      "inputs/167-full-historic-content-reuse-still-blocked.json"
+    ]
+  },
+  {
+    "id": "AR05-C100",
+    "name": "full-first-after-mutation",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/168-full-first-after-mutation.json",
+      "inputs/168-full-first-after-mutation.json"
+    ]
+  },
+  {
+    "id": "AR05-C101",
+    "name": "full-pair-after-mutation",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/171-full-pair-after-mutation.json",
+      "inputs/171-full-pair-after-mutation.json"
+    ]
+  },
+  {
+    "id": "AR05-C102",
+    "name": "full-ended-proof-invalid",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/172-full-ended-missing-report-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C103",
+    "name": "full-old-consent-cannot-resume-ended",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/175-full-old-consent-cannot-resume-ended.json",
+      "inputs/175-full-old-consent-cannot-resume-ended.json"
+    ]
+  },
+  {
+    "id": "AR05-C104",
+    "name": "full-ended-stale-blocked-refused",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/176-full-ended-stale-blocked-refused.json",
+      "inputs/176-full-ended-stale-blocked-refused.json"
+    ]
+  },
+  {
+    "id": "AR05-C105",
+    "name": "full-actual-new-decision",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/177-full-actual-new-decision.json",
+      "inputs/177-full-actual-new-decision.json"
+    ]
+  },
+  {
+    "id": "AR05-C106",
+    "name": "full-restart-one",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/180-full-restart-one.json",
+      "inputs/180-full-restart-one.json"
+    ]
+  },
+  {
+    "id": "AR05-C107",
+    "name": "full-restart-reset",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/181-full-restart-one-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C108",
+    "name": "full-manual-state-field-refused",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/182-full-manual-state-field-refused.json",
+      "inputs/182-full-manual-state-field-refused.json"
+    ]
+  },
+  {
+    "id": "AR05-C109",
+    "name": "min-evidence-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/183-min-evidence-offer.json",
+      "inputs/183-min-evidence-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C110",
+    "name": "min-evidence-accept",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/184-min-evidence-accept.json",
+      "inputs/184-min-evidence-accept.json"
+    ]
+  },
+  {
+    "id": "AR05-C111",
+    "name": "min-wrong-delivery-sha",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/187-min-wrong-delivery-sha.json",
+      "inputs/187-min-wrong-delivery-sha.json"
+    ]
+  },
+  {
+    "id": "AR05-C112",
+    "name": "min-wrong-request-sha",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/188-min-wrong-request-sha.json",
+      "inputs/188-min-wrong-request-sha.json"
+    ]
+  },
+  {
+    "id": "AR05-C113",
+    "name": "min-invalid-task-id",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/189-min-invalid-task-id.json",
+      "inputs/189-min-invalid-task-id.json"
+    ]
+  },
+  {
+    "id": "AR05-C114",
+    "name": "min-false-completion-claim",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/190-min-false-completion-claim.json",
+      "inputs/190-min-false-completion-claim.json"
+    ]
+  },
+  {
+    "id": "AR05-C115",
+    "name": "min-false-report-sha",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/191-min-false-report-sha.json",
+      "inputs/191-min-false-report-sha.json"
+    ]
+  },
+  {
+    "id": "AR05-C116",
+    "name": "min-false-completion-time",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/192-min-false-completion-time.json",
+      "inputs/192-min-false-completion-time.json"
+    ]
+  },
+  {
+    "id": "AR05-C117",
+    "name": "min-false-verification-time",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/193-min-false-verification-time.json",
+      "inputs/193-min-false-verification-time.json"
+    ]
+  },
+  {
+    "id": "AR05-C118",
+    "name": "min-before-delivery",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/194-min-before-delivery.json",
+      "inputs/194-min-before-delivery.json"
+    ]
+  },
+  {
+    "id": "AR05-C119",
+    "name": "min-future-start",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/195-min-future-start.json",
+      "inputs/195-min-future-start.json"
+    ]
+  },
+  {
+    "id": "AR05-C120",
+    "name": "min-naive-start",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/196-min-naive-start.json",
+      "inputs/196-min-naive-start.json"
+    ]
+  },
+  {
+    "id": "AR05-C121",
+    "name": "min-before-prior-record",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/197-min-before-prior-record.json",
+      "inputs/197-min-before-prior-record.json"
+    ]
+  },
+  {
+    "id": "AR05-C122",
+    "name": "min-future-record",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/198-min-future-record.json",
+      "inputs/198-min-future-record.json"
+    ]
+  },
+  {
+    "id": "AR05-C123",
+    "name": "min-naive-record",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/199-min-naive-record.json",
+      "inputs/199-min-naive-record.json"
+    ]
+  },
+  {
+    "id": "AR05-C124",
+    "name": "min-outside-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/200-min-outside-report.json",
+      "inputs/200-min-outside-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C125",
+    "name": "min-empty-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/201-min-empty-report.json",
+      "inputs/201-min-empty-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C126",
+    "name": "min-remote-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/202-min-remote-report.json",
+      "inputs/202-min-remote-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C127",
+    "name": "min-missing-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/203-min-missing-report.json",
+      "inputs/203-min-missing-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C128",
+    "name": "min-valid-first-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/204-min-valid-first-report.json",
+      "inputs/204-min-valid-first-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C129",
+    "name": "min-alias-report",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/205-min-alias-report.json",
+      "inputs/205-min-alias-report.json"
+    ]
+  },
+  {
+    "id": "AR05-C130",
+    "name": "min-copied-report-content",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/206-min-copied-report-content.json",
+      "inputs/206-min-copied-report-content.json"
+    ]
+  },
+  {
+    "id": "AR05-C131",
+    "name": "min-duplicate-round-id",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/209-min-duplicate-round-id.json",
+      "inputs/209-min-duplicate-round-id.json"
+    ]
+  },
+  {
+    "id": "AR05-C132",
+    "name": "min-unknown-resolution",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/210-min-unknown-resolution.json",
+      "inputs/210-min-unknown-resolution.json"
+    ]
+  },
+  {
+    "id": "AR05-C133",
+    "name": "min-false-incomplete-claim-on-second",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/211-min-false-incomplete-claim-on-second.json",
+      "inputs/211-min-false-incomplete-claim-on-second.json"
+    ]
+  },
+  {
+    "id": "AR05-C134",
+    "name": "min-report-mutation-resets",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/212-min-mutated-report-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C135",
+    "name": "min-historic-content-reuse-still-blocked",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/213-min-historic-content-reuse-still-blocked.json",
+      "inputs/213-min-historic-content-reuse-still-blocked.json"
+    ]
+  },
+  {
+    "id": "AR05-C136",
+    "name": "min-first-after-mutation",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/214-min-first-after-mutation.json",
+      "inputs/214-min-first-after-mutation.json"
+    ]
+  },
+  {
+    "id": "AR05-C137",
+    "name": "min-pair-after-mutation",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/217-min-pair-after-mutation.json",
+      "inputs/217-min-pair-after-mutation.json"
+    ]
+  },
+  {
+    "id": "AR05-C138",
+    "name": "min-ended-proof-invalid",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/218-min-ended-missing-report-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C139",
+    "name": "min-old-consent-cannot-resume-ended",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/221-min-old-consent-cannot-resume-ended.json",
+      "inputs/221-min-old-consent-cannot-resume-ended.json"
+    ]
+  },
+  {
+    "id": "AR05-C140",
+    "name": "min-ended-stale-blocked-refused",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/222-min-ended-stale-blocked-refused.json",
+      "inputs/222-min-ended-stale-blocked-refused.json"
+    ]
+  },
+  {
+    "id": "AR05-C141",
+    "name": "min-actual-new-decision",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/223-min-actual-new-decision.json",
+      "inputs/223-min-actual-new-decision.json"
+    ]
+  },
+  {
+    "id": "AR05-C142",
+    "name": "min-restart-one",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/226-min-restart-one.json",
+      "inputs/226-min-restart-one.json"
+    ]
+  },
+  {
+    "id": "AR05-C143",
+    "name": "min-restart-reset",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/227-min-restart-one-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C144",
+    "name": "min-manual-state-field-refused",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/228-min-manual-state-field-refused.json",
+      "inputs/228-min-manual-state-field-refused.json"
+    ]
+  },
+  {
+    "id": "AR05-C145",
+    "name": "full-repair-parent-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/229-full-repair-parent-offer.json",
+      "inputs/229-full-repair-parent-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C146",
+    "name": "full-repair-parent-accept",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/230-full-repair-parent-accept.json",
+      "inputs/230-full-repair-parent-accept.json"
+    ]
+  },
+  {
+    "id": "AR05-C147",
+    "name": "full-pre-repair-one",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/233-full-pre-repair-one.json",
+      "inputs/233-full-pre-repair-one.json"
+    ]
+  },
+  {
+    "id": "AR05-C148",
+    "name": "full-pre-repair-finding",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/236-full-pre-repair-finding.json",
+      "inputs/236-full-pre-repair-finding.json"
+    ]
+  },
+  {
+    "id": "AR05-C149",
+    "name": "full-repair-managed",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/238-full-repair-managed-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C150",
+    "name": "full-repair-cannot-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/239-full-repair-cannot-offer.json",
+      "inputs/239-full-repair-cannot-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C151",
+    "name": "full-repair-current-version",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/240-full-saved-child-invalidates-old.json"
+    ]
+  },
+  {
+    "id": "AR05-C152",
+    "name": "full-old-delivery-rejected",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/243-full-old-delivery-rejected.json",
+      "inputs/243-full-old-delivery-rejected.json"
+    ]
+  },
+  {
+    "id": "AR05-C153",
+    "name": "full-round-before-repair-completion-rejected",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/246-full-round-before-repair-completion-rejected.json",
+      "inputs/246-full-round-before-repair-completion-rejected.json"
+    ]
+  },
+  {
+    "id": "AR05-C154",
+    "name": "full-fixed-new-delivery",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/249-full-fixed-new-delivery.json",
+      "inputs/249-full-fixed-new-delivery.json"
+    ]
+  },
+  {
+    "id": "AR05-C155",
+    "name": "full-repaired-clean-pair",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/252-full-repaired-clean-pair.json",
+      "inputs/252-full-repaired-clean-pair.json"
+    ]
+  },
+  {
+    "id": "AR05-C156",
+    "name": "full-parent-ended-refuses-repair",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/253-full-ended-parent-repair-refused.json"
+    ]
+  },
+  {
+    "id": "AR05-C157",
+    "name": "full-parent-restart-for-relation",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/254-full-parent-restart-for-relation.json",
+      "inputs/254-full-parent-restart-for-relation.json"
+    ]
+  },
+  {
+    "id": "AR05-C158",
+    "name": "full-repair-direct-dependency",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/255-full-missing-direct-dependency.json"
+    ]
+  },
+  {
+    "id": "AR05-C159",
+    "name": "full-cross-carrier-repair",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/256-full-cross-carrier-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C160",
+    "name": "full-cross-repair-round",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/259-full-cross-repair-round.json",
+      "inputs/259-full-cross-repair-round.json"
+    ]
+  },
+  {
+    "id": "AR05-C161",
+    "name": "full-finding-id-reuse-rejected",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/262-full-finding-id-reuse-rejected.json",
+      "inputs/262-full-finding-id-reuse-rejected.json"
+    ]
+  },
+  {
+    "id": "AR05-C162",
+    "name": "min-repair-parent-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/263-min-repair-parent-offer.json",
+      "inputs/263-min-repair-parent-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C163",
+    "name": "min-repair-parent-accept",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/264-min-repair-parent-accept.json",
+      "inputs/264-min-repair-parent-accept.json"
+    ]
+  },
+  {
+    "id": "AR05-C164",
+    "name": "min-pre-repair-one",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/267-min-pre-repair-one.json",
+      "inputs/267-min-pre-repair-one.json"
+    ]
+  },
+  {
+    "id": "AR05-C165",
+    "name": "min-pre-repair-finding",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/270-min-pre-repair-finding.json",
+      "inputs/270-min-pre-repair-finding.json"
+    ]
+  },
+  {
+    "id": "AR05-C166",
+    "name": "min-repair-managed",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/272-min-repair-managed-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C167",
+    "name": "min-repair-cannot-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/273-min-repair-cannot-offer.json",
+      "inputs/273-min-repair-cannot-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C168",
+    "name": "min-repair-current-version",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/274-min-saved-child-invalidates-old.json"
+    ]
+  },
+  {
+    "id": "AR05-C169",
+    "name": "min-old-delivery-rejected",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/277-min-old-delivery-rejected.json",
+      "inputs/277-min-old-delivery-rejected.json"
+    ]
+  },
+  {
+    "id": "AR05-C170",
+    "name": "min-round-before-repair-completion-rejected",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/280-min-round-before-repair-completion-rejected.json",
+      "inputs/280-min-round-before-repair-completion-rejected.json"
+    ]
+  },
+  {
+    "id": "AR05-C171",
+    "name": "min-fixed-new-delivery",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/283-min-fixed-new-delivery.json",
+      "inputs/283-min-fixed-new-delivery.json"
+    ]
+  },
+  {
+    "id": "AR05-C172",
+    "name": "min-repaired-clean-pair",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/286-min-repaired-clean-pair.json",
+      "inputs/286-min-repaired-clean-pair.json"
+    ]
+  },
+  {
+    "id": "AR05-C173",
+    "name": "min-parent-ended-refuses-repair",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/287-min-ended-parent-repair-refused.json"
+    ]
+  },
+  {
+    "id": "AR05-C174",
+    "name": "min-parent-restart-for-relation",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/288-min-parent-restart-for-relation.json",
+      "inputs/288-min-parent-restart-for-relation.json"
+    ]
+  },
+  {
+    "id": "AR05-C175",
+    "name": "min-repair-direct-dependency",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/289-min-missing-direct-dependency.json"
+    ]
+  },
+  {
+    "id": "AR05-C176",
+    "name": "min-cross-carrier-repair",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/290-min-cross-carrier-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C177",
+    "name": "min-cross-repair-round",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/293-min-cross-repair-round.json",
+      "inputs/293-min-cross-repair-round.json"
+    ]
+  },
+  {
+    "id": "AR05-C178",
+    "name": "min-finding-id-reuse-rejected",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/296-min-finding-id-reuse-rejected.json",
+      "inputs/296-min-finding-id-reuse-rejected.json"
+    ]
+  },
+  {
+    "id": "AR05-C179",
+    "name": "full-legacy-no-enrollment",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/297-full-legacy-untracked.json"
+    ]
+  },
+  {
+    "id": "AR05-C180",
+    "name": "full-legacy-not-auto-enrolled",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/298-full-legacy-not-auto-enrolled.json",
+      "inputs/298-full-legacy-not-auto-enrolled.json"
+    ]
+  },
+  {
+    "id": "AR05-C181",
+    "name": "full-legacy-still-validates-identity",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/299-full-legacy-identity-invalid.json"
+    ]
+  },
+  {
+    "id": "AR05-C182",
+    "name": "full-old-protocol-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/300-full-old-protocol-offer.json",
+      "inputs/300-full-old-protocol-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C183",
+    "name": "full-old-protocol-accept",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/301-full-old-protocol-accept.json",
+      "inputs/301-full-old-protocol-accept.json"
+    ]
+  },
+  {
+    "id": "AR05-C184",
+    "name": "full-old-fixture-round1",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/304-full-old-fixture-round1.json",
+      "inputs/304-full-old-fixture-round1.json"
+    ]
+  },
+  {
+    "id": "AR05-C185",
+    "name": "full-old-fixture-round2",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/307-full-old-fixture-round2.json",
+      "inputs/307-full-old-fixture-round2.json"
+    ]
+  },
+  {
+    "id": "AR05-C186",
+    "name": "full-old-protocol-unrevalidated",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/308-full-old-protocol-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C187",
+    "name": "full-old-protocol-needs-new-choice",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/311-full-old-protocol-needs-new-choice.json",
+      "inputs/311-full-old-protocol-needs-new-choice.json"
+    ]
+  },
+  {
+    "id": "AR05-C188",
+    "name": "full-old-protocol-new-choice",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/312-full-old-protocol-new-choice.json",
+      "inputs/312-full-old-protocol-new-choice.json"
+    ]
+  },
+  {
+    "id": "AR05-C189",
+    "name": "full-old-current-round-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/315-full-old-current-round-first.json",
+      "inputs/315-full-old-current-round-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C190",
+    "name": "full-historical-engineering-query",
+    "result": "Failed",
+    "classification": "FixtureError",
+    "corrected_by": "AR05-C217",
+    "evidence": [
+      "raw-phase1/316-full-historical-query.json"
+    ]
+  },
+  {
+    "id": "AR05-C191",
+    "name": "min-legacy-no-enrollment",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/317-min-legacy-untracked.json"
+    ]
+  },
+  {
+    "id": "AR05-C192",
+    "name": "min-legacy-not-auto-enrolled",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/318-min-legacy-not-auto-enrolled.json",
+      "inputs/318-min-legacy-not-auto-enrolled.json"
+    ]
+  },
+  {
+    "id": "AR05-C193",
+    "name": "min-legacy-still-validates-identity",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/319-min-legacy-identity-invalid.json"
+    ]
+  },
+  {
+    "id": "AR05-C194",
+    "name": "min-old-protocol-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/320-min-old-protocol-offer.json",
+      "inputs/320-min-old-protocol-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C195",
+    "name": "min-old-protocol-accept",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/321-min-old-protocol-accept.json",
+      "inputs/321-min-old-protocol-accept.json"
+    ]
+  },
+  {
+    "id": "AR05-C196",
+    "name": "min-old-fixture-round1",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/324-min-old-fixture-round1.json",
+      "inputs/324-min-old-fixture-round1.json"
+    ]
+  },
+  {
+    "id": "AR05-C197",
+    "name": "min-old-fixture-round2",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/327-min-old-fixture-round2.json",
+      "inputs/327-min-old-fixture-round2.json"
+    ]
+  },
+  {
+    "id": "AR05-C198",
+    "name": "min-old-protocol-unrevalidated",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/328-min-old-protocol-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C199",
+    "name": "min-old-protocol-needs-new-choice",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/331-min-old-protocol-needs-new-choice.json",
+      "inputs/331-min-old-protocol-needs-new-choice.json"
+    ]
+  },
+  {
+    "id": "AR05-C200",
+    "name": "min-old-protocol-new-choice",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/332-min-old-protocol-new-choice.json",
+      "inputs/332-min-old-protocol-new-choice.json"
+    ]
+  },
+  {
+    "id": "AR05-C201",
+    "name": "min-old-current-round-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/335-min-old-current-round-first.json",
+      "inputs/335-min-old-current-round-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C202",
+    "name": "min-historical-engineering-query",
+    "result": "Failed",
+    "classification": "FixtureError",
+    "corrected_by": "AR05-C218",
+    "evidence": [
+      "raw-phase1/336-min-historical-query.json"
+    ]
+  },
+  {
+    "id": "AR05-C203",
+    "name": "requirement-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/337-requirement-offer.json",
+      "inputs/337-requirement-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C204",
+    "name": "requirement-accept",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/338-requirement-accept.json",
+      "inputs/338-requirement-accept.json"
+    ]
+  },
+  {
+    "id": "AR05-C205",
+    "name": "requirement-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/341-requirement-first.json",
+      "inputs/341-requirement-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C206",
+    "name": "requirements-exclude-annotation",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/342-requirements-exclude-annotation.json"
+    ]
+  },
+  {
+    "id": "AR05-C207",
+    "name": "request-word-change-resets",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/343-request-word-change-resets.json"
+    ]
+  },
+  {
+    "id": "AR05-C208",
+    "name": "requirements-bind-question",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/344-requirements-bind-question.json"
+    ]
+  },
+  {
+    "id": "AR05-C209",
+    "name": "requirements-bind-recommended_default",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/345-requirements-bind-recommended_default.json"
+    ]
+  },
+  {
+    "id": "AR05-C210",
+    "name": "requirements-bind-answer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/346-requirements-bind-answer.json"
+    ]
+  },
+  {
+    "id": "AR05-C211",
+    "name": "full-concurrent-no-lost-update",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/348-full-parallel-offer.json",
+      "raw-phase1/348-full-parallel-acceptance.json",
+      "raw-phase1/350-full-parallel-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C212",
+    "name": "full-acceptance-does-not-grant-review",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/353-full-acceptance-does-not-grant-review.json",
+      "inputs/353-full-acceptance-does-not-grant-review.json"
+    ]
+  },
+  {
+    "id": "AR05-C213",
+    "name": "full-generic-amendment-cannot-erase",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/354-full-erase-history.json"
+    ]
+  },
+  {
+    "id": "AR05-C214",
+    "name": "min-concurrent-no-lost-update",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/356-min-parallel-offer.json",
+      "raw-phase1/356-min-parallel-acceptance.json",
+      "raw-phase1/358-min-parallel-state.json"
+    ]
+  },
+  {
+    "id": "AR05-C215",
+    "name": "min-acceptance-does-not-grant-review",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/361-min-acceptance-does-not-grant-review.json",
+      "inputs/361-min-acceptance-does-not-grant-review.json"
+    ]
+  },
+  {
+    "id": "AR05-C216",
+    "name": "min-missing-input-error-preserves-state",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/362-min-closed-contract-update.json"
+    ]
+  },
+  {
+    "id": "AR05-C217",
+    "name": "full-historical-corrected-input",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/363-full-historical-corrected-timestamps.json"
+    ]
+  },
+  {
+    "id": "AR05-C218",
+    "name": "min-historical-corrected-input",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/364-min-historical-corrected-timestamps.json"
+    ]
+  },
+  {
+    "id": "AR05-C219",
+    "name": "source-manifest-hashes",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/365-source-manifest-hashes.json"
+    ]
+  },
+  {
+    "id": "AR05-C220",
+    "name": "installed-manifest-hashes",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/366-installed-manifest-hashes.json"
+    ]
+  },
+  {
+    "id": "AR05-C221",
+    "name": "review-distribution-files",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/367-review-distribution-files.json"
+    ]
+  },
+  {
+    "id": "AR05-C222",
+    "name": "full-minimal-schema-contract",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/368-full-minimal-schema-contract.json"
+    ]
+  },
+  {
+    "id": "AR05-C223",
+    "name": "actual-offer-consent-order",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/369-actual-offer-consent-order.json"
+    ]
+  },
+  {
+    "id": "AR05-C224",
+    "name": "actual-offer-source",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/370-actual-offer-source.json",
+      "actual-offer-source.json"
+    ]
+  },
+  {
+    "id": "AR05-C225",
+    "name": "actual-consent-source",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/371-actual-consent-source.json",
+      "actual-consent-source.json"
+    ]
+  },
+  {
+    "id": "AR05-C226",
+    "name": "full-derived-not-offered-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/372-full-derived-not-offered-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C227",
+    "name": "full-derived-not-offered-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/373-full-derived-not-offered-views.json",
+      "raw-phase1/374-full-derived-not-offered-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C228",
+    "name": "full-derived-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/375-full-derived-offer.json",
+      "inputs/375-full-derived-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C229",
+    "name": "full-derived-await-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/376-full-derived-await-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C230",
+    "name": "full-derived-await-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/377-full-derived-await-views.json",
+      "raw-phase1/378-full-derived-await-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C231",
+    "name": "full-derived-decline",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/379-full-derived-decline.json",
+      "inputs/379-full-derived-decline.json"
+    ]
+  },
+  {
+    "id": "AR05-C232",
+    "name": "full-derived-declined-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/380-full-derived-declined-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C233",
+    "name": "full-derived-declined-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/381-full-derived-declined-views.json",
+      "raw-phase1/382-full-derived-declined-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C234",
+    "name": "full-derived-defer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/383-full-derived-defer.json",
+      "inputs/383-full-derived-defer.json"
+    ]
+  },
+  {
+    "id": "AR05-C235",
+    "name": "full-derived-deferred-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/384-full-derived-deferred-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C236",
+    "name": "full-derived-deferred-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/385-full-derived-deferred-views.json",
+      "raw-phase1/386-full-derived-deferred-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C237",
+    "name": "full-derived-start",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/387-full-derived-start.json",
+      "inputs/387-full-derived-start.json"
+    ]
+  },
+  {
+    "id": "AR05-C238",
+    "name": "full-derived-active-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/388-full-derived-active-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C239",
+    "name": "full-derived-active-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/389-full-derived-active-views.json",
+      "raw-phase1/390-full-derived-active-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C240",
+    "name": "full-derived-block",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/391-full-derived-block.json",
+      "inputs/391-full-derived-block.json"
+    ]
+  },
+  {
+    "id": "AR05-C241",
+    "name": "full-derived-blocked-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/392-full-derived-blocked-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C242",
+    "name": "full-derived-blocked-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/393-full-derived-blocked-views.json",
+      "raw-phase1/394-full-derived-blocked-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C243",
+    "name": "full-derived-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/397-full-derived-first.json",
+      "inputs/397-full-derived-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C244",
+    "name": "full-derived-stale-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/398-full-derived-stale-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C245",
+    "name": "full-derived-stale-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/399-full-derived-stale-views.json",
+      "raw-phase1/400-full-derived-stale-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C246",
+    "name": "full-derived-fresh-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/403-full-derived-fresh-first.json",
+      "inputs/403-full-derived-fresh-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C247",
+    "name": "full-derived-fresh-second",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/406-full-derived-fresh-second.json",
+      "inputs/406-full-derived-fresh-second.json"
+    ]
+  },
+  {
+    "id": "AR05-C248",
+    "name": "full-derived-passed-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/407-full-derived-passed-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C249",
+    "name": "full-derived-passed-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/408-full-derived-passed-views.json",
+      "raw-phase1/409-full-derived-passed-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C250",
+    "name": "full-derived-restart-required-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/410-full-derived-restart-required-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C251",
+    "name": "full-derived-restart-required-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/411-full-derived-restart-required-views.json",
+      "raw-phase1/412-full-derived-restart-required-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C252",
+    "name": "full-derived-new-start",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/413-full-derived-new-start.json",
+      "inputs/413-full-derived-new-start.json"
+    ]
+  },
+  {
+    "id": "AR05-C253",
+    "name": "full-derived-stop",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/414-full-derived-stop.json",
+      "inputs/414-full-derived-stop.json"
+    ]
+  },
+  {
+    "id": "AR05-C254",
+    "name": "full-derived-stopped-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/415-full-derived-stopped-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C255",
+    "name": "full-derived-stopped-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/416-full-derived-stopped-views.json",
+      "raw-phase1/417-full-derived-stopped-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C256",
+    "name": "min-derived-not-offered-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/418-min-derived-not-offered-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C257",
+    "name": "min-derived-not-offered-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/419-min-derived-not-offered-views.json",
+      "raw-phase1/420-min-derived-not-offered-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C258",
+    "name": "min-derived-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/421-min-derived-offer.json",
+      "inputs/421-min-derived-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C259",
+    "name": "min-derived-await-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/422-min-derived-await-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C260",
+    "name": "min-derived-await-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/423-min-derived-await-views.json",
+      "raw-phase1/424-min-derived-await-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C261",
+    "name": "min-derived-decline",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/425-min-derived-decline.json",
+      "inputs/425-min-derived-decline.json"
+    ]
+  },
+  {
+    "id": "AR05-C262",
+    "name": "min-derived-declined-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/426-min-derived-declined-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C263",
+    "name": "min-derived-declined-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/427-min-derived-declined-views.json",
+      "raw-phase1/428-min-derived-declined-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C264",
+    "name": "min-derived-defer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/429-min-derived-defer.json",
+      "inputs/429-min-derived-defer.json"
+    ]
+  },
+  {
+    "id": "AR05-C265",
+    "name": "min-derived-deferred-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/430-min-derived-deferred-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C266",
+    "name": "min-derived-deferred-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/431-min-derived-deferred-views.json",
+      "raw-phase1/432-min-derived-deferred-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C267",
+    "name": "min-derived-start",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/433-min-derived-start.json",
+      "inputs/433-min-derived-start.json"
+    ]
+  },
+  {
+    "id": "AR05-C268",
+    "name": "min-derived-active-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/434-min-derived-active-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C269",
+    "name": "min-derived-active-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/435-min-derived-active-views.json",
+      "raw-phase1/436-min-derived-active-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C270",
+    "name": "min-derived-block",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/437-min-derived-block.json",
+      "inputs/437-min-derived-block.json"
+    ]
+  },
+  {
+    "id": "AR05-C271",
+    "name": "min-derived-blocked-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/438-min-derived-blocked-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C272",
+    "name": "min-derived-blocked-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/439-min-derived-blocked-views.json",
+      "raw-phase1/440-min-derived-blocked-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C273",
+    "name": "min-derived-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/443-min-derived-first.json",
+      "inputs/443-min-derived-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C274",
+    "name": "min-derived-stale-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/444-min-derived-stale-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C275",
+    "name": "min-derived-stale-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/445-min-derived-stale-views.json",
+      "raw-phase1/446-min-derived-stale-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C276",
+    "name": "min-derived-fresh-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/449-min-derived-fresh-first.json",
+      "inputs/449-min-derived-fresh-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C277",
+    "name": "min-derived-fresh-second",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/452-min-derived-fresh-second.json",
+      "inputs/452-min-derived-fresh-second.json"
+    ]
+  },
+  {
+    "id": "AR05-C278",
+    "name": "min-derived-passed-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/453-min-derived-passed-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C279",
+    "name": "min-derived-passed-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/454-min-derived-passed-views.json",
+      "raw-phase1/455-min-derived-passed-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C280",
+    "name": "min-derived-restart-required-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/456-min-derived-restart-required-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C281",
+    "name": "min-derived-restart-required-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/457-min-derived-restart-required-views.json",
+      "raw-phase1/458-min-derived-restart-required-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C282",
+    "name": "min-derived-new-start",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/459-min-derived-new-start.json",
+      "inputs/459-min-derived-new-start.json"
+    ]
+  },
+  {
+    "id": "AR05-C283",
+    "name": "min-derived-stop",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/460-min-derived-stop.json",
+      "inputs/460-min-derived-stop.json"
+    ]
+  },
+  {
+    "id": "AR05-C284",
+    "name": "min-derived-stopped-signals-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/461-min-derived-stopped-signals.json"
+    ]
+  },
+  {
+    "id": "AR05-C285",
+    "name": "min-derived-stopped-markdown-status",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/462-min-derived-stopped-views.json",
+      "raw-phase1/463-min-derived-stopped-markdown.json"
+    ]
+  },
+  {
+    "id": "AR05-C286",
+    "name": "installed-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/464-installed-offer.json",
+      "inputs/464-installed-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C287",
+    "name": "installed-accept",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/465-installed-accept.json",
+      "inputs/465-installed-accept.json"
+    ]
+  },
+  {
+    "id": "AR05-C288",
+    "name": "installed-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/468-installed-first.json",
+      "inputs/468-installed-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C289",
+    "name": "installed-second",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/471-installed-second.json",
+      "inputs/471-installed-second.json"
+    ]
+  },
+  {
+    "id": "AR05-C290",
+    "name": "installed-public-clean-pair",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/472-installed-passed.json"
+    ]
+  },
+  {
+    "id": "AR05-C291",
+    "name": "full-ambiguous-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/473-full-ambiguous-offer.json",
+      "inputs/473-full-ambiguous-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C292",
+    "name": "full-ambiguous-accept",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/474-full-ambiguous-accept.json",
+      "inputs/474-full-ambiguous-accept.json"
+    ]
+  },
+  {
+    "id": "AR05-C293",
+    "name": "full-ambiguous-original-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/477-full-ambiguous-original-first.json",
+      "inputs/477-full-ambiguous-original-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C294",
+    "name": "full-ambiguous-current-reset",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/478-full-ambiguous-query.json"
+    ]
+  },
+  {
+    "id": "AR05-C295",
+    "name": "full-ambiguous-round-refused",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/480-full-ambiguous-round-refused.json",
+      "inputs/480-full-ambiguous-round-refused.json"
+    ]
+  },
+  {
+    "id": "AR05-C296",
+    "name": "full-ambiguous-block-recorded",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/481-full-ambiguous-block-recorded.json",
+      "inputs/481-full-ambiguous-block-recorded.json"
+    ]
+  },
+  {
+    "id": "AR05-C297",
+    "name": "full-unique-delivery-after-block",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/484-full-unique-delivery-after-block.json",
+      "inputs/484-full-unique-delivery-after-block.json"
+    ]
+  },
+  {
+    "id": "AR05-C298",
+    "name": "version-full-pair",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/488-version-full-pair.json",
+      "inputs/488-version-full-pair.json"
+    ]
+  },
+  {
+    "id": "AR05-C299",
+    "name": "full-version-after-end-restart",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/489-full-changed-version-after-end.json"
+    ]
+  },
+  {
+    "id": "AR05-C300",
+    "name": "full-repair-parent-immutable",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/490-full-relation-rewrite.json"
+    ]
+  },
+  {
+    "id": "AR05-C301",
+    "name": "min-ambiguous-offer",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/491-min-ambiguous-offer.json",
+      "inputs/491-min-ambiguous-offer.json"
+    ]
+  },
+  {
+    "id": "AR05-C302",
+    "name": "min-ambiguous-accept",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/492-min-ambiguous-accept.json",
+      "inputs/492-min-ambiguous-accept.json"
+    ]
+  },
+  {
+    "id": "AR05-C303",
+    "name": "min-ambiguous-original-first",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/495-min-ambiguous-original-first.json",
+      "inputs/495-min-ambiguous-original-first.json"
+    ]
+  },
+  {
+    "id": "AR05-C304",
+    "name": "min-ambiguous-current-reset",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/496-min-ambiguous-query.json"
+    ]
+  },
+  {
+    "id": "AR05-C305",
+    "name": "min-ambiguous-round-refused",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/498-min-ambiguous-round-refused.json",
+      "inputs/498-min-ambiguous-round-refused.json"
+    ]
+  },
+  {
+    "id": "AR05-C306",
+    "name": "min-ambiguous-block-recorded",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/499-min-ambiguous-block-recorded.json",
+      "inputs/499-min-ambiguous-block-recorded.json"
+    ]
+  },
+  {
+    "id": "AR05-C307",
+    "name": "min-unique-delivery-after-block",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/502-min-unique-delivery-after-block.json",
+      "inputs/502-min-unique-delivery-after-block.json"
+    ]
+  },
+  {
+    "id": "AR05-C308",
+    "name": "version-min-pair",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/506-version-min-pair.json",
+      "inputs/506-version-min-pair.json"
+    ]
+  },
+  {
+    "id": "AR05-C309",
+    "name": "min-version-after-end-restart",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "raw-phase1/507-min-changed-version-after-end.json"
+    ]
+  },
+  {
+    "id": "AR05-C310",
+    "name": "instruction-integration-original-word-review",
+    "result": "Passed",
+    "classification": null,
+    "corrected_by": null,
+    "evidence": [
+      "source-excerpts.json"
+    ]
+  }
+]

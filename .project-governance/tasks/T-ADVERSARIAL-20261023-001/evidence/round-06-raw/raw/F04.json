@@ -1,0 +1,21 @@
+{
+  "id": "F04",
+  "condition": "Offer must occur after saved engineering completion",
+  "input": {
+    "event": "Offer",
+    "recorded_at": "2026-01-01T00:00:00Z",
+    "prompt": "SYNTHETIC: engineering verified and saved. Start review?",
+    "evidence_ref": "synthetic-ar06://temp-only/offer"
+  },
+  "expected": "Reject invalid append",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "adversarial review records must follow engineering completion and prior records",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_suite.py\", line 8, in op\n    try:return write_entry(task,entry)\n               ~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 422, in append_review\n    state = bound_review_state(task_dir, outcome, contract, original_events)\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 278, in bound_review_state\n    state = review_state(outcome, contract, delivery_subjects=subjects, report_hashes=hashes,\n                         current_delivery_ids=current_ids)\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 125, in review_state\n    raise GovernanceError(\"adversarial review records must follow engineering completion and prior records\")\ngovernance_artifacts.GovernanceError: adversarial review records must follow engineering completion and prior records\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/F04.json"
+  ]
+}

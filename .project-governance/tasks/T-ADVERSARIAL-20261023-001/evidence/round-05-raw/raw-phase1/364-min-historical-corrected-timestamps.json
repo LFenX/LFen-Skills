@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-historical-engineering\\.project-governance\\tasks\\T-MIN-HISTORICAL-ENGINEERING"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:39:10.721681Z",
+  "ended_at": "2026-10-23T13:39:10.820997Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"LegacyUntracked\",\n  \"clean_streak\": 0,\n  \"rounds\": 0,\n  \"open_findings\": [],\n  \"current_delivery\": {\n    \"task_id\": \"T-MIN-HISTORICAL-ENGINEERING\",\n    \"subject_sha256\": \"949b439498ce0a58d06ea7f0288a6dbc197da88291257d02c8a1a7a88dc7e30b\"\n  },\n  \"requirements_sha256\": \"092a2053a5fbd06946ae2a295f26eb74040ac43abfc434e16353e569de0c463a\",\n  \"delivery_task_id\": \"T-MIN-HISTORICAL-ENGINEERING\",\n  \"subject_sha256\": \"949b439498ce0a58d06ea7f0288a6dbc197da88291257d02c8a1a7a88dc7e30b\"\n}\n",
+  "stderr": ""
+}

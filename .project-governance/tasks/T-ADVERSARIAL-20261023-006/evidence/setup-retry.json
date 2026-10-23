@@ -1,0 +1,8 @@
+{
+  "recorded_at": "2026-10-23T14:14:17.536936Z",
+  "initial_error": "KeyError: plan_derivation; actual field is derivation",
+  "effects": "Only draft survey was created; initialize_task not entered; no contract or ledger existed; no source edits",
+  "survey_head_draft": "1e2c597762bc9e571a582e46528d0a2ea4e335c2",
+  "actual_head_corrected": "d7264d7898cd9695cb2d464f98fa9630bea27659",
+  "retry": "Build task-specific first-principles analysis with observed schema field names"
+}

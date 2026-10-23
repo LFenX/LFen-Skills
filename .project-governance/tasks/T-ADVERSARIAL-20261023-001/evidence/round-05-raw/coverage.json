@@ -1,0 +1,1063 @@
+[
+  {
+    "id": "REQ-01",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "针对当前任务开展多轮对抗性审查。",
+    "conditions": [
+      "任务与返修归属保持在原审查任务",
+      "多轮无固定上限，不在一轮后结束"
+    ],
+    "status": "已实现",
+    "case_ids": [
+      "AR05-C011",
+      "AR05-C016",
+      "AR05-C019",
+      "AR05-C022",
+      "AR05-C036",
+      "AR05-C145",
+      "AR05-C149",
+      "AR05-C159"
+    ],
+    "evidence": [
+      {
+        "case_id": "AR05-C011",
+        "artifacts": [
+          "raw-phase1/019-full-late-explicit-start.json",
+          "inputs/019-full-late-explicit-start.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C016",
+        "artifacts": [
+          "raw-phase1/026-full-first-clean.json",
+          "inputs/026-full-first-clean.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C019",
+        "artifacts": [
+          "raw-phase1/031-full-after-block-first.json",
+          "inputs/031-full-after-block-first.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C022",
+        "artifacts": [
+          "raw-phase1/036-full-restart-after-stop.json",
+          "inputs/036-full-restart-after-stop.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C036",
+        "artifacts": [
+          "raw-phase1/068-full-new-session-counts-from-zero.json",
+          "inputs/068-full-new-session-counts-from-zero.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C145",
+        "artifacts": [
+          "raw-phase1/229-full-repair-parent-offer.json",
+          "inputs/229-full-repair-parent-offer.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C149",
+        "artifacts": [
+          "raw-phase1/238-full-repair-managed-state.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C159",
+        "artifacts": [
+          "raw-phase1/256-full-cross-carrier-state.json"
+        ],
+        "result": "Passed"
+      }
+    ]
+  },
+  {
+    "id": "REQ-02",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "只有连续两轮均未发现任何问题才能结束。",
+    "conditions": [
+      "首轮完整干净记1",
+      "第二轮同版完整干净记2并结束",
+      "发现问题、未解决项、未检项、阻塞、交付歧义或版本变化清零"
+    ],
+    "status": "已实现",
+    "case_ids": [
+      "AR05-C016",
+      "AR05-C017",
+      "AR05-C018",
+      "AR05-C023",
+      "AR05-C025",
+      "AR05-C026",
+      "AR05-C028",
+      "AR05-C029",
+      "AR05-C030",
+      "AR05-C031",
+      "AR05-C033",
+      "AR05-C052",
+      "AR05-C067",
+      "AR05-C294",
+      "AR05-C304"
+    ],
+    "evidence": [
+      {
+        "case_id": "AR05-C016",
+        "artifacts": [
+          "raw-phase1/026-full-first-clean.json",
+          "inputs/026-full-first-clean.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C017",
+        "artifacts": [
+          "raw-phase1/027-full-first-count.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C018",
+        "artifacts": [
+          "raw-phase1/028-full-blocked-resets.json",
+          "inputs/028-full-blocked-resets.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C023",
+        "artifacts": [
+          "raw-phase1/039-full-incomplete.json",
+          "inputs/039-full-incomplete.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C025",
+        "artifacts": [
+          "raw-phase1/043-full-unreviewed-resets.json",
+          "inputs/043-full-unreviewed-resets.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C026",
+        "artifacts": [
+          "raw-phase1/046-full-finding-resets.json",
+          "inputs/046-full-finding-resets.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C028",
+        "artifacts": [
+          "raw-phase1/050-full-open-count.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C029",
+        "artifacts": [
+          "raw-phase1/053-full-same-version-fixed-rejected.json",
+          "inputs/053-full-same-version-fixed-rejected.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C030",
+        "artifacts": [
+          "raw-phase1/056-full-evidenced-false-positive.json",
+          "inputs/056-full-evidenced-false-positive.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C031",
+        "artifacts": [
+          "raw-phase1/059-full-second-clean-passes.json",
+          "inputs/059-full-second-clean-passes.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C033",
+        "artifacts": [
+          "raw-phase1/063-full-ended-blocks-third.json",
+          "inputs/063-full-ended-blocks-third.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C052",
+        "artifacts": [
+          "raw-phase1/094-min-first-clean.json",
+          "inputs/094-min-first-clean.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C067",
+        "artifacts": [
+          "raw-phase1/127-min-second-clean-passes.json",
+          "inputs/127-min-second-clean-passes.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C294",
+        "artifacts": [
+          "raw-phase1/478-full-ambiguous-query.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C304",
+        "artifacts": [
+          "raw-phase1/496-min-ambiguous-query.json"
+        ],
+        "result": "Passed"
+      }
+    ]
+  },
+  {
+    "id": "REQ-03",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "优化规则表述，明确启动、每轮检查、计数和结束标准。",
+    "conditions": [
+      "真实原文逐条复核",
+      "完整同版两轮无问题与无未检/未决项",
+      "不以单次普通测试或复制报告冒充审查"
+    ],
+    "status": "已实现",
+    "case_ids": [
+      "AR05-C310"
+    ],
+    "evidence": [
+      {
+        "case_id": "AR05-C310",
+        "artifacts": [
+          "source-excerpts.json"
+        ],
+        "result": "Passed"
+      }
+    ]
+  },
+  {
+    "id": "REQ-04",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "优化可执行流程，发现问题后修复、复验、保存新交付再审。",
+    "conditions": [
+      "问题先登记并归零",
+      "Fixed绑定新验证交付",
+      "停止和已结束证明失效后必须真实新决定"
+    ],
+    "status": "已实现",
+    "case_ids": [
+      "AR05-C075",
+      "AR05-C082",
+      "AR05-C092",
+      "AR05-C094",
+      "AR05-C102",
+      "AR05-C145",
+      "AR05-C151",
+      "AR05-C152",
+      "AR05-C153",
+      "AR05-C154",
+      "AR05-C155",
+      "AR05-C156",
+      "AR05-C173",
+      "AR05-C299",
+      "AR05-C309"
+    ],
+    "evidence": [
+      {
+        "case_id": "AR05-C075",
+        "artifacts": [
+          "raw-phase1/141-full-wrong-delivery-sha.json",
+          "inputs/141-full-wrong-delivery-sha.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C082",
+        "artifacts": [
+          "raw-phase1/148-full-before-delivery.json",
+          "inputs/148-full-before-delivery.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C092",
+        "artifacts": [
+          "raw-phase1/158-full-valid-first-report.json",
+          "inputs/158-full-valid-first-report.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C094",
+        "artifacts": [
+          "raw-phase1/160-full-copied-report-content.json",
+          "inputs/160-full-copied-report-content.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C102",
+        "artifacts": [
+          "raw-phase1/172-full-ended-missing-report-state.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C145",
+        "artifacts": [
+          "raw-phase1/229-full-repair-parent-offer.json",
+          "inputs/229-full-repair-parent-offer.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C151",
+        "artifacts": [
+          "raw-phase1/240-full-saved-child-invalidates-old.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C152",
+        "artifacts": [
+          "raw-phase1/243-full-old-delivery-rejected.json",
+          "inputs/243-full-old-delivery-rejected.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C153",
+        "artifacts": [
+          "raw-phase1/246-full-round-before-repair-completion-rejected.json",
+          "inputs/246-full-round-before-repair-completion-rejected.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C154",
+        "artifacts": [
+          "raw-phase1/249-full-fixed-new-delivery.json",
+          "inputs/249-full-fixed-new-delivery.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C155",
+        "artifacts": [
+          "raw-phase1/252-full-repaired-clean-pair.json",
+          "inputs/252-full-repaired-clean-pair.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C156",
+        "artifacts": [
+          "raw-phase1/253-full-ended-parent-repair-refused.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C173",
+        "artifacts": [
+          "raw-phase1/287-min-ended-parent-repair-refused.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C299",
+        "artifacts": [
+          "raw-phase1/489-full-changed-version-after-end.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C309",
+        "artifacts": [
+          "raw-phase1/507-min-changed-version-after-end.json"
+        ],
+        "result": "Passed"
+      }
+    ]
+  },
+  {
+    "id": "REQ-05",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "把规则与流程嵌入该 skill 的实际入口。",
+    "conditions": [
+      "主skill、verify、close、Minimal、status入口一致",
+      "共享Schema/协议与安装分发一致"
+    ],
+    "status": "已实现",
+    "case_ids": [
+      "AR05-C219",
+      "AR05-C220",
+      "AR05-C221",
+      "AR05-C222",
+      "AR05-C226",
+      "AR05-C227",
+      "AR05-C256",
+      "AR05-C257",
+      "AR05-C290",
+      "AR05-C310"
+    ],
+    "evidence": [
+      {
+        "case_id": "AR05-C219",
+        "artifacts": [
+          "raw-phase1/365-source-manifest-hashes.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C220",
+        "artifacts": [
+          "raw-phase1/366-installed-manifest-hashes.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C221",
+        "artifacts": [
+          "raw-phase1/367-review-distribution-files.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C222",
+        "artifacts": [
+          "raw-phase1/368-full-minimal-schema-contract.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C226",
+        "artifacts": [
+          "raw-phase1/372-full-derived-not-offered-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C227",
+        "artifacts": [
+          "raw-phase1/373-full-derived-not-offered-views.json",
+          "raw-phase1/374-full-derived-not-offered-markdown.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C256",
+        "artifacts": [
+          "raw-phase1/418-min-derived-not-offered-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C257",
+        "artifacts": [
+          "raw-phase1/419-min-derived-not-offered-views.json",
+          "raw-phase1/420-min-derived-not-offered-markdown.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C290",
+        "artifacts": [
+          "raw-phase1/472-installed-passed.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C310",
+        "artifacts": [
+          "source-excerpts.json"
+        ],
+        "result": "Passed"
+      }
+    ]
+  },
+  {
+    "id": "REQ-06",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "机制能够发挥作用，状态、证据与异常路径可核对。",
+    "conditions": [
+      "原话与报告摘要绑定",
+      "历史不追溯伪造新证明",
+      "并发追加不丢失用户决定",
+      "派生推荐与Markdown按当前证明显示"
+    ],
+    "status": "已实现",
+    "case_ids": [
+      "AR05-C098",
+      "AR05-C102",
+      "AR05-C179",
+      "AR05-C181",
+      "AR05-C186",
+      "AR05-C198",
+      "AR05-C206",
+      "AR05-C207",
+      "AR05-C208",
+      "AR05-C209",
+      "AR05-C210",
+      "AR05-C211",
+      "AR05-C213",
+      "AR05-C214",
+      "AR05-C217",
+      "AR05-C218",
+      "AR05-C219",
+      "AR05-C222",
+      "AR05-C248",
+      "AR05-C250",
+      "AR05-C278",
+      "AR05-C280"
+    ],
+    "evidence": [
+      {
+        "case_id": "AR05-C098",
+        "artifacts": [
+          "raw-phase1/166-full-mutated-report-state.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C102",
+        "artifacts": [
+          "raw-phase1/172-full-ended-missing-report-state.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C179",
+        "artifacts": [
+          "raw-phase1/297-full-legacy-untracked.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C181",
+        "artifacts": [
+          "raw-phase1/299-full-legacy-identity-invalid.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C186",
+        "artifacts": [
+          "raw-phase1/308-full-old-protocol-state.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C198",
+        "artifacts": [
+          "raw-phase1/328-min-old-protocol-state.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C206",
+        "artifacts": [
+          "raw-phase1/342-requirements-exclude-annotation.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C207",
+        "artifacts": [
+          "raw-phase1/343-request-word-change-resets.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C208",
+        "artifacts": [
+          "raw-phase1/344-requirements-bind-question.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C209",
+        "artifacts": [
+          "raw-phase1/345-requirements-bind-recommended_default.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C210",
+        "artifacts": [
+          "raw-phase1/346-requirements-bind-answer.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C211",
+        "artifacts": [
+          "raw-phase1/348-full-parallel-offer.json",
+          "raw-phase1/348-full-parallel-acceptance.json",
+          "raw-phase1/350-full-parallel-state.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C213",
+        "artifacts": [
+          "raw-phase1/354-full-erase-history.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C214",
+        "artifacts": [
+          "raw-phase1/356-min-parallel-offer.json",
+          "raw-phase1/356-min-parallel-acceptance.json",
+          "raw-phase1/358-min-parallel-state.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C217",
+        "artifacts": [
+          "raw-phase1/363-full-historical-corrected-timestamps.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C218",
+        "artifacts": [
+          "raw-phase1/364-min-historical-corrected-timestamps.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C219",
+        "artifacts": [
+          "raw-phase1/365-source-manifest-hashes.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C222",
+        "artifacts": [
+          "raw-phase1/368-full-minimal-schema-contract.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C248",
+        "artifacts": [
+          "raw-phase1/407-full-derived-passed-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C250",
+        "artifacts": [
+          "raw-phase1/410-full-derived-restart-required-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C278",
+        "artifacts": [
+          "raw-phase1/453-min-derived-passed-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C280",
+        "artifacts": [
+          "raw-phase1/456-min-derived-restart-required-signals.json"
+        ],
+        "result": "Passed"
+      }
+    ]
+  },
+  {
+    "id": "REQ-07",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "对抗性审查不能直接开始。",
+    "conditions": [
+      "无Offer或无明确Accepted不得Round",
+      "沉默、拒绝、推迟及普通验收同意均不授权"
+    ],
+    "status": "已实现",
+    "case_ids": [
+      "AR05-C003",
+      "AR05-C004",
+      "AR05-C006",
+      "AR05-C008",
+      "AR05-C010",
+      "AR05-C039",
+      "AR05-C040",
+      "AR05-C042",
+      "AR05-C044",
+      "AR05-C046",
+      "AR05-C212",
+      "AR05-C215"
+    ],
+    "evidence": [
+      {
+        "case_id": "AR05-C003",
+        "artifacts": [
+          "raw-phase1/005-full-round-without-offer.json",
+          "inputs/005-full-round-without-offer.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C004",
+        "artifacts": [
+          "raw-phase1/006-full-decision-without-question.json",
+          "inputs/006-full-decision-without-question.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C006",
+        "artifacts": [
+          "raw-phase1/010-full-silence-is-not-consent.json",
+          "inputs/010-full-silence-is-not-consent.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C008",
+        "artifacts": [
+          "raw-phase1/014-full-decline-blocks-review.json",
+          "inputs/014-full-decline-blocks-review.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C010",
+        "artifacts": [
+          "raw-phase1/018-full-defer-blocks-review.json",
+          "inputs/018-full-defer-blocks-review.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C039",
+        "artifacts": [
+          "raw-phase1/073-min-round-without-offer.json",
+          "inputs/073-min-round-without-offer.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C040",
+        "artifacts": [
+          "raw-phase1/074-min-decision-without-question.json",
+          "inputs/074-min-decision-without-question.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C042",
+        "artifacts": [
+          "raw-phase1/078-min-silence-is-not-consent.json",
+          "inputs/078-min-silence-is-not-consent.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C044",
+        "artifacts": [
+          "raw-phase1/082-min-decline-blocks-review.json",
+          "inputs/082-min-decline-blocks-review.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C046",
+        "artifacts": [
+          "raw-phase1/086-min-defer-blocks-review.json",
+          "inputs/086-min-defer-blocks-review.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C212",
+        "artifacts": [
+          "raw-phase1/353-full-acceptance-does-not-grant-review.json",
+          "inputs/353-full-acceptance-does-not-grant-review.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C215",
+        "artifacts": [
+          "raw-phase1/361-min-acceptance-does-not-grant-review.json",
+          "inputs/361-min-acceptance-does-not-grant-review.json"
+        ],
+        "result": "Passed"
+      }
+    ]
+  },
+  {
+    "id": "REQ-08",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "必须在工程任务完成并保存结果后再询问。",
+    "conditions": [
+      "完工前/结果未保存时阻断",
+      "真实留档时间早于真实Offer"
+    ],
+    "status": "已实现",
+    "case_ids": [
+      "AR05-C001",
+      "AR05-C002",
+      "AR05-C037",
+      "AR05-C038",
+      "AR05-C223",
+      "AR05-C224"
+    ],
+    "evidence": [
+      {
+        "case_id": "AR05-C001",
+        "artifacts": [
+          "raw-phase1/001-full-before-completion.json",
+          "inputs/001-full-before-completion.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C002",
+        "artifacts": [
+          "raw-phase1/002-full-not-offered.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C037",
+        "artifacts": [
+          "raw-phase1/069-min-before-completion.json",
+          "inputs/069-min-before-completion.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C038",
+        "artifacts": [
+          "raw-phase1/070-min-not-offered.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C223",
+        "artifacts": [
+          "raw-phase1/369-actual-offer-consent-order.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C224",
+        "artifacts": [
+          "raw-phase1/370-actual-offer-source.json",
+          "actual-offer-source.json"
+        ],
+        "result": "Passed"
+      }
+    ]
+  },
+  {
+    "id": "REQ-09",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "主动询问用户是否需要审查，允许明确选择。",
+    "conditions": [
+      "NotOffered提醒主动询问",
+      "用户实际同意后启动",
+      "未答/拒绝/推迟不自动催问且保留工程结果"
+    ],
+    "status": "已实现",
+    "case_ids": [
+      "AR05-C005",
+      "AR05-C007",
+      "AR05-C009",
+      "AR05-C011",
+      "AR05-C041",
+      "AR05-C043",
+      "AR05-C045",
+      "AR05-C047",
+      "AR05-C223",
+      "AR05-C225",
+      "AR05-C226",
+      "AR05-C229",
+      "AR05-C232",
+      "AR05-C235",
+      "AR05-C256",
+      "AR05-C259",
+      "AR05-C262",
+      "AR05-C265",
+      "AR05-C310"
+    ],
+    "evidence": [
+      {
+        "case_id": "AR05-C005",
+        "artifacts": [
+          "raw-phase1/007-full-offer.json",
+          "inputs/007-full-offer.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C007",
+        "artifacts": [
+          "raw-phase1/011-full-decline.json",
+          "inputs/011-full-decline.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C009",
+        "artifacts": [
+          "raw-phase1/015-full-defer.json",
+          "inputs/015-full-defer.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C011",
+        "artifacts": [
+          "raw-phase1/019-full-late-explicit-start.json",
+          "inputs/019-full-late-explicit-start.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C041",
+        "artifacts": [
+          "raw-phase1/075-min-offer.json",
+          "inputs/075-min-offer.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C043",
+        "artifacts": [
+          "raw-phase1/079-min-decline.json",
+          "inputs/079-min-decline.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C045",
+        "artifacts": [
+          "raw-phase1/083-min-defer.json",
+          "inputs/083-min-defer.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C047",
+        "artifacts": [
+          "raw-phase1/087-min-late-explicit-start.json",
+          "inputs/087-min-late-explicit-start.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C223",
+        "artifacts": [
+          "raw-phase1/369-actual-offer-consent-order.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C225",
+        "artifacts": [
+          "raw-phase1/371-actual-consent-source.json",
+          "actual-consent-source.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C226",
+        "artifacts": [
+          "raw-phase1/372-full-derived-not-offered-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C229",
+        "artifacts": [
+          "raw-phase1/376-full-derived-await-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C232",
+        "artifacts": [
+          "raw-phase1/380-full-derived-declined-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C235",
+        "artifacts": [
+          "raw-phase1/384-full-derived-deferred-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C256",
+        "artifacts": [
+          "raw-phase1/418-min-derived-not-offered-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C259",
+        "artifacts": [
+          "raw-phase1/422-min-derived-await-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C262",
+        "artifacts": [
+          "raw-phase1/426-min-derived-declined-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C265",
+        "artifacts": [
+          "raw-phase1/430-min-derived-deferred-signals.json"
+        ],
+        "result": "Passed"
+      },
+      {
+        "case_id": "AR05-C310",
+        "artifacts": [
+          "source-excerpts.json"
+        ],
+        "result": "Passed"
+      }
+    ]
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "id": "R-A01",
+  "condition": "Same latest completion time cannot choose between two saved repairs",
+  "input": {
+    "parent": "T-AMB-P",
+    "repairs": [
+      "T-AMB-A",
+      "T-AMB-B"
+    ]
+  },
+  "expected": "current_delivery Ambiguous / streak0; new round rejected",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "state": {
+        "status": "Stale",
+        "clean_streak": 0,
+        "rounds": 1,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-AMB-P",
+          "subject_sha256": "b1fc725cc4547dd18325b7b7c0256996c5b914ac2b22f16a8c4aacf748b44f56",
+          "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+        },
+        "current_delivery": {
+          "task_ids": [
+            "T-AMB-A",
+            "T-AMB-B"
+          ],
+          "status": "Ambiguous"
+        }
+      },
+      "rejection": null
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/R-A01.json"
+  ]
+}

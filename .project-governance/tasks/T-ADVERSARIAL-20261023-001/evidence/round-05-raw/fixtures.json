@@ -1,0 +1,226 @@
+[
+  {
+    "name": "full-basic",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-basic",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-basic\\.project-governance\\tasks\\T-FULL-BASIC",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-basic",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-basic",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-basic\\.project-governance\\tasks\\T-MIN-BASIC",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-evidence",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-evidence",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-evidence\\.project-governance\\tasks\\T-FULL-EVIDENCE",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-evidence",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-evidence",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-evidence\\.project-governance\\tasks\\T-MIN-EVIDENCE",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-repair-parent",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent\\.project-governance\\tasks\\T-FULL-REPAIR-PARENT",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-repair-child",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent\\.project-governance\\tasks\\T-FULL-REPAIR-CHILD",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-late-repair",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent\\.project-governance\\tasks\\T-FULL-LATE-REPAIR",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-unrelated-child",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent\\.project-governance\\tasks\\T-FULL-UNRELATED-CHILD",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-cross-repair",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent\\.project-governance\\tasks\\T-FULL-CROSS-REPAIR",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-repair-parent",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent\\.project-governance\\tasks\\T-MIN-REPAIR-PARENT",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-repair-child",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent\\.project-governance\\tasks\\T-MIN-REPAIR-CHILD",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-late-repair",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent\\.project-governance\\tasks\\T-MIN-LATE-REPAIR",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-unrelated-child",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent\\.project-governance\\tasks\\T-MIN-UNRELATED-CHILD",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-cross-repair",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent\\.project-governance\\tasks\\T-MIN-CROSS-REPAIR",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-legacy",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-legacy",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-legacy\\.project-governance\\tasks\\T-FULL-LEGACY",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-old-protocol",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-old-protocol",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-old-protocol\\.project-governance\\tasks\\T-FULL-OLD-PROTOCOL",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-historical-engineering",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-historical-engineering",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-historical-engineering\\.project-governance\\tasks\\T-FULL-HISTORICAL-ENGINEERING",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-legacy",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-legacy",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-legacy\\.project-governance\\tasks\\T-MIN-LEGACY",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-old-protocol",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-old-protocol",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-old-protocol\\.project-governance\\tasks\\T-MIN-OLD-PROTOCOL",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-historical-engineering",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-historical-engineering",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-historical-engineering\\.project-governance\\tasks\\T-MIN-HISTORICAL-ENGINEERING",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "requirement-binding",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\requirement-binding",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\requirement-binding\\.project-governance\\tasks\\T-REQUIREMENT-BINDING",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-concurrent",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-concurrent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-concurrent\\.project-governance\\tasks\\T-FULL-CONCURRENT",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-concurrent",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-concurrent",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-concurrent\\.project-governance\\tasks\\T-MIN-CONCURRENT",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-derived",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-derived",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-derived\\.project-governance\\tasks\\T-FULL-DERIVED",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-derived",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-derived",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-derived\\.project-governance\\tasks\\T-MIN-DERIVED",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "installed-public",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\installed-public",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\installed-public\\.project-governance\\tasks\\T-INSTALLED-PUBLIC",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-ambiguous",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-ambiguous",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-ambiguous\\.project-governance\\tasks\\T-FULL-AMBIGUOUS",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-repair-a",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-ambiguous",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-ambiguous\\.project-governance\\tasks\\T-FULL-REPAIR-A",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "full-repair-b",
+    "carrier": "Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-ambiguous",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-ambiguous\\.project-governance\\tasks\\T-FULL-REPAIR-B",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-ambiguous",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-ambiguous",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-ambiguous\\.project-governance\\tasks\\T-MIN-AMBIGUOUS",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-repair-a",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-ambiguous",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-ambiguous\\.project-governance\\tasks\\T-MIN-REPAIR-A",
+    "synthetic_human_decisions": true
+  },
+  {
+    "name": "min-repair-b",
+    "carrier": "Minimal",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-ambiguous",
+    "task_dir": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-ambiguous\\.project-governance\\tasks\\T-MIN-REPAIR-B",
+    "synthetic_human_decisions": true
+  }
+]

@@ -1,0 +1,50 @@
+{
+  "id": "M17",
+  "condition": "Complete claim with unreviewed item cannot count",
+  "input": {
+    "event": "Round",
+    "round_id": "unreviewed",
+    "recorded_at": "2026-10-23T13:58:58.548429Z",
+    "started_at": "2026-10-23T13:58:58.547724Z",
+    "reviewer": "synthetic-ar06-reviewer",
+    "delivery_task_id": "T-LIFECYCLE-MINIMAL",
+    "subject_sha256": "376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294",
+    "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b",
+    "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\tasks\\T-LIFECYCLE-MINIMAL\\evidence\\synthetic-unreviewed.md",
+    "coverage": "Complete",
+    "unreviewed_items": [
+      "Synthetic unexamined boundary"
+    ],
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/round/unreviewed"
+    ],
+    "findings": [],
+    "resolutions": []
+  },
+  "expected": {
+    "status": "InProgress",
+    "clean_streak": 0
+  },
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 3,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-LIFECYCLE-MINIMAL",
+        "subject_sha256": "376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294",
+        "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+      },
+      "current_delivery": {
+        "task_id": "T-LIFECYCLE-MINIMAL",
+        "subject_sha256": "376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/M17.json"
+  ]
+}

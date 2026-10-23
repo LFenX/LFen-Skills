@@ -1,0 +1,19 @@
+{
+  "id": "PF01",
+  "condition": "Repair ownership requires direct dependency on original task",
+  "input": {
+    "candidate": "T-NOT-CHILD-F",
+    "parent": "T-OWNERSHIP-P-F"
+  },
+  "expected": "Rejected",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "a review repair must directly depend on its original review task",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_final_checks.py\", line 27, in <lambda>\n    case('P'+k+'01','Repair ownership requires direct dependency on original task',{'candidate':not_child.name,'parent':p.name},'Rejected',lambda:ar.require_review_parent(not_child,saved(not_child)[2],p.name),reject)\n                                                                                                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 335, in require_review_parent\n    raise GovernanceError(\"a review repair must directly depend on its original review task\")\ngovernance_artifacts.GovernanceError: a review repair must directly depend on its original review task\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/PF01.json"
+  ]
+}

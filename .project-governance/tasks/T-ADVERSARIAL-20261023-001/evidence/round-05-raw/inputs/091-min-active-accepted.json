@@ -1,0 +1,8 @@
+{
+  "event": "Decision",
+  "outcome": "Accepted",
+  "response": "synthetic",
+  "decided_by": "fixture",
+  "evidence_ref": "ar05-fixture://choice",
+  "recorded_at": "2026-10-23T13:32:54.773800Z"
+}

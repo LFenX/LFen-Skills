@@ -1,0 +1,22 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-evidence\\.project-governance\\tasks\\T-FULL-EVIDENCE",
+    "--entry-json-file",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\inputs\\163-full-duplicate-round-id.json",
+    "--reason",
+    "AR05 synthetic protocol test",
+    "--basis",
+    "ar05-fixture://synthetic-user-and-review"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:35:13.429088Z",
+  "ended_at": "2026-10-23T13:35:13.605482Z",
+  "exit_code": 2,
+  "stdout": "",
+  "stderr": "ERROR: each round requires a fresh review id\n"
+}

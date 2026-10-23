@@ -1,0 +1,51 @@
+{
+  "id": "M01",
+  "condition": "Engineering outcome initializes independent Pending and NotOffered",
+  "input": {
+    "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\tasks\\T-LIFECYCLE-MINIMAL"
+  },
+  "expected": "Implemented / Pending / NotOffered / streak=0",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "outcome": {
+        "status": "Implemented",
+        "user_decision": {
+          "outcome": "Pending"
+        },
+        "adversarial_review": [],
+        "established_facts": [
+          "Synthetic verified fixture"
+        ],
+        "actual_changes": [
+          "Synthetic label"
+        ],
+        "verification": [
+          {
+            "result": "Passed",
+            "summary": "Synthetic fixture check",
+            "evidence_refs": [
+              "synthetic-ar06://temp-only/verified/T-LIFECYCLE-MINIMAL"
+            ]
+          }
+        ],
+        "incomplete_items": [],
+        "completed_at": "2026-10-23T13:58:58.143554Z"
+      },
+      "state": {
+        "status": "NotOffered",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": [],
+        "current_delivery": {
+          "task_id": "T-LIFECYCLE-MINIMAL",
+          "subject_sha256": "376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294"
+        }
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/M01.json"
+  ]
+}

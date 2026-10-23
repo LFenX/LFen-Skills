@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "min-parent-first",
+  "started_at": "2026-10-23T13:35:31.496422Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-MIN-REPAIR-PARENT",
+  "subject_sha256": "adc1b1525bad8018d2284d0475db2f2684c608dd33dceb463bc3d991ba625e15",
+  "requirements_sha256": "2d15089d50176483bada753ff5c9fb0748f764e40daabf4baef0a5786be307f3",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent\\.project-governance\\tasks\\T-MIN-REPAIR-PARENT\\evidence\\min-parent-first.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:35:31.496449Z"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "HM05",
+  "condition": "Ended stale proof cannot resume under old consent",
+  "input": {
+    "event": "Round",
+    "round_id": "no-new-decision",
+    "recorded_at": "2026-10-23T14:03:03.303812Z",
+    "started_at": "2026-10-23T14:03:03.303281Z",
+    "reviewer": "synthetic-ar06-reviewer",
+    "delivery_task_id": "T-BLOCKED-M",
+    "subject_sha256": "6c7f32bdf2ca47f5288039ecebd32bd014259bb67ad30d623b1c64c55ba7d7cd",
+    "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b",
+    "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\blocked-resume-Minimal\\.project-governance\\tasks\\T-BLOCKED-M\\evidence\\synthetic-no-new-decision.md",
+    "coverage": "Complete",
+    "unreviewed_items": [],
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/round/no-new-decision"
+    ],
+    "findings": [],
+    "resolutions": []
+  },
+  "expected": "Rejected",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "the review session has ended; record a real new user decision before restarting",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_boundaries.py\", line 64, in <lambda>\n    case('H'+k+'05','Ended stale proof cannot resume under old consent',roundentry(active,'no-new-decision'),'Rejected',lambda:write_entry(active,roundentry(active,'no-new-decision2')),reject)\n                                                                                                                               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 374, in append_review\n    raise GovernanceError(\"the review session has ended; record a real new user decision before restarting\")\ngovernance_artifacts.GovernanceError: the review session has ended; record a real new user decision before restarting\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/HM05.json"
+  ]
+}

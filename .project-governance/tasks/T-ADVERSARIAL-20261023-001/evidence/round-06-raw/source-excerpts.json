@@ -1,0 +1,794 @@
+[
+  {
+    "path": "skills/product-engineering/run-governed-product-workflow/scripts/adversarial_review.py",
+    "start": 22,
+    "end": 58,
+    "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+    "lines": [
+      {
+        "line": 22,
+        "text": "def review_schema() -> dict[str, Any]:"
+      },
+      {
+        "line": 23,
+        "text": "    \"\"\"One schema definition, embedded into both existing outcome schemas.\"\"\""
+      },
+      {
+        "line": 24,
+        "text": "    text = {\"type\": \"string\", \"minLength\": 1}"
+      },
+      {
+        "line": 25,
+        "text": "    refs = {\"type\": \"array\", \"minItems\": 1, \"uniqueItems\": True, \"items\": text}"
+      },
+      {
+        "line": 26,
+        "text": "    strings = {\"type\": \"array\", \"uniqueItems\": True, \"items\": text}"
+      },
+      {
+        "line": 27,
+        "text": "    digest = {\"type\": \"string\", \"pattern\": \"^[0-9a-f]{64}$\"}"
+      },
+      {
+        "line": 28,
+        "text": ""
+      },
+      {
+        "line": 29,
+        "text": "    def obj(properties: dict[str, Any], optional: tuple[str, ...] = ()) -> dict[str, Any]:"
+      },
+      {
+        "line": 30,
+        "text": "        return {\"type\": \"object\", \"additionalProperties\": False,"
+      },
+      {
+        "line": 31,
+        "text": "                \"required\": [key for key in properties if key not in optional], \"properties\": properties}"
+      },
+      {
+        "line": 32,
+        "text": ""
+      },
+      {
+        "line": 33,
+        "text": "    variants = []"
+      },
+      {
+        "line": 34,
+        "text": "    details = {"
+      },
+      {
+        "line": 35,
+        "text": "        \"Offer\": {\"prompt\": text, \"evidence_ref\": text},"
+      },
+      {
+        "line": 36,
+        "text": "        \"Decision\": {\"outcome\": {\"enum\": [\"Accepted\", \"Declined\", \"Deferred\", \"Stopped\"]},"
+      },
+      {
+        "line": 37,
+        "text": "                     \"response\": text, \"decided_by\": text, \"evidence_ref\": text},"
+      },
+      {
+        "line": 38,
+        "text": "        \"Blocked\": {\"reason\": text, \"evidence_refs\": refs},"
+      },
+      {
+        "line": 39,
+        "text": "        \"Round\": {\"round_id\": text, \"started_at\": {\"type\": \"string\", \"format\": \"date-time\"},"
+      },
+      {
+        "line": 40,
+        "text": "                  \"reviewer\": text, \"delivery_task_id\": text, \"subject_sha256\": digest,"
+      },
+      {
+        "line": 41,
+        "text": "                  \"requirements_sha256\": digest, \"coverage\": {\"enum\": [\"Complete\", \"Incomplete\"]},"
+      },
+      {
+        "line": 42,
+        "text": "                  \"review_contract_version\": {\"const\": REVIEW_CONTRACT},"
+      },
+      {
+        "line": 43,
+        "text": "                  \"report_ref\": text, \"report_sha256\": digest,"
+      },
+      {
+        "line": 44,
+        "text": "                  \"delivery_completed_at\": {\"type\": \"string\", \"format\": \"date-time\"},"
+      },
+      {
+        "line": 45,
+        "text": "                  \"delivery_verified_at\": {\"type\": \"string\", \"format\": \"date-time\"},"
+      },
+      {
+        "line": 46,
+        "text": "                  \"session_completed\": {\"type\": \"boolean\"},"
+      },
+      {
+        "line": 47,
+        "text": "                  \"unreviewed_items\": strings, \"evidence_refs\": refs,"
+      },
+      {
+        "line": 48,
+        "text": "                  \"findings\": {\"type\": \"array\", \"items\": obj({\"id\": text, \"summary\": text,"
+      },
+      {
+        "line": 49,
+        "text": "                                                              \"evidence_refs\": refs})},"
+      },
+      {
+        "line": 50,
+        "text": "                  \"resolutions\": {\"type\": \"array\", \"items\": obj({\"finding_id\": text,"
+      },
+      {
+        "line": 51,
+        "text": "                     \"disposition\": {\"enum\": [\"Fixed\", \"NotAnIssue\"]}, \"reason\": text, \"evidence_refs\": refs})}},"
+      },
+      {
+        "line": 52,
+        "text": "    }"
+      },
+      {
+        "line": 53,
+        "text": "    for kind, properties in details.items():"
+      },
+      {
+        "line": 54,
+        "text": "        variants.append(obj({\"event\": {\"const\": kind},"
+      },
+      {
+        "line": 55,
+        "text": "                             \"recorded_at\": {\"type\": \"string\", \"format\": \"date-time\"}, **properties},"
+      },
+      {
+        "line": 56,
+        "text": "                            (\"review_contract_version\", \"report_ref\", \"report_sha256\", \"delivery_completed_at\", \"delivery_verified_at\", \"session_completed\") if kind == \"Round\" else ()))"
+      },
+      {
+        "line": 57,
+        "text": "    return {\"type\": \"array\", \"items\": {\"oneOf\": variants}}"
+      },
+      {
+        "line": 58,
+        "text": ""
+      }
+    ]
+  },
+  {
+    "path": "skills/product-engineering/run-governed-product-workflow/scripts/adversarial_review.py",
+    "start": 120,
+    "end": 143,
+    "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+    "lines": [
+      {
+        "line": 120,
+        "text": "    for item in records:"
+      },
+      {
+        "line": 121,
+        "text": "        if outcome.get(\"status\") != \"Implemented\":"
+      },
+      {
+        "line": 122,
+        "text": "            raise GovernanceError(\"offer adversarial review only after an Implemented engineering result is saved\")"
+      },
+      {
+        "line": 123,
+        "text": "        stamp = _instant(item[\"recorded_at\"])"
+      },
+      {
+        "line": 124,
+        "text": "        if previous is not None and stamp < previous:"
+      },
+      {
+        "line": 125,
+        "text": "            raise GovernanceError(\"adversarial review records must follow engineering completion and prior records\")"
+      },
+      {
+        "line": 126,
+        "text": "        kind = item[\"event\"]"
+      },
+      {
+        "line": 127,
+        "text": "        if kind == \"Offer\":"
+      },
+      {
+        "line": 128,
+        "text": "            if accepted and not session_closed and status != \"Passed\" and recorded_streak != 2:"
+      },
+      {
+        "line": 129,
+        "text": "                raise GovernanceError(\"an active review must be completed or stopped before offering it again\")"
+      },
+      {
+        "line": 130,
+        "text": "            offered, accepted, streak, status = True, False, 0, \"AwaitingUser\""
+      },
+      {
+        "line": 131,
+        "text": "            legacy_streak = recorded_streak = 0"
+      },
+      {
+        "line": 132,
+        "text": "        elif kind == \"Decision\":"
+      },
+      {
+        "line": 133,
+        "text": "            if not offered:"
+      },
+      {
+        "line": 134,
+        "text": "                raise GovernanceError(\"record the actual post-completion question before a user decision\")"
+      },
+      {
+        "line": 135,
+        "text": "            if item[\"outcome\"] == \"Stopped\" and not accepted:"
+      },
+      {
+        "line": 136,
+        "text": "                raise GovernanceError(\"only an opted-in review can be stopped\")"
+      },
+      {
+        "line": 137,
+        "text": "            if accepted and not session_closed and status not in {\"Passed\", \"LegacyNotRevalidated\"} and recorded_streak != 2 and item[\"outcome\"] != \"Stopped\":"
+      },
+      {
+        "line": 138,
+        "text": "                raise GovernanceError(\"an active review only accepts an explicit stop decision\")"
+      },
+      {
+        "line": 139,
+        "text": "            accepted = item[\"outcome\"] == \"Accepted\""
+      },
+      {
+        "line": 140,
+        "text": "            if accepted:"
+      },
+      {
+        "line": 141,
+        "text": "                session_closed = False"
+      },
+      {
+        "line": 142,
+        "text": "            status = \"InProgress\" if accepted else item[\"outcome\"]"
+      },
+      {
+        "line": 143,
+        "text": "            streak = legacy_streak = recorded_streak = 0"
+      }
+    ]
+  },
+  {
+    "path": "skills/product-engineering/run-governed-product-workflow/scripts/adversarial_review.py",
+    "start": 357,
+    "end": 432,
+    "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+    "lines": [
+      {
+        "line": 357,
+        "text": "    errors = validate_json_document(entry, review_schema()[\"items\"], \"review entry\")"
+      },
+      {
+        "line": 358,
+        "text": "    if errors:"
+      },
+      {
+        "line": 359,
+        "text": "        raise GovernanceError(\"; \".join(errors))"
+      },
+      {
+        "line": 360,
+        "text": "    if not reason.strip() or not basis.strip():"
+      },
+      {
+        "line": 361,
+        "text": "        raise GovernanceError(\"review update requires its actual reason and source\")"
+      },
+      {
+        "line": 362,
+        "text": "    path = task_dir / (\"after.json\" if (task_dir / \"before.json\").is_file() else \"task-record.json\")"
+      },
+      {
+        "line": 363,
+        "text": "    if not evaluate(path, task_dir)[0]:"
+      },
+      {
+        "line": 364,
+        "text": "        raise GovernanceError(\"review result write refused by task scope\")"
+      },
+      {
+        "line": 365,
+        "text": "    with ledger_lock(path):"
+      },
+      {
+        "line": 366,
+        "text": "        path, document, outcome, contract, original_events = _load_delivery(task_dir)"
+      },
+      {
+        "line": 367,
+        "text": "        if \"adversarial_review\" not in outcome:"
+      },
+      {
+        "line": 368,
+        "text": "            raise GovernanceError(\"legacy results are not automatically enrolled in the new review protocol\")"
+      },
+      {
+        "line": 369,
+        "text": "        if outcome.get(\"adversarial_review_parent\"):"
+      },
+      {
+        "line": 370,
+        "text": "            raise GovernanceError(\"record rounds on the original review task; this repair is managed by its parent\")"
+      },
+      {
+        "line": 371,
+        "text": "        current_state = bound_review_state(task_dir, outcome, contract, original_events)"
+      },
+      {
+        "line": 372,
+        "text": "        kind = entry[\"event\"]"
+      },
+      {
+        "line": 373,
+        "text": "        if kind in {\"Round\", \"Blocked\"} and current_state[\"status\"] in {\"Passed\", \"LegacyNotRevalidated\", \"RestartRequired\"}:"
+      },
+      {
+        "line": 374,
+        "text": "            raise GovernanceError(\"the review session has ended; record a real new user decision before restarting\")"
+      },
+      {
+        "line": 375,
+        "text": "        if kind == \"Offer\" and current_state[\"status\"] in {\"InProgress\", \"Blocked\", \"Stale\"}:"
+      },
+      {
+        "line": 376,
+        "text": "            raise GovernanceError(\"an active review must be completed or stopped before offering it again\")"
+      },
+      {
+        "line": 377,
+        "text": "        if kind == \"Decision\" and entry[\"outcome\"] != \"Stopped\" and current_state[\"status\"] in {\"InProgress\", \"Blocked\", \"Stale\"}:"
+      },
+      {
+        "line": 378,
+        "text": "            raise GovernanceError(\"an active review only accepts an explicit stop decision\")"
+      },
+      {
+        "line": 379,
+        "text": "        declared_completion = entry.get(\"session_completed\")"
+      },
+      {
+        "line": 380,
+        "text": "        if entry.get(\"event\") == \"Round\":"
+      },
+      {
+        "line": 381,
+        "text": "            delivery_id = entry.get(\"delivery_task_id\", \"\")"
+      },
+      {
+        "line": 382,
+        "text": "            if not TASK_ID.fullmatch(delivery_id):"
+      },
+      {
+        "line": 383,
+        "text": "                raise GovernanceError(\"delivery_task_id must identify a task in this project\")"
+      },
+      {
+        "line": 384,
+        "text": "            _, report_hashes, current_ids = _current_bindings(task_dir, outcome, contract, original_events)"
+      },
+      {
+        "line": 385,
+        "text": "            if len(current_ids) != 1 or delivery_id not in current_ids:"
+      },
+      {
+        "line": 386,
+        "text": "                raise GovernanceError(\"rounds must reference the current saved delivery; an older or ambiguous delivery cannot count\")"
+      },
+      {
+        "line": 387,
+        "text": "            delivery_dir = task_dir.parent / delivery_id"
+      },
+      {
+        "line": 388,
+        "text": "            _, _, delivery, delivery_contract, events = _load_delivery(delivery_dir)"
+      },
+      {
+        "line": 389,
+        "text": "            if delivery.get(\"status\") != \"Implemented\":"
+      },
+      {
+        "line": 390,
+        "text": "                raise GovernanceError(\"rounds require a verified Implemented delivery\")"
+      },
+      {
+        "line": 391,
+        "text": "            if delivery_contract.get(\"project_id\") != contract.get(\"project_id\"):"
+      },
+      {
+        "line": 392,
+        "text": "                raise GovernanceError(\"delivery and original review must belong to the same project\")"
+      },
+      {
+        "line": 393,
+        "text": "            if delivery_id != task_dir.name and (task_dir.name not in delivery_contract.get(\"depends_on\", [])"
+      },
+      {
+        "line": 394,
+        "text": "                    or delivery.get(\"adversarial_review_parent\") != task_dir.name):"
+      },
+      {
+        "line": 395,
+        "text": "                raise GovernanceError(\"a repaired delivery must directly depend on and explicitly belong to the original review\")"
+      },
+      {
+        "line": 396,
+        "text": "            if entry.get(\"subject_sha256\") != user_decision_subject_sha256(delivery_contract, events, delivery):"
+      },
+      {
+        "line": 397,
+        "text": "                raise GovernanceError(\"round subject does not match the referenced verified engineering result\")"
+      },
+      {
+        "line": 398,
+        "text": "            if entry[\"requirements_sha256\"] != requirements_subject(contract):"
+      },
+      {
+        "line": 399,
+        "text": "                raise GovernanceError(\"new rounds must bind the current original request and clarification words\")"
+      },
+      {
+        "line": 400,
+        "text": "            verified_at = max((_instant(event[\"timestamp\"]) for event in events if event.get(\"event_type\") == \"verification\" and event.get(\"status\") == \"succeeded\" and event.get(\"evidence_refs\")), default=_instant(delivery[\"completed_at\"]))"
+      },
+      {
+        "line": 401,
+        "text": "            if _instant(entry[\"started_at\"]) < max(verified_at, _instant(delivery[\"completed_at\"])):"
+      },
+      {
+        "line": 402,
+        "text": "                raise GovernanceError(\"start a new round only after the referenced delivery was verified and saved\")"
+      },
+      {
+        "line": 403,
+        "text": "            report = _report_path(task_dir, entry.get(\"report_ref\", \"\"))"
+      },
+      {
+        "line": 404,
+        "text": "            contents = report.read_bytes()"
+      },
+      {
+        "line": 405,
+        "text": "            if not contents.strip():"
+      },
+      {
+        "line": 406,
+        "text": "                raise GovernanceError(\"the actual round report must not be empty\")"
+      },
+      {
+        "line": 407,
+        "text": "            report_sha = hashlib.sha256(contents).hexdigest()"
+      },
+      {
+        "line": 408,
+        "text": "            recorded_hashes = {item.get(\"report_sha256\") for item in outcome[\"adversarial_review\"] if item.get(\"event\") == \"Round\"}"
+      },
+      {
+        "line": 409,
+        "text": "            if report_sha in report_hashes.values() or report_sha in recorded_hashes:"
+      },
+      {
+        "line": 410,
+        "text": "                raise GovernanceError(\"each round needs a distinct report; aliases and copied content cannot count twice\")"
+      },
+      {
+        "line": 411,
+        "text": "            facts = {\"review_contract_version\": REVIEW_CONTRACT,"
+      },
+      {
+        "line": 412,
+        "text": "                     \"report_ref\": report.relative_to(task_dir.parents[2]).as_posix(), \"report_sha256\": report_sha,"
+      },
+      {
+        "line": 413,
+        "text": "                     \"delivery_completed_at\": delivery[\"completed_at\"],"
+      },
+      {
+        "line": 414,
+        "text": "                     \"delivery_verified_at\": verified_at.isoformat().replace(\"+00:00\", \"Z\")}"
+      },
+      {
+        "line": 415,
+        "text": "            for key, value in facts.items():"
+      },
+      {
+        "line": 416,
+        "text": "                if key != \"report_ref\" and key in entry and entry[key] != value:"
+      },
+      {
+        "line": 417,
+        "text": "                    raise GovernanceError(f\"{key} must match the actual report or delivery\")"
+      },
+      {
+        "line": 418,
+        "text": "            entry.update(facts)"
+      },
+      {
+        "line": 419,
+        "text": "            entry[\"session_completed\"] = False"
+      },
+      {
+        "line": 420,
+        "text": "        records = outcome[\"adversarial_review\"]"
+      },
+      {
+        "line": 421,
+        "text": "        records.append(copy.deepcopy(entry))"
+      },
+      {
+        "line": 422,
+        "text": "        state = bound_review_state(task_dir, outcome, contract, original_events)"
+      },
+      {
+        "line": 423,
+        "text": "        if kind == \"Round\":"
+      },
+      {
+        "line": 424,
+        "text": "            completed = state[\"status\"] == \"Passed\""
+      },
+      {
+        "line": 425,
+        "text": "            if declared_completion is not None and declared_completion != completed:"
+      },
+      {
+        "line": 426,
+        "text": "                raise GovernanceError(\"session_completed must match the actual computed clean pair\")"
+      },
+      {
+        "line": 427,
+        "text": "            entry[\"session_completed\"] = completed"
+      },
+      {
+        "line": 428,
+        "text": "            records[-1][\"session_completed\"] = completed"
+      },
+      {
+        "line": 429,
+        "text": "            bound_review_state(task_dir, outcome, contract, original_events)"
+      },
+      {
+        "line": 430,
+        "text": "        revision = document[\"revision\"]"
+      },
+      {
+        "line": 431,
+        "text": "        document[\"revision\"] += 1"
+      },
+      {
+        "line": 432,
+        "text": "        field = \"adversarial_review\" if path.name == \"after.json\" else \"task_outcome.adversarial_review\""
+      }
+    ]
+  },
+  {
+    "path": "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+    "start": 19,
+    "end": 32,
+    "sha256": "c4a71f6fec02cf029b1e288900a16152435d76a42cce19636fde2a5da33ac181",
+    "lines": [
+      {
+        "line": 19,
+        "text": "5. `objective`、`acceptance`、`incomplete_items` 等面向人的记录必须使用用户提问所用的语言，并把用户原话原样存入 `request_snapshot`。介绍是 Agent 的概括，原话是可核对的凭据，两者都要留。"
+      },
+      {
+        "line": 20,
+        "text": "6. 不推测批准人、授权范围、验收结果、事实证据或风险接受结论。"
+      },
+      {
+        "line": 21,
+        "text": "7. 不因任务较小删除控制目标；只裁剪实例数量、物理载体、内容深度和派生视图。"
+      },
+      {
+        "line": 22,
+        "text": "8. 相同事实只维护一份权威定义；其他文件引用或按需生成。"
+      },
+      {
+        "line": 23,
+        "text": "9. 问题拆解、方案制定和重大修订必须应用 [第一性原理执行规范](references/first-principles-method.md)。"
+      },
+      {
+        "line": 24,
+        "text": "10. 复查与验收以**需求原文**为基准，**逐条对照，不抽查**。任务卡、完成判据、验收清单等 Agent 起草的派生物只能作为补充，不能替代原文：它们在起草时就可能漏掉原文里的要求，拿它们验自己写的实现，查多少遍都不会红。执行方式见 [commands/verify.md](commands/verify.md)。"
+      },
+      {
+        "line": 25,
+        "text": "11. 实现和工程验证完成后必须先保存工程结果，再交付可核对的版本与证据；用户决定保存在结果的 `user_decision` 字段，默认 `Pending`，不控制 `after.json` / `task_outcome` 是否生成。用户可稍后通过可核对的外部来源作决定，无需回到原对话重复回答；无真实决定不得标为验收通过。记录方式见 [commands/verify.md](commands/verify.md) 和 [commands/close.md](commands/close.md)。"
+      },
+      {
+        "line": 26,
+        "text": "12. 工程完成并保存结果后，必须主动询问用户是否启动对抗性审查，明确同意前不得开展。获同意后以原始需求和当前交付为基准逐轮寻找反例、修复并复验；只有同一交付版本连续两轮完整审查均未发现任何问题，才可标为审查通过。发现问题、覆盖不完整、未解决项、阻塞或版本变化均使连续计数归零。操作、证据和停止条件见 [verify 的对抗性审查流程](commands/verify.md#完工后可选对抗性审查)。"
+      },
+      {
+        "line": 27,
+        "text": ""
+      },
+      {
+        "line": 28,
+        "text": "## 路径约定"
+      },
+      {
+        "line": 29,
+        "text": ""
+      },
+      {
+        "line": 30,
+        "text": "- `<skill-root>`：本 `SKILL.md` 所在目录。所有治理脚本都是 `<skill-root>/scripts/...`，禁止在消费项目的 `scripts/` 下寻找同名文件。"
+      },
+      {
+        "line": 31,
+        "text": "- `<project-root>`：含 `.project-governance/` 的消费项目根。不等于 skill 根；工作区若是本 skill 子目录，项目根通常是上一级 Git 仓。"
+      },
+      {
+        "line": 32,
+        "text": "- `commands/`：命令卡，按路由读一张。`references/`：skill 说明（路由图、第一性原理、文档布局）。"
+      }
+    ]
+  },
+  {
+    "path": "skills/product-engineering/run-governed-product-workflow/commands/verify.md",
+    "start": 110,
+    "end": 139,
+    "sha256": "f932cc83dddf106f09833aa0d20f6dc93b81a4806e99d1666f98f585492e6563",
+    "lines": [
+      {
+        "line": 110,
+        "text": "python <skill-root>/scripts/manage_minimal_task.py record-review <project-root>/.project-governance/tasks/<TaskID> --user-decision-json-file <actual-decision.json> --reason <实际补记原因> --basis <真实来源>"
+      },
+      {
+        "line": 111,
+        "text": "```"
+      },
+      {
+        "line": 112,
+        "text": ""
+      },
+      {
+        "line": 113,
+        "text": "两者保留修订历史和原工程事实，不向已结束 Run 补事件。无来源、错误版本、未来时间、早于交付验证的决定，以及用较早批准覆盖较晚拒绝，均不得记入。`Rejected` / `Deferred` 仍保留已保存工程结果；返修按实际范围启动后续任务，不把人的选择改写成工程事实。"
+      },
+      {
+        "line": 114,
+        "text": ""
+      },
+      {
+        "line": 115,
+        "text": "缺少 `user_decision` 的旧文件继续按原有证明和历史兼容规则读取，不能把“没有字段”当成新的 `Pending` 或 `Approved`，也不批量补造人的决定。新的生成器始终写该字段。`Proceed`、工程 required Gate 和发布权限保持各自的校验，不能用工程结果留档替代。"
+      },
+      {
+        "line": 116,
+        "text": ""
+      },
+      {
+        "line": 117,
+        "text": "## 完工后可选对抗性审查"
+      },
+      {
+        "line": 118,
+        "text": ""
+      },
+      {
+        "line": 119,
+        "text": "**规则表述：**工程实现及必要验证完成、工程结果保存后，主动询问用户是否启动多轮对抗性审查。仅在用户明确同意后开展。每轮以原始需求、澄清原话和当前已验证交付为基准，独立寻找遗漏、反例和失效路径；发现问题先修复并复验，再启动下一轮。只有同一交付版本连续两轮完整审查均未发现任何问题，且无未解决或未检查项，才结束并标为审查通过。"
+      },
+      {
+        "line": 120,
+        "text": ""
+      },
+      {
+        "line": 121,
+        "text": "### 启动与授权"
+      },
+      {
+        "line": 122,
+        "text": ""
+      },
+      {
+        "line": 123,
+        "text": "1. 先完成普通工程验证并按 [close](close.md) 保存 Full `after.json` 或 Minimal `task_outcome`，再交付并发出开始 / 不需要 / 稍后决定的真实询问。此规则不把普通测试或已要求的工程 Gate 改成可选项。"
+      },
+      {
+        "line": 124,
+        "text": "2. 将实际问题记为 `Offer`。无答复为 `AwaitingUser`；拒绝、推迟分别为 `Declined`、`Deferred`，均不得开始。只有 `Decision.outcome=Accepted` 且保留回答原话、实际决定人、时间和来源，才可进入审查。用户稍后主动明确开始时，直接追加真实新决定，不要求重新提问；已停止或已结束后再开始也须真实新决定。编写此机制、普通验收同意和沉默都不构成启动授权。"
+      },
+      {
+        "line": 125,
+        "text": "3. 同意覆盖本任务范围内的多轮审查、返修和复验；不扩展生产操作、发布或权限。越界、缺少环境/证据或无法安全修复时记录 `Blocked`，向用户说明解除条件；用户要求停止时记录真实 `Stopped` 决定。未达到两轮不得报告通过，不以固定最大轮次代替收敛。"
+      },
+      {
+        "line": 126,
+        "text": ""
+      },
+      {
+        "line": 127,
+        "text": "### 每轮怎样审查"
+      },
+      {
+        "line": 128,
+        "text": ""
+      },
+      {
+        "line": 129,
+        "text": "- 重新读取需求原文和澄清原话，逐条核对当前交付；不能只读完成清单、上一轮结论或实施者自述。每轮覆盖完整约定范围，检查需求遗漏、条件/例外、权限和状态边界、失败恢复、兼容及证据真实性；不因未改动而抽掉相关路径。"
+      },
+      {
+        "line": 130,
+        "text": "- 从“如何证明本交付仍然有错”出发构造可运行反例，核对实现、测试和实际输出。每轮换用反例或失效视角，但保持完整覆盖。只重跑同一测试、复制报告、分段抽查合并成两轮，均不成立。"
+      },
+      {
+        "line": 131,
+        "text": "- 每轮独立形成判断，不把上一轮“无问题”作为前提。获用户同意后，若平台支持且授权允许，使用新的只读审查子 Agent；输入原话、约束、交付版本与证据位置，不输入预设结论。没有独立执行者时以新一轮审查上下文开展，明确记录由同一执行者复核，禁止声称独立人员审查。"
+      },
+      {
+        "line": 132,
+        "text": "- 每个问题记录唯一 ID、可复现条件、预期/实际差异、影响、位置和证据；完整报告放入该轮的独立证据文件，结果只保存摘要与引用。所有确认问题均处理，不以低严重度忽略问题。疑似误报必须凭证据说明 `NotAnIssue`，未决争议不能记为无问题。"
+      },
+      {
+        "line": 133,
+        "text": "- 修复使用依赖原任务的后续任务，执行已有范围与工程验证规则，保存新结果；不改写原工程结果或向已结束账本补事件。Full/Minimal 的 close 均传 `--review-parent-task-id <原任务ID>`，校验父任务确已同意且尚未结束，并将归属写入 `adversarial_review_parent`；返修状态为 `ManagedByParent`，不重复询问或新开审查。轮次仍记在原任务，`delivery_task_id` 指向本轮实际复验完成的任务，返修任务直接 `depends_on` 原任务。显式归属的已保存返修按 `completed_at` 接续为该会话当前交付；即使新返修尚无审查轮次，也使旧交付的连续计数失效并拒绝继续引用旧版。当前交付尚未复验完成或无法唯一确定时，不计数，记录阻塞并核对实际交付。"
+      },
+      {
+        "line": 134,
+        "text": ""
+      },
+      {
+        "line": 135,
+        "text": "### 计数与结束"
+      },
+      {
+        "line": 136,
+        "text": ""
+      },
+      {
+        "line": 137,
+        "text": "- 发现任何问题、覆盖不完整、有未检查项、存在未解决问题或阻塞：本轮不计为干净轮次，连续计数归零。"
+      },
+      {
+        "line": 138,
+        "text": "- 交付版本或原始需求/澄清变化使旧计数失效；尚未结束的会话显示 `Stale`，保留历史并允许记录阻塞及在现有授权内继续。已结束会话的证明失效显示 `RestartRequired`，须有真实新 `Accepted` 才可重新开始，不能恢复旧同意。basis、survey_refs、捕获时间等说明更正不改变新版原文绑定。修复后从新版本第一轮重新计数，开始时间必须晚于该交付的验证和留档时间。已发现问题须在后续轮以证据登记 `Fixed` 或 `NotAnIssue`；`Fixed` 必须绑定重新验证的新交付。"
+      },
+      {
+        "line": 139,
+        "text": "- 第一轮完整无问题记为 1；保持同版再完整审查一轮仍无问题记为 2，自动得到 `Passed`，随后结束。独立报告、轮次 ID、时间与版本必须分别可核对，不能复用一份报告凑数。"
+      }
+    ]
+  },
+  {
+    "path": "skills/product-engineering/run-governed-product-workflow/commands/close.md",
+    "start": 47,
+    "end": 51,
+    "sha256": "dc101412b1b263cd95c20c4e355b42b7d357f387e84091a1941a3b8b1eac2f93",
+    "lines": [
+      {
+        "line": 47,
+        "text": "TaskOutcome 写明成立事实、实际变化、验证、遗留项、责任人、后续 TaskID 和独立 `user_decision`。后续决定的字段格式及补记命令见 [verify](verify.md)。"
+      },
+      {
+        "line": 48,
+        "text": ""
+      },
+      {
+        "line": 49,
+        "text": "新结果同时初始化 `adversarial_review: []`；工程状态为 `Implemented` 时其含义为“尚未询问”。保存并交付后必须主动询问是否启动对抗性审查，再记录实际 Offer；不得先审查后补问。未回答、拒绝和推迟均不撤回结果，也不代表审查通过。获明确同意后按 [verify 的对抗性审查流程](verify.md#完工后可选对抗性审查) 追加记录；不要向已结束的 Run 补事件。该选择与 `user_decision` 中的人工验收决定分开，不能相互代替。"
+      },
+      {
+        "line": 50,
+        "text": ""
+      },
+      {
+        "line": 51,
+        "text": "同一已授权审查的返修任务在 Full / Minimal close 时传 `--review-parent-task-id <原审查任务ID>`，并直接依赖该原任务。脚本核验同项目、明确同意与未结束会话后写入归属，状态为 `ManagedByParent`，不递归询问或新开审查。无有效父会话不得凭此参数跳过询问；归属不能事后用普通 amendment 改写。"
+      }
+    ]
+  }
+]

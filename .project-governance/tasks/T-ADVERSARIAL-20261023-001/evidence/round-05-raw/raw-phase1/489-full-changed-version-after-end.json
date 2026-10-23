@@ -1,0 +1,14 @@
+{
+  "input": "Synthetic current saved delivery binding changed; same historical accepted decision",
+  "actual": {
+    "status": "RestartRequired",
+    "clean_streak": 0,
+    "rounds": 3,
+    "open_findings": [],
+    "reviewed_delivery": {
+      "task_id": "T-FULL-REPAIR-B",
+      "subject_sha256": "14f3ab9d4a488d130a7468b98ba417f9c58d3ca094a306b293590b754b4281f4",
+      "requirements_sha256": "d6974ea2edfffd5b09ae531762579ee05753e588bfe6c007f27177b528dc86d4"
+    }
+  }
+}

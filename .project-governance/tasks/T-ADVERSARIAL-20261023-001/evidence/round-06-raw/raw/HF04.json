@@ -1,0 +1,30 @@
+{
+  "id": "HF04",
+  "condition": "Deleting ended-session report invalidates proof but retains ended authorization boundary",
+  "input": {
+    "deleted_report": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\blocked-resume-Full\\.project-governance\\tasks\\T-BLOCKED-F\\evidence\\synthetic-now-ended.md"
+  },
+  "expected": "RestartRequired / clean 0",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "RestartRequired",
+      "clean_streak": 0,
+      "rounds": 4,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-BLOCKED-F",
+        "subject_sha256": "08423ae6e02f076177d92f18acbcc56d593f0ba6c86c0cad3d05148d15f9ee50",
+        "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+      },
+      "current_delivery": {
+        "task_id": "T-BLOCKED-F",
+        "subject_sha256": "08423ae6e02f076177d92f18acbcc56d593f0ba6c86c0cad3d05148d15f9ee50"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/HF04.json"
+  ]
+}

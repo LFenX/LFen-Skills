@@ -1,0 +1,45 @@
+{
+  "id": "IOF02",
+  "condition": "Retry same authorized failed append can succeed without repeated human consent",
+  "input": {
+    "event": "Round",
+    "round_id": "io-retry",
+    "recorded_at": "2026-10-23T14:07:22.103688Z",
+    "started_at": "2026-10-23T14:07:22.102942Z",
+    "reviewer": "synthetic-ar06-reviewer",
+    "delivery_task_id": "T-IO-F",
+    "subject_sha256": "7d1716215e9a34aa70752f229237e53a8cb3254206809de74f217d10e8d2e4b7",
+    "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b",
+    "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\final-fixtures\\io-Full\\.project-governance\\tasks\\T-IO-F\\evidence\\synthetic-io-retry.md",
+    "coverage": "Complete",
+    "unreviewed_items": [],
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/round/io-retry"
+    ],
+    "findings": [],
+    "resolutions": []
+  },
+  "expected": "Passed / clean2 with one actual appended retry",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-IO-F",
+        "subject_sha256": "7d1716215e9a34aa70752f229237e53a8cb3254206809de74f217d10e8d2e4b7",
+        "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+      },
+      "current_delivery": {
+        "task_id": "T-IO-F",
+        "subject_sha256": "7d1716215e9a34aa70752f229237e53a8cb3254206809de74f217d10e8d2e4b7"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/IOF02.json"
+  ]
+}

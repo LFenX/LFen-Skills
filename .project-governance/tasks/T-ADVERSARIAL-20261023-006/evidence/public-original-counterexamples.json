@@ -1,0 +1,131 @@
+{
+  "checked_at": "2026-10-23T14:20:28.435872Z",
+  "result": "Passed",
+  "fresh_fixture_root": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\lfen-ar06-fix-cli-pu7p8mlh",
+  "original_source_helper_sha256": "b8901dacb247f92e8ccf761b698b297a34e4e064b2e3677c2efd021e8f66b633",
+  "original_bad_fields_source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\raw\\CLI-BLANK-DECISION-entry.json",
+  "time_handling": "fresh recorded_at after new engineering outcome; original three blank field values preserved exactly",
+  "cases": [
+    {
+      "carrier": "Full",
+      "input": {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T14:20:27.834822Z",
+        "outcome": "Accepted",
+        "response": " \t ",
+        "decided_by": " ",
+        "evidence_ref": "\t"
+      },
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-ar06-fix-cli-pu7p8mlh\\Full\\.project-governance\\tasks\\T-FIX-BLANK-FULL",
+        "--entry-json-file",
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\lfen-ar06-fix-cli-pu7p8mlh\\invalid-Full.json",
+        "--reason",
+        "Original AR06 public counterexample replay",
+        "--basis",
+        "synthetic-original-repro://temp-only"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "ERROR: review entry: must match exactly one schema branch\n",
+      "record_unchanged": true,
+      "before_after_sha256": "9afb133bd702b0638740fa7e0137b37d21cc324cb7b2060dad3fb1e00c0e77be",
+      "negative_state": {
+        "status": "AwaitingUser",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": [],
+        "current_delivery": {
+          "task_id": "T-FIX-BLANK-FULL",
+          "subject_sha256": "4bba55eeeebee10b6f89c63b1a1d19bdf861b80730eee386b28555e11966ef8f"
+        }
+      },
+      "valid_original_text_preserved": {
+        "response": " \t SYNTHETIC actual yes 　",
+        "decided_by": " synthetic-user ",
+        "evidence_ref": " synthetic-original-repro://actual-choice "
+      },
+      "synthetic_positive_two_round_state": {
+        "status": "Passed",
+        "clean_streak": 2,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-FIX-BLANK-FULL",
+          "subject_sha256": "4bba55eeeebee10b6f89c63b1a1d19bdf861b80730eee386b28555e11966ef8f",
+          "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+        },
+        "current_delivery": {
+          "task_id": "T-FIX-BLANK-FULL",
+          "subject_sha256": "4bba55eeeebee10b6f89c63b1a1d19bdf861b80730eee386b28555e11966ef8f"
+        }
+      }
+    },
+    {
+      "carrier": "Minimal",
+      "input": {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T14:20:28.239789Z",
+        "outcome": "Accepted",
+        "response": " \t ",
+        "decided_by": " ",
+        "evidence_ref": "\t"
+      },
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-ar06-fix-cli-pu7p8mlh\\Minimal\\.project-governance\\tasks\\T-FIX-BLANK-MINIMAL",
+        "--entry-json-file",
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\lfen-ar06-fix-cli-pu7p8mlh\\invalid-Minimal.json",
+        "--reason",
+        "Original AR06 public counterexample replay",
+        "--basis",
+        "synthetic-original-repro://temp-only"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "ERROR: review entry: must match exactly one schema branch\n",
+      "record_unchanged": true,
+      "before_after_sha256": "100190e6d1c5e22e0fd87f91312576e667f257562138b0cb5b70fc5e41876276",
+      "negative_state": {
+        "status": "AwaitingUser",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": [],
+        "current_delivery": {
+          "task_id": "T-FIX-BLANK-MINIMAL",
+          "subject_sha256": "8b215d80b41ee4a72e8c14bb1836f1e26fbb257a57fe955b3a7d6a2e435246e8"
+        }
+      },
+      "valid_original_text_preserved": {
+        "response": " \t SYNTHETIC actual yes 　",
+        "decided_by": " synthetic-user ",
+        "evidence_ref": " synthetic-original-repro://actual-choice "
+      },
+      "synthetic_positive_two_round_state": {
+        "status": "Passed",
+        "clean_streak": 2,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-FIX-BLANK-MINIMAL",
+          "subject_sha256": "8b215d80b41ee4a72e8c14bb1836f1e26fbb257a57fe955b3a7d6a2e435246e8",
+          "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+        },
+        "current_delivery": {
+          "task_id": "T-FIX-BLANK-MINIMAL",
+          "subject_sha256": "8b215d80b41ee4a72e8c14bb1836f1e26fbb257a57fe955b3a7d6a2e435246e8"
+        }
+      }
+    }
+  ],
+  "note": "synthetic fixtures only; neither real human decisions nor actual clean review rounds"
+}

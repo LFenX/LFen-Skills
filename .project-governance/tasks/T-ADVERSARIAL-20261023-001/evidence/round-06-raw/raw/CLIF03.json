@@ -1,0 +1,61 @@
+{
+  "id": "CLIF03",
+  "condition": "Documented close flag saves explicit repair association",
+  "input": {
+    "args": [
+      "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\close_task.py",
+      "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\cli-repair-Full\\.project-governance\\tasks\\T-CLI-R-F",
+      "--status",
+      "Implemented",
+      "--fact",
+      "Synthetic verified",
+      "--change",
+      "Synthetic edit",
+      "--verification",
+      "Passed::Synthetic verified::synthetic-ar06://temp-only/cli-verified",
+      "--review-parent-task-id",
+      "T-CLI-P-F"
+    ]
+  },
+  "expected": "exit0 / ManagedByParent",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "cli": {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-X",
+          "utf8",
+          "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\close_task.py",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\cli-repair-Full\\.project-governance\\tasks\\T-CLI-R-F",
+          "--status",
+          "Implemented",
+          "--fact",
+          "Synthetic verified",
+          "--change",
+          "Synthetic edit",
+          "--verification",
+          "Passed::Synthetic verified::synthetic-ar06://temp-only/cli-verified",
+          "--review-parent-task-id",
+          "T-CLI-P-F"
+        ],
+        "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z",
+        "returncode": 0,
+        "stdout": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\cli-repair-Full\\.project-governance\\tasks\\T-CLI-R-F\\after.json\n",
+        "stderr": "",
+        "at": "2026-10-23T14:03:07.342587Z"
+      },
+      "state": {
+        "status": "ManagedByParent",
+        "parent_task_id": "T-CLI-P-F",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/CLIF03.json"
+  ]
+}

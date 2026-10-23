@@ -1,0 +1,19 @@
+{
+  "id": "RM07",
+  "condition": "Unconsented parent cannot suppress repair opt-in",
+  "input": {
+    "task": "T-DENIED-REPAIR-M",
+    "parent": "T-DENIED-M"
+  },
+  "expected": "Rejected / no saved outcome",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "a repair must belong to an explicitly opted-in, unfinished parent review",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_boundaries.py\", line 40, in <lambda>\n    case('R'+k+'07','Unconsented parent cannot suppress repair opt-in',{'task':candidate.name,'parent':denied_parent.name},'Rejected / no saved outcome',lambda:finishopen(candidate,carrier,parent=denied_parent.name),reject)\n                                                                                                                                                                ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_boundaries.py\", line 10, in finishopen\n    return str(mt.close_minimal_record(task,status=status,established_facts=['Synthetic verified'],actual_changes=['Synthetic label'],verification=['Passed::Synthetic check::'+SYN+'/repair-check'],review_parent_task_id=parent))\n               ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\minimal_task.py\", line 979, in close_minimal_record\n    return _close_minimal_record_unlocked(task_dir, **kwargs)\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\minimal_task.py\", line 970, in _close_minimal_record_unlocked\n    record[\"task_outcome\"][\"adversarial_review_parent\"] = require_review_parent(task_dir, minimal_approval_contract(record), review_parent_task_id)\n                                                          ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 341, in require_review_parent\n    raise GovernanceError(\"a repair must belong to an explicitly opted-in, unfinished parent review\")\ngovernance_artifacts.GovernanceError: a repair must belong to an explicitly opted-in, unfinished parent review\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/RM07.json"
+  ]
+}

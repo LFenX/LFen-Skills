@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-10-23T13:26:28.860978Z",
-  "source_digest": "720bdd70f9cf3c0da4321fc603c4edde857815bb83b5b99c9a07a503951ee427",
+  "generated_at": "2026-10-23T13:52:34.724922Z",
+  "source_digest": "a1c444debbddbd5b275547420dece16ba87b6c10e15da733b9a8f6cdd73d1c86",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -164,7 +164,7 @@
       "ordinal": 15,
       "status": "Implemented",
       "user_decision": "Pending",
-      "revision": 8,
+      "revision": 9,
       "completed_at": "2026-10-23T09:34:07.840577Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",

@@ -1,0 +1,14 @@
+{
+  "source": ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/validation-summary.json",
+  "installed_self_test": {
+    "started_at": "2026-10-23T13:15:33.677606Z",
+    "finished_at": "2026-10-23T13:17:10.422499Z",
+    "exit_code": 0,
+    "installed_files_stable": true,
+    "file_count": 96,
+    "log": ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/installed-self-test-A01.log",
+    "source_sha256": "f0f3ce7fedddffcc889a3ec941009839521f0705a62e19b1fcea11aaf585e6af",
+    "preserved_peer_governance_sha256": "add9aff766c9b5ddb3eed0cdf5da8f7e464707648f5ea4870c98a462002ae153"
+  },
+  "use": "Only this allowed engineering field is retained. No imported installed module or new installed execution in AR06."
+}

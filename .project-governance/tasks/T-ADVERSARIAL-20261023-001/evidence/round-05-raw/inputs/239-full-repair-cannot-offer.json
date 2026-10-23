@@ -1,0 +1,6 @@
+{
+  "event": "Offer",
+  "prompt": "synthetic recursive review",
+  "evidence_ref": "ar05-fixture://question",
+  "recorded_at": "2026-10-23T13:35:26.909377Z"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "F13",
+  "condition": "Active session cannot recursively offer",
+  "input": {
+    "event": "Offer",
+    "recorded_at": "2026-10-23T13:58:56.045058Z",
+    "prompt": "SYNTHETIC: engineering verified and saved. Start review?",
+    "evidence_ref": "synthetic-ar06://temp-only/offer"
+  },
+  "expected": "Reject invalid append",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "an active review must be completed or stopped before offering it again",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_suite.py\", line 8, in op\n    try:return write_entry(task,entry)\n               ~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 376, in append_review\n    raise GovernanceError(\"an active review must be completed or stopped before offering it again\")\ngovernance_artifacts.GovernanceError: an active review must be completed or stopped before offering it again\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/F13.json"
+  ]
+}

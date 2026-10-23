@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "installed-round1",
+  "started_at": "2026-10-23T13:42:03.307550Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-INSTALLED-PUBLIC",
+  "subject_sha256": "27a43deca16f160dad95d8e7c9a69a78951985904594c3a2c4caa04f60ad8a43",
+  "requirements_sha256": "65b3073785b770cc4f798c1ea238728de669a88ce60948cbbacd958593611cb9",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\installed-public\\.project-governance\\tasks\\T-INSTALLED-PUBLIC\\evidence\\installed-round1.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:42:03.307578Z"
+}

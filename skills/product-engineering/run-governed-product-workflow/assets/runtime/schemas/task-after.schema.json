@@ -502,11 +502,13 @@
               },
               "prompt": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "pattern": "\\S"
               },
               "evidence_ref": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "pattern": "\\S"
               }
             }
           },
@@ -539,15 +541,18 @@
               },
               "response": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "pattern": "\\S"
               },
               "decided_by": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "pattern": "\\S"
               },
               "evidence_ref": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "pattern": "\\S"
               }
             }
           },
@@ -570,7 +575,8 @@
               },
               "reason": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "pattern": "\\S"
               },
               "evidence_refs": {
                 "type": "array",
@@ -578,7 +584,8 @@
                 "uniqueItems": true,
                 "items": {
                   "type": "string",
-                  "minLength": 1
+                  "minLength": 1,
+                  "pattern": "\\S"
                 }
               }
             }
@@ -611,7 +618,8 @@
               },
               "round_id": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "pattern": "\\S"
               },
               "started_at": {
                 "type": "string",
@@ -619,11 +627,13 @@
               },
               "reviewer": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "pattern": "\\S"
               },
               "delivery_task_id": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "pattern": "\\S"
               },
               "subject_sha256": {
                 "type": "string",
@@ -644,7 +654,8 @@
               },
               "report_ref": {
                 "type": "string",
-                "minLength": 1
+                "minLength": 1,
+                "pattern": "\\S"
               },
               "report_sha256": {
                 "type": "string",
@@ -666,7 +677,8 @@
                 "uniqueItems": true,
                 "items": {
                   "type": "string",
-                  "minLength": 1
+                  "minLength": 1,
+                  "pattern": "\\S"
                 }
               },
               "evidence_refs": {
@@ -675,7 +687,8 @@
                 "uniqueItems": true,
                 "items": {
                   "type": "string",
-                  "minLength": 1
+                  "minLength": 1,
+                  "pattern": "\\S"
                 }
               },
               "findings": {
@@ -691,11 +704,13 @@
                   "properties": {
                     "id": {
                       "type": "string",
-                      "minLength": 1
+                      "minLength": 1,
+                      "pattern": "\\S"
                     },
                     "summary": {
                       "type": "string",
-                      "minLength": 1
+                      "minLength": 1,
+                      "pattern": "\\S"
                     },
                     "evidence_refs": {
                       "type": "array",
@@ -703,7 +718,8 @@
                       "uniqueItems": true,
                       "items": {
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "pattern": "\\S"
                       }
                     }
                   }
@@ -723,7 +739,8 @@
                   "properties": {
                     "finding_id": {
                       "type": "string",
-                      "minLength": 1
+                      "minLength": 1,
+                      "pattern": "\\S"
                     },
                     "disposition": {
                       "enum": [
@@ -733,7 +750,8 @@
                     },
                     "reason": {
                       "type": "string",
-                      "minLength": 1
+                      "minLength": 1,
+                      "pattern": "\\S"
                     },
                     "evidence_refs": {
                       "type": "array",
@@ -741,7 +759,8 @@
                       "uniqueItems": true,
                       "items": {
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "pattern": "\\S"
                       }
                     }
                   }

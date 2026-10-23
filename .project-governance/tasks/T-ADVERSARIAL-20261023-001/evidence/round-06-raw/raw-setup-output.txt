@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\ADMINI~1\AppData\Local\Temp\ar06-independent-20261023T135251Z\review_cases.py", line 103, in <module>
+    full=create(ARCHIVE/'fixtures'/'full','T-FULL')
+  File "C:\Users\ADMINI~1\AppData\Local\Temp\ar06-independent-20261023T135251Z\review_cases.py", line 57, in create
+    task=ga.initialize_task(root,**common,acceptance=['Synthetic label check passes'],development_types=['DT-08'],primary_development_type='DT-08',change_surfaces=['UI/UX'],delivery_scenario='DS-03',risk_level='Low',baseline_inheritance=['New'],in_scope=['Synthetic local label'],out_of_scope=['All real files'],allowed_paths=[str(root)],forbidden_actions=['External side effects'],extension_triggers={k:'Inactive' for k in ['E01','E02','E03','E04','E05']},extension_evidence_refs={k:[] for k in ['E01','E02','E03','E04','E05']},applicability_facts=facts,tailoring_stage='S4',required_gates=[],authority_references=[SYN+'/authority'],authority_assessments=[{'reference':SYN+'/authority','source_kind':'Policy','status':'Valid','scope_refs':['Synthetic local label'],'evidence_refs':[SYN+'/authority-source'],'verified_at':stamp(),'expires_at':None}],basis=['Synthetic isolated fixture'],source_snapshot={'kind':'synthetic-ar06','version':tid})
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\governance_artifacts.py", line 2986, in initialize_task
+    require_valid_json_document(before, "task-before.schema.json", "before")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\governance_artifacts.py", line 387, in require_valid_json_document
+    raise GovernanceError("; ".join(errors))
+governance_artifacts.GovernanceError: before.requirement_items[0].id: does not match pattern ^R-[0-9]{2,}$

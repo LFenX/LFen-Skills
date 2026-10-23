@@ -1,0 +1,228 @@
+[
+  {
+    "id": "R01",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "针对当前任务增加多轮对抗性审查",
+    "status": "已实现",
+    "case_ids": [
+      "F12",
+      "F15",
+      "F36",
+      "F41",
+      "M12",
+      "M15",
+      "M36",
+      "M41"
+    ],
+    "actual": "公开入口持续追加独立轮次；支持同范围继续和真实新决定重新开始。",
+    "gap": null,
+    "evidence_refs": [
+      "source-excerpts.json",
+      "raw/F36.json",
+      "raw/M36.json"
+    ]
+  },
+  {
+    "id": "R02",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "直到连续两次完整审查没有发现任何问题才结束",
+    "status": "已实现",
+    "case_ids": [
+      "F15",
+      "F16",
+      "F17",
+      "F18",
+      "F19",
+      "F20",
+      "F21",
+      "F22",
+      "F33",
+      "F34",
+      "F35",
+      "F36",
+      "RF01",
+      "RF02",
+      "RF03",
+      "RF05",
+      "RM01",
+      "RM02",
+      "RM03",
+      "RM05",
+      "R-A01",
+      "R-A02"
+    ],
+    "actual": "有效授权下，干净轮计1/2；问题、未检项、阻塞和版本变化归零；问题处置与报告去重有效。",
+    "gap": null,
+    "evidence_refs": [
+      "raw/F15.json",
+      "raw/F18.json",
+      "raw/RF01.json",
+      "raw/RM03.json",
+      "raw/F36.json"
+    ]
+  },
+  {
+    "id": "R03",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "优化规则表述",
+    "status": "已实现",
+    "case_ids": [
+      "A02"
+    ],
+    "actual": "SKILL总原则12、完工输出及verify规则明确了询问时机、启动条件、每轮基准、返修及终止条件。",
+    "gap": null,
+    "evidence_refs": [
+      "source-excerpts.json",
+      "raw/A02.json"
+    ]
+  },
+  {
+    "id": "R04",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "优化执行流程",
+    "status": "部分实现",
+    "case_ids": [
+      "F01",
+      "F02",
+      "F06",
+      "F08",
+      "F10",
+      "F23",
+      "F24",
+      "F25",
+      "RF01",
+      "RM01",
+      "IOF01",
+      "IOM01",
+      "F46",
+      "M46"
+    ],
+    "actual": "主流程、异常恢复与返修接续已实现；AR06-F01使授权字段为空白时仍放行。",
+    "gap": "AR06-F01",
+    "evidence_refs": [
+      "raw/IOF01.json",
+      "raw/IOM01.json",
+      "raw/F46.json",
+      "raw/M46.json"
+    ]
+  },
+  {
+    "id": "R05",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "将规则嵌入该skill",
+    "status": "已实现",
+    "case_ids": [
+      "D01",
+      "D02",
+      "DF03",
+      "DM03",
+      "CLIF03",
+      "CLIM03"
+    ],
+    "actual": "主skill、verify、close、minimal、status、公开脚本和两载体schema已连通；95安装文件一致，唯一保留差异符合已授权边界。",
+    "gap": null,
+    "evidence_refs": [
+      "source-excerpts.json",
+      "raw/D01.json",
+      "raw/D02.json",
+      "raw/DF03.json",
+      "raw/DM03.json"
+    ]
+  },
+  {
+    "id": "R06",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "确保机制能够发挥作用",
+    "status": "部分实现",
+    "case_ids": [
+      "F02",
+      "F03",
+      "F06",
+      "F08",
+      "F10",
+      "F36",
+      "RF03",
+      "RM03",
+      "HF04",
+      "HM04",
+      "HPF01",
+      "HPM01",
+      "CLI01",
+      "CLI02"
+    ],
+    "actual": "状态、证据、版本、兼容和失败恢复可运行；公开CLI仍能把全空白授权字段计为有效同意。",
+    "gap": "AR06-F01",
+    "evidence_refs": [
+      "raw/CLI01.json",
+      "raw/CLI02.json",
+      "raw/D01.json",
+      "raw/IO03.json"
+    ]
+  },
+  {
+    "id": "R07",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "对抗性审查不能直接开始",
+    "status": "部分实现",
+    "case_ids": [
+      "F02",
+      "F03",
+      "F06",
+      "F08",
+      "F10",
+      "M02",
+      "M03",
+      "M06",
+      "M08",
+      "M10",
+      "F46",
+      "M46",
+      "CLI01",
+      "CLI02"
+    ],
+    "actual": "无Offer/无Accepted/拒绝/推迟的正常路径均阻断；空白Decision凭据失效路径未阻断（AR06-F01）。",
+    "gap": "AR06-F01",
+    "evidence_refs": [
+      "raw/F03.json",
+      "raw/M03.json",
+      "raw/CLI-BLANK-DECISION-command.json"
+    ]
+  },
+  {
+    "id": "R08",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "任务完成后主动询问用户是否需要进行对抗性审查",
+    "status": "已实现",
+    "case_ids": [
+      "F01",
+      "F04",
+      "F05",
+      "F11",
+      "RF08",
+      "M01",
+      "M04",
+      "M05",
+      "M11",
+      "RM08",
+      "A01",
+      "A02"
+    ],
+    "actual": "Implemented留档后NotOffered提示主动询问；未完工不允许Offer，询问后等待真实选择；当前真实询问和明确答复与独立Pending验收分离。",
+    "gap": null,
+    "evidence_refs": [
+      "source-excerpts.json",
+      "raw/A01.json",
+      "raw/A02.json",
+      "raw/F04.json",
+      "raw/M04.json"
+    ]
+  }
+]

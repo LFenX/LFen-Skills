@@ -1,0 +1,2 @@
+setup [] []
+state {'status': 'NotOffered', 'clean_streak': 0, 'rounds': 0, 'open_findings': [], 'current_delivery': {'task_id': 'T-FULL', 'subject_sha256': '3e5b92233ba324a3c7ed5948e810adbf8566a27db8d3d88b30264f3f92c7317a'}} {'status': 'NotOffered', 'clean_streak': 0, 'rounds': 0, 'open_findings': [], 'current_delivery': {'task_id': 'T-MIN', 'subject_sha256': 'e61794e95bc1d87428e2d34f4c3e72fa83646ca74f9b70f3a37e04804e25f4cc'}}

@@ -1,0 +1,21 @@
+{
+  "id": "M46",
+  "condition": "Whitespace-only response/actor/source must not authorize a session",
+  "input": {
+    "event": "Decision",
+    "recorded_at": "2026-10-23T13:59:00.706020Z",
+    "outcome": "Accepted",
+    "response": " \t ",
+    "decided_by": "   ",
+    "evidence_ref": "\t"
+  },
+  "expected": "Reject absent actual response, actor and source",
+  "actual": {
+    "accepted": true,
+    "value": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\blank_authority\\Minimal\\.project-governance\\tasks\\T-BLANK-AUTHORITY-MINIMAL\\task-record.json"
+  },
+  "result": "Failed",
+  "evidence_refs": [
+    "raw/M46.json"
+  ]
+}

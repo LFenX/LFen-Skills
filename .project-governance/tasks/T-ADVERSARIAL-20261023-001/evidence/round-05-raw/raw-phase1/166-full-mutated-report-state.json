@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-evidence\\.project-governance\\tasks\\T-FULL-EVIDENCE"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:35:14.004119Z",
+  "ended_at": "2026-10-23T13:35:14.126147Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"Stale\",\n  \"clean_streak\": 0,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-FULL-EVIDENCE\",\n    \"subject_sha256\": \"b36e796ac18d9806eff7e385840c2494f6e4d2fc098c15baf80a72adc826cad8\",\n    \"requirements_sha256\": \"4219aaccdd4a2bebf7ad903260edf99b92e7083596c6e5bd50f1e41443eafbe7\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-FULL-EVIDENCE\",\n    \"subject_sha256\": \"b36e796ac18d9806eff7e385840c2494f6e4d2fc098c15baf80a72adc826cad8\"\n  },\n  \"requirements_sha256\": \"4219aaccdd4a2bebf7ad903260edf99b92e7083596c6e5bd50f1e41443eafbe7\",\n  \"delivery_task_id\": \"T-FULL-EVIDENCE\",\n  \"subject_sha256\": \"b36e796ac18d9806eff7e385840c2494f6e4d2fc098c15baf80a72adc826cad8\"\n}\n",
+  "stderr": ""
+}

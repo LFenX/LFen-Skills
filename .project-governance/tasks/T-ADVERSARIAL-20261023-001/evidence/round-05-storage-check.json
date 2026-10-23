@@ -1,0 +1,28 @@
+{
+  "checked_at": "2026-10-23T13:53:15.239205Z",
+  "verified_staged_archived_files": 776,
+  "all_staged_format": {
+    "command": [
+      "git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "exit_code": 2,
+    "output": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-05-raw/independent_suite.py:168: new blank line at EOF.\n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-05-raw/phase1-console-retry1.log:15: new blank line at EOF.\n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-05-raw/phase1-console-retry2.log:17: new blank line at EOF.\n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-05-raw/phase1-console-retry3.log:17: new blank line at EOF.\n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-05-raw/phase1-console.log:15: new blank line at EOF.\n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-05-raw/phase4-console.log:9: new blank line at EOF.\n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-05-raw/phase4.py:92: new blank line at EOF.\n"
+  },
+  "nonraw_staged_format": {
+    "command": [
+      "git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      ".",
+      ":(exclude).project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-05-raw/**"
+    ],
+    "exit_code": 0,
+    "output": ""
+  },
+  "disposition": "Original reviewer scripts/logs contain terminal blank lines; retained as evidence, not silently formatted. This is an archive whitespace finding, not a product/source regression or an actual adversarial defect. Source and nonraw files pass."
+}

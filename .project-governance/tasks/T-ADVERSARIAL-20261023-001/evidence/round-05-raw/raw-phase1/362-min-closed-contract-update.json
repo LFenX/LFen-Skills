@@ -1,0 +1,23 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\manage_minimal_task.py",
+    "record-review",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-concurrent\\.project-governance\\tasks\\T-MIN-CONCURRENT",
+    "--requirement-items-json-file",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\inputs\\missing-items.json",
+    "--reason",
+    "synthetic invalid update",
+    "--basis",
+    "ar05-fixture://attempt"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:38:36.592137Z",
+  "ended_at": "2026-10-23T13:38:36.682031Z",
+  "exit_code": 2,
+  "stdout": "",
+  "stderr": "ERROR: [Errno 2] No such file or directory: 'C:\\\\Users\\\\Administrator\\\\AppData\\\\Local\\\\Temp\\\\AR05-20261023T132809Z-e86657dd\\\\inputs\\\\missing-items.json'\n"
+}

@@ -1,0 +1,22 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent\\.project-governance\\tasks\\T-FULL-REPAIR-PARENT",
+    "--entry-json-file",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\inputs\\252-full-repaired-clean-pair.json",
+    "--reason",
+    "AR05 synthetic protocol test",
+    "--basis",
+    "ar05-fixture://synthetic-user-and-review"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:35:28.811515Z",
+  "ended_at": "2026-10-23T13:35:29.024106Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"Passed\",\n  \"clean_streak\": 2,\n  \"rounds\": 4,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-FULL-REPAIR-CHILD\",\n    \"subject_sha256\": \"435584657df3e23e3d7c4382d29fccd87e7bf86cf1a57b80aa9d565415b088df\",\n    \"requirements_sha256\": \"f447f1c83bdacfb37cb751676c5da42608f5076399d130207487c8f9d1f4f909\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-FULL-REPAIR-CHILD\",\n    \"subject_sha256\": \"435584657df3e23e3d7c4382d29fccd87e7bf86cf1a57b80aa9d565415b088df\"\n  },\n  \"requirements_sha256\": \"f447f1c83bdacfb37cb751676c5da42608f5076399d130207487c8f9d1f4f909\",\n  \"delivery_task_id\": \"T-FULL-REPAIR-PARENT\",\n  \"subject_sha256\": \"741a749efa7e051640cc9d561d9f881585ff63ff01c759a516d3270fd828431d\"\n}\n",
+  "stderr": ""
+}

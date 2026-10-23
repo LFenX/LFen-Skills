@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-ambiguous\\.project-governance\\tasks\\T-FULL-AMBIGUOUS"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:43:55.777021Z",
+  "ended_at": "2026-10-23T13:43:55.889660Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 2,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-FULL-REPAIR-B\",\n    \"subject_sha256\": \"14f3ab9d4a488d130a7468b98ba417f9c58d3ca094a306b293590b754b4281f4\",\n    \"requirements_sha256\": \"d6974ea2edfffd5b09ae531762579ee05753e588bfe6c007f27177b528dc86d4\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-FULL-REPAIR-B\",\n    \"subject_sha256\": \"14f3ab9d4a488d130a7468b98ba417f9c58d3ca094a306b293590b754b4281f4\"\n  },\n  \"requirements_sha256\": \"d6974ea2edfffd5b09ae531762579ee05753e588bfe6c007f27177b528dc86d4\",\n  \"delivery_task_id\": \"T-FULL-AMBIGUOUS\",\n  \"subject_sha256\": \"ba563d4698165edfd885c9c70bca5dddbe8216f7892b351e1c4f2120ebfc710e\"\n}\n",
+  "stderr": ""
+}

@@ -1,0 +1,33 @@
+{
+  "id": "M35",
+  "condition": "Alias to first report cannot make second clean round",
+  "input": {
+    "event": "Round",
+    "round_id": "duplicate-alias",
+    "recorded_at": "2026-10-23T13:58:59.410835Z",
+    "started_at": "2026-10-23T13:58:59.410282Z",
+    "reviewer": "synthetic-ar06-reviewer",
+    "delivery_task_id": "T-LIFECYCLE-MINIMAL",
+    "subject_sha256": "376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294",
+    "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b",
+    "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\tasks\\T-LIFECYCLE-MINIMAL\\evidence\\..\\evidence\\synthetic-final-one.md",
+    "coverage": "Complete",
+    "unreviewed_items": [],
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/round/duplicate-alias"
+    ],
+    "findings": [],
+    "resolutions": []
+  },
+  "expected": "Reject invalid append",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "each round needs a distinct report; aliases and copied content cannot count twice",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_suite.py\", line 8, in op\n    try:return write_entry(task,entry)\n               ~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 410, in append_review\n    raise GovernanceError(\"each round needs a distinct report; aliases and copied content cannot count twice\")\ngovernance_artifacts.GovernanceError: each round needs a distinct report; aliases and copied content cannot count twice\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/M35.json"
+  ]
+}

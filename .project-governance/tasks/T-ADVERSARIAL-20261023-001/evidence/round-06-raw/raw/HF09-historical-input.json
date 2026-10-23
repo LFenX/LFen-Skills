@@ -1,0 +1,864 @@
+{
+  "outcome": {
+    "schema_version": "6.3-candidate",
+    "proof_contract_version": "implemented-proof-v1",
+    "meta_type": "TaskOutcome",
+    "project_id": "P-AR06",
+    "work_item_id": "W-T-LEGACY-F",
+    "task_id": "T-LEGACY-F",
+    "revision": 1,
+    "status": "Implemented",
+    "user_decision": {
+      "outcome": "Pending"
+    },
+    "adversarial_review": [
+      {
+        "event": "Offer",
+        "recorded_at": "2026-10-23T14:03:01.554861Z",
+        "prompt": "SYNTHETIC: engineering verified and saved. Start review?",
+        "evidence_ref": "synthetic-ar06://temp-only/offer"
+      },
+      {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T14:03:01.554861Z",
+        "outcome": "Accepted",
+        "response": "SYNTHETIC Accepted",
+        "decided_by": "synthetic-test-actor",
+        "evidence_ref": "synthetic-ar06://temp-only/decision"
+      },
+      {
+        "event": "Round",
+        "recorded_at": "2026-10-23T14:03:01.554894Z",
+        "started_at": "2026-10-23T14:03:01.554861Z",
+        "round_id": "legacy-1",
+        "reviewer": "synthetic-historical",
+        "delivery_task_id": "T-LEGACY-F",
+        "subject_sha256": "9d7cde1a03ccb1b025648c0d9244254da40a36b0f849548f7f3d622926415a16",
+        "requirements_sha256": "0e0f935aab54103067250276fb6e590cf4642bcf3bd7a8ee3585d910956061cd",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar06://temp-only/legacy-round/1"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      {
+        "event": "Round",
+        "recorded_at": "2026-10-23T14:03:01.554949Z",
+        "started_at": "2026-10-23T14:03:01.554894Z",
+        "round_id": "legacy-2",
+        "reviewer": "synthetic-historical",
+        "delivery_task_id": "T-LEGACY-F",
+        "subject_sha256": "9d7cde1a03ccb1b025648c0d9244254da40a36b0f849548f7f3d622926415a16",
+        "requirements_sha256": "0e0f935aab54103067250276fb6e590cf4642bcf3bd7a8ee3585d910956061cd",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar06://temp-only/legacy-round/2"
+        ],
+        "findings": [],
+        "resolutions": []
+      }
+    ],
+    "completed_at": "2026-10-23T14:03:01.455012Z",
+    "source_snapshot": {
+      "repository": "legacy-Full",
+      "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\legacy-Full",
+      "vcs": "unavailable",
+      "captured_at": "2026-10-23T14:03:01.455278Z"
+    },
+    "established_facts": [
+      "Synthetic verified fixture"
+    ],
+    "actual_changes": [
+      "Synthetic label"
+    ],
+    "verification": [
+      {
+        "result": "Passed",
+        "summary": "Synthetic fixture check",
+        "evidence_refs": [
+          "synthetic-ar06://temp-only/verified/T-LEGACY-F"
+        ]
+      }
+    ],
+    "incomplete_items": [],
+    "legacy_issues": [],
+    "decisions": [],
+    "evidence_refs": [],
+    "next_tasks": [],
+    "artifact_manifest": [
+      {
+        "meta_type": "TaskContract",
+        "legacy_kind": null,
+        "action": "Create/Revise",
+        "asset_id": "T-LEGACY-F-before",
+        "content_ref": ".project-governance/tasks/T-LEGACY-F/before.json",
+        "reason": "freeze execution input",
+        "rule_reference": "VC-PPG-PRO-001 §8.1",
+        "owner": "task-initiator",
+        "source_snapshot": "None",
+        "human_confirmation_refs": [],
+        "outcome": "Revised"
+      },
+      {
+        "meta_type": "RunLedger",
+        "legacy_kind": null,
+        "action": "Create/Revise",
+        "asset_id": "T-LEGACY-F-run",
+        "content_ref": ".project-governance/tasks/T-LEGACY-F/run.jsonl",
+        "reason": "record material execution events",
+        "rule_reference": "VC-PPG-PRO-001 §8.2",
+        "owner": "execution-agent",
+        "source_snapshot": "None",
+        "human_confirmation_refs": [],
+        "outcome": "Revised"
+      },
+      {
+        "meta_type": "TaskOutcome",
+        "legacy_kind": null,
+        "action": "Create/Revise",
+        "asset_id": "T-LEGACY-F-after",
+        "content_ref": ".project-governance/tasks/T-LEGACY-F/after.json",
+        "reason": "record terminal facts and residue",
+        "rule_reference": "VC-PPG-PRO-001 §8.3",
+        "owner": "task-initiator",
+        "source_snapshot": "None",
+        "human_confirmation_refs": [],
+        "outcome": "Created"
+      }
+    ],
+    "amendments": [],
+    "scope_reconciliation": {
+      "status": "Skipped",
+      "reason": "no Git baseline in source_snapshot; nothing independent to reconcile against",
+      "out_of_scope": [],
+      "undeclared_untouched": [],
+      "changed_count": 0,
+      "baseline_sha256": "503014b500ceaed1b23fe0979ca026f9c63b39bdcf1e6e5f8e68176dc3ba2417",
+      "scope_sha256": "c5b42e11c6be9fb5fb7f0fc44b3de971651c39b851adadf303f3de5c65a8bd14",
+      "delivery_sha256": "c3cd9b7503e7b9069c70f280ab80f4b96cff74096ec9e7c525925dc7f02ea1a6",
+      "report_sha256": "ddc156b227fdb50853a7a88da7fc69ad98d81363fee2e0200a74f0a9bbef5f21"
+    }
+  },
+  "contract": {
+    "schema_version": "6.3-candidate",
+    "proof_contract_version": "implemented-proof-v1",
+    "meta_type": "TaskContract",
+    "project_id": "P-AR06",
+    "work_item_id": "W-T-LEGACY-F",
+    "task_id": "T-LEGACY-F",
+    "ordinal": 1,
+    "revision": 1,
+    "lifecycle_state": "Frozen",
+    "created_at": "2026-10-23T14:03:00.999883Z",
+    "frozen_at": "2026-10-23T14:03:01.238034Z",
+    "objective": "Update the synthetic local label.",
+    "request_snapshot": {
+      "language": "en",
+      "text": "Update the synthetic local label.",
+      "captured_at": "2026-10-23T14:03:00.963550Z",
+      "source": "synthetic-ar06://temp-only/request"
+    },
+    "clarification": {
+      "state": "Settled",
+      "mode": "Skipped",
+      "notice": "Synthetic fixture is explicit; question round skipped.",
+      "survey_refs": [
+        "survey.md"
+      ],
+      "rounds": [],
+      "basis": "Synthetic isolated local fixture.",
+      "reopened_by": []
+    },
+    "requirement_items": [
+      {
+        "id": "R-01",
+        "source": "request_snapshot",
+        "quote": "Update the synthetic local label.",
+        "reading": "Synthetic isolated protocol fixture.",
+        "state": "Covered",
+        "evidence_refs": [
+          "synthetic-ar06://temp-only/requirement"
+        ],
+        "acceptance_refs": [
+          0
+        ],
+        "review": {
+          "source_sha256": "13b5bdbb4f1d4b3814bcca6cedca8e5f01b31cd073ea96cf4b839e7606fd2946",
+          "conditions": [],
+          "cases": [
+            {
+              "condition": null,
+              "branch": "Unconditional",
+              "input": "Synthetic local label",
+              "expected": "Synthetic local label validated",
+              "actual": "Synthetic local label validated",
+              "result": "Passed",
+              "evidence_refs": [
+                "synthetic-ar06://temp-only/requirement-case"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "id": "D01",
+        "kind": "Proceed",
+        "presented": "Synthetic Temp-only label scope",
+        "response": "SYNTHETIC proceed",
+        "decided_by": "synthetic-test-actor",
+        "decided_at": "2026-10-23T14:03:00.963538Z",
+        "outcome": "Approved",
+        "evidence_ref": "synthetic-ar06://temp-only/proceed"
+      }
+    ],
+    "depends_on": [],
+    "supersedes": [],
+    "blocked_by": [],
+    "source_snapshot": {
+      "kind": "synthetic-ar06",
+      "version": "T-LEGACY-F"
+    },
+    "scope": {
+      "in_scope": [
+        "Synthetic local label"
+      ],
+      "out_of_scope": [
+        "All real files"
+      ],
+      "allowed_paths": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\legacy-Full"
+      ],
+      "forbidden_actions": [
+        "External side effects"
+      ]
+    },
+    "authority": {
+      "execution_permissions": [
+        "read",
+        "edit-in-scope",
+        "validate"
+      ],
+      "required_gates": [],
+      "stop_conditions": [
+        "scope-expansion",
+        "authority-conflict",
+        "critical-evidence-missing"
+      ],
+      "authority_references": [
+        "synthetic-ar06://temp-only/authority"
+      ],
+      "authority_assessments": [
+        {
+          "reference": "synthetic-ar06://temp-only/authority",
+          "source_kind": "Policy",
+          "status": "Valid",
+          "scope_refs": [
+            "Synthetic local label"
+          ],
+          "evidence_refs": [
+            "synthetic-ar06://temp-only/authority-source"
+          ],
+          "verified_at": "2026-10-23T14:03:00.963577Z",
+          "expires_at": null
+        }
+      ]
+    },
+    "acceptance": {
+      "criteria": [
+        "Synthetic label check passes"
+      ],
+      "decision_owner": "task-initiator"
+    },
+    "plan": {
+      "steps": [
+        "inspect",
+        "change",
+        "validate",
+        "close"
+      ],
+      "verification": [
+        "Synthetic label check passes"
+      ],
+      "rollback": [
+        "revert only changes owned by this task"
+      ]
+    },
+    "first_principles_analysis": {
+      "method_version": "first-principles-v1",
+      "depth": "Concise",
+      "outcome": "Update the synthetic local label.",
+      "facts": [
+        {
+          "id": "F1",
+          "statement": "任务发起人已确认目标：Update the synthetic local label.",
+          "evidence_refs": [
+            "synthetic-ar06://temp-only/authority",
+            "Synthetic isolated fixture"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "id": "C1",
+          "statement": "执行范围仅限：Synthetic local label",
+          "source_refs": [
+            "synthetic-ar06://temp-only/authority",
+            "Synthetic isolated fixture"
+          ]
+        },
+        {
+          "id": "C2",
+          "statement": "执行必须遵守允许路径、排除范围和禁止动作；allowed=['C:\\\\Users\\\\Administrator\\\\AppData\\\\Local\\\\Temp\\\\ar06-independent-20261023T135251Z\\\\boundary-fixtures\\\\legacy-Full']；out=['All real files']；forbidden=['External side effects']",
+          "source_refs": [
+            "synthetic-ar06://temp-only/authority",
+            "Synthetic isolated fixture"
+          ]
+        }
+      ],
+      "assumptions": [],
+      "unknowns": [],
+      "fundamentals": [
+        {
+          "id": "P1",
+          "statement": "任何方案必须直接改变已确认的目标状态，而不是只完成活动清单。",
+          "derived_from": [
+            "F1"
+          ]
+        },
+        {
+          "id": "P2",
+          "statement": "任何方案必须保持已确认的范围、权限和禁止边界。",
+          "derived_from": [
+            "C1",
+            "C2"
+          ]
+        }
+      ],
+      "causal_links": [
+        {
+          "from_ref": "P1",
+          "to_ref": "O1",
+          "rationale": "选定方案必须产生目标状态变化。",
+          "evidence_refs": [
+            "synthetic-ar06://temp-only/authority",
+            "Synthetic isolated fixture"
+          ]
+        },
+        {
+          "from_ref": "P2",
+          "to_ref": "O1",
+          "rationale": "选定方案必须在授权边界内可执行。",
+          "evidence_refs": [
+            "synthetic-ar06://temp-only/authority",
+            "Synthetic isolated fixture"
+          ]
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "O0",
+          "description": "保持现状，不实施本任务变更",
+          "status": "Rejected",
+          "derived_from": [
+            "F1"
+          ],
+          "tradeoffs": [
+            "无新增实施成本",
+            "不能达到已确认目标"
+          ]
+        },
+        {
+          "id": "O1",
+          "description": "按已确认计划在授权范围内实施并验证",
+          "status": "Selected",
+          "derived_from": [
+            "P1",
+            "P2"
+          ],
+          "tradeoffs": [
+            "直接覆盖验收标准",
+            "需要实施与回归验证成本"
+          ]
+        }
+      ],
+      "decision_criteria": [
+        {
+          "id": "K1",
+          "statement": "Synthetic label check passes",
+          "source_refs": [
+            "synthetic-ar06://temp-only/authority",
+            "Synthetic isolated fixture"
+          ]
+        }
+      ],
+      "selected_approach": "O1",
+      "derivation": [
+        {
+          "plan_step": "inspect",
+          "derived_from": [
+            "P1",
+            "P2"
+          ],
+          "supports": [
+            "K1"
+          ]
+        },
+        {
+          "plan_step": "change",
+          "derived_from": [
+            "P1",
+            "P2"
+          ],
+          "supports": [
+            "K1"
+          ]
+        },
+        {
+          "plan_step": "validate",
+          "derived_from": [
+            "P1",
+            "P2"
+          ],
+          "supports": [
+            "K1"
+          ]
+        },
+        {
+          "plan_step": "close",
+          "derived_from": [
+            "P1",
+            "P2"
+          ],
+          "supports": [
+            "K1"
+          ]
+        }
+      ],
+      "validation_refs": [
+        "Synthetic label check passes"
+      ],
+      "source_refs": [
+        "synthetic-ar06://temp-only/authority",
+        "Synthetic isolated fixture"
+      ]
+    },
+    "task_profile": {
+      "delivery_scenario": "DS-03",
+      "development_types": [
+        "DT-08"
+      ],
+      "primary_development_type": "DT-08",
+      "development_type_scopes": {
+        "DT-08": [
+          "Synthetic local label"
+        ]
+      },
+      "change_surfaces": [
+        "UI/UX"
+      ],
+      "risk_level": "Low",
+      "extension_triggers": {
+        "E01": "Inactive",
+        "E02": "Inactive",
+        "E03": "Inactive",
+        "E04": "Inactive",
+        "E05": "Inactive"
+      },
+      "extension_evidence_refs": {
+        "E01": [],
+        "E02": [],
+        "E03": [],
+        "E04": [],
+        "E05": []
+      },
+      "baseline_inheritance": [
+        "New"
+      ],
+      "mode": "Normal",
+      "confidence": "Medium",
+      "basis": [
+        "Synthetic isolated fixture"
+      ],
+      "open_questions": [],
+      "applicability_facts": {
+        "product_intent_change": "No",
+        "initiative_scope_change": "No",
+        "requirement_change": "No",
+        "external_behavior_change": "No",
+        "design_change": "No",
+        "architecture_impact": "No",
+        "security_privacy_impact": "No",
+        "data_ai_impact": "No",
+        "formal_knowledge_records": "No",
+        "operations_impact": "No",
+        "production_release": "No",
+        "irreversible_change": "No",
+        "actual_execution": "Yes",
+        "authority_available": "Yes",
+        "migration_retirement": "No",
+        "external_system_effect": "No",
+        "formal_review_or_gate": "No"
+      }
+    },
+    "artifact_manifest": [
+      {
+        "meta_type": "TaskContract",
+        "legacy_kind": null,
+        "action": "Create/Revise",
+        "asset_id": "T-LEGACY-F-before",
+        "content_ref": ".project-governance/tasks/T-LEGACY-F/before.json",
+        "reason": "freeze execution input",
+        "rule_reference": "VC-PPG-PRO-001 §8.1",
+        "owner": "task-initiator",
+        "source_snapshot": "None",
+        "human_confirmation_refs": []
+      },
+      {
+        "meta_type": "RunLedger",
+        "legacy_kind": null,
+        "action": "Create/Revise",
+        "asset_id": "T-LEGACY-F-run",
+        "content_ref": ".project-governance/tasks/T-LEGACY-F/run.jsonl",
+        "reason": "record material execution events",
+        "rule_reference": "VC-PPG-PRO-001 §8.2",
+        "owner": "execution-agent",
+        "source_snapshot": "None",
+        "human_confirmation_refs": []
+      },
+      {
+        "meta_type": "TaskOutcome",
+        "legacy_kind": null,
+        "action": "Create/Revise",
+        "asset_id": "T-LEGACY-F-after",
+        "content_ref": ".project-governance/tasks/T-LEGACY-F/after.json",
+        "reason": "record terminal facts and residue",
+        "rule_reference": "VC-PPG-PRO-001 §8.3",
+        "owner": "task-initiator",
+        "source_snapshot": "None",
+        "human_confirmation_refs": []
+      }
+    ],
+    "amendments": [],
+    "tailoring_resolution": {
+      "rule_set_id": "VC-PPG-TAIL-001",
+      "rule_set_version": "6.3 Candidate",
+      "rule_set_status": "In Review",
+      "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+      "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+      "resolver_sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "task_contract_schema_sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045",
+      "input_digest": "6b220cf9b97faf81deb65de1ab6a6f1edae18585462528403f1e6ed6c14e52be",
+      "stage": "S4",
+      "applicable_standards": [
+        "C02",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12"
+      ],
+      "pending_standards": [],
+      "stage_context_standards": [
+        "C02",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12"
+      ],
+      "control_strength": "minimum",
+      "independent_review": false,
+      "explicit_human_gate": false,
+      "blocking_reasons": [],
+      "rule_ids": [
+        "VC-PPG-TAIL-001:always_applicable",
+        "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+        "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+        "VC-PPG-TAIL-001:baseline_inheritance:New",
+        "VC-PPG-TAIL-001:change_surfaces:UI/UX",
+        "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+        "VC-PPG-TAIL-001:development_types:DT-08",
+        "VC-PPG-TAIL-001:execution_modes:Normal",
+        "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+        "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+        "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+        "VC-PPG-TAIL-001:extension_resolution:E04:Inactive",
+        "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+        "VC-PPG-TAIL-001:risk_levels:Low"
+      ],
+      "source_sections": [
+        {
+          "source_id": "VC-PPG-COM-001",
+          "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+          "sections": [
+            "2",
+            "10",
+            "12"
+          ]
+        },
+        {
+          "source_id": "VC-PPG-COM-002",
+          "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+          "sections": [
+            "2",
+            "3",
+            "4",
+            "22",
+            "23"
+          ]
+        },
+        {
+          "source_id": "VC-PPG-DEC-001",
+          "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+          "sections": [
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17"
+          ]
+        },
+        {
+          "source_id": "VC-PPG-PRO-001",
+          "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+          "sections": [
+            "7",
+            "10",
+            "12",
+            "13",
+            "15",
+            "17"
+          ]
+        },
+        {
+          "source_id": "VC-PPG-IDX-001",
+          "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+          "sections": [
+            "2",
+            "3",
+            "4",
+            "9"
+          ]
+        },
+        {
+          "source_id": "C02",
+          "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+          "sections": [
+            "3",
+            "7",
+            "8",
+            "10",
+            "12",
+            "15",
+            "17",
+            "18"
+          ]
+        },
+        {
+          "source_id": "C05",
+          "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+          "sections": [
+            "3",
+            "7",
+            "8",
+            "10",
+            "12",
+            "15",
+            "17",
+            "18"
+          ]
+        },
+        {
+          "source_id": "C06",
+          "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+          "sections": [
+            "3",
+            "7",
+            "8",
+            "10",
+            "12",
+            "15",
+            "17",
+            "18"
+          ]
+        },
+        {
+          "source_id": "C07",
+          "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+          "sections": [
+            "3",
+            "7",
+            "8",
+            "10",
+            "12",
+            "15",
+            "17",
+            "18"
+          ]
+        },
+        {
+          "source_id": "C08",
+          "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+          "sections": [
+            "3",
+            "7",
+            "8",
+            "10",
+            "12",
+            "15",
+            "17",
+            "18"
+          ]
+        },
+        {
+          "source_id": "C09",
+          "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+          "sections": [
+            "3",
+            "7",
+            "8",
+            "10",
+            "12",
+            "15",
+            "17",
+            "18"
+          ]
+        },
+        {
+          "source_id": "C10",
+          "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+          "sections": [
+            "3",
+            "7",
+            "8",
+            "10",
+            "12",
+            "15",
+            "17",
+            "18"
+          ]
+        },
+        {
+          "source_id": "C11",
+          "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+          "sections": [
+            "3",
+            "7",
+            "8",
+            "10",
+            "12",
+            "15",
+            "17",
+            "18"
+          ]
+        },
+        {
+          "source_id": "C12",
+          "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+          "sections": [
+            "3",
+            "7",
+            "8",
+            "10",
+            "12",
+            "15",
+            "17",
+            "18"
+          ]
+        }
+      ],
+      "complete_source_files": [
+        {
+          "source_id": "VC-PPG-COM-001",
+          "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+          "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+        },
+        {
+          "source_id": "VC-PPG-COM-002",
+          "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+          "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+        },
+        {
+          "source_id": "VC-PPG-DEC-001",
+          "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+          "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+        },
+        {
+          "source_id": "VC-PPG-PRO-001",
+          "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+          "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+        },
+        {
+          "source_id": "C02",
+          "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+          "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+        },
+        {
+          "source_id": "C05",
+          "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+          "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+        },
+        {
+          "source_id": "C06",
+          "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+          "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+        },
+        {
+          "source_id": "C07",
+          "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+          "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+        },
+        {
+          "source_id": "C08",
+          "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+          "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+        },
+        {
+          "source_id": "C09",
+          "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+          "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+        },
+        {
+          "source_id": "C10",
+          "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+          "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+        },
+        {
+          "source_id": "C11",
+          "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+          "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+        },
+        {
+          "source_id": "C12",
+          "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+          "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+        },
+        {
+          "source_id": "VC-PPG-IDX-001",
+          "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+          "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+        }
+      ],
+      "profile_coverage_digest": {
+        "applicable": 73,
+        "total": 137,
+        "sha256": "f6e989986bd81aabff40739e62f90c0e0054f99d3dbf5df939cd90c9d128f01b"
+      }
+    }
+  }
+}

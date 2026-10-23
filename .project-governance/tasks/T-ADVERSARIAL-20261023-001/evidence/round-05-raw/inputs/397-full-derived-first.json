@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "full-derived-r1",
+  "started_at": "2026-10-23T13:41:52.646978Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-FULL-DERIVED",
+  "subject_sha256": "8b06899b3239597c57be1a4f34f6917036b0ae4e28c452e8b6ecf10bfc80f7ad",
+  "requirements_sha256": "05ef591d052bc7b8b42c56e8ad5e144fa5ff930014f2f705d8dd007c91113e54",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-derived\\.project-governance\\tasks\\T-FULL-DERIVED\\evidence\\full-derived-r1.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:41:52.647011Z"
+}

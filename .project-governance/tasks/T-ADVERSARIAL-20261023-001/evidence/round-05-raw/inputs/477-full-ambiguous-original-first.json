@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "full-before-ambiguous",
+  "started_at": "2026-10-23T13:43:53.188992Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-FULL-AMBIGUOUS",
+  "subject_sha256": "ba563d4698165edfd885c9c70bca5dddbe8216f7892b351e1c4f2120ebfc710e",
+  "requirements_sha256": "d6974ea2edfffd5b09ae531762579ee05753e588bfe6c007f27177b528dc86d4",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-ambiguous\\.project-governance\\tasks\\T-FULL-AMBIGUOUS\\evidence\\full-before-ambiguous.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:43:53.189019Z"
+}

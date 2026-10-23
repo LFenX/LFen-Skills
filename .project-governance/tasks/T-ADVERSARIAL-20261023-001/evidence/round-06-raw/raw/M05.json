@@ -1,0 +1,31 @@
+{
+  "id": "M05",
+  "condition": "Actual offer waits for user",
+  "input": {
+    "event": "Offer",
+    "recorded_at": "2026-10-23T13:58:58.223051Z",
+    "prompt": "SYNTHETIC: engineering verified and saved. Start review?",
+    "evidence_ref": "synthetic-ar06://temp-only/offer"
+  },
+  "expected": {
+    "status": "AwaitingUser",
+    "clean_streak": 0
+  },
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "AwaitingUser",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": [],
+      "current_delivery": {
+        "task_id": "T-LIFECYCLE-MINIMAL",
+        "subject_sha256": "376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/M05.json"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "min-repair-before-save",
+  "started_at": "2026-10-23T13:35:30.931360Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-MIN-REPAIR-CHILD",
+  "subject_sha256": "a58a0a884b7a1306d3ba311142e72d0270fb05da73862ed3f76158d6650365cc",
+  "requirements_sha256": "2d15089d50176483bada753ff5c9fb0748f764e40daabf4baef0a5786be307f3",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent\\.project-governance\\tasks\\T-MIN-REPAIR-PARENT\\evidence\\min-repair-before-save.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:35:33.430240Z"
+}

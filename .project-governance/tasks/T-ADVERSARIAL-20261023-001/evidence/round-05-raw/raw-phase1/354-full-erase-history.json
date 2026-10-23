@@ -1,0 +1,24 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\amend_record.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-concurrent\\.project-governance\\tasks\\T-FULL-CONCURRENT\\after.json",
+    "--path",
+    "adversarial_review",
+    "--value-json",
+    "[]",
+    "--reason",
+    "synthetic erase",
+    "--basis",
+    "ar05-fixture://attempt"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:38:35.664391Z",
+  "ended_at": "2026-10-23T13:38:35.763307Z",
+  "exit_code": 2,
+  "stdout": "ERROR: adversarial_review is append-only; use adversarial_review.py with an actual record\n",
+  "stderr": ""
+}

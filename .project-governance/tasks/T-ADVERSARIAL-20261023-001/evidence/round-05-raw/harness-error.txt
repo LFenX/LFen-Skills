@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Temp\AR05-20261023T132809Z-e86657dd\independent_suite.py", line 164, in <module>
+    basic_suite('Full');basic_suite('Minimal')
+    ~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Temp\AR05-20261023T132809Z-e86657dd\independent_suite.py", line 118, in basic_suite
+    f.finish()
+    ~~~~~~~~^^
+  File "C:\Users\Administrator\AppData\Local\Temp\AR05-20261023T132809Z-e86657dd\independent_suite.py", line 71, in finish
+    g.append_run_event(self.task,run_id='RUN-AR05',attempt_id='A01',event_type=kind,status=status,summary='AR05 synthetic '+kind,evidence_refs=['ar05-fixture://verification'] if kind=='verification' else [])
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\governance_artifacts.py", line 3491, in append_run_event
+    return _append_run_event_unlocked(task_dir, **kwargs)
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\governance_artifacts.py", line 3427, in _append_run_event_unlocked
+    raise GovernanceError("run_started is blocked by tailoring: " + "; ".join(resolution["blocking_reasons"]))
+governance_artifacts.GovernanceError: run_started is blocked by tailoring: authority references lack structured assessments: ar05-fixture://authority; no valid authority assessment covers execution; valid authority assessments do not cover scope.in_scope: one local label.

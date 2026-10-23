@@ -1,0 +1,23 @@
+{
+  "id": "D01",
+  "condition": "Full and Minimal schemas share the runtime review protocol definition",
+  "input": {
+    "schemas": [
+      "task-after.schema.json",
+      "minimal-task-record.schema.json"
+    ]
+  },
+  "expected": "both equal review_schema()",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "full_matches": true,
+      "minimal_matches": true,
+      "protected_errors": []
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/D01.json"
+  ]
+}

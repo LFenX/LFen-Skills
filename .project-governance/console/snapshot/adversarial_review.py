@@ -21,7 +21,7 @@ TASK_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}")
 
 def review_schema() -> dict[str, Any]:
     """One schema definition, embedded into both existing outcome schemas."""
-    text = {"type": "string", "minLength": 1}
+    text = {"type": "string", "minLength": 1, "pattern": r"\S"}
     refs = {"type": "array", "minItems": 1, "uniqueItems": True, "items": text}
     strings = {"type": "array", "uniqueItems": True, "items": text}
     digest = {"type": "string", "pattern": "^[0-9a-f]{64}$"}

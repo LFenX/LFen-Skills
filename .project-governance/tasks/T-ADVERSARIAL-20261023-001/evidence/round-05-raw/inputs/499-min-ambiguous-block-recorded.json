@@ -1,0 +1,8 @@
+{
+  "event": "Blocked",
+  "reason": "Synthetic current delivery ambiguity",
+  "evidence_refs": [
+    "ar05-fixture://ambiguous"
+  ],
+  "recorded_at": "2026-10-23T13:43:57.638881Z"
+}

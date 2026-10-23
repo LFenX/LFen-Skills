@@ -1,0 +1,35 @@
+[
+  {
+    "artifact": "fixture-error-01.txt",
+    "classification": "FixtureError",
+    "cause": "Full夹具缺少development_type_scopes。"
+  },
+  {
+    "artifact": "fixture-error-02.txt",
+    "classification": "FixtureError",
+    "cause": "Full夹具scope.in_scope与类型作用域不匹配。"
+  },
+  {
+    "artifact": "fixture-error-03.txt",
+    "classification": "FixtureError",
+    "cause": "Full夹具缺少actual_execution/authority_available事实。"
+  },
+  {
+    "artifact": "fixture-error-04.txt",
+    "classification": "FixtureError",
+    "cause": "Full夹具缺少结构化Authority评估。"
+  },
+  {
+    "artifact": "fixture-error-05-schema-path.txt",
+    "classification": "FixtureError",
+    "cause": "Schema检查器按properties直接取Minimal outcome，实际定义位于oneOf[1]。已纠正并通过C222。"
+  },
+  {
+    "case_ids": [
+      "AR05-C190",
+      "AR05-C202"
+    ],
+    "classification": "FixtureError",
+    "cause": "历史夹具把*_at改为历史时间，但未改ledger.timestamp，实际输入仍是现行记录。系统正确拒绝。纠正输入后C217/C218通过。"
+  }
+]

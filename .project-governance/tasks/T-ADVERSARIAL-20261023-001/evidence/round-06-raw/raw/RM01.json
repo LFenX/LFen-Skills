@@ -1,0 +1,43 @@
+{
+  "id": "RM01",
+  "condition": "New explicitly associated saved repair supersedes old current delivery before any round",
+  "input": {
+    "parent": "T-PARENT-M",
+    "repair": "T-REPAIR-M",
+    "mixed_carrier": "Full"
+  },
+  "expected": "parent Stale / streak 0 / current repair; repair ManagedByParent",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "parent": {
+        "status": "Stale",
+        "clean_streak": 0,
+        "rounds": 2,
+        "open_findings": [
+          "SYN-R01"
+        ],
+        "reviewed_delivery": {
+          "task_id": "T-PARENT-M",
+          "subject_sha256": "b7b3c707227aa4446f61f03051707c90e911b9c46d844840e1a0abf0cbc8bcfa",
+          "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+        },
+        "current_delivery": {
+          "task_id": "T-REPAIR-M",
+          "subject_sha256": "a6a604825676963da2e2da900648273ed0573b3976d8445b013bfb9abc8e959a"
+        }
+      },
+      "repair": {
+        "status": "ManagedByParent",
+        "parent_task_id": "T-PARENT-M",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/RM01.json"
+  ]
+}

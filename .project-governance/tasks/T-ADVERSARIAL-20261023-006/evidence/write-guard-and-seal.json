@@ -1,0 +1,7 @@
+{
+  "recorded_at": "2026-10-23T14:18:19.747605Z",
+  "write_guards": "five owned source/schema/card targets explicitly allowed",
+  "manifest": "regenerated only by official sync_embedded_references.py; no publish-to, preserved existing LF schemas",
+  "seal_exit_code": 0,
+  "output": "RESEALED: 46 embedded runtime fact files\n"
+}

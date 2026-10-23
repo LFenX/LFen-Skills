@@ -1,0 +1,18 @@
+{
+  "id": "F39",
+  "condition": "User Acceptance remains Pending after review passes",
+  "input": {
+    "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\tasks\\T-LIFECYCLE-FULL"
+  },
+  "expected": "Pending",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "outcome": "Pending"
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/F39.json"
+  ]
+}

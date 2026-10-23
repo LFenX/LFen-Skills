@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent\\.project-governance\\tasks\\T-MIN-REPAIR-PARENT"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:35:32.683194Z",
+  "ended_at": "2026-10-23T13:35:32.789151Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"Stale\",\n  \"clean_streak\": 0,\n  \"rounds\": 2,\n  \"open_findings\": [\n    \"min-repair-F001\"\n  ],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-MIN-REPAIR-PARENT\",\n    \"subject_sha256\": \"adc1b1525bad8018d2284d0475db2f2684c608dd33dceb463bc3d991ba625e15\",\n    \"requirements_sha256\": \"2d15089d50176483bada753ff5c9fb0748f764e40daabf4baef0a5786be307f3\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-MIN-REPAIR-CHILD\",\n    \"subject_sha256\": \"a58a0a884b7a1306d3ba311142e72d0270fb05da73862ed3f76158d6650365cc\"\n  },\n  \"requirements_sha256\": \"2d15089d50176483bada753ff5c9fb0748f764e40daabf4baef0a5786be307f3\",\n  \"delivery_task_id\": \"T-MIN-REPAIR-PARENT\",\n  \"subject_sha256\": \"adc1b1525bad8018d2284d0475db2f2684c608dd33dceb463bc3d991ba625e15\"\n}\n",
+  "stderr": ""
+}

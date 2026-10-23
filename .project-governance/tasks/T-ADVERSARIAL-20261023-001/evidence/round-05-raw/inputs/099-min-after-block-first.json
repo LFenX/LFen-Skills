@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "min-after-block",
+  "started_at": "2026-10-23T13:32:55.807132Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-MIN-BASIC",
+  "subject_sha256": "4c039f3f5e81316b40c54817b82b5ee399990a0107396f7621ae71c6500a5006",
+  "requirements_sha256": "a0978daa22584b6ce472d0b0fb3736ba52c49158fba2bb289d509522dd52f4e0",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-basic\\.project-governance\\tasks\\T-MIN-BASIC\\evidence\\min-after-block.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:32:55.807160Z"
+}

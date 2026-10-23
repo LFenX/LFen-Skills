@@ -1,0 +1,42 @@
+{
+  "id": "F20",
+  "condition": "Fixed cannot claim same verified subject",
+  "input": {
+    "event": "Round",
+    "round_id": "same-fix",
+    "recorded_at": "2026-10-23T13:58:56.462579Z",
+    "started_at": "2026-10-23T13:58:56.462094Z",
+    "reviewer": "synthetic-ar06-reviewer",
+    "delivery_task_id": "T-LIFECYCLE-FULL",
+    "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5",
+    "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b",
+    "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\tasks\\T-LIFECYCLE-FULL\\evidence\\synthetic-same-fix.md",
+    "coverage": "Complete",
+    "unreviewed_items": [],
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/round/same-fix"
+    ],
+    "findings": [],
+    "resolutions": [
+      {
+        "finding_id": "SYN-F01",
+        "disposition": "Fixed",
+        "reason": "SYNTHETIC same-version fix claim",
+        "evidence_refs": [
+          "synthetic-ar06://temp-only/same-version-fix"
+        ]
+      }
+    ]
+  },
+  "expected": "Reject invalid append",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "a fix requires a newly verified delivery; use evidenced NotAnIssue for a false positive",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_suite.py\", line 8, in op\n    try:return write_entry(task,entry)\n               ~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 422, in append_review\n    state = bound_review_state(task_dir, outcome, contract, original_events)\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 278, in bound_review_state\n    state = review_state(outcome, contract, delivery_subjects=subjects, report_hashes=hashes,\n                         current_delivery_ids=current_ids)\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 181, in review_state\n    raise GovernanceError(\"a fix requires a newly verified delivery; use evidenced NotAnIssue for a false positive\")\ngovernance_artifacts.GovernanceError: a fix requires a newly verified delivery; use evidenced NotAnIssue for a false positive\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/F20.json"
+  ]
+}

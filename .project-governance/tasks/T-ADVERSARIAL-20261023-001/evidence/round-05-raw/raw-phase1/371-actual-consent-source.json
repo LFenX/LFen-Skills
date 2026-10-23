@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-23T13:41:48.199958Z",
+  "actual": {
+    "path": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
+    "sha256": "2e0f8860dd0eb9095516d106a77dc70566704c95b6b2df28de94763cf1b6a9ea",
+    "text": "{\n  \"recorded_at\": \"2026-10-23T09:58:06.866514Z\",\n  \"source\": \"user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0\",\n  \"question\": \"本任务的工程实现、验证和结果留档已完成。是否现在启动多轮对抗性审查？开始后将逐条核对原始需求，发现问题则修复并复验，直至同一交付版本连续两轮完整审查均未发现问题。\",\n  \"response\": \"开始审查\",\n  \"decided_by\": \"user\",\n  \"scope\": \"当前任务内审查、返修和复验，直至同版连续两轮完整无问题\"\n}\n"
+  }
+}

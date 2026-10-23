@@ -1,0 +1,38 @@
+{
+  "id": "M22",
+  "condition": "Blocked resets one clean round",
+  "input": {
+    "event": "Blocked",
+    "recorded_at": "2026-10-23T13:58:58.817362Z",
+    "reason": "SYNTHETIC environment unavailable",
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/block"
+    ]
+  },
+  "expected": {
+    "status": "Blocked",
+    "clean_streak": 0
+  },
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "Blocked",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-LIFECYCLE-MINIMAL",
+        "subject_sha256": "376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294",
+        "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+      },
+      "current_delivery": {
+        "task_id": "T-LIFECYCLE-MINIMAL",
+        "subject_sha256": "376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/M22.json"
+  ]
+}

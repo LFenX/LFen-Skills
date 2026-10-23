@@ -1,0 +1,19 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\generate_review_views.py",
+    "--project-root",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-derived",
+    "--project-id",
+    "P-AR05"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:41:50.988454Z",
+  "ended_at": "2026-10-23T13:41:51.171174Z",
+  "exit_code": 0,
+  "stdout": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-derived\\.project-governance\\generated\\reviews\\project-status.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-derived\\.project-governance\\generated\\reviews\\project-status.md.view.json\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-derived\\.project-governance\\generated\\reviews\\T-FULL-DERIVED.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-derived\\.project-governance\\generated\\reviews\\T-FULL-DERIVED.md.view.json\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-derived\\.project-governance\\generated\\matrices\\legacy-137-to-meta-types.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-derived\\.project-governance\\generated\\matrices\\legacy-137-to-meta-types.md.view.json\n",
+  "stderr": ""
+}

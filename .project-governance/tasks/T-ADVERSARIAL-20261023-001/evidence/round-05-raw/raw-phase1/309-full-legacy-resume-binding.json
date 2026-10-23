@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-old-protocol\\.project-governance\\tasks\\T-FULL-OLD-PROTOCOL"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:38:27.828181Z",
+  "ended_at": "2026-10-23T13:38:27.935866Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"LegacyNotRevalidated\",\n  \"clean_streak\": 0,\n  \"rounds\": 2,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-FULL-OLD-PROTOCOL\",\n    \"subject_sha256\": \"0b6b2e8e05d074d460dc25fd7d693c3c22cffef765a417e8aca8aaae51bf1a32\",\n    \"requirements_sha256\": \"09a27a634d98df85921746436d2fcfa16c70ab775df8aecf706e175b041592a1\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-FULL-OLD-PROTOCOL\",\n    \"subject_sha256\": \"0b6b2e8e05d074d460dc25fd7d693c3c22cffef765a417e8aca8aaae51bf1a32\"\n  },\n  \"requirements_sha256\": \"8d82f7faf50e58d2606416b59e6bce50dbfadb6d9de3661b3188aec5bc78eebe\",\n  \"delivery_task_id\": \"T-FULL-OLD-PROTOCOL\",\n  \"subject_sha256\": \"0b6b2e8e05d074d460dc25fd7d693c3c22cffef765a417e8aca8aaae51bf1a32\"\n}\n",
+  "stderr": ""
+}

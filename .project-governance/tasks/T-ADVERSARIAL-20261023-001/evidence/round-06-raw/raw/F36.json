@@ -1,0 +1,48 @@
+{
+  "id": "F36",
+  "condition": "Second complete distinct same-version round ends session",
+  "input": {
+    "event": "Round",
+    "round_id": "final-two",
+    "recorded_at": "2026-10-23T13:58:57.498017Z",
+    "started_at": "2026-10-23T13:58:57.497387Z",
+    "reviewer": "synthetic-ar06-reviewer",
+    "delivery_task_id": "T-LIFECYCLE-FULL",
+    "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5",
+    "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b",
+    "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\tasks\\T-LIFECYCLE-FULL\\evidence\\synthetic-final-two.md",
+    "coverage": "Complete",
+    "unreviewed_items": [],
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/round/final-two"
+    ],
+    "findings": [],
+    "resolutions": []
+  },
+  "expected": {
+    "status": "Passed",
+    "clean_streak": 2
+  },
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 8,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-LIFECYCLE-FULL",
+        "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5",
+        "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+      },
+      "current_delivery": {
+        "task_id": "T-LIFECYCLE-FULL",
+        "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/F36.json"
+  ]
+}

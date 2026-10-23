@@ -1,0 +1,211 @@
+{
+  "outcome": {
+    "status": "Implemented",
+    "user_decision": {
+      "outcome": "Pending"
+    },
+    "adversarial_review": [
+      {
+        "event": "Offer",
+        "recorded_at": "2026-10-23T14:03:03.578143Z",
+        "prompt": "SYNTHETIC: engineering verified and saved. Start review?",
+        "evidence_ref": "synthetic-ar06://temp-only/offer"
+      },
+      {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T14:03:03.578143Z",
+        "outcome": "Accepted",
+        "response": "SYNTHETIC Accepted",
+        "decided_by": "synthetic-test-actor",
+        "evidence_ref": "synthetic-ar06://temp-only/decision"
+      },
+      {
+        "event": "Round",
+        "recorded_at": "2026-10-23T14:03:03.578184Z",
+        "started_at": "2026-10-23T14:03:03.578143Z",
+        "round_id": "legacy-1",
+        "reviewer": "synthetic-historical",
+        "delivery_task_id": "T-LEGACY-M",
+        "subject_sha256": "eb24cc785b5f5975a9f7b15c949ecafc756d4bf27f2929034c584746a6648823",
+        "requirements_sha256": "fb88577b990880e3fc338ccdb5698314df843da854f512a24493b7eedacb0bec",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar06://temp-only/legacy-round/1"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      {
+        "event": "Round",
+        "recorded_at": "2026-10-23T14:03:03.578219Z",
+        "started_at": "2026-10-23T14:03:03.578184Z",
+        "round_id": "legacy-2",
+        "reviewer": "synthetic-historical",
+        "delivery_task_id": "T-LEGACY-M",
+        "subject_sha256": "eb24cc785b5f5975a9f7b15c949ecafc756d4bf27f2929034c584746a6648823",
+        "requirements_sha256": "fb88577b990880e3fc338ccdb5698314df843da854f512a24493b7eedacb0bec",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar06://temp-only/legacy-round/2"
+        ],
+        "findings": [],
+        "resolutions": []
+      }
+    ],
+    "established_facts": [
+      "Synthetic verified fixture"
+    ],
+    "actual_changes": [
+      "Synthetic label"
+    ],
+    "verification": [
+      {
+        "result": "Passed",
+        "summary": "Synthetic fixture check",
+        "evidence_refs": [
+          "synthetic-ar06://temp-only/verified/T-LEGACY-M"
+        ]
+      }
+    ],
+    "incomplete_items": [],
+    "completed_at": "2026-10-23T14:03:03.539303Z"
+  },
+  "contract": {
+    "objective": "Update the synthetic local label.",
+    "request_snapshot": {
+      "language": "en",
+      "text": "Update the synthetic local label.",
+      "captured_at": "2026-10-23T14:03:03.429127Z",
+      "source": "synthetic-ar06://temp-only/request"
+    },
+    "requirement_items": [
+      {
+        "id": "R-01",
+        "source": "request_snapshot",
+        "quote": "Update the synthetic local label.",
+        "reading": "Synthetic isolated protocol fixture.",
+        "state": "Covered",
+        "evidence_refs": [
+          "synthetic-ar06://temp-only/requirement"
+        ],
+        "acceptance_refs": [
+          0
+        ],
+        "review": {
+          "source_sha256": "13b5bdbb4f1d4b3814bcca6cedca8e5f01b31cd073ea96cf4b839e7606fd2946",
+          "conditions": [],
+          "cases": [
+            {
+              "condition": null,
+              "branch": "Unconditional",
+              "input": "Synthetic local label",
+              "expected": "Synthetic local label validated",
+              "actual": "Synthetic local label validated",
+              "result": "Passed",
+              "evidence_refs": [
+                "synthetic-ar06://temp-only/requirement-case"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "id": "D01",
+        "kind": "Proceed",
+        "presented": "Synthetic Temp-only label scope",
+        "response": "SYNTHETIC proceed",
+        "decided_by": "synthetic-test-actor",
+        "decided_at": "2026-10-23T14:03:03.429118Z",
+        "outcome": "Approved",
+        "evidence_ref": "synthetic-ar06://temp-only/proceed"
+      }
+    ],
+    "clarification": {
+      "state": "Settled",
+      "mode": "Skipped",
+      "notice": "Synthetic fixture is explicit; question round skipped.",
+      "survey_refs": [
+        "survey.md"
+      ],
+      "rounds": [],
+      "basis": "Synthetic isolated local fixture.",
+      "reopened_by": []
+    },
+    "scope": "Synthetic local label",
+    "out_of_scope": [
+      "All real files"
+    ],
+    "allowed_paths": [
+      "label.txt"
+    ],
+    "forbidden_actions": [
+      "External side effects"
+    ],
+    "acceptance": "Synthetic label check passes",
+    "task_profile": {
+      "delivery_scenario": "DS-03",
+      "development_type": "DT-08",
+      "change_surface": "UI/UX",
+      "risk_level": "Low",
+      "extension_triggers": {
+        "E01": "Inactive",
+        "E02": "Inactive",
+        "E03": "Inactive",
+        "E04": "Inactive",
+        "E05": "Inactive"
+      }
+    },
+    "plan": {
+      "selected_approach": "Edit synthetic label",
+      "alternative_rejected": "Leave synthetic label unchanged",
+      "steps": [
+        "Edit synthetic label"
+      ],
+      "verification": "Run synthetic check",
+      "rollback": "Restore synthetic label"
+    },
+    "first_principles_analysis": {
+      "outcome": "Update the synthetic local label.",
+      "facts": [
+        "Synthetic label exists"
+      ],
+      "constraints": [
+        "Temp only"
+      ],
+      "assumptions": [
+        "Synthetic input only"
+      ],
+      "unknowns": [],
+      "fundamentals": [
+        "A label is a value",
+        "The edit is reversible"
+      ],
+      "causal_chain": [
+        "Changing label enables synthetic check"
+      ],
+      "alternatives": [
+        "Edit synthetic label",
+        "Leave synthetic label unchanged"
+      ],
+      "decision_criteria": [
+        "Synthetic check passes"
+      ],
+      "selected_approach": "Edit synthetic label",
+      "validation": "Run synthetic check"
+    },
+    "source_snapshot": {
+      "repository": "legacy-Minimal",
+      "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\legacy-Minimal",
+      "vcs": "unavailable",
+      "captured_at": "2026-10-23T14:03:03.431078Z"
+    },
+    "task_id": "T-LEGACY-M",
+    "project_id": "P-AR06",
+    "depends_on": [],
+    "proof_contract_version": "implemented-proof-v1"
+  }
+}

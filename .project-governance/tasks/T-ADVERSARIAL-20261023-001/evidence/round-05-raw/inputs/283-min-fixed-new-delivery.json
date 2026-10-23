@@ -1,0 +1,27 @@
+{
+  "event": "Round",
+  "round_id": "min-fixed-round",
+  "started_at": "2026-10-23T13:35:33.802832Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-MIN-REPAIR-CHILD",
+  "subject_sha256": "a58a0a884b7a1306d3ba311142e72d0270fb05da73862ed3f76158d6650365cc",
+  "requirements_sha256": "2d15089d50176483bada753ff5c9fb0748f764e40daabf4baef0a5786be307f3",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-repair-parent\\.project-governance\\tasks\\T-MIN-REPAIR-PARENT\\evidence\\min-fixed-round.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [
+    {
+      "finding_id": "min-repair-F001",
+      "disposition": "Fixed",
+      "reason": "Synthetic new saved repair validated.",
+      "evidence_refs": [
+        "ar05-fixture://repaired-verification"
+      ]
+    }
+  ],
+  "recorded_at": "2026-10-23T13:35:33.802864Z"
+}

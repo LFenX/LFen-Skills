@@ -1,0 +1,121 @@
+{
+  "id": "F01",
+  "condition": "Engineering outcome initializes independent Pending and NotOffered",
+  "input": {
+    "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\tasks\\T-LIFECYCLE-FULL"
+  },
+  "expected": "Implemented / Pending / NotOffered / streak=0",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "outcome": {
+        "schema_version": "6.3-candidate",
+        "proof_contract_version": "implemented-proof-v1",
+        "meta_type": "TaskOutcome",
+        "project_id": "P-AR06",
+        "work_item_id": "W-T-LIFECYCLE-FULL",
+        "task_id": "T-LIFECYCLE-FULL",
+        "revision": 1,
+        "status": "Implemented",
+        "user_decision": {
+          "outcome": "Pending"
+        },
+        "adversarial_review": [],
+        "completed_at": "2026-10-23T13:58:55.547871Z",
+        "source_snapshot": {
+          "repository": "Full",
+          "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full",
+          "vcs": "unavailable",
+          "captured_at": "2026-10-23T13:58:55.548117Z"
+        },
+        "established_facts": [
+          "Synthetic verified fixture"
+        ],
+        "actual_changes": [
+          "Synthetic label"
+        ],
+        "verification": [
+          {
+            "result": "Passed",
+            "summary": "Synthetic fixture check",
+            "evidence_refs": [
+              "synthetic-ar06://temp-only/verified/T-LIFECYCLE-FULL"
+            ]
+          }
+        ],
+        "incomplete_items": [],
+        "legacy_issues": [],
+        "decisions": [],
+        "evidence_refs": [],
+        "next_tasks": [],
+        "artifact_manifest": [
+          {
+            "meta_type": "TaskContract",
+            "legacy_kind": null,
+            "action": "Create/Revise",
+            "asset_id": "T-LIFECYCLE-FULL-before",
+            "content_ref": ".project-governance/tasks/T-LIFECYCLE-FULL/before.json",
+            "reason": "freeze execution input",
+            "rule_reference": "VC-PPG-PRO-001 §8.1",
+            "owner": "task-initiator",
+            "source_snapshot": "None",
+            "human_confirmation_refs": [],
+            "outcome": "Revised"
+          },
+          {
+            "meta_type": "RunLedger",
+            "legacy_kind": null,
+            "action": "Create/Revise",
+            "asset_id": "T-LIFECYCLE-FULL-run",
+            "content_ref": ".project-governance/tasks/T-LIFECYCLE-FULL/run.jsonl",
+            "reason": "record material execution events",
+            "rule_reference": "VC-PPG-PRO-001 §8.2",
+            "owner": "execution-agent",
+            "source_snapshot": "None",
+            "human_confirmation_refs": [],
+            "outcome": "Revised"
+          },
+          {
+            "meta_type": "TaskOutcome",
+            "legacy_kind": null,
+            "action": "Create/Revise",
+            "asset_id": "T-LIFECYCLE-FULL-after",
+            "content_ref": ".project-governance/tasks/T-LIFECYCLE-FULL/after.json",
+            "reason": "record terminal facts and residue",
+            "rule_reference": "VC-PPG-PRO-001 §8.3",
+            "owner": "task-initiator",
+            "source_snapshot": "None",
+            "human_confirmation_refs": [],
+            "outcome": "Created"
+          }
+        ],
+        "amendments": [],
+        "scope_reconciliation": {
+          "status": "Skipped",
+          "reason": "no Git baseline in source_snapshot; nothing independent to reconcile against",
+          "out_of_scope": [],
+          "undeclared_untouched": [],
+          "changed_count": 0,
+          "baseline_sha256": "f9ca6c3824ba2d5f10fd53aa5a3b1bff45ce075d6f2d0edb50cdc923e2d44494",
+          "scope_sha256": "167fcb142c6f0f5dcc00df272fcc6082e3b826746f1bfea82d4d1f3fa196b48c",
+          "delivery_sha256": "e5acfa27ca4555fb8af5b3a5761d7ef7fd9f893f16f7d0ff4f319074e34f4d9b",
+          "report_sha256": "66791f293eb980ec8bcd671f34a61239dbb75f3cf168d25b6b0061b8c7f6916b"
+        }
+      },
+      "state": {
+        "status": "NotOffered",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": [],
+        "current_delivery": {
+          "task_id": "T-LIFECYCLE-FULL",
+          "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5"
+        }
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/F01.json"
+  ]
+}

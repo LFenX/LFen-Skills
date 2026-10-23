@@ -1,0 +1,35 @@
+{
+  "id": "DF03",
+  "condition": "Documented generation command renders current review state from bound authority source",
+  "input": {
+    "command_evidence": "raw/CLI-F-GENERATE-command.json"
+  },
+  "expected": "exit0; task review shows InProgress/clean1 and independent Rejected Acceptance",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "cli": {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-X",
+          "utf8",
+          "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\generate_review_views.py",
+          "--project-root",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full",
+          "--project-id",
+          "P-AR06"
+        ],
+        "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z",
+        "returncode": 0,
+        "stdout": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\generated\\reviews\\project-status.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\generated\\reviews\\project-status.md.view.json\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\generated\\reviews\\T-LIFECYCLE-FULL.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\generated\\reviews\\T-LIFECYCLE-FULL.md.view.json\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\generated\\matrices\\legacy-137-to-meta-types.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\generated\\matrices\\legacy-137-to-meta-types.md.view.json\n",
+        "stderr": "",
+        "at": "2026-10-23T14:07:24.835177Z"
+      },
+      "text": "# Task Review: T-LIFECYCLE-FULL\n\n- Objective: Update the synthetic local label.\n- Contract revision: 1\n- Contract state: Frozen\n- Depends on: None\n\n## Acceptance criteria\n\n- Synthetic label check passes\n\n## Outcome\n\n- Status: Implemented\n- User decision: 用户验收未通过\n- Adversarial review: {'status': 'InProgress', 'clean_streak': 1, 'rounds': 9, 'open_findings': [], 'reviewed_delivery': {'task_id': 'T-LIFECYCLE-FULL', 'subject_sha256': '7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5', 'requirements_sha256': 'e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b'}, 'current_delivery': {'task_id': 'T-LIFECYCLE-FULL', 'subject_sha256': '7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5'}}\n- Revision: 19\n\n## Established facts\n\n- Synthetic verified fixture\n\n## Actual changes\n\n- Synthetic label\n\n## Verification\n\n- Passed: Synthetic fixture check\n\n## Evidence\n\n\n## Incomplete items\n\n\n## Legacy issues\n\n\n## Decisions\n\n\n## Next tasks\n\n\n## Terminal artifact manifest\n\n- T-LIFECYCLE-FULL-before / TaskContract / Create/Revise / Revised\n- T-LIFECYCLE-FULL-run / RunLedger / Create/Revise / Revised\n- T-LIFECYCLE-FULL-after / TaskOutcome / Create/Revise / Created\n\n## Amendments\n\n- r1→r2 adversarial_review.0: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r2→r3 adversarial_review.1: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r3→r4 adversarial_review.2: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r4→r5 adversarial_review.3: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r5→r6 adversarial_review.4: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r6→r7 adversarial_review.5: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r7→r8 adversarial_review.6: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r8→r9 adversarial_review.7: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r9→r10 adversarial_review.8: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r10→r11 adversarial_review.9: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r11→r12 adversarial_review.10: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r12→r13 adversarial_review.11: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r13→r14 adversarial_review.12: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r14→r15 adversarial_review.13: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r15→r16 adversarial_review.14: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r16→r17 adversarial_review.15: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r17→r18 adversarial_review.16: Synthetic independent AR-06 case (basis: synthetic-ar06://temp-only/case)\n- r18→r19 user_decision: Synthetic independent acceptance (basis: synthetic-ar06://temp-only)\n\n## Proof validation\n\n当前契约记录校验通过（不替代人的验收）\n"
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/DF03.json"
+  ]
+}

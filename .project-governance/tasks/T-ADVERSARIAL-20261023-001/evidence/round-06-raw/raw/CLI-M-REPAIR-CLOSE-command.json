@@ -1,0 +1,25 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\manage_minimal_task.py",
+    "close",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\cli-repair-Minimal\\.project-governance\\tasks\\T-CLI-R-M",
+    "--status",
+    "Implemented",
+    "--fact",
+    "Synthetic verified",
+    "--change",
+    "Synthetic edit",
+    "--verification",
+    "Passed::Synthetic verified::synthetic-ar06://temp-only/cli-verified",
+    "--review-parent-task-id",
+    "T-CLI-P-M"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z",
+  "returncode": 0,
+  "stdout": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\cli-repair-Minimal\\.project-governance\\tasks\\T-CLI-R-M\\task-record.json\n",
+  "stderr": "",
+  "at": "2026-10-23T14:03:08.000827Z"
+}

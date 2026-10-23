@@ -1,0 +1,48 @@
+{
+  "id": "F15",
+  "condition": "One complete clean round counts one",
+  "input": {
+    "event": "Round",
+    "round_id": "complete-one",
+    "recorded_at": "2026-10-23T13:58:56.106745Z",
+    "started_at": "2026-10-23T13:58:56.105907Z",
+    "reviewer": "synthetic-ar06-reviewer",
+    "delivery_task_id": "T-LIFECYCLE-FULL",
+    "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5",
+    "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b",
+    "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\tasks\\T-LIFECYCLE-FULL\\evidence\\synthetic-complete-one.md",
+    "coverage": "Complete",
+    "unreviewed_items": [],
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/round/complete-one"
+    ],
+    "findings": [],
+    "resolutions": []
+  },
+  "expected": {
+    "status": "InProgress",
+    "clean_streak": 1
+  },
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-LIFECYCLE-FULL",
+        "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5",
+        "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+      },
+      "current_delivery": {
+        "task_id": "T-LIFECYCLE-FULL",
+        "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/F15.json"
+  ]
+}

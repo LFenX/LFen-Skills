@@ -1,0 +1,3973 @@
+{
+  "created_at": "2026-10-23T14:13:00.115101Z",
+  "excluded_self": "file-hashes.json",
+  "file_count": 793,
+  "total_bytes": 12841939,
+  "files": [
+    {
+      "path": "allowed-005-installed-engineering-evidence.json",
+      "sha256": "5303d7f5acfbfd8719168d3ed5e6abc38309af73543824d7d643633aa2abed06",
+      "bytes": 751
+    },
+    {
+      "path": "allowed-original-input.json",
+      "sha256": "de41ef170fe3eeddf6cdf4f6bb65cc22db4ccc6c832af0d3f155f5c8955e743e",
+      "bytes": 1734
+    },
+    {
+      "path": "bootstrap.py",
+      "sha256": "0bce1e7274b500f5cf43019174060e50a69e07c9e3bca4431169a58c8401be86",
+      "bytes": 2009
+    },
+    {
+      "path": "boundaries-output.txt",
+      "sha256": "141239a72b8c6a24d6cb078ee8cbb33476d0f97792da8c5d25c2c37a9cb11837",
+      "bytes": 23776
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/deployment.json",
+      "sha256": "abefc6d0fecb74ec2553343233ef6de2758c15b58ed26d5da4dcd47a9f8dc185",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/README.md",
+      "sha256": "c16c2b1531995c02ccc65a052234b3f2d5daac7b02ef139a245a179887195861",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/generated/scope-reconciliation/T-AMB-A.md",
+      "sha256": "6ff5ad4b773110debb1bd184708b3c86107b7a352e7c4248db38fb360c5b1eb1",
+      "bytes": 117
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/generated/scope-reconciliation/T-AMB-A.md.view.json",
+      "sha256": "da93a044e7c1a3f3e67a5282dda0611f719a16ab7fb6d74ddcb9e8d55161a721",
+      "bytes": 610
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/generated/scope-reconciliation/T-AMB-P.md",
+      "sha256": "75e13daa29b1d3b2d1a7deebd8d3a600a57cf88d140f0f62e52bc0e5d85801d2",
+      "bytes": 117
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/generated/scope-reconciliation/T-AMB-P.md.view.json",
+      "sha256": "d338d21db3f1d22749abca4dc2ec2dfafb7e938cc6dd4f1933c85cf00c2c93b2",
+      "bytes": 610
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/tasks/T-AMB-A/after.json",
+      "sha256": "0b6185d35fe691662108fc3f5fe4e72a6767c05aa33c5890b6c8c8f65de699e0",
+      "bytes": 3140
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/tasks/T-AMB-A/before.json",
+      "sha256": "14488dd8d1413cd4134a5a29975f7c668f3cac55ca3ffead784cc88fef6a729b",
+      "bytes": 19808
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/tasks/T-AMB-A/run.jsonl",
+      "sha256": "a12980d9935470b982e91799e76299eaf20ef6f6f3dd8dce2da7a91531a2b594",
+      "bytes": 1210
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/tasks/T-AMB-B/task-record.json",
+      "sha256": "9dc22d3012bb0507c0a50bee601affa1ec377520af161d23eadce94c6729a485",
+      "bytes": 8122
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/tasks/T-AMB-P/after.json",
+      "sha256": "4cdf12d4d8827eeb43640edac7f547b30254efc6e3816e358a76a760855ddc25",
+      "bytes": 7074
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/tasks/T-AMB-P/before.json",
+      "sha256": "7da78b3a8591927b34115ff3a75a6035aa73040e5401c15569f7c0bd2002c71f",
+      "bytes": 19791
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/tasks/T-AMB-P/evidence/synthetic-ambiguous-round.md",
+      "sha256": "f93709266704008a10521ef050024aa57e5faf43f5cde9a53f4e5518cc0e40ad",
+      "bytes": 80
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/tasks/T-AMB-P/evidence/synthetic-base-clean.md",
+      "sha256": "535cbbb2842fac97f025fd55d1e210cb969140f62def22016fab54c453793d52",
+      "bytes": 75
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/.project-governance/tasks/T-AMB-P/run.jsonl",
+      "sha256": "ada8487d0a5b28d26507536f1847feeb7680a5085e8a71f17a12b5dd942528e2",
+      "bytes": 1210
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/ambiguous/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/deployment.json",
+      "sha256": "351ae36abc103e0311219707619a93db27950959fc88b0cd98a68c10ecff161a",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/README.md",
+      "sha256": "51059332f9c9bfacd83240dd2598abb30d4fb23675021c2aad3ce900881452cd",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/generated/scope-reconciliation/T-BLOCKED-F.md",
+      "sha256": "9f40c265eb5033c11234428c47526844654813fb964b1155c04b0f7d948f33bc",
+      "bytes": 121
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/generated/scope-reconciliation/T-BLOCKED-F.md.view.json",
+      "sha256": "6fd5d7c1372b41cf74042e564098e3e7df17eb6e63ca4462efd7bfe54d003bd0",
+      "bytes": 622
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/tasks/T-BLOCKED-F/after.json",
+      "sha256": "d9db53b1e828f78c90a6343fcf02d0b0912f1e063e647ca9f9102153c81f9e4a",
+      "bytes": 18594
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/tasks/T-BLOCKED-F/before.json",
+      "sha256": "1100d35884521d12af3c8c4ccaf187aec6f935c54c8acd2341f25002a41ed66b",
+      "bytes": 19847
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/tasks/T-BLOCKED-F/evidence/synthetic-after-block.md",
+      "sha256": "3276a49b3a25bc613c1864f5c5785d1ef6c84d5606cee3008375c018dad6381e",
+      "bytes": 36
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/tasks/T-BLOCKED-F/evidence/synthetic-after-stale.md",
+      "sha256": "f52eaa73e6aa82a6c0da44ccc2595616f33939b3d77f029371195a47e6659a78",
+      "bytes": 80
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/tasks/T-BLOCKED-F/evidence/synthetic-before-block.md",
+      "sha256": "746d97c6e9bdb30da49fbcb3ce3d27c3ab44dc4a36819364c575ec49480033eb",
+      "bytes": 81
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/tasks/T-BLOCKED-F/evidence/synthetic-forged-completion.md",
+      "sha256": "b3b12aeeb943fd098b5021c08a8a97d0aaba2992fbf4fa37c06e6d09112d80c5",
+      "bytes": 86
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/tasks/T-BLOCKED-F/evidence/synthetic-fresh-after-ended.md",
+      "sha256": "d3965db4955e15319a081257c2f931f7497f5222babe49bb7faa02464376b826",
+      "bytes": 86
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/tasks/T-BLOCKED-F/evidence/synthetic-no-new-decision.md",
+      "sha256": "ede43d5893afba28bb742acc61e9cdbffd60468b6f026f8e84841cffbe9f629b",
+      "bytes": 84
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/tasks/T-BLOCKED-F/evidence/synthetic-no-new-decision2.md",
+      "sha256": "4e56e2ad32b980722341b9cc0ff320139c11e40f2a9991e84856b8af65a2618f",
+      "bytes": 85
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/tasks/T-BLOCKED-F/evidence/synthetic-old-content-copy.md",
+      "sha256": "129e0b901846f984c4e706bfa74d778bf5d2b92839dda6bc7ddd46febfe27675",
+      "bytes": 80
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/.project-governance/tasks/T-BLOCKED-F/run.jsonl",
+      "sha256": "2c47eea583b4e3161ec574c5535dedbcb28e5277221c8d33f4dd0d5309057010",
+      "bytes": 1250
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Full/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/deployment.json",
+      "sha256": "72d260fc64b93f805b3809fff120fea9e3d681162106c4dd13ac009777564853",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/README.md",
+      "sha256": "fe3a36b0078212ac252ec28e015b051929b8a922110037f3e7b9f43df66f15de",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/tasks/T-BLOCKED-M/evidence/synthetic-after-block.md",
+      "sha256": "3276a49b3a25bc613c1864f5c5785d1ef6c84d5606cee3008375c018dad6381e",
+      "bytes": 36
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/tasks/T-BLOCKED-M/evidence/synthetic-after-stale.md",
+      "sha256": "f6e53cb49166492e660e5e9051ac2f3c3e1c9b8e57ee023dd448cbc78ec39993",
+      "bytes": 80
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/tasks/T-BLOCKED-M/evidence/synthetic-before-block.md",
+      "sha256": "6e5134a4682c2f8d82753ac1f444f9640a5ab9cde29c36a8ad5dd8cca9998433",
+      "bytes": 81
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/tasks/T-BLOCKED-M/evidence/synthetic-forged-completion.md",
+      "sha256": "6df20a2ffcb6d565fb1206eba509b93d275fa0f3ce41821273f6ed5bedd34e38",
+      "bytes": 86
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/tasks/T-BLOCKED-M/evidence/synthetic-fresh-after-ended.md",
+      "sha256": "efa12f115122a23f97931ca685088dbce4939f8d1ad12785bf12e98fd1b0d465",
+      "bytes": 86
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/tasks/T-BLOCKED-M/evidence/synthetic-no-new-decision.md",
+      "sha256": "578b46c64e3b6279d280adc06715f1f931aff54bbdbf476f9d174ada0d597397",
+      "bytes": 84
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/tasks/T-BLOCKED-M/evidence/synthetic-no-new-decision2.md",
+      "sha256": "ab532d3a8c4385d6c6ce8f6f78bb1c76906536ec7b4f149d5555fcd6fa663a6f",
+      "bytes": 85
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/tasks/T-BLOCKED-M/evidence/synthetic-old-content-copy.md",
+      "sha256": "496353bc9c9a811c6a54b35769290584e1af03c2be062813c08a7f54def4ceb7",
+      "bytes": 80
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/.project-governance/tasks/T-BLOCKED-M/task-record.json",
+      "sha256": "d046961b55b950eef5c1a0ea0245c392baa8a06eec3ce3835841e488d747519b",
+      "bytes": 24957
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/blocked-resume-Minimal/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/deployment.json",
+      "sha256": "932698b18a39cb8fe3eee7207a3e66ef43dd62ce78bba0b558d991c2cf061bc3",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/README.md",
+      "sha256": "6ed721e75b66c0cf87fc024c33a1e2e4499240677ea271666de45918e6eea53d",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/generated/scope-reconciliation/T-CLI-BLANK.md",
+      "sha256": "7c5656a87b97398b815eaaf368c23fbf6e1cb3e278539bb5eb19b35138ef3c62",
+      "bytes": 121
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/generated/scope-reconciliation/T-CLI-BLANK.md.view.json",
+      "sha256": "b270ce4977e58693551f984e4b8f0f2973f481854636699805073de0084ce373",
+      "bytes": 622
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/tasks/T-CLI-BLANK/after.json",
+      "sha256": "43c90688b7e0e8cd5acb627b4f87d7c8168c859026827614679097a3d462a883",
+      "bytes": 9445
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/tasks/T-CLI-BLANK/before.json",
+      "sha256": "6ebca1fb57e1a96d3521cbe686e9e7456e037110619a011c1f95ab67837d476b",
+      "bytes": 19827
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/tasks/T-CLI-BLANK/evidence/synthetic-cli-round-1.md",
+      "sha256": "da454ce8136167db7fbbb6e524bbb2b14da5870ec5cec13280bf48aae20ef7af",
+      "bytes": 80
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/tasks/T-CLI-BLANK/evidence/synthetic-cli-round-2.md",
+      "sha256": "a533d713ce8feffb2dbd665f9dad78ad7ad215881d29151e94d413108d285c15",
+      "bytes": 80
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/.project-governance/tasks/T-CLI-BLANK/run.jsonl",
+      "sha256": "bb2dcb8fdf46b2b7323da9e813a5fb7af57b47485fb626bdd24b7d9eee89a7d1",
+      "bytes": 1250
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/cli-blank/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/deployment.json",
+      "sha256": "fd781e4758327cea1cf0b259e062f3a0fe46e6f066f0b9a45039c667bf109a9a",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/README.md",
+      "sha256": "391fa2da4d0097ae2f5b42e182d7e875b54c44e2e02778d8c68cd7fdbbb271d7",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/generated/scope-reconciliation/T-CLI-P-F.md",
+      "sha256": "39706ad3de151a8f4ebf44b4496d84275f0e4cf871d825314a284dc7f96a3787",
+      "bytes": 119
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/generated/scope-reconciliation/T-CLI-P-F.md.view.json",
+      "sha256": "3c0724ea4cbdb5972b775c2708f7350f7d45a3c756063b6b60504d0d19a4f7e8",
+      "bytes": 616
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/generated/scope-reconciliation/T-CLI-R-F.md",
+      "sha256": "0789a81c5e00d7098d3178a8a2a23c7ae6fb516bae642b60d28493354ed5346a",
+      "bytes": 119
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/generated/scope-reconciliation/T-CLI-R-F.md.view.json",
+      "sha256": "9086372499cfff0632d3f4da0780373b62ac920060b8fb761df95d269b1f370d",
+      "bytes": 616
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/tasks/T-CLI-P-F/after.json",
+      "sha256": "7a7475121dce12f30502e21cc87476db28f999050e8c8c8e09ad41f26dbf20c1",
+      "bytes": 4683
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/tasks/T-CLI-P-F/before.json",
+      "sha256": "d15e58586107664ccf07507024fde2833e7f1b24fdeab10ef88d63151b2f79ae",
+      "bytes": 19821
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/tasks/T-CLI-P-F/run.jsonl",
+      "sha256": "e673ccae8b5ace8eeb5b554bf9ca8026cef827ff3a2a0d4e1f310fb7ff67fca8",
+      "bytes": 1230
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/tasks/T-CLI-R-F/after.json",
+      "sha256": "97a0818f0bc6db690651a125bc8933f9db0f9c25408851df52b1fea056787387",
+      "bytes": 3059
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/tasks/T-CLI-R-F/before.json",
+      "sha256": "17d22aa3c6dba5b3a9800cac804b32250d24e811dad2a283dd51cdffbb5a3e6b",
+      "bytes": 19840
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/.project-governance/tasks/T-CLI-R-F/run.jsonl",
+      "sha256": "1e73c20d3cdf75591b329741db371ce4ff81a79bb4592a227edd59b7bb76bb77",
+      "bytes": 1233
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Full/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/deployment.json",
+      "sha256": "b137469117f0e58e4c813ad93eb1923388d16d72d414881758b3639385a1ac1a",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/README.md",
+      "sha256": "5f31b5cbdcf991df3cb65e3342f138bab979e4e9064adcf62d2a926c8b425e3e",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/tasks/T-CLI-P-M/task-record.json",
+      "sha256": "118ea8c04a0ee47938afa29d2b06971cf33785cb2d13bf635f6b3e4b982b1cfa",
+      "bytes": 9712
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/.project-governance/tasks/T-CLI-R-M/task-record.json",
+      "sha256": "11d2e47dfe14a4ae98f9f3855e560628d618f00b3172d758c25e71810499d6da",
+      "bytes": 7865
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/cli-repair-Minimal/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/deployment.json",
+      "sha256": "2fb382b7d27b0116135939d5bf1eeea56fd8e1732112122724922d07fbc5e570",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/README.md",
+      "sha256": "aa3f19b2811ed491282f0b22c30721edc4f36ca2a93205f8f03c8925e3eb0c1c",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/generated/scope-reconciliation/T-DENIED-F.md",
+      "sha256": "7b8ef2a0ff4166bebdee3380754720d60e0182d60c5386dea8eb0c0792ee076d",
+      "bytes": 120
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/generated/scope-reconciliation/T-DENIED-F.md.view.json",
+      "sha256": "5c1b2ee79568d50816289546c5770b03c77d635943e5d02adf921a662ef2ecf0",
+      "bytes": 619
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/tasks/T-DENIED-F/after.json",
+      "sha256": "e30a488331698e4c088c684d74c79a2046dd6332bb0a1ad544a9567ece308bfb",
+      "bytes": 3036
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/tasks/T-DENIED-F/before.json",
+      "sha256": "538b0fcdf1be7da334cf222bb6a624205ba0c4ef56f24c98270a249e4b221999",
+      "bytes": 19822
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/tasks/T-DENIED-F/run.jsonl",
+      "sha256": "60d2c7cfddbb89e7bfc8c033bd69a6cca914215e5daa55944a0e06e3b532d214",
+      "bytes": 1240
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/tasks/T-DENIED-REPAIR-F/before.json",
+      "sha256": "3b5d7981fda1e0c34ce2d47121557dd9fc33563571b955852bad0f8fa16cbc11",
+      "bytes": 19905
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/.project-governance/tasks/T-DENIED-REPAIR-F/run.jsonl",
+      "sha256": "7f45c44add7322eecfb5525dbff64965cecbffd9a98661d6c994833bda7bc6d7",
+      "bytes": 1302
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/denied-Full/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/deployment.json",
+      "sha256": "72d260fc64b93f805b3809fff120fea9e3d681162106c4dd13ac009777564853",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/README.md",
+      "sha256": "fe3a36b0078212ac252ec28e015b051929b8a922110037f3e7b9f43df66f15de",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/tasks/T-DENIED-M/task-record.json",
+      "sha256": "9faa92fc0d487777c18188912cc9fac7be624e6e91fce1dc6a335a1af21fde80",
+      "bytes": 7832
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/.project-governance/tasks/T-DENIED-REPAIR-M/task-record.json",
+      "sha256": "0ff96f06c580d842c84cc9b29024981e5b26ad8898b695cb6f5200d92f894d57",
+      "bytes": 6946
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/denied-Minimal/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/deployment.json",
+      "sha256": "c60a8928bd9bf4fd6e82239ebfa29aa9cc37b76c31b4ae813405193ae3f8bd31",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/README.md",
+      "sha256": "2b0226a1fd47b0e54c9439c57b71eac0ca2faafe83de5afffc5700b3359fe235",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/generated/scope-reconciliation/T-LEGACY-F.md",
+      "sha256": "30b68e8b9fb1ccd45cff6cca819bdabe8bb9fe63bde92ccecf9652c0b13cc841",
+      "bytes": 120
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/generated/scope-reconciliation/T-LEGACY-F.md.view.json",
+      "sha256": "443eb3200b967231e68ab3e4fa183643dfda90d8b05b8d6b710db6732625b156",
+      "bytes": 619
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/tasks/T-LEGACY-F/after.json",
+      "sha256": "e9870a3a118fd1aad72ed4e11eece1d31e17095677cd01d359038c32313f8802",
+      "bytes": 3099
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/tasks/T-LEGACY-F/before.json",
+      "sha256": "b8ef7aefe81f3d5fb1a6b31e13cec7f57e1832718d8254f9968473e82eca71f0",
+      "bytes": 19822
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/.project-governance/tasks/T-LEGACY-F/run.jsonl",
+      "sha256": "1b2df43ac279bf1fe50deaece9b1a627fa32623f25ccf41ee3dce2fa3fce1606",
+      "bytes": 1240
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/legacy-Full/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/deployment.json",
+      "sha256": "abefc6d0fecb74ec2553343233ef6de2758c15b58ed26d5da4dcd47a9f8dc185",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/README.md",
+      "sha256": "c16c2b1531995c02ccc65a052234b3f2d5daac7b02ef139a245a179887195861",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/.project-governance/tasks/T-LEGACY-M/task-record.json",
+      "sha256": "53441bfd77deece8f096ba5a7a244a4982fbbcbc1bcce4db178404e73433576c",
+      "bytes": 8079
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/legacy-Minimal/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/deployment.json",
+      "sha256": "67f94d4cc438d978d92f3ca7fb011c40273a283184a2f3d549f33c211750f38a",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/README.md",
+      "sha256": "32de0a9ad8b35c73237b359b6e8d6eba1d6c4f18fd1052174cc170197cef3bf2",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/generated/scope-reconciliation/T-PARENT-F.md",
+      "sha256": "66bea41e66b0a3507b54260db39403a1fd33d03cb220ef3290e0dd6a83ae0230",
+      "bytes": 120
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/generated/scope-reconciliation/T-PARENT-F.md.view.json",
+      "sha256": "01d0ebf6a0f97d48f65287c92868973103a46cc166789254400173b62232c8b1",
+      "bytes": 619
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/tasks/T-PARENT-F/after.json",
+      "sha256": "0bf3d54a402f4cb2c328ba494661ecf9bb82a30f124821515c17a11a9c689bd0",
+      "bytes": 15478
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/tasks/T-PARENT-F/before.json",
+      "sha256": "6a507cfd2e54ccdb859f4611ccc243d69ee3993b04efbad3660b601f4558ce8b",
+      "bytes": 19822
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/tasks/T-PARENT-F/evidence/synthetic-original-clean.md",
+      "sha256": "619ae9566f9eefa4fb2fafe74c32e94c18d78d3e25c7e8cc7c247bf1fc0d5198",
+      "bytes": 82
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/tasks/T-PARENT-F/evidence/synthetic-repair-discovered.md",
+      "sha256": "43e80f1c376a7c666368cf97b2bbe4b5e4a019536acc4d504681b7b0a884f2b5",
+      "bytes": 85
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/tasks/T-PARENT-F/evidence/synthetic-repaired-first.md",
+      "sha256": "9ce2e2b0e8cec0fd54881c7b6bba31200e247fdb2f0c8b4173756539de30d2cb",
+      "bytes": 82
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/tasks/T-PARENT-F/evidence/synthetic-repaired-second.md",
+      "sha256": "eaa95e195926eeb5871eb68acd1ee143d94cf5863584f8f5820fb1d7f293054a",
+      "bytes": 83
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/tasks/T-PARENT-F/evidence/synthetic-stale-old-again.md",
+      "sha256": "735525c1e1cf585722be048fe683887ac52856d1bf29663df39c47ba6e104b1c",
+      "bytes": 83
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/tasks/T-PARENT-F/evidence/synthetic-stale-old.md",
+      "sha256": "ae0e8fa617dbad15535d31bf6cb5adff4a41e551fe471aff91ca7a744ddfa139",
+      "bytes": 77
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/tasks/T-PARENT-F/run.jsonl",
+      "sha256": "e4b31a7cf4cca9f3bcf0629c4cb0cfbbcbf3fffe46ada243561621097e6f3e6f",
+      "bytes": 1240
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/.project-governance/tasks/T-REPAIR-F/task-record.json",
+      "sha256": "b864468e43f21be63d560ef5ada84fa953453c7dd6eab73f33e610c7bae021cc",
+      "bytes": 7893
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/repair-Full/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/deployment.json",
+      "sha256": "c60a8928bd9bf4fd6e82239ebfa29aa9cc37b76c31b4ae813405193ae3f8bd31",
+      "bytes": 1519
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/README.md",
+      "sha256": "2b0226a1fd47b0e54c9439c57b71eac0ca2faafe83de5afffc5700b3359fe235",
+      "bytes": 3517
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/generated/scope-reconciliation/T-REPAIR-M.md",
+      "sha256": "91d42ed66b6e5534158869b7c2e6dd1f253ed49279b5f2b9bf3803be483b4f18",
+      "bytes": 120
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/generated/scope-reconciliation/T-REPAIR-M.md.view.json",
+      "sha256": "c4df58375f02f6fb9c1b64146b68f3733b9a991f2b5015a4f2d765a5c9069224",
+      "bytes": 619
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/tasks/T-PARENT-M/evidence/synthetic-original-clean.md",
+      "sha256": "515579c79de10e9d0e9c6d7a0ae6f13598fbcda9e97e180d687c64bb0d08058c",
+      "bytes": 82
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/tasks/T-PARENT-M/evidence/synthetic-repair-discovered.md",
+      "sha256": "aad2ffb5ba78c8ef48e915b9e1b57b712ddef90ef88d69a29bfbbd20451edbef",
+      "bytes": 85
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/tasks/T-PARENT-M/evidence/synthetic-repaired-first.md",
+      "sha256": "9cd44ce4d69d45bf3407854c84cfa3f8c503e44e0778cf5956d1a404822dba83",
+      "bytes": 82
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/tasks/T-PARENT-M/evidence/synthetic-repaired-second.md",
+      "sha256": "24be2e23e669b68b977e3e505746e72fddc593e1d702d8dff0cdb53ddc5151d6",
+      "bytes": 83
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/tasks/T-PARENT-M/evidence/synthetic-stale-old-again.md",
+      "sha256": "0a903deb8c11e32dc054f4b091e7b71174798fd7837aea6b7eded23e0425cf4e",
+      "bytes": 83
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/tasks/T-PARENT-M/evidence/synthetic-stale-old.md",
+      "sha256": "cd809bf3b8a90df019828741c37ea0a9c99c72fe636d9ca74f72f094cb9deae9",
+      "bytes": 77
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/tasks/T-PARENT-M/task-record.json",
+      "sha256": "525372d2fbad1927702882965b6f31adfe2a0e2160cab3177a866ff7b67ec7b7",
+      "bytes": 21472
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/tasks/T-REPAIR-M/after.json",
+      "sha256": "50b9a8fb112158224648c83a0168dae77cd06a98fdb206e192940306f0f09422",
+      "bytes": 3087
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/tasks/T-REPAIR-M/before.json",
+      "sha256": "bb8a2c142ad3e725b990fc510f1159d9a562d7c61cfa0e5c52a62722ffe7b06c",
+      "bytes": 19848
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/.project-governance/tasks/T-REPAIR-M/run.jsonl",
+      "sha256": "ca4edb9aa3ba688a26b1d9a20959453a9d219372ebf42e17978a2ee9c0a857ba",
+      "bytes": 1240
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "boundary-fixtures/repair-Minimal/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "cases.json",
+      "sha256": "395cf02d64f1bf16aae4acac79b93d7b2ab6b5dd6f84e3d7313e0c0e8175e05d",
+      "bytes": 360870
+    },
+    {
+      "path": "distribution-hash-differences.json",
+      "sha256": "3d63aae2337252a7ccb487b0ed0db35ef2cf4cc12112f489ef5262d15b703128",
+      "bytes": 375
+    },
+    {
+      "path": "execute_boundaries.py",
+      "sha256": "279709fa5413a9e0e446c9b212b77ccd249e87a868e9cca42b1bebacd54c6692",
+      "bytes": 15992
+    },
+    {
+      "path": "execute_final_checks.py",
+      "sha256": "8b44a04fa8c4cad31b4cc099e82dd75e34bd95e0331b1bd8ecb03f4f62f8178a",
+      "bytes": 10363
+    },
+    {
+      "path": "execute_suite.py",
+      "sha256": "9b42a756d3c884b51bd51c2e6e5cf26fc56bf50f4ab9d1dddf9eae93729ab26c",
+      "bytes": 10054
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/deployment.json",
+      "sha256": "15480e8d37f1cee7f248f9ef8aa0e1f696c7b441325cd72ca63cfb959b5eb2d5",
+      "bytes": 1519
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/README.md",
+      "sha256": "3acfa82c338dee2746cd1d76724e41c5680a5efffe4c4de6ea4debdcb6e3b629",
+      "bytes": 3517
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/generated/scope-reconciliation/T-BLANK-AUTHORITY-FULL.md",
+      "sha256": "9319cfcf81b298ce54dbf28dba51ff6f4e6fdbc9ba0e81d7ec912baa9c1a4cae",
+      "bytes": 132
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/generated/scope-reconciliation/T-BLANK-AUTHORITY-FULL.md.view.json",
+      "sha256": "c809cb83781dc9cf2a1ed9a0adc31d33335e727c388643bae31a35aa047db686",
+      "bytes": 655
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/tasks/T-BLANK-AUTHORITY-FULL/after.json",
+      "sha256": "1c2358d0339062e7e5ecfe14298ab31d2bf73c4c74633b8a4b448b0a026835c4",
+      "bytes": 9711
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/tasks/T-BLANK-AUTHORITY-FULL/before.json",
+      "sha256": "f7448d7d5088d9f82f74fc74a2fec0d0c3dbe12ef869ccbfe0c00ccb9928bb74",
+      "bytes": 19952
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/tasks/T-BLANK-AUTHORITY-FULL/evidence/synthetic-blank-consent-one.md",
+      "sha256": "bc1a9928542a78bdb8d7dfcd8a65367d52d1b05bbb9d75d3dc4858ee0d0877e5",
+      "bytes": 97
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/tasks/T-BLANK-AUTHORITY-FULL/evidence/synthetic-blank-consent-two.md",
+      "sha256": "f685835dcef724056e6191982455ab95902751489ba3eedea8c15e61ecf01a14",
+      "bytes": 97
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/.project-governance/tasks/T-BLANK-AUTHORITY-FULL/run.jsonl",
+      "sha256": "94852f2bf24f227519bee4a63208c9d2d4291569c7d5f108dbad532428dee1cb",
+      "bytes": 1360
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Full/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/deployment.json",
+      "sha256": "d97e3c4ad82cfa440bec72c2069dec002012a3ac87f350233dd5a5aa3dc4226b",
+      "bytes": 1519
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/README.md",
+      "sha256": "adede63e349c8d15961bc8efaa5c19db1d7d4514042a66c5da325d9e761554bd",
+      "bytes": 3517
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/tasks/T-BLANK-AUTHORITY-MINIMAL/evidence/synthetic-blank-consent-one.md",
+      "sha256": "01c24a4db5122409b81cbc3d66bb0ccce372ba789be242e6b87ef1d46ee6b69a",
+      "bytes": 100
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/tasks/T-BLANK-AUTHORITY-MINIMAL/evidence/synthetic-blank-consent-two.md",
+      "sha256": "2bf6c6f2c260dabccf0b9df33fa5bf90ff5df2761ceaef4524343f0f64907f8c",
+      "bytes": 100
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/.project-governance/tasks/T-BLANK-AUTHORITY-MINIMAL/task-record.json",
+      "sha256": "78f606c340ddc3ac960bbd684e90739157ae93e2a0522fdeab4e47f0a8eac896",
+      "bytes": 15299
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "executed-fixtures/blank_authority/Minimal/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/deployment.json",
+      "sha256": "cd30825bb7fd7d42b2b8342c23e40e2151dc520d661b95b0869974443ece0728",
+      "bytes": 1519
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/README.md",
+      "sha256": "676cb0c2282c4ca8031720b460146bcc9e273458690e923040a6e51ce5b0ab3e",
+      "bytes": 3517
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/generated/matrices/legacy-137-to-meta-types.md",
+      "sha256": "9b63a83646785f0e0cfb1497e1d20e4bc75b451148081188175aa193e69bdbd6",
+      "bytes": 8761
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/generated/matrices/legacy-137-to-meta-types.md.view.json",
+      "sha256": "499a5c9804213eee60c13e8290f220b011d8921cf6553192149c48eb739ac100",
+      "bytes": 909
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/generated/reviews/project-status.md",
+      "sha256": "e845dc28448a7b84e2ec8f2aa45947e9242673cd90bd31a2ae77a59bc4e1758b",
+      "bytes": 336
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/generated/reviews/project-status.md.view.json",
+      "sha256": "690e5744d55c13bb955f8e96e26720abe73f6c8adc13530140c5653e3964c8c0",
+      "bytes": 585
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/generated/reviews/T-LIFECYCLE-FULL.md",
+      "sha256": "fcddc0bba3a64ae523c0566b08d3247c50a082f995175c44f950da5098578486",
+      "bytes": 3233
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/generated/reviews/T-LIFECYCLE-FULL.md.view.json",
+      "sha256": "828c184bedfc2dc95418be5f53e13d5f82fd215b13a6407a915d5bce0d29e55a",
+      "bytes": 724
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/generated/scope-reconciliation/T-LIFECYCLE-FULL.md",
+      "sha256": "731e3a5de881de8d1a112ef76d4a583bc408ca1df34c500012d75f60e52a391f",
+      "bytes": 126
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/generated/scope-reconciliation/T-LIFECYCLE-FULL.md.view.json",
+      "sha256": "8e7f839bbcf9831515464ff7f5bd0053efef04fdd8247bf19bed738018b250b9",
+      "bytes": 637
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/project-state.json",
+      "sha256": "6918f5e548d94eeabe64653607428879d9c8d02b3026d63693bfc131f227d6c0",
+      "bytes": 1058
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/after.json",
+      "sha256": "469628f14c8b04e1165cd3c92370e73b7e1cbc6a895a8950183e719ccd50f339",
+      "bytes": 34260
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/before.json",
+      "sha256": "282d9aca5a8b4292478522e84286cdcfd4409a0267dd58f09708f3541b4e3c69",
+      "bytes": 19886
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-after-passed.md",
+      "sha256": "3f49d305efe0218aad4777717e4cc4e6c78d8c62e83b3b33795c0f27db899341",
+      "bytes": 86
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-after-stop.md",
+      "sha256": "a7a65ac4fd2eb931efa6d34f680978a2e048d53de95ad53826957e2806995a94",
+      "bytes": 84
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-clock.md",
+      "sha256": "986da112ceaa0a725f5658f43b42ff76c51fa17527cede88b5f995f8ef1e6b8d",
+      "bytes": 79
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-complete-one.md",
+      "sha256": "1bde213796ac3e43f9e93f050a1834c6810dd12f13cfd0675f62d9d0f7e6521d",
+      "bytes": 86
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-declined.md",
+      "sha256": "dca240de5ab77f5fb1743db4ae16919d1fd6c3c7b780bcfc1e5982cb2ae65b1f",
+      "bytes": 82
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-deferred.md",
+      "sha256": "62d224628e9888e0d6db221ff4f7887ed99c19e5ea20708b46f21caa543fe0f2",
+      "bytes": 82
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-duplicate-alias.md",
+      "sha256": "9c06c3ba2cfbaf2044c8115e186927fbb7d67e41a8250b8b176c95a21fe2618e",
+      "bytes": 89
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-duplicate-copy.md",
+      "sha256": "efe4416ed184043e0985283f6bc9affaec02bb373c79dcb5ce62a434788bb3e6",
+      "bytes": 36
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-false-positive.md",
+      "sha256": "d9dcdc6ee04dc575ed61e3bd11695197d79cbf6775e48cf26d2dd27fe91f5e32",
+      "bytes": 88
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-false-receipt.md",
+      "sha256": "dc2405e151b743f4da9cb607827a88cd7f1fa98c7e3a3354992eeba4cfca9fc4",
+      "bytes": 87
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-final-one.md",
+      "sha256": "efe4416ed184043e0985283f6bc9affaec02bb373c79dcb5ce62a434788bb3e6",
+      "bytes": 36
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-final-two.md",
+      "sha256": "df4dae125e1ac90b52fca3b2106a4086974aa6914f187648bca6960962c57629",
+      "bytes": 83
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-finding.md",
+      "sha256": "a66ed261e22c4487b587fe5e5998dab647773cd7a6b693afc331fd74360d95cb",
+      "bytes": 81
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-forged-subject.md",
+      "sha256": "fce0c1b420219c2f9f3516724e70a458459f1224a68b951834eabbd1b55735ba",
+      "bytes": 88
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-forged-words.md",
+      "sha256": "3f866446114603a6cb2dc1512d9f79ebaf36e5b6b5383667b7e38811ab469010",
+      "bytes": 86
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-future.md",
+      "sha256": "bd6663853a9a8fdf0e6bf1c03665ed23b5435adf0065ac674a1fe3cedef3f350",
+      "bytes": 80
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-incomplete.md",
+      "sha256": "05dd0fcaafda81e3aecd86778417bf00b36db0b9dbf3375be51d8883e950d7b7",
+      "bytes": 84
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-new-session-one.md",
+      "sha256": "616b49182420f7502c5e3c7a01fc3d5cec821c73e53625f78e751139e165757e",
+      "bytes": 89
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-no-consent.md",
+      "sha256": "e496782e27fe03c0fb589866953a8d70402fe7ef37d742bf11405b7a94c7b926",
+      "bytes": 84
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-no-zone.md",
+      "sha256": "c410d493783170277412dcdd9550209e837fc4f99d12c43057677b3bea31eeec",
+      "bytes": 81
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-report-empty.md",
+      "sha256": "708708aa72d48546834083dabeebec20af2cf4be1fd2c237dd74bc3c7f61ed75",
+      "bytes": 4
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-report-outside.md",
+      "sha256": "fb425702c56c32dc78adb53179771cff9753d3fb6b77104857a10232557164f2",
+      "bytes": 88
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-same-fix.md",
+      "sha256": "fbf39a2ed3e7d7275af53f9234b5ada8d2abd40e364be5fa2856c1ea29f6ac27",
+      "bytes": 82
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-silent.md",
+      "sha256": "d48f19ceda58fb55ab973fb2513cfffe4fb9b1ec6eb5e5a57f4bc07960fcd96e",
+      "bytes": 80
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-unresolved.md",
+      "sha256": "069c52308e244c8ab89fcdf70734ff800c19a54b54ec73c98fadd4edbbed47d7",
+      "bytes": 84
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/evidence/synthetic-unreviewed.md",
+      "sha256": "6d54c17ddfab4e11837e40deba7bf276a89d7e9544ca41ae2119536c8ff10c62",
+      "bytes": 84
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/.project-governance/tasks/T-LIFECYCLE-FULL/run.jsonl",
+      "sha256": "372eef6d5a92fa5a23106149ad31d79b681a845151c0bdaf291479ad641cc8be",
+      "bytes": 1300
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Full/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/deployment.json",
+      "sha256": "3d32499cad80447a63d1b45349b5aea4baf159c51ca9a7e7bb6bf88350e5311c",
+      "bytes": 1519
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/README.md",
+      "sha256": "95171f8644a5f188f41abcd40c5aeeaa9cb91ce20603e1db830a46b28565b686",
+      "bytes": 3517
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/generated/matrices/legacy-137-to-meta-types.md",
+      "sha256": "9b63a83646785f0e0cfb1497e1d20e4bc75b451148081188175aa193e69bdbd6",
+      "bytes": 8761
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/generated/matrices/legacy-137-to-meta-types.md.view.json",
+      "sha256": "2620d4e903fc1b252c2ce661d95fa99d7b764ce9081737ce53c58e8fe66d7110",
+      "bytes": 909
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/generated/reviews/project-status.md",
+      "sha256": "39660ca45511ea66071ddb54bc4582782ce6bd7ec7ec87ade81f2e9d901bda2c",
+      "bytes": 342
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/generated/reviews/project-status.md.view.json",
+      "sha256": "14117ddbc4c496979881c1193c27297d1f04ab0fcd30650aae521c4eaf8ec4d7",
+      "bytes": 585
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/generated/reviews/T-LIFECYCLE-MINIMAL.md",
+      "sha256": "2d379e32f549b0ebf4340dd6d9ccb36685134c69006a870dc5020d120f6bc28f",
+      "bytes": 1051
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/generated/reviews/T-LIFECYCLE-MINIMAL.md.view.json",
+      "sha256": "49fc026406f570b4723f09bf4c2cc4c659c0b73d7fa39b499133065f0789222a",
+      "bytes": 617
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/project-state.json",
+      "sha256": "e66598db04a367d82dc922079f0d0d0fe7ead2df99dd8c25d239054f6076eb90",
+      "bytes": 1100
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-after-passed.md",
+      "sha256": "c928d014cd975e59a221bea128ccff5503a16be1d145f108b2a6b5e66f13eed3",
+      "bytes": 89
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-after-stop.md",
+      "sha256": "5dd8af21e33a0c874ac2f86c62cd57fc4c195cd3fcedb8759ad237c43d8a4ed9",
+      "bytes": 87
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-clock.md",
+      "sha256": "bdcf3e2edd3a37aba5d2e4111094a3b9e3d8ec42f27f61ba048c7f3b1f686d62",
+      "bytes": 82
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-complete-one.md",
+      "sha256": "5cff037be076b29c9da2321e32c7226fce51cf601b7719f22cefbbb27c510c52",
+      "bytes": 89
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-declined.md",
+      "sha256": "b4e3cd59880f8cc4a05701891168518074d232317b214339d3e039bb77e84b88",
+      "bytes": 85
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-deferred.md",
+      "sha256": "4dfab6f67d2a16f5e90c54019ae2b8d5c5c82d25c965e8598f7d790f90db02f6",
+      "bytes": 85
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-duplicate-alias.md",
+      "sha256": "a1aec8e45a99c08d91ff9c7d0b7f54cab44a9467cd448848cda65fbdfea556d8",
+      "bytes": 92
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-duplicate-copy.md",
+      "sha256": "bee544dc03746783713dbddfa5e3ada4a4f8500e976e49fed3e4f2136937bba7",
+      "bytes": 39
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-false-positive.md",
+      "sha256": "c22e787d13d94422000b5a4e713fdb98fde2fcc58ab6d7616b2174a8ac0bc783",
+      "bytes": 91
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-false-receipt.md",
+      "sha256": "29ea4037999a1644253b494c223f4307c7cbce22b1fc8e1ff4414be8bd1dc6eb",
+      "bytes": 90
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-final-one.md",
+      "sha256": "bee544dc03746783713dbddfa5e3ada4a4f8500e976e49fed3e4f2136937bba7",
+      "bytes": 39
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-final-two.md",
+      "sha256": "d0415ab32ddb4139161c80d5c4b2d5266570e0fe21d32616f2da998c2a616163",
+      "bytes": 86
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-finding.md",
+      "sha256": "d8d9e244590ffe1e234f072b3d065643386cc5763480337ddb832a0a47eb2adf",
+      "bytes": 84
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-forged-subject.md",
+      "sha256": "97046f7c125c2d4e5aa7dafb6eff85cd1c3eafeaabc4a25fbb6458642d3b6627",
+      "bytes": 91
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-forged-words.md",
+      "sha256": "856a599c006a21596330a72135991df0de3188b814c6dbfb4f084ba8121b77d8",
+      "bytes": 89
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-future.md",
+      "sha256": "81efa45c5eaca95e3580dc341e3a74f2d714982f584acdfff00a8dfa1faf4f0f",
+      "bytes": 83
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-incomplete.md",
+      "sha256": "dc1568a7f91facf2369c3dc8606a9c8875b48620c8752fe1d0b4b0c8d08084af",
+      "bytes": 87
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-new-session-one.md",
+      "sha256": "37a56ef8bfb6829e2bc58cbe48a48eed704fd9d245cb37331e52b6d68fef6952",
+      "bytes": 92
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-no-consent.md",
+      "sha256": "d1a10b0b72cd4d54c597b0db1588ee8e75c40434b05b8cb2c74fe5c83c717c95",
+      "bytes": 87
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-no-zone.md",
+      "sha256": "b6e6c6af1e1e0e70bb99f7a8b850efbc1a19eecc600df654478bf3622c5513b4",
+      "bytes": 84
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-report-empty.md",
+      "sha256": "708708aa72d48546834083dabeebec20af2cf4be1fd2c237dd74bc3c7f61ed75",
+      "bytes": 4
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-report-outside.md",
+      "sha256": "d4630e74c07b97810a28f756fc1e2119a3f674037d01ab6a9b0842271fca3c4b",
+      "bytes": 91
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-same-fix.md",
+      "sha256": "d4bb1a8697a6c76b77d4cfd79753de1185c0645ed58a0d64e13de5644928b99c",
+      "bytes": 85
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-silent.md",
+      "sha256": "3f0b356424df2bef1a0ec558dc38039607f3a3adf196f36d4fe558895d8caad1",
+      "bytes": 83
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-unresolved.md",
+      "sha256": "dfc14ae517820cf6e36865ba191f8689c5d0ea5f320e7f29853f66807c8a23cb",
+      "bytes": 87
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/evidence/synthetic-unreviewed.md",
+      "sha256": "37f4f7cea888739bbee54cf28c55ef97eb5a78594367048fdba5709cf341a2c1",
+      "bytes": 87
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/.project-governance/tasks/T-LIFECYCLE-MINIMAL/task-record.json",
+      "sha256": "f17545a15d53f264481d12ed8a6496c8a05f3489a0e43338339399f6845f201e",
+      "bytes": 42400
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "executed-fixtures/lifecycle/Minimal/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "final-checks-output.txt",
+      "sha256": "8c22777aa0176ed9e40c849a2c8e50a1f1d9e20f116731c477ec25f120ff6a21",
+      "bytes": 7646
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/deployment.json",
+      "sha256": "04fab85ebd803e41628853f91176c87b057c8f829021af1a2a205c30d85bac3e",
+      "bytes": 1519
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/README.md",
+      "sha256": "46bd699b617978a02ac3bd08a398cf3e9d79356e19ce2b61ee69c0f9e720bc57",
+      "bytes": 3517
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/generated/scope-reconciliation/T-IO-F.md",
+      "sha256": "b175b2e024c34760946f57fb03db530c12dcf24b438afb994da3139381fcf8fd",
+      "bytes": 116
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/generated/scope-reconciliation/T-IO-F.md.view.json",
+      "sha256": "9cb7cfed96d79ae056a246e275b815768468b7672df005b754939d4e873f20c4",
+      "bytes": 607
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/generated/scope-reconciliation/T-NOT-CHILD-F.md",
+      "sha256": "5ba6d89e824c0cae093755ea4b57c431b81f51c04b712314f9f4794059e42922",
+      "bytes": 123
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/generated/scope-reconciliation/T-NOT-CHILD-F.md.view.json",
+      "sha256": "8ed0496ddaeeb22d0a3325bcc25031d6aa53f4f31e33e9ed690be3c1f1e97431",
+      "bytes": 628
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/generated/scope-reconciliation/T-OWNERSHIP-P-F.md",
+      "sha256": "301b52486549f9469438189073352bf543b8aa0de2c19cb78155bec9a478fc18",
+      "bytes": 125
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/generated/scope-reconciliation/T-OWNERSHIP-P-F.md.view.json",
+      "sha256": "ceaa2327f3daaf84704c6256ab5ceacd34ed5634f08e881585a23caba9096775",
+      "bytes": 634
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/tasks/T-IO-F/after.json",
+      "sha256": "1c73a9af49cd38ff17920bce642df447d86b993cbf8474475a17973e27772cb3",
+      "bytes": 9451
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/tasks/T-IO-F/before.json",
+      "sha256": "b46021c5682766a69ecea2cb2b9fcca7b026aa6a0a72127f058d7927db5ee617",
+      "bytes": 19772
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/tasks/T-IO-F/evidence/synthetic-before-io.md",
+      "sha256": "4641ed97971bdb630919822d42a45054161307341736091467c4503faa30183b",
+      "bytes": 73
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/tasks/T-IO-F/evidence/synthetic-io-retry.md",
+      "sha256": "c082a9f54f1a1157b75b537fbe1f78320bee9a55ab3408e30a16c2d010fd4ade",
+      "bytes": 72
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/tasks/T-IO-F/run.jsonl",
+      "sha256": "17f0bf1edc56ced2f30645f2cf64060fb75d2684dc083ac5f4e7c83e0a368f3c",
+      "bytes": 1200
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/tasks/T-NOT-CHILD-F/after.json",
+      "sha256": "167139ab549b8738e1ef11e4923a29c33b878bfb6c6891089a3da6362992a055",
+      "bytes": 3052
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/tasks/T-NOT-CHILD-F/before.json",
+      "sha256": "f6b18e2c4fc2061a9ceddfa56efa5d79a0e5b33fcbe8499985c53353301c78c2",
+      "bytes": 19835
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/tasks/T-NOT-CHILD-F/run.jsonl",
+      "sha256": "69194ca299cb186c90b28300177e4dd1ed9d0e73e2fd66e7a0c4fb09f69eff4b",
+      "bytes": 1270
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/tasks/T-OWNERSHIP-P-F/after.json",
+      "sha256": "6ac4a0e9473ba1b924635febaf26b2ae661d114c9b66e86e8016be9592c6d811",
+      "bytes": 4718
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/tasks/T-OWNERSHIP-P-F/before.json",
+      "sha256": "5227489810a4810c780891813bddbf1165de5e4b7f9ce041b9caf76646c6fe15",
+      "bytes": 19853
+    },
+    {
+      "path": "final-fixtures/io-Full/.project-governance/tasks/T-OWNERSHIP-P-F/run.jsonl",
+      "sha256": "158fe3be2069dac69ff96a18f5778c096586a75e1aa08378c665b7a6ee42910d",
+      "bytes": 1290
+    },
+    {
+      "path": "final-fixtures/io-Full/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "final-fixtures/io-Full/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/deployment.json",
+      "sha256": "1f2cfba2deb644be88245e88ed3a972bef12ee8fed4240bba1e9d26d58a747a6",
+      "bytes": 1519
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/README.md",
+      "sha256": "79fd621bfb9d09be2803b233365347d890aa3c694fba2cf6fcc7d9fc945ac3d8",
+      "bytes": 3517
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/tasks/T-IO-M/evidence/synthetic-before-io.md",
+      "sha256": "2594ac08bc02cf980fa567dab64981cffd107b5044d05195c4ca6503d2519f79",
+      "bytes": 73
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/tasks/T-IO-M/evidence/synthetic-io-retry.md",
+      "sha256": "de77a72882d3f45080c4b4b895c2843cec645857280f3991f0adcf58aaed66a4",
+      "bytes": 72
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/tasks/T-IO-M/task-record.json",
+      "sha256": "a0582555eae5f4001fe8321b42eeb0c71a2c1bdb81fb17ad111a57945d4980db",
+      "bytes": 14893
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/tasks/T-NOT-CHILD-M/task-record.json",
+      "sha256": "1082413c0ca568403bbba971fc27906f28133ee5ee6927cfe258ea8e5e5568c0",
+      "bytes": 7863
+    },
+    {
+      "path": "final-fixtures/io-Minimal/.project-governance/tasks/T-OWNERSHIP-P-M/task-record.json",
+      "sha256": "a969b4a6a85e01ee41852c32eade3077b11aea24965b6ce6cb0a1027e64b348f",
+      "bytes": 9777
+    },
+    {
+      "path": "final-fixtures/io-Minimal/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "final-fixtures/io-Minimal/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/deployment.json",
+      "sha256": "52cdbf6346442d5c256ecf683c22bcc6a5cbd2eb550cd0f6fe7b62edb0f9f7a7",
+      "bytes": 1519
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/README.md",
+      "sha256": "87240d62fa245eb9219af6e695d3fdadc883adfa5dcd4a4eb784385454b66421",
+      "bytes": 3517
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/generated/scope-reconciliation/T-PRECUTOVER-F.md",
+      "sha256": "c6078736de42906bf7d902f29f1b0df2074a69ae10af5185d7f29fc59bb7b963",
+      "bytes": 124
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/generated/scope-reconciliation/T-PRECUTOVER-F.md.view.json",
+      "sha256": "2d1eea159c70726980bf1e95d60f3d7eca470441ca4496c30f7eb01988b4232d",
+      "bytes": 631
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/tasks/T-PRECUTOVER-F/after.json",
+      "sha256": "d0aa76c386aec46ed66e41f6b8e5c2466235c939f9cccd1c1ab496a7967ef26b",
+      "bytes": 2425
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/tasks/T-PRECUTOVER-F/before.json",
+      "sha256": "d6059106b9ebd3af19563ce112e77470ab565e2b1590dd849e2931b29fc8c196",
+      "bytes": 19888
+    },
+    {
+      "path": "final-fixtures/precutover-Full/.project-governance/tasks/T-PRECUTOVER-F/run.jsonl",
+      "sha256": "175bc7309eb8687fdcb3ed256b2936d728c83df43c10559dc6a87f1eb4073f79",
+      "bytes": 1355
+    },
+    {
+      "path": "final-fixtures/precutover-Full/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "final-fixtures/precutover-Full/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/deployment.json",
+      "sha256": "1f2cfba2deb644be88245e88ed3a972bef12ee8fed4240bba1e9d26d58a747a6",
+      "bytes": 1519
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/README.md",
+      "sha256": "79fd621bfb9d09be2803b233365347d890aa3c694fba2cf6fcc7d9fc945ac3d8",
+      "bytes": 3517
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/.project-governance/tasks/T-PRECUTOVER-M/task-record.json",
+      "sha256": "a0ed170677e53546be10c72fd5605bfce2e2e610c99a69e35ea05b62d28a249b",
+      "bytes": 7327
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "final-fixtures/precutover-Minimal/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "finalize_report.py",
+      "sha256": "38618933f696941f5ac9dbe28663d7917edb820a390eabf440018f54cee78721",
+      "bytes": 20568
+    },
+    {
+      "path": "findings.json",
+      "sha256": "e4f5ffabea3c5f75b5830ed78c76f98f2b6da3e8bec18d9a57195839daf9b96c",
+      "bytes": 3115
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/deployment.json",
+      "sha256": "5befe20096a665a48db931eef043ec3e2e5b21cf88dfc699e1130da9177f76f8",
+      "bytes": 1519
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/README.md",
+      "sha256": "cf0b440a13bb514b23245a0f3ac1cc717288500877057027a0b01faae2d7c756",
+      "bytes": 3517
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "fixtures/full/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "fixtures/full/.project-governance/generated/scope-reconciliation/T-FULL.md",
+      "sha256": "7e80c6d10287d3376d78b593dcf5d16248a9d649c45be3263ae5d7949415030e",
+      "bytes": 116
+    },
+    {
+      "path": "fixtures/full/.project-governance/generated/scope-reconciliation/T-FULL.md.view.json",
+      "sha256": "049d21c4821de56e3b8cccabc1807c0eafb38f87aca7cac0b772fd3d2ab1c28b",
+      "bytes": 607
+    },
+    {
+      "path": "fixtures/full/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "fixtures/full/.project-governance/tasks/T-FULL/after.json",
+      "sha256": "e688a2fd9ff2dfc8dc25fe870e32679b9c57ec11eff367856e7f0903d1d90233",
+      "bytes": 2977
+    },
+    {
+      "path": "fixtures/full/.project-governance/tasks/T-FULL/before.json",
+      "sha256": "e8d7a9781687116c6df585e053c12306416e1cc0afda347121d0390dbd4b0c64",
+      "bytes": 19754
+    },
+    {
+      "path": "fixtures/full/.project-governance/tasks/T-FULL/run.jsonl",
+      "sha256": "0a101230565c7602eb6c865b5f4c6d60ec3ca7893363bc5423ceffc7bb224bfb",
+      "bytes": 1200
+    },
+    {
+      "path": "fixtures/full/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "fixtures/full/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/console.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
+      "bytes": 5706
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/deployment.json",
+      "sha256": "76f15688d31561e41aa789914535346b578df426f5e9eca4b9dbe1eec2b7df76",
+      "bytes": 1519
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/README.md",
+      "sha256": "43202f7800598d770c3c2f338833ed223738b14dcedd4b3166fa77b88962c854",
+      "bytes": 3517
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/snapshot/adversarial_review.py",
+      "sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "bytes": 29343
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/snapshot/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
+      "bytes": 3312
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/snapshot/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
+      "bytes": 4414
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/snapshot/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",
+      "bytes": 21743
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/snapshot/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58",
+      "bytes": 12232
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/snapshot/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157",
+      "bytes": 30648
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/snapshot/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24",
+      "bytes": 48056
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/snapshot/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053",
+      "bytes": 10149
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/snapshot/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "bytes": 242084
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/snapshot/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5",
+      "bytes": 26117
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/console/snapshot/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "bytes": 52714
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/README.md",
+      "sha256": "532f9a85ed359a8d7f46d956d3a4274980ac7a2612c50d59c110e21c0f25c8fd",
+      "bytes": 1028
+    },
+    {
+      "path": "fixtures/minimal/.project-governance/tasks/T-MIN/task-record.json",
+      "sha256": "a3300fd4176d544e9a8e56f93b1d6b26c7136ba5c6c01a3d6fc7c2bc01643c4d",
+      "bytes": 7739
+    },
+    {
+      "path": "fixtures/minimal/LG_project_docs/README.md",
+      "sha256": "2df75fb12a57a3b83f1a3274b9f9f1ce33d0e7045057add40083d13166189359",
+      "bytes": 782
+    },
+    {
+      "path": "fixtures/minimal/survey.md",
+      "sha256": "6a2030a2f43ba6dd61a42d3b8bd7188aa1f3b0c799659ed205d1107cf6be453f",
+      "bytes": 60
+    },
+    {
+      "path": "freeze-end.json",
+      "sha256": "b592a809971209abb13372824e2e81d663f27e8bd4309ae323079c24925a313b",
+      "bytes": 29721
+    },
+    {
+      "path": "freeze-start.json",
+      "sha256": "7fb2c77b380f62d9c883ed3190693691b2a790a0c203e81b458a43149d3879b6",
+      "bytes": 29895
+    },
+    {
+      "path": "independence-incident.json",
+      "sha256": "d28ceae258f65e7aceb12df3839d6b5a37403222b3d94b8d30f1866c14cdb3e5",
+      "bytes": 1215
+    },
+    {
+      "path": "original-requirement-coverage.json",
+      "sha256": "df3cad8b724acd61682b6934fb8a6858a3a3f1a121c70e0ec2030cee99c01117",
+      "bytes": 7995
+    },
+    {
+      "path": "original-requirement-coverage.md",
+      "sha256": "d95ec4fb775874a2dfdf6e64716759ac6aaa8ed6b55716479c8afdb884298898",
+      "bytes": 2613
+    },
+    {
+      "path": "outside-report.md",
+      "sha256": "2f68a17e24de6a49c09b3e436a848d0bf003308d85d55826286cce2a81a5ecf4",
+      "bytes": 28
+    },
+    {
+      "path": "raw/A01.json",
+      "sha256": "68cd38d7e1aa1376979ea404bb9e8d62353c8354a0b44a592533cec9de9235b0",
+      "bytes": 1535
+    },
+    {
+      "path": "raw/A02.json",
+      "sha256": "876d7b2961fe24843e6e84b97a69a59189609ef84bd70573653da870ff7bb578",
+      "bytes": 1459
+    },
+    {
+      "path": "raw/ACTUAL-005-STATE-command.json",
+      "sha256": "c6666594e9bcb2cbf7edbd619fa9ac8b4f28219cd966d97f26ffac7d54482659",
+      "bytes": 948
+    },
+    {
+      "path": "raw/api-events.jsonl",
+      "sha256": "36fbda2fc7566fee01c87d6ab4db6a748d32bb5b44500108e00291d1e1cf5353",
+      "bytes": 162388
+    },
+    {
+      "path": "raw/B01.json",
+      "sha256": "aa682c37691e26f966d365c4395e36fc09ad83481d7d29e3ee9520539bf9ce91",
+      "bytes": 25167
+    },
+    {
+      "path": "raw/CLI-BLANK-DECISION-command.json",
+      "sha256": "a6f95a7f207fbd44918f6b9811306f82ed56744ea3836f2e6100e50f70d4edaf",
+      "bytes": 1356
+    },
+    {
+      "path": "raw/CLI-BLANK-DECISION-entry.json",
+      "sha256": "f0304ec71b4a68097865f50f03ec19e2842a23e7879b7ff8a5c36ed9e86b49b9",
+      "bytes": 172
+    },
+    {
+      "path": "raw/CLI-BLANK-OFFER-command.json",
+      "sha256": "41d1575219f17593e951017d040b989f632a9b251211ca4189cd5571ebb6a4ca",
+      "bytes": 1355
+    },
+    {
+      "path": "raw/CLI-BLANK-OFFER-entry.json",
+      "sha256": "e3c4609932fecb416050cd3606d4c6c9cb06ab84fa271cd1db965e276f67e226",
+      "bytes": 201
+    },
+    {
+      "path": "raw/CLI-BLANK-ROUND-1-command.json",
+      "sha256": "25466854dd7bd2093b09068f5d1857392c397a102b5278162468942cf4a78292",
+      "bytes": 1618
+    },
+    {
+      "path": "raw/CLI-BLANK-ROUND-1-entry.json",
+      "sha256": "ca8c423f36ae0a4537761cb9d2384abc3f6a6c47aab28319502549d7b1441e40",
+      "bytes": 798
+    },
+    {
+      "path": "raw/CLI-BLANK-ROUND-2-command.json",
+      "sha256": "e99d4730e0a9d88b8b5669cbaf33dcc7cdeb0cbf870d3e9fa75a04e7050a6df2",
+      "bytes": 1614
+    },
+    {
+      "path": "raw/CLI-BLANK-ROUND-2-entry.json",
+      "sha256": "d3953c996251fbdae032a72f511d8cad8a121643d63d8acffef4b66d2ebc4ee1",
+      "bytes": 798
+    },
+    {
+      "path": "raw/CLI-BLANK-STATE-command.json",
+      "sha256": "9367300fbe2e64b7a0e2751292347e84de8deab4763f44d35edd2ebaa50b5476",
+      "bytes": 1348
+    },
+    {
+      "path": "raw/CLI-F-GENERATE-command.json",
+      "sha256": "abbbc92bc5b12e0fd0ec176850763db4b583ba188fb4789ceb5c06fe5da40b7f",
+      "bytes": 1747
+    },
+    {
+      "path": "raw/CLI-F-REPAIR-CLOSE-command.json",
+      "sha256": "106f440c5abab523e0cfaa99ea5efebe2715946e5a3b5df38456d03b31691a39",
+      "bytes": 1024
+    },
+    {
+      "path": "raw/CLI-F-SIGNALS-command.json",
+      "sha256": "edbb19b80953c7818799283c250b30cdf2e9e8289940a5b5ffd85894b90530d7",
+      "bytes": 2228
+    },
+    {
+      "path": "raw/CLI-F-SUBJECT-command.json",
+      "sha256": "febe86875bb24bd7b1df934f4bfbc09f6c1f8966cdcfc00d42a9da93746caa03",
+      "bytes": 662
+    },
+    {
+      "path": "raw/CLI-M-GENERATE-command.json",
+      "sha256": "d4066ccf357a186e0aa4414ef97307405d35f6414fa3915b89efa5f805d67c48",
+      "bytes": 1774
+    },
+    {
+      "path": "raw/CLI-M-REPAIR-CLOSE-command.json",
+      "sha256": "84e5c496b2a02f78d6cfbc2605cd0758d1391fab4f0c71e6783688990e23e2e1",
+      "bytes": 1059
+    },
+    {
+      "path": "raw/CLI-M-SIGNALS-command.json",
+      "sha256": "73df0e68a11f793cb0e954ffd24b37caa991e6067700c72563ad2ca17992843a",
+      "bytes": 4237
+    },
+    {
+      "path": "raw/CLI-M-SUBJECT-command.json",
+      "sha256": "89b1bde34dacd3df2d56fe47b69f2f125784721d98679589caa2f1ebc69a6785",
+      "bytes": 665
+    },
+    {
+      "path": "raw/CLI01.json",
+      "sha256": "ca5794981e9822ed48eafa6c74c11e6fa043619b648840903b56ea9891959900",
+      "bytes": 1935
+    },
+    {
+      "path": "raw/CLI02.json",
+      "sha256": "4738224bb2848b09995429df9bcd125c5dcb91a397a1e0dc9c1a64a0c4f0fdea",
+      "bytes": 1910
+    },
+    {
+      "path": "raw/CLIF03.json",
+      "sha256": "8d6acfc5397018e3266524beae0382ad0a25b16226ee7d10888232aa8d747eea",
+      "bytes": 2275
+    },
+    {
+      "path": "raw/CLIF04.json",
+      "sha256": "7a6c88a7e77d84d740850748a939aabdc363f065721806ac0d7e46a063034620",
+      "bytes": 1050
+    },
+    {
+      "path": "raw/CLIF05.json",
+      "sha256": "bb6fd1cf9131c9a87125621bfe33d178dcdecc2d6b69104685e8427dba34e9b0",
+      "bytes": 2721
+    },
+    {
+      "path": "raw/CLIM03.json",
+      "sha256": "62f3718d37b5c07ed5a489b7fc42d3022e120b0f31a61ea4e4bb38c49d0c939b",
+      "bytes": 2344
+    },
+    {
+      "path": "raw/CLIM04.json",
+      "sha256": "50dbe9b244a7ab96aedb09fd2d5897605920a479c35450b9f918deef2f8db8d8",
+      "bytes": 1053
+    },
+    {
+      "path": "raw/CLIM05.json",
+      "sha256": "4abbd4c1ea5791d5af0a33e56af79922ee1bf3681f6ad88560ac5117d2e2b356",
+      "bytes": 4733
+    },
+    {
+      "path": "raw/D01.json",
+      "sha256": "e58f912bb2f8a145014d6b0515e6dd3924ec8443b9d319f22f647c0ed6c0e93b",
+      "bytes": 501
+    },
+    {
+      "path": "raw/D02.json",
+      "sha256": "6f799c6e483156c14d7abaab4cba62463e5e8313541c24e4265f1506100cc436",
+      "bytes": 879
+    },
+    {
+      "path": "raw/DF03.json",
+      "sha256": "26b43d25b1ef03cbb1beb0ee1e6d447c181b238af9446c2fb3c31986d3d5cc7c",
+      "bytes": 5626
+    },
+    {
+      "path": "raw/DM03.json",
+      "sha256": "7915a35d20cfda6fa87a02542a9336efd511ffd322693b913494627f5f8868b4",
+      "bytes": 3416
+    },
+    {
+      "path": "raw/F01.json",
+      "sha256": "7d51fac745c1b14469fb59524c0d8ecfee6cfa11e1e3dce18470ac4044f30a64",
+      "bytes": 4583
+    },
+    {
+      "path": "raw/F02.json",
+      "sha256": "c5516020de0365fe4034a8719814f427a25e74e6322c9bdeb65815c228e35eae",
+      "bytes": 2348
+    },
+    {
+      "path": "raw/F03.json",
+      "sha256": "7a9283b2681cf958bb3b7ea32774d3bb0da8adb17f2a51711a6047075edb5f28",
+      "bytes": 2968
+    },
+    {
+      "path": "raw/F04.json",
+      "sha256": "0110bb96aad4d31cf6e2578b3bcec009232d437ae2b5f1b37184eb07cbe2d088",
+      "bytes": 2341
+    },
+    {
+      "path": "raw/F05.json",
+      "sha256": "06aaf812391f67ed2bda3411f28b58ba7d8e46c2a9caec54885271a6f36834fc",
+      "bytes": 785
+    },
+    {
+      "path": "raw/F06.json",
+      "sha256": "55733e0968d20b7cd6a6d40e958437b67876304287ffe229a9bcb233e34f170e",
+      "bytes": 2964
+    },
+    {
+      "path": "raw/F07.json",
+      "sha256": "aeee1a502305c062cfeec7552572ab6b4b77b8cffe170597b164e4c5d45b79d7",
+      "bytes": 847
+    },
+    {
+      "path": "raw/F08.json",
+      "sha256": "85ba2aa0c78cd6a962bfcd54ef51c2ca6b4ba9d51324ebc74ddac29bc3a4d655",
+      "bytes": 2952
+    },
+    {
+      "path": "raw/F09.json",
+      "sha256": "36bcebfd6fe3e39343401a97f9fe9ce1fc3f4047388866f8e9ae82e4a75f3d14",
+      "bytes": 843
+    },
+    {
+      "path": "raw/F10.json",
+      "sha256": "4404172e58dab30effc9581e3cfb8dbb2ff227bd17e491fd8279e8a5762b3310",
+      "bytes": 2953
+    },
+    {
+      "path": "raw/F11.json",
+      "sha256": "d57063a6044661d66cdb31cce3b2c2edaa848e5c29d787f6483528c676731df7",
+      "bytes": 693
+    },
+    {
+      "path": "raw/F12.json",
+      "sha256": "5cfd2ef28c5f710413725f9e20ec70c26f1c7e6ce6a35d2c68166f00be024b8d",
+      "bytes": 842
+    },
+    {
+      "path": "raw/F13.json",
+      "sha256": "e6c66b8299084a473c7df3ebd070e03c72d3932a9e3712cc43f07ee22b886e9b",
+      "bytes": 1722
+    },
+    {
+      "path": "raw/F14.json",
+      "sha256": "e67bd4f78eb1f990d92130d3065f9ab978c1a74a85b1f3b50471e2ceab961f57",
+      "bytes": 1741
+    },
+    {
+      "path": "raw/F15.json",
+      "sha256": "3dad9623cd8bc0315233532b21b36b6438152a5acd0342d2571aacfb488a734e",
+      "bytes": 1703
+    },
+    {
+      "path": "raw/F16.json",
+      "sha256": "b257253b501895eeb54eb39ea4549777cb3965207fe7f5b883e45bcdf7d1e53f",
+      "bytes": 1738
+    },
+    {
+      "path": "raw/F17.json",
+      "sha256": "aaeeb637166efdb2d7a4b0f95fefe91b75a752aedbcd08b7cc7eb2401b661bba",
+      "bytes": 1755
+    },
+    {
+      "path": "raw/F18.json",
+      "sha256": "798670b226fa6bb212df598059a9d1743338c6fa0099ce0e3b21ccb5dd09f69a",
+      "bytes": 1915
+    },
+    {
+      "path": "raw/F19.json",
+      "sha256": "072339a4a19ef2afefe05e7c9aa10690e557863e447f8c7381d4333e2c6016c2",
+      "bytes": 1749
+    },
+    {
+      "path": "raw/F20.json",
+      "sha256": "148127a0d0f574454e1b9685fbb61c7180638420209a75a01d395d6afddce2e1",
+      "bytes": 3231
+    },
+    {
+      "path": "raw/F21.json",
+      "sha256": "851560fcfc0407a576b4b104b71d4dee6f8080fe07e62367124a198c3f3f07d5",
+      "bytes": 1990
+    },
+    {
+      "path": "raw/F22.json",
+      "sha256": "cd140a19c51a2b39a09f578531bb1b2622ddb103de507449ea6b33deedbb950a",
+      "bytes": 1048
+    },
+    {
+      "path": "raw/F23.json",
+      "sha256": "eb3427d51bbea51839c2c518caedb46311baceed96b1321b5543921c9b845354",
+      "bytes": 1096
+    },
+    {
+      "path": "raw/F24.json",
+      "sha256": "254466dc98f789752bbcdfac6876092239bba296c278043b8e739e21e7d8416c",
+      "bytes": 2966
+    },
+    {
+      "path": "raw/F25.json",
+      "sha256": "96e1829e39f8ab136805afe31ebbca2d5ba61e101395d64357c86ea31ae84a6c",
+      "bytes": 1113
+    },
+    {
+      "path": "raw/F26.json",
+      "sha256": "1a38ab886e9268dd04ec984ff8625e24cf6dc6975d5171e422630e9e1a89b8ff",
+      "bytes": 2360
+    },
+    {
+      "path": "raw/F27.json",
+      "sha256": "6e8a524a214fc7dd0947948ef9450b91e98f06f1df41014ec33ca859e9e0904c",
+      "bytes": 3156
+    },
+    {
+      "path": "raw/F28.json",
+      "sha256": "25a1525433914db245067d1785360594337f9a653b681eadd3e30d5b2ecf9e9d",
+      "bytes": 2250
+    },
+    {
+      "path": "raw/F29.json",
+      "sha256": "6859cbc9ba4615ef55e1d92c453c33bbbaf89f383178ae8104f49886cdffa16c",
+      "bytes": 2385
+    },
+    {
+      "path": "raw/F30.json",
+      "sha256": "89c82cfdf062439bf47a29a8c814c1b4c48cea3e77421670363f032d202e9caf",
+      "bytes": 2387
+    },
+    {
+      "path": "raw/F31.json",
+      "sha256": "39d902e019777fed4e29ccf711068d8e5a18e7b440f1f8b4f9a53be08486ff40",
+      "bytes": 2497
+    },
+    {
+      "path": "raw/F32.json",
+      "sha256": "c13ff13570d31027d7828a667986dfcdcb407f5909f1ecb65c7657e2df14be06",
+      "bytes": 2288
+    },
+    {
+      "path": "raw/F33.json",
+      "sha256": "5b3a16683d85ebf4218a6cdf6ce6aa514c6c5584600d06291ea0597aa45736b4",
+      "bytes": 1710
+    },
+    {
+      "path": "raw/F34.json",
+      "sha256": "73ee9bee6b67bebabeff2d22bfd9bec465b1457366bb745c051382f60f148221",
+      "bytes": 2412
+    },
+    {
+      "path": "raw/F35.json",
+      "sha256": "570c08c2fb1bf72c4e38739ea03cf18493468929680d8640fa0302c753d6482b",
+      "bytes": 2425
+    },
+    {
+      "path": "raw/F36.json",
+      "sha256": "51a313d1a0ae77404e13e232f9f2843bfdf9d7093d1ca255e937c12e82343dba",
+      "bytes": 1707
+    },
+    {
+      "path": "raw/F37.json",
+      "sha256": "429c201cb849926d12182a82bf56dd61361d236bbf67a6845653aa413e09fc9a",
+      "bytes": 2410
+    },
+    {
+      "path": "raw/F38.json",
+      "sha256": "1fe236343ef6d3892fa33b2a43c1080ee77900683153f1af8de1eaace31ae192",
+      "bytes": 1757
+    },
+    {
+      "path": "raw/F39.json",
+      "sha256": "9185bfcb72a3ecfa98d4c06867e085efbbd5364a07552d923197912ac848ac29",
+      "bytes": 481
+    },
+    {
+      "path": "raw/F40.json",
+      "sha256": "1ae0032ee2f604461bead6213c15277bf0bddf759bae1dcb537a82bc7f269c36",
+      "bytes": 2436
+    },
+    {
+      "path": "raw/F41.json",
+      "sha256": "3d0ef21ae3e8f1131efe13f87230006373e399ba31b4c98c33a5a1bad980bcf7",
+      "bytes": 1137
+    },
+    {
+      "path": "raw/F42.json",
+      "sha256": "25aa094de03c8adbb72d69c27c404d335182a55899ce54a0bd4a96d7aeeccdda",
+      "bytes": 1713
+    },
+    {
+      "path": "raw/F43-review.md",
+      "sha256": "62abe36fa3d2913163205c5d09772882c56772a4d1efffb197cef54cb7cfebcc",
+      "bytes": 3121
+    },
+    {
+      "path": "raw/F43.json",
+      "sha256": "d568a723ffe4064b66d71442e431d3ec2ad4feafde6162c61beb9423de744294",
+      "bytes": 1576
+    },
+    {
+      "path": "raw/F44.json",
+      "sha256": "ffd55f1892aa2d8f8f50c31a2bc464bca4dd3d3258a3155b21f6c9413b73bed4",
+      "bytes": 2199
+    },
+    {
+      "path": "raw/F45.json",
+      "sha256": "f78f8ccf14c8eea0b42c853e37a99e61a1684df1f6b7fbc81f240da84fa6370e",
+      "bytes": 1551
+    },
+    {
+      "path": "raw/F46.json",
+      "sha256": "efc5e8bc030ec509cd496b2ca24f5e8cc56256b0ca8a51cb2b0e892f87755635",
+      "bytes": 692
+    },
+    {
+      "path": "raw/HF01.json",
+      "sha256": "41adff1ddef26234bc5fa7ce4e17f72161631c0a3d8095e6003a4854eca55078",
+      "bytes": 1035
+    },
+    {
+      "path": "raw/HF02.json",
+      "sha256": "6919a42b5e0cd5b8b56b852c708dd2528d80fee6c7913055c235eca41b61ce0f",
+      "bytes": 2647
+    },
+    {
+      "path": "raw/HF03.json",
+      "sha256": "d67c77a71023576388c04283ce384f657edcebd2667a2ffc590af6c2b75770b4",
+      "bytes": 880
+    },
+    {
+      "path": "raw/HF04.json",
+      "sha256": "27585522fce69e031af0560e007c7e080a01d05c3abf1762831ad7a58120a764",
+      "bytes": 1099
+    },
+    {
+      "path": "raw/HF05.json",
+      "sha256": "b1f71540c573f9e3ca12b2dd4af5e96ce2101fcf271c89c2228fb593c6d2c4d9",
+      "bytes": 2703
+    },
+    {
+      "path": "raw/HF06.json",
+      "sha256": "e69567fbe495c3d96f0b32cf8b67863a39ed728867914a68af36a5a1f0a3bccf",
+      "bytes": 872
+    },
+    {
+      "path": "raw/HF07.json",
+      "sha256": "9de0eb5a20a0aa58f4a22947474d58184d5d526732a6c375c4571d65f35d6bf0",
+      "bytes": 704
+    },
+    {
+      "path": "raw/HF08.json",
+      "sha256": "bba491eeb21c890502ebdb6796eef65b04dec51682e7b8408f782b51754e1e26",
+      "bytes": 1978
+    },
+    {
+      "path": "raw/HF09-historical-input.json",
+      "sha256": "fc74ad2f2133174fdbe76a9f3e3a9afa652d9d4139a15bdf6dc468a6d878772b",
+      "bytes": 27227
+    },
+    {
+      "path": "raw/HF09.json",
+      "sha256": "c4143968735e68b8f0ed4648452f7889166de1f74cff1d0d97b797bd3c707ff6",
+      "bytes": 754
+    },
+    {
+      "path": "raw/HM01.json",
+      "sha256": "dba8abe8e7ad9d1850178c609fd6768900034a14e908430bcb71c8595e28bf6b",
+      "bytes": 1038
+    },
+    {
+      "path": "raw/HM02.json",
+      "sha256": "d826d5fd0a9ab71aaff6f2ef7bd9960db7e1ddd5075d659dcfa5c571e5e26cbe",
+      "bytes": 2650
+    },
+    {
+      "path": "raw/HM03.json",
+      "sha256": "2575081808171c41d03404201ce1dba6ddb758ed2633766463d1a5f51ec66f63",
+      "bytes": 880
+    },
+    {
+      "path": "raw/HM04.json",
+      "sha256": "80b7242d8921a5054a796af5d39ecf068a7c5fddd3c96d17db18635aab047321",
+      "bytes": 1102
+    },
+    {
+      "path": "raw/HM05.json",
+      "sha256": "34223bd914020acde8112a2eac46d916520415109325c1f23ed0265e412c7eea",
+      "bytes": 2706
+    },
+    {
+      "path": "raw/HM06.json",
+      "sha256": "1066e804da27cd80a047539e228e363cc30894b8e62f51d2bfdb5e53face0f10",
+      "bytes": 872
+    },
+    {
+      "path": "raw/HM07.json",
+      "sha256": "036bc8149e528d7eece3727a498bded375d749a403c81446520b63a5999d916f",
+      "bytes": 704
+    },
+    {
+      "path": "raw/HM08.json",
+      "sha256": "5481d1e394482e4cdc45a02c5ee5d0d77cdc6f90d36578eb321a9317723f2606",
+      "bytes": 1978
+    },
+    {
+      "path": "raw/HM09-historical-input.json",
+      "sha256": "3af26d15c9672a31049eece52a9827c07123f87769ae6aab4d7e6a47cac0a4f5",
+      "bytes": 6603
+    },
+    {
+      "path": "raw/HM09.json",
+      "sha256": "8892e01a835785a6689a27c5cae0d1b43d94f85410cb2de39e46206760d92b77",
+      "bytes": 754
+    },
+    {
+      "path": "raw/HPF01.json",
+      "sha256": "7453684663882841b78694bc996b4f988caa8bf648d1001b504030e620e4d1f9",
+      "bytes": 976
+    },
+    {
+      "path": "raw/HPM01.json",
+      "sha256": "4b761819d2e87aeb5dfe7685601f66fffebee5fefdc0d6f909379967871d61ef",
+      "bytes": 976
+    },
+    {
+      "path": "raw/IO03.json",
+      "sha256": "76ead9e36597430050354cc28c2b419571289806dacfaca23e87abdf013165fe",
+      "bytes": 401
+    },
+    {
+      "path": "raw/IOF01.json",
+      "sha256": "a92593bd8248f85d3838c486801afcbaaa494124a38f4c517121746b0b6bf76e",
+      "bytes": 3078
+    },
+    {
+      "path": "raw/IOF02.json",
+      "sha256": "531ff81076b629d250b2b6de823b6ec711507f737691c42087539573f3c461a6",
+      "bytes": 1673
+    },
+    {
+      "path": "raw/IOM01.json",
+      "sha256": "a17072886ef717b9ac2b301757f54c4cb5a3557840db828c287b06b834085c2c",
+      "bytes": 3081
+    },
+    {
+      "path": "raw/IOM02.json",
+      "sha256": "2d9214dfbb714e8fd950f5c1ab3a72dfae4b48f7d8f803188e2efe31e28c7669",
+      "bytes": 1676
+    },
+    {
+      "path": "raw/M01.json",
+      "sha256": "5bf1c8b3b7cc9ce001a2c7f4f8041fcbb9c0d8532c2186d5cdd0b3d45ea27182",
+      "bytes": 1517
+    },
+    {
+      "path": "raw/M02.json",
+      "sha256": "1ba8d9a418ff72dda69b19066a6643a59a36d44b4c7ec3499aba15c70be34ac9",
+      "bytes": 2348
+    },
+    {
+      "path": "raw/M03.json",
+      "sha256": "766f8ac4f78923d67ae1a61a2ba6a73984f7c0ce7c5328976d527a855f949857",
+      "bytes": 2977
+    },
+    {
+      "path": "raw/M04.json",
+      "sha256": "ff509727a6d504b3a1270be202c5cae58f974fc65c10bbc61e598e37159149ed",
+      "bytes": 2341
+    },
+    {
+      "path": "raw/M05.json",
+      "sha256": "1b9013e7a178357b217b9002551ce891dea6809004c43d91273cce324c6d7a6c",
+      "bytes": 788
+    },
+    {
+      "path": "raw/M06.json",
+      "sha256": "85f98caa3b9c5fd221d945260b48a4641b0124e3fcec8091201d53334fa9a24d",
+      "bytes": 2973
+    },
+    {
+      "path": "raw/M07.json",
+      "sha256": "e801fcf668fc8ec97d68be7b4f4780682967d19b50e9c8ff2547b74883e17f45",
+      "bytes": 850
+    },
+    {
+      "path": "raw/M08.json",
+      "sha256": "2b8e1f4bd7f70c3e82bb85bb0e76ce9ce88d668ab4766990609578b5a66b7042",
+      "bytes": 2961
+    },
+    {
+      "path": "raw/M09.json",
+      "sha256": "4ca32445eae2539f09b8fbb7ab89a517f588b6418f048f35f6b03ab8e8cc2c40",
+      "bytes": 846
+    },
+    {
+      "path": "raw/M10.json",
+      "sha256": "b7bc2ef66dacbaa6e309316eaf65405b2178a2a1c8d2d4ca2e3a60a1f7dcd4c2",
+      "bytes": 2962
+    },
+    {
+      "path": "raw/M11.json",
+      "sha256": "d79e49e06ff7671efce032b5af5a9038090520aacd17e950097b1d4759c2514d",
+      "bytes": 699
+    },
+    {
+      "path": "raw/M12.json",
+      "sha256": "eefc7faabc4d903efa0c051956def604bab0c65718e4cea3a8231c51d3379657",
+      "bytes": 845
+    },
+    {
+      "path": "raw/M13.json",
+      "sha256": "05ca7c7c5465e9ebbc5006a26eff41a023fe003a76229772b44bdc468409a40b",
+      "bytes": 1722
+    },
+    {
+      "path": "raw/M14.json",
+      "sha256": "fc606e38f3759d49e61bd340925d5f0082eae525296fcb3b3a2181442aadd40b",
+      "bytes": 1741
+    },
+    {
+      "path": "raw/M15.json",
+      "sha256": "508f5f04bb6f749361d5a0b48350f0cbd866f073c4049098fa176c7b1f4e6851",
+      "bytes": 1718
+    },
+    {
+      "path": "raw/M16.json",
+      "sha256": "8c96212b712fc350fb5f6f4b5571b8da812e3025e8ac985d2a26c8b25423ed37",
+      "bytes": 1753
+    },
+    {
+      "path": "raw/M17.json",
+      "sha256": "ca77bb6cd5964e6a81a83a47d36885a06521e3754881037a6bbcd9686e5bafd5",
+      "bytes": 1770
+    },
+    {
+      "path": "raw/M18.json",
+      "sha256": "927e25a22192597d58e260aec43740a632d7bed540a6e07428271699e0882ef5",
+      "bytes": 1930
+    },
+    {
+      "path": "raw/M19.json",
+      "sha256": "4187611f0c1284b8d3865482c5a88b83e797355f4d9240a865a90139dc17cc0b",
+      "bytes": 1764
+    },
+    {
+      "path": "raw/M20.json",
+      "sha256": "9e5af104ca9dcec858c2efdf4b924a0d4abad8fbe79506d6f08077d476e9cef4",
+      "bytes": 3240
+    },
+    {
+      "path": "raw/M21.json",
+      "sha256": "ff58891cc7357aa5249aa45c57704ccba0ad30aa0852cd66e9bcb17adb415c13",
+      "bytes": 2005
+    },
+    {
+      "path": "raw/M22.json",
+      "sha256": "4699d3d0ea3d20627b17aed35c8902f94078f51c2620708eeb6c6c7b73793996",
+      "bytes": 1054
+    },
+    {
+      "path": "raw/M23.json",
+      "sha256": "ba00c8579e0693830317f8867e88dc359950879665163bed18f20f327233c2a8",
+      "bytes": 1102
+    },
+    {
+      "path": "raw/M24.json",
+      "sha256": "1958413b4afc04e299cfe83fb50e2a1038d3ab6eb858e0976085ee73e08a9fc4",
+      "bytes": 2975
+    },
+    {
+      "path": "raw/M25.json",
+      "sha256": "482cecc7c79f7b7546ff06cf413180fe945ac8ddcfb5c4f7c6753847a0e96453",
+      "bytes": 1119
+    },
+    {
+      "path": "raw/M26.json",
+      "sha256": "3983ca0ac016e4ce9c6a896bd64479aad2e996fb3eadda201da4eee63665ed88",
+      "bytes": 2369
+    },
+    {
+      "path": "raw/M27.json",
+      "sha256": "fc309b2fa6ee41586c8e236ccaeaabc6ab66ae73d17dcfa108fab0d5723304b4",
+      "bytes": 3165
+    },
+    {
+      "path": "raw/M28.json",
+      "sha256": "37b64ee68672929f19ace37730b0e8b496cb8e1e1f68146573a26628741a42c7",
+      "bytes": 2259
+    },
+    {
+      "path": "raw/M29.json",
+      "sha256": "9cc8b33c51a60f304ab82831165c159178a975cae56748a6e72b42a9b7a83918",
+      "bytes": 2394
+    },
+    {
+      "path": "raw/M30.json",
+      "sha256": "7ad75331fe72fcf83cfbebf82e7f389ac03b1cd71e08af48ff86448b9ce0d282",
+      "bytes": 2396
+    },
+    {
+      "path": "raw/M31.json",
+      "sha256": "79bbd90f3707db12c00e1e4b0d87bffbe2f84988198dae3e0019c5d42bb3aeb1",
+      "bytes": 2500
+    },
+    {
+      "path": "raw/M32.json",
+      "sha256": "cac62fd6dc51a86897170a4c718fe59b798bfe005f8586333f625f549471aaec",
+      "bytes": 2297
+    },
+    {
+      "path": "raw/M33.json",
+      "sha256": "ff5d452e0f5ade7712222b1212ba7be810cbafe8b6e509280a31feda9edf9352",
+      "bytes": 1725
+    },
+    {
+      "path": "raw/M34.json",
+      "sha256": "10564c9dcbdc8a3089d15c728454576c470e4ab31fbc3b7ef6df903f6e1559ea",
+      "bytes": 2421
+    },
+    {
+      "path": "raw/M35.json",
+      "sha256": "5574ae0c7ffe45f9955184a941d13ba57cc34bdc8410bf7d2af24407443da329",
+      "bytes": 2434
+    },
+    {
+      "path": "raw/M36.json",
+      "sha256": "3854ce408f65666b2b03b68a75d3b1d563da8fead1058204ca43c7408ee49f06",
+      "bytes": 1722
+    },
+    {
+      "path": "raw/M37.json",
+      "sha256": "cd7c818fe04105450e252e307d0bf4c82b6c9b487dee96d2945fb392ec95fa6a",
+      "bytes": 2419
+    },
+    {
+      "path": "raw/M38.json",
+      "sha256": "81d7f9e910d301bfab54d131fed0eb77bdaa154e4fd19555ba5fc3863dec586c",
+      "bytes": 1757
+    },
+    {
+      "path": "raw/M39.json",
+      "sha256": "793eb420a6d36f7d3fcf58f482d8879a881cf8310bc60cde59c39819e8507034",
+      "bytes": 487
+    },
+    {
+      "path": "raw/M40.json",
+      "sha256": "5539f39807eb2b04d1fd401218b034d34f87e9195696db518486e45761b98483",
+      "bytes": 2445
+    },
+    {
+      "path": "raw/M41.json",
+      "sha256": "2a966c5dd437b402470629e8d199df5f180bcb9e899a1f63f375932584cf8c65",
+      "bytes": 1143
+    },
+    {
+      "path": "raw/M42.json",
+      "sha256": "3df0c520dd947742e5e931a77742d81c7f483c32097094f5ffdcb67e08da5604",
+      "bytes": 1728
+    },
+    {
+      "path": "raw/M43-review.md",
+      "sha256": "919594369f39abf8ad402caf959d9d1cbd2c2d5e04b0272be9551f3707a3dfd0",
+      "bytes": 1065
+    },
+    {
+      "path": "raw/M43.json",
+      "sha256": "687a513da6456a999dabc706f4f564a637cdf9145cb18b5735560f76cf3c381d",
+      "bytes": 2512
+    },
+    {
+      "path": "raw/M44.json",
+      "sha256": "7d4601aed053d5af8c6d7254c4a56454215aa8916ce5a645557787a3f85080d9",
+      "bytes": 1784
+    },
+    {
+      "path": "raw/M45.json",
+      "sha256": "e4aaeb65d117fff4ef6ea7e11f9766c4c0d5829379eee66128f69eaa80d5c0ea",
+      "bytes": 1563
+    },
+    {
+      "path": "raw/M46.json",
+      "sha256": "00bf754ebfb83c4748b96122f2bf0d0c8c596ccaf13fb39b2b317b36bba8bda5",
+      "bytes": 704
+    },
+    {
+      "path": "raw/PF01.json",
+      "sha256": "30493ad51e1abdaadb4139bfda98af37bef6bc629e2ef0bc61926cb8182189b5",
+      "bytes": 1605
+    },
+    {
+      "path": "raw/PF02.json",
+      "sha256": "1c0bd681003a5a9c89e0be4a733c810eaa1e10350ccfab9fb2c82af3d41df472",
+      "bytes": 25065
+    },
+    {
+      "path": "raw/PM01.json",
+      "sha256": "03b1a538756ad8adef9b529dc2040afee7776619d43e416514b399e1e3a6db39",
+      "bytes": 1605
+    },
+    {
+      "path": "raw/PM02.json",
+      "sha256": "65250330d042d08b9b47206c742ed78047823dcdc769dc184a55643e5d267644",
+      "bytes": 6007
+    },
+    {
+      "path": "raw/R-A01.json",
+      "sha256": "cd646c04202d9462ad118db5f8718ffb3229a37a849aad2e96d02c22e6a68cdc",
+      "bytes": 1026
+    },
+    {
+      "path": "raw/R-A02.json",
+      "sha256": "b6a69332ebc4b3c1f26c8e1c4ce7204adfe6e3af832dd78240cc9f7e4c5887c6",
+      "bytes": 1959
+    },
+    {
+      "path": "raw/RF01.json",
+      "sha256": "d7a6bb4afa378d95da4928e13d4e33dcf67b3a4234f82bce79237cb89a4d7c7c",
+      "bytes": 1265
+    },
+    {
+      "path": "raw/RF02.json",
+      "sha256": "69cd2a8b946a856ca9997383b99c2ba2325353981547ee43d56435fcf7864bee",
+      "bytes": 2717
+    },
+    {
+      "path": "raw/RF03.json",
+      "sha256": "2a7e1479e9a830bbf6644b50a91ff14880652ab03db5026222378f8cc42602d3",
+      "bytes": 1164
+    },
+    {
+      "path": "raw/RF04.json",
+      "sha256": "1c42d04370e2b82844af88357d45958a519f3c74d48527785852bc8bd97d680f",
+      "bytes": 1957
+    },
+    {
+      "path": "raw/RF05.json",
+      "sha256": "4cd0807f9325660828716a45926b30293c4975551a852d09204eb42003e04397",
+      "bytes": 854
+    },
+    {
+      "path": "raw/RF06.json",
+      "sha256": "4b60313756ff67ccd6b50ce38f54cc908e671d02eb4c2b2520805796fed21cf3",
+      "bytes": 1493
+    },
+    {
+      "path": "raw/RF07.json",
+      "sha256": "16a6df496c242baa8fa58d704da368f8607e0746035c91c05081cd985674cb93",
+      "bytes": 2677
+    },
+    {
+      "path": "raw/RF08.json",
+      "sha256": "16bb6725e8e67905611974a2dc0ff2049a2ba821b9f22131b67079c85df8d0e7",
+      "bytes": 2488
+    },
+    {
+      "path": "raw/RF09.json",
+      "sha256": "a74df177039254c83e4b695b2fd7d75be871bbc9ae451b334669083fa0e429db",
+      "bytes": 895
+    },
+    {
+      "path": "raw/RF10.json",
+      "sha256": "3bc551866ce0f42e0e4cc8d1b2062050e09262f84d59b1fbb0f42851718467c7",
+      "bytes": 2646
+    },
+    {
+      "path": "raw/RM01.json",
+      "sha256": "6d2ec62679270248bfc099441cb409ba1db30c64cbb1e7d011e23bd535d3ee61",
+      "bytes": 1262
+    },
+    {
+      "path": "raw/RM02.json",
+      "sha256": "7d8d3563ed054372816d6d6c1f0a8701bfb70373e44b369d0627f70b8dd60f2c",
+      "bytes": 2720
+    },
+    {
+      "path": "raw/RM03.json",
+      "sha256": "1351725992e67138fe389de1d56ed46d6fe0283a98abcc92916f82970d77f2f2",
+      "bytes": 1164
+    },
+    {
+      "path": "raw/RM04.json",
+      "sha256": "6deb3581420455379c095c07490edb5d6db7f58d72476a1cc8f3ea4d0ca914f0",
+      "bytes": 1957
+    },
+    {
+      "path": "raw/RM05.json",
+      "sha256": "71a4267e1630a87adc55307f1b21975d413a00756467783c6ab82b0ddb2da77c",
+      "bytes": 854
+    },
+    {
+      "path": "raw/RM06.json",
+      "sha256": "661623106e67ba85d5cd36514ae8b535b2aa14c38aae8ba39cc995ef20174ea9",
+      "bytes": 1493
+    },
+    {
+      "path": "raw/RM07.json",
+      "sha256": "be4f7cc1dfb35b1a6840557c0fd9d4fd7ac260e2a35204f2f386120ec7b05450",
+      "bytes": 2962
+    },
+    {
+      "path": "raw/RM08.json",
+      "sha256": "bad9f1e940542bf026d74cca5059324d5c1f8e588004e1c050277296bd2bb206",
+      "bytes": 2488
+    },
+    {
+      "path": "raw/RM09.json",
+      "sha256": "5b27012b033c3264a00ff76be34013e024a3602b1d776897015ade09b7f5e6d0",
+      "bytes": 895
+    },
+    {
+      "path": "raw/RM10.json",
+      "sha256": "5212c40e82d61838cd5bf063b1ba003b6db8d441e95dd169728b8d9d17925871",
+      "bytes": 2649
+    },
+    {
+      "path": "raw-setup-output.txt",
+      "sha256": "dd3ee550e30a025c15be62c39a6014b014c9bac638852811895aac1e88d60fb8",
+      "bytes": 1932
+    },
+    {
+      "path": "raw-setup-retry-output.txt",
+      "sha256": "2b1514073f64ba453954e787dc171cab33ca2fcb6e8bfebc639937895be62d32",
+      "bytes": 433
+    },
+    {
+      "path": "rebuild_all.py",
+      "sha256": "15a9b1dca8073ce87baba559a42dcaa08d7115b6b5d3bd8674921b3922673fa6",
+      "bytes": 2013
+    },
+    {
+      "path": "report.md",
+      "sha256": "5ec91dc9754166e3f265b793cfda3cc4217e75f5f3502fafcf462d81bd79fdf2",
+      "bytes": 7261
+    },
+    {
+      "path": "review_cases.py",
+      "sha256": "b8901dacb247f92e8ccf761b698b297a34e4e064b2e3677c2efd021e8f66b633",
+      "bytes": 9681
+    },
+    {
+      "path": "setup-failure-source.py",
+      "sha256": "da48493d649152f32d3c5c5f338753fec92928d19a8ea8d3e3fac2a6f3203059",
+      "bytes": 9678
+    },
+    {
+      "path": "source-excerpts.json",
+      "sha256": "56e4933fe9f57148a83807542aa4fdf11abcdefe9998bbc98ee92a86fded9e96",
+      "bytes": 32516
+    },
+    {
+      "path": "suite-output.txt",
+      "sha256": "5d7c0f8bfac4bf415acaface2ce5d64d09413c4bb778996b8dabce420f30862d",
+      "bytes": 42640
+    },
+    {
+      "path": "summary.json",
+      "sha256": "0e3d85f5cb38d3e6a78b06b8cfa1a853a6066a24ef2b707223d036930ac4615f",
+      "bytes": 5179
+    },
+    {
+      "path": "tool-setup-failure.txt",
+      "sha256": "18ef2256ab3b2b4e6dd86857cfcba4451178fda45ccb901ff7da5469c5119caa",
+      "bytes": 269
+    },
+    {
+      "path": "verification-commands.json",
+      "sha256": "929d3ce71aa822a31bbfb5056c3e1260343c00691e5173e8c831e5d653537220",
+      "bytes": 1858
+    }
+  ]
+}

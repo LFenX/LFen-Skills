@@ -1,0 +1,11 @@
+{
+  "method": "minimal API call",
+  "label": "min-missing-direct-dependency",
+  "started_at": "2026-10-23T13:35:34.702400Z",
+  "ended_at": "2026-10-23T13:35:34.703139Z",
+  "actual": {
+    "exception": "GovernanceError",
+    "message": "a review repair must directly depend on its original review task",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\independent_suite.py\", line 30, in api\n    value=fn(); actual={'return':str(value)}; ok=not expect_error\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\phase2.py\", line 75, in <lambda>\n    actual,ok,e=api(tag+'-missing-direct-dependency',lambda:ar.require_review_parent(unrelated.task,unrelated.contract(),p.task_id),expect_error=True)\n                                                            ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 335, in require_review_parent\n    raise GovernanceError(\"a review repair must directly depend on its original review task\")\ngovernance_artifacts.GovernanceError: a review repair must directly depend on its original review task\n"
+  }
+}

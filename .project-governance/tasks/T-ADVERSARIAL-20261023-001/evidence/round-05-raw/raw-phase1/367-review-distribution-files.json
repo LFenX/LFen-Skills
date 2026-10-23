@@ -1,0 +1,65 @@
+{
+  "at": "2026-10-23T13:41:22.127093Z",
+  "actual": [
+    {
+      "path": "SKILL.md",
+      "source_sha256": "c4a71f6fec02cf029b1e288900a16152435d76a42cce19636fde2a5da33ac181",
+      "installed_sha256": "c4a71f6fec02cf029b1e288900a16152435d76a42cce19636fde2a5da33ac181"
+    },
+    {
+      "path": "commands/verify.md",
+      "source_sha256": "f932cc83dddf106f09833aa0d20f6dc93b81a4806e99d1666f98f585492e6563",
+      "installed_sha256": "f932cc83dddf106f09833aa0d20f6dc93b81a4806e99d1666f98f585492e6563"
+    },
+    {
+      "path": "commands/close.md",
+      "source_sha256": "dc101412b1b263cd95c20c4e355b42b7d357f387e84091a1941a3b8b1eac2f93",
+      "installed_sha256": "dc101412b1b263cd95c20c4e355b42b7d357f387e84091a1941a3b8b1eac2f93"
+    },
+    {
+      "path": "commands/minimal.md",
+      "source_sha256": "15263e324965b40d7743317383f3f652374b3da5e1aae9665e8a230a86ee171a",
+      "installed_sha256": "15263e324965b40d7743317383f3f652374b3da5e1aae9665e8a230a86ee171a"
+    },
+    {
+      "path": "commands/status.md",
+      "source_sha256": "8bc7c5aa0ea1aec1b27c114d12699c4447fc070bac9c7d70748577d53a5a7fd7",
+      "installed_sha256": "8bc7c5aa0ea1aec1b27c114d12699c4447fc070bac9c7d70748577d53a5a7fd7"
+    },
+    {
+      "path": "scripts/adversarial_review.py",
+      "source_sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "installed_sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02"
+    },
+    {
+      "path": "scripts/minimal_task.py",
+      "source_sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836",
+      "installed_sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836"
+    },
+    {
+      "path": "scripts/manage_minimal_task.py",
+      "source_sha256": "24e3d00fecf45d9547f6716a0b3e8bdc9d243e566723e46b971fbb6f8c040953",
+      "installed_sha256": "24e3d00fecf45d9547f6716a0b3e8bdc9d243e566723e46b971fbb6f8c040953"
+    },
+    {
+      "path": "scripts/close_task.py",
+      "source_sha256": "d6097abedca36a3e27d0731287f2901d09c3a1aed0bc8460c8ec7f052640e469",
+      "installed_sha256": "d6097abedca36a3e27d0731287f2901d09c3a1aed0bc8460c8ec7f052640e469"
+    },
+    {
+      "path": "scripts/signals.py",
+      "source_sha256": "a57627500bdff9748f166cd7d71b4889c3a04553f9bcacfa99e5346b05df7b5a",
+      "installed_sha256": "a57627500bdff9748f166cd7d71b4889c3a04553f9bcacfa99e5346b05df7b5a"
+    },
+    {
+      "path": "assets/runtime/schemas/task-after.schema.json",
+      "source_sha256": "eda5d2453476a7fabe5045c542dac33c8c8f2ecf776807fa006f58fe298500dd",
+      "installed_sha256": "eda5d2453476a7fabe5045c542dac33c8c8f2ecf776807fa006f58fe298500dd"
+    },
+    {
+      "path": "assets/runtime/schemas/minimal-task-record.schema.json",
+      "source_sha256": "2af18fdebbfd3b86140cbc4ea746804c5661df84c25fd7f44526d770700e8b0c",
+      "installed_sha256": "2af18fdebbfd3b86140cbc4ea746804c5661df84c25fd7f44526d770700e8b0c"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "HM07",
+  "condition": "Old result without review field stays compatible and untracked",
+  "input": {
+    "task": "T-LEGACY-M",
+    "synthetic_legacy": true
+  },
+  "expected": "LegacyUntracked / valid",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "state": {
+        "status": "LegacyUntracked",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": [],
+        "current_delivery": {
+          "task_id": "T-LEGACY-M",
+          "subject_sha256": "eb24cc785b5f5975a9f7b15c949ecafc756d4bf27f2929034c584746a6648823"
+        }
+      },
+      "validation": []
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/HM07.json"
+  ]
+}

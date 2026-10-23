@@ -1,0 +1,35 @@
+{
+  "id": "HPM01",
+  "condition": "Pre-cutover outcomes retain original status without fabricated review/approval or source rewrites",
+  "input": {
+    "task": "T-PRECUTOVER-M",
+    "synthetic_pre_cutover_fixture": true
+  },
+  "expected": "valid / HistoricalNotRevalidated / LegacyUntracked / unchanged",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "errors": [],
+      "proof": {
+        "policy": "implemented-proof-v1",
+        "mode": "HistoricalRead",
+        "status": "HistoricalNotRevalidated"
+      },
+      "review": {
+        "status": "LegacyUntracked",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": [],
+        "current_delivery": {
+          "task_id": "T-PRECUTOVER-M",
+          "subject_sha256": "1430474190fb2fda7de691bb4ea9404e301c30525def83ed9593bf45daf17fe4"
+        }
+      },
+      "unchanged": true
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/HPM01.json"
+  ]
+}

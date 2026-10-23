@@ -1,0 +1,2537 @@
+[
+  {
+    "label": "full-before-completion",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\001-full-before-completion.json"
+  },
+  {
+    "label": "full-not-offered",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\002-full-not-offered.json"
+  },
+  {
+    "label": "full-dummy-before-offer-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\003-full-dummy-before-offer-binding.json"
+  },
+  {
+    "label": "full-dummy-before-offer-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\004-full-dummy-before-offer-delivery-binding.json"
+  },
+  {
+    "label": "full-round-without-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\005-full-round-without-offer.json"
+  },
+  {
+    "label": "full-decision-without-question",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\006-full-decision-without-question.json"
+  },
+  {
+    "label": "full-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\007-full-offer.json"
+  },
+  {
+    "label": "full-awaiting-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\008-full-awaiting-binding.json"
+  },
+  {
+    "label": "full-awaiting-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\009-full-awaiting-delivery-binding.json"
+  },
+  {
+    "label": "full-silence-is-not-consent",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\010-full-silence-is-not-consent.json"
+  },
+  {
+    "label": "full-decline",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\011-full-decline.json"
+  },
+  {
+    "label": "full-declined-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\012-full-declined-binding.json"
+  },
+  {
+    "label": "full-declined-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\013-full-declined-delivery-binding.json"
+  },
+  {
+    "label": "full-decline-blocks-review",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\014-full-decline-blocks-review.json"
+  },
+  {
+    "label": "full-defer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\015-full-defer.json"
+  },
+  {
+    "label": "full-deferred-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\016-full-deferred-binding.json"
+  },
+  {
+    "label": "full-deferred-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\017-full-deferred-delivery-binding.json"
+  },
+  {
+    "label": "full-defer-blocks-review",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\018-full-defer-blocks-review.json"
+  },
+  {
+    "label": "full-late-explicit-start",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\019-full-late-explicit-start.json"
+  },
+  {
+    "label": "full-no-recursive-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\020-full-no-recursive-offer.json"
+  },
+  {
+    "label": "full-active-declined",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\021-full-active-declined.json"
+  },
+  {
+    "label": "full-active-deferred",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\022-full-active-deferred.json"
+  },
+  {
+    "label": "full-active-accepted",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\023-full-active-accepted.json"
+  },
+  {
+    "label": "full-one-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\024-full-one-binding.json"
+  },
+  {
+    "label": "full-one-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\025-full-one-delivery-binding.json"
+  },
+  {
+    "label": "full-first-clean",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\026-full-first-clean.json"
+  },
+  {
+    "label": "full-first-count",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\027-full-first-count.json"
+  },
+  {
+    "label": "full-blocked-resets",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\028-full-blocked-resets.json"
+  },
+  {
+    "label": "full-after-block-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\029-full-after-block-binding.json"
+  },
+  {
+    "label": "full-after-block-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\030-full-after-block-delivery-binding.json"
+  },
+  {
+    "label": "full-after-block-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\031-full-after-block-first.json"
+  },
+  {
+    "label": "full-stop",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\032-full-stop.json"
+  },
+  {
+    "label": "full-stopped-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\033-full-stopped-binding.json"
+  },
+  {
+    "label": "full-stopped-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\034-full-stopped-delivery-binding.json"
+  },
+  {
+    "label": "full-stop-blocks-review",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\035-full-stop-blocks-review.json"
+  },
+  {
+    "label": "full-restart-after-stop",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\036-full-restart-after-stop.json"
+  },
+  {
+    "label": "full-incomplete-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\037-full-incomplete-binding.json"
+  },
+  {
+    "label": "full-incomplete-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\038-full-incomplete-delivery-binding.json"
+  },
+  {
+    "label": "full-incomplete",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\039-full-incomplete.json"
+  },
+  {
+    "label": "full-incomplete-count",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\040-full-incomplete-count.json"
+  },
+  {
+    "label": "full-declared-complete-unreviewed-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\041-full-declared-complete-unreviewed-binding.json"
+  },
+  {
+    "label": "full-declared-complete-unreviewed-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\042-full-declared-complete-unreviewed-delivery-binding.json"
+  },
+  {
+    "label": "full-unreviewed-resets",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\043-full-unreviewed-resets.json"
+  },
+  {
+    "label": "full-finding-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\044-full-finding-binding.json"
+  },
+  {
+    "label": "full-finding-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\045-full-finding-delivery-binding.json"
+  },
+  {
+    "label": "full-finding-resets",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\046-full-finding-resets.json"
+  },
+  {
+    "label": "full-unresolved-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\047-full-unresolved-binding.json"
+  },
+  {
+    "label": "full-unresolved-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\048-full-unresolved-delivery-binding.json"
+  },
+  {
+    "label": "full-unresolved-not-clean",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\049-full-unresolved-not-clean.json"
+  },
+  {
+    "label": "full-open-count",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\050-full-open-count.json"
+  },
+  {
+    "label": "full-false-fixed-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\051-full-false-fixed-binding.json"
+  },
+  {
+    "label": "full-false-fixed-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\052-full-false-fixed-delivery-binding.json"
+  },
+  {
+    "label": "full-same-version-fixed-rejected",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\053-full-same-version-fixed-rejected.json"
+  },
+  {
+    "label": "full-false-positive-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\054-full-false-positive-binding.json"
+  },
+  {
+    "label": "full-false-positive-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\055-full-false-positive-delivery-binding.json"
+  },
+  {
+    "label": "full-evidenced-false-positive",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\056-full-evidenced-false-positive.json"
+  },
+  {
+    "label": "full-second-clean-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\057-full-second-clean-binding.json"
+  },
+  {
+    "label": "full-second-clean-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\058-full-second-clean-delivery-binding.json"
+  },
+  {
+    "label": "full-second-clean-passes",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\059-full-second-clean-passes.json"
+  },
+  {
+    "label": "full-passed",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\060-full-passed.json"
+  },
+  {
+    "label": "full-third-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\061-full-third-binding.json"
+  },
+  {
+    "label": "full-third-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\062-full-third-delivery-binding.json"
+  },
+  {
+    "label": "full-ended-blocks-third",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\063-full-ended-blocks-third.json"
+  },
+  {
+    "label": "full-ended-blocks-blocked",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\064-full-ended-blocks-blocked.json"
+  },
+  {
+    "label": "full-new-session-explicit",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\065-full-new-session-explicit.json"
+  },
+  {
+    "label": "full-new-session-one-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\066-full-new-session-one-binding.json"
+  },
+  {
+    "label": "full-new-session-one-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\067-full-new-session-one-delivery-binding.json"
+  },
+  {
+    "label": "full-new-session-counts-from-zero",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\068-full-new-session-counts-from-zero.json"
+  },
+  {
+    "label": "min-before-completion",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\069-min-before-completion.json"
+  },
+  {
+    "label": "min-not-offered",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\070-min-not-offered.json"
+  },
+  {
+    "label": "min-dummy-before-offer-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\071-min-dummy-before-offer-binding.json"
+  },
+  {
+    "label": "min-dummy-before-offer-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\072-min-dummy-before-offer-delivery-binding.json"
+  },
+  {
+    "label": "min-round-without-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\073-min-round-without-offer.json"
+  },
+  {
+    "label": "min-decision-without-question",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\074-min-decision-without-question.json"
+  },
+  {
+    "label": "min-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\075-min-offer.json"
+  },
+  {
+    "label": "min-awaiting-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\076-min-awaiting-binding.json"
+  },
+  {
+    "label": "min-awaiting-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\077-min-awaiting-delivery-binding.json"
+  },
+  {
+    "label": "min-silence-is-not-consent",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\078-min-silence-is-not-consent.json"
+  },
+  {
+    "label": "min-decline",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\079-min-decline.json"
+  },
+  {
+    "label": "min-declined-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\080-min-declined-binding.json"
+  },
+  {
+    "label": "min-declined-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\081-min-declined-delivery-binding.json"
+  },
+  {
+    "label": "min-decline-blocks-review",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\082-min-decline-blocks-review.json"
+  },
+  {
+    "label": "min-defer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\083-min-defer.json"
+  },
+  {
+    "label": "min-deferred-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\084-min-deferred-binding.json"
+  },
+  {
+    "label": "min-deferred-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\085-min-deferred-delivery-binding.json"
+  },
+  {
+    "label": "min-defer-blocks-review",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\086-min-defer-blocks-review.json"
+  },
+  {
+    "label": "min-late-explicit-start",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\087-min-late-explicit-start.json"
+  },
+  {
+    "label": "min-no-recursive-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\088-min-no-recursive-offer.json"
+  },
+  {
+    "label": "min-active-declined",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\089-min-active-declined.json"
+  },
+  {
+    "label": "min-active-deferred",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\090-min-active-deferred.json"
+  },
+  {
+    "label": "min-active-accepted",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\091-min-active-accepted.json"
+  },
+  {
+    "label": "min-one-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\092-min-one-binding.json"
+  },
+  {
+    "label": "min-one-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\093-min-one-delivery-binding.json"
+  },
+  {
+    "label": "min-first-clean",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\094-min-first-clean.json"
+  },
+  {
+    "label": "min-first-count",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\095-min-first-count.json"
+  },
+  {
+    "label": "min-blocked-resets",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\096-min-blocked-resets.json"
+  },
+  {
+    "label": "min-after-block-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\097-min-after-block-binding.json"
+  },
+  {
+    "label": "min-after-block-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\098-min-after-block-delivery-binding.json"
+  },
+  {
+    "label": "min-after-block-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\099-min-after-block-first.json"
+  },
+  {
+    "label": "min-stop",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\100-min-stop.json"
+  },
+  {
+    "label": "min-stopped-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\101-min-stopped-binding.json"
+  },
+  {
+    "label": "min-stopped-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\102-min-stopped-delivery-binding.json"
+  },
+  {
+    "label": "min-stop-blocks-review",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\103-min-stop-blocks-review.json"
+  },
+  {
+    "label": "min-restart-after-stop",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\104-min-restart-after-stop.json"
+  },
+  {
+    "label": "min-incomplete-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\105-min-incomplete-binding.json"
+  },
+  {
+    "label": "min-incomplete-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\106-min-incomplete-delivery-binding.json"
+  },
+  {
+    "label": "min-incomplete",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\107-min-incomplete.json"
+  },
+  {
+    "label": "min-incomplete-count",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\108-min-incomplete-count.json"
+  },
+  {
+    "label": "min-declared-complete-unreviewed-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\109-min-declared-complete-unreviewed-binding.json"
+  },
+  {
+    "label": "min-declared-complete-unreviewed-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\110-min-declared-complete-unreviewed-delivery-binding.json"
+  },
+  {
+    "label": "min-unreviewed-resets",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\111-min-unreviewed-resets.json"
+  },
+  {
+    "label": "min-finding-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\112-min-finding-binding.json"
+  },
+  {
+    "label": "min-finding-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\113-min-finding-delivery-binding.json"
+  },
+  {
+    "label": "min-finding-resets",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\114-min-finding-resets.json"
+  },
+  {
+    "label": "min-unresolved-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\115-min-unresolved-binding.json"
+  },
+  {
+    "label": "min-unresolved-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\116-min-unresolved-delivery-binding.json"
+  },
+  {
+    "label": "min-unresolved-not-clean",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\117-min-unresolved-not-clean.json"
+  },
+  {
+    "label": "min-open-count",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\118-min-open-count.json"
+  },
+  {
+    "label": "min-false-fixed-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\119-min-false-fixed-binding.json"
+  },
+  {
+    "label": "min-false-fixed-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\120-min-false-fixed-delivery-binding.json"
+  },
+  {
+    "label": "min-same-version-fixed-rejected",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\121-min-same-version-fixed-rejected.json"
+  },
+  {
+    "label": "min-false-positive-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\122-min-false-positive-binding.json"
+  },
+  {
+    "label": "min-false-positive-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\123-min-false-positive-delivery-binding.json"
+  },
+  {
+    "label": "min-evidenced-false-positive",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\124-min-evidenced-false-positive.json"
+  },
+  {
+    "label": "min-second-clean-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\125-min-second-clean-binding.json"
+  },
+  {
+    "label": "min-second-clean-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\126-min-second-clean-delivery-binding.json"
+  },
+  {
+    "label": "min-second-clean-passes",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\127-min-second-clean-passes.json"
+  },
+  {
+    "label": "min-passed",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\128-min-passed.json"
+  },
+  {
+    "label": "min-third-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\129-min-third-binding.json"
+  },
+  {
+    "label": "min-third-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\130-min-third-delivery-binding.json"
+  },
+  {
+    "label": "min-ended-blocks-third",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\131-min-ended-blocks-third.json"
+  },
+  {
+    "label": "min-ended-blocks-blocked",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\132-min-ended-blocks-blocked.json"
+  },
+  {
+    "label": "min-new-session-explicit",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\133-min-new-session-explicit.json"
+  },
+  {
+    "label": "min-new-session-one-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\134-min-new-session-one-binding.json"
+  },
+  {
+    "label": "min-new-session-one-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\135-min-new-session-one-delivery-binding.json"
+  },
+  {
+    "label": "min-new-session-counts-from-zero",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\136-min-new-session-counts-from-zero.json"
+  },
+  {
+    "label": "full-evidence-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\137-full-evidence-offer.json"
+  },
+  {
+    "label": "full-evidence-accept",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\138-full-evidence-accept.json"
+  },
+  {
+    "label": "full-initial-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\139-full-initial-binding.json"
+  },
+  {
+    "label": "full-initial-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\140-full-initial-delivery-binding.json"
+  },
+  {
+    "label": "full-wrong-delivery-sha",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\141-full-wrong-delivery-sha.json"
+  },
+  {
+    "label": "full-wrong-request-sha",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\142-full-wrong-request-sha.json"
+  },
+  {
+    "label": "full-invalid-task-id",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\143-full-invalid-task-id.json"
+  },
+  {
+    "label": "full-false-completion-claim",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\144-full-false-completion-claim.json"
+  },
+  {
+    "label": "full-false-report-sha",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\145-full-false-report-sha.json"
+  },
+  {
+    "label": "full-false-completion-time",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\146-full-false-completion-time.json"
+  },
+  {
+    "label": "full-false-verification-time",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\147-full-false-verification-time.json"
+  },
+  {
+    "label": "full-before-delivery",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\148-full-before-delivery.json"
+  },
+  {
+    "label": "full-future-start",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\149-full-future-start.json"
+  },
+  {
+    "label": "full-naive-start",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\150-full-naive-start.json"
+  },
+  {
+    "label": "full-before-prior-record",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\151-full-before-prior-record.json"
+  },
+  {
+    "label": "full-future-record",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\152-full-future-record.json"
+  },
+  {
+    "label": "full-naive-record",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\153-full-naive-record.json"
+  },
+  {
+    "label": "full-outside-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\154-full-outside-report.json"
+  },
+  {
+    "label": "full-empty-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\155-full-empty-report.json"
+  },
+  {
+    "label": "full-remote-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\156-full-remote-report.json"
+  },
+  {
+    "label": "full-missing-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\157-full-missing-report.json"
+  },
+  {
+    "label": "full-valid-first-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\158-full-valid-first-report.json"
+  },
+  {
+    "label": "full-alias-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\159-full-alias-report.json"
+  },
+  {
+    "label": "full-copied-report-content",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\160-full-copied-report-content.json"
+  },
+  {
+    "label": "full-fresh-second-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\161-full-fresh-second-binding.json"
+  },
+  {
+    "label": "full-fresh-second-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\162-full-fresh-second-delivery-binding.json"
+  },
+  {
+    "label": "full-duplicate-round-id",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\163-full-duplicate-round-id.json"
+  },
+  {
+    "label": "full-unknown-resolution",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\164-full-unknown-resolution.json"
+  },
+  {
+    "label": "full-false-incomplete-claim-on-second",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\165-full-false-incomplete-claim-on-second.json"
+  },
+  {
+    "label": "full-mutated-report-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\166-full-mutated-report-state.json"
+  },
+  {
+    "label": "full-historic-content-reuse-still-blocked",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\167-full-historic-content-reuse-still-blocked.json"
+  },
+  {
+    "label": "full-first-after-mutation",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\168-full-first-after-mutation.json"
+  },
+  {
+    "label": "full-second-after-mutation-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\169-full-second-after-mutation-binding.json"
+  },
+  {
+    "label": "full-second-after-mutation-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\170-full-second-after-mutation-delivery-binding.json"
+  },
+  {
+    "label": "full-pair-after-mutation",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\171-full-pair-after-mutation.json"
+  },
+  {
+    "label": "full-ended-missing-report-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\172-full-ended-missing-report-state.json"
+  },
+  {
+    "label": "full-after-ended-stale-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\173-full-after-ended-stale-binding.json"
+  },
+  {
+    "label": "full-after-ended-stale-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\174-full-after-ended-stale-delivery-binding.json"
+  },
+  {
+    "label": "full-old-consent-cannot-resume-ended",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\175-full-old-consent-cannot-resume-ended.json"
+  },
+  {
+    "label": "full-ended-stale-blocked-refused",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\176-full-ended-stale-blocked-refused.json"
+  },
+  {
+    "label": "full-actual-new-decision",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\177-full-actual-new-decision.json"
+  },
+  {
+    "label": "full-restart-round1-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\178-full-restart-round1-binding.json"
+  },
+  {
+    "label": "full-restart-round1-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\179-full-restart-round1-delivery-binding.json"
+  },
+  {
+    "label": "full-restart-one",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\180-full-restart-one.json"
+  },
+  {
+    "label": "full-restart-one-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\181-full-restart-one-state.json"
+  },
+  {
+    "label": "full-manual-state-field-refused",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\182-full-manual-state-field-refused.json"
+  },
+  {
+    "label": "min-evidence-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\183-min-evidence-offer.json"
+  },
+  {
+    "label": "min-evidence-accept",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\184-min-evidence-accept.json"
+  },
+  {
+    "label": "min-initial-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\185-min-initial-binding.json"
+  },
+  {
+    "label": "min-initial-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\186-min-initial-delivery-binding.json"
+  },
+  {
+    "label": "min-wrong-delivery-sha",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\187-min-wrong-delivery-sha.json"
+  },
+  {
+    "label": "min-wrong-request-sha",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\188-min-wrong-request-sha.json"
+  },
+  {
+    "label": "min-invalid-task-id",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\189-min-invalid-task-id.json"
+  },
+  {
+    "label": "min-false-completion-claim",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\190-min-false-completion-claim.json"
+  },
+  {
+    "label": "min-false-report-sha",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\191-min-false-report-sha.json"
+  },
+  {
+    "label": "min-false-completion-time",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\192-min-false-completion-time.json"
+  },
+  {
+    "label": "min-false-verification-time",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\193-min-false-verification-time.json"
+  },
+  {
+    "label": "min-before-delivery",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\194-min-before-delivery.json"
+  },
+  {
+    "label": "min-future-start",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\195-min-future-start.json"
+  },
+  {
+    "label": "min-naive-start",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\196-min-naive-start.json"
+  },
+  {
+    "label": "min-before-prior-record",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\197-min-before-prior-record.json"
+  },
+  {
+    "label": "min-future-record",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\198-min-future-record.json"
+  },
+  {
+    "label": "min-naive-record",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\199-min-naive-record.json"
+  },
+  {
+    "label": "min-outside-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\200-min-outside-report.json"
+  },
+  {
+    "label": "min-empty-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\201-min-empty-report.json"
+  },
+  {
+    "label": "min-remote-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\202-min-remote-report.json"
+  },
+  {
+    "label": "min-missing-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\203-min-missing-report.json"
+  },
+  {
+    "label": "min-valid-first-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\204-min-valid-first-report.json"
+  },
+  {
+    "label": "min-alias-report",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\205-min-alias-report.json"
+  },
+  {
+    "label": "min-copied-report-content",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\206-min-copied-report-content.json"
+  },
+  {
+    "label": "min-fresh-second-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\207-min-fresh-second-binding.json"
+  },
+  {
+    "label": "min-fresh-second-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\208-min-fresh-second-delivery-binding.json"
+  },
+  {
+    "label": "min-duplicate-round-id",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\209-min-duplicate-round-id.json"
+  },
+  {
+    "label": "min-unknown-resolution",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\210-min-unknown-resolution.json"
+  },
+  {
+    "label": "min-false-incomplete-claim-on-second",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\211-min-false-incomplete-claim-on-second.json"
+  },
+  {
+    "label": "min-mutated-report-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\212-min-mutated-report-state.json"
+  },
+  {
+    "label": "min-historic-content-reuse-still-blocked",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\213-min-historic-content-reuse-still-blocked.json"
+  },
+  {
+    "label": "min-first-after-mutation",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\214-min-first-after-mutation.json"
+  },
+  {
+    "label": "min-second-after-mutation-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\215-min-second-after-mutation-binding.json"
+  },
+  {
+    "label": "min-second-after-mutation-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\216-min-second-after-mutation-delivery-binding.json"
+  },
+  {
+    "label": "min-pair-after-mutation",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\217-min-pair-after-mutation.json"
+  },
+  {
+    "label": "min-ended-missing-report-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\218-min-ended-missing-report-state.json"
+  },
+  {
+    "label": "min-after-ended-stale-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\219-min-after-ended-stale-binding.json"
+  },
+  {
+    "label": "min-after-ended-stale-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\220-min-after-ended-stale-delivery-binding.json"
+  },
+  {
+    "label": "min-old-consent-cannot-resume-ended",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\221-min-old-consent-cannot-resume-ended.json"
+  },
+  {
+    "label": "min-ended-stale-blocked-refused",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\222-min-ended-stale-blocked-refused.json"
+  },
+  {
+    "label": "min-actual-new-decision",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\223-min-actual-new-decision.json"
+  },
+  {
+    "label": "min-restart-round1-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\224-min-restart-round1-binding.json"
+  },
+  {
+    "label": "min-restart-round1-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\225-min-restart-round1-delivery-binding.json"
+  },
+  {
+    "label": "min-restart-one",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\226-min-restart-one.json"
+  },
+  {
+    "label": "min-restart-one-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\227-min-restart-one-state.json"
+  },
+  {
+    "label": "min-manual-state-field-refused",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\228-min-manual-state-field-refused.json"
+  },
+  {
+    "label": "full-repair-parent-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\229-full-repair-parent-offer.json"
+  },
+  {
+    "label": "full-repair-parent-accept",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\230-full-repair-parent-accept.json"
+  },
+  {
+    "label": "full-parent-first-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\231-full-parent-first-binding.json"
+  },
+  {
+    "label": "full-parent-first-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\232-full-parent-first-delivery-binding.json"
+  },
+  {
+    "label": "full-pre-repair-one",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\233-full-pre-repair-one.json"
+  },
+  {
+    "label": "full-parent-issue-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\234-full-parent-issue-binding.json"
+  },
+  {
+    "label": "full-parent-issue-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\235-full-parent-issue-delivery-binding.json"
+  },
+  {
+    "label": "full-pre-repair-finding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\236-full-pre-repair-finding.json"
+  },
+  {
+    "label": "full-old-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\237-full-old-binding.json"
+  },
+  {
+    "label": "full-repair-managed-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\238-full-repair-managed-state.json"
+  },
+  {
+    "label": "full-repair-cannot-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\239-full-repair-cannot-offer.json"
+  },
+  {
+    "label": "full-saved-child-invalidates-old",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\240-full-saved-child-invalidates-old.json"
+  },
+  {
+    "label": "full-old-round-reject-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\241-full-old-round-reject-binding.json"
+  },
+  {
+    "label": "full-old-round-reject-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\242-full-old-round-reject-delivery-binding.json"
+  },
+  {
+    "label": "full-old-delivery-rejected",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\243-full-old-delivery-rejected.json"
+  },
+  {
+    "label": "full-repair-before-save-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\244-full-repair-before-save-binding.json"
+  },
+  {
+    "label": "full-repair-before-save-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\245-full-repair-before-save-delivery-binding.json"
+  },
+  {
+    "label": "full-round-before-repair-completion-rejected",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\246-full-round-before-repair-completion-rejected.json"
+  },
+  {
+    "label": "full-fixed-round-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\247-full-fixed-round-binding.json"
+  },
+  {
+    "label": "full-fixed-round-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\248-full-fixed-round-delivery-binding.json"
+  },
+  {
+    "label": "full-fixed-new-delivery",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\249-full-fixed-new-delivery.json"
+  },
+  {
+    "label": "full-repair-second-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\250-full-repair-second-binding.json"
+  },
+  {
+    "label": "full-repair-second-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\251-full-repair-second-delivery-binding.json"
+  },
+  {
+    "label": "full-repaired-clean-pair",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\252-full-repaired-clean-pair.json"
+  },
+  {
+    "label": "full-ended-parent-repair-refused",
+    "method": "API",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\253-full-ended-parent-repair-refused.json"
+  },
+  {
+    "label": "full-parent-restart-for-relation",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\254-full-parent-restart-for-relation.json"
+  },
+  {
+    "label": "full-missing-direct-dependency",
+    "method": "API",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\255-full-missing-direct-dependency.json"
+  },
+  {
+    "label": "full-cross-carrier-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\256-full-cross-carrier-state.json"
+  },
+  {
+    "label": "full-cross-first-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\257-full-cross-first-binding.json"
+  },
+  {
+    "label": "full-cross-first-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\258-full-cross-first-delivery-binding.json"
+  },
+  {
+    "label": "full-cross-repair-round",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\259-full-cross-repair-round.json"
+  },
+  {
+    "label": "full-duplicate-finding-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\260-full-duplicate-finding-binding.json"
+  },
+  {
+    "label": "full-duplicate-finding-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\261-full-duplicate-finding-delivery-binding.json"
+  },
+  {
+    "label": "full-finding-id-reuse-rejected",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\262-full-finding-id-reuse-rejected.json"
+  },
+  {
+    "label": "min-repair-parent-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\263-min-repair-parent-offer.json"
+  },
+  {
+    "label": "min-repair-parent-accept",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\264-min-repair-parent-accept.json"
+  },
+  {
+    "label": "min-parent-first-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\265-min-parent-first-binding.json"
+  },
+  {
+    "label": "min-parent-first-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\266-min-parent-first-delivery-binding.json"
+  },
+  {
+    "label": "min-pre-repair-one",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\267-min-pre-repair-one.json"
+  },
+  {
+    "label": "min-parent-issue-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\268-min-parent-issue-binding.json"
+  },
+  {
+    "label": "min-parent-issue-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\269-min-parent-issue-delivery-binding.json"
+  },
+  {
+    "label": "min-pre-repair-finding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\270-min-pre-repair-finding.json"
+  },
+  {
+    "label": "min-old-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\271-min-old-binding.json"
+  },
+  {
+    "label": "min-repair-managed-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\272-min-repair-managed-state.json"
+  },
+  {
+    "label": "min-repair-cannot-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\273-min-repair-cannot-offer.json"
+  },
+  {
+    "label": "min-saved-child-invalidates-old",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\274-min-saved-child-invalidates-old.json"
+  },
+  {
+    "label": "min-old-round-reject-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\275-min-old-round-reject-binding.json"
+  },
+  {
+    "label": "min-old-round-reject-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\276-min-old-round-reject-delivery-binding.json"
+  },
+  {
+    "label": "min-old-delivery-rejected",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\277-min-old-delivery-rejected.json"
+  },
+  {
+    "label": "min-repair-before-save-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\278-min-repair-before-save-binding.json"
+  },
+  {
+    "label": "min-repair-before-save-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\279-min-repair-before-save-delivery-binding.json"
+  },
+  {
+    "label": "min-round-before-repair-completion-rejected",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\280-min-round-before-repair-completion-rejected.json"
+  },
+  {
+    "label": "min-fixed-round-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\281-min-fixed-round-binding.json"
+  },
+  {
+    "label": "min-fixed-round-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\282-min-fixed-round-delivery-binding.json"
+  },
+  {
+    "label": "min-fixed-new-delivery",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\283-min-fixed-new-delivery.json"
+  },
+  {
+    "label": "min-repair-second-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\284-min-repair-second-binding.json"
+  },
+  {
+    "label": "min-repair-second-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\285-min-repair-second-delivery-binding.json"
+  },
+  {
+    "label": "min-repaired-clean-pair",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\286-min-repaired-clean-pair.json"
+  },
+  {
+    "label": "min-ended-parent-repair-refused",
+    "method": "API",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\287-min-ended-parent-repair-refused.json"
+  },
+  {
+    "label": "min-parent-restart-for-relation",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\288-min-parent-restart-for-relation.json"
+  },
+  {
+    "label": "min-missing-direct-dependency",
+    "method": "API",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\289-min-missing-direct-dependency.json"
+  },
+  {
+    "label": "min-cross-carrier-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\290-min-cross-carrier-state.json"
+  },
+  {
+    "label": "min-cross-first-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\291-min-cross-first-binding.json"
+  },
+  {
+    "label": "min-cross-first-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\292-min-cross-first-delivery-binding.json"
+  },
+  {
+    "label": "min-cross-repair-round",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\293-min-cross-repair-round.json"
+  },
+  {
+    "label": "min-duplicate-finding-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\294-min-duplicate-finding-binding.json"
+  },
+  {
+    "label": "min-duplicate-finding-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\295-min-duplicate-finding-delivery-binding.json"
+  },
+  {
+    "label": "min-finding-id-reuse-rejected",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\296-min-finding-id-reuse-rejected.json"
+  },
+  {
+    "label": "full-legacy-untracked",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\297-full-legacy-untracked.json"
+  },
+  {
+    "label": "full-legacy-not-auto-enrolled",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\298-full-legacy-not-auto-enrolled.json"
+  },
+  {
+    "label": "full-legacy-identity-invalid",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\299-full-legacy-identity-invalid.json"
+  },
+  {
+    "label": "full-old-protocol-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\300-full-old-protocol-offer.json"
+  },
+  {
+    "label": "full-old-protocol-accept",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\301-full-old-protocol-accept.json"
+  },
+  {
+    "label": "full-old-one-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\302-full-old-one-binding.json"
+  },
+  {
+    "label": "full-old-one-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\303-full-old-one-delivery-binding.json"
+  },
+  {
+    "label": "full-old-fixture-round1",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\304-full-old-fixture-round1.json"
+  },
+  {
+    "label": "full-old-two-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\305-full-old-two-binding.json"
+  },
+  {
+    "label": "full-old-two-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\306-full-old-two-delivery-binding.json"
+  },
+  {
+    "label": "full-old-fixture-round2",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\307-full-old-fixture-round2.json"
+  },
+  {
+    "label": "full-old-protocol-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\308-full-old-protocol-state.json"
+  },
+  {
+    "label": "full-legacy-resume-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\309-full-legacy-resume-binding.json"
+  },
+  {
+    "label": "full-legacy-resume-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\310-full-legacy-resume-delivery-binding.json"
+  },
+  {
+    "label": "full-old-protocol-needs-new-choice",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\311-full-old-protocol-needs-new-choice.json"
+  },
+  {
+    "label": "full-old-protocol-new-choice",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\312-full-old-protocol-new-choice.json"
+  },
+  {
+    "label": "full-old-new-one-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\313-full-old-new-one-binding.json"
+  },
+  {
+    "label": "full-old-new-one-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\314-full-old-new-one-delivery-binding.json"
+  },
+  {
+    "label": "full-old-current-round-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\315-full-old-current-round-first.json"
+  },
+  {
+    "label": "full-historical-query",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\316-full-historical-query.json"
+  },
+  {
+    "label": "min-legacy-untracked",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\317-min-legacy-untracked.json"
+  },
+  {
+    "label": "min-legacy-not-auto-enrolled",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\318-min-legacy-not-auto-enrolled.json"
+  },
+  {
+    "label": "min-legacy-identity-invalid",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\319-min-legacy-identity-invalid.json"
+  },
+  {
+    "label": "min-old-protocol-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\320-min-old-protocol-offer.json"
+  },
+  {
+    "label": "min-old-protocol-accept",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\321-min-old-protocol-accept.json"
+  },
+  {
+    "label": "min-old-one-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\322-min-old-one-binding.json"
+  },
+  {
+    "label": "min-old-one-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\323-min-old-one-delivery-binding.json"
+  },
+  {
+    "label": "min-old-fixture-round1",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\324-min-old-fixture-round1.json"
+  },
+  {
+    "label": "min-old-two-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\325-min-old-two-binding.json"
+  },
+  {
+    "label": "min-old-two-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\326-min-old-two-delivery-binding.json"
+  },
+  {
+    "label": "min-old-fixture-round2",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\327-min-old-fixture-round2.json"
+  },
+  {
+    "label": "min-old-protocol-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\328-min-old-protocol-state.json"
+  },
+  {
+    "label": "min-legacy-resume-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\329-min-legacy-resume-binding.json"
+  },
+  {
+    "label": "min-legacy-resume-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\330-min-legacy-resume-delivery-binding.json"
+  },
+  {
+    "label": "min-old-protocol-needs-new-choice",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\331-min-old-protocol-needs-new-choice.json"
+  },
+  {
+    "label": "min-old-protocol-new-choice",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\332-min-old-protocol-new-choice.json"
+  },
+  {
+    "label": "min-old-new-one-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\333-min-old-new-one-binding.json"
+  },
+  {
+    "label": "min-old-new-one-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\334-min-old-new-one-delivery-binding.json"
+  },
+  {
+    "label": "min-old-current-round-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\335-min-old-current-round-first.json"
+  },
+  {
+    "label": "min-historical-query",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\336-min-historical-query.json"
+  },
+  {
+    "label": "requirement-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\337-requirement-offer.json"
+  },
+  {
+    "label": "requirement-accept",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\338-requirement-accept.json"
+  },
+  {
+    "label": "requirement-first-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\339-requirement-first-binding.json"
+  },
+  {
+    "label": "requirement-first-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\340-requirement-first-delivery-binding.json"
+  },
+  {
+    "label": "requirement-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\341-requirement-first.json"
+  },
+  {
+    "label": "requirements-exclude-annotation",
+    "method": "independent assertion/minimal API",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\342-requirements-exclude-annotation.json"
+  },
+  {
+    "label": "request-word-change-resets",
+    "method": "independent assertion/minimal API",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\343-request-word-change-resets.json"
+  },
+  {
+    "label": "requirements-bind-question",
+    "method": "independent assertion/minimal API",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\344-requirements-bind-question.json"
+  },
+  {
+    "label": "requirements-bind-recommended_default",
+    "method": "independent assertion/minimal API",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\345-requirements-bind-recommended_default.json"
+  },
+  {
+    "label": "requirements-bind-answer",
+    "method": "independent assertion/minimal API",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\346-requirements-bind-answer.json"
+  },
+  {
+    "label": "full-concurrent-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\347-full-concurrent-binding.json"
+  },
+  {
+    "label": "full-parallel-acceptance",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\348-full-parallel-acceptance.json"
+  },
+  {
+    "label": "full-parallel-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\348-full-parallel-offer.json"
+  },
+  {
+    "label": "full-parallel-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\350-full-parallel-state.json"
+  },
+  {
+    "label": "full-acceptance-only-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\351-full-acceptance-only-binding.json"
+  },
+  {
+    "label": "full-acceptance-only-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\352-full-acceptance-only-delivery-binding.json"
+  },
+  {
+    "label": "full-acceptance-does-not-grant-review",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\353-full-acceptance-does-not-grant-review.json"
+  },
+  {
+    "label": "full-erase-history",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\354-full-erase-history.json"
+  },
+  {
+    "label": "min-concurrent-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\355-min-concurrent-binding.json"
+  },
+  {
+    "label": "min-parallel-acceptance",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\356-min-parallel-acceptance.json"
+  },
+  {
+    "label": "min-parallel-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\356-min-parallel-offer.json"
+  },
+  {
+    "label": "min-parallel-state",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\358-min-parallel-state.json"
+  },
+  {
+    "label": "min-acceptance-only-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\359-min-acceptance-only-binding.json"
+  },
+  {
+    "label": "min-acceptance-only-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\360-min-acceptance-only-delivery-binding.json"
+  },
+  {
+    "label": "min-acceptance-does-not-grant-review",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\361-min-acceptance-does-not-grant-review.json"
+  },
+  {
+    "label": "min-closed-contract-update",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\362-min-closed-contract-update.json"
+  },
+  {
+    "label": "full-historical-corrected-timestamps",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\363-full-historical-corrected-timestamps.json"
+  },
+  {
+    "label": "min-historical-corrected-timestamps",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\364-min-historical-corrected-timestamps.json"
+  },
+  {
+    "label": "source-manifest-hashes",
+    "method": "read-only independent inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\365-source-manifest-hashes.json"
+  },
+  {
+    "label": "installed-manifest-hashes",
+    "method": "read-only independent inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\366-installed-manifest-hashes.json"
+  },
+  {
+    "label": "review-distribution-files",
+    "method": "read-only independent inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\367-review-distribution-files.json"
+  },
+  {
+    "label": "full-minimal-schema-contract",
+    "method": "read-only independent inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\368-full-minimal-schema-contract.json"
+  },
+  {
+    "label": "actual-offer-consent-order",
+    "method": "read-only independent inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\369-actual-offer-consent-order.json"
+  },
+  {
+    "label": "actual-offer-source",
+    "method": "read-only independent inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\370-actual-offer-source.json"
+  },
+  {
+    "label": "actual-consent-source",
+    "method": "read-only independent inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\371-actual-consent-source.json"
+  },
+  {
+    "label": "full-derived-not-offered-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\372-full-derived-not-offered-signals.json"
+  },
+  {
+    "label": "full-derived-not-offered-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\373-full-derived-not-offered-views.json"
+  },
+  {
+    "label": "full-derived-not-offered-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\374-full-derived-not-offered-markdown.json"
+  },
+  {
+    "label": "full-derived-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\375-full-derived-offer.json"
+  },
+  {
+    "label": "full-derived-await-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\376-full-derived-await-signals.json"
+  },
+  {
+    "label": "full-derived-await-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\377-full-derived-await-views.json"
+  },
+  {
+    "label": "full-derived-await-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\378-full-derived-await-markdown.json"
+  },
+  {
+    "label": "full-derived-decline",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\379-full-derived-decline.json"
+  },
+  {
+    "label": "full-derived-declined-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\380-full-derived-declined-signals.json"
+  },
+  {
+    "label": "full-derived-declined-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\381-full-derived-declined-views.json"
+  },
+  {
+    "label": "full-derived-declined-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\382-full-derived-declined-markdown.json"
+  },
+  {
+    "label": "full-derived-defer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\383-full-derived-defer.json"
+  },
+  {
+    "label": "full-derived-deferred-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\384-full-derived-deferred-signals.json"
+  },
+  {
+    "label": "full-derived-deferred-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\385-full-derived-deferred-views.json"
+  },
+  {
+    "label": "full-derived-deferred-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\386-full-derived-deferred-markdown.json"
+  },
+  {
+    "label": "full-derived-start",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\387-full-derived-start.json"
+  },
+  {
+    "label": "full-derived-active-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\388-full-derived-active-signals.json"
+  },
+  {
+    "label": "full-derived-active-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\389-full-derived-active-views.json"
+  },
+  {
+    "label": "full-derived-active-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\390-full-derived-active-markdown.json"
+  },
+  {
+    "label": "full-derived-block",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\391-full-derived-block.json"
+  },
+  {
+    "label": "full-derived-blocked-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\392-full-derived-blocked-signals.json"
+  },
+  {
+    "label": "full-derived-blocked-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\393-full-derived-blocked-views.json"
+  },
+  {
+    "label": "full-derived-blocked-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\394-full-derived-blocked-markdown.json"
+  },
+  {
+    "label": "full-derived-r1-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\395-full-derived-r1-binding.json"
+  },
+  {
+    "label": "full-derived-r1-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\396-full-derived-r1-delivery-binding.json"
+  },
+  {
+    "label": "full-derived-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\397-full-derived-first.json"
+  },
+  {
+    "label": "full-derived-stale-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\398-full-derived-stale-signals.json"
+  },
+  {
+    "label": "full-derived-stale-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\399-full-derived-stale-views.json"
+  },
+  {
+    "label": "full-derived-stale-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\400-full-derived-stale-markdown.json"
+  },
+  {
+    "label": "full-derived-r2-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\401-full-derived-r2-binding.json"
+  },
+  {
+    "label": "full-derived-r2-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\402-full-derived-r2-delivery-binding.json"
+  },
+  {
+    "label": "full-derived-fresh-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\403-full-derived-fresh-first.json"
+  },
+  {
+    "label": "full-derived-r3-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\404-full-derived-r3-binding.json"
+  },
+  {
+    "label": "full-derived-r3-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\405-full-derived-r3-delivery-binding.json"
+  },
+  {
+    "label": "full-derived-fresh-second",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\406-full-derived-fresh-second.json"
+  },
+  {
+    "label": "full-derived-passed-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\407-full-derived-passed-signals.json"
+  },
+  {
+    "label": "full-derived-passed-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\408-full-derived-passed-views.json"
+  },
+  {
+    "label": "full-derived-passed-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\409-full-derived-passed-markdown.json"
+  },
+  {
+    "label": "full-derived-restart-required-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\410-full-derived-restart-required-signals.json"
+  },
+  {
+    "label": "full-derived-restart-required-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\411-full-derived-restart-required-views.json"
+  },
+  {
+    "label": "full-derived-restart-required-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\412-full-derived-restart-required-markdown.json"
+  },
+  {
+    "label": "full-derived-new-start",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\413-full-derived-new-start.json"
+  },
+  {
+    "label": "full-derived-stop",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\414-full-derived-stop.json"
+  },
+  {
+    "label": "full-derived-stopped-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\415-full-derived-stopped-signals.json"
+  },
+  {
+    "label": "full-derived-stopped-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\416-full-derived-stopped-views.json"
+  },
+  {
+    "label": "full-derived-stopped-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\417-full-derived-stopped-markdown.json"
+  },
+  {
+    "label": "min-derived-not-offered-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\418-min-derived-not-offered-signals.json"
+  },
+  {
+    "label": "min-derived-not-offered-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\419-min-derived-not-offered-views.json"
+  },
+  {
+    "label": "min-derived-not-offered-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\420-min-derived-not-offered-markdown.json"
+  },
+  {
+    "label": "min-derived-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\421-min-derived-offer.json"
+  },
+  {
+    "label": "min-derived-await-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\422-min-derived-await-signals.json"
+  },
+  {
+    "label": "min-derived-await-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\423-min-derived-await-views.json"
+  },
+  {
+    "label": "min-derived-await-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\424-min-derived-await-markdown.json"
+  },
+  {
+    "label": "min-derived-decline",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\425-min-derived-decline.json"
+  },
+  {
+    "label": "min-derived-declined-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\426-min-derived-declined-signals.json"
+  },
+  {
+    "label": "min-derived-declined-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\427-min-derived-declined-views.json"
+  },
+  {
+    "label": "min-derived-declined-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\428-min-derived-declined-markdown.json"
+  },
+  {
+    "label": "min-derived-defer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\429-min-derived-defer.json"
+  },
+  {
+    "label": "min-derived-deferred-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\430-min-derived-deferred-signals.json"
+  },
+  {
+    "label": "min-derived-deferred-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\431-min-derived-deferred-views.json"
+  },
+  {
+    "label": "min-derived-deferred-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\432-min-derived-deferred-markdown.json"
+  },
+  {
+    "label": "min-derived-start",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\433-min-derived-start.json"
+  },
+  {
+    "label": "min-derived-active-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\434-min-derived-active-signals.json"
+  },
+  {
+    "label": "min-derived-active-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\435-min-derived-active-views.json"
+  },
+  {
+    "label": "min-derived-active-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\436-min-derived-active-markdown.json"
+  },
+  {
+    "label": "min-derived-block",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\437-min-derived-block.json"
+  },
+  {
+    "label": "min-derived-blocked-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\438-min-derived-blocked-signals.json"
+  },
+  {
+    "label": "min-derived-blocked-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\439-min-derived-blocked-views.json"
+  },
+  {
+    "label": "min-derived-blocked-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\440-min-derived-blocked-markdown.json"
+  },
+  {
+    "label": "min-derived-r1-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\441-min-derived-r1-binding.json"
+  },
+  {
+    "label": "min-derived-r1-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\442-min-derived-r1-delivery-binding.json"
+  },
+  {
+    "label": "min-derived-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\443-min-derived-first.json"
+  },
+  {
+    "label": "min-derived-stale-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\444-min-derived-stale-signals.json"
+  },
+  {
+    "label": "min-derived-stale-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\445-min-derived-stale-views.json"
+  },
+  {
+    "label": "min-derived-stale-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\446-min-derived-stale-markdown.json"
+  },
+  {
+    "label": "min-derived-r2-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\447-min-derived-r2-binding.json"
+  },
+  {
+    "label": "min-derived-r2-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\448-min-derived-r2-delivery-binding.json"
+  },
+  {
+    "label": "min-derived-fresh-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\449-min-derived-fresh-first.json"
+  },
+  {
+    "label": "min-derived-r3-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\450-min-derived-r3-binding.json"
+  },
+  {
+    "label": "min-derived-r3-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\451-min-derived-r3-delivery-binding.json"
+  },
+  {
+    "label": "min-derived-fresh-second",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\452-min-derived-fresh-second.json"
+  },
+  {
+    "label": "min-derived-passed-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\453-min-derived-passed-signals.json"
+  },
+  {
+    "label": "min-derived-passed-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\454-min-derived-passed-views.json"
+  },
+  {
+    "label": "min-derived-passed-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\455-min-derived-passed-markdown.json"
+  },
+  {
+    "label": "min-derived-restart-required-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\456-min-derived-restart-required-signals.json"
+  },
+  {
+    "label": "min-derived-restart-required-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\457-min-derived-restart-required-views.json"
+  },
+  {
+    "label": "min-derived-restart-required-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\458-min-derived-restart-required-markdown.json"
+  },
+  {
+    "label": "min-derived-new-start",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\459-min-derived-new-start.json"
+  },
+  {
+    "label": "min-derived-stop",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\460-min-derived-stop.json"
+  },
+  {
+    "label": "min-derived-stopped-signals",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\461-min-derived-stopped-signals.json"
+  },
+  {
+    "label": "min-derived-stopped-views",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\462-min-derived-stopped-views.json"
+  },
+  {
+    "label": "min-derived-stopped-markdown",
+    "method": "generated text inspection",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\463-min-derived-stopped-markdown.json"
+  },
+  {
+    "label": "installed-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\464-installed-offer.json"
+  },
+  {
+    "label": "installed-accept",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\465-installed-accept.json"
+  },
+  {
+    "label": "installed-round1-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\466-installed-round1-binding.json"
+  },
+  {
+    "label": "installed-round1-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\467-installed-round1-delivery-binding.json"
+  },
+  {
+    "label": "installed-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\468-installed-first.json"
+  },
+  {
+    "label": "installed-round2-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\469-installed-round2-binding.json"
+  },
+  {
+    "label": "installed-round2-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\470-installed-round2-delivery-binding.json"
+  },
+  {
+    "label": "installed-second",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\471-installed-second.json"
+  },
+  {
+    "label": "installed-passed",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\472-installed-passed.json"
+  },
+  {
+    "label": "full-ambiguous-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\473-full-ambiguous-offer.json"
+  },
+  {
+    "label": "full-ambiguous-accept",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\474-full-ambiguous-accept.json"
+  },
+  {
+    "label": "full-before-ambiguous-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\475-full-before-ambiguous-binding.json"
+  },
+  {
+    "label": "full-before-ambiguous-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\476-full-before-ambiguous-delivery-binding.json"
+  },
+  {
+    "label": "full-ambiguous-original-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\477-full-ambiguous-original-first.json"
+  },
+  {
+    "label": "full-ambiguous-query",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\478-full-ambiguous-query.json"
+  },
+  {
+    "label": "full-ambiguous-b-subject",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\479-full-ambiguous-b-subject.json"
+  },
+  {
+    "label": "full-ambiguous-round-refused",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\480-full-ambiguous-round-refused.json"
+  },
+  {
+    "label": "full-ambiguous-block-recorded",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\481-full-ambiguous-block-recorded.json"
+  },
+  {
+    "label": "full-after-ambiguity-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\482-full-after-ambiguity-binding.json"
+  },
+  {
+    "label": "full-after-ambiguity-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\483-full-after-ambiguity-delivery-binding.json"
+  },
+  {
+    "label": "full-unique-delivery-after-block",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\484-full-unique-delivery-after-block.json"
+  },
+  {
+    "label": "full-version-before-close",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\485-full-version-before-close.json"
+  },
+  {
+    "label": "full-ambiguity-final-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\486-full-ambiguity-final-binding.json"
+  },
+  {
+    "label": "full-ambiguity-final-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\487-full-ambiguity-final-delivery-binding.json"
+  },
+  {
+    "label": "version-full-pair",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\488-version-full-pair.json"
+  },
+  {
+    "label": "full-changed-version-after-end",
+    "method": "minimal API state replay",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\489-full-changed-version-after-end.json"
+  },
+  {
+    "label": "full-relation-rewrite",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\490-full-relation-rewrite.json"
+  },
+  {
+    "label": "min-ambiguous-offer",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\491-min-ambiguous-offer.json"
+  },
+  {
+    "label": "min-ambiguous-accept",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\492-min-ambiguous-accept.json"
+  },
+  {
+    "label": "min-before-ambiguous-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\493-min-before-ambiguous-binding.json"
+  },
+  {
+    "label": "min-before-ambiguous-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\494-min-before-ambiguous-delivery-binding.json"
+  },
+  {
+    "label": "min-ambiguous-original-first",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\495-min-ambiguous-original-first.json"
+  },
+  {
+    "label": "min-ambiguous-query",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\496-min-ambiguous-query.json"
+  },
+  {
+    "label": "min-ambiguous-b-subject",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\497-min-ambiguous-b-subject.json"
+  },
+  {
+    "label": "min-ambiguous-round-refused",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\498-min-ambiguous-round-refused.json"
+  },
+  {
+    "label": "min-ambiguous-block-recorded",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\499-min-ambiguous-block-recorded.json"
+  },
+  {
+    "label": "min-after-ambiguity-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\500-min-after-ambiguity-binding.json"
+  },
+  {
+    "label": "min-after-ambiguity-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\501-min-after-ambiguity-delivery-binding.json"
+  },
+  {
+    "label": "min-unique-delivery-after-block",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\502-min-unique-delivery-after-block.json"
+  },
+  {
+    "label": "min-version-before-close",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\503-min-version-before-close.json"
+  },
+  {
+    "label": "min-ambiguity-final-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\504-min-ambiguity-final-binding.json"
+  },
+  {
+    "label": "min-ambiguity-final-delivery-binding",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\505-min-ambiguity-final-delivery-binding.json"
+  },
+  {
+    "label": "version-min-pair",
+    "method": "CLI",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\506-version-min-pair.json"
+  },
+  {
+    "label": "min-changed-version-after-end",
+    "method": "minimal API state replay",
+    "evidence": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\raw-phase1\\507-min-changed-version-after-end.json"
+  }
+]

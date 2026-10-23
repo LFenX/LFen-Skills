@@ -1,0 +1,36 @@
+{
+  "id": "IOF01",
+  "condition": "Atomic write failure leaves prior engineering/review/acceptance facts and authorization intact",
+  "input": {
+    "entry": {
+      "event": "Round",
+      "round_id": "io-retry",
+      "recorded_at": "2026-10-23T14:07:22.103688Z",
+      "started_at": "2026-10-23T14:07:22.102942Z",
+      "reviewer": "synthetic-ar06-reviewer",
+      "delivery_task_id": "T-IO-F",
+      "subject_sha256": "7d1716215e9a34aa70752f229237e53a8cb3254206809de74f217d10e8d2e4b7",
+      "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b",
+      "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\final-fixtures\\io-Full\\.project-governance\\tasks\\T-IO-F\\evidence\\synthetic-io-retry.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar06://temp-only/round/io-retry"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "fault": "os.replace Temp-only OSError"
+  },
+  "expected": "OSError, no stored changes or leaked lock/temp file",
+  "actual": {
+    "accepted": false,
+    "exception": "OSError",
+    "message": "SYNTHETIC AR06 injected atomic replacement failure in Temp only",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_final_checks.py\", line 19, in injected\n    try:return write_entry(t,e)\n               ~~~~~~~~~~~^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 443, in append_review\n    atomic_write_json(path, document)\n    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\governance_artifacts.py\", line 397, in atomic_write_json\n    os.replace(temp_name, path)\n    ~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_final_checks.py\", line 15, in fail_replace\n    if Path(dst).parent.resolve()==t.resolve():raise OSError('SYNTHETIC AR06 injected atomic replacement failure in Temp only')\n                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nOSError: SYNTHETIC AR06 injected atomic replacement failure in Temp only\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/IOF01.json"
+  ]
+}

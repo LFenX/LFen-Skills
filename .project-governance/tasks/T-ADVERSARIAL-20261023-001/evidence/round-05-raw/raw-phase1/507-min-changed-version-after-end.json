@@ -1,0 +1,14 @@
+{
+  "input": "Synthetic current saved delivery binding changed; same historical accepted decision",
+  "actual": {
+    "status": "RestartRequired",
+    "clean_streak": 0,
+    "rounds": 3,
+    "open_findings": [],
+    "reviewed_delivery": {
+      "task_id": "T-MIN-REPAIR-B",
+      "subject_sha256": "b8492497aaed0702d9bcc2e71126fbe6c46b00d6bf6fbc903d5f1acde5d0dae0",
+      "requirements_sha256": "9ee6dccc8bb9b4758ab4936464ccc18771245bfa7097a1a065ecd030cb5bbc75"
+    }
+  }
+}

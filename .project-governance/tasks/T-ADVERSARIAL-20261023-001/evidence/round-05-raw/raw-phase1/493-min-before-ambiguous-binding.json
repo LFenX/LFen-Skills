@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-ambiguous\\.project-governance\\tasks\\T-MIN-AMBIGUOUS"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:43:56.718444Z",
+  "ended_at": "2026-10-23T13:43:56.810876Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 0,\n  \"rounds\": 0,\n  \"open_findings\": [],\n  \"current_delivery\": {\n    \"task_id\": \"T-MIN-AMBIGUOUS\",\n    \"subject_sha256\": \"492eedd60ee28e15d5eb2fc7a86b33b882e9308498bfc268beea292f140be03a\"\n  },\n  \"requirements_sha256\": \"9ee6dccc8bb9b4758ab4936464ccc18771245bfa7097a1a065ecd030cb5bbc75\",\n  \"delivery_task_id\": \"T-MIN-AMBIGUOUS\",\n  \"subject_sha256\": \"492eedd60ee28e15d5eb2fc7a86b33b882e9308498bfc268beea292f140be03a\"\n}\n",
+  "stderr": ""
+}

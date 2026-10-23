@@ -1,0 +1,30 @@
+{
+  "id": "RF09",
+  "condition": "Existing authorization survives safe same-scope failure recovery",
+  "input": {
+    "task": "T-BLOCKED-F"
+  },
+  "expected": "InProgress / clean 1 after blocker resolution",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-BLOCKED-F",
+        "subject_sha256": "08423ae6e02f076177d92f18acbcc56d593f0ba6c86c0cad3d05148d15f9ee50",
+        "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+      },
+      "current_delivery": {
+        "task_id": "T-BLOCKED-F",
+        "subject_sha256": "08423ae6e02f076177d92f18acbcc56d593f0ba6c86c0cad3d05148d15f9ee50"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/RF09.json"
+  ]
+}

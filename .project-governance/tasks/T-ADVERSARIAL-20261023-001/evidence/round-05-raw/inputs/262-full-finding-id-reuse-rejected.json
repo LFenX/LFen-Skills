@@ -1,0 +1,26 @@
+{
+  "event": "Round",
+  "round_id": "full-duplicate-finding",
+  "started_at": "2026-10-23T13:35:30.572046Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-FULL-CROSS-REPAIR",
+  "subject_sha256": "6ab90dd7ba5c2ccf952c83afa78d01a79890241cb4f0397ab464d4950de3a1d5",
+  "requirements_sha256": "f447f1c83bdacfb37cb751676c5da42608f5076399d130207487c8f9d1f4f909",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-repair-parent\\.project-governance\\tasks\\T-FULL-REPAIR-PARENT\\evidence\\full-duplicate-finding.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [
+    {
+      "id": "full-repair-F001",
+      "summary": "same old ID",
+      "evidence_refs": [
+        "ar05-fixture://duplicate"
+      ]
+    }
+  ],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:35:30.572076Z"
+}

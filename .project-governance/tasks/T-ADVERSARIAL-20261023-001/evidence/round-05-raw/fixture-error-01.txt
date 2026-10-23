@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Temp\AR05-20261023T132809Z-e86657dd\independent_suite.py", line 164, in <module>
+    basic_suite('Full');basic_suite('Minimal')
+    ~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Temp\AR05-20261023T132809Z-e86657dd\independent_suite.py", line 114, in basic_suite
+    f=new(tag+'-basic',carrier,complete=False)
+  File "C:\Users\Administrator\AppData\Local\Temp\AR05-20261023T132809Z-e86657dd\independent_suite.py", line 110, in new
+    f=Fixture(name,carrier,**kw);OBJECTS[f.task_id]=f;return f
+  File "C:\Users\Administrator\AppData\Local\Temp\AR05-20261023T132809Z-e86657dd\independent_suite.py", line 61, in __init__
+    self.path=g.initialize_task(self.root,**common,acceptance=['The fixture label is valid.'],development_types=['DT-08'],change_surfaces=['UI/UX'],baseline_inheritance=['New'],extension_triggers={f'E{i:02}':'Inactive' for i in range(1,6)},extension_evidence_refs={f'E{i:02}':[] for i in range(1,6)},applicability_facts={k:'No' for k in FACT_KEYS},tailoring_stage='S4',required_gates=[],authority_references=['ar05-fixture://authority'],source_snapshot={'kind':'AR05 fixture','name':name})
+              ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\governance_artifacts.py", line 2788, in initialize_task
+    raise GovernanceError("development_type_scopes must contain every selected development type exactly once with a non-empty scope array")
+governance_artifacts.GovernanceError: development_type_scopes must contain every selected development type exactly once with a non-empty scope array

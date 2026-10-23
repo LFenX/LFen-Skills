@@ -1,0 +1,33 @@
+{
+  "id": "RF02",
+  "condition": "Old delivery cannot continue count after saved repair",
+  "input": {
+    "event": "Round",
+    "round_id": "stale-old",
+    "recorded_at": "2026-10-23T14:02:58.280497Z",
+    "started_at": "2026-10-23T14:02:58.279275Z",
+    "reviewer": "synthetic-ar06-reviewer",
+    "delivery_task_id": "T-PARENT-F",
+    "subject_sha256": "a541ab1c7c478ba8039bb0a83154b51d450d6c231f907458b740e3c511474a28",
+    "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b",
+    "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\repair-Full\\.project-governance\\tasks\\T-PARENT-F\\evidence\\synthetic-stale-old.md",
+    "coverage": "Complete",
+    "unreviewed_items": [],
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/round/stale-old"
+    ],
+    "findings": [],
+    "resolutions": []
+  },
+  "expected": "Rejected",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "rounds must reference the current saved delivery; an older or ambiguous delivery cannot count",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_boundaries.py\", line 30, in <lambda>\n    case('R'+k+'02','Old delivery cannot continue count after saved repair',roundentry(parent,'stale-old'), 'Rejected',lambda:write_entry(parent,roundentry(parent,'stale-old-again')),reject)\n                                                                                                                              ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 386, in append_review\n    raise GovernanceError(\"rounds must reference the current saved delivery; an older or ambiguous delivery cannot count\")\ngovernance_artifacts.GovernanceError: rounds must reference the current saved delivery; an older or ambiguous delivery cannot count\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/RF02.json"
+  ]
+}

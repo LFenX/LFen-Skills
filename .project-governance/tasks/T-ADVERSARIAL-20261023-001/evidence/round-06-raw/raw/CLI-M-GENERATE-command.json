@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\generate_review_views.py",
+    "--project-root",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal",
+    "--project-id",
+    "P-AR06"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z",
+  "returncode": 0,
+  "stdout": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\reviews\\project-status.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\reviews\\project-status.md.view.json\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\reviews\\T-LIFECYCLE-MINIMAL.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\reviews\\T-LIFECYCLE-MINIMAL.md.view.json\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\matrices\\legacy-137-to-meta-types.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\matrices\\legacy-137-to-meta-types.md.view.json\n",
+  "stderr": "",
+  "at": "2026-10-23T14:07:25.005915Z"
+}

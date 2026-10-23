@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Temp\AR05-20261023T132809Z-e86657dd\phase4.py", line 63, in <module>
+    actual={'full_matches':after['properties']['adversarial_review']==expected,'minimal_matches':minimal['properties']['task_outcome']['properties']['adversarial_review']==expected}
+                                                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'properties'

@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "full-new-session-one",
+  "started_at": "2026-10-23T13:32:51.474069Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-FULL-BASIC",
+  "subject_sha256": "d86627ffb43f73c1722660c0dfdc197e77dcc432547b4978f7e0e74638440a87",
+  "requirements_sha256": "2754b97d175b52101067aaa27d9a973fbe52300c44d8d5917f8100a7ecc1b67d",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-basic\\.project-governance\\tasks\\T-FULL-BASIC\\evidence\\full-new-session-one.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:32:51.474106Z"
+}

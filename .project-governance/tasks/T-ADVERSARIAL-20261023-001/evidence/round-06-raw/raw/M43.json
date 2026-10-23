@@ -1,0 +1,70 @@
+{
+  "id": "M43",
+  "condition": "Public signals and rendered review agree with authoritative state",
+  "input": {
+    "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\tasks\\T-LIFECYCLE-MINIMAL"
+  },
+  "expected": "InProgress / clean=1 in signal and Markdown",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "signal": {
+        "task_id": "T-LIFECYCLE-MINIMAL",
+        "carrier": "Minimal",
+        "lifecycle_state": "Completed",
+        "unknown_blockers": [],
+        "pending_acceptance": true,
+        "engineering_recorded": true,
+        "user_decision": "Pending",
+        "adversarial_review": {
+          "status": "InProgress",
+          "clean_streak": 1,
+          "rounds": 9,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "task_id": "T-LIFECYCLE-MINIMAL",
+            "subject_sha256": "376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294",
+            "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+          },
+          "current_delivery": {
+            "task_id": "T-LIFECYCLE-MINIMAL",
+            "subject_sha256": "376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294"
+          }
+        },
+        "minimal_eligibility": {
+          "risk_level": "Low",
+          "reversible": true,
+          "single_scope": true,
+          "external_system_effect": false,
+          "production_release": false,
+          "security_privacy_impact": false,
+          "extension_triggers": {
+            "E01": "Inactive",
+            "E02": "Inactive",
+            "E03": "Inactive",
+            "E04": "Inactive",
+            "E05": "Inactive"
+          },
+          "blocking_unknowns": [],
+          "special_gates": [],
+          "evidence_refs": [
+            "synthetic-ar06://temp-only/low",
+            "synthetic-ar06://temp-only/reversible",
+            "synthetic-ar06://temp-only/single",
+            "synthetic-ar06://temp-only/noexternal",
+            "synthetic-ar06://temp-only/noprod",
+            "synthetic-ar06://temp-only/nosecurity",
+            "synthetic-ar06://temp-only/noextension"
+          ]
+        },
+        "upgrade_pending": false,
+        "upgrade_reason": null
+      },
+      "markdown": "raw/M43-review.md"
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/M43.json"
+  ]
+}

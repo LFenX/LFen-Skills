@@ -1,0 +1,12 @@
+{
+  "start_utc": "2026-10-23T13:28:09.8996032Z",
+  "end_utc": "2026-10-23T13:47:50.687290Z",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "python": "3.13.0",
+  "jsonschema": "4.26.0",
+  "powershell": "7.6.5",
+  "git": "git version 2.56.0.windows.2",
+  "source_head": "d7264d7898cd9695cb2d464f98fa9630bea27659",
+  "source_bundle_sha256": "f0f3ce7fedddffcc889a3ec941009839521f0705a62e19b1fcea11aaf585e6af",
+  "frozen_files": 96
+}

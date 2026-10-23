@@ -1,0 +1,17 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\signals.py",
+    "--project-root",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-derived"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:42:00.930138Z",
+  "ended_at": "2026-10-23T13:42:01.073761Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"blocking_unknowns\": [],\n  \"derivation_audit\": {\n    \"available\": true,\n    \"by_task\": [],\n    \"recorded_but_not_created\": [],\n    \"relation_counts\": {}\n  },\n  \"minimal_eligibility_facts\": [\n    {\n      \"eligibility\": {\n        \"blocking_unknowns\": [],\n        \"evidence_refs\": [\n          \"ar05-fixture://low\",\n          \"ar05-fixture://reversible\",\n          \"ar05-fixture://single\",\n          \"ar05-fixture://local\",\n          \"ar05-fixture://no-production\",\n          \"ar05-fixture://no-security\",\n          \"ar05-fixture://no-extensions\"\n        ],\n        \"extension_triggers\": {\n          \"E01\": \"Inactive\",\n          \"E02\": \"Inactive\",\n          \"E03\": \"Inactive\",\n          \"E04\": \"Inactive\",\n          \"E05\": \"Inactive\"\n        },\n        \"external_system_effect\": false,\n        \"production_release\": false,\n        \"reversible\": true,\n        \"risk_level\": \"Low\",\n        \"security_privacy_impact\": false,\n        \"single_scope\": true,\n        \"special_gates\": []\n      },\n      \"task_id\": \"T-MIN-DERIVED\"\n    }\n  ],\n  \"pending_acceptance_tasks\": [\n    \"T-MIN-DERIVED\"\n  ],\n  \"project_root\": \"C:\\\\Users\\\\Administrator\\\\AppData\\\\Local\\\\Temp\\\\AR05-20261023T132809Z-e86657dd\\\\fixtures\\\\attempt5\\\\min-derived\",\n  \"recommended_commands\": [\n    {\n      \"command\": \"verify\",\n      \"reason\": \"此前审查会话已结束，当前证明已失效；重新启动须取得用户真实新决定。\"\n    }\n  ],\n  \"snapshot_stale\": [],\n  \"status\": \"Ready\",\n  \"task_progress\": [\n    {\n      \"adversarial_review\": {\n        \"clean_streak\": 0,\n        \"current_delivery\": {\n          \"subject_sha256\": \"4ef0b226db9aeb188ed55096694bbf3ad744f8a66e8f92b85125283d77a8d5fa\",\n          \"task_id\": \"T-MIN-DERIVED\"\n        },\n        \"open_findings\": [],\n        \"reviewed_delivery\": {\n          \"requirements_sha256\": \"152f0ea5536f25b1bdfd520c777c5da77c9410e6a97fde44b4eabdbc65b1e54f\",\n          \"subject_sha256\": \"4ef0b226db9aeb188ed55096694bbf3ad744f8a66e8f92b85125283d77a8d5fa\",\n          \"task_id\": \"T-MIN-DERIVED\"\n        },\n        \"rounds\": 3,\n        \"status\": \"RestartRequired\"\n      },\n      \"engineering_recorded\": true,\n      \"pending_acceptance\": true,\n      \"task_id\": \"T-MIN-DERIVED\",\n      \"user_decision\": \"Pending\"\n    }\n  ],\n  \"update_available\": null\n}\n",
+  "stderr": ""
+}

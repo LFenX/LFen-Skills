@@ -1,0 +1,22 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\full-basic\\.project-governance\\tasks\\T-FULL-BASIC",
+    "--entry-json-file",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\inputs\\001-full-before-completion.json",
+    "--reason",
+    "AR05 synthetic protocol test",
+    "--basis",
+    "ar05-fixture://synthetic-user-and-review"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:32:06.387857Z",
+  "ended_at": "2026-10-23T13:32:06.593434Z",
+  "exit_code": 2,
+  "stdout": "",
+  "stderr": "ERROR: save the engineering result before offering adversarial review\n"
+}

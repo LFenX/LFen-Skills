@@ -1,0 +1,20 @@
+{
+  "id": "F44",
+  "condition": "Generic amendment cannot erase review history",
+  "input": {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\tasks\\T-LIFECYCLE-FULL\\after.json",
+    "field": "adversarial_review",
+    "new": []
+  },
+  "expected": "Rejected",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "adversarial_review is append-only; use adversarial_review.py with an actual record",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_suite.py\", line 87, in <lambda>\n    case(k+'44','Generic amendment cannot erase review history',{'path':str(path),'field':generic,'new':[]},'Rejected',lambda:ga.amend_record(path,dotted_path=generic,new_value=[],reason='SYNTHETIC erasure',basis=SYN),reject)\n                                                                                                                              ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\governance_artifacts.py\", line 3236, in amend_record\n    old_value, changed = _set_dotted_path(document, dotted_path, new_value, allow_add=allow_add)\n                         ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\governance_artifacts.py\", line 3143, in _set_dotted_path\n    raise GovernanceError(\"adversarial_review is append-only; use adversarial_review.py with an actual record\")\ngovernance_artifacts.GovernanceError: adversarial_review is append-only; use adversarial_review.py with an actual record\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/F44.json"
+  ]
+}

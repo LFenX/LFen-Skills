@@ -1,0 +1,35 @@
+{
+  "request_snapshot": {
+    "language": "zh",
+    "text": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "captured_at": "2026-10-23T09:14:37.697082Z",
+    "source": "user-directive://current-thread/2026-10-23/adversarial-review"
+  },
+  "clarification": {
+    "mode": "Skipped",
+    "state": "Settled",
+    "notice": "你的需求已明确，本次跳过澄清提问。",
+    "survey_refs": [
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-001/survey.json"
+    ],
+    "rounds": [],
+    "basis": "已勘察既有结果、收尾、修订入口，用户明确启动与终止条件。",
+    "reopened_by": []
+  },
+  "offer_decision": [
+    {
+      "event": "Offer",
+      "recorded_at": "2026-10-23T09:34:53.863146Z",
+      "prompt": "本任务的工程实现、验证和结果留档已完成。是否现在启动多轮对抗性审查？开始后将逐条核对原始需求，发现问题则修复并复验，直至同一交付版本连续两轮完整审查均未发现问题。",
+      "evidence_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-offer.json"
+    },
+    {
+      "event": "Decision",
+      "recorded_at": "2026-10-23T09:58:06.866514Z",
+      "outcome": "Accepted",
+      "response": "开始审查",
+      "decided_by": "user",
+      "evidence_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+    }
+  ]
+}

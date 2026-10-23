@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-23T13:41:48.182732Z",
+  "actual": {
+    "completed_at": "2026-10-23T09:34:07.840577Z",
+    "offers": [
+      {
+        "event": "Offer",
+        "recorded_at": "2026-10-23T09:34:53.863146Z",
+        "prompt": "本任务的工程实现、验证和结果留档已完成。是否现在启动多轮对抗性审查？开始后将逐条核对原始需求，发现问题则修复并复验，直至同一交付版本连续两轮完整审查均未发现问题。",
+        "evidence_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-offer.json"
+      }
+    ],
+    "decisions": [
+      {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T09:58:06.866514Z",
+        "outcome": "Accepted",
+        "response": "开始审查",
+        "decided_by": "user",
+        "evidence_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+      }
+    ]
+  }
+}

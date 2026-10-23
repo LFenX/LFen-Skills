@@ -1,0 +1,10 @@
+{
+  "id": "AR06-INC01",
+  "observed_at": "2026-10-23T14:08:50.1898947Z",
+  "kind": "incidental_exposure",
+  "source": ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/validation-summary.json",
+  "facts": "While reading the allowed current-005 engineering verification summary to check installed-combination evidence, the terminal also displayed existing review aggregate fields and one prior finding identifier. No prior finding description or round report was read. The identifier is not repeated in this archive.",
+  "ordering": "All 158 case records and independent finding reproductions were already complete before this exposure; F46/M46 reproduced at 13:58:59Z onward, CLI decision/round/query evidence at 14:03:05Z–14:03:06Z.",
+  "handling": "Stopped further reading of those aggregates; did not use them for test design, expected results, issue classification, or conclusions. Disclosed immediately to parent. Parent instructed truthful reporting and completion without rerunning cases.",
+  "impact": "The read-isolation restriction was not completely met. The issue was independently reproduced before exposure; this round contains a finding and does not count as a clean round."
+}

@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "min-derived-r1",
+  "started_at": "2026-10-23T13:41:59.190079Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-MIN-DERIVED",
+  "subject_sha256": "4ef0b226db9aeb188ed55096694bbf3ad744f8a66e8f92b85125283d77a8d5fa",
+  "requirements_sha256": "152f0ea5536f25b1bdfd520c777c5da77c9410e6a97fde44b4eabdbc65b1e54f",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-derived\\.project-governance\\tasks\\T-MIN-DERIVED\\evidence\\min-derived-r1.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:41:59.190106Z"
+}

@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "requirement-first",
+  "started_at": "2026-10-23T13:38:33.939714Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-REQUIREMENT-BINDING",
+  "subject_sha256": "b989fd383ba0c47b3aa6b2ff5b1f382fe4aba226a4a1a2c91c6e02623fa2eeaf",
+  "requirements_sha256": "8e19164258965bead385b2a524e82f396fa6f28f48a30ade866d96671316a7ea",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\requirement-binding\\.project-governance\\tasks\\T-REQUIREMENT-BINDING\\evidence\\requirement-first.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:38:33.939742Z"
+}

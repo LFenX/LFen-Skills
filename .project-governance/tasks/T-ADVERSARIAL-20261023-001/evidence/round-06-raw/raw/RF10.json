@@ -1,0 +1,34 @@
+{
+  "id": "RF10",
+  "condition": "Caller cannot suppress computed session-end receipt",
+  "input": {
+    "event": "Round",
+    "round_id": "forged-completion",
+    "recorded_at": "2026-10-23T14:03:00.520851Z",
+    "started_at": "2026-10-23T14:03:00.519746Z",
+    "reviewer": "synthetic-ar06-reviewer",
+    "delivery_task_id": "T-BLOCKED-F",
+    "subject_sha256": "08423ae6e02f076177d92f18acbcc56d593f0ba6c86c0cad3d05148d15f9ee50",
+    "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b",
+    "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\blocked-resume-Full\\.project-governance\\tasks\\T-BLOCKED-F\\evidence\\synthetic-forged-completion.md",
+    "coverage": "Complete",
+    "unreviewed_items": [],
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/round/forged-completion"
+    ],
+    "findings": [],
+    "resolutions": [],
+    "session_completed": false
+  },
+  "expected": "Rejected without changing stored outcome",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "session_completed must match the actual computed clean pair",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_boundaries.py\", line 51, in <lambda>\n    a=case('R'+k+'10','Caller cannot suppress computed session-end receipt',e,'Rejected without changing stored outcome',lambda:write_entry(active,e),reject)\n                                                                                                                                ~~~~~~~~~~~^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 426, in append_review\n    raise GovernanceError(\"session_completed must match the actual computed clean pair\")\ngovernance_artifacts.GovernanceError: session_completed must match the actual computed clean pair\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/RF10.json"
+  ]
+}

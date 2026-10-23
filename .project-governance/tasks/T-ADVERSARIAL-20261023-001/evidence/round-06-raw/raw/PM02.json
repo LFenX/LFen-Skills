@@ -1,0 +1,156 @@
+{
+  "id": "PM02",
+  "condition": "Repair association cannot cross project authority boundary",
+  "input": {
+    "candidate_contract": {
+      "objective": "Update the synthetic local label.",
+      "request_snapshot": {
+        "language": "en",
+        "text": "Update the synthetic local label.",
+        "captured_at": "2026-10-23T14:07:24.426623Z",
+        "source": "synthetic-ar06://temp-only/request"
+      },
+      "requirement_items": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "Update the synthetic local label.",
+          "reading": "Synthetic isolated protocol fixture.",
+          "state": "Covered",
+          "evidence_refs": [
+            "synthetic-ar06://temp-only/requirement"
+          ],
+          "acceptance_refs": [
+            0
+          ],
+          "review": {
+            "source_sha256": "13b5bdbb4f1d4b3814bcca6cedca8e5f01b31cd073ea96cf4b839e7606fd2946",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "Synthetic local label",
+                "expected": "Synthetic local label validated",
+                "actual": "Synthetic local label validated",
+                "result": "Passed",
+                "evidence_refs": [
+                  "synthetic-ar06://temp-only/requirement-case"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "decisions": [
+        {
+          "id": "D01",
+          "kind": "Proceed",
+          "presented": "Synthetic Temp-only label scope",
+          "response": "SYNTHETIC proceed",
+          "decided_by": "synthetic-test-actor",
+          "decided_at": "2026-10-23T14:07:24.426615Z",
+          "outcome": "Approved",
+          "evidence_ref": "synthetic-ar06://temp-only/proceed"
+        }
+      ],
+      "clarification": {
+        "state": "Settled",
+        "mode": "Skipped",
+        "notice": "Synthetic fixture is explicit; question round skipped.",
+        "survey_refs": [
+          "survey.md"
+        ],
+        "rounds": [],
+        "basis": "Synthetic isolated local fixture.",
+        "reopened_by": []
+      },
+      "scope": "Synthetic local label",
+      "out_of_scope": [
+        "All real files"
+      ],
+      "allowed_paths": [
+        "label.txt"
+      ],
+      "forbidden_actions": [
+        "External side effects"
+      ],
+      "acceptance": "Synthetic label check passes",
+      "task_profile": {
+        "delivery_scenario": "DS-03",
+        "development_type": "DT-08",
+        "change_surface": "UI/UX",
+        "risk_level": "Low",
+        "extension_triggers": {
+          "E01": "Inactive",
+          "E02": "Inactive",
+          "E03": "Inactive",
+          "E04": "Inactive",
+          "E05": "Inactive"
+        }
+      },
+      "plan": {
+        "selected_approach": "Edit synthetic label",
+        "alternative_rejected": "Leave synthetic label unchanged",
+        "steps": [
+          "Edit synthetic label"
+        ],
+        "verification": "Run synthetic check",
+        "rollback": "Restore synthetic label"
+      },
+      "first_principles_analysis": {
+        "outcome": "Update the synthetic local label.",
+        "facts": [
+          "Synthetic label exists"
+        ],
+        "constraints": [
+          "Temp only"
+        ],
+        "assumptions": [
+          "Synthetic input only"
+        ],
+        "unknowns": [],
+        "fundamentals": [
+          "A label is a value",
+          "The edit is reversible"
+        ],
+        "causal_chain": [
+          "Changing label enables synthetic check"
+        ],
+        "alternatives": [
+          "Edit synthetic label",
+          "Leave synthetic label unchanged"
+        ],
+        "decision_criteria": [
+          "Synthetic check passes"
+        ],
+        "selected_approach": "Edit synthetic label",
+        "validation": "Run synthetic check"
+      },
+      "source_snapshot": {
+        "repository": "io-Minimal",
+        "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\final-fixtures\\io-Minimal",
+        "vcs": "unavailable",
+        "captured_at": "2026-10-23T14:07:24.428696Z"
+      },
+      "task_id": "T-NOT-CHILD-M",
+      "project_id": "P-SYNTHETIC-OTHER",
+      "depends_on": [
+        "T-OWNERSHIP-P-M"
+      ],
+      "proof_contract_version": "implemented-proof-v1"
+    },
+    "parent": "T-OWNERSHIP-P-M"
+  },
+  "expected": "Rejected",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "review parent must be a completed engineering task in the same project",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_final_checks.py\", line 29, in <lambda>\n    case('P'+k+'02','Repair association cannot cross project authority boundary',{'candidate_contract':contract,'parent':p.name},'Rejected',lambda:ar.require_review_parent(not_child,contract,p.name),reject)\n                                                                                                                                                   ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 339, in require_review_parent\n    raise GovernanceError(\"review parent must be a completed engineering task in the same project\")\ngovernance_artifacts.GovernanceError: review parent must be a completed engineering task in the same project\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/PM02.json"
+  ]
+}

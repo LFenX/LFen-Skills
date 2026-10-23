@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-derived\\.project-governance\\tasks\\T-MIN-DERIVED"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:42:00.197660Z",
+  "ended_at": "2026-10-23T13:42:00.305450Z",
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 2,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-MIN-DERIVED\",\n    \"subject_sha256\": \"4ef0b226db9aeb188ed55096694bbf3ad744f8a66e8f92b85125283d77a8d5fa\",\n    \"requirements_sha256\": \"152f0ea5536f25b1bdfd520c777c5da77c9410e6a97fde44b4eabdbc65b1e54f\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-MIN-DERIVED\",\n    \"subject_sha256\": \"4ef0b226db9aeb188ed55096694bbf3ad744f8a66e8f92b85125283d77a8d5fa\"\n  },\n  \"requirements_sha256\": \"152f0ea5536f25b1bdfd520c777c5da77c9410e6a97fde44b4eabdbc65b1e54f\",\n  \"delivery_task_id\": \"T-MIN-DERIVED\",\n  \"subject_sha256\": \"4ef0b226db9aeb188ed55096694bbf3ad744f8a66e8f92b85125283d77a8d5fa\"\n}\n",
+  "stderr": ""
+}

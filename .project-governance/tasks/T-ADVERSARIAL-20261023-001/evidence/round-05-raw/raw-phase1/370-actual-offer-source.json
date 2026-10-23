@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-23T13:41:48.191788Z",
+  "actual": {
+    "path": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-offer.json",
+    "sha256": "34064132c16da3384e25198d7858d88a0ef52ea7c04f0fac32586b7db2e0c3f4",
+    "text": "{\n  \"recorded_at\": \"2026-10-23T09:34:53.863146Z\",\n  \"tool\": \"functions.request_user_input_async\",\n  \"prompt\": \"本任务的工程实现、验证和结果留档已完成。是否现在启动多轮对抗性审查？开始后将逐条核对原始需求，发现问题则修复并复验，直至同一交付版本连续两轮完整审查均未发现问题。\",\n  \"options\": [\n    \"开始审查\",\n    \"暂不需要\",\n    \"稍后决定\"\n  ],\n  \"tool_result\": {\n    \"accepted\": true\n  },\n  \"response\": \"No answer received at registration; no review started\"\n}\n"
+  }
+}

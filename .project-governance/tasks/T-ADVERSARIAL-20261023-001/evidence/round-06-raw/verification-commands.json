@@ -1,0 +1,66 @@
+{
+  "cwd": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "python": "3.13.0",
+    "powershell": "7.6.5"
+  },
+  "top_level": [
+    {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "review_cases.py"
+      ],
+      "phase": "first setup failure",
+      "output": "raw-setup-output.txt",
+      "direct_python_exit_not_captured": true,
+      "result": "Uncaught schema error: synthetic R01 invalid; not a product issue."
+    },
+    {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "review_cases.py"
+      ],
+      "phase": "corrected setup",
+      "output": "raw-setup-retry-output.txt",
+      "result": "Both carriers validate; NotOffered."
+    },
+    {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "execute_suite.py"
+      ],
+      "output": "suite-output.txt",
+      "result": "92 assertions; 2 failing assertions for AR06-F01."
+    },
+    {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "execute_boundaries.py"
+      ],
+      "output": "boundaries-output.txt",
+      "result": "141 cumulative assertions; 4 failing assertions for AR06-F01."
+    },
+    {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "execute_final_checks.py"
+      ],
+      "output": "final-checks-output.txt",
+      "result": "158 cumulative assertions; 4 failing assertions for AR06-F01."
+    }
+  ],
+  "exact_cli_io": "raw/*-command.json",
+  "api_input_output": "raw/api-events.jsonl plus per-case raw/*.json",
+  "note": "The original PowerShell wrappers ended with Get-Content; wrapper exit0 does not independently capture each Python exit code. Every public CLI invocation captures its actual returncode/stdout/stderr."
+}

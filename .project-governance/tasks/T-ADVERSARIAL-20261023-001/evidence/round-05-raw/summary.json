@@ -1,0 +1,33 @@
+{
+  "review_id": "AR-05",
+  "reviewer": "/root/adversarial_round_05",
+  "coverage": "Complete",
+  "started_at": "2026-10-23T13:28:09.8996032Z",
+  "ended_at": "2026-10-23T13:47:50.687290Z",
+  "delivery_task_id": "T-ADVERSARIAL-20261023-005",
+  "subject_sha256": "1ec6406b7c95580a24ef77723932c6bfd76fbd1a40bbf900f685f7261fd6acac",
+  "requirements_sha256": "57bfbf29e4c6814f1e5638d026ebc0c59a448ec654942469a082c53d94dd92ca",
+  "source_head": "d7264d7898cd9695cb2d464f98fa9630bea27659",
+  "source_sha256": "f0f3ce7fedddffcc889a3ec941009839521f0705a62e19b1fcea11aaf585e6af",
+  "frozen_files": 96,
+  "raw_case_count": 310,
+  "passed": 308,
+  "fixture_input_failures_corrected": 2,
+  "effective_obligations_passed": 308,
+  "findings": [],
+  "unreviewed_items": [],
+  "unresolved_items": [],
+  "limitations": [
+    "本轮仅为一次独立完整审查，不代表已满足整个会话连续两轮条件。",
+    "状态与摘要只能核验记录关系，不能证明任意人填入的自然语言来源真实；真实同意另核对原件及父任务提供的工具答复来源。",
+    "删除/篡改报告的用例刻意保留其末态；原始命令结果及历史摘要见raw-phase1与fixture-snapshot.zip。"
+  ],
+  "user_decision": "Pending",
+  "report_ref": "report.md",
+  "cases_ref": "cases.json",
+  "coverage_ref": "coverage.json",
+  "commands_ref": "commands.json",
+  "case_evidence_index_ref": "case-evidence-index.json",
+  "source_excerpts_ref": "source-excerpts.json",
+  "fixture_archive_ref": "fixture-snapshot.zip"
+}

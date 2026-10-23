@@ -1,0 +1,6 @@
+[
+  {
+    "path": ".project-governance/generated/reviews/T-MIN-DERIVED.md",
+    "text": "# Task T-MIN-DERIVED\n\n- Carrier: Minimal aggregate (TaskContract + RunLedger + TaskOutcome)\n- Status: Implemented\n- User decision: 待用户验收\n- Adversarial review: {'status': 'NotOffered', 'clean_streak': 0, 'rounds': 0, 'open_findings': [], 'current_delivery': {'task_id': 'T-MIN-DERIVED', 'subject_sha256': '4ef0b226db9aeb188ed55096694bbf3ad744f8a66e8f92b85125283d77a8d5fa'}}\n- Proof validation: 当前契约记录校验通过（不替代人的验收）\n- Objective: Change the local label for synthetic min-derived.\n- Scope: One local label.\n- Acceptance: The fixture label is valid.\n\n## Events\n\n- 1: run_started — AR05 synthetic run_started\n- 2: verification — AR05 synthetic verification\n- 3: run_finished — Minimal task closed as Implemented.\n\n## Verification\n\n- Passed: AR05 synthetic label check\n"
+  }
+]

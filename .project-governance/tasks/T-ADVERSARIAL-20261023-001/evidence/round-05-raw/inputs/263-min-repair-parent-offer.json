@@ -1,0 +1,6 @@
+{
+  "event": "Offer",
+  "prompt": "Engineering result saved. Start multi-round adversarial review? (synthetic question)",
+  "evidence_ref": "ar05-fixture://post-completion-question",
+  "recorded_at": "2026-10-23T13:35:30.938846Z"
+}

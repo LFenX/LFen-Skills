@@ -1,0 +1,29 @@
+{
+  "id": "CLIM04",
+  "condition": "Read-only CLI subject query matches actual delivery hash",
+  "input": {
+    "task": "T-CLI-R-M"
+  },
+  "expected": "exit0 / subject hash equals saved subject",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\get_approval_subject.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\cli-repair-Minimal\\.project-governance\\tasks\\T-CLI-R-M"
+      ],
+      "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z",
+      "returncode": 0,
+      "stdout": "b126c23533359fa373c6bda69af9fc7639d513cfdfdeab2e19992a4fd99ae83d\n",
+      "stderr": "",
+      "at": "2026-10-23T14:03:08.082055Z"
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/CLIM04.json"
+  ]
+}

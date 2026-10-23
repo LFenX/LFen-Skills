@@ -1,0 +1,26 @@
+{
+  "id": "HM09",
+  "condition": "Pre-report-binding clean pair does not become current Passed",
+  "input": {
+    "synthetic_legacy_input": "raw/HM09-historical-input.json"
+  },
+  "expected": "LegacyNotRevalidated / clean 0",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "LegacyNotRevalidated",
+      "clean_streak": 0,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-LEGACY-M",
+        "subject_sha256": "eb24cc785b5f5975a9f7b15c949ecafc756d4bf27f2929034c584746a6648823",
+        "requirements_sha256": "fb88577b990880e3fc338ccdb5698314df843da854f512a24493b7eedacb0bec"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/HM09.json"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "frozen_at": "2026-10-23T14:22:49.327775Z",
+  "source_sha256": "b3c52807836222f13a4a85acd5ce53add8e2a1a98eaf7856331580885cbf8a66",
+  "source_receipt": ".project-governance/tasks/T-ADVERSARIAL-20261023-006/evidence/source-files-b3c52807836222f1.json",
+  "verified_source_files": 96,
+  "owned_source_files": [
+    "scripts/adversarial_review.py",
+    "scripts/self_test.py",
+    "commands/verify.md",
+    "assets/runtime/schemas/task-after.schema.json",
+    "assets/runtime/schemas/minimal-task-record.schema.json",
+    "assets/runtime/embedded-manifest.json"
+  ],
+  "parent_review": "T-ADVERSARIAL-20261023-001",
+  "actual_rounds_completed": 6,
+  "actual_clean_streak": 0
+}

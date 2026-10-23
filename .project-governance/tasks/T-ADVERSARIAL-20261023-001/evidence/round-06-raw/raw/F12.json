@@ -1,0 +1,33 @@
+{
+  "id": "F12",
+  "condition": "Later real explicit start reuses existing offer",
+  "input": {
+    "event": "Decision",
+    "recorded_at": "2026-10-23T13:58:55.998663Z",
+    "outcome": "Accepted",
+    "response": "SYNTHETIC Accepted",
+    "decided_by": "synthetic-test-actor",
+    "evidence_ref": "synthetic-ar06://temp-only/decision"
+  },
+  "expected": {
+    "status": "InProgress",
+    "clean_streak": 0
+  },
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": [],
+      "current_delivery": {
+        "task_id": "T-LIFECYCLE-FULL",
+        "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/F12.json"
+  ]
+}

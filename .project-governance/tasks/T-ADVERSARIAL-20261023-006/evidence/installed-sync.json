@@ -1,0 +1,37 @@
+{
+  "synced_at": "2026-10-23T14:22:49.327364Z",
+  "owned_files": [
+    {
+      "path": "scripts/adversarial_review.py",
+      "previous_sha256": "34942c40222f5ea00a2707da9239039d2ba886df306d2fcaff2b93e63814ce02",
+      "new_sha256": "b5b169c7dba92633d893ff4f0851bad2d40402b4e70900c3f27de643b1b34cec"
+    },
+    {
+      "path": "scripts/self_test.py",
+      "previous_sha256": "1297bf8ba7dd620cbb908bcf91acf9c23a0febf226a7a968cee4a1853d697910",
+      "new_sha256": "36cae25c20042da6671df12e5dfc5009e512aaf26537628dc9fe675b9e2bdb25"
+    },
+    {
+      "path": "commands/verify.md",
+      "previous_sha256": "f932cc83dddf106f09833aa0d20f6dc93b81a4806e99d1666f98f585492e6563",
+      "new_sha256": "26c867262c6c7f8c0533d0cfc87da2ba14f0068abd5ae171898b094b125a9310"
+    },
+    {
+      "path": "assets/runtime/schemas/task-after.schema.json",
+      "previous_sha256": "eda5d2453476a7fabe5045c542dac33c8c8f2ecf776807fa006f58fe298500dd",
+      "new_sha256": "20c4f955ceffd42eff028e8b12a4b9a6790bbfc97f144661b986af5f18f29fd1"
+    },
+    {
+      "path": "assets/runtime/schemas/minimal-task-record.schema.json",
+      "previous_sha256": "2af18fdebbfd3b86140cbc4ea746804c5661df84c25fd7f44526d770700e8b0c",
+      "new_sha256": "9161581addacee7e0bfe40d353045ec241f15595495ef88e9a747f2072958e76"
+    },
+    {
+      "path": "assets/runtime/embedded-manifest.json",
+      "previous_sha256": "d8f6b451125e2da6d2b06dc2f03aeb558e891e18dd6a0d087f9cb2172baae7cb",
+      "new_sha256": "ff37ff240263f3f3928af0095e1341320736b41d5653ee6ccd27906051d6508f"
+    }
+  ],
+  "preserved_peer_governance_sha256": "add9aff766c9b5ddb3eed0cdf5da8f7e464707648f5ea4870c98a462002ae153",
+  "permission_ref": "user-question-reply://current-thread/call_0f72e799e8eb4dc19064e907a3fb9366/0"
+}

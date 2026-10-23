@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "min-legacy-resume",
+  "started_at": "2026-10-23T13:38:31.696443Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-MIN-OLD-PROTOCOL",
+  "subject_sha256": "328d542fc6d597c2bcfb1dc269c0ef58e39a14a24ad2123e6903aaf320392bcb",
+  "requirements_sha256": "d3acb3879094fb794b0a6d2c57e400a3bcde7b47ff7b1cd8de77e111ddc88e80",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\min-old-protocol\\.project-governance\\tasks\\T-MIN-OLD-PROTOCOL\\evidence\\min-legacy-resume.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:38:31.696481Z"
+}

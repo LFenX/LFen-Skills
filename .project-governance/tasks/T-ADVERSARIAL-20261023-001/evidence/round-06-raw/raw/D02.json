@@ -1,0 +1,26 @@
+{
+  "id": "D02",
+  "condition": "Installed distribution equals 96-file frozen bundle except explicitly retained other-chat patch",
+  "input": {
+    "expected_installed_override": "add9aff766c9b5ddb3eed0cdf5da8f7e464707648f5ea4870c98a462002ae153"
+  },
+  "expected": "95 equal, only known governance_artifacts.py patch differs",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "installed": "C:\\Users\\Administrator\\.codex\\skills\\run-governed-product-workflow",
+      "file_count": 96,
+      "differences": [
+        {
+          "path": "scripts/governance_artifacts.py",
+          "installed": "add9aff766c9b5ddb3eed0cdf5da8f7e464707648f5ea4870c98a462002ae153",
+          "repo": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574"
+        }
+      ]
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/D02.json"
+  ]
+}

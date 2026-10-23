@@ -1,0 +1,18 @@
+{
+  "event": "Round",
+  "round_id": "full-acceptance-only",
+  "started_at": "2026-10-23T13:38:35.488117Z",
+  "reviewer": "AR05 synthetic fixture reviewer",
+  "delivery_task_id": "T-FULL-CONCURRENT",
+  "subject_sha256": "9d93689d60d04cd5e936381ebb2a6dfa4e8a597a88e1c29ea7760b96d295034a",
+  "requirements_sha256": "0981994ceec5bd0c20312ddf823ebbc5d09836f9d4ed8f693b2272a8cfd78c5e",
+  "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-concurrent\\.project-governance\\tasks\\T-FULL-CONCURRENT\\evidence\\full-acceptance-only.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    "ar05-fixture://coverage-and-tests"
+  ],
+  "findings": [],
+  "resolutions": [],
+  "recorded_at": "2026-10-23T13:38:35.488148Z"
+}

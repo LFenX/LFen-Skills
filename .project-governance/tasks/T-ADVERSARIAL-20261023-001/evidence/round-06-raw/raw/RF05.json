@@ -1,0 +1,30 @@
+{
+  "id": "RF05",
+  "condition": "Second full clean round must remain on repaired version",
+  "input": {
+    "delivery": "T-REPAIR-F"
+  },
+  "expected": "Passed / clean 2",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 4,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-REPAIR-F",
+        "subject_sha256": "51bfcff027cd319a1bd04fb78905d4d1956d0b7a4656fb655537680f0339ea21",
+        "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+      },
+      "current_delivery": {
+        "task_id": "T-REPAIR-F",
+        "subject_sha256": "51bfcff027cd319a1bd04fb78905d4d1956d0b7a4656fb655537680f0339ea21"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/RF05.json"
+  ]
+}

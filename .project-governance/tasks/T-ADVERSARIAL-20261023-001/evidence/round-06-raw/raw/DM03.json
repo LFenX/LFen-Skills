@@ -1,0 +1,35 @@
+{
+  "id": "DM03",
+  "condition": "Documented generation command renders current review state from bound authority source",
+  "input": {
+    "command_evidence": "raw/CLI-M-GENERATE-command.json"
+  },
+  "expected": "exit0; task review shows InProgress/clean1 and independent Rejected Acceptance",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "cli": {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-X",
+          "utf8",
+          "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\generate_review_views.py",
+          "--project-root",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal",
+          "--project-id",
+          "P-AR06"
+        ],
+        "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z",
+        "returncode": 0,
+        "stdout": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\reviews\\project-status.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\reviews\\project-status.md.view.json\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\reviews\\T-LIFECYCLE-MINIMAL.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\reviews\\T-LIFECYCLE-MINIMAL.md.view.json\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\matrices\\legacy-137-to-meta-types.md\nC:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\generated\\matrices\\legacy-137-to-meta-types.md.view.json\n",
+        "stderr": "",
+        "at": "2026-10-23T14:07:25.005915Z"
+      },
+      "text": "# Task T-LIFECYCLE-MINIMAL\n\n- Carrier: Minimal aggregate (TaskContract + RunLedger + TaskOutcome)\n- Status: Implemented\n- User decision: 用户验收未通过\n- Adversarial review: {'status': 'InProgress', 'clean_streak': 1, 'rounds': 9, 'open_findings': [], 'reviewed_delivery': {'task_id': 'T-LIFECYCLE-MINIMAL', 'subject_sha256': '376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294', 'requirements_sha256': 'e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b'}, 'current_delivery': {'task_id': 'T-LIFECYCLE-MINIMAL', 'subject_sha256': '376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294'}}\n- Proof validation: 当前契约记录校验通过（不替代人的验收）\n- Objective: Update the synthetic local label.\n- Scope: Synthetic local label\n- Acceptance: Synthetic label check passes\n\n## Events\n\n- 1: run_started — Synthetic fixture starts\n- 2: verification — Synthetic fixture verified\n- 3: run_finished — Minimal task closed as Implemented.\n\n## Verification\n\n- Passed: Synthetic fixture check\n"
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/DM03.json"
+  ]
+}

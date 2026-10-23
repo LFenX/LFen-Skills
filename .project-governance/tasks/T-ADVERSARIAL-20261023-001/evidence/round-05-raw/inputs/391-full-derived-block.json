@@ -1,0 +1,8 @@
+{
+  "event": "Blocked",
+  "reason": "Synthetic environment unavailable",
+  "evidence_refs": [
+    "ar05-fixture://missing"
+  ],
+  "recorded_at": "2026-10-23T13:41:51.749540Z"
+}

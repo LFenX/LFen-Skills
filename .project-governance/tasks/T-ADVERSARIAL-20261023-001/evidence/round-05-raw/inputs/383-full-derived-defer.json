@@ -1,0 +1,8 @@
+{
+  "event": "Decision",
+  "outcome": "Deferred",
+  "response": "Deferred (synthetic human fixture)",
+  "decided_by": "AR05 fixture actor",
+  "evidence_ref": "ar05-fixture://human-choice",
+  "recorded_at": "2026-10-23T13:41:50.603043Z"
+}

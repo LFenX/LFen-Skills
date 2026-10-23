@@ -1,0 +1,38 @@
+{
+  "id": "F23",
+  "condition": "Explicit user stop ends active work",
+  "input": {
+    "event": "Decision",
+    "recorded_at": "2026-10-23T13:58:56.675974Z",
+    "outcome": "Stopped",
+    "response": "SYNTHETIC Stopped",
+    "decided_by": "synthetic-test-actor",
+    "evidence_ref": "synthetic-ar06://temp-only/decision"
+  },
+  "expected": {
+    "status": "Stopped",
+    "clean_streak": 0
+  },
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "Stopped",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-LIFECYCLE-FULL",
+        "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5",
+        "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+      },
+      "current_delivery": {
+        "task_id": "T-LIFECYCLE-FULL",
+        "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/F23.json"
+  ]
+}

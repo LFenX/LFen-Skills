@@ -1,0 +1,22 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\fixtures\\attempt5\\full-basic\\.project-governance\\tasks\\T-FULL-BASIC",
+    "--entry-json-file",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd\\inputs\\022-full-active-deferred.json",
+    "--reason",
+    "AR05 synthetic protocol test",
+    "--basis",
+    "ar05-fixture://synthetic-user-and-review"
+  ],
+  "cwd": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\AR05-20261023T132809Z-e86657dd",
+  "started_at": "2026-10-23T13:32:43.886616Z",
+  "ended_at": "2026-10-23T13:32:44.077878Z",
+  "exit_code": 2,
+  "stdout": "",
+  "stderr": "ERROR: an active review only accepts an explicit stop decision\n"
+}

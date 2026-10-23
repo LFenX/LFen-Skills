@@ -1,0 +1,19 @@
+{
+  "observed_at": "2026-10-23T14:12:55.343598Z",
+  "source_commit": "d7264d7898cd9695cb2d464f98fa9630bea27659",
+  "observation": "第六轮独立公开API与CLI复现：Decision.response/decided_by/evidence_ref全为空白仍接受，随后两份报告可Passed。根因实测与源码只设minLength一致。158断言已完成，4失败同一缺陷，正式报告待归档。",
+  "evidence_refs": [
+    "C:/Users/ADMINI~1/AppData/Local/Temp/ar06-independent-20261023T135251Z/cases.json",
+    "C:/Users/ADMINI~1/AppData/Local/Temp/ar06-independent-20261023T135251Z/suite-output.txt",
+    ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+  ],
+  "scope_boundaries": [
+    "原实际审查尚未结束，继续原已授权范围修复复验",
+    "不修改其他用户决定契约，不引入新业务或事前无Offer模式",
+    "保留安装端add9aff独立治理补丁，不合入源码；源码在第六轮结束冻结核对前保持不变"
+  ],
+  "draft_correction": "Before formal initialization, replaced accidentally copied prior task HEAD with actual observed current HEAD",
+  "final_round_report": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-06-raw/report.md",
+  "confirmed_finding_id": "AR06-F01",
+  "formal_round_recorded_at": "2026-10-23T14:15:28.292293Z"
+}

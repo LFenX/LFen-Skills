@@ -1,0 +1,45 @@
+{
+  "id": "F43",
+  "condition": "Public signals and rendered review agree with authoritative state",
+  "input": {
+    "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Full\\.project-governance\\tasks\\T-LIFECYCLE-FULL"
+  },
+  "expected": "InProgress / clean=1 in signal and Markdown",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "signal": {
+        "task_id": "T-LIFECYCLE-FULL",
+        "carrier": "Full",
+        "lifecycle_state": "Frozen",
+        "unknown_blockers": [],
+        "pending_acceptance": true,
+        "engineering_recorded": true,
+        "user_decision": "Pending",
+        "adversarial_review": {
+          "status": "InProgress",
+          "clean_streak": 1,
+          "rounds": 9,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "task_id": "T-LIFECYCLE-FULL",
+            "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5",
+            "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+          },
+          "current_delivery": {
+            "task_id": "T-LIFECYCLE-FULL",
+            "subject_sha256": "7fe1e14735aee5f5bb02c64b2d45e8252b78ed706eb3749c20117cda01b19ae5"
+          }
+        },
+        "minimal_eligibility": null,
+        "upgrade_pending": false,
+        "upgrade_reason": null
+      },
+      "markdown": "raw/F43-review.md"
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/F43.json"
+  ]
+}

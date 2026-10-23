@@ -1,0 +1,21 @@
+{
+  "id": "RF08",
+  "condition": "Unfinished engineering cannot offer optional review",
+  "input": {
+    "event": "Offer",
+    "recorded_at": "2026-10-23T14:02:59.669255Z",
+    "prompt": "SYNTHETIC: engineering verified and saved. Start review?",
+    "evidence_ref": "synthetic-ar06://temp-only/offer"
+  },
+  "expected": "Rejected",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "save the engineering result before offering adversarial review",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_boundaries.py\", line 41, in <lambda>\n    case('R'+k+'08','Unfinished engineering cannot offer optional review',offer(candidate),'Rejected',lambda:write_entry(candidate,offer(candidate)),reject)\n                                                                                                             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 366, in append_review\n    path, document, outcome, contract, original_events = _load_delivery(task_dir)\n                                                         ~~~~~~~~~~~~~~^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 324, in _load_delivery\n    return _read_saved(task_dir)\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 308, in _read_saved\n    raise GovernanceError(\"save the engineering result before offering adversarial review\")\ngovernance_artifacts.GovernanceError: save the engineering result before offering adversarial review\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/RF08.json"
+  ]
+}

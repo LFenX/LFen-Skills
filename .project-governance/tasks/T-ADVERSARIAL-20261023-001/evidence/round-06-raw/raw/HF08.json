@@ -1,0 +1,21 @@
+{
+  "id": "HF08",
+  "condition": "Legacy result is not enrolled by silently inventing an offer",
+  "input": {
+    "event": "Offer",
+    "recorded_at": "2026-10-23T14:03:01.527719Z",
+    "prompt": "SYNTHETIC: engineering verified and saved. Start review?",
+    "evidence_ref": "synthetic-ar06://temp-only/offer"
+  },
+  "expected": "Rejected",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "legacy results are not automatically enrolled in the new review protocol",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_boundaries.py\", line 75, in <lambda>\n    case('H'+k+'08','Legacy result is not enrolled by silently inventing an offer',offer(legacy),'Rejected',lambda:write_entry(legacy,offer(legacy)),reject)\n                                                                                                                   ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 368, in append_review\n    raise GovernanceError(\"legacy results are not automatically enrolled in the new review protocol\")\ngovernance_artifacts.GovernanceError: legacy results are not automatically enrolled in the new review protocol\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/HF08.json"
+  ]
+}

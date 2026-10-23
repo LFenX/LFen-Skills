@@ -1,0 +1,38 @@
+{
+  "reconciled_at": "2026-10-23T14:26:43.466562Z",
+  "archived": [
+    {
+      "query_digest": "2e375c317acc8dc9aa3aa0e046e50444d61c807ba6367a954a848d8061008fc4",
+      "files": {
+        "clause-context.md": "54633e58e0deb28cd79eea5ff4ac34400ef817426951f5e84ef1ae3b5b0eb1ac",
+        "clause-context.md.view.json": "77641c14e25f29aada14c2cd006eca44dd5481762132ac92a4b837034fe5dc49",
+        "query-result.json": "0321fdc2cd87ef55e09e0235f3a3086b03fac830f70db24580b9739971274444",
+        "query-result.json.view.json": "76be271f43b4c9a68bcca3203afead7e23b9506a3a8d738b3151d7dd3ba799fd"
+      },
+      "request_sha256": "74c9ad6836c5a9dcb7ca771cf166caac61b21a983246a637c69a9526c9405cb9"
+    },
+    {
+      "query_digest": "6907978458d53e10d1a9019257a54972b614602a7d65e08e4983c2f0844f2b1f",
+      "files": {
+        "clause-context.md": "e80affefee60e0f3800b04425a6e953798d37327c1dd3d0c4143a24ae7b9611f",
+        "clause-context.md.view.json": "82f2f368e14c263a078a93e555cf4bca65473cb02a539e7741da5a4ced8a032c",
+        "query-result.json": "2284015a5016e1610d92745edb641acb59ab402d72383839cd2303fc5072ce63",
+        "query-result.json.view.json": "1af31b368f6e91f9e1c9d13949d3067f5242c3011b8173d787566156214463c1"
+      },
+      "request_sha256": "981c32c31b695a00a48fd1721b2f44cc6fc34fab7c6ab0c0228e04c1b0e98914"
+    },
+    {
+      "query_digest": "8a3ad9d5834360bb1570aee5433ce74ecee71fd36d7efb259cde9e5f9b120daf",
+      "files": {
+        "clause-context.md": "e4c5fb5fd86db76a11c370d15f3df974acf2ef39ef64e7b1dc321e38fcb97215",
+        "clause-context.md.view.json": "37a377d931f7931e972e74d935d6853521965ab9cc964294b41b0388f6ace91b",
+        "query-result.json": "70bd3111fa4dda40fab8ff6e5554d56a1c7f71b55bd1d06d4e9e14a3791f13e7",
+        "query-result.json.view.json": "10fab299802cdbe7fe32098b9e8d211f0579e2525006b334a382be1b1f5d2fe2"
+      },
+      "request_sha256": "505cff3285b6a8c814e4e63dbbf0f532a2eb484ae396408122e059902c98d153"
+    }
+  ],
+  "current_query_digest": "bce8670ac49c3cb8877c4888a77b94205bef34df72dc30992250d66d7b565d89",
+  "exit_code": 0,
+  "output": "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\generated\\query-history\\T-ADVERSARIAL-20261023-006\\archive-index.json\n{'status': 'Passed', 'publications': 3, 'archive_files': 12, 'redirects': 12, 'archived_request_sets': 1, 'archived_request_files': 3, 'active_publications': 1, 'active_files': 4, 'current_active_query_result': '.project-governance/generated/queries/T-ADVERSARIAL-20261023-006/bce8670ac49c3cb8877c4888a77b94205bef34df72dc30992250d66d7b565d89/query-result.json'}\n"
+}

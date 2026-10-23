@@ -1,0 +1,30 @@
+{
+  "id": "HM01",
+  "condition": "A changed report invalidates an active clean proof",
+  "input": {
+    "report": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\boundary-fixtures\\blocked-resume-Minimal\\.project-governance\\tasks\\T-BLOCKED-M\\evidence\\synthetic-after-block.md"
+  },
+  "expected": "Stale / clean 0",
+  "actual": {
+    "accepted": true,
+    "value": {
+      "status": "Stale",
+      "clean_streak": 0,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-BLOCKED-M",
+        "subject_sha256": "6c7f32bdf2ca47f5288039ecebd32bd014259bb67ad30d623b1c64c55ba7d7cd",
+        "requirements_sha256": "e8d2edd9863b1582aa9159acb46bf9990e4b894db7d56ca77d61d9390db90d0b"
+      },
+      "current_delivery": {
+        "task_id": "T-BLOCKED-M",
+        "subject_sha256": "6c7f32bdf2ca47f5288039ecebd32bd014259bb67ad30d623b1c64c55ba7d7cd"
+      }
+    }
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/HM01.json"
+  ]
+}

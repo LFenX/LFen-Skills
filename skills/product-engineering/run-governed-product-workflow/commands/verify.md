@@ -157,6 +157,8 @@ python <skill-root>/scripts/adversarial_review.py <project-root>/.project-govern
 | `Blocked` | `reason`、`evidence_refs` |
 | `Round` | `round_id`、`started_at`、`reviewer`、`delivery_task_id`、`subject_sha256`、`requirements_sha256`、`report_ref`、`coverage=Complete/Incomplete`、`unreviewed_items`、`evidence_refs`、`findings`、`resolutions` |
 
+所有文字字段必须至少包含一个非空白字符；纯空白的询问、答复、决定人或证据来源会被拒绝且不写入。合法原话及其前后空白保留原样。
+
 只读命令同时输出摘要：`subject_sha256` 取**本轮交付任务**的状态输出，与 `get_approval_subject.py` 一致；`requirements_sha256` 取**原审查任务**的状态输出，绑定 request_snapshot.text 与澄清各轮的原问题、推荐默认和真实回答上下文。顶层摘要表示所查询任务的工程结果，`reviewed_delivery` 点名审查末轮实际绑定的交付，`current_delivery` 点名当前应审查的已保存交付；返修后这些对象不能混淆。`findings` 每项为 `{id, summary, evidence_refs}`；`resolutions` 每项为 `{finding_id, disposition: Fixed|NotAnIssue, reason, evidence_refs}`，详情在引用报告中。没有对应条目时写空数组；未检查项必须列明，不能填空以伪造完整覆盖。
 
 `report_ref` 为原审查任务目录内的实际非空报告，推荐 `evidence/round-<n>.md`，路径相对项目根或使用绝对路径。脚本规范化路径并从实际文件写入 `report_sha256`、`review_contract_version=report-bound-v2` 和所引用交付的 `delivery_verified_at` / `delivery_completed_at`；提供这些派生值时须与实际相符。报告路径别名或相同内容副本不能计为两轮；去重同时核对当前文件与已登记的历史摘要，原文件修改或删除不解除旧内容的复用限制。独立报告可以共享 `evidence_refs` 中的需求、测试等支持证据。旧轮次原件可读，不补造绑定证明；缺少新版报告绑定的旧干净轮次不计入新版连续两轮，原协议曾收敛时标 `LegacyNotRevalidated`，不会自动重启。已有未解决问题继续保留。

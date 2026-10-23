@@ -1,0 +1,33 @@
+{
+  "id": "M30",
+  "condition": "Requirements hash must bind original full words/context",
+  "input": {
+    "event": "Round",
+    "round_id": "forged-words",
+    "recorded_at": "2026-10-23T13:58:59.164514Z",
+    "started_at": "2026-10-23T13:58:59.163858Z",
+    "reviewer": "synthetic-ar06-reviewer",
+    "delivery_task_id": "T-LIFECYCLE-MINIMAL",
+    "subject_sha256": "376fee3b08d149156f83f1c58a4831b736f7d111d2d68d7bde5eabb6fab4d294",
+    "requirements_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\executed-fixtures\\lifecycle\\Minimal\\.project-governance\\tasks\\T-LIFECYCLE-MINIMAL\\evidence\\synthetic-forged-words.md",
+    "coverage": "Complete",
+    "unreviewed_items": [],
+    "evidence_refs": [
+      "synthetic-ar06://temp-only/round/forged-words"
+    ],
+    "findings": [],
+    "resolutions": []
+  },
+  "expected": "Reject invalid append",
+  "actual": {
+    "accepted": false,
+    "exception": "GovernanceError",
+    "message": "new rounds must bind the current original request and clarification words",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 86, in case\n    value=operation()\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\execute_suite.py\", line 8, in op\n    try:return write_entry(task,entry)\n               ~~~~~~~~~~~^^^^^^^^^^^^\n  File \"C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ar06-independent-20261023T135251Z\\review_cases.py\", line 68, in write_entry\n    return str(ar.append_review(task,entry,reason='Synthetic independent AR-06 case',basis=SYN+'/case'))\n               ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 399, in append_review\n    raise GovernanceError(\"new rounds must bind the current original request and clarification words\")\ngovernance_artifacts.GovernanceError: new rounds must bind the current original request and clarification words\n"
+  },
+  "result": "Passed",
+  "evidence_refs": [
+    "raw/M30.json"
+  ]
+}

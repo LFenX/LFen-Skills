@@ -1,0 +1,9 @@
+{
+  "outcome": "Approved",
+  "presented": "Synthetic delivered fixture version 9d93689d60d04cd5e936381ebb2a6dfa4e8a597a88e1c29ea7760b96d295034a",
+  "response": "Approve fixture (synthetic)",
+  "decided_by": "AR05 fixture actor",
+  "decided_at": "2026-10-23T13:38:34.982916Z",
+  "evidence_ref": "ar05-fixture://human-acceptance",
+  "subject_sha256": "9d93689d60d04cd5e936381ebb2a6dfa4e8a597a88e1c29ea7760b96d295034a"
+}
