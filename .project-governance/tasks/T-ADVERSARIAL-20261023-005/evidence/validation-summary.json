@@ -79,7 +79,49 @@
   ],
   "limitations": [
     "工程回归不是实际无问题轮次；下一轮独立审查尚未执行",
-    "Python 3.13本机验证；当前工作源码GitHub三版本门禁待推送后实际完成",
+    "源码ff0c31d已发布，GitHub Python3.11/3.12/3.13门禁实际通过；release按策略skipped",
     "安装端另有独立所有者治理补丁，仅在记录时间核对稳定组合，不将其导入本仓库源码"
-  ]
+  ],
+  "package_preclose": "Passed: A03, official current S8 query8/8; old queries archived and actual failures preserved",
+  "query_lifecycle_evidence": "query-history-reconciliation.json",
+  "attempts": {
+    "A01": "source and installed tests Passed; preclose old S5 query rejected",
+    "A02": "scope-path correction invalidated retrieval plan; rejected until official refresh",
+    "A03": "refreshed plan and archived immutable prior queries; execution readiness Passed"
+  },
+  "github_publication": {
+    "checked_at": "2026-10-23T13:25:12.684083Z",
+    "head_sha": "ff0c31d38ee89f27c9f20a840776d29af1304b69",
+    "run_id": 39960619568,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39960619568",
+    "jobs": [
+      {
+        "name": "gates (3.12)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39960619568/job/120437390323"
+      },
+      {
+        "name": "gates (3.11)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39960619568/job/120437390630"
+      },
+      {
+        "name": "gates (3.13)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39960619568/job/120437390654"
+      },
+      {
+        "name": "release",
+        "status": "completed",
+        "conclusion": "skipped",
+        "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39960619568/job/120438322561"
+      }
+    ],
+    "archived_evidence_files_verified": 28
+  }
 }

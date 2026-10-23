@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-10-23T12:31:41.484026Z",
-  "source_digest": "83e880df179085a7a6f9a200a8f101260b0c5ac7c62243115d9b199b804c4052",
+  "generated_at": "2026-10-23T13:26:28.860978Z",
+  "source_digest": "720bdd70f9cf3c0da4321fc603c4edde857815bb83b5b99c9a07a503951ee427",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -164,7 +164,7 @@
       "ordinal": 15,
       "status": "Implemented",
       "user_decision": "Pending",
-      "revision": 7,
+      "revision": 8,
       "completed_at": "2026-10-23T09:34:07.840577Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",
@@ -205,6 +205,19 @@
       "user_decision": "Pending",
       "revision": 1,
       "completed_at": "2026-10-23T12:31:38.238433Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "Current",
+        "status": "CurrentVerified"
+      }
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-005",
+      "ordinal": 19,
+      "status": "Implemented",
+      "user_decision": "Pending",
+      "revision": 1,
+      "completed_at": "2026-10-23T13:26:02.689300Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",
         "mode": "Current",
@@ -477,6 +490,26 @@
       "task_id": "T-ADVERSARIAL-20261023-004",
       "ordinal": 18,
       "fact": "close辅助调用误传next_tasks类型，在写前校验被拒绝；后续新Run准备被阶段校验拒绝，均未写入任何新账本事件；保留失败证据后按正确close入口保存"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-005",
+      "ordinal": 19,
+      "fact": "第四轮确认AR04-F01：已结束会话证明失效后复用旧Accepted可追加轮次；原实际用户授权会话仍未收敛"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-005",
+      "ordinal": 19,
+      "fact": "公开两个原始反例、Full/Minimal正反路径、历史及活动会话兼容均已实际验证；工程回归不冒充真实无问题轮"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-005",
+      "ordinal": 19,
+      "fact": "源端与安装端完整自检通过；安装端保留独立治理补丁add9aff且验证期间96文件稳定"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-005",
+      "ordinal": 19,
+      "fact": "三版本GitHub门禁通过；失败、拒绝与恢复保留原记录；用户验收未收到，保持Pending"
     }
   ],
   "unresolved_items": [
@@ -684,7 +717,8 @@
       "required_by": [
         "T-ADVERSARIAL-20261023-002",
         "T-ADVERSARIAL-20261023-003",
-        "T-ADVERSARIAL-20261023-004"
+        "T-ADVERSARIAL-20261023-004",
+        "T-ADVERSARIAL-20261023-005"
       ]
     },
     {
@@ -714,6 +748,18 @@
     {
       "task_id": "T-ADVERSARIAL-20261023-004",
       "ordinal": 18,
+      "depends_on": [
+        "T-ADVERSARIAL-20261023-001"
+      ],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-005",
+      "ordinal": 19,
       "depends_on": [
         "T-ADVERSARIAL-20261023-001"
       ],
