@@ -13,6 +13,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from review_budget import DEFAULT_BUDGET, budget_schema, budget_state
+
 sys.dont_write_bytecode = True
 
 REVIEW_CONTRACT = "report-bound-v2"
@@ -32,9 +34,10 @@ def review_schema() -> dict[str, Any]:
 
     variants = []
     details = {
-        "Offer": {"prompt": text, "evidence_ref": text},
+        "Offer": {"prompt": text, "evidence_ref": text, "budget": budget_schema()},
         "Decision": {"outcome": {"enum": ["Accepted", "Declined", "Deferred", "Stopped"]},
-                     "response": text, "decided_by": text, "evidence_ref": text},
+                     "response": text, "decided_by": text, "evidence_ref": text, "budget": budget_schema()},
+        "WorkStarted": {"work_type": {"enum": ["Review", "Repair"]}, "work_id": text, "evidence_refs": refs},
         "Blocked": {"reason": text, "evidence_refs": refs},
         "Round": {"round_id": text, "started_at": {"type": "string", "format": "date-time"},
                   "reviewer": text, "delivery_task_id": text, "subject_sha256": digest,
@@ -53,7 +56,7 @@ def review_schema() -> dict[str, Any]:
     for kind, properties in details.items():
         variants.append(obj({"event": {"const": kind},
                              "recorded_at": {"type": "string", "format": "date-time"}, **properties},
-                            ("review_contract_version", "report_ref", "report_sha256", "delivery_completed_at", "delivery_verified_at", "session_completed") if kind == "Round" else ()))
+                            ("review_contract_version", "report_ref", "report_sha256", "delivery_completed_at", "delivery_verified_at", "session_completed") if kind == "Round" else ("budget",) if kind in {"Offer", "Decision"} else ()))
     return {"type": "array", "items": {"oneOf": variants}}
 
 
@@ -117,15 +120,16 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
     all_findings: set[str] = set()
 
     previous = _instant(outcome["completed_at"]) if records else None
-    for item in records:
+    for position, item in enumerate(records):
         if outcome.get("status") != "Implemented":
             raise GovernanceError("offer adversarial review only after an Implemented engineering result is saved")
         stamp = _instant(item["recorded_at"])
         if previous is not None and stamp < previous:
             raise GovernanceError("adversarial review records must follow engineering completion and prior records")
         kind = item["event"]
+        budget_stop = budget_state(records[:position], at=stamp)["status"] in {"BudgetRequired", "BudgetExhausted"}
         if kind == "Offer":
-            if accepted and not session_closed and status != "Passed" and recorded_streak != 2:
+            if accepted and not session_closed and status != "Passed" and recorded_streak != 2 and not budget_stop:
                 raise GovernanceError("an active review must be completed or stopped before offering it again")
             offered, accepted, streak, status = True, False, 0, "AwaitingUser"
             legacy_streak = recorded_streak = 0
@@ -134,7 +138,7 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
                 raise GovernanceError("record the actual post-completion question before a user decision")
             if item["outcome"] == "Stopped" and not accepted:
                 raise GovernanceError("only an opted-in review can be stopped")
-            if accepted and not session_closed and status not in {"Passed", "LegacyNotRevalidated"} and recorded_streak != 2 and item["outcome"] != "Stopped":
+            if accepted and not session_closed and status not in {"Passed", "LegacyNotRevalidated"} and recorded_streak != 2 and item["outcome"] != "Stopped" and not budget_stop:
                 raise GovernanceError("an active review only accepts an explicit stop decision")
             accepted = item["outcome"] == "Accepted"
             if accepted:
@@ -144,7 +148,10 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
         else:
             if not accepted or status == "Passed" and not session_closed:
                 raise GovernanceError("do not start review without explicit opt-in, or continue after two clean rounds")
-            if kind == "Blocked":
+            if kind == "WorkStarted":
+                if session_closed:
+                    raise GovernanceError("the completed review requires a real new user decision")
+            elif kind == "Blocked":
                 streak, legacy_streak, recorded_streak, status = 0, 0, 0, "Blocked"
             else:
                 authorized_round = not session_closed
@@ -214,6 +221,11 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
     if session_closed and status in {"Stale", "InProgress", "Blocked"}:
         status, streak = "RestartRequired", 0
     result = {"status": status, "clean_streak": streak, "rounds": rounds, "open_findings": sorted(findings)}
+    budget = budget_state(records)
+    if budget["status"] != "Inactive":
+        result["budget"] = budget
+        if status in {"InProgress", "Blocked", "Stale"} and budget["status"] in {"BudgetRequired", "BudgetExhausted"}:
+            result["status"] = budget["status"]
     if last_subject is not None:
         result["reviewed_delivery"] = {"task_id": last_subject[0], "subject_sha256": last_subject[1],
                                        "requirements_sha256": last_subject[2]}
@@ -337,8 +349,11 @@ def require_review_parent(task_dir: Path, contract: dict, parent_id: str) -> str
     _, _, parent, parent_contract, events = _load_delivery(parent_dir)
     if parent_contract.get("project_id") != contract.get("project_id") or parent.get("status") != "Implemented":
         raise GovernanceError("review parent must be a completed engineering task in the same project")
-    if bound_review_state(parent_dir, parent, parent_contract, events)["status"] not in {"InProgress", "Blocked", "Stale"}:
+    state = bound_review_state(parent_dir, parent, parent_contract, events)
+    if state["status"] not in {"InProgress", "Blocked", "Stale", "BudgetExhausted"}:
         raise GovernanceError("a repair must belong to an explicitly opted-in, unfinished parent review")
+    if task_dir.name not in state.get("budget", {}).get("repair_tasks", []):
+        raise GovernanceError("reserve this repair batch on its original review before starting work")
     return parent_id
 
 
@@ -370,8 +385,24 @@ def append_review(task_dir: Path, entry: dict[str, Any], *, reason: str, basis: 
             raise GovernanceError("record rounds on the original review task; this repair is managed by its parent")
         current_state = bound_review_state(task_dir, outcome, contract, original_events)
         kind = entry["event"]
-        if kind in {"Round", "Blocked"} and current_state["status"] in {"Passed", "LegacyNotRevalidated", "RestartRequired"}:
+        budget = current_state.get("budget", {})
+        if kind == "Offer":
+            entry.setdefault("budget", dict(DEFAULT_BUDGET))
+        if kind == "Decision" and entry["outcome"] == "Accepted":
+            offer = next((item for item in reversed(outcome["adversarial_review"]) if item["event"] == "Offer"), {})
+            offered_budget = offer.get("budget", DEFAULT_BUDGET)
+            entry.setdefault("budget", dict(offered_budget))
+            if entry["budget"] != offered_budget:
+                raise GovernanceError("the accepted budget must match the actual offer; present changed limits before consent")
+        if kind in {"Round", "Blocked", "WorkStarted"} and current_state["status"] in {"Passed", "LegacyNotRevalidated", "RestartRequired"}:
             raise GovernanceError("the review session has ended; record a real new user decision before restarting")
+        if kind in {"Round", "WorkStarted"} and current_state["status"] in {"BudgetRequired", "BudgetExhausted"}:
+            reserved_round = kind == "Round" and entry["round_id"] in budget.get("pending_reviews", [])
+            if not reserved_round:
+                raise GovernanceError("review budget unavailable; summarize issues and obtain a real new user decision")
+        if kind == "WorkStarted" and entry["work_type"] == "Repair" and (
+                not TASK_ID.fullmatch(entry["work_id"]) or entry["work_id"] == task_dir.name):
+            raise GovernanceError("repair work_id must identify a distinct directly dependent repair task")
         if kind == "Offer" and current_state["status"] in {"InProgress", "Blocked", "Stale"}:
             raise GovernanceError("an active review must be completed or stopped before offering it again")
         if kind == "Decision" and entry["outcome"] != "Stopped" and current_state["status"] in {"InProgress", "Blocked", "Stale"}:
@@ -448,7 +479,7 @@ def main() -> int:
     from governance_artifacts import GovernanceError, user_decision_subject_sha256
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("task_dir", type=Path)
-    parser.add_argument("--entry-json-file", type=Path, help="Append an actual Offer, Decision, Round or Blocked record; omitted means read-only status")
+    parser.add_argument("--entry-json-file", type=Path, help="Append an actual Offer, Decision, WorkStarted, Round or Blocked record; omitted means read-only status")
     parser.add_argument("--reason")
     parser.add_argument("--basis")
     args = parser.parse_args()

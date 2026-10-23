@@ -2185,7 +2185,7 @@ def run_adversarial_review_fixture() -> dict[str, object]:
                 return append_review(task, entry, reason="Synthetic protocol check", basis="self-test://adversarial")
 
             def offer():
-                write({"event": "Offer", "recorded_at": now_utc(), "prompt": "Synthetic opt-in question after engineering completion?", "evidence_ref": "self-test://question"})
+                write({"event": "Offer", "recorded_at": now_utc(), "prompt": "Synthetic opt-in question after engineering completion?", "evidence_ref": "self-test://question", "budget": {"review_rounds": 50, "repair_batches": 50, "elapsed_minutes": 60}})
 
             def decision(choice):
                 return {"event": "Decision", "recorded_at": now_utc(), "outcome": choice,
@@ -2274,6 +2274,7 @@ def run_adversarial_review_fixture() -> dict[str, object]:
             write(decision("Accepted"))
             write(ready_round(9, findings=[{"id": "F2", "summary": "Synthetic fix required", "evidence_refs": ["self-test://fix-repro"]}]))
             repair_id = tid + "-FIX"
+            write({"event": "WorkStarted", "recorded_at": now_utc(), "work_type": "Repair", "work_id": repair_id, "evidence_refs": ["self-test://repair-start"]})
             repair = new_task(root, repair_id, 3 if minimal else 2, project_id=contract["project_id"], depends_on=[tid])
             repaired_before = read_json(repair / "before.json")
             repaired_before["authority"]["required_gates"] = []
@@ -2321,6 +2322,8 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
         root = Path(temp).resolve()
 
         def finish(tid, ordinal, minimal=False, parent=None, source_ref="self-test://source"):
+            if parent:
+                write(root / ".project-governance/tasks" / parent, {"event": "WorkStarted", "recorded_at": ga.now_utc(), "work_type": "Repair", "work_id": tid, "evidence_refs": ["self-test://repair-start"]})
             if minimal:
                 path = minimal_fixture_record(root, tid)
                 record = read_json(path)
@@ -2362,7 +2365,7 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
             write(task, {"event": "Decision", "recorded_at": ga.now_utc(), "outcome": state, "response": f"Synthetic {state}", "decided_by": "synthetic-user", "evidence_ref": "self-test://explicit-user"})
 
         def start(task, first="Accepted"):
-            write(task, {"event": "Offer", "recorded_at": ga.now_utc(), "prompt": "Synthetic actual post-completion question", "evidence_ref": "self-test://offer"})
+            write(task, {"event": "Offer", "recorded_at": ga.now_utc(), "prompt": "Synthetic actual post-completion question", "evidence_ref": "self-test://offer", "budget": {"review_rounds": 50, "repair_batches": 50, "elapsed_minutes": 60}})
             choose(task, first)
 
         def entry(task, number, delivery=None, **changes):
@@ -2568,8 +2571,8 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
             faulty["adversarial_review"].append({"event": "Decision", "recorded_at": ga.now_utc(), "outcome": "Accepted",
                 "response": "Synthetic later explicit opt-in", "decided_by": "synthetic-user", "evidence_ref": "self-test://historical-decision"})
             recovered = review_state(faulty, original_before, report_hashes=hashes)
-            check(recovered["status"] == "InProgress" and recovered["clean_streak"] == 0,
-                  "a readable historical restart must still require two new valid reports")
+            check(recovered["status"] == "BudgetRequired" and recovered["clean_streak"] == 0,
+                  "a readable historical restart without limits requires a real bounded decision")
             write(identity_task, entry(identity_task, 3))
             check(review_status(identity_task)["clean_streak"] == 1, "one genuinely new report must restart the clean streak")
             write(identity_task, entry(identity_task, 4))
@@ -2617,6 +2620,67 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
             check(review_status(ended_task)["clean_streak"] == 1, "a restarted session must earn its first clean round again")
             write(ended_task, entry(ended_task, 4))
             check(review_status(ended_task)["status"] == "Passed" and not validate_task_directory(ended_task), "only a second new clean report may complete the restarted session")
+
+            # Bounded work, renewal and accounting use the same public API on
+            # both carriers. These are synthetic checks, not real review rounds.
+            from adversarial_review import require_review_parent
+            from review_budget import DEFAULT_BUDGET, budget_state
+            from datetime import datetime, timedelta
+            task = finish("T-BUDGET-MIN" if minimal else "T-BUDGET-FULL", 90, minimal)
+            path = load(task)[0]
+            write(task, {"event": "Offer", "recorded_at": ga.now_utc(), "prompt": "Synthetic finite review offer", "evidence_ref": "self-test://budget-offer"})
+            check(load(task)[1]["adversarial_review"][-1]["budget"] == DEFAULT_BUDGET, "new offers must persist finite defaults")
+            unchanged = path.read_bytes()
+            expect_governance_error("cannot increase offered limits at acceptance", lambda: write(task, {"event": "Decision", "recorded_at": ga.now_utc(), "outcome": "Accepted", "response": "Synthetic yes", "decided_by": "synthetic-user", "evidence_ref": "self-test://budget-answer", "budget": {"review_rounds": 30, "repair_batches": 20, "elapsed_minutes": 600}}))
+            check(path.read_bytes() == unchanged, "a denied budget change must not mutate either carrier")
+            choose(task, "Accepted")
+            write(task, {"event": "WorkStarted", "recorded_at": ga.now_utc(), "work_type": "Review", "work_id": "B-1", "evidence_refs": ["self-test://review-start"]})
+            check(review_status(task)["budget"]["used"]["review_rounds"] == 1, "charge at start, before a completed report exists")
+            unchanged = path.read_bytes()
+            expect_governance_error("interrupted start cannot be refunded by reusing id", lambda: write(task, {"event": "WorkStarted", "recorded_at": ga.now_utc(), "work_type": "Review", "work_id": "B-1", "evidence_refs": ["self-test://repeat-start"]}))
+            check(path.read_bytes() == unchanged, "a rejected duplicate start preserves the charged receipt")
+            write(task, entry(task, 1, findings=[{"id": "F-BUDGET", "summary": "Synthetic unresolved issue", "evidence_refs": ["self-test://budget-repro"]}]))
+            check(review_status(task)["budget"]["used"]["review_rounds"] == 1, "finishing an already charged review must not charge twice")
+            _, _, parent_contract, _ = load(task)
+            repair_contract = {"depends_on": [task.name], "project_id": parent_contract["project_id"]}
+            repair_id = task.name + "-FIX"
+            expect_governance_error("repair without a prior charged reservation", lambda: require_review_parent(task.parent / repair_id, repair_contract, task.name))
+            for repair in (repair_id, repair_id + "-2"):
+                write(task, {"event": "WorkStarted", "recorded_at": ga.now_utc(), "work_type": "Repair", "work_id": repair, "evidence_refs": ["self-test://repair-budget"]})
+            state = review_status(task)
+            check(state["status"] == "BudgetExhausted" and state["budget"]["exhausted_by"] == ["repair_batches"], "the last permitted repair start must stop all further work")
+            check(require_review_parent(task.parent / repair_id, repair_contract, task.name) == task.name, "a charged last repair may save its engineering outcome at the cap")
+            unchanged = path.read_bytes()
+            expect_governance_error("no new review after repair cap", lambda: write(task, {"event": "WorkStarted", "recorded_at": ga.now_utc(), "work_type": "Review", "work_id": "B-2", "evidence_refs": ["self-test://over-budget"]}))
+            expect_governance_error("report-only callers cannot bypass the cap", lambda: write(task, entry(task, 2)))
+            check(path.read_bytes() == unchanged and review_status(task)["open_findings"] == ["F-BUDGET"], "exhaustion preserves both outcome bytes and unresolved issues")
+            check(any("预算" in item["reason"] and "等待用户" in item["reason"] for item in recommendations([active_task_signal(task)])), "status must hand control to the user instead of recommending repair")
+            grant = next(item for item in load(task)[1]["adversarial_review"] if item["event"] == "Decision")
+            instant = datetime.fromisoformat(grant["recorded_at"].replace("Z", "+00:00"))
+            check(budget_state([grant], at=instant + timedelta(minutes=59, seconds=59))["status"] == "Available", "time is available just before the deadline")
+            check(budget_state([grant], at=instant + timedelta(minutes=60))["exhausted_by"] == ["elapsed_minutes"], "time stops exactly at the deadline without waiting for another report")
+            write(task, {"event": "Offer", "recorded_at": ga.now_utc(), "prompt": "Synthetic issue summary and two-round continuation offer", "evidence_ref": "self-test://budget-renewal", "budget": {"review_rounds": 2, "repair_batches": 2, "elapsed_minutes": 60}})
+            check(review_status(task)["status"] == "AwaitingUser", "presenting a renewal is not authorization")
+            choose(task, "Deferred")
+            expect_governance_error("deferred renewal cannot start work", lambda: write(task, entry(task, 2)))
+            choose(task, "Accepted")
+            check(review_status(task)["budget"]["used"] == {"review_rounds": 0, "repair_batches": 0} and review_status(task)["open_findings"] == ["F-BUDGET"], "a real new bounded decision renews counters and retains original issues")
+            write(task, entry(task, 2, resolutions=[{"finding_id": "F-BUDGET", "disposition": "NotAnIssue", "reason": "Synthetic counterevidence", "evidence_refs": ["self-test://disproof"]}]))
+            check(review_status(task)["clean_streak"] == 1 and review_status(task)["status"] != "Passed", "one clean round cannot pass after renewal")
+            write(task, {"event": "WorkStarted", "recorded_at": ga.now_utc(), "work_type": "Review", "work_id": "B-3", "evidence_refs": ["self-test://last-permitted-review"]})
+            check(review_status(task)["status"] == "BudgetExhausted", "a charged last round consumes the review cap before completion")
+            write(task, entry(task, 3))
+            check(review_status(task)["status"] == "Passed" and review_status(task)["clean_streak"] == 2, "a real second clean report may pass exactly at the cap")
+            unchanged = path.read_bytes()
+            expect_governance_error("no unsolicited round after a bounded pass", lambda: write(task, entry(task, 4)))
+            check(path.read_bytes() == unchanged and not validate_task_directory(task), "bounded pass remains valid and cannot launch extra work")
+
+            one = finish("T-ONE-MIN" if minimal else "T-ONE-FULL", 91, minimal)
+            write(one, {"event": "Offer", "recorded_at": ga.now_utc(), "prompt": "Synthetic single-round budget", "evidence_ref": "self-test://one-offer", "budget": {"review_rounds": 1, "repair_batches": 2, "elapsed_minutes": 60}})
+            choose(one, "Accepted")
+            write(one, entry(one, 1))
+            check(review_status(one)["status"] == "BudgetExhausted" and review_status(one)["clean_streak"] == 1, "exhausting a single-round budget must never imply a pass")
+            expect_governance_error("the next report cannot exceed a completed-round cap", lambda: write(one, entry(one, 2)))
 
         for batch in (False, True):
             task = finish("T-CONCURRENT-BATCH" if batch else "T-CONCURRENT-SINGLE", 10 if batch else 9)

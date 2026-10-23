@@ -50,6 +50,7 @@ SNAPSHOT_MODULES = (
     "governance_artifacts.py",
     "manage_project_docs.py",
     "minimal_task.py",
+    "review_budget.py",
 )
 
 # Roots of the closure: what a console deployment must be able to run.

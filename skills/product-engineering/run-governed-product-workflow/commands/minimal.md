@@ -58,7 +58,7 @@ python <skill-root>/scripts/manage_minimal_task.py append <project-root>/.projec
 
 先按 [verify](verify.md) 独立对照原话，核对工程验证并交付版本、证据和未验项。close 先生成 `task_outcome` 并结束工程 Run，`user_decision` 默认 `Pending`；不等待用户即时回复，不要求回到原对话，也不把 `Implemented` 当成人已验收。
 
-工程完成并留档后主动询问是否启动对抗性审查，明确同意前不得开始。使用 [verify 的统一入口](verify.md#完工后可选对抗性审查) 向 `task_outcome.adversarial_review` 追加问题、真实选择和逐轮结果；同版连续两轮完整无问题才通过。未回答、拒绝或推迟保留工程结果，不改写 `user_decision`。
+工程完成并留档后主动询问是否在有限预算内启动对抗性审查，明确同意前不得开始。使用 [verify 的统一入口](verify.md#完工后可选对抗性审查) 向 `task_outcome.adversarial_review` 追加实际问题、决定、工作开始扣费及逐轮结果；同版连续两轮完整无问题才通过。预算到限汇总并等待用户决定，不自动续期、不跨会话互相触发返修。未回答、拒绝或推迟保留工程结果，不改写 `user_decision`。
 
 用户稍后从可核对的来源作出决定时，可在已完成的载体上单独更新：
 

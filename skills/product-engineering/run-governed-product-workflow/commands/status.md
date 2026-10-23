@@ -13,6 +13,7 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 - blocking_unknowns：仍阻断的 Unknown。
 - pending_acceptance_tasks：活动任务及已有工程结果但待用户决定的任务。
 - task_progress：每项任务的工程结果是否已保存、独立用户决定、待验收标志和 `adversarial_review` 的状态、轮数、连续无问题轮数与未解决问题。
+- adversarial_review.budget：本次有限额度、已用/剩余额度、截止时间与到限原因。`BudgetRequired` / `BudgetExhausted` 只提示汇总并等待用户决定，不推荐继续返修或审查。
 - snapshot_stale：TaskContract Source Snapshot 与当前仓库差异。
 - minimal_eligibility_facts：已有 Minimal 资格事实。
 - update_available：本地索引与当前 skill 运行快照不一致时提示。

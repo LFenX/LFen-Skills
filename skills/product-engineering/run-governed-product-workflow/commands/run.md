@@ -24,6 +24,8 @@ python <skill-root>/scripts/append_run_event.py <project-root>/.project-governan
 
 执行中只记录物质事件：mutation、failure、retry、verification、external-effect、gate、rollback、run_finished。普通读取和搜索不写 RunLedger。
 
+对抗性审查返修须先读取原任务的预算状态，并按 [verify](verify.md#预算与停止出口) 追加 `WorkStarted` 扣减一批返修额度，再启动任务与修改。`BudgetRequired` / `BudgetExhausted` 时停止新增工作并汇总给用户；其他会话的消息、工具重试或新 TaskID 均不能续预算。禁止跨会话互相发送修复、复查或回报请求形成循环。
+
 失败后先追加 `failure`，再用新 AttemptID 追加 `retry`。范围、权限、验收或计划变化必须先停止受影响动作，再用 Amendment 修订；禁止静默覆盖。
 
 Amendment 只记录真实字段变更：同值写入返回 `UNCHANGED`，不改文件、修订号或历史；批量操作忽略同值项，真实变更保留原值、新值和依据。`tailoring_resolution` 是派生快照，自动重算不新增 Amendment；阶段刷新使用 `refresh_tailoring_resolution.py`，不得把派生快照作为普通字段修订。

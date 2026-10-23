@@ -182,6 +182,8 @@ def recommendations(signals: list[dict[str, Any]]) -> list[dict[str, str]]:
             {"command": "close", "reason": "Write TaskOutcome after verification."},
         ]
     review_states = {(item.get("adversarial_review") or {}).get("status") for item in signals}
+    if review_states.intersection({"BudgetRequired", "BudgetExhausted"}):
+        return [{"command": "status", "reason": "审查预算缺失或已耗尽；停止新增审查、返修及跨会话触发，汇总问题与证据，等待用户决定是否给予有限新预算。"}]
     if "NotOffered" in review_states:
         return [{"command": "verify", "reason": "工程结果已保存；主动询问是否进行对抗性审查，明确同意前不得开始。"}]
     if "RestartRequired" in review_states:
