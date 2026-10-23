@@ -1,0 +1,3560 @@
+[
+  {
+    "suite": "canonical",
+    "id": "FZ-01",
+    "input": {
+      "receipt": "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\source-files-5376dee45f101d83.json"
+    },
+    "expected": "96 files match fixed freeze and both installed entry points",
+    "actual": {
+      "mismatches": [],
+      "distributions": {
+        "install-clone": {
+          "path": "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow",
+          "missing": [],
+          "changed": [],
+          "files_checked": 96
+        },
+        "codex-entry": {
+          "path": "C:\\Users\\Administrator\\.codex\\skills\\run-governed-product-workflow",
+          "missing": [],
+          "changed": [],
+          "files_checked": 96
+        }
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-01",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "NotOffered",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "NotOffered",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-02",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": "new result preserved independently as Pending",
+    "actual": {
+      "outcome": "Pending"
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-03",
+    "input": {
+      "event": "Decision",
+      "recorded_at": "2026-10-23T10:53:34.065410Z",
+      "outcome": "Accepted",
+      "response": "Synthetic begin",
+      "decided_by": "synthetic-user",
+      "evidence_ref": "synthetic-ar02://decision"
+    },
+    "expected": "deny decision before question",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "record the actual post-completion question before a user decision",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-04",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:34.096777Z",
+      "round_id": "AR02-1",
+      "started_at": "2026-10-23T10:53:34.096506Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+      "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+      "report_ref": ".project-governance/tasks/T-FULL/evidence/independent-report-1.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny round before offer/opt-in",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-05",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "AwaitingUser",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "AwaitingUser",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-06",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:34.177251Z",
+      "round_id": "AR02-2",
+      "started_at": "2026-10-23T10:53:34.176983Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+      "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+      "report_ref": ".project-governance/tasks/T-FULL/evidence/independent-report-2.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny round with no answer",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-07",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "Declined",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Declined",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-08",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:34.254143Z",
+      "round_id": "AR02-3",
+      "started_at": "2026-10-23T10:53:34.253868Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+      "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+      "report_ref": ".project-governance/tasks/T-FULL/evidence/independent-report-3.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny after decline",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-09",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "Deferred",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Deferred",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-10",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:34.335853Z",
+      "round_id": "AR02-4",
+      "started_at": "2026-10-23T10:53:34.335594Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+      "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+      "report_ref": ".project-governance/tasks/T-FULL/evidence/independent-report-4.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny after defer",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-11",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-12",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-13",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:34.469634Z",
+      "round_id": "AR02-5",
+      "started_at": "2026-10-23T10:53:34.469371Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+      "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+      "report_ref": ".project-governance/tasks/T-FULL/evidence/independent-report-6.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny duplicate round id",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "each round requires a fresh review id",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-14",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:34.510380Z",
+      "round_id": "AR02-7",
+      "started_at": "2026-10-23T10:53:34.510139Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+      "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+      "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL\\evidence\\..\\evidence\\independent-report-5.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny report alias",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "each round needs a distinct report; aliases and copied content cannot count twice",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-15",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:34.549946Z",
+      "round_id": "AR02-8",
+      "started_at": "2026-10-23T10:53:34.549651Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+      "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+      "report_ref": ".project-governance/tasks/T-FULL/evidence/independent-report-8.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny copy of first report",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "each round needs a distinct report; aliases and copied content cannot count twice",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-16",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 2
+    },
+    "actual": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-17",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:34.655379Z",
+      "round_id": "AR02-10",
+      "started_at": "2026-10-23T10:53:34.655083Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+      "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+      "report_ref": ".project-governance/tasks/T-FULL/evidence/independent-report-10.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny further round after passed without new decision",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-18",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-19",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 3,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-20",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 1
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 4,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-21",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "Blocked",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Blocked",
+      "clean_streak": 0,
+      "rounds": 4,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-22",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "open_findings": [
+        "FULL-ISSUE-A"
+      ]
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 5,
+      "open_findings": [
+        "FULL-ISSUE-A"
+      ],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-23",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "open_findings": [
+        "FULL-ISSUE-A"
+      ]
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": [
+        "FULL-ISSUE-A"
+      ],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-24",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:35.110292Z",
+      "round_id": "AR02-15",
+      "started_at": "2026-10-23T10:53:35.110037Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+      "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+      "report_ref": ".project-governance/tasks/T-FULL/evidence/independent-report-15.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": [
+        {
+          "finding_id": "FULL-ISSUE-A",
+          "disposition": "Fixed",
+          "reason": "Synthetic claimed same-delivery fix",
+          "evidence_refs": [
+            "synthetic-ar02://fix"
+          ]
+        }
+      ]
+    },
+    "expected": "deny Fixed without new verified delivery",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "a fix requires a newly verified delivery; use evidenced NotAnIssue for a false positive",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-25",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "open_findings": []
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 7,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-26",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "Stopped",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Stopped",
+      "clean_streak": 0,
+      "rounds": 7,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-27",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:35.297793Z",
+      "round_id": "AR02-17",
+      "started_at": "2026-10-23T10:53:35.297536Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+      "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+      "report_ref": ".project-governance/tasks/T-FULL/evidence/independent-report-17.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny round after user stop",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-28",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 7,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-29",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "Passed",
+      "clean_streak": 2
+    },
+    "actual": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 9,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-30",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": "review preserves Pending user decision and closed ledger",
+    "actual": {
+      "user_decision": {
+        "outcome": "Pending"
+      },
+      "ledger_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-31",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": "Passed does not trigger another review",
+    "actual": [
+      {
+        "command": "status",
+        "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"
+      }
+    ],
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-32",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "Stale",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Stale",
+      "clean_streak": 0,
+      "rounds": 9,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-33",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+    "expected": {
+      "status": "Blocked",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Blocked",
+      "clean_streak": 0,
+      "rounds": 9,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL",
+        "subject_sha256": "56b86be4d340f9a46dab05b64e83e59f0150f2c76b48a1c9884ca9d9b49a428f",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-34",
+    "input": {
+      "event": "Offer",
+      "recorded_at": "2026-10-23T10:53:36.066695Z",
+      "prompt": "Synthetic premature question",
+      "evidence_ref": "synthetic-ar02://offer"
+    },
+    "expected": "deny offer before engineering result saved",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "save the engineering result before offering adversarial review",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-35",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL-repair\\.project-governance\\tasks\\T-REPAIR-FULL",
+    "expected": {
+      "status": "ManagedByParent",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "ManagedByParent",
+      "parent_task_id": "T-ORIGINAL-FULL",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-36",
+    "input": {
+      "event": "Offer",
+      "recorded_at": "2026-10-23T10:53:37.390412Z",
+      "prompt": "Synthetic recursive question",
+      "evidence_ref": "synthetic-ar02://offer"
+    },
+    "expected": "deny recursive review on child",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "record rounds on the original review task; this repair is managed by its parent",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-37",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL-repair\\.project-governance\\tasks\\T-ORIGINAL-FULL",
+    "expected": {
+      "status": "Stale",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-ORIGINAL-FULL",
+        "subject_sha256": "2abd642d13bc3da0846fc542ef77eef27c1e7db130bbe023eaf1f90001825850",
+        "requirements_sha256": "c09049ce48b5c5a69c186ef0e2e6b39096d5fbc881cf22f848c46c079fc5fc11"
+      }
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "canonical",
+    "id": "FULL-38",
+    "input": {
+      "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL-repair\\.project-governance\\tasks\\T-ORIGINAL-FULL",
+      "new_verified_repair": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\FULL-repair\\.project-governance\\tasks\\T-REPAIR-FULL",
+      "round_delivery": "T-ORIGINAL-FULL"
+    },
+    "expected": "A round cannot certify the superseded delivery; it must use the current registered repair",
+    "actual": {
+      "accepted": true,
+      "state": {
+        "status": "Passed",
+        "clean_streak": 2,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-ORIGINAL-FULL",
+          "subject_sha256": "2abd642d13bc3da0846fc542ef77eef27c1e7db130bbe023eaf1f90001825850",
+          "requirements_sha256": "c09049ce48b5c5a69c186ef0e2e6b39096d5fbc881cf22f848c46c079fc5fc11"
+        }
+      }
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-01",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "NotOffered",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "NotOffered",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-02",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": "new result preserved independently as Pending",
+    "actual": {
+      "outcome": "Pending"
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-03",
+    "input": {
+      "event": "Decision",
+      "recorded_at": "2026-10-23T10:53:37.588968Z",
+      "outcome": "Accepted",
+      "response": "Synthetic begin",
+      "decided_by": "synthetic-user",
+      "evidence_ref": "synthetic-ar02://decision"
+    },
+    "expected": "deny decision before question",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "record the actual post-completion question before a user decision",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-04",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:37.607014Z",
+      "round_id": "AR02-1",
+      "started_at": "2026-10-23T10:53:37.606799Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-MIN",
+      "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-MIN/evidence/independent-report-1.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny round before offer/opt-in",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-05",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "AwaitingUser",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "AwaitingUser",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-06",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:37.652386Z",
+      "round_id": "AR02-2",
+      "started_at": "2026-10-23T10:53:37.652175Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-MIN",
+      "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-MIN/evidence/independent-report-2.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny round with no answer",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-07",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "Declined",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Declined",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-08",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:37.699929Z",
+      "round_id": "AR02-3",
+      "started_at": "2026-10-23T10:53:37.699708Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-MIN",
+      "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-MIN/evidence/independent-report-3.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny after decline",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-09",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "Deferred",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Deferred",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-10",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:37.747936Z",
+      "round_id": "AR02-4",
+      "started_at": "2026-10-23T10:53:37.747710Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-MIN",
+      "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-MIN/evidence/independent-report-4.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny after defer",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-11",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-12",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-13",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:37.831044Z",
+      "round_id": "AR02-5",
+      "started_at": "2026-10-23T10:53:37.830824Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-MIN",
+      "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-MIN/evidence/independent-report-6.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny duplicate round id",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "each round requires a fresh review id",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-14",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:37.856481Z",
+      "round_id": "AR02-7",
+      "started_at": "2026-10-23T10:53:37.856250Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-MIN",
+      "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN\\evidence\\..\\evidence\\independent-report-5.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny report alias",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "each round needs a distinct report; aliases and copied content cannot count twice",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-15",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:37.879480Z",
+      "round_id": "AR02-8",
+      "started_at": "2026-10-23T10:53:37.879243Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-MIN",
+      "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-MIN/evidence/independent-report-8.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny copy of first report",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "each round needs a distinct report; aliases and copied content cannot count twice",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-16",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 2
+    },
+    "actual": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-17",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:37.946607Z",
+      "round_id": "AR02-10",
+      "started_at": "2026-10-23T10:53:37.946254Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-MIN",
+      "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-MIN/evidence/independent-report-10.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny further round after passed without new decision",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-18",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-19",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 3,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-20",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 1
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 4,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-21",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "Blocked",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Blocked",
+      "clean_streak": 0,
+      "rounds": 4,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-22",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "open_findings": [
+        "MIN-ISSUE-A"
+      ]
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 5,
+      "open_findings": [
+        "MIN-ISSUE-A"
+      ],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-23",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "open_findings": [
+        "MIN-ISSUE-A"
+      ]
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": [
+        "MIN-ISSUE-A"
+      ],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-24",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:38.230432Z",
+      "round_id": "AR02-15",
+      "started_at": "2026-10-23T10:53:38.230215Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-MIN",
+      "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-MIN/evidence/independent-report-15.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": [
+        {
+          "finding_id": "MIN-ISSUE-A",
+          "disposition": "Fixed",
+          "reason": "Synthetic claimed same-delivery fix",
+          "evidence_refs": [
+            "synthetic-ar02://fix"
+          ]
+        }
+      ]
+    },
+    "expected": "deny Fixed without new verified delivery",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "a fix requires a newly verified delivery; use evidenced NotAnIssue for a false positive",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-25",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "open_findings": []
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 7,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-26",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "Stopped",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Stopped",
+      "clean_streak": 0,
+      "rounds": 7,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-27",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:38.378212Z",
+      "round_id": "AR02-17",
+      "started_at": "2026-10-23T10:53:38.377938Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-MIN",
+      "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-MIN/evidence/independent-report-17.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny round after user stop",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "do not start review without explicit opt-in, or continue after two clean rounds",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-28",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 7,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-29",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "Passed",
+      "clean_streak": 2
+    },
+    "actual": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 9,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-30",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": "review preserves Pending user decision and closed ledger",
+    "actual": {
+      "user_decision": {
+        "outcome": "Pending"
+      },
+      "ledger_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-31",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": "Passed does not trigger another review",
+    "actual": [
+      {
+        "command": "status",
+        "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"
+      }
+    ],
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-32",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "Stale",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Stale",
+      "clean_streak": 0,
+      "rounds": 9,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-33",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+    "expected": {
+      "status": "Blocked",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Blocked",
+      "clean_streak": 0,
+      "rounds": 9,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-MIN",
+        "subject_sha256": "dbb9acb33f97f5000e01c127120ffc7db6b579138856da9d5d57e9d5330f20d1",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-34",
+    "input": {
+      "event": "Offer",
+      "recorded_at": "2026-10-23T10:53:38.751570Z",
+      "prompt": "Synthetic premature question",
+      "evidence_ref": "synthetic-ar02://offer"
+    },
+    "expected": "deny offer before engineering result saved",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "save the engineering result before offering adversarial review",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-35",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN-repair\\.project-governance\\tasks\\T-REPAIR-MIN",
+    "expected": {
+      "status": "ManagedByParent",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "ManagedByParent",
+      "parent_task_id": "T-ORIGINAL-MIN",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-36",
+    "input": {
+      "event": "Offer",
+      "recorded_at": "2026-10-23T10:53:39.066992Z",
+      "prompt": "Synthetic recursive question",
+      "evidence_ref": "synthetic-ar02://offer"
+    },
+    "expected": "deny recursive review on child",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "record rounds on the original review task; this repair is managed by its parent",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-37",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN-repair\\.project-governance\\tasks\\T-ORIGINAL-MIN",
+    "expected": {
+      "status": "Stale",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-ORIGINAL-MIN",
+        "subject_sha256": "e546fc84dd0941a3ae93a50babdd328ea5ca1eb696308815c026c4ce298e7e1a",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "canonical",
+    "id": "MIN-38",
+    "input": {
+      "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN-repair\\.project-governance\\tasks\\T-ORIGINAL-MIN",
+      "new_verified_repair": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\MIN-repair\\.project-governance\\tasks\\T-REPAIR-MIN",
+      "round_delivery": "T-ORIGINAL-MIN"
+    },
+    "expected": "A round cannot certify the superseded delivery; it must use the current registered repair",
+    "actual": {
+      "accepted": true,
+      "state": {
+        "status": "Passed",
+        "clean_streak": 2,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-ORIGINAL-MIN",
+          "subject_sha256": "e546fc84dd0941a3ae93a50babdd328ea5ca1eb696308815c026c4ce298e7e1a",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        }
+      }
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-01",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\targeted\\.project-governance\\tasks\\T-PARENT",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "open_findings": []
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-REPAIR",
+        "subject_sha256": "9e4eaa41868d756f709d94c6422e05e70a00482656c068042e3c081a51deecef",
+        "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-02",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\targeted\\.project-governance\\tasks\\T-PARENT",
+    "expected": {
+      "status": "Passed",
+      "clean_streak": 2
+    },
+    "actual": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 3,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-REPAIR",
+        "subject_sha256": "9e4eaa41868d756f709d94c6422e05e70a00482656c068042e3c081a51deecef",
+        "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-03",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\targeted\\.project-governance\\tasks\\T-PARENT",
+    "expected": {
+      "status": "Passed",
+      "clean_streak": 2
+    },
+    "actual": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 3,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-REPAIR",
+        "subject_sha256": "9e4eaa41868d756f709d94c6422e05e70a00482656c068042e3c081a51deecef",
+        "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-04",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\targeted\\.project-governance\\tasks\\T-PARENT",
+    "expected": {
+      "status": "Passed",
+      "clean_streak": 2
+    },
+    "actual": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 3,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-REPAIR",
+        "subject_sha256": "9e4eaa41868d756f709d94c6422e05e70a00482656c068042e3c081a51deecef",
+        "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-05",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\targeted\\.project-governance\\tasks\\T-PARENT",
+    "expected": {
+      "status": "Stale",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "Stale",
+      "clean_streak": 0,
+      "rounds": 3,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-REPAIR",
+        "subject_sha256": "9e4eaa41868d756f709d94c6422e05e70a00482656c068042e3c081a51deecef",
+        "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-06",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\targeted\\.project-governance\\tasks\\T-PARENT",
+    "expected": {
+      "status": "InProgress",
+      "clean_streak": 1
+    },
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 4,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-REPAIR",
+        "subject_sha256": "c2a61ebbd08ddcea452de22efd6f3d3862894fedb8583eac94bfc4af77e65ba5",
+        "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-07",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:40.642954Z",
+      "round_id": "AR02-5",
+      "started_at": "2026-08-15T00:00:00Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-REPAIR",
+      "subject_sha256": "c2a61ebbd08ddcea452de22efd6f3d3862894fedb8583eac94bfc4af77e65ba5",
+      "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+      "report_ref": ".project-governance/tasks/T-PARENT/evidence/independent-report-5.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny a round started before opt-in/completion/verification",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "start a new round only after the referenced delivery was verified and saved",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-08",
+    "input": [
+      "amend adversarial_review",
+      "amend adversarial_review_parent"
+    ],
+    "expected": "both official generic writes denied and original bytes preserved",
+    "actual": [
+      "adversarial_review is append-only; use adversarial_review.py with an actual record",
+      "adversarial_review is append-only; use adversarial_review.py with an actual record"
+    ],
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-09",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:40.710124Z",
+      "round_id": "AR02-6",
+      "started_at": "2026-10-23T10:53:40.709830Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-REPAIR",
+      "subject_sha256": "c2a61ebbd08ddcea452de22efd6f3d3862894fedb8583eac94bfc4af77e65ba5",
+      "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+      "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\outside-report.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny report outside original review task",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "report_ref must be an existing file inside the original review task",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-10",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:40.747729Z",
+      "round_id": "AR02-7",
+      "started_at": "2026-10-23T10:53:40.747488Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-REPAIR",
+      "subject_sha256": "c2a61ebbd08ddcea452de22efd6f3d3862894fedb8583eac94bfc4af77e65ba5",
+      "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+      "report_ref": ".project-governance/tasks/T-PARENT/evidence/independent-report-7.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny empty report",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "the actual round report must not be empty",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-11",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:40.788401Z",
+      "round_id": "AR02-8",
+      "started_at": "2026-10-23T10:53:40.788078Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-REPAIR",
+      "subject_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+      "report_ref": ".project-governance/tasks/T-PARENT/evidence/independent-report-8.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny wrong delivery digest",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "round subject does not match the referenced verified engineering result",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-12",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:53:40.830556Z",
+      "round_id": "AR02-9",
+      "started_at": "2026-10-23T10:53:40.830263Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-REPAIR",
+      "subject_sha256": "c2a61ebbd08ddcea452de22efd6f3d3862894fedb8583eac94bfc4af77e65ba5",
+      "requirements_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "report_ref": ".project-governance/tasks/T-PARENT/evidence/independent-report-9.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "deny wrong original request digest",
+    "actual": {
+      "accepted": false,
+      "exception": "GovernanceError",
+      "message": "new rounds must bind the current original request and clarification words",
+      "unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "CLI-0",
+    "input": {
+      "payload": "{"
+    },
+    "expected": "controlled exit 2 with no traceback",
+    "actual": {
+      "exit": 2,
+      "stdout": "",
+      "stderr": "ERROR: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\n"
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "CLI-1",
+    "input": {
+      "payload": "[]"
+    },
+    "expected": "controlled exit 2 with no traceback",
+    "actual": {
+      "exit": 2,
+      "stdout": "",
+      "stderr": "ERROR: review entry must be a JSON object\n"
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "CLI-2",
+    "input": {
+      "payload": "null"
+    },
+    "expected": "controlled exit 2 with no traceback",
+    "actual": {
+      "exit": 2,
+      "stdout": "",
+      "stderr": "ERROR: review entry must be a JSON object\n"
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "CLI-3",
+    "input": {
+      "payload": "{\"event\":\"Round\"}"
+    },
+    "expected": "controlled exit 2 with no traceback",
+    "actual": {
+      "exit": 2,
+      "stdout": "",
+      "stderr": "ERROR: review entry: must match exactly one schema branch\n"
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-13",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\decision-independent\\.project-governance\\tasks\\T-DECISION",
+    "expected": {
+      "status": "NotOffered",
+      "clean_streak": 0
+    },
+    "actual": {
+      "status": "NotOffered",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "canonical",
+    "id": "EDGE-14",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\workspaces\\decision-independent\\.project-governance\\tasks\\T-DECISION",
+    "expected": "real result-level Acceptance preserved through review history",
+    "actual": {
+      "outcome": "Approved",
+      "presented": "Synthetic completed delivery",
+      "response": "Synthetic ordinary Acceptance",
+      "decided_by": "synthetic-user",
+      "decided_at": "2026-10-23T10:53:41.732901Z",
+      "evidence_ref": "synthetic-ar02://ordinary-acceptance",
+      "subject_sha256": "b3fbe3fe0cf320439f3562a0b37c981eaf013c1fef6cd1e36c3f271df8e8df54"
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "supplement",
+    "id": "PATH-FULL-ABS",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:58:08.941485Z",
+      "round_id": "AR02-1",
+      "started_at": "2026-10-23T10:58:08.941227Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-ABS-FULL",
+      "subject_sha256": "694171584850c500bcf851fa8a9cbbbb358a32dfea5a5e629b65923014fe6aac",
+      "requirements_sha256": "1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276",
+      "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\absolute-FULL\\.project-governance\\tasks\\T-ABS-FULL\\evidence\\independent-report-1.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "Absolute in-task non-empty report is supported; append Round and return exit 0",
+    "actual": {
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\absolute-FULL\\.project-governance\\tasks\\T-ABS-FULL",
+        "--entry-json-file",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\input-T-ABS-FULL-0.json",
+        "--reason",
+        "Independent synthetic boundary check",
+        "--basis",
+        "synthetic-ar02://supplement"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "ERROR: report_ref must match the actual report or delivery\n",
+      "outcome_bytes_unchanged": true,
+      "ledger_unchanged": true
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "supplement",
+    "id": "PATH-FULL-CANONICAL",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:58:08.941485Z",
+      "round_id": "AR02-1",
+      "started_at": "2026-10-23T10:58:08.941227Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-ABS-FULL",
+      "subject_sha256": "694171584850c500bcf851fa8a9cbbbb358a32dfea5a5e629b65923014fe6aac",
+      "requirements_sha256": "1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276",
+      "report_ref": ".project-governance/tasks/T-ABS-FULL/evidence/independent-report-1.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "Identical report via canonical project-relative path succeeds",
+    "actual": {
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\absolute-FULL\\.project-governance\\tasks\\T-ABS-FULL",
+        "--entry-json-file",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\input-T-ABS-FULL-1.json",
+        "--reason",
+        "Independent synthetic boundary check",
+        "--basis",
+        "synthetic-ar02://supplement"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-ABS-FULL\",\n    \"subject_sha256\": \"694171584850c500bcf851fa8a9cbbbb358a32dfea5a5e629b65923014fe6aac\",\n    \"requirements_sha256\": \"1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276\"\n  },\n  \"requirements_sha256\": \"1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276\",\n  \"delivery_task_id\": \"T-ABS-FULL\",\n  \"subject_sha256\": \"694171584850c500bcf851fa8a9cbbbb358a32dfea5a5e629b65923014fe6aac\"\n}\n",
+      "stderr": "",
+      "json": {
+        "status": "InProgress",
+        "clean_streak": 1,
+        "rounds": 1,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-ABS-FULL",
+          "subject_sha256": "694171584850c500bcf851fa8a9cbbbb358a32dfea5a5e629b65923014fe6aac",
+          "requirements_sha256": "1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276"
+        },
+        "requirements_sha256": "1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276",
+        "delivery_task_id": "T-ABS-FULL",
+        "subject_sha256": "694171584850c500bcf851fa8a9cbbbb358a32dfea5a5e629b65923014fe6aac"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "supplement",
+    "id": "PATH-FULL-DOTREL",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:58:09.181888Z",
+      "round_id": "AR02-2",
+      "started_at": "2026-10-23T10:58:09.181610Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-ABS-FULL",
+      "subject_sha256": "694171584850c500bcf851fa8a9cbbbb358a32dfea5a5e629b65923014fe6aac",
+      "requirements_sha256": "1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276",
+      "report_ref": "./.project-governance/tasks/T-ABS-FULL/evidence/independent-report-2.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "Equivalent project-relative path normalizes and succeeds",
+    "actual": {
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\absolute-FULL\\.project-governance\\tasks\\T-ABS-FULL",
+        "--entry-json-file",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\input-T-ABS-FULL-2.json",
+        "--reason",
+        "Independent synthetic boundary check",
+        "--basis",
+        "synthetic-ar02://supplement"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "ERROR: report_ref must match the actual report or delivery\n"
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "supplement",
+    "id": "PATH-MIN-ABS",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:58:09.460458Z",
+      "round_id": "AR02-1",
+      "started_at": "2026-10-23T10:58:09.460235Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-ABS-MIN",
+      "subject_sha256": "1041c822f0f7c76f66bf7a86f6b9fed3dc25a950a4ecf9c9b68b2b798aa19d86",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\absolute-MIN\\.project-governance\\tasks\\T-ABS-MIN\\evidence\\independent-report-1.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "Absolute in-task non-empty report is supported; append Round and return exit 0",
+    "actual": {
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\absolute-MIN\\.project-governance\\tasks\\T-ABS-MIN",
+        "--entry-json-file",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\input-T-ABS-MIN-3.json",
+        "--reason",
+        "Independent synthetic boundary check",
+        "--basis",
+        "synthetic-ar02://supplement"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "ERROR: report_ref must match the actual report or delivery\n",
+      "outcome_bytes_unchanged": true,
+      "ledger_unchanged": true
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "supplement",
+    "id": "PATH-MIN-CANONICAL",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:58:09.460458Z",
+      "round_id": "AR02-1",
+      "started_at": "2026-10-23T10:58:09.460235Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-ABS-MIN",
+      "subject_sha256": "1041c822f0f7c76f66bf7a86f6b9fed3dc25a950a4ecf9c9b68b2b798aa19d86",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-ABS-MIN/evidence/independent-report-1.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "Identical report via canonical project-relative path succeeds",
+    "actual": {
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\absolute-MIN\\.project-governance\\tasks\\T-ABS-MIN",
+        "--entry-json-file",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\input-T-ABS-MIN-4.json",
+        "--reason",
+        "Independent synthetic boundary check",
+        "--basis",
+        "synthetic-ar02://supplement"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-ABS-MIN\",\n    \"subject_sha256\": \"1041c822f0f7c76f66bf7a86f6b9fed3dc25a950a4ecf9c9b68b2b798aa19d86\",\n    \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\"\n  },\n  \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\",\n  \"delivery_task_id\": \"T-ABS-MIN\",\n  \"subject_sha256\": \"1041c822f0f7c76f66bf7a86f6b9fed3dc25a950a4ecf9c9b68b2b798aa19d86\"\n}\n",
+      "stderr": "",
+      "json": {
+        "status": "InProgress",
+        "clean_streak": 1,
+        "rounds": 1,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-ABS-MIN",
+          "subject_sha256": "1041c822f0f7c76f66bf7a86f6b9fed3dc25a950a4ecf9c9b68b2b798aa19d86",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        },
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "delivery_task_id": "T-ABS-MIN",
+        "subject_sha256": "1041c822f0f7c76f66bf7a86f6b9fed3dc25a950a4ecf9c9b68b2b798aa19d86"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "supplement",
+    "id": "PATH-MIN-DOTREL",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:58:09.655629Z",
+      "round_id": "AR02-2",
+      "started_at": "2026-10-23T10:58:09.655379Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-ABS-MIN",
+      "subject_sha256": "1041c822f0f7c76f66bf7a86f6b9fed3dc25a950a4ecf9c9b68b2b798aa19d86",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": "./.project-governance/tasks/T-ABS-MIN/evidence/independent-report-2.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "Equivalent project-relative path normalizes and succeeds",
+    "actual": {
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\absolute-MIN\\.project-governance\\tasks\\T-ABS-MIN",
+        "--entry-json-file",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\input-T-ABS-MIN-5.json",
+        "--reason",
+        "Independent synthetic boundary check",
+        "--basis",
+        "synthetic-ar02://supplement"
+      ],
+      "exit": 2,
+      "stdout": "",
+      "stderr": "ERROR: report_ref must match the actual report or delivery\n"
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "supplement",
+    "id": "VERSION-FULL-DIFFERENT",
+    "input": {
+      "old": {
+        "text": "Alpha\n",
+        "sha256": "0c3ec75a4c7c5e6d69c725e4931ecc14abf1f999ea80ab74a427f67a5a7791a2",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL"
+      },
+      "new": {
+        "text": "Beta\n",
+        "sha256": "b2e8b5f1f37c76a627cf51ae0531c613aa2ccbc7609248c568dd526b7c2fd41e",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-NEW-FULL\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-NEW-FULL"
+      }
+    },
+    "expected": "Actual governed source delivery changes Alpha to Beta and new child is ManagedByParent",
+    "actual": {
+      "new_review": {
+        "status": "ManagedByParent",
+        "parent_task_id": "T-OLD-FULL",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "different_source_sha256": true,
+      "old_subject": {
+        "status": "Passed",
+        "changed_count": 1,
+        "out_of_scope": [],
+        "undeclared_untouched": [],
+        "external_declarations": [],
+        "baseline_sha256": "884aa52972167c19fbeb7517e2e7d0fdfdee24829d0f41641bee8ba1c9520e96",
+        "scope_sha256": "2675330684730af8e7d237e12264d0c5cd0202d50e40410c3be85963c704eec8",
+        "delivery_sha256": "a5bd44975b963da6cbd7956b5209accf796671a156c5d6388d92124756683e10",
+        "report_sha256": "9883356da3b08f2b77c34cbf76c57276ddda44d5870088ab4d7bd0c229db5da8"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "supplement",
+    "id": "VERSION-FULL-QUERY",
+    "input": {
+      "old": {
+        "text": "Alpha\n",
+        "sha256": "0c3ec75a4c7c5e6d69c725e4931ecc14abf1f999ea80ab74a427f67a5a7791a2",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL"
+      },
+      "new": {
+        "text": "Beta\n",
+        "sha256": "b2e8b5f1f37c76a627cf51ae0531c613aa2ccbc7609248c568dd526b7c2fd41e",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-NEW-FULL\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-NEW-FULL"
+      }
+    },
+    "expected": "Old clean streak invalidates when new registered verified delivery replaces it",
+    "actual": {
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-OLD-FULL\",\n    \"subject_sha256\": \"ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58\",\n    \"requirements_sha256\": \"73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5\"\n  },\n  \"requirements_sha256\": \"73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5\",\n  \"delivery_task_id\": \"T-OLD-FULL\",\n  \"subject_sha256\": \"ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58\"\n}\n",
+      "stderr": "",
+      "json": {
+        "status": "InProgress",
+        "clean_streak": 1,
+        "rounds": 1,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-OLD-FULL",
+          "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58",
+          "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5"
+        },
+        "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5",
+        "delivery_task_id": "T-OLD-FULL",
+        "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58"
+      }
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "supplement",
+    "id": "VERSION-FULL-OLD-APPEND",
+    "input": {
+      "new_delivery": {
+        "text": "Beta\n",
+        "sha256": "b2e8b5f1f37c76a627cf51ae0531c613aa2ccbc7609248c568dd526b7c2fd41e",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-NEW-FULL\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-NEW-FULL"
+      },
+      "round": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:58:12.782620Z",
+        "round_id": "AR02-2",
+        "started_at": "2026-10-23T10:58:12.782354Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-OLD-FULL",
+        "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58",
+        "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5",
+        "report_ref": ".project-governance/tasks/T-OLD-FULL/evidence/independent-report-2.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      }
+    },
+    "expected": "Old delivery cannot produce two-clean-round Passed on current Beta",
+    "actual": {
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL",
+        "--entry-json-file",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\input-T-OLD-FULL-8.json",
+        "--reason",
+        "Independent synthetic boundary check",
+        "--basis",
+        "synthetic-ar02://supplement"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"status\": \"Passed\",\n  \"clean_streak\": 2,\n  \"rounds\": 2,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-OLD-FULL\",\n    \"subject_sha256\": \"ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58\",\n    \"requirements_sha256\": \"73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5\"\n  },\n  \"requirements_sha256\": \"73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5\",\n  \"delivery_task_id\": \"T-OLD-FULL\",\n  \"subject_sha256\": \"ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58\"\n}\n",
+      "stderr": "",
+      "json": {
+        "status": "Passed",
+        "clean_streak": 2,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-OLD-FULL",
+          "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58",
+          "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5"
+        },
+        "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5",
+        "delivery_task_id": "T-OLD-FULL",
+        "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58"
+      }
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "supplement",
+    "id": "VERSION-FULL-SIGNALS",
+    "input": {
+      "new_delivery": {
+        "text": "Beta\n",
+        "sha256": "b2e8b5f1f37c76a627cf51ae0531c613aa2ccbc7609248c568dd526b7c2fd41e",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-NEW-FULL\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-NEW-FULL"
+      },
+      "task": "T-OLD-FULL"
+    },
+    "expected": "signals never publishes Passed for superseded Alpha after current Beta exists",
+    "actual": [
+      {
+        "adversarial_review": {
+          "clean_streak": 2,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5",
+            "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58",
+            "task_id": "T-OLD-FULL"
+          },
+          "rounds": 2,
+          "status": "Passed"
+        },
+        "engineering_recorded": true,
+        "pending_acceptance": true,
+        "task_id": "T-OLD-FULL",
+        "user_decision": "Pending"
+      }
+    ],
+    "result": "Failed"
+  },
+  {
+    "suite": "supplement",
+    "id": "VERSION-MIN-DIFFERENT",
+    "input": {
+      "old": {
+        "text": "Alpha\n",
+        "sha256": "0c3ec75a4c7c5e6d69c725e4931ecc14abf1f999ea80ab74a427f67a5a7791a2",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-OLD-MIN\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-OLD-MIN"
+      },
+      "new": {
+        "text": "Beta\n",
+        "sha256": "b2e8b5f1f37c76a627cf51ae0531c613aa2ccbc7609248c568dd526b7c2fd41e",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-NEW-MIN\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-NEW-MIN"
+      }
+    },
+    "expected": "Actual governed source delivery changes Alpha to Beta and new child is ManagedByParent",
+    "actual": {
+      "new_review": {
+        "status": "ManagedByParent",
+        "parent_task_id": "T-OLD-MIN",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "different_source_sha256": true,
+      "old_subject": "e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3"
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "supplement",
+    "id": "VERSION-MIN-QUERY",
+    "input": {
+      "old": {
+        "text": "Alpha\n",
+        "sha256": "0c3ec75a4c7c5e6d69c725e4931ecc14abf1f999ea80ab74a427f67a5a7791a2",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-OLD-MIN\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-OLD-MIN"
+      },
+      "new": {
+        "text": "Beta\n",
+        "sha256": "b2e8b5f1f37c76a627cf51ae0531c613aa2ccbc7609248c568dd526b7c2fd41e",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-NEW-MIN\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-NEW-MIN"
+      }
+    },
+    "expected": "Old clean streak invalidates when new registered verified delivery replaces it",
+    "actual": {
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-OLD-MIN"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-OLD-MIN\",\n    \"subject_sha256\": \"e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3\",\n    \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\"\n  },\n  \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\",\n  \"delivery_task_id\": \"T-OLD-MIN\",\n  \"subject_sha256\": \"e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3\"\n}\n",
+      "stderr": "",
+      "json": {
+        "status": "InProgress",
+        "clean_streak": 1,
+        "rounds": 1,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-OLD-MIN",
+          "subject_sha256": "e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        },
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "delivery_task_id": "T-OLD-MIN",
+        "subject_sha256": "e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3"
+      }
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "supplement",
+    "id": "VERSION-MIN-OLD-APPEND",
+    "input": {
+      "new_delivery": {
+        "text": "Beta\n",
+        "sha256": "b2e8b5f1f37c76a627cf51ae0531c613aa2ccbc7609248c568dd526b7c2fd41e",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-NEW-MIN\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-NEW-MIN"
+      },
+      "round": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:58:14.357720Z",
+        "round_id": "AR02-2",
+        "started_at": "2026-10-23T10:58:14.357467Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-OLD-MIN",
+        "subject_sha256": "e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": ".project-governance/tasks/T-OLD-MIN/evidence/independent-report-2.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      }
+    },
+    "expected": "Old delivery cannot produce two-clean-round Passed on current Beta",
+    "actual": {
+      "command": [
+        "C:\\Program Files\\Python313\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-OLD-MIN",
+        "--entry-json-file",
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\input-T-OLD-MIN-12.json",
+        "--reason",
+        "Independent synthetic boundary check",
+        "--basis",
+        "synthetic-ar02://supplement"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"status\": \"Passed\",\n  \"clean_streak\": 2,\n  \"rounds\": 2,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-OLD-MIN\",\n    \"subject_sha256\": \"e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3\",\n    \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\"\n  },\n  \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\",\n  \"delivery_task_id\": \"T-OLD-MIN\",\n  \"subject_sha256\": \"e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3\"\n}\n",
+      "stderr": "",
+      "json": {
+        "status": "Passed",
+        "clean_streak": 2,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-OLD-MIN",
+          "subject_sha256": "e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        },
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "delivery_task_id": "T-OLD-MIN",
+        "subject_sha256": "e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3"
+      }
+    },
+    "result": "Failed"
+  },
+  {
+    "suite": "supplement",
+    "id": "VERSION-MIN-SIGNALS",
+    "input": {
+      "new_delivery": {
+        "text": "Beta\n",
+        "sha256": "b2e8b5f1f37c76a627cf51ae0531c613aa2ccbc7609248c568dd526b7c2fd41e",
+        "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-NEW-MIN\\evidence\\delivery.json",
+        "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-NEW-MIN"
+      },
+      "task": "T-OLD-MIN"
+    },
+    "expected": "signals never publishes Passed for superseded Alpha after current Beta exists",
+    "actual": [
+      {
+        "adversarial_review": {
+          "clean_streak": 2,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+            "subject_sha256": "e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3",
+            "task_id": "T-OLD-MIN"
+          },
+          "rounds": 2,
+          "status": "Passed"
+        },
+        "engineering_recorded": true,
+        "pending_acceptance": true,
+        "task_id": "T-OLD-MIN",
+        "user_decision": "Pending"
+      }
+    ],
+    "result": "Failed"
+  },
+  {
+    "suite": "supplement",
+    "id": "COMPAT-01",
+    "input": {
+      "model": "Saved historical outcome without adversarial_review; file unmodified"
+    },
+    "expected": "Historical read remains LegacyUntracked",
+    "actual": {
+      "status": "LegacyUntracked",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "supplement",
+    "id": "COMPAT-02",
+    "input": {
+      "model": "Two genuine old-contract complete rounds replayed as a pure reader input"
+    },
+    "expected": "Old convergence is LegacyNotRevalidated, never counted as new v2 Passed",
+    "actual": {
+      "status": "LegacyNotRevalidated",
+      "clean_streak": 0,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-COMPAT",
+        "subject_sha256": "975874f2a8940502bdb49e068cb5aa1681b9717e615400d0d1cd0c6c40c47b76",
+        "requirements_sha256": "7039527c4cbbfea9dc12d46905b760619def418ad522bc5a5839c155e8cbf73b"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "supplement",
+    "id": "STATUS-OFFER",
+    "input": {
+      "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\recommendations\\.project-governance\\tasks\\T-NOTOFFERED"
+    },
+    "expected": "Fresh completed engineering actively recommends asking before adversarial review",
+    "actual": [
+      {
+        "command": "verify",
+        "reason": "工程结果已保存；主动询问是否进行对抗性审查，明确同意前不得开始。"
+      }
+    ],
+    "result": "Passed"
+  },
+  {
+    "suite": "supplement",
+    "id": "STATIC-SCHEMA",
+    "input": {
+      "Full": "task-after.schema.json",
+      "Minimal": "minimal-task-record.schema.json"
+    },
+    "expected": "Both carrier schemas exactly match public review event contract",
+    "actual": {
+      "Full_match": true,
+      "Minimal_match": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-ACTIVE-OFFER",
+    "input": {
+      "event": "Offer while accepted"
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "an active review must be completed or stopped before offering it again",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-ACTIVE-ACCEPT",
+    "input": {
+      "event": "duplicate Accepted while active"
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "an active review only accepts an explicit stop decision",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-ACTIVE-DECLINE",
+    "input": {
+      "event": "Declined while active; caller must record Stopped"
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "an active review only accepts an explicit stop decision",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-COVERAGE-INCOMPLETE",
+    "input": {
+      "coverage": "Incomplete",
+      "unreviewed_items": []
+    },
+    "expected": "clean streak resets even without enumerated unchecked items",
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-BOUND-FULL",
+        "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+        "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-UNREVIEWED",
+    "input": {
+      "coverage": "Complete",
+      "unreviewed_items": [
+        "Not reviewed branch"
+      ]
+    },
+    "expected": "unreviewed item resets even if coverage claims Complete",
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 4,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-BOUND-FULL",
+        "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+        "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-UNRELATED-RESOLUTION",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T11:01:33.404542Z",
+      "round_id": "AR02-6",
+      "started_at": "2026-10-23T11:01:33.404274Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-BOUND-FULL",
+      "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+      "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f",
+      "report_ref": ".project-governance/tasks/T-BOUND-FULL/evidence/independent-report-6.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": [
+        {
+          "finding_id": "UNKNOWN",
+          "disposition": "NotAnIssue",
+          "reason": "Synthetic invalid resolution",
+          "evidence_refs": [
+            "synthetic-ar02://none"
+          ]
+        }
+      ]
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "resolution must reference an unresolved finding",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-REQUEST-CHANGED",
+    "input": {
+      "reader_input": "same saved outcome, changed authoritative request words"
+    },
+    "expected": "old bound rounds become Stale/0",
+    "actual": {
+      "status": "Stale",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-BOUND-FULL",
+        "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+        "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-ANSWER-CHANGED",
+    "input": {
+      "reader_input": "same saved outcome, additional clarification Q/default/actual-answer context"
+    },
+    "expected": "old bound rounds become Stale/0",
+    "actual": {
+      "status": "Stale",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-BOUND-FULL",
+        "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+        "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-FUTURE",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2099-01-01T00:00:00Z",
+      "round_id": "AR02-8",
+      "started_at": "2026-10-23T11:01:33.517491Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-BOUND-FULL",
+      "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+      "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f",
+      "report_ref": ".project-governance/tasks/T-BOUND-FULL/evidence/independent-report-8.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "adversarial review time must include timezone and must not be in the future",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-WRONG-DELIVERY",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T11:01:34.124847Z",
+      "round_id": "AR02-9",
+      "started_at": "2026-10-23T11:01:34.124567Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-UNRELATED-FULL",
+      "subject_sha256": "5057a8733e5d256264012b8ed4507859e262e92bffa30d4f1e8e9bbc3cffe931",
+      "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f",
+      "report_ref": ".project-governance/tasks/T-BOUND-FULL/evidence/independent-report-9.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "a repaired delivery must directly depend on and explicitly belong to the original review",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-STOPPED-PARENT",
+    "input": {
+      "parent": "T-BOUND-FULL",
+      "state": "Stopped"
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "a repair must belong to an explicitly opted-in, unfinished parent review",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-ACTIVE-OFFER",
+    "input": {
+      "event": "Offer while accepted"
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "an active review must be completed or stopped before offering it again",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-ACTIVE-ACCEPT",
+    "input": {
+      "event": "duplicate Accepted while active"
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "an active review only accepts an explicit stop decision",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-ACTIVE-DECLINE",
+    "input": {
+      "event": "Declined while active; caller must record Stopped"
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "an active review only accepts an explicit stop decision",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-COVERAGE-INCOMPLETE",
+    "input": {
+      "coverage": "Incomplete",
+      "unreviewed_items": []
+    },
+    "expected": "clean streak resets even without enumerated unchecked items",
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-BOUND-MIN",
+        "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-UNREVIEWED",
+    "input": {
+      "coverage": "Complete",
+      "unreviewed_items": [
+        "Not reviewed branch"
+      ]
+    },
+    "expected": "unreviewed item resets even if coverage claims Complete",
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 4,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-BOUND-MIN",
+        "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-UNRELATED-RESOLUTION",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T11:01:35.195335Z",
+      "round_id": "AR02-6",
+      "started_at": "2026-10-23T11:01:35.195046Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-BOUND-MIN",
+      "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-BOUND-MIN/evidence/independent-report-6.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": [
+        {
+          "finding_id": "UNKNOWN",
+          "disposition": "NotAnIssue",
+          "reason": "Synthetic invalid resolution",
+          "evidence_refs": [
+            "synthetic-ar02://none"
+          ]
+        }
+      ]
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "resolution must reference an unresolved finding",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-REQUEST-CHANGED",
+    "input": {
+      "reader_input": "same saved outcome, changed authoritative request words"
+    },
+    "expected": "old bound rounds become Stale/0",
+    "actual": {
+      "status": "Stale",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-BOUND-MIN",
+        "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-ANSWER-CHANGED",
+    "input": {
+      "reader_input": "same saved outcome, additional clarification Q/default/actual-answer context"
+    },
+    "expected": "old bound rounds become Stale/0",
+    "actual": {
+      "status": "Stale",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-BOUND-MIN",
+        "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-FUTURE",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2099-01-01T00:00:00Z",
+      "round_id": "AR02-8",
+      "started_at": "2026-10-23T11:01:35.279857Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-BOUND-MIN",
+      "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-BOUND-MIN/evidence/independent-report-8.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "adversarial review time must include timezone and must not be in the future",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-WRONG-DELIVERY",
+    "input": {
+      "event": "Round",
+      "recorded_at": "2026-10-23T11:01:35.436041Z",
+      "round_id": "AR02-9",
+      "started_at": "2026-10-23T11:01:35.435774Z",
+      "reviewer": "Independent AR02 synthetic fixture",
+      "delivery_task_id": "T-UNRELATED-MIN",
+      "subject_sha256": "261b0b53d267f37cc47b37d51f6485f5e4715095b663f10708b8881b6b49514b",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+      "report_ref": ".project-governance/tasks/T-BOUND-MIN/evidence/independent-report-9.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "synthetic-ar02://shared-support"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "a repaired delivery must directly depend on and explicitly belong to the original review",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-STOPPED-PARENT",
+    "input": {
+      "parent": "T-BOUND-MIN",
+      "state": "Stopped"
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "a repair must belong to an explicitly opted-in, unfinished parent review",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-NO-CONSENT-PARENT",
+    "input": {
+      "parent": "T-NO-CONSENT-FULL",
+      "state": "NotOffered"
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "a repair must belong to an explicitly opted-in, unfinished parent review",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "FULL-NO-CONSENT-STILL-OFFER",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\noconsent-FULL\\.project-governance\\tasks\\T-NO-CONSENT-FULL",
+    "expected": "child close refusal preserves original NotOffered",
+    "actual": {
+      "status": "NotOffered",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-NO-CONSENT-PARENT",
+    "input": {
+      "parent": "T-NO-CONSENT-MIN",
+      "state": "NotOffered"
+    },
+    "expected": "Deny invalid transition/input and preserve stored bytes",
+    "actual": {
+      "denied": true,
+      "message": "a repair must belong to an explicitly opted-in, unfinished parent review",
+      "bytes_unchanged": true
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "MIN-NO-CONSENT-STILL-OFFER",
+    "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\noconsent-MIN\\.project-governance\\tasks\\T-NO-CONSENT-MIN",
+    "expected": "child close refusal preserves original NotOffered",
+    "actual": {
+      "status": "NotOffered",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "CROSS-MIN-FULL",
+    "input": {
+      "parent": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\cross-min-full\\.project-governance\\tasks\\T-MIN-PARENT",
+      "child": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\cross-min-full\\.project-governance\\tasks\\T-FULL-CHILD"
+    },
+    "expected": "Full repair can belong to opted-in Minimal parent",
+    "actual": {
+      "status": "ManagedByParent",
+      "parent_task_id": "T-MIN-PARENT",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "CROSS-MIN-FULL-ROUND",
+    "input": {
+      "delivery": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\cross-min-full\\.project-governance\\tasks\\T-FULL-CHILD"
+    },
+    "expected": "original Minimal review binds current Full repaired delivery",
+    "actual": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-FULL-CHILD",
+        "subject_sha256": "3f8f2fdbb1b9055976fcc62701fa5816f9a53a29b5367a37399a8b30826aab94",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "CONCURRENCY-FULL",
+    "input": {
+      "operations": [
+        "actual synthetic user Rejected",
+        "new confirmed finding Round"
+      ],
+      "schedule": "2 real threads start at barrier"
+    },
+    "expected": "both records retained with no lost update",
+    "actual": {
+      "thread_errors": [],
+      "user_decision": {
+        "outcome": "Rejected",
+        "presented": "Independent synthetic current delivery",
+        "response": "Synthetic independent user rejection",
+        "decided_by": "synthetic-user",
+        "decided_at": "2026-10-23T11:01:38.578897Z",
+        "evidence_ref": "synthetic-ar02://synthetic-rejection",
+        "subject_sha256": "8e62bfc72a26ea915f8a5e8daeebac1e4a01ad0ad3fba9fa1bee3d5010273f0a"
+      },
+      "review": {
+        "status": "InProgress",
+        "clean_streak": 0,
+        "rounds": 1,
+        "open_findings": [
+          "KEEP-FULL"
+        ],
+        "reviewed_delivery": {
+          "task_id": "T-CONCURRENT-FULL",
+          "subject_sha256": "8e62bfc72a26ea915f8a5e8daeebac1e4a01ad0ad3fba9fa1bee3d5010273f0a",
+          "requirements_sha256": "48849238363fb4d5895a59611d49bff82ed443847fbe8602832cb417797cb491"
+        }
+      },
+      "revision": 5
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "CONCURRENCY-MIN",
+    "input": {
+      "operations": [
+        "actual synthetic user Rejected",
+        "new confirmed finding Round"
+      ],
+      "schedule": "2 real threads start at barrier"
+    },
+    "expected": "both records retained with no lost update",
+    "actual": {
+      "thread_errors": [],
+      "user_decision": {
+        "outcome": "Rejected",
+        "presented": "Independent synthetic current delivery",
+        "response": "Synthetic independent user rejection",
+        "decided_by": "synthetic-user",
+        "decided_at": "2026-10-23T11:01:38.814472Z",
+        "evidence_ref": "synthetic-ar02://synthetic-rejection",
+        "subject_sha256": "c58872b0aaf9ca06f9f7e4a95b88be7770973de598bedcf9efb2c5702689f3c3"
+      },
+      "review": {
+        "status": "InProgress",
+        "clean_streak": 0,
+        "rounds": 1,
+        "open_findings": [
+          "KEEP-MIN"
+        ],
+        "reviewed_delivery": {
+          "task_id": "T-CONCURRENT-MIN",
+          "subject_sha256": "c58872b0aaf9ca06f9f7e4a95b88be7770973de598bedcf9efb2c5702689f3c3",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        }
+      },
+      "revision": 8
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "DIST-CLOSURE",
+    "input": {
+      "entry_modules": [
+        "console",
+        "console_model",
+        "console_render",
+        "console_assets"
+      ]
+    },
+    "expected": "deployed pinned existing-console dependency closure contains new review module and is complete",
+    "actual": {
+      "declared": [
+        "adversarial_review.py",
+        "audit_console.py",
+        "check_write_guard.py",
+        "console.py",
+        "console_assets.py",
+        "console_model.py",
+        "console_render.py",
+        "deploy_console.py",
+        "governance_artifacts.py",
+        "manage_project_docs.py",
+        "minimal_task.py"
+      ],
+      "actual_import_closure": [
+        "adversarial_review.py",
+        "audit_console.py",
+        "check_write_guard.py",
+        "console.py",
+        "console_assets.py",
+        "console_model.py",
+        "console_render.py",
+        "deploy_console.py",
+        "governance_artifacts.py",
+        "manage_project_docs.py",
+        "minimal_task.py"
+      ]
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "CONSUME-FULL",
+    "input": {
+      "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL"
+    },
+    "expected": "generated review Markdown consumes the same status as readonly CLI",
+    "actual": {
+      "contains_Passed": true,
+      "state": {
+        "status": "Passed",
+        "clean_streak": 2,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-OLD-FULL",
+          "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58",
+          "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5"
+        }
+      }
+    },
+    "result": "Passed"
+  },
+  {
+    "suite": "boundaries",
+    "id": "CONSUME-MIN",
+    "input": {
+      "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-OLD-MIN"
+    },
+    "expected": "generated review Markdown consumes the same status as readonly CLI",
+    "actual": {
+      "contains_Passed": true,
+      "state": {
+        "status": "Passed",
+        "clean_streak": 2,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-OLD-MIN",
+          "subject_sha256": "e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        }
+      }
+    },
+    "result": "Passed"
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "captured_at": "2026-10-23T11:22:42.444503Z",
+  "updated": [
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/commands/verify.md",
+      "previous_sha256": "f847bc3bc77dde2d48285b91d9ae83ec312c3f6aa8064a23eddd159cdc156d2e",
+      "installed_sha256": "e3ddcf3200d39cc4af7b2036ce818e9e84dd7adc10b04016347ef1ff978c9a93"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/adversarial_review.py",
+      "previous_sha256": "d72ae80c4811c21929fca66a929299f373daa68a2b21d89f3be622b6e896847d",
+      "installed_sha256": "2d09682c1463e89026831eaeb0e35a45db80953a850ac8fe60b211c66a515c9e"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/self_test.py",
+      "previous_sha256": "d5d300bdb70e68d5f3c991460e977bda596df00c085fda0de166af788de0b78b",
+      "installed_sha256": "7b65856c2fb23eefb488f47eb968b9365c7be82f8afb655ee5eff5d2c64778d6"
+    }
+  ],
+  "source_files": 96,
+  "files_matching_repository": 95,
+  "preserved_parallel_changes": [
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/governance_artifacts.py",
+      "repository_sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "installed_sha256": "a4309d3d994a0700ee0066aa94d36f2ce860c80f14c92238cc8f71bb7d0663a9",
+      "reason": "parallel installation change observed during AR-02; preserved, not imported into this task"
+    }
+  ],
+  "junction": "C:/Users/Administrator/.codex/skills/run-governed-product-workflow"
+}

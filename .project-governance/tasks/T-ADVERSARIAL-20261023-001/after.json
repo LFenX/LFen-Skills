@@ -5,7 +5,7 @@
   "project_id": "P-LFEN-SKILLS",
   "work_item_id": "W-ADVERSARIAL-20261023",
   "task_id": "T-ADVERSARIAL-20261023-001",
-  "revision": 5,
+  "revision": 6,
   "status": "Implemented",
   "user_decision": {
     "outcome": "Pending"
@@ -98,6 +98,136 @@
         }
       ],
       "resolutions": []
+    },
+    {
+      "event": "Round",
+      "recorded_at": "2026-10-23T11:12:36.194366Z",
+      "started_at": "2026-10-23T10:47:42.7498397Z",
+      "round_id": "AR-02",
+      "reviewer": "/root/adversarial_round_02",
+      "delivery_task_id": "T-ADVERSARIAL-20261023-002",
+      "subject_sha256": "ddea2a42c5005fa2c65d908e0346259e9711edee3957e762cf3768cd6a4baea0",
+      "requirements_sha256": "57bfbf29e4c6814f1e5638d026ebc0c59a448ec654942469a082c53d94dd92ca",
+      "report_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/cases.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/storage-receipt.json"
+      ],
+      "findings": [
+        {
+          "id": "AR02-F001",
+          "summary": "[P2] 合法绝对 report_ref 被原始路径与归一化路径比较拒绝",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/cases.json"
+          ]
+        },
+        {
+          "id": "AR02-F002",
+          "summary": "[P1] 新登记并复验的返修版本不使旧交付计数失效，旧版可继续获得 Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/cases.json"
+          ]
+        }
+      ],
+      "resolutions": [
+        {
+          "finding_id": "ADR-01",
+          "disposition": "Fixed",
+          "reason": "当前引用交付的摘要变化使历史显示 Stale/0；公开修改验证引用的反例已通过边界回归。新返修尚未引用的另一条遗漏作为 AR02-F002 保留。",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+          ]
+        },
+        {
+          "finding_id": "ADR-02",
+          "disposition": "Fixed",
+          "reason": "Full 单项与批量 amendment 持有同一记录锁；确定性交错后用户 Rejected 与 F-KEEP 均保留，独立复查并发用例通过。",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+          ]
+        },
+        {
+          "finding_id": "ADR-03",
+          "disposition": "Fixed",
+          "reason": "新轮次开始时间同时晚于所引用交付的验证与保存；Full/Minimal 过早轮次均受控拒绝。",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+          ]
+        },
+        {
+          "finding_id": "ADR-04",
+          "disposition": "Fixed",
+          "reason": "新版原话绑定排除 basis 等说明；真实原话变化显示 Stale 并支持记录 Blocked/继续，元数据更正保留计数。",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+          ]
+        },
+        {
+          "finding_id": "ADR-05",
+          "disposition": "Fixed",
+          "reason": "单独实际报告绑定和内容去重拒绝相同文件/内容，独立报告可共享支持证据。合法路径输入的另一项错误作为 AR02-F001 保留。",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+          ]
+        },
+        {
+          "finding_id": "ADR-06",
+          "disposition": "Fixed",
+          "reason": "Full/Minimal 返修显式归属原任务并显示 ManagedByParent，禁止递归开启和重复询问推荐。",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+          ]
+        },
+        {
+          "finding_id": "ADR-07",
+          "disposition": "Fixed",
+          "reason": "非对象 JSON 在访问字段前校验，API/CLI 均受控 ERROR/exit 2 且原件不变。",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+          ]
+        },
+        {
+          "finding_id": "ADR-08",
+          "disposition": "Fixed",
+          "reason": "已有完工后 Offer 的暂缓或拒绝可由后来的真实 Accepted 恢复，无需重复询问。",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+          ]
+        }
+      ],
+      "review_contract_version": "report-bound-v2",
+      "report_sha256": "f3300e36afb822f10da653859ede5fb5f5af03924ac6a2265f375e6551b54bce",
+      "delivery_completed_at": "2026-10-23T10:41:43.098330Z",
+      "delivery_verified_at": "2026-10-23T10:39:30.986119Z"
     }
   ],
   "completed_at": "2026-10-23T09:34:07.840577Z",
@@ -337,6 +467,147 @@
       "reason": "真实审查已获同意并开展，将原收尾说明明确限定为当时时点，避免派生当前事实误读；保留修订历史",
       "basis": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
       "changed_at": "2026-10-23T10:36:44.745902Z"
+    },
+    {
+      "from_revision": 5,
+      "to_revision": 6,
+      "reason": "记录第二轮真实独立完整审查、已验证的首轮问题处置及新发现的两项缺陷",
+      "basis": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md",
+      "changed_at": "2026-10-23T11:12:36.194366Z",
+      "path": "adversarial_review.3",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T11:12:36.194366Z",
+        "started_at": "2026-10-23T10:47:42.7498397Z",
+        "round_id": "AR-02",
+        "reviewer": "/root/adversarial_round_02",
+        "delivery_task_id": "T-ADVERSARIAL-20261023-002",
+        "subject_sha256": "ddea2a42c5005fa2c65d908e0346259e9711edee3957e762cf3768cd6a4baea0",
+        "requirements_sha256": "57bfbf29e4c6814f1e5638d026ebc0c59a448ec654942469a082c53d94dd92ca",
+        "report_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/cases.json",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/storage-receipt.json"
+        ],
+        "findings": [
+          {
+            "id": "AR02-F001",
+            "summary": "[P2] 合法绝对 report_ref 被原始路径与归一化路径比较拒绝",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/cases.json"
+            ]
+          },
+          {
+            "id": "AR02-F002",
+            "summary": "[P1] 新登记并复验的返修版本不使旧交付计数失效，旧版可继续获得 Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/cases.json"
+            ]
+          }
+        ],
+        "resolutions": [
+          {
+            "finding_id": "ADR-01",
+            "disposition": "Fixed",
+            "reason": "当前引用交付的摘要变化使历史显示 Stale/0；公开修改验证引用的反例已通过边界回归。新返修尚未引用的另一条遗漏作为 AR02-F002 保留。",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+            ]
+          },
+          {
+            "finding_id": "ADR-02",
+            "disposition": "Fixed",
+            "reason": "Full 单项与批量 amendment 持有同一记录锁；确定性交错后用户 Rejected 与 F-KEEP 均保留，独立复查并发用例通过。",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+            ]
+          },
+          {
+            "finding_id": "ADR-03",
+            "disposition": "Fixed",
+            "reason": "新轮次开始时间同时晚于所引用交付的验证与保存；Full/Minimal 过早轮次均受控拒绝。",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+            ]
+          },
+          {
+            "finding_id": "ADR-04",
+            "disposition": "Fixed",
+            "reason": "新版原话绑定排除 basis 等说明；真实原话变化显示 Stale 并支持记录 Blocked/继续，元数据更正保留计数。",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+            ]
+          },
+          {
+            "finding_id": "ADR-05",
+            "disposition": "Fixed",
+            "reason": "单独实际报告绑定和内容去重拒绝相同文件/内容，独立报告可共享支持证据。合法路径输入的另一项错误作为 AR02-F001 保留。",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+            ]
+          },
+          {
+            "finding_id": "ADR-06",
+            "disposition": "Fixed",
+            "reason": "Full/Minimal 返修显式归属原任务并显示 ManagedByParent，禁止递归开启和重复询问推荐。",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+            ]
+          },
+          {
+            "finding_id": "ADR-07",
+            "disposition": "Fixed",
+            "reason": "非对象 JSON 在访问字段前校验，API/CLI 均受控 ERROR/exit 2 且原件不变。",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+            ]
+          },
+          {
+            "finding_id": "ADR-08",
+            "disposition": "Fixed",
+            "reason": "已有完工后 Offer 的暂缓或拒绝可由后来的真实 Accepted 恢复，无需重复询问。",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/self-test-A03.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/github-publication.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md"
+            ]
+          }
+        ],
+        "review_contract_version": "report-bound-v2",
+        "report_sha256": "f3300e36afb822f10da653859ede5fb5f5af03924ac6a2265f375e6551b54bce",
+        "delivery_completed_at": "2026-10-23T10:41:43.098330Z",
+        "delivery_verified_at": "2026-10-23T10:39:30.986119Z"
+      }
     }
   ],
   "scope_reconciliation": {

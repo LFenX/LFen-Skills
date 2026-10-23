@@ -1,0 +1,310 @@
+{
+  "original_quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+  "clarification": {
+    "mode": "Skipped",
+    "state": "Settled",
+    "notice": "你的需求已明确，本次跳过澄清提问。",
+    "survey_refs": [
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-001/survey.json"
+    ],
+    "rounds": [],
+    "basis": "已勘察既有结果、收尾、修订入口，用户明确启动与终止条件。",
+    "reopened_by": []
+  },
+  "requirements": [
+    {
+      "id": "R01",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "将审查绑定到本任务，支持多轮查错、返修、复验",
+      "status": "已实现",
+      "evidence_locations": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\SKILL.md:26",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\verify.md:119",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\verify.md:133",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py:277"
+      ],
+      "case_ids": [
+        "FULL-12",
+        "MIN-12",
+        "CROSS-MIN-FULL-ROUND",
+        "FULL-WRONG-DELIVERY",
+        "MIN-WRONG-DELIVERY"
+      ],
+      "gap": null
+    },
+    {
+      "id": "R02",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "只有当前同一交付版本连续两轮完整审查未发现问题才结束",
+      "status": "部分实现",
+      "evidence_locations": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\verify.md:138",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\verify.md:139",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py:205",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py:326"
+      ],
+      "case_ids": [
+        "FULL-12",
+        "FULL-16",
+        "MIN-12",
+        "MIN-16",
+        "FULL-21",
+        "MIN-21",
+        "VERSION-FULL-QUERY",
+        "VERSION-FULL-OLD-APPEND",
+        "VERSION-MIN-QUERY",
+        "VERSION-MIN-OLD-APPEND"
+      ],
+      "gap": "AR02-F002：新登记且内容不同的返修交付未使旧计数失效，旧交付可继续获得 Passed。"
+    },
+    {
+      "id": "R03",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "优化原要求的表述，使启动、轮次、完成判据明确",
+      "status": "已实现",
+      "evidence_locations": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\SKILL.md:26",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\SKILL.md:190",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\verify.md:117"
+      ],
+      "case_ids": [
+        "STATIC-SCHEMA",
+        "STATUS-OFFER"
+      ],
+      "gap": null
+    },
+    {
+      "id": "R04",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "优化流程并嵌入 skill，形成可执行、可核对的调用机制",
+      "status": "部分实现",
+      "evidence_locations": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\close.md:49",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\verify.md:144",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\status.md:29",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py:290",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\signals.py:184",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\deploy_console.py:42"
+      ],
+      "case_ids": [
+        "FZ-01",
+        "STATIC-SCHEMA",
+        "DIST-CLOSURE",
+        "PATH-FULL-ABS",
+        "PATH-MIN-ABS",
+        "VERSION-FULL-SIGNALS",
+        "VERSION-MIN-SIGNALS"
+      ],
+      "gap": "AR02-F001 拒绝文档支持的有效报告路径；AR02-F002 可把过期交付记为通过。"
+    },
+    {
+      "id": "R05",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "对抗性审查不能直接开始；必须取得本次审查明确同意",
+      "status": "已实现",
+      "evidence_locations": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\SKILL.md:190",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\verify.md:123",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py:122",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py:138"
+      ],
+      "case_ids": [
+        "FULL-03",
+        "FULL-04",
+        "FULL-06",
+        "FULL-08",
+        "FULL-10",
+        "FULL-11",
+        "MIN-03",
+        "MIN-04",
+        "MIN-06",
+        "MIN-08",
+        "MIN-10",
+        "MIN-11",
+        "EDGE-13",
+        "FULL-27",
+        "MIN-27"
+      ],
+      "gap": null
+    },
+    {
+      "id": "R06",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "任务工程完成后主动询问是否需要审查，保留开始/拒绝/稍后分支",
+      "status": "已实现",
+      "evidence_locations": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\SKILL.md:190",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\close.md:49",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\minimal.md:61",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\governance_artifacts.py:3975",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\minimal_task.py:952",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\signals.py:185"
+      ],
+      "case_ids": [
+        "FULL-01",
+        "FULL-05",
+        "FULL-07",
+        "FULL-09",
+        "FULL-34",
+        "MIN-01",
+        "MIN-05",
+        "MIN-07",
+        "MIN-09",
+        "MIN-34",
+        "STATUS-OFFER"
+      ],
+      "gap": null
+    }
+  ],
+  "condition_pairs": [
+    {
+      "condition": "工程完成并保存后才询问/审查",
+      "met": [
+        "FULL-01",
+        "MIN-01",
+        "STATUS-OFFER"
+      ],
+      "not_met": [
+        "FULL-34",
+        "MIN-34"
+      ],
+      "result": "Passed"
+    },
+    {
+      "condition": "仅明确同意才开始；未答/拒绝/推迟不得开始",
+      "met": [
+        "FULL-11",
+        "MIN-11",
+        "FULL-12",
+        "MIN-12"
+      ],
+      "not_met": [
+        "FULL-04",
+        "FULL-06",
+        "FULL-08",
+        "FULL-10",
+        "MIN-04",
+        "MIN-06",
+        "MIN-08",
+        "MIN-10"
+      ],
+      "result": "Passed"
+    },
+    {
+      "condition": "只有连续两轮完整无问题且无未解决/未检查项才通过",
+      "met": [
+        "FULL-16",
+        "MIN-16"
+      ],
+      "not_met": [
+        "FULL-19",
+        "FULL-21",
+        "FULL-23",
+        "MIN-19",
+        "MIN-21",
+        "MIN-23",
+        "FULL-COVERAGE-INCOMPLETE",
+        "FULL-UNREVIEWED",
+        "MIN-COVERAGE-INCOMPLETE",
+        "MIN-UNREVIEWED"
+      ],
+      "result": "Passed for fixed registered subject; current-version switch fails AR02-F002"
+    },
+    {
+      "condition": "版本或原文变化使旧计数失效；说明更正不改变绑定",
+      "met": [
+        "EDGE-05",
+        "FULL-REQUEST-CHANGED",
+        "MIN-REQUEST-CHANGED",
+        "FULL-ANSWER-CHANGED",
+        "MIN-ANSWER-CHANGED",
+        "VERSION-FULL-QUERY",
+        "VERSION-MIN-QUERY"
+      ],
+      "not_met": [
+        "EDGE-03",
+        "EDGE-04"
+      ],
+      "result": "Partial: same-task modification invalidates; newly registered repaired task does not"
+    },
+    {
+      "condition": "返修沿用已同意原审查，禁止无父会话或递归开始",
+      "met": [
+        "FULL-35",
+        "MIN-35",
+        "CROSS-MIN-FULL"
+      ],
+      "not_met": [
+        "FULL-36",
+        "MIN-36",
+        "FULL-NO-CONSENT-PARENT",
+        "MIN-NO-CONSENT-PARENT",
+        "FULL-STOPPED-PARENT",
+        "MIN-STOPPED-PARENT"
+      ],
+      "result": "Passed"
+    },
+    {
+      "condition": "独立报告可以共享支持证据；同一报告/内容不得复用",
+      "met": [
+        "FULL-16",
+        "MIN-16"
+      ],
+      "not_met": [
+        "FULL-14",
+        "FULL-15",
+        "MIN-14",
+        "MIN-15"
+      ],
+      "result": "Passed"
+    },
+    {
+      "condition": "合法绝对/相对报告路径应可使用；文件越界/空报告不得使用",
+      "met": [
+        "PATH-FULL-ABS",
+        "PATH-MIN-ABS",
+        "PATH-FULL-CANONICAL",
+        "PATH-MIN-CANONICAL"
+      ],
+      "not_met": [
+        "EDGE-09",
+        "EDGE-10"
+      ],
+      "result": "Partial: AR02-F001"
+    },
+    {
+      "condition": "停止后禁止继续；真实后续同意可恢复",
+      "met": [
+        "FULL-28",
+        "MIN-28"
+      ],
+      "not_met": [
+        "FULL-27",
+        "MIN-27"
+      ],
+      "result": "Passed"
+    },
+    {
+      "condition": "人工验收与审查授权互不替代；旧记录不补造协议",
+      "met": [
+        "EDGE-14",
+        "FULL-30",
+        "MIN-30",
+        "CONCURRENCY-FULL",
+        "CONCURRENCY-MIN"
+      ],
+      "not_met": [
+        "EDGE-13",
+        "COMPAT-01",
+        "COMPAT-02"
+      ],
+      "result": "Passed"
+    }
+  ]
+}

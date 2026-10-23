@@ -1,11 +1,11 @@
 {
-  "deployed_at": "2026-10-23T10:36:44Z",
+  "deployed_at": "2026-10-23T11:22:42Z",
   "skill_name": "run-governed-product-workflow",
   "skill_version": "6.3.0-candidate",
   "skill_root": "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow",
   "launcher_sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff",
   "snapshot": {
-    "adversarial_review.py": "d72ae80c4811c21929fca66a929299f373daa68a2b21d89f3be622b6e896847d",
+    "adversarial_review.py": "2d09682c1463e89026831eaeb0e35a45db80953a850ac8fe60b211c66a515c9e",
     "audit_console.py": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943",
     "check_write_guard.py": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa",
     "console.py": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423",

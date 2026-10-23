@@ -1,0 +1,23 @@
+{
+  "observed_at": "2026-10-23T11:00:23.045391Z",
+  "parent_task_id": "T-ADVERSARIAL-20261023-001",
+  "delivery_task_reviewed": "T-ADVERSARIAL-20261023-002",
+  "user_opt_in": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
+  "review_session": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-session.json",
+  "observed": [
+    "第二轮独立执行者已确认合法绝对 report_ref 被入口误拒绝，Full/Minimal 均复现",
+    "实际 Git 临时项目将产物 Alpha 改为 Beta，成功 mutation/verification/close 并显式关联父审查后，旧 Alpha 仍可凑两轮 Passed；已读取原始输出核对"
+  ],
+  "raw_version_proof": "C:/Users/Administrator/AppData/Local/Temp/ar02-independent-20261023/supplement-run-3/version-proof-FULL.json",
+  "locations": [
+    "scripts/adversarial_review.py",
+    "scripts/self_test.py",
+    "commands/verify.md"
+  ],
+  "constraints": [
+    "原审查范围内返修，沿用实际用户同意",
+    "保持受审代码直到本轮独立报告结束；先规划，后统一修复",
+    "新结果完成复验留档后重新开始下一轮，历史问题及用户决定不改写"
+  ],
+  "unknowns": []
+}

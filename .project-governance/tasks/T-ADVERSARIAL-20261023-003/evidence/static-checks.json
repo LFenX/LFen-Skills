@@ -1,0 +1,33 @@
+[
+  {
+    "command": [
+      "python",
+      "-X",
+      "utf8",
+      "C:/Users/Administrator/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+      "skills/product-engineering/run-governed-product-workflow"
+    ],
+    "exit": 0,
+    "output": "Skill is valid!\r\n"
+  },
+  {
+    "command": [
+      "python",
+      "-X",
+      "utf8",
+      "scripts/update_catalog.py",
+      "--check"
+    ],
+    "exit": 0,
+    "output": "分类目录校验通过：8 个 skill，5 个一级分类，Markdown 与 JSON 目录一致\r\n"
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "exit": 0,
+    "output": ""
+  }
+]

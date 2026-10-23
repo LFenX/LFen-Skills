@@ -130,7 +130,7 @@ python <skill-root>/scripts/manage_minimal_task.py record-review <project-root>/
 - 从“如何证明本交付仍然有错”出发构造可运行反例，核对实现、测试和实际输出。每轮换用反例或失效视角，但保持完整覆盖。只重跑同一测试、复制报告、分段抽查合并成两轮，均不成立。
 - 每轮独立形成判断，不把上一轮“无问题”作为前提。获用户同意后，若平台支持且授权允许，使用新的只读审查子 Agent；输入原话、约束、交付版本与证据位置，不输入预设结论。没有独立执行者时以新一轮审查上下文开展，明确记录由同一执行者复核，禁止声称独立人员审查。
 - 每个问题记录唯一 ID、可复现条件、预期/实际差异、影响、位置和证据；完整报告放入该轮的独立证据文件，结果只保存摘要与引用。所有确认问题均处理，不以低严重度忽略问题。疑似误报必须凭证据说明 `NotAnIssue`，未决争议不能记为无问题。
-- 修复使用依赖原任务的后续任务，执行已有范围与工程验证规则，保存新结果；不改写原工程结果或向已结束账本补事件。Full/Minimal 的 close 均传 `--review-parent-task-id <原任务ID>`，校验父任务确已同意且尚未结束，并将归属写入 `adversarial_review_parent`；返修状态为 `ManagedByParent`，不重复询问或新开审查。轮次仍记在原任务，`delivery_task_id` 指向本轮实际复验完成的任务，返修任务直接 `depends_on` 原任务。
+- 修复使用依赖原任务的后续任务，执行已有范围与工程验证规则，保存新结果；不改写原工程结果或向已结束账本补事件。Full/Minimal 的 close 均传 `--review-parent-task-id <原任务ID>`，校验父任务确已同意且尚未结束，并将归属写入 `adversarial_review_parent`；返修状态为 `ManagedByParent`，不重复询问或新开审查。轮次仍记在原任务，`delivery_task_id` 指向本轮实际复验完成的任务，返修任务直接 `depends_on` 原任务。显式归属的已保存返修按 `completed_at` 接续为该会话当前交付；即使新返修尚无审查轮次，也使旧交付的连续计数失效并拒绝继续引用旧版。当前交付尚未复验完成或无法唯一确定时，不计数，记录阻塞并核对实际交付。
 
 ### 计数与结束
 
@@ -157,7 +157,7 @@ python <skill-root>/scripts/adversarial_review.py <project-root>/.project-govern
 | `Blocked` | `reason`、`evidence_refs` |
 | `Round` | `round_id`、`started_at`、`reviewer`、`delivery_task_id`、`subject_sha256`、`requirements_sha256`、`report_ref`、`coverage=Complete/Incomplete`、`unreviewed_items`、`evidence_refs`、`findings`、`resolutions` |
 
-只读命令同时输出摘要：`subject_sha256` 取**本轮交付任务**的状态输出，与 `get_approval_subject.py` 一致；`requirements_sha256` 取**原审查任务**的状态输出，绑定 request_snapshot.text 与澄清各轮的原问题、推荐默认和真实回答上下文。顶层摘要表示所查询任务的工程结果，`reviewed_delivery` 点名审查末轮实际绑定的交付，返修后两者不能混淆。`findings` 每项为 `{id, summary, evidence_refs}`；`resolutions` 每项为 `{finding_id, disposition: Fixed|NotAnIssue, reason, evidence_refs}`，详情在引用报告中。没有对应条目时写空数组；未检查项必须列明，不能填空以伪造完整覆盖。
+只读命令同时输出摘要：`subject_sha256` 取**本轮交付任务**的状态输出，与 `get_approval_subject.py` 一致；`requirements_sha256` 取**原审查任务**的状态输出，绑定 request_snapshot.text 与澄清各轮的原问题、推荐默认和真实回答上下文。顶层摘要表示所查询任务的工程结果，`reviewed_delivery` 点名审查末轮实际绑定的交付，`current_delivery` 点名当前应审查的已保存交付；返修后这些对象不能混淆。`findings` 每项为 `{id, summary, evidence_refs}`；`resolutions` 每项为 `{finding_id, disposition: Fixed|NotAnIssue, reason, evidence_refs}`，详情在引用报告中。没有对应条目时写空数组；未检查项必须列明，不能填空以伪造完整覆盖。
 
 `report_ref` 为原审查任务目录内的实际非空报告，推荐 `evidence/round-<n>.md`，路径相对项目根或使用绝对路径。脚本规范化路径并从实际文件写入 `report_sha256`、`review_contract_version=report-bound-v2` 和所引用交付的 `delivery_verified_at` / `delivery_completed_at`；提供这些派生值时须与实际相符。报告路径别名或相同内容副本不能计为两轮，独立报告可以共享 `evidence_refs` 中的需求、测试等支持证据。旧轮次原件可读，不补造绑定证明；缺少新版报告绑定的旧干净轮次不计入新版连续两轮，原协议曾收敛时标 `LegacyNotRevalidated`，不会自动重启。已有未解决问题继续保留。
 

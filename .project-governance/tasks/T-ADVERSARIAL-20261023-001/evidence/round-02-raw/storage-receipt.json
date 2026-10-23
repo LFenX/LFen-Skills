@@ -1,0 +1,385 @@
+{
+  "captured_at": "2026-10-23T11:12:36.193046Z",
+  "report_from": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\report.md",
+  "normalization": "Stored text is LF for stable Git bytes; source hashes preserve original capture.",
+  "files": [
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\add_observation.py",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/add_observation.py",
+      "source_sha256": "e54ba11c3adefd00dd2f9516cfef2c04fd4fe7dee324d0500635c28d99024ebb",
+      "stored_sha256": "c1952672d0a083c510387838be3cec57dd148354014622111bc2c1b943db67c8",
+      "source_bytes": 2837,
+      "stored_bytes": 2836,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit-canonical.log",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/audit-canonical.log",
+      "source_sha256": "446b0faad84c1d3a84d6d0b76ce86543cd26a70fc466aac16df8d23c9fe22a17",
+      "stored_sha256": "4624a877f178625903768fb138fa8d2f1eed994db3a056eeadcefdfd8bae9a65",
+      "source_bytes": 1608,
+      "stored_bytes": 1512,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit-initial-absolute.log",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/audit-initial-absolute.log",
+      "source_sha256": "c8b8154ddeb860cc57521d5dfd23e9b2ddde8e5b7d0b8ce0e015d453305af246",
+      "stored_sha256": "1954a4f2fe320d1895b40c70feef072b13a0fff363c64b7a04173463dfe762da",
+      "source_bytes": 4883,
+      "stored_bytes": 4808,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit-initial-absolute.py",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/audit-initial-absolute.py",
+      "source_sha256": "f1ea5bdc9b85f0fa26d888fd077d5d082327bc2d4cb227c1f266de8e59a0d231",
+      "stored_sha256": "73e049204e41b61fde69132ebbda02ca5029682d76460b1e78355b86d59f4df7",
+      "source_bytes": 21785,
+      "stored_bytes": 21784,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.log",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/audit.log",
+      "source_sha256": "c8b8154ddeb860cc57521d5dfd23e9b2ddde8e5b7d0b8ce0e015d453305af246",
+      "stored_sha256": "1954a4f2fe320d1895b40c70feef072b13a0fff363c64b7a04173463dfe762da",
+      "source_bytes": 4883,
+      "stored_bytes": 4808,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/audit.py",
+      "source_sha256": "177885079fb3c9d9c383a94bce4a1bd9c06c39a28f9af6686c0fb43b628555fc",
+      "stored_sha256": "f5a8c7c2c98d66e5c18816cc61ca4e20596aaf9e146eeeeb5b19d70a535e5014",
+      "source_bytes": 22216,
+      "stored_bytes": 21930,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundaries.log",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/boundaries.log",
+      "source_sha256": "2b06196fc7ca60ad60452d9435c8efd734f71f0cec38400de1b9068bf6e0f952",
+      "stored_sha256": "3291692109933b9746f12597f0c7ad4781d7dea31660f8fee6a675d41164bec1",
+      "source_bytes": 936,
+      "stored_bytes": 902,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundaries.py",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/boundaries.py",
+      "source_sha256": "76df919e6203d65405f281347c968d8d61f3c2167b138475ba6a133b68d7ad97",
+      "stored_sha256": "16da03a37978c5c00a7635b5132fc6f17893bacebf23d61a926f0a4e6276af3e",
+      "source_bytes": 10472,
+      "stored_bytes": 10471,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\cases.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/cases.json",
+      "source_sha256": "d674ab1b1bbdcff8788f485dd5082f052a2fcbdb19713ad1ef9b2f92cfc9ca21",
+      "stored_sha256": "dcfe32eaeec6acdef6857088328bf8a5c238dd79d96a0bb73883fa0be3a19e55",
+      "source_bytes": 131998,
+      "stored_bytes": 128439,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\finalize_report.py",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/finalize_report.py",
+      "source_sha256": "b8d2915e1f4c61f379ea48bb2dabbbbed94d3856b941be3724731d4d01dc251c",
+      "stored_sha256": "ddd179148678efcb31d626d76f0a2ff3d416c10bae67a4da92ceb0a760c85537",
+      "source_bytes": 22003,
+      "stored_bytes": 21817,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\freeze-check.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/freeze-check.json",
+      "source_sha256": "b22b91be8b8a4684af86031db7a8b1b218bf690e6effdc8435f4a884bf74c160",
+      "stored_sha256": "80828ade0a93ea82f123d1d931d22232779d076c33790e1106b0675191e29d9a",
+      "source_bytes": 21739,
+      "stored_bytes": 21335,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\installation-observation.diff",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff",
+      "source_sha256": "f7778e4414e23dfdea654cf5518e0b2d623494ce80b3bee372e47dcc40fb7be4",
+      "stored_sha256": "e786ea87dd5574f4858d17f87eec03c022bf1c58a742693cb2afd04688ecc048",
+      "source_bytes": 5030,
+      "stored_bytes": 4926,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\installation-observation.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.json",
+      "source_sha256": "25aa09b0d669e1b3a06d8073b71436d4b9b6bd6b517556c39b5b75b32ed40875",
+      "stored_sha256": "f6fd5bfe85943eb7dc1ca8efb7933addcb375476c8f2306b2df86b10b031a2b6",
+      "source_bytes": 6562,
+      "stored_bytes": 6450,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\installation_observation.py",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation_observation.py",
+      "source_sha256": "35a4766d44cc71acc248b05e6fbe9ec06bcbade55ba3763dca0e62c796c63d1f",
+      "stored_sha256": "35b719af41c35e8ea8dbdfd7481b7b1cfc5faaa1ab3c3f63cc29f3a5bb4bb4c0",
+      "source_bytes": 1234,
+      "stored_bytes": 1233,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\receipt.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/receipt.json",
+      "source_sha256": "938eaac36a425aaf2aa538e10548b122ad8d73cf3a1f55ff3079cf43926df0ea",
+      "stored_sha256": "633ab0c39698e291a64b3e570031e470bde4e56f12f431dbec0d8aa1f700b099",
+      "source_bytes": 2526,
+      "stored_bytes": 2475,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\report.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/report.json",
+      "source_sha256": "84f65abecfab37b56b6c63ae5a42ef42eb402b496b68550cbd1a0b7de290f6d4",
+      "stored_sha256": "be0f97ee8d50cab8b24bcf865574f9347c47cc42e5bb6fa89ef9162924c6b57f",
+      "source_bytes": 33728,
+      "stored_bytes": 33068,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\reproduce-findings.log",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/reproduce-findings.log",
+      "source_sha256": "b9bad6dc71877ae1f77f0dac0a498372c04f3c9f129b123305a61b198a2d0f5b",
+      "stored_sha256": "b1bbdaa4cf3499e5c25bf5a9be776bfb5a8c5a1e6242eef790e09c39224f71b4",
+      "source_bytes": 5722,
+      "stored_bytes": 5586,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\reproduce_findings.py",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/reproduce_findings.py",
+      "source_sha256": "446388e5a933711d8d2ef348ab480eed911a5cbcbe7bef2e5d1b7f6951dec691",
+      "stored_sha256": "5e1f7552ab76e0566297ef2e7e89927e3bd74c1a8c8060925b65ca23e4812dc2",
+      "source_bytes": 2276,
+      "stored_bytes": 2274,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\requirements-audit.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/requirements-audit.json",
+      "source_sha256": "93b295f70508028af69797861ed667c8d75b835c6e4586670b0ee92390d4ebd2",
+      "stored_sha256": "403a75e6811777dc4abf85ddc6a8ee37efa1c22ac203e0fab066878075b6696c",
+      "source_bytes": 13337,
+      "stored_bytes": 13028,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\results-initial-absolute.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/results-initial-absolute.json",
+      "source_sha256": "d7240dba63a00e9547f073b577cb7f732a6766237defbf1b5c0c1d6d771645ff",
+      "stored_sha256": "5a452876a3e33e2a20a98afd5e740c3e5b8e9ca40cd7d3c71a1dd33b063a5951",
+      "source_bytes": 22612,
+      "stored_bytes": 22110,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\results.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/results.json",
+      "source_sha256": "d7240dba63a00e9547f073b577cb7f732a6766237defbf1b5c0c1d6d771645ff",
+      "stored_sha256": "5a452876a3e33e2a20a98afd5e740c3e5b8e9ca40cd7d3c71a1dd33b063a5951",
+      "source_bytes": 22612,
+      "stored_bytes": 22110,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-initial.log",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-initial.log",
+      "source_sha256": "de7c25206ecb3d26e1883826e485c9f1db69fd7dc44d8bfa890c60ae3d8e0e21",
+      "stored_sha256": "227e03fb56c9208a7e194267f7d6618c8bf9bbd4b28034522c38b3305e6685bb",
+      "source_bytes": 1841,
+      "stored_bytes": 1814,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-initial.py",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-initial.py",
+      "source_sha256": "4159de3bb86d8db0e5d2643c0de96b15593444f66974af6b9fef73527edae428",
+      "stored_sha256": "8332ea16fb71aa6332176aa7def4d695a503cdcc0f5dbf2e8cc7da37fe7e0920",
+      "source_bytes": 11333,
+      "stored_bytes": 11332,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-2.log",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-run-2.log",
+      "source_sha256": "57341eac743ffcd3ebfc979830d11ddd65299930c34381bd6b34ddd28d7cfcad",
+      "stored_sha256": "d75be4499ebb7a912a848b92e942df462682cf0ba0ac035ed7b494e1eafcf2e1",
+      "source_bytes": 1151,
+      "stored_bytes": 1126,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-2.py",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-run-2.py",
+      "source_sha256": "57bb0a1fc3d2c58e6cc94efd2139974d83347b224ac4cfb2d10d261c8cae0a59",
+      "stored_sha256": "bc81cb189c3d39ffc02f18f8d1b103de74e4920c3fa33d24487dd2b5bf2c9562",
+      "source_bytes": 11550,
+      "stored_bytes": 11390,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement.log",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement.log",
+      "source_sha256": "6cd31dea68baf009f5052815b97c973ace78fabcd2ec1a1c790d1cafa1878e5b",
+      "stored_sha256": "5e19fcb0539a689e73ed6347ef7f60e7c9c8529a74d0d2cdbae255e5cbb9f1c4",
+      "source_bytes": 715,
+      "stored_bytes": 696,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement.py",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement.py",
+      "source_sha256": "e0af92e974d735ea9e9b10345745737caae9275f11799f8f338a59a824f6d53c",
+      "stored_sha256": "761a45c174a41183ba11c3be049a381e573233ef3efea830e564507915a3fff1",
+      "source_bytes": 11562,
+      "stored_bytes": 11402,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\canonical-run\\results.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/canonical-run/results.json",
+      "source_sha256": "414900de348657b280e46aeb6836f95fabeb173db9605e87738697fcc4d21854",
+      "stored_sha256": "1c508b7c46315d72d90eab04f95788db238198803d09a72a63d1ae2c38c5c47a",
+      "source_bytes": 76400,
+      "stored_bytes": 74325,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\supplement-results.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-run-3/supplement-results.json",
+      "source_sha256": "e8d0e0539b14d49875a20627272629985e3ed8cf945e29d089d4ed58453aa7ab",
+      "stored_sha256": "0ceac4a65e1c69bca262b03cda997774f32f451046ab20258cf11e3d2ae24ac2",
+      "source_bytes": 36352,
+      "stored_bytes": 35647,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\version-proof-FULL.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-run-3/version-proof-FULL.json",
+      "source_sha256": "b86850f4b855f682a1120531cd6e7790bb6caa443e2ab20ac8f899ecf5e0b5a5",
+      "stored_sha256": "4260f64830040f483b98a583149291a3e39957625df4704a24fb9a329863d1d1",
+      "source_bytes": 9194,
+      "stored_bytes": 9049,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\version-proof-MIN.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-run-3/version-proof-MIN.json",
+      "source_sha256": "184db3c73a8deb5c8879da413d230c64cb2ef092a881be4c4dd3ef0ac724b048",
+      "stored_sha256": "dbadbb8772ea90af588c49dca89be7a04d5b3cf22d052c2364cfc72645cd71ba",
+      "source_bytes": 12381,
+      "stored_bytes": 12187,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\stale-round-FULL.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-run-3/stale-round-FULL.json",
+      "source_sha256": "820d9a8ac8521703629c644182d305aa0a52a5d301074a1dbf99d15ca24bbc1c",
+      "stored_sha256": "d324b20f0cfdfd923dd37cb9463f2a4cffcfd6311a68aff972c143e847eedef8",
+      "source_bytes": 10168,
+      "stored_bytes": 9999,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\stale-round-MIN.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-run-3/stale-round-MIN.json",
+      "source_sha256": "52b53f3aa064de146a8cb2b00c149500f77e554d09f3ed0fec3c9c184ad1fa49",
+      "stored_sha256": "aef88b6ced62b83e810cb87b8a68999b03e9f45a9f3e906eb8842f5701bda49e",
+      "source_bytes": 13353,
+      "stored_bytes": 13135,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\signals-after-FULL.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-run-3/signals-after-FULL.json",
+      "source_sha256": "c9694845631bd6a89b4dbccd76d992b8225ec24f9932acf9118df6cd31afe229",
+      "stored_sha256": "dd66d0d11a2b5efdd05590e181a3000614c4cbd5a16793c6a2b53d83a690caa7",
+      "source_bytes": 4527,
+      "stored_bytes": 4450,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\signals-after-MIN.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-run-3/signals-after-MIN.json",
+      "source_sha256": "801322a915ca6414e4a41ef6c9fba6d84b3a522857c9f5d2bef00031159b7b25",
+      "stored_sha256": "5cb5362b8909b1a29ed3f223043c4f9134b2fb02fe2d4c43c0e7ffa229ec3427",
+      "source_bytes": 7636,
+      "stored_bytes": 7510,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\boundary-results.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/boundary-run/boundary-results.json",
+      "source_sha256": "4cdd674223232f2d7443325d49b1786ec1acfc11d64112015ba3e94481b6961c",
+      "stored_sha256": "89c184ec3c8b1956635d481bb5ef98190e46be98ac0c6ada782b771c2ed28464",
+      "source_bytes": 25039,
+      "stored_bytes": 24334,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\generated-FULL.md",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/boundary-run/generated-FULL.md",
+      "source_sha256": "417ac2ac1477569b957bb98a42eda48cb5a81eed0a34a4a92d377d8ca5025699",
+      "stored_sha256": "acd217720d7120652f14cba524d9b9a65f32493d8796eba669aeffbac39e1000",
+      "source_bytes": 1534,
+      "stored_bytes": 1477,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\generated-MIN.md",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/boundary-run/generated-MIN.md",
+      "source_sha256": "4c1ce6006dbe3ef4e1f4d026eeee26335cb2b1ef1d6575642b4b6606de19e6ad",
+      "stored_sha256": "4a4588e5b5acea97078905b21f1f5e0dee80fc97bf964912dd054947844b5ac4",
+      "source_bytes": 964,
+      "stored_bytes": 943,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\supplement-results.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-run/supplement-results.json",
+      "source_sha256": "e81ce5a4bccd59fce171353b639129255f71c7ba5c2fd7f62a637a1e2e880836",
+      "stored_sha256": "fab88a9b8696a18dda37cfaa99275c53909b795a7a90dc05d39e98ce38b63759",
+      "source_bytes": 17657,
+      "stored_bytes": 17314,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-2\\supplement-results.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/supplement-run-2/supplement-results.json",
+      "source_sha256": "91307fcb8225a659f66275bf492aa83d1d347c5ae668047d12b695027595a2de",
+      "stored_sha256": "a17f28a727b0c2b8efc2834406b4d2e2dfc105ca3c590feeb252947b8f2a0056",
+      "source_bytes": 16887,
+      "stored_bytes": 16544,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-replay-p28x3bu3\\reproduction.json",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/reproduction.json",
+      "source_sha256": "d0f86ce40b6b7120a51be9c4011554695be5d014dd45ba083f123b0d87826c78",
+      "stored_sha256": "b4bf9cbc716323bb43494372451ac72bf39cc03c8ad4118a1dec815e69a5f1e0",
+      "source_bytes": 5251,
+      "stored_bytes": 5120,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    },
+    {
+      "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\report.md",
+      "stored": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02.md",
+      "source_sha256": "18afb82ac3fc9d91ebccd60ac1e6897bdc481185508ea325076d2850cecfc6c3",
+      "stored_sha256": "f3300e36afb822f10da653859ede5fb5f5af03924ac6a2265f375e6551b54bce",
+      "source_bytes": 15948,
+      "stored_bytes": 15795,
+      "normalization": "UTF-8 text with LF; original source hash retained"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "old": {
+    "text": "Alpha\n",
+    "sha256": "0c3ec75a4c7c5e6d69c725e4931ecc14abf1f999ea80ab74a427f67a5a7791a2",
+    "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL\\evidence\\delivery.json",
+    "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL"
+  },
+  "new": {
+    "text": "Beta\n",
+    "sha256": "b2e8b5f1f37c76a627cf51ae0531c613aa2ccbc7609248c568dd526b7c2fd41e",
+    "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-NEW-FULL\\evidence\\delivery.json",
+    "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-NEW-FULL"
+  },
+  "original_status_before_repair": {
+    "command": [
+      "C:\\Program Files\\Python313\\python.exe",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+      "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-OLD-FULL\",\n    \"subject_sha256\": \"ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58\",\n    \"requirements_sha256\": \"73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5\"\n  },\n  \"requirements_sha256\": \"73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5\",\n  \"delivery_task_id\": \"T-OLD-FULL\",\n  \"subject_sha256\": \"ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58\"\n}\n",
+    "stderr": "",
+    "json": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-OLD-FULL",
+        "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58",
+        "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5"
+      },
+      "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5",
+      "delivery_task_id": "T-OLD-FULL",
+      "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58"
+    }
+  },
+  "original_status_after_repair": {
+    "command": [
+      "C:\\Program Files\\Python313\\python.exe",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+      "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-OLD-FULL\",\n    \"subject_sha256\": \"ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58\",\n    \"requirements_sha256\": \"73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5\"\n  },\n  \"requirements_sha256\": \"73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5\",\n  \"delivery_task_id\": \"T-OLD-FULL\",\n  \"subject_sha256\": \"ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58\"\n}\n",
+    "stderr": "",
+    "json": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-OLD-FULL",
+        "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58",
+        "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5"
+      },
+      "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5",
+      "delivery_task_id": "T-OLD-FULL",
+      "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58"
+    }
+  },
+  "signals": {
+    "command": [
+      "C:\\Program Files\\Python313\\python.exe",
+      "-X",
+      "utf8",
+      "-B",
+      "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\signals.py",
+      "--project-root",
+      "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL"
+    ],
+    "exit": 0,
+    "stdout": "{\n  \"blocking_unknowns\": [],\n  \"derivation_audit\": {\n    \"available\": false,\n    \"reason\": \"project-state.json not built yet\"\n  },\n  \"minimal_eligibility_facts\": [],\n  \"pending_acceptance_tasks\": [\n    \"T-NEW-FULL\",\n    \"T-OLD-FULL\"\n  ],\n  \"project_root\": \"C:\\\\Users\\\\Administrator\\\\AppData\\\\Local\\\\Temp\\\\ar02-independent-20261023\\\\supplement-run-3\\\\actual-version-FULL\",\n  \"recommended_commands\": [\n    {\n      \"command\": \"verify\",\n      \"reason\": \"已获同意的对抗性审查尚未连续两轮无问题；先处理未解决问题或阻塞，再按原文完整审查。\"\n    }\n  ],\n  \"snapshot_stale\": [\n    {\n      \"current_head\": \"bb743c115de3dcb88c6fdee36e0c1bca32720025\",\n      \"fields\": [\n        \"status_digest\"\n      ],\n      \"recorded_head\": \"bb743c115de3dcb88c6fdee36e0c1bca32720025\",\n      \"status\": \"stale\",\n      \"task_id\": \"T-OLD-FULL\"\n    }\n  ],\n  \"status\": \"Ready\",\n  \"task_progress\": [\n    {\n      \"adversarial_review\": {\n        \"clean_streak\": 0,\n        \"open_findings\": [],\n        \"parent_task_id\": \"T-OLD-FULL\",\n        \"rounds\": 0,\n        \"status\": \"ManagedByParent\"\n      },\n      \"engineering_recorded\": true,\n      \"pending_acceptance\": true,\n      \"task_id\": \"T-NEW-FULL\",\n      \"user_decision\": \"Pending\"\n    },\n    {\n      \"adversarial_review\": {\n        \"clean_streak\": 1,\n        \"open_findings\": [],\n        \"reviewed_delivery\": {\n          \"requirements_sha256\": \"73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5\",\n          \"subject_sha256\": \"ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58\",\n          \"task_id\": \"T-OLD-FULL\"\n        },\n        \"rounds\": 1,\n        \"status\": \"InProgress\"\n      },\n      \"engineering_recorded\": true,\n      \"pending_acceptance\": true,\n      \"task_id\": \"T-OLD-FULL\",\n      \"user_decision\": \"Pending\"\n    }\n  ],\n  \"update_available\": null\n}\n",
+    "stderr": "",
+    "json": {
+      "blocking_unknowns": [],
+      "derivation_audit": {
+        "available": false,
+        "reason": "project-state.json not built yet"
+      },
+      "minimal_eligibility_facts": [],
+      "pending_acceptance_tasks": [
+        "T-NEW-FULL",
+        "T-OLD-FULL"
+      ],
+      "project_root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL",
+      "recommended_commands": [
+        {
+          "command": "verify",
+          "reason": "已获同意的对抗性审查尚未连续两轮无问题；先处理未解决问题或阻塞，再按原文完整审查。"
+        }
+      ],
+      "snapshot_stale": [
+        {
+          "current_head": "bb743c115de3dcb88c6fdee36e0c1bca32720025",
+          "fields": [
+            "status_digest"
+          ],
+          "recorded_head": "bb743c115de3dcb88c6fdee36e0c1bca32720025",
+          "status": "stale",
+          "task_id": "T-OLD-FULL"
+        }
+      ],
+      "status": "Ready",
+      "task_progress": [
+        {
+          "adversarial_review": {
+            "clean_streak": 0,
+            "open_findings": [],
+            "parent_task_id": "T-OLD-FULL",
+            "rounds": 0,
+            "status": "ManagedByParent"
+          },
+          "engineering_recorded": true,
+          "pending_acceptance": true,
+          "task_id": "T-NEW-FULL",
+          "user_decision": "Pending"
+        },
+        {
+          "adversarial_review": {
+            "clean_streak": 1,
+            "open_findings": [],
+            "reviewed_delivery": {
+              "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5",
+              "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58",
+              "task_id": "T-OLD-FULL"
+            },
+            "rounds": 1,
+            "status": "InProgress"
+          },
+          "engineering_recorded": true,
+          "pending_acceptance": true,
+          "task_id": "T-OLD-FULL",
+          "user_decision": "Pending"
+        }
+      ],
+      "update_available": null
+    }
+  }
+}

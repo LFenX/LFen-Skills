@@ -84,7 +84,8 @@ def _instant(value: Any) -> datetime:
 
 def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None, *,
                  delivery_subjects: dict[str, str | None] | None = None,
-                 report_hashes: dict[str, str | None] | None = None) -> dict[str, Any]:
+                 report_hashes: dict[str, str | None] | None = None,
+                 current_delivery_ids: set[str] | None = None) -> dict[str, Any]:
     """Replay actual records; a stored claim cannot override the clean streak."""
     from governance_artifacts import GovernanceError, validate_json_document
 
@@ -104,10 +105,12 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
                 "parent_task_id": parent, "clean_streak": 0, "rounds": 0, "open_findings": []}
     streak = rounds = 0
     legacy_streak = 0
+    recorded_streak = 0
     offered = accepted = False
     last_subject = None
     ids: set[str] = set()
     reports: set[str] = set()
+    recorded_reports: set[str] = set()
     findings: dict[str, str] = {}
     all_findings: set[str] = set()
 
@@ -120,25 +123,25 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
             raise GovernanceError("adversarial review records must follow engineering completion and prior records")
         kind = item["event"]
         if kind == "Offer":
-            if accepted and status != "Passed":
+            if accepted and status != "Passed" and recorded_streak != 2:
                 raise GovernanceError("an active review must be completed or stopped before offering it again")
             offered, accepted, streak, status = True, False, 0, "AwaitingUser"
-            legacy_streak = 0
+            legacy_streak = recorded_streak = 0
         elif kind == "Decision":
             if not offered:
                 raise GovernanceError("record the actual post-completion question before a user decision")
             if item["outcome"] == "Stopped" and not accepted:
                 raise GovernanceError("only an opted-in review can be stopped")
-            if accepted and status not in {"Passed", "LegacyNotRevalidated"} and item["outcome"] != "Stopped":
+            if accepted and status not in {"Passed", "LegacyNotRevalidated"} and recorded_streak != 2 and item["outcome"] != "Stopped":
                 raise GovernanceError("an active review only accepts an explicit stop decision")
             accepted = item["outcome"] == "Accepted"
             status = "InProgress" if accepted else item["outcome"]
-            streak = legacy_streak = 0
+            streak = legacy_streak = recorded_streak = 0
         else:
             if not accepted or status == "Passed":
                 raise GovernanceError("do not start review without explicit opt-in, or continue after two clean rounds")
             if kind == "Blocked":
-                streak, legacy_streak, status = 0, 0, "Blocked"
+                streak, legacy_streak, recorded_streak, status = 0, 0, 0, "Blocked"
             else:
                 start = _instant(item["started_at"])
                 if start < previous or start > stamp:
@@ -154,10 +157,16 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
                 current = item["requirements_sha256"] == expected_requirements
                 if delivery_subjects is not None:
                     current = current and delivery_subjects.get(item["delivery_task_id"]) == item["subject_sha256"]
+                if current_delivery_ids is not None:
+                    current = current and len(current_delivery_ids) == 1 and item["delivery_task_id"] in current_delivery_ids
                 identity = (report_hashes or {}).get(item["round_id"]) if report_hashes is not None else item.get("report_sha256")
                 report_valid = bound and bool(identity) and identity == item.get("report_sha256") and identity not in reports
+                recorded_report = item.get("report_sha256")
+                recorded_report_valid = not bound or bool(recorded_report) and recorded_report not in recorded_reports
                 if identity:
                     reports.add(identity)
+                if recorded_report:
+                    recorded_reports.add(recorded_report)
                 ids.add(item["round_id"])
                 for fix in item["resolutions"]:
                     key = fix["finding_id"]
@@ -173,8 +182,11 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
                     findings[finding["id"]] = item["subject_sha256"]
                 subject = (item["delivery_task_id"], item["subject_sha256"], item["requirements_sha256"], bound)
                 if subject != last_subject:
-                    streak = legacy_streak = 0
+                    streak = legacy_streak = recorded_streak = 0
                 clean = item["coverage"] == "Complete" and not item["unreviewed_items"] and not item["findings"] and not findings
+                # Later version changes invalidate current counts, not the legality
+                # of an Offer or Decision made after a historically completed pair.
+                recorded_streak = recorded_streak + 1 if clean and recorded_report_valid else 0
                 streak = streak + 1 if clean and current and report_valid else 0
                 legacy_streak = legacy_streak + 1 if clean and current and not bound else 0
                 rounds += 1
@@ -202,9 +214,27 @@ def _report_path(task_dir: Path, reference: str) -> Path:
     return path
 
 
-def _current_bindings(task_dir: Path, outcome: dict, contract: dict, events: list) -> tuple[dict, dict]:
+def _current_bindings(task_dir: Path, outcome: dict, contract: dict, events: list) -> tuple[dict, dict, set[str]]:
     from governance_artifacts import user_decision_subject_sha256
     subjects = {task_dir.name: user_decision_subject_sha256(contract, events, outcome)}
+    completions = {task_dir.name: _instant(outcome["completed_at"])}
+    if not outcome.get("adversarial_review_parent"):
+        for candidate in task_dir.parent.iterdir():
+            if candidate == task_dir or not candidate.is_dir() or not TASK_ID.fullmatch(candidate.name):
+                continue
+            try:
+                _, _, saved, before, ledger = _read_saved(candidate)
+                if (saved.get("adversarial_review_parent") != task_dir.name
+                        or before.get("task_id") != candidate.name
+                        or before.get("project_id") != contract.get("project_id")
+                        or task_dir.name not in before.get("depends_on", [])):
+                    continue
+                completions[candidate.name] = _instant(saved["completed_at"])
+                subjects[candidate.name] = user_decision_subject_sha256(before, ledger, saved)
+            except (OSError, ValueError, TypeError, KeyError):
+                continue
+    latest = max(completions.values())
+    current_ids = {key for key, value in completions.items() if value == latest}
     hashes = {}
     for entry in outcome.get("adversarial_review", []):
         if not isinstance(entry, dict) or entry.get("event") != "Round":
@@ -223,12 +253,20 @@ def _current_bindings(task_dir: Path, outcome: dict, contract: dict, events: lis
             hashes[entry.get("round_id")] = hashlib.sha256(_report_path(task_dir, reference).read_bytes()).hexdigest()
         except (OSError, ValueError, TypeError):
             hashes[entry.get("round_id")] = None
-    return subjects, hashes
+    return subjects, hashes, current_ids
 
 
 def bound_review_state(task_dir: Path, outcome: dict, contract: dict, events: list) -> dict[str, Any]:
-    subjects, hashes = _current_bindings(task_dir.resolve(), outcome, contract, events)
-    return review_state(outcome, contract, delivery_subjects=subjects, report_hashes=hashes)
+    subjects, hashes, current_ids = _current_bindings(task_dir.resolve(), outcome, contract, events)
+    state = review_state(outcome, contract, delivery_subjects=subjects, report_hashes=hashes,
+                         current_delivery_ids=current_ids)
+    if not outcome.get("adversarial_review_parent"):
+        if len(current_ids) == 1:
+            current_id = next(iter(current_ids))
+            state["current_delivery"] = {"task_id": current_id, "subject_sha256": subjects[current_id]}
+        else:
+            state["current_delivery"] = {"task_ids": sorted(current_ids), "status": "Ambiguous"}
+    return state
 
 
 def validate_review(outcome: dict[str, Any], contract: dict[str, Any], *,
@@ -317,6 +355,9 @@ def append_review(task_dir: Path, entry: dict[str, Any], *, reason: str, basis: 
             delivery_id = entry.get("delivery_task_id", "")
             if not TASK_ID.fullmatch(delivery_id):
                 raise GovernanceError("delivery_task_id must identify a task in this project")
+            _, report_hashes, current_ids = _current_bindings(task_dir, outcome, contract, original_events)
+            if len(current_ids) != 1 or delivery_id not in current_ids:
+                raise GovernanceError("rounds must reference the current saved delivery; an older or ambiguous delivery cannot count")
             delivery_dir = task_dir.parent / delivery_id
             _, _, delivery, delivery_contract, events = _load_delivery(delivery_dir)
             if delivery.get("status") != "Implemented":
@@ -338,7 +379,6 @@ def append_review(task_dir: Path, entry: dict[str, Any], *, reason: str, basis: 
             if not contents.strip():
                 raise GovernanceError("the actual round report must not be empty")
             report_sha = hashlib.sha256(contents).hexdigest()
-            _, report_hashes = _current_bindings(task_dir, outcome, contract, original_events)
             if report_sha in report_hashes.values():
                 raise GovernanceError("each round needs a distinct report; aliases and copied content cannot count twice")
             facts = {"review_contract_version": REVIEW_CONTRACT,
@@ -346,7 +386,7 @@ def append_review(task_dir: Path, entry: dict[str, Any], *, reason: str, basis: 
                      "delivery_completed_at": delivery["completed_at"],
                      "delivery_verified_at": verified_at.isoformat().replace("+00:00", "Z")}
             for key, value in facts.items():
-                if key in entry and entry[key] != value:
+                if key != "report_ref" and key in entry and entry[key] != value:
                     raise GovernanceError(f"{key} must match the actual report or delivery")
             entry.update(facts)
         records = outcome["adversarial_review"]

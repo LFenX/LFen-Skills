@@ -1,0 +1,75 @@
+FZ-01 Passed
+FULL-01 Passed
+FULL-02 Passed
+FULL-03 Passed
+FULL-04 Passed
+FULL-05 Passed
+FULL-06 Passed
+FULL-07 Passed
+FULL-08 Passed
+FULL-09 Passed
+FULL-10 Passed
+FULL-11 Passed
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 273, in main
+    try:suite(minimal)
+        ~~~~~^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 154, in suite
+    round_(task,5)
+    ~~~~~~^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 103, in round_
+    def round_(task,num,delivery=None,**overrides): return write(task,make_round(task,num,delivery,**overrides))
+                                                           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 82, in write
+    def write(task,entry): return ar.append_review(task,entry,reason="Independent AR-02 synthetic protocol test",basis="synthetic-ar02://test")
+                                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\adversarial_review.py", line 350, in append_review
+    raise GovernanceError(f"{key} must match the actual report or delivery")
+governance_artifacts.GovernanceError: report_ref must match the actual report or delivery
+
+MIN-01 Passed
+MIN-02 Passed
+MIN-03 Passed
+MIN-04 Passed
+MIN-05 Passed
+MIN-06 Passed
+MIN-07 Passed
+MIN-08 Passed
+MIN-09 Passed
+MIN-10 Passed
+MIN-11 Passed
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 273, in main
+    try:suite(minimal)
+        ~~~~~^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 154, in suite
+    round_(task,5)
+    ~~~~~~^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 103, in round_
+    def round_(task,num,delivery=None,**overrides): return write(task,make_round(task,num,delivery,**overrides))
+                                                           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 82, in write
+    def write(task,entry): return ar.append_review(task,entry,reason="Independent AR-02 synthetic protocol test",basis="synthetic-ar02://test")
+                                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\adversarial_review.py", line 350, in append_review
+    raise GovernanceError(f"{key} must match the actual report or delivery")
+governance_artifacts.GovernanceError: report_ref must match the actual report or delivery
+
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 278, in main
+    try:targeted()
+        ~~~~~~~~^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 221, in targeted
+    round_(parent,1,findings=[{"id":"CASE-FIX","summary":"Synthetic review issue","evidence_refs":["synthetic-ar02://finding"]}])
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 103, in round_
+    def round_(task,num,delivery=None,**overrides): return write(task,make_round(task,num,delivery,**overrides))
+                                                           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\audit.py", line 82, in write
+    def write(task,entry): return ar.append_review(task,entry,reason="Independent AR-02 synthetic protocol test",basis="synthetic-ar02://test")
+                                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\adversarial_review.py", line 350, in append_review
+    raise GovernanceError(f"{key} must match the actual report or delivery")
+governance_artifacts.GovernanceError: report_ref must match the actual report or delivery
+
+{"cases": 23, "failed": [], "fixture_errors": 3, "test_end_at": "2026-10-23T10:52:45.822449Z"}

@@ -1,0 +1,405 @@
+{
+  "commit": "62aeb847cfb6fe75679a3b0ae66fdababd995bcf",
+  "freeze_sha256": "5376dee45f101d8374a229aae34ce9dae2801a34c9d5b09d3ee8767bea4fac19",
+  "files": [
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/README.md",
+      "sha256": "d89baeb4508fc3ce1752d6c13b3834c4f47770abd6396757a6134e6ea5175d32"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+      "sha256": "c4a71f6fec02cf029b1e288900a16152435d76a42cce19636fde2a5da33ac181"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/agents/openai.yaml",
+      "sha256": "c758ae352c3d668af5926b0fc2c13a84bf619443d6a538be6f00d7ea1df3b05e"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/project-templates/console-launcher.py",
+      "sha256": "55e30fa01111eaa892b9f5baa76d1aec052f27a8b01aaacd925e8af546bd9cff"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/project-templates/console.README.md",
+      "sha256": "a3f46c12127a6221775d3bf0de87d4b29083081333865c23f053d789576e0ee0"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/project-templates/project-docs.README.md",
+      "sha256": "b32ba7547408b69f11f4350a067103fe93a89c01b546de1dd6ceeba138b5e43e"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/project-templates/project-governance.README.md",
+      "sha256": "f1567be225a10f8f368a7b826c8d1f150c518722bf87ed5f8bb90255baa9f88e"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/project-templates/requirement.README.md",
+      "sha256": "12c2b84c8f564528e23d19047a849f7a6561e1aa33ad9d415bfeb8f3f391220b"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/embedded-manifest.json",
+      "sha256": "cce2a075063f60fa96ef37d0748fa82f0574a4fa34b6bfd01ecaa8d5dce1eafa"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/evaluations/norm-retrieval-budgets.json",
+      "sha256": "d6b3c7ba1434427ef857d69a19c30a05bded3db0068ac25d2054bbc9fa21f54a"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/evaluations/norm-retrieval-gold.json",
+      "sha256": "2790e3a6800375d7ea64ac3ef9e3db113ad82154cd508b45236cf01c01e9e714"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/mappings/norm-action-taxonomy.json",
+      "sha256": "d814fc5a9ccf0cc6e547f3a23d534d3100039d73dca59cdc23fbe819bc8b3882"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/mappings/profile-meta-map.json",
+      "sha256": "7b67698ee0cdadfeddf5e9216b165a128622dff54efe4ad84f150876e77e6f5c"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/mappings/tailoring-applicability-map.json",
+      "sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+      "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+      "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+      "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+      "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md",
+      "sha256": "afd73ffbde490eb2774af346046034692c83093612d0d60e0649cae8744c1773"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+      "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C03_PRD_and_Feature_Standard.md",
+      "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+      "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+      "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+      "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+      "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+      "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+      "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+      "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+      "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+      "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/03_扩展规范/E01_Architecture_Governance_Extension_Standard.md",
+      "sha256": "ff37e13d26782b9d926835f82c84bb73719c81ffa6b835cf3e2ac742e90e611a"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md",
+      "sha256": "7353dcc98f73b6f68d9fb90ab1d0ed4e9ede362d1fcd9c4106685d68b7f57ebd"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+      "sha256": "bb6a10422c6e672f3f67e6dc109c5bfaa594b195924758b21911fe44a18c603b"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+      "sha256": "8cb8a7b01cec9b1c868a1cba27352fef1c6314ff85f1956072af6dee9eeabdf0"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+      "sha256": "326d746628fd6b214527cd28ca71b5ea7b12148d4a0c102efcb0fb43f5c677da"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/norms/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+      "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/schemas/authority-asset.schema.json",
+      "sha256": "0d578d67a124a9e432f09828661d6e123e027b3a32c168626d2eb8ab9c15c51a"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/schemas/derived-view.schema.json",
+      "sha256": "91c93a759081eafdd3b082471efd91c87dc7b65ee4363098f237f9d58987dade"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/schemas/minimal-task-record.schema.json",
+      "sha256": "81d0771a436d1731c978a3cb05e5e79208750ba216a46654b7f2f1e441c39f51"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/schemas/norm-consistency-report.schema.json",
+      "sha256": "d8a2bc5c29f111e1d5d45cd1dcf8078b6dc1ca974d8a96360527bc1cd8563611"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/schemas/norm-index-metadata.schema.json",
+      "sha256": "aa3984e3e6f0ac43728fb8efd73d90e6528e803a0ac9a8a1f806d94429edbc9e"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/schemas/norm-query-result.schema.json",
+      "sha256": "5e000963dce586ffb3bb027da899470245aa90eb3d206217ede9640ee1a174cf"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/schemas/norm-query.schema.json",
+      "sha256": "18a00d1808aa76fb9b70d5425afc8081eeb1a05a95e063847e1e86ca3d06b106"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/schemas/project-state.schema.json",
+      "sha256": "5e57cb7a9f066af7fb09d666bf352b080efaa03c6394133b59da7b9242805e45"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/schemas/run-event.schema.json",
+      "sha256": "e7255dffcc97d5e20f99717818e6c642d064fc387cabfcd57c7f2a645ce8065e"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/schemas/task-after.schema.json",
+      "sha256": "4f67dba4ed4813c064187c6d656b79a6a5068eef9e8c02c9d1dcce0d5d50c94a"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/assets/runtime/schemas/task-before.schema.json",
+      "sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/commands/clarify.md",
+      "sha256": "d96c2e38ee7c41b65654e800cbc478a659c76577ff1bd525e6aaed60041198e7"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/commands/close.md",
+      "sha256": "dc101412b1b263cd95c20c4e355b42b7d357f387e84091a1941a3b8b1eac2f93"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/commands/init.md",
+      "sha256": "ab633f06c89d486bb38506b62b69d7a05180947fab6b7c9276319ff53ef816c7"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/commands/migrate.md",
+      "sha256": "58136e78a52caedf07d3b7edae22701072e4cac95bb7dae54ba8cb08a6cb34fd"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/commands/minimal.md",
+      "sha256": "15263e324965b40d7743317383f3f652374b3da5e1aae9665e8a230a86ee171a"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/commands/plan.md",
+      "sha256": "43d82daef0af50f8dc65493404887cf793565fa3e08b6b31daa82c087b8dda06"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/commands/run.md",
+      "sha256": "4706d348e7a09f7260259af507448337682fc57b492d680e312d09a353b6237a"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/commands/status.md",
+      "sha256": "8bc7c5aa0ea1aec1b27c114d12699c4447fc070bac9c7d70748577d53a5a7fd7"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/commands/verify.md",
+      "sha256": "f847bc3bc77dde2d48285b91d9ae83ec312c3f6aa8064a23eddd159cdc156d2e"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/references/first-principles-method.md",
+      "sha256": "e9ae33d646a1131445522b84818774c1f482d4090b057b59f37ff584aecc497e"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/references/project-document-layout.md",
+      "sha256": "d7327c1a8c7ff375d8897b440b2da54211e6a286167e2806711b6cbb1a6d0824"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/references/spec-source-map.md",
+      "sha256": "a15dcaf98a835cc42239defff5ef1670a21be723f37f1ea272d959961deb4df3"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/requirements.txt",
+      "sha256": "ac4c938e471944e6547d412a064a6f5ac81e7eec5870fd24e95dbfcc9d81252a"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/adversarial_review.py",
+      "sha256": "d72ae80c4811c21929fca66a929299f373daa68a2b21d89f3be622b6e896847d"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/amend_record.py",
+      "sha256": "64a94e9d7948dcc72069754a784d076028270e62fd577455202ee2a293008f00"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/append_run_event.py",
+      "sha256": "b1b86ef3783f20295ebad09b8b7695f10742c907090396d21d4eaa891fe69ae9"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/audit_console.py",
+      "sha256": "8499cff94320eddf1873f290a251f3fd2bf91ce924f2a9c83f50083af89c7943"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/audit_norm_consistency.py",
+      "sha256": "c61b758c0944c39d0d65882aff7e899c221b7be62a55bd0907ee7f914f9dd094"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/audit_norm_integration.py",
+      "sha256": "0ca5dbe6ad0e34353d39b0bf033b5de3ea20e93c8dab922c450ec128e5cdfb11"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/audit_norm_retrieval.py",
+      "sha256": "28ebab0148a1031e1ff3917b6e079d5c5b36d48d5af1a154e56b7c3358c6b6c2"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/audit_norm_shadow.py",
+      "sha256": "2a23cfb92ffc23d368ce397633d71d4e40bacf5b7acbb08353a0a227b4b92215"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/audit_tailoring_coverage.py",
+      "sha256": "6b3b451a03268b756335ec6cfa8130e1181996c5701ed96f18ab528c750463b3"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/build_norm_index.py",
+      "sha256": "e5d70d7549965ff6976434dcb11e1349e9fea2626c819830c800f8c5fa3d9ee1"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/check_write_guard.py",
+      "sha256": "e820b2bb8a0f4f882fdc6a41614eba5a75582137a5f2000da11d51dd6b12cffa"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/close_task.py",
+      "sha256": "d6097abedca36a3e27d0731287f2901d09c3a1aed0bc8460c8ec7f052640e469"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/compile_norm_context.py",
+      "sha256": "f52d4dc8e34a4def3b00c8bb3bedcb5583b0c52caf7327c0602ddcb13528df63"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/console.py",
+      "sha256": "b0f6170581b5d7cdad3a413e466b3275a1639e70a2472fbcfcb3d9a2a9643423"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/console_assets.py",
+      "sha256": "cd9e67072002e6fa2c9df7d4bd49053f0686bc23c3768552d509d861080b1a58"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/console_model.py",
+      "sha256": "16b58e7befc19b3faa70b0a4d278dd17be64e50071881d858925ed2fd1448157"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/console_render.py",
+      "sha256": "6786a04ee81a8e3c1216529cf7537a6550c1f255821f56c4d74b6ebdc6a0fe24"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/deploy_console.py",
+      "sha256": "2c8c948f1ce63d47548c2d1eee55446eb30cd1c64ceebd2fd74431add3b79053"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/generate_review_views.py",
+      "sha256": "7f7aa28d5344f89e83f1f411973afb259cbc1444d427d43139dcd47f659ab97e"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/get_approval_subject.py",
+      "sha256": "fff271db44b5126567260e914aea6a2a214d0cd1951f08238d9004f78d0fcb5d"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/get_context.py",
+      "sha256": "d4b4016a61a5f8ddf68ce2607e6c7dcea16d6b16610a805a29c4dcb86f0545eb"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/governance_artifacts.py",
+      "sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/init_task.py",
+      "sha256": "cdf2633fbad50068befbed0dbf8abd420306894a1ed332e3f6b49b015ab803b3"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/manage_minimal_task.py",
+      "sha256": "24e3d00fecf45d9547f6716a0b3e8bdc9d243e566723e46b971fbb6f8c040953"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/manage_project_docs.py",
+      "sha256": "5f6315726ba4bca842eb6752ecfed1d75f7b03ae6670af10a1ac3a6e39bb46f5"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/migrate_legacy_artifacts.py",
+      "sha256": "1d8cbe8dd1ccc953f244e946193d2587b8bc912c4b9a8f882126190c1a69b2c7"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/minimal_task.py",
+      "sha256": "e9513410edfc78317a83ae06c2572e0990dbadc2925108557b2faa0615707836"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/query_norm_context.py",
+      "sha256": "3244615459018b3b2bec8bc961b28ad9e684a602d76854bd8363100f94ec7c5a"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/rebuild_project_state.py",
+      "sha256": "d8f4ce6ebd6735a80b52482d5a2a6a1a2fae14df847e3fcbabc60f1dcb335bed"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/rebuild_query_history_index.py",
+      "sha256": "37b01933bf8bf4809d9c9273f5927107325338f29be401c2b1c9cf2e89282c6e"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/refresh_tailoring_resolution.py",
+      "sha256": "eb3fa25536be17f035fc1081bf3895d5c960aed3474c52b7f03ee6ba480a050a"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/register_authority_asset.py",
+      "sha256": "b9e481423971aee2450437a55df908bb15bc6ce814d1d03ffba2d69c50d8d788"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/self_test.py",
+      "sha256": "d5d300bdb70e68d5f3c991460e977bda596df00c085fda0de166af788de0b78b"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/signals.py",
+      "sha256": "d46f31d62754f16b9defa5f348b609e6826b16bb98f0a1e744f6216b7f75f676"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/sync_embedded_references.py",
+      "sha256": "6f60148ca8c2ac2d3aab3d4f69a5a53e226c734749fb4e8e8c49c5c6d1dcefe3"
+    },
+    {
+      "path": "skills/product-engineering/run-governed-product-workflow/scripts/validate_task_package.py",
+      "sha256": "0c73cd2d8f2320b3ad76713abb24b1a3e4b0e55c016300d6c3c63f875d739152"
+    }
+  ],
+  "mismatches": [],
+  "distributions": {
+    "install-clone": {
+      "path": "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow",
+      "missing": [],
+      "changed": [],
+      "files_checked": 96
+    },
+    "codex-entry": {
+      "path": "C:\\Users\\Administrator\\.codex\\skills\\run-governed-product-workflow",
+      "missing": [],
+      "changed": [],
+      "files_checked": 96
+    }
+  }
+}

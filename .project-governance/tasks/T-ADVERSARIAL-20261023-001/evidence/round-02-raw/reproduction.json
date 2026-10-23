@@ -1,0 +1,132 @@
+[
+  {
+    "finding": "AR02-F001",
+    "carrier": "FULL",
+    "absolute_result": {
+      "accepted": false,
+      "message": "report_ref must match the actual report or delivery",
+      "stored_bytes_unchanged": true
+    },
+    "same_record_canonical_result": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-PATH-FULL",
+        "subject_sha256": "f1a5a98bb73a18457405f3212228fb9d01322888dfb71c258e2afb384da49d2a",
+        "requirements_sha256": "0f32b5c556b7162d536ce4ebdba49ab5dbab25c002d7edf4b6552a5063f5f356"
+      }
+    }
+  },
+  {
+    "finding": "AR02-F002",
+    "carrier": "FULL",
+    "old": {
+      "text": "Alpha\n",
+      "sha256": "0c3ec75a4c7c5e6d69c725e4931ecc14abf1f999ea80ab74a427f67a5a7791a2",
+      "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-replay-p28x3bu3\\version-FULL\\.project-governance\\tasks\\T-ALPHA-FULL\\evidence\\delivery.json",
+      "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-replay-p28x3bu3\\version-FULL\\.project-governance\\tasks\\T-ALPHA-FULL"
+    },
+    "new": {
+      "text": "Beta\n",
+      "sha256": "b2e8b5f1f37c76a627cf51ae0531c613aa2ccbc7609248c568dd526b7c2fd41e",
+      "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-replay-p28x3bu3\\version-FULL\\.project-governance\\tasks\\T-BETA-FULL\\evidence\\delivery.json",
+      "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-replay-p28x3bu3\\version-FULL\\.project-governance\\tasks\\T-BETA-FULL"
+    },
+    "state_after_new_delivery": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-ALPHA-FULL",
+        "subject_sha256": "5f1789bffef90981640d6c9064c98d9129fdc4b763aef4298851a5599e8c2acd",
+        "requirements_sha256": "e4af73f11cb014819d61fb35340c3b507114f23ca3f42385bdc92afc9972fbc8"
+      }
+    },
+    "state_after_old_round": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-ALPHA-FULL",
+        "subject_sha256": "5f1789bffef90981640d6c9064c98d9129fdc4b763aef4298851a5599e8c2acd",
+        "requirements_sha256": "e4af73f11cb014819d61fb35340c3b507114f23ca3f42385bdc92afc9972fbc8"
+      }
+    },
+    "child_state": {
+      "status": "ManagedByParent",
+      "parent_task_id": "T-ALPHA-FULL",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "finding": "AR02-F001",
+    "carrier": "MIN",
+    "absolute_result": {
+      "accepted": false,
+      "message": "report_ref must match the actual report or delivery",
+      "stored_bytes_unchanged": true
+    },
+    "same_record_canonical_result": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-PATH-MIN",
+        "subject_sha256": "59136d844062d1bf83e6e3f4f7196e4ce122f5a6cc74dd376b097d5472171410",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    }
+  },
+  {
+    "finding": "AR02-F002",
+    "carrier": "MIN",
+    "old": {
+      "text": "Alpha\n",
+      "sha256": "0c3ec75a4c7c5e6d69c725e4931ecc14abf1f999ea80ab74a427f67a5a7791a2",
+      "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-replay-p28x3bu3\\version-MIN\\.project-governance\\tasks\\T-ALPHA-MIN\\evidence\\delivery.json",
+      "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-replay-p28x3bu3\\version-MIN\\.project-governance\\tasks\\T-ALPHA-MIN"
+    },
+    "new": {
+      "text": "Beta\n",
+      "sha256": "b2e8b5f1f37c76a627cf51ae0531c613aa2ccbc7609248c568dd526b7c2fd41e",
+      "receipt": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-replay-p28x3bu3\\version-MIN\\.project-governance\\tasks\\T-BETA-MIN\\evidence\\delivery.json",
+      "verified_task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-replay-p28x3bu3\\version-MIN\\.project-governance\\tasks\\T-BETA-MIN"
+    },
+    "state_after_new_delivery": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-ALPHA-MIN",
+        "subject_sha256": "1d31e0d7917ddbcddda43d1cb1c849b4c113a849045e5a596a4c8b065f1a7f80",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "state_after_old_round": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 2,
+      "open_findings": [],
+      "reviewed_delivery": {
+        "task_id": "T-ALPHA-MIN",
+        "subject_sha256": "1d31e0d7917ddbcddda43d1cb1c849b4c113a849045e5a596a4c8b065f1a7f80",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+      }
+    },
+    "child_state": {
+      "status": "ManagedByParent",
+      "parent_task_id": "T-ALPHA-MIN",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  }
+]

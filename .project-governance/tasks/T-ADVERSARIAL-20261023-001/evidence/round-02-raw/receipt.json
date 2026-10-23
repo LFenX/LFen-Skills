@@ -1,0 +1,52 @@
+{
+  "started_at": "2026-10-23T10:47:42.7498397Z",
+  "ended_at": "2026-10-23T11:10:17.596439Z",
+  "fixed_commit": "62aeb847cfb6fe75679a3b0ae66fdababd995bcf",
+  "source_sha256": "5376dee45f101d8374a229aae34ce9dae2801a34c9d5b09d3ee8767bea4fac19",
+  "source_files_checked": 96,
+  "source_drift": [],
+  "extra_skill_files": [
+    "skills/product-engineering/run-governed-product-workflow/.claude/settings.local.json"
+  ],
+  "install": {
+    "Codex junction": {
+      "path": "C:\\Users\\Administrator\\.codex\\skills\\run-governed-product-workflow",
+      "checked": 96,
+      "drift": [
+        "scripts\\governance_artifacts.py"
+      ]
+    },
+    "Installed clone": {
+      "path": "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow",
+      "checked": 96,
+      "drift": [
+        "scripts\\governance_artifacts.py"
+      ]
+    }
+  },
+  "report": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\report.md",
+  "report_sha256": "18afb82ac3fc9d91ebccd60ac1e6897bdc481185508ea325076d2850cecfc6c3",
+  "json_report": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\report.json",
+  "case_file": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\cases.json",
+  "case_file_sha256": "d674ab1b1bbdcff8788f485dd5082f052a2fcbdb19713ad1ef9b2f92cfc9ca21",
+  "reproduction": {
+    "command": "python -X utf8 -B \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\reproduce_findings.py\"",
+    "current_complete_run": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-replay-p28x3bu3\\reproduction.json",
+    "note": "脚本每次新建独立临时消费项目，检查当前受审固定提交；调用保存的同目录审查辅助脚本。"
+  },
+  "summary": {
+    "valid_final_cases": 146,
+    "passed": 132,
+    "failed": 14,
+    "confirmed_findings": 2,
+    "P1": 1,
+    "P2": 1
+  },
+  "test_files": [
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundaries.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\reproduce_findings.py"
+  ],
+  "environment_observation": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\installation-observation.json"
+}

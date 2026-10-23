@@ -1,0 +1,15 @@
+{
+  "started_at": "2026-10-23T11:18:24.745583Z",
+  "status": "Passed",
+  "results": {
+    "protocol": {
+      "status": "Passed",
+      "checks": 50
+    },
+    "boundaries": {
+      "status": "Passed",
+      "checks": 63
+    }
+  },
+  "finished_at": "2026-10-23T11:18:40.838655Z"
+}

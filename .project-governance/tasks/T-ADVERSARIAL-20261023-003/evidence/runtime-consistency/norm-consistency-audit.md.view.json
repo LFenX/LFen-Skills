@@ -1,0 +1,16 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "DerivedView",
+  "project_id": "P-LFEN-SKILLS",
+  "view_id": "DV-RUNTIME-ONLY-NORM-AUDIT-MD",
+  "view_kind": "norm-consistency-audit-review",
+  "legacy_kind": null,
+  "generated_at": "2026-10-23T11:20:05.607308Z",
+  "generator": "run-governed-product-workflow/scripts/governance_artifacts.py",
+  "source_snapshot": "f975c6e155eb3fef8d15b9d42dd64ad2daab2d352fda372b8229ac65ffdbfd0f",
+  "sources": [
+    ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/runtime-consistency/norm-consistency-audit.json"
+  ],
+  "content_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/runtime-consistency/norm-consistency-audit.md",
+  "integrity_status": "Complete"
+}

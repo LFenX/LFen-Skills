@@ -1,0 +1,503 @@
+{
+  "started_at": "2026-10-23T10:47:42.7498397Z",
+  "test_end_at": "2026-10-23T10:52:45.822449Z",
+  "cases": [
+    {
+      "id": "FZ-01",
+      "input": {
+        "receipt": "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\source-files-5376dee45f101d83.json"
+      },
+      "expected": "96 files match fixed freeze and both installed entry points",
+      "actual": {
+        "mismatches": [],
+        "distributions": {
+          "install-clone": {
+            "path": "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow",
+            "missing": [],
+            "changed": [],
+            "files_checked": 96
+          },
+          "codex-entry": {
+            "path": "C:\\Users\\Administrator\\.codex\\skills\\run-governed-product-workflow",
+            "missing": [],
+            "changed": [],
+            "files_checked": 96
+          }
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-01",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+      "expected": {
+        "status": "NotOffered",
+        "clean_streak": 0
+      },
+      "actual": {
+        "status": "NotOffered",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-02",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+      "expected": "new result preserved independently as Pending",
+      "actual": {
+        "outcome": "Pending"
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-03",
+      "input": {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T10:52:44.434211Z",
+        "outcome": "Accepted",
+        "response": "Synthetic begin",
+        "decided_by": "synthetic-user",
+        "evidence_ref": "synthetic-ar02://decision"
+      },
+      "expected": "deny decision before question",
+      "actual": {
+        "accepted": false,
+        "exception": "GovernanceError",
+        "message": "record the actual post-completion question before a user decision",
+        "unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-04",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:52:44.460923Z",
+        "round_id": "AR02-1",
+        "started_at": "2026-10-23T10:52:44.460859Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-FULL",
+        "subject_sha256": "b720f726c102a2f577eae92d138fe1d63b19da933488346c7a96f898fe725ec9",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL\\evidence\\independent-report-1.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "deny round before offer/opt-in",
+      "actual": {
+        "accepted": false,
+        "exception": "GovernanceError",
+        "message": "report_ref must match the actual report or delivery",
+        "unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-05",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+      "expected": {
+        "status": "AwaitingUser",
+        "clean_streak": 0
+      },
+      "actual": {
+        "status": "AwaitingUser",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-06",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:52:44.539058Z",
+        "round_id": "AR02-2",
+        "started_at": "2026-10-23T10:52:44.538989Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-FULL",
+        "subject_sha256": "b720f726c102a2f577eae92d138fe1d63b19da933488346c7a96f898fe725ec9",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL\\evidence\\independent-report-2.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "deny round with no answer",
+      "actual": {
+        "accepted": false,
+        "exception": "GovernanceError",
+        "message": "report_ref must match the actual report or delivery",
+        "unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-07",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+      "expected": {
+        "status": "Declined",
+        "clean_streak": 0
+      },
+      "actual": {
+        "status": "Declined",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-08",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:52:44.617516Z",
+        "round_id": "AR02-3",
+        "started_at": "2026-10-23T10:52:44.617430Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-FULL",
+        "subject_sha256": "b720f726c102a2f577eae92d138fe1d63b19da933488346c7a96f898fe725ec9",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL\\evidence\\independent-report-3.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "deny after decline",
+      "actual": {
+        "accepted": false,
+        "exception": "GovernanceError",
+        "message": "report_ref must match the actual report or delivery",
+        "unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-09",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+      "expected": {
+        "status": "Deferred",
+        "clean_streak": 0
+      },
+      "actual": {
+        "status": "Deferred",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-10",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:52:44.694711Z",
+        "round_id": "AR02-4",
+        "started_at": "2026-10-23T10:52:44.694647Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-FULL",
+        "subject_sha256": "b720f726c102a2f577eae92d138fe1d63b19da933488346c7a96f898fe725ec9",
+        "requirements_sha256": "9fa55c083f4608b5ba6731694a8e7baa17e2ceaeb36b90402b81450263ee78ee",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL\\evidence\\independent-report-4.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "deny after defer",
+      "actual": {
+        "accepted": false,
+        "exception": "GovernanceError",
+        "message": "report_ref must match the actual report or delivery",
+        "unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-11",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+      "expected": {
+        "status": "InProgress",
+        "clean_streak": 0
+      },
+      "actual": {
+        "status": "InProgress",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-01",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+      "expected": {
+        "status": "NotOffered",
+        "clean_streak": 0
+      },
+      "actual": {
+        "status": "NotOffered",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-02",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+      "expected": "new result preserved independently as Pending",
+      "actual": {
+        "outcome": "Pending"
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-03",
+      "input": {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T10:52:44.920402Z",
+        "outcome": "Accepted",
+        "response": "Synthetic begin",
+        "decided_by": "synthetic-user",
+        "evidence_ref": "synthetic-ar02://decision"
+      },
+      "expected": "deny decision before question",
+      "actual": {
+        "accepted": false,
+        "exception": "GovernanceError",
+        "message": "record the actual post-completion question before a user decision",
+        "unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-04",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:52:44.939865Z",
+        "round_id": "AR02-1",
+        "started_at": "2026-10-23T10:52:44.939817Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-MIN",
+        "subject_sha256": "c8cb22dc0a1a3a4dff1e9229f4356efa450a260aec7545dba4df4f05dd886b78",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN\\evidence\\independent-report-1.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "deny round before offer/opt-in",
+      "actual": {
+        "accepted": false,
+        "exception": "GovernanceError",
+        "message": "report_ref must match the actual report or delivery",
+        "unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-05",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+      "expected": {
+        "status": "AwaitingUser",
+        "clean_streak": 0
+      },
+      "actual": {
+        "status": "AwaitingUser",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-06",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:52:44.987087Z",
+        "round_id": "AR02-2",
+        "started_at": "2026-10-23T10:52:44.987020Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-MIN",
+        "subject_sha256": "c8cb22dc0a1a3a4dff1e9229f4356efa450a260aec7545dba4df4f05dd886b78",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN\\evidence\\independent-report-2.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "deny round with no answer",
+      "actual": {
+        "accepted": false,
+        "exception": "GovernanceError",
+        "message": "report_ref must match the actual report or delivery",
+        "unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-07",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+      "expected": {
+        "status": "Declined",
+        "clean_streak": 0
+      },
+      "actual": {
+        "status": "Declined",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-08",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:52:45.035575Z",
+        "round_id": "AR02-3",
+        "started_at": "2026-10-23T10:52:45.035519Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-MIN",
+        "subject_sha256": "c8cb22dc0a1a3a4dff1e9229f4356efa450a260aec7545dba4df4f05dd886b78",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN\\evidence\\independent-report-3.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "deny after decline",
+      "actual": {
+        "accepted": false,
+        "exception": "GovernanceError",
+        "message": "report_ref must match the actual report or delivery",
+        "unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-09",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+      "expected": {
+        "status": "Deferred",
+        "clean_streak": 0
+      },
+      "actual": {
+        "status": "Deferred",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-10",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:52:45.086004Z",
+        "round_id": "AR02-4",
+        "started_at": "2026-10-23T10:52:45.085960Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-MIN",
+        "subject_sha256": "c8cb22dc0a1a3a4dff1e9229f4356efa450a260aec7545dba4df4f05dd886b78",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN\\evidence\\independent-report-4.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "deny after defer",
+      "actual": {
+        "accepted": false,
+        "exception": "GovernanceError",
+        "message": "report_ref must match the actual report or delivery",
+        "unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-11",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+      "expected": {
+        "status": "InProgress",
+        "clean_streak": 0
+      },
+      "actual": {
+        "status": "InProgress",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    }
+  ],
+  "fixture_errors": [
+    {
+      "suite": "Full",
+      "exception": "GovernanceError('report_ref must match the actual report or delivery')",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 273, in main\n    try:suite(minimal)\n        ~~~~~^^^^^^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 154, in suite\n    round_(task,5)\n    ~~~~~~^^^^^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 103, in round_\n    def round_(task,num,delivery=None,**overrides): return write(task,make_round(task,num,delivery,**overrides))\n                                                           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 82, in write\n    def write(task,entry): return ar.append_review(task,entry,reason=\"Independent AR-02 synthetic protocol test\",basis=\"synthetic-ar02://test\")\n                                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 350, in append_review\n    raise GovernanceError(f\"{key} must match the actual report or delivery\")\ngovernance_artifacts.GovernanceError: report_ref must match the actual report or delivery\n"
+    },
+    {
+      "suite": "Minimal",
+      "exception": "GovernanceError('report_ref must match the actual report or delivery')",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 273, in main\n    try:suite(minimal)\n        ~~~~~^^^^^^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 154, in suite\n    round_(task,5)\n    ~~~~~~^^^^^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 103, in round_\n    def round_(task,num,delivery=None,**overrides): return write(task,make_round(task,num,delivery,**overrides))\n                                                           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 82, in write\n    def write(task,entry): return ar.append_review(task,entry,reason=\"Independent AR-02 synthetic protocol test\",basis=\"synthetic-ar02://test\")\n                                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 350, in append_review\n    raise GovernanceError(f\"{key} must match the actual report or delivery\")\ngovernance_artifacts.GovernanceError: report_ref must match the actual report or delivery\n"
+    },
+    {
+      "suite": "targeted",
+      "exception": "GovernanceError('report_ref must match the actual report or delivery')",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 278, in main\n    try:targeted()\n        ~~~~~~~~^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 221, in targeted\n    round_(parent,1,findings=[{\"id\":\"CASE-FIX\",\"summary\":\"Synthetic review issue\",\"evidence_refs\":[\"synthetic-ar02://finding\"]}])\n    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 103, in round_\n    def round_(task,num,delivery=None,**overrides): return write(task,make_round(task,num,delivery,**overrides))\n                                                           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\audit.py\", line 82, in write\n    def write(task,entry): return ar.append_review(task,entry,reason=\"Independent AR-02 synthetic protocol test\",basis=\"synthetic-ar02://test\")\n                                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 350, in append_review\n    raise GovernanceError(f\"{key} must match the actual report or delivery\")\ngovernance_artifacts.GovernanceError: report_ref must match the actual report or delivery\n"
+    }
+  ],
+  "fixtures": [
+    {
+      "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\FULL\\.project-governance\\tasks\\T-FULL",
+      "carrier": "Full",
+      "complete": true
+    },
+    {
+      "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\MIN\\.project-governance\\tasks\\T-MIN",
+      "carrier": "Minimal",
+      "complete": true
+    },
+    {
+      "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\workspaces\\targeted\\.project-governance\\tasks\\T-PARENT",
+      "carrier": "Full",
+      "complete": true
+    }
+  ]
+}

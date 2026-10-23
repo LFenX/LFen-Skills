@@ -2320,7 +2320,7 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
     with tempfile.TemporaryDirectory(prefix="v63-adversarial-boundary-") as temp:
         root = Path(temp).resolve()
 
-        def finish(tid, ordinal, minimal=False, parent=None):
+        def finish(tid, ordinal, minimal=False, parent=None, source_ref="self-test://source"):
             if minimal:
                 path = minimal_fixture_record(root, tid)
                 record = read_json(path)
@@ -2328,25 +2328,25 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
                 atomic_write_json(path, record)
                 task = path.parent
                 append_minimal_event(task, event_type="run_started", summary="Synthetic work", status="started")
-                append_minimal_event(task, event_type="verification", summary="Synthetic verification", status="succeeded", evidence_refs=["self-test://source"])
+                append_minimal_event(task, event_type="verification", summary="Synthetic verification", status="succeeded", evidence_refs=[source_ref])
                 record_fixture_acceptance(task)
                 pending = read_json(path)
                 pending["task_contract"]["decisions"] = [item for item in pending["task_contract"]["decisions"] if item["kind"] != "Acceptance"]
                 atomic_write_json(path, pending)
-                close_minimal_record(task, status="Implemented", established_facts=["Synthetic complete"], actual_changes=["Synthetic change"], verification=["Passed::Synthetic verification::self-test://source"], review_parent_task_id=parent)
+                close_minimal_record(task, status="Implemented", established_facts=["Synthetic complete"], actual_changes=["Synthetic change"], verification=[f"Passed::Synthetic verification::{source_ref}"], review_parent_task_id=parent)
             else:
                 task = new_task(root, tid, ordinal, depends_on=[parent] if parent else [])
                 before = read_json(task / "before.json")
                 before["authority"]["required_gates"] = []
                 atomic_write_json(task / "before.json", before)
                 append_run_event(task, run_id=tid, attempt_id="A01", event_type="run_started", summary="Synthetic work", status="started")
-                append_run_event(task, run_id=tid, attempt_id="A01", event_type="verification", summary="Synthetic verification", status="succeeded", evidence_refs=["self-test://source"])
+                append_run_event(task, run_id=tid, attempt_id="A01", event_type="verification", summary="Synthetic verification", status="succeeded", evidence_refs=[source_ref])
                 record_fixture_acceptance(task)
                 pending = read_json(task / "before.json")
                 pending["decisions"] = [item for item in pending["decisions"] if item["kind"] != "Acceptance"]
                 atomic_write_json(task / "before.json", pending)
                 append_run_event(task, run_id=tid, attempt_id="A01", event_type="run_finished", summary="Synthetic complete", status="succeeded")
-                close_task(task, status="Implemented", established_facts=["Synthetic complete"], actual_changes=["Synthetic change"], verification=[{"result": "Passed", "summary": "Synthetic verification", "evidence_refs": ["self-test://source"]}], review_parent_task_id=parent)
+                close_task(task, status="Implemented", established_facts=["Synthetic complete"], actual_changes=["Synthetic change"], verification=[{"result": "Passed", "summary": "Synthetic verification", "evidence_refs": [source_ref]}], review_parent_task_id=parent)
             return task
 
         def load(task):
@@ -2388,8 +2388,11 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
             choose(task, "Declined")
             choose(task, "Accepted")
             check(review_status(task)["status"] == "InProgress", "an actual changed decision may resume an earlier offer")
-            write(task, entry(task, 1))
+            first = entry(task, 1)
+            first["report_ref"] = str((root / first["report_ref"]).resolve())
+            write(task, first)
             path, out, before, events = load(task)
+            check(out["adversarial_review"][-1]["report_ref"] == (task / "evidence/round-1.md").relative_to(root).as_posix(), "a valid absolute report must be accepted and saved canonically")
             original_digest = requirements_subject(before)
             corrected = copy.deepcopy(before)
             corrected["clarification"]["basis"] += " Synthetic metadata correction"
@@ -2406,7 +2409,11 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
             copied = task / "evidence/copied.md"
             copied.write_bytes(first_report.read_bytes())
             expect_governance_error("copied report content", lambda: write(task, entry(task, 2, report_ref=str(copied))))
-            write(task, entry(task, 2))
+            second = entry(task, 2)
+            canonical_report = second["report_ref"]
+            second["report_ref"] = "./" + canonical_report
+            write(task, second)
+            check(load(task)[1]["adversarial_review"][-1]["report_ref"] == canonical_report, "a distinct valid report with a relative alias must be accepted canonically")
             check(review_status(task)["status"] == "Passed", "distinct reports may share original requirements and test evidence")
             second_report = task / "evidence/round-2.md"
             report_bytes = second_report.read_bytes()
@@ -2443,6 +2450,46 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
             write(task, entry(task, 4, repair))
             check(review_status(task)["status"] == "Passed" and review_status(task)["reviewed_delivery"]["task_id"] == repair.name, "pass must identify the reviewed repair, not its original result")
             check(not validate_task_directory(task) and not validate_task_directory(repair), "both carriers must retain valid engineering records")
+
+            current_id = "T-CURRENT-MIN" if minimal else "T-CURRENT-FULL"
+            artifact = root / f"{current_id}-output.txt"
+
+            def version_ref(tid, value):
+                artifact.write_bytes(value.encode("utf-8"))
+                proof = root / f"{tid}-delivery.json"
+                proof.write_text(json.dumps({"path": str(artifact), "text": artifact.read_text(encoding="utf-8"),
+                    "sha256": hashlib.sha256(artifact.read_bytes()).hexdigest()}, ensure_ascii=False), encoding="utf-8")
+                return str(proof)
+
+            original = finish(current_id, 20, minimal, source_ref=version_ref(current_id, "Alpha\n"))
+            start(original)
+            write(original, entry(original, 1))
+            finish(current_id + "-UNRELATED", 21, minimal)
+            check(review_status(original)["clean_streak"] == 1, "an unrelated completed task must not replace the review delivery")
+            beta_id = current_id + "-BETA"
+            beta = finish(beta_id, 22, minimal, parent=current_id, source_ref=version_ref(beta_id, "Beta\n"))
+            state = review_status(original)
+            check(artifact.read_text(encoding="utf-8") == "Beta\n" and state["status"] == "Stale" and state["clean_streak"] == 0
+                  and state["current_delivery"]["task_id"] == beta_id, "a saved new repair must immediately replace the old clean delivery before any new round")
+            original_path = load(original)[0]
+            before_rejection = original_path.read_bytes()
+            expect_governance_error("old original delivery after repair", lambda: write(original, entry(original, 2)))
+            check(original_path.read_bytes() == before_rejection, "rejecting an old delivery must preserve the review history")
+            write(original, entry(original, 2, beta))
+            check(review_status(original)["clean_streak"] == 1, "the current Beta delivery must start from one clean round")
+            gamma_id = current_id + "-GAMMA"
+            gamma = finish(gamma_id, 23, minimal, parent=current_id, source_ref=version_ref(gamma_id, "Gamma\n"))
+            check(review_status(original)["status"] == "Stale" and review_status(original)["clean_streak"] == 0, "a later repair must invalidate a previous repair's first clean round")
+            before_rejection = original_path.read_bytes()
+            expect_governance_error("old repaired delivery after a newer repair", lambda: write(original, entry(original, 3, beta)))
+            check(original_path.read_bytes() == before_rejection, "rejecting an old repair must preserve the review history")
+            write(original, entry(original, 3, gamma))
+            check(review_status(original)["clean_streak"] == 1, "the current Gamma delivery must restart the clean streak")
+            write(original, entry(original, 4, gamma))
+            state = review_status(original)
+            check(state["status"] == "Passed" and state["clean_streak"] == 2 and state["current_delivery"]["task_id"] == gamma_id,
+                  "only two complete reviews of the current saved delivery may pass")
+            check(not validate_task_directory(original), "version succession must preserve valid engineering and review records")
 
         for batch in (False, True):
             task = finish("T-CONCURRENT-BATCH" if batch else "T-CONCURRENT-SINGLE", 10 if batch else 9)

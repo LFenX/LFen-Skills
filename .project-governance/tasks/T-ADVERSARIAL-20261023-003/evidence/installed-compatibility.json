@@ -1,0 +1,10 @@
+{
+  "installed_root": "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow",
+  "consumer_test_root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-installed-compat-t9ecq8t3",
+  "exit": 1,
+  "files_checked": 96,
+  "changed_during_test": [],
+  "installed_governance_sha256": "a4309d3d994a0700ee0066aa94d36f2ce860c80f14c92238cc8f71bb7d0663a9",
+  "log": ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/installed-self-test-A02.log",
+  "scope": "Actual installed combination including preserved parallel governance_artifacts.py; synthetic tests only"
+}

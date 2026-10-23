@@ -1,0 +1,28 @@
+{
+  "checks": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit": 2,
+      "output": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:27: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:28: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:33: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:34: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:66: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:103: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:104: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:103: new blank line at EOF.\n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/reproduce_findings.py:41: new blank line at EOF.\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check",
+        "--",
+        ".",
+        ":(exclude).project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/**"
+      ],
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "interpretation": "Raw unified diff evidence contains required context-line spaces; an original reproduction script has a blank EOF. Preserve captured evidence bytes and receipts. Source and delivery-record formatting check passes with raw evidence excluded."
+}

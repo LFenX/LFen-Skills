@@ -1,0 +1,344 @@
+{
+  "ended_at": "2026-10-23T10:57:27.432531Z",
+  "cases": [
+    {
+      "id": "PATH-FULL-ABS",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:57:24.274594Z",
+        "round_id": "AR02-1",
+        "started_at": "2026-10-23T10:57:24.274328Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-ABS-FULL",
+        "subject_sha256": "f01decbcd3f50cd1c66be21015deaa753be5d3e37f269ce017601dccecf5ec0f",
+        "requirements_sha256": "1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\absolute-FULL\\.project-governance\\tasks\\T-ABS-FULL\\evidence\\independent-report-1.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "Absolute in-task non-empty report is supported; append Round and return exit 0",
+      "actual": {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\absolute-FULL\\.project-governance\\tasks\\T-ABS-FULL",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\input-T-ABS-FULL-0.json",
+          "--reason",
+          "Independent synthetic boundary check",
+          "--basis",
+          "synthetic-ar02://supplement"
+        ],
+        "exit": 2,
+        "stdout": "",
+        "stderr": "ERROR: report_ref must match the actual report or delivery\n",
+        "outcome_bytes_unchanged": true,
+        "ledger_unchanged": true
+      },
+      "result": "Failed"
+    },
+    {
+      "id": "PATH-FULL-CANONICAL",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:57:24.274594Z",
+        "round_id": "AR02-1",
+        "started_at": "2026-10-23T10:57:24.274328Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-ABS-FULL",
+        "subject_sha256": "f01decbcd3f50cd1c66be21015deaa753be5d3e37f269ce017601dccecf5ec0f",
+        "requirements_sha256": "1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276",
+        "report_ref": ".project-governance/tasks/T-ABS-FULL/evidence/independent-report-1.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "Identical report via canonical project-relative path succeeds",
+      "actual": {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\absolute-FULL\\.project-governance\\tasks\\T-ABS-FULL",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\input-T-ABS-FULL-1.json",
+          "--reason",
+          "Independent synthetic boundary check",
+          "--basis",
+          "synthetic-ar02://supplement"
+        ],
+        "exit": 0,
+        "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-ABS-FULL\",\n    \"subject_sha256\": \"f01decbcd3f50cd1c66be21015deaa753be5d3e37f269ce017601dccecf5ec0f\",\n    \"requirements_sha256\": \"1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276\"\n  },\n  \"requirements_sha256\": \"1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276\",\n  \"delivery_task_id\": \"T-ABS-FULL\",\n  \"subject_sha256\": \"f01decbcd3f50cd1c66be21015deaa753be5d3e37f269ce017601dccecf5ec0f\"\n}\n",
+        "stderr": "",
+        "json": {
+          "status": "InProgress",
+          "clean_streak": 1,
+          "rounds": 1,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "task_id": "T-ABS-FULL",
+            "subject_sha256": "f01decbcd3f50cd1c66be21015deaa753be5d3e37f269ce017601dccecf5ec0f",
+            "requirements_sha256": "1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276"
+          },
+          "requirements_sha256": "1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276",
+          "delivery_task_id": "T-ABS-FULL",
+          "subject_sha256": "f01decbcd3f50cd1c66be21015deaa753be5d3e37f269ce017601dccecf5ec0f"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "PATH-FULL-DOTREL",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:57:24.515312Z",
+        "round_id": "AR02-2",
+        "started_at": "2026-10-23T10:57:24.514846Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-ABS-FULL",
+        "subject_sha256": "f01decbcd3f50cd1c66be21015deaa753be5d3e37f269ce017601dccecf5ec0f",
+        "requirements_sha256": "1a07fea4cbf3fac73e5ceea1a2287d6c85145e794aa8ce4f4dc8502947778276",
+        "report_ref": "./.project-governance/tasks/T-ABS-FULL/evidence/independent-report-2.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "Equivalent project-relative path normalizes and succeeds",
+      "actual": {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\absolute-FULL\\.project-governance\\tasks\\T-ABS-FULL",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\input-T-ABS-FULL-2.json",
+          "--reason",
+          "Independent synthetic boundary check",
+          "--basis",
+          "synthetic-ar02://supplement"
+        ],
+        "exit": 2,
+        "stdout": "",
+        "stderr": "ERROR: report_ref must match the actual report or delivery\n"
+      },
+      "result": "Failed"
+    },
+    {
+      "id": "PATH-MIN-ABS",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:57:24.775941Z",
+        "round_id": "AR02-1",
+        "started_at": "2026-10-23T10:57:24.775724Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-ABS-MIN",
+        "subject_sha256": "c9972ffbe93853c45a7a377908a603cc61b5a2feda184877b704a97a03dd5819",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\absolute-MIN\\.project-governance\\tasks\\T-ABS-MIN\\evidence\\independent-report-1.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "Absolute in-task non-empty report is supported; append Round and return exit 0",
+      "actual": {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\absolute-MIN\\.project-governance\\tasks\\T-ABS-MIN",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\input-T-ABS-MIN-3.json",
+          "--reason",
+          "Independent synthetic boundary check",
+          "--basis",
+          "synthetic-ar02://supplement"
+        ],
+        "exit": 2,
+        "stdout": "",
+        "stderr": "ERROR: report_ref must match the actual report or delivery\n",
+        "outcome_bytes_unchanged": true,
+        "ledger_unchanged": true
+      },
+      "result": "Failed"
+    },
+    {
+      "id": "PATH-MIN-CANONICAL",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:57:24.775941Z",
+        "round_id": "AR02-1",
+        "started_at": "2026-10-23T10:57:24.775724Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-ABS-MIN",
+        "subject_sha256": "c9972ffbe93853c45a7a377908a603cc61b5a2feda184877b704a97a03dd5819",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": ".project-governance/tasks/T-ABS-MIN/evidence/independent-report-1.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "Identical report via canonical project-relative path succeeds",
+      "actual": {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\absolute-MIN\\.project-governance\\tasks\\T-ABS-MIN",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\input-T-ABS-MIN-4.json",
+          "--reason",
+          "Independent synthetic boundary check",
+          "--basis",
+          "synthetic-ar02://supplement"
+        ],
+        "exit": 0,
+        "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-ABS-MIN\",\n    \"subject_sha256\": \"c9972ffbe93853c45a7a377908a603cc61b5a2feda184877b704a97a03dd5819\",\n    \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\"\n  },\n  \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\",\n  \"delivery_task_id\": \"T-ABS-MIN\",\n  \"subject_sha256\": \"c9972ffbe93853c45a7a377908a603cc61b5a2feda184877b704a97a03dd5819\"\n}\n",
+        "stderr": "",
+        "json": {
+          "status": "InProgress",
+          "clean_streak": 1,
+          "rounds": 1,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "task_id": "T-ABS-MIN",
+            "subject_sha256": "c9972ffbe93853c45a7a377908a603cc61b5a2feda184877b704a97a03dd5819",
+            "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+          },
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+          "delivery_task_id": "T-ABS-MIN",
+          "subject_sha256": "c9972ffbe93853c45a7a377908a603cc61b5a2feda184877b704a97a03dd5819"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "PATH-MIN-DOTREL",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:57:24.978940Z",
+        "round_id": "AR02-2",
+        "started_at": "2026-10-23T10:57:24.978671Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-ABS-MIN",
+        "subject_sha256": "c9972ffbe93853c45a7a377908a603cc61b5a2feda184877b704a97a03dd5819",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": "./.project-governance/tasks/T-ABS-MIN/evidence/independent-report-2.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "Equivalent project-relative path normalizes and succeeds",
+      "actual": {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\absolute-MIN\\.project-governance\\tasks\\T-ABS-MIN",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\input-T-ABS-MIN-5.json",
+          "--reason",
+          "Independent synthetic boundary check",
+          "--basis",
+          "synthetic-ar02://supplement"
+        ],
+        "exit": 2,
+        "stdout": "",
+        "stderr": "ERROR: report_ref must match the actual report or delivery\n"
+      },
+      "result": "Failed"
+    },
+    {
+      "id": "COMPAT-01",
+      "input": {
+        "model": "Saved historical outcome without adversarial_review; file unmodified"
+      },
+      "expected": "Historical read remains LegacyUntracked",
+      "actual": {
+        "status": "LegacyUntracked",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "COMPAT-02",
+      "input": {
+        "model": "Two genuine old-contract complete rounds replayed as a pure reader input"
+      },
+      "expected": "Old convergence is LegacyNotRevalidated, never counted as new v2 Passed",
+      "actual": {
+        "status": "LegacyNotRevalidated",
+        "clean_streak": 0,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-COMPAT",
+          "subject_sha256": "3d8bafc760f8e13dbce1c148606ac7bf33ca6039f906da1af31a8cfadb9c0142",
+          "requirements_sha256": "7039527c4cbbfea9dc12d46905b760619def418ad522bc5a5839c155e8cbf73b"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "STATUS-OFFER",
+      "input": {
+        "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run\\recommendations\\.project-governance\\tasks\\T-NOTOFFERED"
+      },
+      "expected": "Fresh completed engineering actively recommends asking before adversarial review",
+      "actual": [
+        {
+          "command": "verify",
+          "reason": "工程结果已保存；主动询问是否进行对抗性审查，明确同意前不得开始。"
+        }
+      ],
+      "result": "Passed"
+    },
+    {
+      "id": "STATIC-SCHEMA",
+      "input": {
+        "Full": "task-after.schema.json",
+        "Minimal": "minimal-task-record.schema.json"
+      },
+      "expected": "Both carrier schemas exactly match public review event contract",
+      "actual": {
+        "Full_match": true,
+        "Minimal_match": true
+      },
+      "result": "Passed"
+    }
+  ],
+  "errors": [
+    {
+      "suite": "actual_versions",
+      "error": "GovernanceError('scope reconciliation failed: changed outside scope.allowed_paths: src/label.txt; revert them, or amend scope.allowed_paths with amend_record.py')",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement.py\", line 153, in main\n    try:fn()\n        ~~^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement.py\", line 100, in actual_versions\n    parent,old=build_actual(root,\"T-OLD-\"+tag,\"Alpha\\n\",minimal)\n               ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement.py\", line 92, in build_actual\n    ga.close_task(t,status=\"Implemented\",established_facts=[\"Label read and hashed\"],actual_changes=[\"Set src/label.txt to \"+content.strip()],verification=[{\"result\":\"Passed\",\"summary\":\"Actual source label hash checked\",\"evidence_refs\":[ref]}],review_parent_task_id=parent)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\governance_artifacts.py\", line 3919, in close_task\n    raise GovernanceError(\n    ...<3 lines>...\n    )\ngovernance_artifacts.GovernanceError: scope reconciliation failed: changed outside scope.allowed_paths: src/label.txt; revert them, or amend scope.allowed_paths with amend_record.py\n"
+    }
+  ]
+}

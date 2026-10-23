@@ -1,0 +1,27 @@
+PATH-FULL-ABS Failed
+PATH-FULL-CANONICAL Passed
+PATH-FULL-DOTREL Failed
+PATH-MIN-ABS Failed
+PATH-MIN-CANONICAL Passed
+PATH-MIN-DOTREL Failed
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\supplement.py", line 153, in main
+    try:fn()
+        ~~^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\supplement.py", line 100, in actual_versions
+    parent,old=build_actual(root,"T-OLD-"+tag,"Alpha\n",minimal)
+               ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\supplement.py", line 92, in build_actual
+    ga.close_task(t,status="Implemented",established_facts=["Label read and hashed"],actual_changes=["Set src/label.txt to "+content.strip()],verification=[{"result":"Passed","summary":"Actual source label hash checked","evidence_refs":[ref]}],review_parent_task_id=parent)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\governance_artifacts.py", line 3919, in close_task
+    raise GovernanceError(
+    ...<3 lines>...
+    )
+governance_artifacts.GovernanceError: scope reconciliation failed: changed outside scope.allowed_paths: src/label.txt; revert them, or amend scope.allowed_paths with amend_record.py
+
+COMPAT-01 Passed
+COMPAT-02 Passed
+STATUS-OFFER Passed
+STATIC-SCHEMA Passed
+{"cases": 10, "failed": ["PATH-FULL-ABS", "PATH-FULL-DOTREL", "PATH-MIN-ABS", "PATH-MIN-DOTREL"], "errors": 1}

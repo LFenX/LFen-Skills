@@ -1,0 +1,25 @@
+PATH-FULL-ABS Failed
+PATH-FULL-CANONICAL Passed
+PATH-FULL-DOTREL Failed
+PATH-MIN-ABS Failed
+PATH-MIN-CANONICAL Passed
+PATH-MIN-DOTREL Failed
+Traceback (most recent call last):
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\supplement.py", line 154, in main
+    try:fn()
+        ~~^^
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\supplement.py", line 106, in actual_versions
+    sig=cli(parent,signal=True)
+  File "C:\Users\Administrator\AppData\Local\Temp\ar02-independent-20261023\supplement.py", line 28, in cli
+    try:value["json"]=json.loads(proc.stdout)
+                      ~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\json\__init__.py", line 339, in loads
+    raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+                    f'not {s.__class__.__name__}')
+TypeError: the JSON object must be str, bytes or bytearray, not NoneType
+
+COMPAT-01 Passed
+COMPAT-02 Passed
+STATUS-OFFER Passed
+STATIC-SCHEMA Passed
+{"cases": 10, "failed": ["PATH-FULL-ABS", "PATH-FULL-DOTREL", "PATH-MIN-ABS", "PATH-MIN-DOTREL"], "errors": 1}

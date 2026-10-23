@@ -1,0 +1,706 @@
+{
+  "ended_at": "2026-10-23T11:01:39.014452Z",
+  "cases": [
+    {
+      "id": "FULL-ACTIVE-OFFER",
+      "input": {
+        "event": "Offer while accepted"
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "an active review must be completed or stopped before offering it again",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-ACTIVE-ACCEPT",
+      "input": {
+        "event": "duplicate Accepted while active"
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "an active review only accepts an explicit stop decision",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-ACTIVE-DECLINE",
+      "input": {
+        "event": "Declined while active; caller must record Stopped"
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "an active review only accepts an explicit stop decision",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-COVERAGE-INCOMPLETE",
+      "input": {
+        "coverage": "Incomplete",
+        "unreviewed_items": []
+      },
+      "expected": "clean streak resets even without enumerated unchecked items",
+      "actual": {
+        "status": "InProgress",
+        "clean_streak": 0,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-BOUND-FULL",
+          "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+          "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-UNREVIEWED",
+      "input": {
+        "coverage": "Complete",
+        "unreviewed_items": [
+          "Not reviewed branch"
+        ]
+      },
+      "expected": "unreviewed item resets even if coverage claims Complete",
+      "actual": {
+        "status": "InProgress",
+        "clean_streak": 0,
+        "rounds": 4,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-BOUND-FULL",
+          "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+          "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-UNRELATED-RESOLUTION",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T11:01:33.404542Z",
+        "round_id": "AR02-6",
+        "started_at": "2026-10-23T11:01:33.404274Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-BOUND-FULL",
+        "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+        "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f",
+        "report_ref": ".project-governance/tasks/T-BOUND-FULL/evidence/independent-report-6.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": [
+          {
+            "finding_id": "UNKNOWN",
+            "disposition": "NotAnIssue",
+            "reason": "Synthetic invalid resolution",
+            "evidence_refs": [
+              "synthetic-ar02://none"
+            ]
+          }
+        ]
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "resolution must reference an unresolved finding",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-REQUEST-CHANGED",
+      "input": {
+        "reader_input": "same saved outcome, changed authoritative request words"
+      },
+      "expected": "old bound rounds become Stale/0",
+      "actual": {
+        "status": "Stale",
+        "clean_streak": 0,
+        "rounds": 6,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-BOUND-FULL",
+          "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+          "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-ANSWER-CHANGED",
+      "input": {
+        "reader_input": "same saved outcome, additional clarification Q/default/actual-answer context"
+      },
+      "expected": "old bound rounds become Stale/0",
+      "actual": {
+        "status": "Stale",
+        "clean_streak": 0,
+        "rounds": 6,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-BOUND-FULL",
+          "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+          "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-FUTURE",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2099-01-01T00:00:00Z",
+        "round_id": "AR02-8",
+        "started_at": "2026-10-23T11:01:33.517491Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-BOUND-FULL",
+        "subject_sha256": "980ea679ddb9af30727df9ee7ee71bb69e0277acaf69cd020090dd459dfa6b44",
+        "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f",
+        "report_ref": ".project-governance/tasks/T-BOUND-FULL/evidence/independent-report-8.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "adversarial review time must include timezone and must not be in the future",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-WRONG-DELIVERY",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T11:01:34.124847Z",
+        "round_id": "AR02-9",
+        "started_at": "2026-10-23T11:01:34.124567Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-UNRELATED-FULL",
+        "subject_sha256": "5057a8733e5d256264012b8ed4507859e262e92bffa30d4f1e8e9bbc3cffe931",
+        "requirements_sha256": "ec686f55d1c632819ea450b86271c6f88676d660988c94f874cb33b7a1abd53f",
+        "report_ref": ".project-governance/tasks/T-BOUND-FULL/evidence/independent-report-9.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "a repaired delivery must directly depend on and explicitly belong to the original review",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-STOPPED-PARENT",
+      "input": {
+        "parent": "T-BOUND-FULL",
+        "state": "Stopped"
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "a repair must belong to an explicitly opted-in, unfinished parent review",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-ACTIVE-OFFER",
+      "input": {
+        "event": "Offer while accepted"
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "an active review must be completed or stopped before offering it again",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-ACTIVE-ACCEPT",
+      "input": {
+        "event": "duplicate Accepted while active"
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "an active review only accepts an explicit stop decision",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-ACTIVE-DECLINE",
+      "input": {
+        "event": "Declined while active; caller must record Stopped"
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "an active review only accepts an explicit stop decision",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-COVERAGE-INCOMPLETE",
+      "input": {
+        "coverage": "Incomplete",
+        "unreviewed_items": []
+      },
+      "expected": "clean streak resets even without enumerated unchecked items",
+      "actual": {
+        "status": "InProgress",
+        "clean_streak": 0,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-BOUND-MIN",
+          "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-UNREVIEWED",
+      "input": {
+        "coverage": "Complete",
+        "unreviewed_items": [
+          "Not reviewed branch"
+        ]
+      },
+      "expected": "unreviewed item resets even if coverage claims Complete",
+      "actual": {
+        "status": "InProgress",
+        "clean_streak": 0,
+        "rounds": 4,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-BOUND-MIN",
+          "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-UNRELATED-RESOLUTION",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T11:01:35.195335Z",
+        "round_id": "AR02-6",
+        "started_at": "2026-10-23T11:01:35.195046Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-BOUND-MIN",
+        "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": ".project-governance/tasks/T-BOUND-MIN/evidence/independent-report-6.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": [
+          {
+            "finding_id": "UNKNOWN",
+            "disposition": "NotAnIssue",
+            "reason": "Synthetic invalid resolution",
+            "evidence_refs": [
+              "synthetic-ar02://none"
+            ]
+          }
+        ]
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "resolution must reference an unresolved finding",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-REQUEST-CHANGED",
+      "input": {
+        "reader_input": "same saved outcome, changed authoritative request words"
+      },
+      "expected": "old bound rounds become Stale/0",
+      "actual": {
+        "status": "Stale",
+        "clean_streak": 0,
+        "rounds": 6,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-BOUND-MIN",
+          "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-ANSWER-CHANGED",
+      "input": {
+        "reader_input": "same saved outcome, additional clarification Q/default/actual-answer context"
+      },
+      "expected": "old bound rounds become Stale/0",
+      "actual": {
+        "status": "Stale",
+        "clean_streak": 0,
+        "rounds": 6,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-BOUND-MIN",
+          "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-FUTURE",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2099-01-01T00:00:00Z",
+        "round_id": "AR02-8",
+        "started_at": "2026-10-23T11:01:35.279857Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-BOUND-MIN",
+        "subject_sha256": "d12b33f93f3250d6ea2cd10ba2f9011918f49c5b542d91a54062c8e04c64dbce",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": ".project-governance/tasks/T-BOUND-MIN/evidence/independent-report-8.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "adversarial review time must include timezone and must not be in the future",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-WRONG-DELIVERY",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T11:01:35.436041Z",
+        "round_id": "AR02-9",
+        "started_at": "2026-10-23T11:01:35.435774Z",
+        "reviewer": "Independent AR02 synthetic fixture",
+        "delivery_task_id": "T-UNRELATED-MIN",
+        "subject_sha256": "261b0b53d267f37cc47b37d51f6485f5e4715095b663f10708b8881b6b49514b",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": ".project-governance/tasks/T-BOUND-MIN/evidence/independent-report-9.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "synthetic-ar02://shared-support"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "a repaired delivery must directly depend on and explicitly belong to the original review",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-STOPPED-PARENT",
+      "input": {
+        "parent": "T-BOUND-MIN",
+        "state": "Stopped"
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "a repair must belong to an explicitly opted-in, unfinished parent review",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-NO-CONSENT-PARENT",
+      "input": {
+        "parent": "T-NO-CONSENT-FULL",
+        "state": "NotOffered"
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "a repair must belong to an explicitly opted-in, unfinished parent review",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "FULL-NO-CONSENT-STILL-OFFER",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\noconsent-FULL\\.project-governance\\tasks\\T-NO-CONSENT-FULL",
+      "expected": "child close refusal preserves original NotOffered",
+      "actual": {
+        "status": "NotOffered",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-NO-CONSENT-PARENT",
+      "input": {
+        "parent": "T-NO-CONSENT-MIN",
+        "state": "NotOffered"
+      },
+      "expected": "Deny invalid transition/input and preserve stored bytes",
+      "actual": {
+        "denied": true,
+        "message": "a repair must belong to an explicitly opted-in, unfinished parent review",
+        "bytes_unchanged": true
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "MIN-NO-CONSENT-STILL-OFFER",
+      "input": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\noconsent-MIN\\.project-governance\\tasks\\T-NO-CONSENT-MIN",
+      "expected": "child close refusal preserves original NotOffered",
+      "actual": {
+        "status": "NotOffered",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "CROSS-MIN-FULL",
+      "input": {
+        "parent": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\cross-min-full\\.project-governance\\tasks\\T-MIN-PARENT",
+        "child": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\cross-min-full\\.project-governance\\tasks\\T-FULL-CHILD"
+      },
+      "expected": "Full repair can belong to opted-in Minimal parent",
+      "actual": {
+        "status": "ManagedByParent",
+        "parent_task_id": "T-MIN-PARENT",
+        "clean_streak": 0,
+        "rounds": 0,
+        "open_findings": []
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "CROSS-MIN-FULL-ROUND",
+      "input": {
+        "delivery": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\boundary-run\\cross-min-full\\.project-governance\\tasks\\T-FULL-CHILD"
+      },
+      "expected": "original Minimal review binds current Full repaired delivery",
+      "actual": {
+        "status": "InProgress",
+        "clean_streak": 1,
+        "rounds": 1,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-FULL-CHILD",
+          "subject_sha256": "3f8f2fdbb1b9055976fcc62701fa5816f9a53a29b5367a37399a8b30826aab94",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "CONCURRENCY-FULL",
+      "input": {
+        "operations": [
+          "actual synthetic user Rejected",
+          "new confirmed finding Round"
+        ],
+        "schedule": "2 real threads start at barrier"
+      },
+      "expected": "both records retained with no lost update",
+      "actual": {
+        "thread_errors": [],
+        "user_decision": {
+          "outcome": "Rejected",
+          "presented": "Independent synthetic current delivery",
+          "response": "Synthetic independent user rejection",
+          "decided_by": "synthetic-user",
+          "decided_at": "2026-10-23T11:01:38.578897Z",
+          "evidence_ref": "synthetic-ar02://synthetic-rejection",
+          "subject_sha256": "8e62bfc72a26ea915f8a5e8daeebac1e4a01ad0ad3fba9fa1bee3d5010273f0a"
+        },
+        "review": {
+          "status": "InProgress",
+          "clean_streak": 0,
+          "rounds": 1,
+          "open_findings": [
+            "KEEP-FULL"
+          ],
+          "reviewed_delivery": {
+            "task_id": "T-CONCURRENT-FULL",
+            "subject_sha256": "8e62bfc72a26ea915f8a5e8daeebac1e4a01ad0ad3fba9fa1bee3d5010273f0a",
+            "requirements_sha256": "48849238363fb4d5895a59611d49bff82ed443847fbe8602832cb417797cb491"
+          }
+        },
+        "revision": 5
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "CONCURRENCY-MIN",
+      "input": {
+        "operations": [
+          "actual synthetic user Rejected",
+          "new confirmed finding Round"
+        ],
+        "schedule": "2 real threads start at barrier"
+      },
+      "expected": "both records retained with no lost update",
+      "actual": {
+        "thread_errors": [],
+        "user_decision": {
+          "outcome": "Rejected",
+          "presented": "Independent synthetic current delivery",
+          "response": "Synthetic independent user rejection",
+          "decided_by": "synthetic-user",
+          "decided_at": "2026-10-23T11:01:38.814472Z",
+          "evidence_ref": "synthetic-ar02://synthetic-rejection",
+          "subject_sha256": "c58872b0aaf9ca06f9f7e4a95b88be7770973de598bedcf9efb2c5702689f3c3"
+        },
+        "review": {
+          "status": "InProgress",
+          "clean_streak": 0,
+          "rounds": 1,
+          "open_findings": [
+            "KEEP-MIN"
+          ],
+          "reviewed_delivery": {
+            "task_id": "T-CONCURRENT-MIN",
+            "subject_sha256": "c58872b0aaf9ca06f9f7e4a95b88be7770973de598bedcf9efb2c5702689f3c3",
+            "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+          }
+        },
+        "revision": 8
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "DIST-CLOSURE",
+      "input": {
+        "entry_modules": [
+          "console",
+          "console_model",
+          "console_render",
+          "console_assets"
+        ]
+      },
+      "expected": "deployed pinned existing-console dependency closure contains new review module and is complete",
+      "actual": {
+        "declared": [
+          "adversarial_review.py",
+          "audit_console.py",
+          "check_write_guard.py",
+          "console.py",
+          "console_assets.py",
+          "console_model.py",
+          "console_render.py",
+          "deploy_console.py",
+          "governance_artifacts.py",
+          "manage_project_docs.py",
+          "minimal_task.py"
+        ],
+        "actual_import_closure": [
+          "adversarial_review.py",
+          "audit_console.py",
+          "check_write_guard.py",
+          "console.py",
+          "console_assets.py",
+          "console_model.py",
+          "console_render.py",
+          "deploy_console.py",
+          "governance_artifacts.py",
+          "manage_project_docs.py",
+          "minimal_task.py"
+        ]
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "CONSUME-FULL",
+      "input": {
+        "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-FULL\\.project-governance\\tasks\\T-OLD-FULL"
+      },
+      "expected": "generated review Markdown consumes the same status as readonly CLI",
+      "actual": {
+        "contains_Passed": true,
+        "state": {
+          "status": "Passed",
+          "clean_streak": 2,
+          "rounds": 2,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "task_id": "T-OLD-FULL",
+            "subject_sha256": "ac3aca3bdb1052ba8aeff7710c6e1c4d4f31d9dd4da6c53653d6d400e4912a58",
+            "requirements_sha256": "73ea2d158fac696b1282b43c2a1bbc4bdc4282083c62ca44b0f61080fa8322f5"
+          }
+        }
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "CONSUME-MIN",
+      "input": {
+        "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN\\.project-governance\\tasks\\T-OLD-MIN"
+      },
+      "expected": "generated review Markdown consumes the same status as readonly CLI",
+      "actual": {
+        "contains_Passed": true,
+        "state": {
+          "status": "Passed",
+          "clean_streak": 2,
+          "rounds": 2,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "task_id": "T-OLD-MIN",
+            "subject_sha256": "e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3",
+            "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+          }
+        }
+      },
+      "result": "Passed"
+    }
+  ],
+  "errors": []
+}

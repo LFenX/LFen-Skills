@@ -1,0 +1,12 @@
+{
+  "round_id": "AR-02",
+  "started_at": "2026-10-23T10:47:04.666779Z",
+  "source_commit": "62aeb847cfb6fe75679a3b0ae66fdababd995bcf",
+  "delivery_task_id": "T-ADVERSARIAL-20261023-002",
+  "source_sha256": "5376dee45f101d8374a229aae34ce9dae2801a34c9d5b09d3ee8767bea4fac19",
+  "mode": "fresh read-only reviewer; isolated temporary experiments; full original request coverage",
+  "installed_commit_blob_match": {
+    "files": 96,
+    "all_match": true
+  }
+}

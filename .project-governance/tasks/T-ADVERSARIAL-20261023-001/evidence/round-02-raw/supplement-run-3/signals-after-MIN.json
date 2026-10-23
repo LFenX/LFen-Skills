@@ -1,0 +1,127 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-X",
+    "utf8",
+    "-B",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\signals.py",
+    "--project-root",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN"
+  ],
+  "exit": 0,
+  "stdout": "{\n  \"blocking_unknowns\": [],\n  \"derivation_audit\": {\n    \"available\": false,\n    \"reason\": \"project-state.json not built yet\"\n  },\n  \"minimal_eligibility_facts\": [\n    {\n      \"eligibility\": {\n        \"blocking_unknowns\": [],\n        \"evidence_refs\": [\n          \"evidence://risk-low\",\n          \"evidence://reversible\",\n          \"evidence://single-scope\",\n          \"evidence://no-external-effect\",\n          \"evidence://no-production\",\n          \"evidence://no-security\",\n          \"evidence://extensions-inactive\"\n        ],\n        \"extension_triggers\": {\n          \"E01\": \"Inactive\",\n          \"E02\": \"Inactive\",\n          \"E03\": \"Inactive\",\n          \"E04\": \"Inactive\",\n          \"E05\": \"Inactive\"\n        },\n        \"external_system_effect\": false,\n        \"production_release\": false,\n        \"reversible\": true,\n        \"risk_level\": \"Low\",\n        \"security_privacy_impact\": false,\n        \"single_scope\": true,\n        \"special_gates\": []\n      },\n      \"task_id\": \"T-NEW-MIN\"\n    },\n    {\n      \"eligibility\": {\n        \"blocking_unknowns\": [],\n        \"evidence_refs\": [\n          \"evidence://risk-low\",\n          \"evidence://reversible\",\n          \"evidence://single-scope\",\n          \"evidence://no-external-effect\",\n          \"evidence://no-production\",\n          \"evidence://no-security\",\n          \"evidence://extensions-inactive\"\n        ],\n        \"extension_triggers\": {\n          \"E01\": \"Inactive\",\n          \"E02\": \"Inactive\",\n          \"E03\": \"Inactive\",\n          \"E04\": \"Inactive\",\n          \"E05\": \"Inactive\"\n        },\n        \"external_system_effect\": false,\n        \"production_release\": false,\n        \"reversible\": true,\n        \"risk_level\": \"Low\",\n        \"security_privacy_impact\": false,\n        \"single_scope\": true,\n        \"special_gates\": []\n      },\n      \"task_id\": \"T-OLD-MIN\"\n    }\n  ],\n  \"pending_acceptance_tasks\": [\n    \"T-NEW-MIN\",\n    \"T-OLD-MIN\"\n  ],\n  \"project_root\": \"C:\\\\Users\\\\Administrator\\\\AppData\\\\Local\\\\Temp\\\\ar02-independent-20261023\\\\supplement-run-3\\\\actual-version-MIN\",\n  \"recommended_commands\": [\n    {\n      \"command\": \"status\",\n      \"reason\": \"工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。\"\n    }\n  ],\n  \"snapshot_stale\": [],\n  \"status\": \"Ready\",\n  \"task_progress\": [\n    {\n      \"adversarial_review\": {\n        \"clean_streak\": 0,\n        \"open_findings\": [],\n        \"parent_task_id\": \"T-OLD-MIN\",\n        \"rounds\": 0,\n        \"status\": \"ManagedByParent\"\n      },\n      \"engineering_recorded\": true,\n      \"pending_acceptance\": true,\n      \"task_id\": \"T-NEW-MIN\",\n      \"user_decision\": \"Pending\"\n    },\n    {\n      \"adversarial_review\": {\n        \"clean_streak\": 2,\n        \"open_findings\": [],\n        \"reviewed_delivery\": {\n          \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\",\n          \"subject_sha256\": \"e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3\",\n          \"task_id\": \"T-OLD-MIN\"\n        },\n        \"rounds\": 2,\n        \"status\": \"Passed\"\n      },\n      \"engineering_recorded\": true,\n      \"pending_acceptance\": true,\n      \"task_id\": \"T-OLD-MIN\",\n      \"user_decision\": \"Pending\"\n    }\n  ],\n  \"update_available\": null\n}\n",
+  "stderr": "",
+  "json": {
+    "blocking_unknowns": [],
+    "derivation_audit": {
+      "available": false,
+      "reason": "project-state.json not built yet"
+    },
+    "minimal_eligibility_facts": [
+      {
+        "eligibility": {
+          "blocking_unknowns": [],
+          "evidence_refs": [
+            "evidence://risk-low",
+            "evidence://reversible",
+            "evidence://single-scope",
+            "evidence://no-external-effect",
+            "evidence://no-production",
+            "evidence://no-security",
+            "evidence://extensions-inactive"
+          ],
+          "extension_triggers": {
+            "E01": "Inactive",
+            "E02": "Inactive",
+            "E03": "Inactive",
+            "E04": "Inactive",
+            "E05": "Inactive"
+          },
+          "external_system_effect": false,
+          "production_release": false,
+          "reversible": true,
+          "risk_level": "Low",
+          "security_privacy_impact": false,
+          "single_scope": true,
+          "special_gates": []
+        },
+        "task_id": "T-NEW-MIN"
+      },
+      {
+        "eligibility": {
+          "blocking_unknowns": [],
+          "evidence_refs": [
+            "evidence://risk-low",
+            "evidence://reversible",
+            "evidence://single-scope",
+            "evidence://no-external-effect",
+            "evidence://no-production",
+            "evidence://no-security",
+            "evidence://extensions-inactive"
+          ],
+          "extension_triggers": {
+            "E01": "Inactive",
+            "E02": "Inactive",
+            "E03": "Inactive",
+            "E04": "Inactive",
+            "E05": "Inactive"
+          },
+          "external_system_effect": false,
+          "production_release": false,
+          "reversible": true,
+          "risk_level": "Low",
+          "security_privacy_impact": false,
+          "single_scope": true,
+          "special_gates": []
+        },
+        "task_id": "T-OLD-MIN"
+      }
+    ],
+    "pending_acceptance_tasks": [
+      "T-NEW-MIN",
+      "T-OLD-MIN"
+    ],
+    "project_root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ar02-independent-20261023\\supplement-run-3\\actual-version-MIN",
+    "recommended_commands": [
+      {
+        "command": "status",
+        "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"
+      }
+    ],
+    "snapshot_stale": [],
+    "status": "Ready",
+    "task_progress": [
+      {
+        "adversarial_review": {
+          "clean_streak": 0,
+          "open_findings": [],
+          "parent_task_id": "T-OLD-MIN",
+          "rounds": 0,
+          "status": "ManagedByParent"
+        },
+        "engineering_recorded": true,
+        "pending_acceptance": true,
+        "task_id": "T-NEW-MIN",
+        "user_decision": "Pending"
+      },
+      {
+        "adversarial_review": {
+          "clean_streak": 2,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+            "subject_sha256": "e950703c67647b8502b7ed5b400592b1df73d5cfc35197696f9e09fdac1c98b3",
+            "task_id": "T-OLD-MIN"
+          },
+          "rounds": 2,
+          "status": "Passed"
+        },
+        "engineering_recorded": true,
+        "pending_acceptance": true,
+        "task_id": "T-OLD-MIN",
+        "user_decision": "Pending"
+      }
+    ],
+    "update_available": null
+  }
+}

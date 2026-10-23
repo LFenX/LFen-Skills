@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "C:\Users\Administrator\.lfenskills\skills\product-engineering\run-governed-product-workflow\scripts\self_test.py", line 4412, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\Administrator\.lfenskills\skills\product-engineering\run-governed-product-workflow\scripts\self_test.py", line 3296, in main
+    closed_scope_history_validation = run_closed_scope_history_fixture()
+  File "C:\Users\Administrator\.lfenskills\skills\product-engineering\run-governed-product-workflow\scripts\self_test.py", line 486, in run_closed_scope_history_fixture
+    after_path = close_task(task, status="Implemented", established_facts=["a.txt matches its verified delivery"],
+                            actual_changes=["Changed only a.txt"], verification=[{
+                                "summary": "a.txt verified", "result": "Passed", "required": True,
+                                "evidence_refs": ["self-test://a-verified"]}])
+  File "C:\Users\Administrator\.lfenskills\skills\product-engineering\run-governed-product-workflow\scripts\governance_artifacts.py", line 4062, in close_task
+    require_valid_json_document(after, "task-after.schema.json", "after")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.lfenskills\skills\product-engineering\run-governed-product-workflow\scripts\governance_artifacts.py", line 387, in require_valid_json_document
+    raise GovernanceError("; ".join(errors))
+governance_artifacts.GovernanceError: after.scope_reconciliation.preexisting_unchanged: additional property is not allowed
