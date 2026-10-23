@@ -1,0 +1,327 @@
+[
+  {
+    "case": "schema-parity",
+    "Full": true,
+    "Minimal": true
+  },
+  {
+    "case": "Full public-version-change-resets",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 2,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full repaired-two-clean-then-pass",
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 3,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full generic-round-after-pass",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 3,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal public-version-change-resets",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 2,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal repaired-two-clean-then-pass",
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 3,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal generic-round-after-pass",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 3,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full unsaved-result-refuses-offer",
+    "actual": "save the engineering result before offering adversarial review"
+  },
+  {
+    "case": "Minimal unsaved-result-refuses-offer",
+    "actual": "save the engineering result before offering adversarial review"
+  },
+  {
+    "case": "CLI-help-contract",
+    "returncode": 0,
+    "hash": "4a7056e5c465539ac47e0953ea8463f32a046b5a5b852bc95a1a026b34450f64",
+    "expected": {
+      "script": "adversarial_review.py",
+      "help_sha256": "4a7056e5c465539ac47e0953ea8463f32a046b5a5b852bc95a1a026b34450f64",
+      "options": [
+        "--basis",
+        "--entry-json-file",
+        "--help",
+        "--reason"
+      ]
+    }
+  },
+  {
+    "case": "installed-runtime-parity",
+    "root": "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow",
+    "files": [
+      {
+        "path": "SKILL.md",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "commands/verify.md",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "commands/close.md",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "commands/minimal.md",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "commands/status.md",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "scripts/adversarial_review.py",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "scripts/governance_artifacts.py",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "scripts/minimal_task.py",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "scripts/signals.py",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "scripts/deploy_console.py",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "scripts/self_test.py",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "assets/runtime/schemas/task-after.schema.json",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "assets/runtime/schemas/minimal-task-record.schema.json",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "assets/runtime/embedded-manifest.json",
+        "exists": true,
+        "same": true
+      },
+      {
+        "path": "assets/runtime/evaluations/norm-retrieval-gold.json",
+        "exists": true,
+        "same": true
+      }
+    ]
+  },
+  {
+    "case": "CLI-readonly-byte-preservation",
+    "returncode": 0,
+    "unchanged": true,
+    "added": []
+  },
+  {
+    "case": "CLI-invalid-array",
+    "exit": 1,
+    "traceback": true,
+    "error": "Traceback (most recent call last):\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 254, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 240, in main\n    append_review(args.task_dir, json.loads(args.entry_json_file.read_text(encoding=\"utf-8\")),\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                  reason=args.reason or \"\", basis=args.basis or \"\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 198, in append_review\n    if entry.get(\"event\") == \"Round\":\n       ^^^^^^^^^\nAttributeError: 'list' object has no attribute 'get'\n",
+    "unchanged": true
+  },
+  {
+    "case": "CLI-invalid-null",
+    "exit": 1,
+    "traceback": true,
+    "error": "Traceback (most recent call last):\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 254, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 240, in main\n    append_review(args.task_dir, json.loads(args.entry_json_file.read_text(encoding=\"utf-8\")),\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                  reason=args.reason or \"\", basis=args.basis or \"\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 198, in append_review\n    if entry.get(\"event\") == \"Round\":\n       ^^^^^^^^^\nAttributeError: 'NoneType' object has no attribute 'get'\n",
+    "unchanged": true
+  },
+  {
+    "case": "CLI-invalid-string",
+    "exit": 1,
+    "traceback": true,
+    "error": "Traceback (most recent call last):\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 254, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 240, in main\n    append_review(args.task_dir, json.loads(args.entry_json_file.read_text(encoding=\"utf-8\")),\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                  reason=args.reason or \"\", basis=args.basis or \"\")\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py\", line 198, in append_review\n    if entry.get(\"event\") == \"Round\":\n       ^^^^^^^^^\nAttributeError: 'str' object has no attribute 'get'\n",
+    "unchanged": true
+  },
+  {
+    "case": "CLI-invalid-object-missing-fields",
+    "exit": 2,
+    "traceback": false,
+    "error": "ERROR: adversarial_review[2]: must match exactly one schema branch\n",
+    "unchanged": true
+  },
+  {
+    "case": "unrelated-delivery-dependency",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "a repaired delivery must directly depend on the original task",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "traversal-delivery-id",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "delivery_task_id must identify a task in this project",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "schema-reject-event",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "adversarial_review[2]: must match exactly one schema branch",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "schema-reject-coverage",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "adversarial_review[2]: must match exactly one schema branch",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "schema-reject-round_id",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "adversarial_review[2]: must match exactly one schema branch",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "schema-reject-reviewer",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "adversarial_review[2]: must match exactly one schema branch",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "schema-reject-findings",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "adversarial_review[2]: must match exactly one schema branch",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "counterexample-Full-append-lost-by-user-decision-amendment",
+    "thread_errors": [],
+    "intermediate_last_event": {
+      "event": "Round",
+      "round_id": "R1",
+      "started_at": "2026-10-23T10:06:18.881824Z",
+      "recorded_at": "2026-10-23T10:06:18.881894Z",
+      "reviewer": "independent-isolation-fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "a90668ce937b054a89bf431d03a49d2704d1853a31a38e0f549a665af0e81df9",
+      "requirements_sha256": "d8806824ce5121f92b6f46fddd7702885ef60a81b02b2dd8ef62d5cfda5f12d2",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "fixture://concurrent-public-update/report-1"
+      ],
+      "findings": [],
+      "resolutions": []
+    },
+    "old_event_count": 2,
+    "final_event_count": 2,
+    "final_rounds": 0,
+    "final_user_decision": "Rejected",
+    "validation": [],
+    "final_revision": 4,
+    "old_revision": 3,
+    "fixture": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\concurrent-public-update\\.project-governance\\tasks\\T-FULL"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "verified_at": "2026-10-23T10:39:30.894121Z",
+  "source_sha256": "5376dee45f101d8374a229aae34ce9dae2801a34c9d5b09d3ee8767bea4fac19",
+  "full_self_test": "Passed",
+  "full_self_test_log": "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\self-test-A03.log",
+  "protocol_checks": 50,
+  "final_boundary_checks": 41,
+  "schema_count": 11,
+  "runtime_assets": 46,
+  "cli_contracts": 25,
+  "quick_validate": "Passed",
+  "catalog": "Passed",
+  "diff_check": "Passed",
+  "source_text_normalization": "LF normalization preserved identical parsed source text; final targeted boundary regression passed",
+  "actual_review": "AR-01 found 8 issues; next independent round required after this verified result is saved"
+}

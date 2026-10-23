@@ -2663,7 +2663,7 @@ def require_record_semantics(path: Path, document: dict[str, Any]) -> None:
         else:
             before = read_json(before_path)
             from adversarial_review import validate_review
-            errors.extend(validate_review(document, before))
+            errors.extend(validate_review(document, before, task_dir=path.parent, events=read_jsonl(path.parent / "run.jsonl")))
             errors.extend(
                 validate_artifact_manifest(
                     document.get("artifact_manifest"),
@@ -3139,7 +3139,7 @@ def _set_dotted_path(
         )
     if document.get("meta_type") == "TaskOutcome" and parts[0] == "user_decision" and len(parts) != 1:
         raise GovernanceError("update the complete user_decision with its actual answer and source")
-    if document.get("meta_type") == "TaskOutcome" and parts[0] == "adversarial_review":
+    if document.get("meta_type") == "TaskOutcome" and parts[0] in {"adversarial_review", "adversarial_review_parent"}:
         raise GovernanceError("adversarial_review is append-only; use adversarial_review.py with an actual record")
     owner: dict[str, Any] = document
     for part in parts[:-1]:
@@ -3221,55 +3221,56 @@ def amend_record(
     basis: str,
     allow_add: bool = False,
 ) -> dict[str, Any]:
-    ensure_skill_integrity()
-    if not reason.strip() or not basis.strip():
-        raise GovernanceError("amendment reason and basis are required")
-    document = read_json(path)
-    previous_user_decision = json.loads(json.dumps(document.get("user_decision")))
-    if document.get("meta_type") not in {"TaskContract", "TaskOutcome"}:
-        raise GovernanceError("only TaskContract and TaskOutcome can use this amendment flow")
-    clarification_before = (
-        json.loads(json.dumps(document.get("clarification")))
-        if dotted_path.split(".")[0] == "clarification" else None
-    )
-    old_value, changed = _set_dotted_path(document, dotted_path, new_value, allow_add=allow_add)
-    if not changed:
+    with ledger_lock(path):
+        ensure_skill_integrity()
+        if not reason.strip() or not basis.strip():
+            raise GovernanceError("amendment reason and basis are required")
+        document = read_json(path)
+        previous_user_decision = json.loads(json.dumps(document.get("user_decision")))
+        if document.get("meta_type") not in {"TaskContract", "TaskOutcome"}:
+            raise GovernanceError("only TaskContract and TaskOutcome can use this amendment flow")
+        clarification_before = (
+            json.loads(json.dumps(document.get("clarification")))
+            if dotted_path.split(".")[0] == "clarification" else None
+        )
+        old_value, changed = _set_dotted_path(document, dotted_path, new_value, allow_add=allow_add)
+        if not changed:
+            schema_name = "task-before.schema.json" if document["meta_type"] == "TaskContract" else "task-after.schema.json"
+            require_valid_json_document(document, schema_name, path.name)
+            require_record_semantics(path, document)
+            return document
+        if document.get("meta_type") == "TaskOutcome":
+            guard_user_decision_update(previous_user_decision, document.get("user_decision"))
+        if clarification_before is not None:
+            _guard_clarification_history(clarification_before, document.get("clarification"))
+        from_revision = document.get("revision")
+        if not isinstance(from_revision, int):
+            raise GovernanceError(f"{path}: revision must be an integer")
+        document["revision"] = from_revision + 1
+        if _amendment_reopens_clarification(dotted_path, old_value, new_value):
+            reopen_clarification(document, f"amendment:{dotted_path}")
+        amendments = document.setdefault("amendments", [])
+        if not isinstance(amendments, list):
+            raise GovernanceError(f"{path}: amendments must be an array")
+        amendments.append(
+            {
+                "from_revision": from_revision,
+                "to_revision": from_revision + 1,
+                "path": dotted_path,
+                "old_value": old_value,
+                "new_value": new_value,
+                "reason": reason,
+                "basis": basis,
+                "changed_at": now_utc(),
+            }
+        )
+        if not ((path.parent / "after.json").is_file() and _is_historical_read_annotation(document, amendments[-1])):
+            _refresh_tailoring_after_amendment(document)
         schema_name = "task-before.schema.json" if document["meta_type"] == "TaskContract" else "task-after.schema.json"
         require_valid_json_document(document, schema_name, path.name)
         require_record_semantics(path, document)
+        atomic_write_json(path, document)
         return document
-    if document.get("meta_type") == "TaskOutcome":
-        guard_user_decision_update(previous_user_decision, document.get("user_decision"))
-    if clarification_before is not None:
-        _guard_clarification_history(clarification_before, document.get("clarification"))
-    from_revision = document.get("revision")
-    if not isinstance(from_revision, int):
-        raise GovernanceError(f"{path}: revision must be an integer")
-    document["revision"] = from_revision + 1
-    if _amendment_reopens_clarification(dotted_path, old_value, new_value):
-        reopen_clarification(document, f"amendment:{dotted_path}")
-    amendments = document.setdefault("amendments", [])
-    if not isinstance(amendments, list):
-        raise GovernanceError(f"{path}: amendments must be an array")
-    amendments.append(
-        {
-            "from_revision": from_revision,
-            "to_revision": from_revision + 1,
-            "path": dotted_path,
-            "old_value": old_value,
-            "new_value": new_value,
-            "reason": reason,
-            "basis": basis,
-            "changed_at": now_utc(),
-        }
-    )
-    if not ((path.parent / "after.json").is_file() and _is_historical_read_annotation(document, amendments[-1])):
-        _refresh_tailoring_after_amendment(document)
-    schema_name = "task-before.schema.json" if document["meta_type"] == "TaskContract" else "task-after.schema.json"
-    require_valid_json_document(document, schema_name, path.name)
-    require_record_semantics(path, document)
-    atomic_write_json(path, document)
-    return document
 
 
 def amend_record_batch(
@@ -3281,70 +3282,71 @@ def amend_record_batch(
 ) -> dict[str, Any]:
     """Apply a validated historical correction set without invalid intermediate writes."""
 
-    ensure_skill_integrity()
-    if not reason.strip() or not basis.strip():
-        raise GovernanceError("batch amendment reason and basis are required")
-    changes = list(changes)
-    if not changes:
-        raise GovernanceError("batch amendment requires at least one change")
-    document = read_json(path)
-    previous_user_decision = json.loads(json.dumps(document.get("user_decision")))
-    if document.get("meta_type") not in {"TaskContract", "TaskOutcome"}:
-        raise GovernanceError("only TaskContract and TaskOutcome can use this amendment flow")
-    amendments = document.setdefault("amendments", [])
-    if not isinstance(amendments, list):
-        raise GovernanceError(f"{path}: amendments must be an array")
-    # Compared once, start against end: a batch that erases an open answer in one change
-    # and re-adds it as answered in the next is still a relabel.
-    clarification_before = json.loads(json.dumps(document.get("clarification")))
-    applied = 0
-    prior_amendment_count = len(amendments)
-    for change in changes:
-        dotted_path = change.get("path")
-        if not isinstance(dotted_path, str):
-            raise GovernanceError("each batch change requires a string path")
-        if "value" not in change:
-            raise GovernanceError(f"batch change {dotted_path} requires value")
-        from_revision = document.get("revision")
-        if not isinstance(from_revision, int):
-            raise GovernanceError(f"{path}: revision must be an integer")
-        old_value, changed = _set_dotted_path(
-            document, dotted_path, change["value"], allow_add=bool(change.get("allow_add"))
-        )
-        if not changed:
-            continue
-        document["revision"] = from_revision + 1
-        if _amendment_reopens_clarification(dotted_path, old_value, change["value"]):
-            reopen_clarification(document, f"amendment:{dotted_path}")
-        amendments.append(
-            {
-                "from_revision": from_revision,
-                "to_revision": from_revision + 1,
-                "path": dotted_path,
-                "old_value": old_value,
-                "new_value": change["value"],
-                "reason": change.get("reason") or reason,
-                "basis": change.get("basis") or basis,
-                "changed_at": now_utc(),
-            }
-        )
-        applied += 1
-    if not applied:
+    with ledger_lock(path):
+        ensure_skill_integrity()
+        if not reason.strip() or not basis.strip():
+            raise GovernanceError("batch amendment reason and basis are required")
+        changes = list(changes)
+        if not changes:
+            raise GovernanceError("batch amendment requires at least one change")
+        document = read_json(path)
+        previous_user_decision = json.loads(json.dumps(document.get("user_decision")))
+        if document.get("meta_type") not in {"TaskContract", "TaskOutcome"}:
+            raise GovernanceError("only TaskContract and TaskOutcome can use this amendment flow")
+        amendments = document.setdefault("amendments", [])
+        if not isinstance(amendments, list):
+            raise GovernanceError(f"{path}: amendments must be an array")
+        # Compared once, start against end: a batch that erases an open answer in one change
+        # and re-adds it as answered in the next is still a relabel.
+        clarification_before = json.loads(json.dumps(document.get("clarification")))
+        applied = 0
+        prior_amendment_count = len(amendments)
+        for change in changes:
+            dotted_path = change.get("path")
+            if not isinstance(dotted_path, str):
+                raise GovernanceError("each batch change requires a string path")
+            if "value" not in change:
+                raise GovernanceError(f"batch change {dotted_path} requires value")
+            from_revision = document.get("revision")
+            if not isinstance(from_revision, int):
+                raise GovernanceError(f"{path}: revision must be an integer")
+            old_value, changed = _set_dotted_path(
+                document, dotted_path, change["value"], allow_add=bool(change.get("allow_add"))
+            )
+            if not changed:
+                continue
+            document["revision"] = from_revision + 1
+            if _amendment_reopens_clarification(dotted_path, old_value, change["value"]):
+                reopen_clarification(document, f"amendment:{dotted_path}")
+            amendments.append(
+                {
+                    "from_revision": from_revision,
+                    "to_revision": from_revision + 1,
+                    "path": dotted_path,
+                    "old_value": old_value,
+                    "new_value": change["value"],
+                    "reason": change.get("reason") or reason,
+                    "basis": change.get("basis") or basis,
+                    "changed_at": now_utc(),
+                }
+            )
+            applied += 1
+        if not applied:
+            schema_name = "task-before.schema.json" if document["meta_type"] == "TaskContract" else "task-after.schema.json"
+            require_valid_json_document(document, schema_name, path.name)
+            require_record_semantics(path, document)
+            return document
+        if document.get("meta_type") == "TaskOutcome":
+            guard_user_decision_update(previous_user_decision, document.get("user_decision"))
+        _guard_clarification_history(clarification_before, document.get("clarification"))
+        if not ((path.parent / "after.json").is_file() and all(
+                _is_historical_read_annotation(document, item) for item in amendments[prior_amendment_count:])):
+            _refresh_tailoring_after_amendment(document)
         schema_name = "task-before.schema.json" if document["meta_type"] == "TaskContract" else "task-after.schema.json"
         require_valid_json_document(document, schema_name, path.name)
         require_record_semantics(path, document)
+        atomic_write_json(path, document)
         return document
-    if document.get("meta_type") == "TaskOutcome":
-        guard_user_decision_update(previous_user_decision, document.get("user_decision"))
-    _guard_clarification_history(clarification_before, document.get("clarification"))
-    if not ((path.parent / "after.json").is_file() and all(
-            _is_historical_read_annotation(document, item) for item in amendments[prior_amendment_count:])):
-        _refresh_tailoring_after_amendment(document)
-    schema_name = "task-before.schema.json" if document["meta_type"] == "TaskContract" else "task-after.schema.json"
-    require_valid_json_document(document, schema_name, path.name)
-    require_record_semantics(path, document)
-    atomic_write_json(path, document)
-    return document
 
 
 def _append_run_event_unlocked(
@@ -3881,6 +3883,7 @@ def close_task(
     next_tasks: Iterable[str] = (),
     artifact_manifest: Iterable[dict[str, Any]] | None = None,
     source_snapshot: dict[str, Any] | None = None,
+    review_parent_task_id: str | None = None,
 ) -> Path:
     ensure_skill_integrity()
     if status not in OUTCOME_STATES:
@@ -3991,6 +3994,9 @@ def close_task(
     }
     after["scope_reconciliation"]["report_sha256"] = _fact_sha256(after["scope_reconciliation"])
     after["user_decision"] = initial_user_decision(before, events, after)
+    if review_parent_task_id is not None:
+        from adversarial_review import require_review_parent
+        after["adversarial_review_parent"] = require_review_parent(task_dir, before, review_parent_task_id)
     if status == "Implemented":
         scope_errors = validate_closed_scope_evidence(before, after)
         if scope_errors:
@@ -4331,8 +4337,8 @@ def render_project_status(state: dict[str, Any]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def render_task_review(before: dict[str, Any], after: dict[str, Any] | None) -> str:
-    from adversarial_review import review_state
+def render_task_review(before: dict[str, Any], after: dict[str, Any] | None, *, task_dir: Path | None = None) -> str:
+    from adversarial_review import review_state, review_status
     lines = [
         f"# Task Review: {before['task_id']}",
         "",
@@ -4355,7 +4361,7 @@ def render_task_review(before: dict[str, Any], after: dict[str, Any] | None) -> 
             "",
             f"- Status: {after['status']}",
             f"- User decision: {user_decision_label(after.get('user_decision'))}",
-            f"- Adversarial review: {review_state(after, before)}",
+            f"- Adversarial review: {review_status(task_dir) if task_dir else review_state(after, before)}",
             f"- Revision: {after['revision']}",
             "",
             "## Established facts",
@@ -4597,7 +4603,7 @@ def generate_views(
                 outputs.extend(_write_derived_view(
                     root=root,
                     content_path=review_path,
-                    content=render_minimal_review(record),
+                    content=render_minimal_review(record, task_dir=task_dir),
                     project_id=project_id,
                     view_id=f"DV-{record['task_id']}-REVIEW",
                     view_kind="task-review",
@@ -4618,7 +4624,7 @@ def generate_views(
             outputs.extend(_write_derived_view(
                 root=root,
                 content_path=review_path,
-                content=render_task_review(before, after) + "\n## Proof validation\n\n"
+                content=render_task_review(before, after, task_dir=task_dir) + "\n## Proof validation\n\n"
                 + proof_validation_label(proof_validation_for_read(before, read_jsonl(task_dir / "run.jsonl"), after)[0]) + "\n",
                 project_id=project_id,
                 view_id=f"DV-{project_id}-{before['task_id']}",
@@ -4958,7 +4964,7 @@ def validate_task_directory(task_dir: Path) -> list[str]:
             elif "user_decision" in after:
                 errors.extend(validate_user_decision(before, events, after))
             from adversarial_review import validate_review
-            errors.extend(validate_review(after, before))
+            errors.extend(validate_review(after, before, task_dir=task_dir, events=events))
     else:
         _, proof_errors = proof_validation_for_read(before, events, None)
         errors.extend(proof_errors)

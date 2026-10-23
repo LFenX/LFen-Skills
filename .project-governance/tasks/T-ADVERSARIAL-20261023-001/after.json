@@ -5,7 +5,7 @@
   "project_id": "P-LFEN-SKILLS",
   "work_item_id": "W-ADVERSARIAL-20261023",
   "task_id": "T-ADVERSARIAL-20261023-001",
-  "revision": 2,
+  "revision": 5,
   "status": "Implemented",
   "user_decision": {
     "outcome": "Pending"
@@ -16,6 +16,88 @@
       "recorded_at": "2026-10-23T09:34:53.863146Z",
       "prompt": "本任务的工程实现、验证和结果留档已完成。是否现在启动多轮对抗性审查？开始后将逐条核对原始需求，发现问题则修复并复验，直至同一交付版本连续两轮完整审查均未发现问题。",
       "evidence_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-offer.json"
+    },
+    {
+      "event": "Decision",
+      "recorded_at": "2026-10-23T09:58:06.866514Z",
+      "outcome": "Accepted",
+      "response": "开始审查",
+      "decided_by": "user",
+      "evidence_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+    },
+    {
+      "event": "Round",
+      "recorded_at": "2026-10-23T10:16:10.290166Z",
+      "started_at": "2026-10-23T09:58:40Z",
+      "round_id": "AR-01",
+      "reviewer": "/root/adversarial_round_01; root independently reproduced ADR-08",
+      "delivery_task_id": "T-ADVERSARIAL-20261023-001",
+      "subject_sha256": "957dc330466a657cf06bb072be7d08f3e020edeb3584758660bd5a3c86f07502",
+      "requirements_sha256": "f85b9fe17d69e5a975ebf0390bf97ccc18a0892b6c2e5c78634c5174a3eb12d4",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+      ],
+      "findings": [
+        {
+          "id": "ADR-01",
+          "summary": "交付摘要变化后旧轮次仍显示 Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+          ]
+        },
+        {
+          "id": "ADR-02",
+          "summary": "Full amendment 并发覆盖已确认审查问题",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+          ]
+        },
+        {
+          "id": "ADR-03",
+          "summary": "轮次可早于返修交付完成时间",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+          ]
+        },
+        {
+          "id": "ADR-04",
+          "summary": "澄清说明更正导致历史失效且不能恢复",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+          ]
+        },
+        {
+          "id": "ADR-05",
+          "summary": "报告身份与共享支持证据去重错误",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+          ]
+        },
+        {
+          "id": "ADR-06",
+          "summary": "返修任务重复请求启动审查",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+          ]
+        },
+        {
+          "id": "ADR-07",
+          "summary": "非对象 JSON 引发未处理异常",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+          ]
+        },
+        {
+          "id": "ADR-08",
+          "summary": "暂缓或拒绝后主动同意仍要求重复提问",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+          ]
+        }
+      ],
+      "resolutions": []
     }
   ],
   "completed_at": "2026-10-23T09:34:07.840577Z",
@@ -33,7 +115,7 @@
   },
   "established_facts": [
     "工程实现与必要验证完成，用户验收决定独立为 Pending",
-    "本任务尚未开展实际对抗性审查；50 项为协议的合成回归检查"
+    "工程收尾时尚未开展实际对抗性审查；当时 50 项为协议合成回归。后续真实审查进展与问题以 adversarial_review 及对应证据为准。"
   ],
   "actual_changes": [
     "SKILL 与 verify/close/minimal/status 嵌入完工后主动询问，明确同意后多轮对抗性审查；同版连续两轮完整无问题才通过",
@@ -135,6 +217,126 @@
         "prompt": "本任务的工程实现、验证和结果留档已完成。是否现在启动多轮对抗性审查？开始后将逐条核对原始需求，发现问题则修复并复验，直至同一交付版本连续两轮完整审查均未发现问题。",
         "evidence_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-offer.json"
       }
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "reason": "用户明确选择开始审查，启动原任务范围内的多轮对抗性审查",
+      "basis": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
+      "changed_at": "2026-10-23T09:58:06.866514Z",
+      "path": "adversarial_review.1",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T09:58:06.866514Z",
+        "outcome": "Accepted",
+        "response": "开始审查",
+        "decided_by": "user",
+        "evidence_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+      }
+    },
+    {
+      "from_revision": 3,
+      "to_revision": 4,
+      "reason": "用户授权后的首轮完整对抗性审查确认 8 项问题，归零并进入同范围返修",
+      "basis": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md",
+      "changed_at": "2026-10-23T10:16:10.290166Z",
+      "path": "adversarial_review.2",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T10:16:10.290166Z",
+        "started_at": "2026-10-23T09:58:40Z",
+        "round_id": "AR-01",
+        "reviewer": "/root/adversarial_round_01; root independently reproduced ADR-08",
+        "delivery_task_id": "T-ADVERSARIAL-20261023-001",
+        "subject_sha256": "957dc330466a657cf06bb072be7d08f3e020edeb3584758660bd5a3c86f07502",
+        "requirements_sha256": "f85b9fe17d69e5a975ebf0390bf97ccc18a0892b6c2e5c78634c5174a3eb12d4",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+        ],
+        "findings": [
+          {
+            "id": "ADR-01",
+            "summary": "交付摘要变化后旧轮次仍显示 Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+            ]
+          },
+          {
+            "id": "ADR-02",
+            "summary": "Full amendment 并发覆盖已确认审查问题",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+            ]
+          },
+          {
+            "id": "ADR-03",
+            "summary": "轮次可早于返修交付完成时间",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+            ]
+          },
+          {
+            "id": "ADR-04",
+            "summary": "澄清说明更正导致历史失效且不能恢复",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+            ]
+          },
+          {
+            "id": "ADR-05",
+            "summary": "报告身份与共享支持证据去重错误",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+            ]
+          },
+          {
+            "id": "ADR-06",
+            "summary": "返修任务重复请求启动审查",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+            ]
+          },
+          {
+            "id": "ADR-07",
+            "summary": "非对象 JSON 引发未处理异常",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+            ]
+          },
+          {
+            "id": "ADR-08",
+            "summary": "暂缓或拒绝后主动同意仍要求重复提问",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md"
+            ]
+          }
+        ],
+        "resolutions": []
+      }
+    },
+    {
+      "from_revision": 4,
+      "to_revision": 5,
+      "path": "established_facts",
+      "old_value": [
+        "工程实现与必要验证完成，用户验收决定独立为 Pending",
+        "本任务尚未开展实际对抗性审查；50 项为协议的合成回归检查"
+      ],
+      "new_value": [
+        "工程实现与必要验证完成，用户验收决定独立为 Pending",
+        "工程收尾时尚未开展实际对抗性审查；当时 50 项为协议合成回归。后续真实审查进展与问题以 adversarial_review 及对应证据为准。"
+      ],
+      "reason": "真实审查已获同意并开展，将原收尾说明明确限定为当时时点，避免派生当前事实误读；保留修订历史",
+      "basis": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
+      "changed_at": "2026-10-23T10:36:44.745902Z"
     }
   ],
   "scope_reconciliation": {

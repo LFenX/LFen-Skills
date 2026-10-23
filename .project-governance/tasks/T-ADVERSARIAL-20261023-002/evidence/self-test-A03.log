@@ -1,0 +1,95 @@
+{
+  "profiles": 137,
+  "meta_types": 6,
+  "runtime_assets": 46,
+  "retrieval_gold_cases": 28,
+  "parser_fixture_records": 12,
+  "index_lifecycle": "Passed",
+  "query_planner": "Passed",
+  "active_query_tree_adversarial": {
+    "status": "Passed",
+    "checks": 10,
+    "link_checks": 2
+  },
+  "derived_view_byte_adversarial": {
+    "status": "Passed",
+    "checks": 2
+  },
+  "requirement_review": {
+    "status": "Passed",
+    "checks": 57,
+    "semantic_inference": "not_performed"
+  },
+  "new_query_history": {
+    "status": "Passed",
+    "checks": 2
+  },
+  "document_governance": {
+    "status": "Passed",
+    "checks": 17
+  },
+  "amendment_growth": {
+    "status": "Passed",
+    "checks": 22
+  },
+  "saved_result_user_decision": {
+    "status": "Passed",
+    "checks": 36
+  },
+  "adversarial_review": {
+    "status": "Passed",
+    "checks": 50
+  },
+  "adversarial_review_boundaries": {
+    "status": "Passed",
+    "checks": 37
+  },
+  "approval_time": {
+    "status": "Passed",
+    "checks": 8
+  },
+  "closed_scope_history": {
+    "status": "Passed",
+    "checks": 15
+  },
+  "historical_proof_compatibility": {
+    "status": "passed",
+    "checks": 40
+  },
+  "verification_recovery": {
+    "status": "Passed",
+    "checks": 16
+  },
+  "failure_and_terminal": {
+    "status": "Passed",
+    "checks": 21
+  },
+  "review_boundaries": {
+    "status": "Passed",
+    "checks": 37
+  },
+  "consumer_bootstrap": {
+    "status": "Passed",
+    "checks": 4
+  },
+  "minimal_carrier": {
+    "status": "Passed",
+    "lifecycle": "single-file",
+    "upgrade": "one-way",
+    "defaults": "traceable"
+  },
+  "cache_prune": {
+    "status": "Passed",
+    "checks": 5
+  },
+  "write_guard": {
+    "status": "Passed",
+    "checks": 8
+  },
+  "console_deployment": {
+    "status": "Passed",
+    "checks": 12
+  },
+  "positive": "passed",
+  "negative": "passed"
+}

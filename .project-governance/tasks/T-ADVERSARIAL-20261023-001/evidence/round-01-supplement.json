@@ -1,0 +1,31 @@
+{
+  "observed_at": "2026-10-23T10:00:36.937534Z",
+  "delivery_commit": "2c3496bb8701474d0ec3313d2143684e6d8fb2f6",
+  "reproductions": [
+    {
+      "case": "Deferred followed by actual user opt-in",
+      "expected": "Start within the original post-completion offer without repeated question",
+      "actual": {
+        "refused": "a new review decision requires a new actual offer"
+      }
+    },
+    {
+      "case": "Declined followed by actual user opt-in",
+      "expected": "Start within the original post-completion offer without repeated question",
+      "actual": {
+        "refused": "a new review decision requires a new actual offer"
+      }
+    },
+    {
+      "case": "An authorized review parent plus its completed repair child",
+      "expected": "Continue the parent review without a recursive review question",
+      "actual": [
+        {
+          "command": "verify",
+          "reason": "工程结果已保存；主动询问是否进行对抗性审查，明确同意前不得开始。"
+        }
+      ],
+      "note": "The child signal drops depends_on and carries no association with the parent review; NotOffered wins globally"
+    }
+  ]
+}

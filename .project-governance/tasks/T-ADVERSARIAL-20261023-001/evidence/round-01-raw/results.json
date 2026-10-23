@@ -1,0 +1,755 @@
+[
+  {
+    "case": "runtime_integrity",
+    "errors": []
+  },
+  {
+    "case": "Full initial",
+    "state": {
+      "status": "NotOffered",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "validation": [],
+    "user_decision": {
+      "outcome": "Pending"
+    }
+  },
+  {
+    "case": "Full decision-before-offer",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "record the actual post-completion question before a user decision",
+    "unchanged": true,
+    "state": {
+      "status": "NotOffered",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full no-response-no-round",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "AwaitingUser",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full Declined-no-round",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "Declined",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full Deferred-no-round",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "Deferred",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full wrong-subject",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "round subject does not match the referenced verified engineering result",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full wrong-original",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "review must cover the unchanged original request and clarification",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full naive-time",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "adversarial_review[6]: must match exactly one schema branch",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full future-time",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "adversarial review time must include timezone and must not be in the future",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full prior-optin-start",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "each round must start after opt-in and after the previous round finished",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full one-clean",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full same-id",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "each round requires a fresh review id and distinct report evidence",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full same-ref",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "each round requires a fresh review id and distinct report evidence",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full found-issue",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 2,
+      "open_findings": [
+        "F1"
+      ]
+    }
+  },
+  {
+    "case": "Full unresolved-finding",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 3,
+      "open_findings": [
+        "F1"
+      ]
+    }
+  },
+  {
+    "case": "Full fixed-with-same-version",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "a fix requires a newly verified delivery; use evidenced NotAnIssue for a false positive",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 3,
+      "open_findings": [
+        "F1"
+      ]
+    }
+  },
+  {
+    "case": "Full incomplete",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 5,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full unreviewed",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full blocked",
+    "state": {
+      "status": "Blocked",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full two-clean",
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 8,
+      "open_findings": []
+    },
+    "validation": [],
+    "user_decision_preserved": true,
+    "ledger_preserved": true
+  },
+  {
+    "case": "Full after-pass-extra-round",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 8,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full stopped",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "Stopped",
+      "clean_streak": 0,
+      "rounds": 8,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full legacy-read",
+    "state": {
+      "status": "LegacyUntracked",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Full legacy-append",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "legacy results are not automatically enrolled in the new review protocol",
+    "unchanged": true,
+    "state": {
+      "status": "LegacyUntracked",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal initial",
+    "state": {
+      "status": "NotOffered",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "validation": [],
+    "user_decision": {
+      "outcome": "Pending"
+    }
+  },
+  {
+    "case": "Minimal decision-before-offer",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "record the actual post-completion question before a user decision",
+    "unchanged": true,
+    "state": {
+      "status": "NotOffered",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal no-response-no-round",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "AwaitingUser",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal Declined-no-round",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "Declined",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal Deferred-no-round",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "Deferred",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal wrong-subject",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "round subject does not match the referenced verified engineering result",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal wrong-original",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "review must cover the unchanged original request and clarification",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal naive-time",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "adversarial_review[6]: must match exactly one schema branch",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal future-time",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "adversarial review time must include timezone and must not be in the future",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal prior-optin-start",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "each round must start after opt-in and after the previous round finished",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal one-clean",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal same-id",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "each round requires a fresh review id and distinct report evidence",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal same-ref",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "each round requires a fresh review id and distinct report evidence",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal found-issue",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 2,
+      "open_findings": [
+        "F1"
+      ]
+    }
+  },
+  {
+    "case": "Minimal unresolved-finding",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 3,
+      "open_findings": [
+        "F1"
+      ]
+    }
+  },
+  {
+    "case": "Minimal fixed-with-same-version",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "a fix requires a newly verified delivery; use evidenced NotAnIssue for a false positive",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 3,
+      "open_findings": [
+        "F1"
+      ]
+    }
+  },
+  {
+    "case": "Minimal incomplete",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 5,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal unreviewed",
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal blocked",
+    "state": {
+      "status": "Blocked",
+      "clean_streak": 0,
+      "rounds": 6,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal two-clean",
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 8,
+      "open_findings": []
+    },
+    "validation": [],
+    "user_decision_preserved": true,
+    "ledger_preserved": true
+  },
+  {
+    "case": "Minimal after-pass-extra-round",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 8,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal stopped",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "do not start review without explicit opt-in, or continue after two clean rounds",
+    "unchanged": true,
+    "state": {
+      "status": "Stopped",
+      "clean_streak": 0,
+      "rounds": 8,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal legacy-read",
+    "state": {
+      "status": "LegacyUntracked",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "Minimal legacy-append",
+    "expected": "reject",
+    "actual": "rejected",
+    "error": "legacy results are not automatically enrolled in the new review protocol",
+    "unchanged": true,
+    "state": {
+      "status": "LegacyUntracked",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "counterexample-stale-Passed-after-delivery-change",
+    "old_subject": "3266616e4a0ab374e1bb71056f045137be6d86046f218e691aa0ca399b2eaf3b",
+    "new_subject": "ede59289a7d1af11d659e5d79882b699206c2786f572f041d1a3663be4f66540",
+    "subject_changed": true,
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 2,
+      "open_findings": []
+    },
+    "validation": [],
+    "cli_exit": 0,
+    "cli_stdout": "{\n  \"status\": \"Passed\",\n  \"clean_streak\": 2,\n  \"rounds\": 2,\n  \"open_findings\": [],\n  \"requirements_sha256\": \"d8806824ce5121f92b6f46fddd7702885ef60a81b02b2dd8ef62d5cfda5f12d2\",\n  \"delivery_task_id\": \"T-FULL\",\n  \"subject_sha256\": \"ede59289a7d1af11d659e5d79882b699206c2786f572f041d1a3663be4f66540\"\n}\n",
+    "cli_stderr": "",
+    "fixture": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\stale-version\\.project-governance\\tasks\\T-FULL"
+  },
+  {
+    "case": "Full counterexample-repair-round-before-verified",
+    "round_started_at": "2026-10-23T10:03:48.813437Z",
+    "delivery_verified_at": "2026-10-23T10:03:49.175101Z",
+    "delivery_completed_at": "2026-10-23T10:03:49.409628Z",
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 3,
+      "open_findings": []
+    },
+    "validation": [],
+    "fixture": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\repair-time-Full\\.project-governance\\tasks\\T-FULL"
+  },
+  {
+    "case": "Minimal counterexample-repair-round-before-verified",
+    "round_started_at": "2026-10-23T10:03:49.749538Z",
+    "delivery_verified_at": "2026-10-23T10:03:50.109671Z",
+    "delivery_completed_at": "2026-10-23T10:03:50.342936Z",
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 3,
+      "open_findings": []
+    },
+    "validation": [],
+    "fixture": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\repair-time-Minimal\\.project-governance\\tasks\\T-MIN"
+  },
+  {
+    "case": "counterexample-clarification-history-binding",
+    "old_requirements": "d8806824ce5121f92b6f46fddd7702885ef60a81b02b2dd8ef62d5cfda5f12d2",
+    "new_requirements": "cb47a73c9a17a5843ad26b3cc2bd0ba5e1c5aa86f75690d3ebd93b9b67a93ed2",
+    "observed": null,
+    "error": "review must cover the unchanged original request and clarification"
+  },
+  {
+    "case": "counterexample-clarification-change-public-recovery",
+    "validation": [
+      "adversarial_review: review must cover the unchanged original request and clarification"
+    ],
+    "blocked_append": "adversarial_review: review must cover the unchanged original request and clarification",
+    "cli_exit": 2,
+    "cli_stdout": "",
+    "cli_stderr": "ERROR: adversarial_review: review must cover the unchanged original request and clarification\n",
+    "fixture": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\requirements-recovery\\.project-governance\\tasks\\T-FULL"
+  },
+  {
+    "case": "counterexample-same-physical-report-aliases",
+    "ref1": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\report-alias\\.project-governance\\tasks\\T-FULL\\report.md",
+    "ref2": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\report-alias\\.project-governance\\tasks\\T-FULL/./report.md",
+    "same_file": true,
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 2,
+      "open_findings": []
+    },
+    "validation": [],
+    "fixture": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\report-alias\\.project-governance\\tasks\\T-FULL"
+  },
+  {
+    "case": "console-live-review-visibility",
+    "signal": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 1,
+      "open_findings": [
+        "F-CONSOLE-UNIQUE"
+      ]
+    },
+    "model_keys": [
+      "task_id",
+      "ordinal",
+      "status",
+      "proof_validation",
+      "user_decision",
+      "carrier",
+      "objective",
+      "risk_level",
+      "delivery_scenario",
+      "development_types",
+      "change_surfaces",
+      "allowed_paths",
+      "acceptance",
+      "events",
+      "established_facts",
+      "actual_changes",
+      "incomplete_items",
+      "next_tasks",
+      "derived_from",
+      "required_by",
+      "depends_on",
+      "supersedes",
+      "request_snapshot",
+      "files",
+      "manifest",
+      "tailoring",
+      "eligibility",
+      "selection",
+      "scope",
+      "authority",
+      "lifecycle",
+      "updated_at",
+      "children",
+      "parents",
+      "subtree"
+    ],
+    "html_contains_status": false,
+    "html_contains_issue": false,
+    "html_contains_review_label": false,
+    "markdown_contains_review": true,
+    "fixture": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\console-display\\.project-governance\\tasks\\T-FULL"
+  },
+  {
+    "case": "console-import-closure",
+    "declared": [
+      "adversarial_review.py",
+      "audit_console.py",
+      "check_write_guard.py",
+      "console.py",
+      "console_assets.py",
+      "console_model.py",
+      "console_render.py",
+      "deploy_console.py",
+      "governance_artifacts.py",
+      "manage_project_docs.py",
+      "minimal_task.py"
+    ],
+    "computed": [
+      "adversarial_review.py",
+      "audit_console.py",
+      "check_write_guard.py",
+      "console.py",
+      "console_assets.py",
+      "console_model.py",
+      "console_render.py",
+      "deploy_console.py",
+      "governance_artifacts.py",
+      "manage_project_docs.py",
+      "minimal_task.py"
+    ],
+    "equal": true
+  },
+  {
+    "case": "deployed-console-hashes",
+    "status": {
+      "deployed": true,
+      "deployed_version": "6.3.0-candidate",
+      "skill_version": "6.3.0-candidate",
+      "missing": [],
+      "modified": [],
+      "outdated": []
+    }
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "round_id": "AR-01",
+  "started_at": "2026-10-23T09:58:06.914862Z",
+  "git_commit": "2c3496bb8701474d0ec3313d2143684e6d8fb2f6",
+  "delivery_task_id": "T-ADVERSARIAL-20261023-001",
+  "reviewer": "new read-only subagent; identity recorded on completion",
+  "coverage_basis": "original request_snapshot and clarification, all changed source and callers"
+}

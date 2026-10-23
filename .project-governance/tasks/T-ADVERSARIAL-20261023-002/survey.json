@@ -1,0 +1,10 @@
+{
+  "parent_task_id": "T-ADVERSARIAL-20261023-001",
+  "user_opt_in": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
+  "findings": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-01.md",
+  "observed": ["已授权的第一轮实际审查发现 ADR-01..08，包含公开 API 的可复现实验", "现有 Full/Minimal 结果、原始账本和用户验收需要独立保留"],
+  "locations": ["scripts/adversarial_review.py", "scripts/governance_artifacts.py", "scripts/minimal_task.py", "scripts/signals.py", "commands/verify.md", "assets/runtime/schemas"],
+  "constraints": ["只修复本审查任务的缺陷；不重写历史轮次", "新交付必须复验、留档后才启动下一轮", "返修与原会话显式关联，不递归询问", "只对同一版本连续两轮完整无问题标为通过"],
+  "unknowns": [],
+  "decision": "在原文件与公开入口中修正校验、并发与状态投影；报告身份与支持证据分开，新增写入绑定报告内容与交付完成时间，旧记录保留原件并明确证明边界。"
+}

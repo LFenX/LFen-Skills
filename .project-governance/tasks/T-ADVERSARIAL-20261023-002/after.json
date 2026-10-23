@@ -1,0 +1,134 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-ADVERSARIAL-20261023",
+  "task_id": "T-ADVERSARIAL-20261023-002",
+  "revision": 1,
+  "status": "Implemented",
+  "user_decision": {
+    "outcome": "Pending"
+  },
+  "adversarial_review": [],
+  "completed_at": "2026-10-23T10:41:43.098330Z",
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "2c3496bb8701474d0ec3313d2143684e6d8fb2f6",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 54,
+    "status_digest": "fa603750b24a4866e14abb18e7ad86fb84b6242010cc7324856ec0228dc37bfc",
+    "captured_at": "2026-10-23T10:41:43.098558Z"
+  },
+  "established_facts": [
+    "首轮 ADR-01..08 已完成工程修复并通过相应回归",
+    "本次工程收尾时，原任务尚需新版本的实际对抗性审查；人工验收决定保持独立"
+  ],
+  "actual_changes": [
+    "审查每次核对当前交付、原文和报告；失效清零保留历史并可恢复，元数据说明更正不改变新版原话绑定",
+    "统一 Full 修订与审查写锁，保存并发的真实用户决定和已确认问题",
+    "报告与支持证据区分，规范路径并绑定实际报告内容与交付复验/完成时间，拒绝复用和过早轮次",
+    "Full/Minimal 返修显式归属原审查，真实后续决定无需重复提问；JSON 错误受控处理，CLI/Schema/文档/回归和分发同步"
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "完整 self_test 通过，原协议 50 项；最终边界专项 41 项通过；新增案例不作为实际审查",
+      "evidence_refs": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\self-test-A03.log",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\boundary-regression-final.json"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "11 Schema、46 受保护资产、28 gold、25 CLI、官方 skill 校验、目录与 diff 通过；runtime 一致性无 Blocker/Major/Minor",
+      "evidence_refs": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\validation-summary.json",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\runtime-retrieval.log",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\runtime-consistency.log"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "冻结来源 5376dee45f101d8374a229aae34ce9dae2801a34c9d5b09d3ee8767bea4fac19，实际安装入口 96 文件一致",
+      "evidence_refs": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\delivery-freeze.json",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\installed-sync.json"
+      ]
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [
+    "该返修沿用原任务已获得的真实审查授权，不递归询问；只有原会话同版连续两轮完整无问题才可结束"
+  ],
+  "evidence_refs": [
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\validation-summary.json",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\evidence\\delivery-freeze.json",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-001\\evidence\\round-01.md"
+  ],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-ADVERSARIAL-20261023-002-before",
+      "content_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-002/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "2c3496bb8701474d0ec3313d2143684e6d8fb2f6",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-ADVERSARIAL-20261023-002-run",
+      "content_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-002/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "2c3496bb8701474d0ec3313d2143684e6d8fb2f6",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-ADVERSARIAL-20261023-002-after",
+      "content_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-002/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "2c3496bb8701474d0ec3313d2143684e6d8fb2f6",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": [],
+  "scope_reconciliation": {
+    "status": "Passed",
+    "changed_count": 54,
+    "out_of_scope": [],
+    "undeclared_untouched": [
+      ".project-governance/project-state.json",
+      "update_log/2026-10-23-governed-workflow-adversarial-review.md"
+    ],
+    "external_declarations": [
+      "C:/Users/Administrator/.lfenskills/skills/product-engineering/run-governed-product-workflow"
+    ],
+    "baseline_sha256": "9ec67fce1f16f055cf5c5a5ac969612a20c546fb208231d17253713552f1111f",
+    "scope_sha256": "f0a27e071b1f9681ca84bb22ab45c61d1a2f9029f1caa21d0e5850ef4e1eb6cc",
+    "delivery_sha256": "e4a79d5f08854a2a5309ab19dd75f047d0f65298865f2350f90bada935176d91",
+    "report_sha256": "cef0546f12fbe48cc32c3c4441fde2ec938b9597347e7d43fc174f444b1c8066"
+  },
+  "adversarial_review_parent": "T-ADVERSARIAL-20261023-001"
+}

@@ -28,6 +28,8 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 
 对抗性审查 `NotOffered` 时先主动询问；`AwaitingUser`、`Declined`、`Deferred` 不得启动或自动催问；`InProgress`、`Blocked` 只针对已经明确同意的审查，按 [verify](verify.md#完工后可选对抗性审查) 处理。`Passed` 仅由同版连续两轮完整无问题计算得出，不代表人的验收。`LegacyUntracked` 表示旧结果未记录该协议，不批量补造询问和轮次。同一已授权审查的返修从原审查任务继续，不递归询问。
 
+`Stale` 表示当前交付、原文或报告已与轮次证明不符，连续计数为 0；保留原件，解除问题后在已有授权内重新完整审查。`ManagedByParent` 点名返修所属的原审查，不能单独启动；`LegacyNotRevalidated` 表示旧轮次缺少新版报告绑定，不自动重启，也不称为新版两轮通过。状态中的 `reviewed_delivery` 明确本次审查覆盖哪个实际交付版本。
+
 `signals.py` 的 `derivation_audit` 按 C10 §8.2 关系符号分开统计衍生：`affected-by`（本次引入）计入回归链深，`observed-from`（顺带发现）单独计数——前者链长说明修复方式有系统性问题，后者多则相反。`recorded_but_not_created` 列出已记录为衍生目标但项目里尚不存在的任务，那是「发现了却没人接手」的线索。
 
 需要人来审计时启动治理控制台：

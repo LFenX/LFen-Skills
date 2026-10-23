@@ -133,6 +133,7 @@ def parse_args() -> argparse.Namespace:
     review.add_argument("--adopt-proof-contract", action="store_true",
                         help="Explicitly adopt the current proof policy on an active legacy record, without inventing decisions")
     close = commands.add_parser("close")
+    close.add_argument("--review-parent-task-id", help="Associate this repair with its already opted-in original review")
     close.add_argument("task_dir", type=Path)
     close.add_argument(
         "--status",
@@ -286,6 +287,7 @@ def main() -> int:
                     verification=args.verification,
                     incomplete_items=args.incomplete_item,
                     next_tasks=parse_next_tasks(args.next_task, task_id=Path(args.task_dir).resolve().name),
+                    review_parent_task_id=args.review_parent_task_id,
                 )
             )
         elif args.command == "screen":

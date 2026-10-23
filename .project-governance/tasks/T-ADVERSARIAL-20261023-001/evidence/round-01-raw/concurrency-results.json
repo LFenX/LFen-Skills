@@ -1,0 +1,38 @@
+[
+  {
+    "case": "concurrent-finding-before-and-after",
+    "thread_errors": [],
+    "mid_state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 1,
+      "open_findings": [
+        "F-LOST"
+      ]
+    },
+    "final_state": {
+      "status": "InProgress",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "final_user_decision": "Rejected",
+    "validation": [],
+    "old_revision": 3,
+    "mid_revision": 4,
+    "final_revision": 4,
+    "round_dropped": true,
+    "fixture": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\concurrent-confirmed-finding\\.project-governance\\tasks\\T-FULL"
+  },
+  {
+    "case": "counterexample-lost-confirmed-issue-permits-Passed",
+    "state": {
+      "status": "Passed",
+      "clean_streak": 2,
+      "rounds": 2,
+      "open_findings": []
+    },
+    "validation": [],
+    "fixture": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\concurrent-confirmed-finding\\.project-governance\\tasks\\T-FULL"
+  }
+]

@@ -33,6 +33,7 @@ def parse_args() -> argparse.Namespace:
     legacy.add_argument("--legacy-issues-json-file", type=Path, help="UTF-8 JSON file containing legacy issues")
     parser.add_argument("--decision", action="append", default=[])
     parser.add_argument("--evidence-ref", action="append", default=[])
+    parser.add_argument("--review-parent-task-id", help="Associate this verified repair with its already opted-in original review")
     parser.add_argument(
         "--next-task",
         action="append",
@@ -89,6 +90,7 @@ def main() -> int:
             next_tasks=parse_next_tasks(args.next_task, task_id=Path(args.task_dir).resolve().name),
             artifact_manifest=manifest,
             source_snapshot=snapshot,
+            review_parent_task_id=args.review_parent_task_id,
         )
     except (OSError, ValueError, UnicodeError, json.JSONDecodeError, GovernanceError) as exc:
         print(f"ERROR: {exc}")

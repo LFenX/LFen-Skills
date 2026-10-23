@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-10-23T09:34:54.870423Z",
-  "source_digest": "a579bb05b21bd8812e6b4cab35426520c9bf665343ff3028dffcae7fe96ebf4f",
+  "generated_at": "2026-10-23T10:41:44.335794Z",
+  "source_digest": "4efd8fa8d7fa59af278ac807782a86688410d284326271e9339137563db08522",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -164,8 +164,21 @@
       "ordinal": 15,
       "status": "Implemented",
       "user_decision": "Pending",
-      "revision": 2,
+      "revision": 5,
       "completed_at": "2026-10-23T09:34:07.840577Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "Current",
+        "status": "CurrentVerified"
+      }
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-002",
+      "ordinal": 16,
+      "status": "Implemented",
+      "user_decision": "Pending",
+      "revision": 1,
+      "completed_at": "2026-10-23T10:41:43.098330Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",
         "mode": "Current",
@@ -392,7 +405,17 @@
     {
       "task_id": "T-ADVERSARIAL-20261023-001",
       "ordinal": 15,
-      "fact": "本任务尚未开展实际对抗性审查；50 项为协议的合成回归检查"
+      "fact": "工程收尾时尚未开展实际对抗性审查；当时 50 项为协议合成回归。后续真实审查进展与问题以 adversarial_review 及对应证据为准。"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-002",
+      "ordinal": 16,
+      "fact": "首轮 ADR-01..08 已完成工程修复并通过相应回归"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-002",
+      "ordinal": 16,
+      "fact": "本次工程收尾时，原任务尚需新版本的实际对抗性审查；人工验收决定保持独立"
     }
   ],
   "unresolved_items": [
@@ -593,6 +616,20 @@
       "task_id": "T-ADVERSARIAL-20261023-001",
       "ordinal": 15,
       "depends_on": [],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": [
+        "T-ADVERSARIAL-20261023-002"
+      ]
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-002",
+      "ordinal": 16,
+      "depends_on": [
+        "T-ADVERSARIAL-20261023-001"
+      ],
       "supersedes": [],
       "blocked_by": [],
       "next_tasks": [],

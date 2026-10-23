@@ -2229,7 +2229,7 @@
       },
       {
         "script": "close_task.py",
-        "help_sha256": "0d60208a82079019603aa6cc778f78b7da3d07de85beaea3243588ed3e4fc28b",
+        "help_sha256": "42628f98c0ad31f884c6bed12dee7c411bb66da0cc044ea4799ba0a0c7a41a6c",
         "options": [
           "--artifact-manifest-json-base64",
           "--artifact-manifest-json-file",
@@ -2243,6 +2243,7 @@
           "--legacy-issues-json-base64",
           "--legacy-issues-json-file",
           "--next-task",
+          "--review-parent-task-id",
           "--source-snapshot-json-base64",
           "--source-snapshot-json-file",
           "--status",
@@ -2571,6 +2572,24 @@
           "--entry-json-file",
           "--help",
           "--reason"
+        ]
+      },
+      {
+        "script": "manage_minimal_task.py",
+        "help_args": [
+          "close",
+          "--help"
+        ],
+        "help_sha256": "484b591321f3d41d16f08d78aae81e4db4bb8c4b4a470b69b26288417997fc26",
+        "options": [
+          "--change",
+          "--fact",
+          "--help",
+          "--incomplete-item",
+          "--next-task",
+          "--review-parent-task-id",
+          "--status",
+          "--verification"
         ]
       }
     ]

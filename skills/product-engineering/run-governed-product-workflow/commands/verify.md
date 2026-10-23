@@ -121,7 +121,7 @@ python <skill-root>/scripts/manage_minimal_task.py record-review <project-root>/
 ### 启动与授权
 
 1. 先完成普通工程验证并按 [close](close.md) 保存 Full `after.json` 或 Minimal `task_outcome`，再交付并发出开始 / 不需要 / 稍后决定的真实询问。此规则不把普通测试或已要求的工程 Gate 改成可选项。
-2. 将实际问题记为 `Offer`。无答复为 `AwaitingUser`；拒绝、推迟分别为 `Declined`、`Deferred`，均不得开始。只有 `Decision.outcome=Accepted` 且保留回答原话、实际决定人、时间和来源，才可进入审查。编写此机制、普通验收同意和沉默都不构成启动授权。
+2. 将实际问题记为 `Offer`。无答复为 `AwaitingUser`；拒绝、推迟分别为 `Declined`、`Deferred`，均不得开始。只有 `Decision.outcome=Accepted` 且保留回答原话、实际决定人、时间和来源，才可进入审查。用户稍后主动明确开始时，直接追加真实新决定，不要求重新提问；已停止或已结束后再开始也须真实新决定。编写此机制、普通验收同意和沉默都不构成启动授权。
 3. 同意覆盖本任务范围内的多轮审查、返修和复验；不扩展生产操作、发布或权限。越界、缺少环境/证据或无法安全修复时记录 `Blocked`，向用户说明解除条件；用户要求停止时记录真实 `Stopped` 决定。未达到两轮不得报告通过，不以固定最大轮次代替收敛。
 
 ### 每轮怎样审查
@@ -130,12 +130,12 @@ python <skill-root>/scripts/manage_minimal_task.py record-review <project-root>/
 - 从“如何证明本交付仍然有错”出发构造可运行反例，核对实现、测试和实际输出。每轮换用反例或失效视角，但保持完整覆盖。只重跑同一测试、复制报告、分段抽查合并成两轮，均不成立。
 - 每轮独立形成判断，不把上一轮“无问题”作为前提。获用户同意后，若平台支持且授权允许，使用新的只读审查子 Agent；输入原话、约束、交付版本与证据位置，不输入预设结论。没有独立执行者时以新一轮审查上下文开展，明确记录由同一执行者复核，禁止声称独立人员审查。
 - 每个问题记录唯一 ID、可复现条件、预期/实际差异、影响、位置和证据；完整报告放入该轮的独立证据文件，结果只保存摘要与引用。所有确认问题均处理，不以低严重度忽略问题。疑似误报必须凭证据说明 `NotAnIssue`，未决争议不能记为无问题。
-- 修复使用依赖原任务的后续任务，执行已有范围与工程验证规则，保存新结果；不改写原工程结果或向已结束账本补事件。同一审查中的返修不重复询问是否审查，轮次仍记在原任务，`delivery_task_id` 指向本轮实际复验完成的任务，返修任务直接 `depends_on` 原任务。
+- 修复使用依赖原任务的后续任务，执行已有范围与工程验证规则，保存新结果；不改写原工程结果或向已结束账本补事件。Full/Minimal 的 close 均传 `--review-parent-task-id <原任务ID>`，校验父任务确已同意且尚未结束，并将归属写入 `adversarial_review_parent`；返修状态为 `ManagedByParent`，不重复询问或新开审查。轮次仍记在原任务，`delivery_task_id` 指向本轮实际复验完成的任务，返修任务直接 `depends_on` 原任务。
 
 ### 计数与结束
 
 - 发现任何问题、覆盖不完整、有未检查项、存在未解决问题或阻塞：本轮不计为干净轮次，连续计数归零。
-- 交付版本或原始需求/澄清变化使旧计数失效；修复后从新版本第一轮重新计数。已发现问题须在后续轮以证据登记 `Fixed` 或 `NotAnIssue`；`Fixed` 必须绑定重新验证的新交付。
+- 交付版本或原始需求/澄清变化使旧计数失效；查询对照当前交付和报告，失效显示 `Stale`，保留历史并允许记录阻塞及在现有授权内继续。basis、survey_refs、捕获时间等说明更正不改变新版原文绑定。修复后从新版本第一轮重新计数，开始时间必须晚于该交付的验证和留档时间。已发现问题须在后续轮以证据登记 `Fixed` 或 `NotAnIssue`；`Fixed` 必须绑定重新验证的新交付。
 - 第一轮完整无问题记为 1；保持同版再完整审查一轮仍无问题记为 2，自动得到 `Passed`，随后结束。独立报告、轮次 ID、时间与版本必须分别可核对，不能复用一份报告凑数。
 - 交付轮次、版本、问题及处置、实际验证和限制；这只证明规定范围内两轮未发现问题，不宣称绝对无缺陷，不替代用户 Acceptance 或发布批准。
 
@@ -155,8 +155,10 @@ python <skill-root>/scripts/adversarial_review.py <project-root>/.project-govern
 | `Offer` | `prompt`、`evidence_ref`：实际发出的完工后问题和来源 |
 | `Decision` | `outcome=Accepted/Declined/Deferred/Stopped`、`response`、`decided_by`、`evidence_ref` |
 | `Blocked` | `reason`、`evidence_refs` |
-| `Round` | `round_id`、`started_at`、`reviewer`、`delivery_task_id`、`subject_sha256`、`requirements_sha256`、`coverage=Complete/Incomplete`、`unreviewed_items`、`evidence_refs`、`findings`、`resolutions` |
+| `Round` | `round_id`、`started_at`、`reviewer`、`delivery_task_id`、`subject_sha256`、`requirements_sha256`、`report_ref`、`coverage=Complete/Incomplete`、`unreviewed_items`、`evidence_refs`、`findings`、`resolutions` |
 
-只读命令同时输出摘要：`subject_sha256` 取**本轮交付任务**的状态输出，与 `get_approval_subject.py` 一致；`requirements_sha256` 取**原审查任务**的状态输出，绑定 request_snapshot 和 clarification 原文。`findings` 每项为 `{id, summary, evidence_refs}`；`resolutions` 每项为 `{finding_id, disposition: Fixed|NotAnIssue, reason, evidence_refs}`，详情在引用报告中。没有对应条目时写空数组；未检查项必须列明，不能填空以伪造完整覆盖。
+只读命令同时输出摘要：`subject_sha256` 取**本轮交付任务**的状态输出，与 `get_approval_subject.py` 一致；`requirements_sha256` 取**原审查任务**的状态输出，绑定 request_snapshot.text 与澄清各轮的原问题、推荐默认和真实回答上下文。顶层摘要表示所查询任务的工程结果，`reviewed_delivery` 点名审查末轮实际绑定的交付，返修后两者不能混淆。`findings` 每项为 `{id, summary, evidence_refs}`；`resolutions` 每项为 `{finding_id, disposition: Fixed|NotAnIssue, reason, evidence_refs}`，详情在引用报告中。没有对应条目时写空数组；未检查项必须列明，不能填空以伪造完整覆盖。
 
-脚本核对已保存工程结果、时间顺序、明确同意、原文绑定、交付摘要、返修关系、问题处置和不同报告，自动计算状态及连续轮数；禁止手填 Passed/clean_streak 或用普通 amendment 改删审查历史。修订历史每次只留新增项，避免复制此前所有轮次。字段完整与摘要匹配不证明自然语言审查质量或来源真实，执行者仍须读取原件并保留实际证据。`signals.py` 和审阅页显示审查状态；`NotOffered` 提示先询问，只有获同意的未完审查才提示继续。旧结果不自动补录、不因缺少字段追溯判失败。
+`report_ref` 为原审查任务目录内的实际非空报告，推荐 `evidence/round-<n>.md`，路径相对项目根或使用绝对路径。脚本规范化路径并从实际文件写入 `report_sha256`、`review_contract_version=report-bound-v2` 和所引用交付的 `delivery_verified_at` / `delivery_completed_at`；提供这些派生值时须与实际相符。报告路径别名或相同内容副本不能计为两轮，独立报告可以共享 `evidence_refs` 中的需求、测试等支持证据。旧轮次原件可读，不补造绑定证明；缺少新版报告绑定的旧干净轮次不计入新版连续两轮，原协议曾收敛时标 `LegacyNotRevalidated`，不会自动重启。已有未解决问题继续保留。
+
+脚本核对已保存工程结果、时间顺序、明确同意、原文绑定、当前交付摘要、返修关系、问题处置和不同报告，自动计算状态及连续轮数；禁止手填 Passed/clean_streak 或用普通 amendment 改删审查历史及返修归属。Full amendment 与审查追加持有同一记录锁，避免并发丢失问题或用户决定。修订历史每次只留新增项，避免复制此前所有轮次。字段完整与摘要匹配不证明自然语言审查质量或来源真实，执行者仍须读取原件并保留实际证据。`signals.py` 和生成的审阅 Markdown 显示审查状态；`NotOffered` 提示先询问，只有获同意的未完审查才提示继续。旧工程结果不自动补录、不因缺少审查字段追溯判失败。

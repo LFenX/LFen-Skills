@@ -14,7 +14,7 @@ sys.dont_write_bytecode = True
 import audit_console
 from build_norm_index import load_sources
 from governance_artifacts import GovernanceError, capture_source_snapshot, read_json
-from adversarial_review import review_state
+from adversarial_review import review_status
 
 
 FACT_KEYS = (
@@ -69,7 +69,7 @@ def full_carrier_signal(task_dir: Path, before: dict[str, Any], after_path: Path
         "pending_acceptance": decision.get("outcome") in {"Pending", "Deferred"} if outcome else True,
         "engineering_recorded": outcome is not None,
         "user_decision": decision.get("outcome"),
-        "adversarial_review": review_state(outcome, before) if outcome else None,
+        "adversarial_review": review_status(task_dir) if outcome else None,
         "minimal_eligibility": None,
         "upgrade_pending": False,
         "upgrade_reason": None,
@@ -107,7 +107,7 @@ def active_task_signal(task_dir: Path) -> dict[str, Any] | None:
                               if terminal else record.get("task_outcome") is None,
         "engineering_recorded": record.get("task_outcome") is not None,
         "user_decision": ((record.get("task_outcome") or {}).get("user_decision") or {}).get("outcome"),
-        "adversarial_review": review_state(record["task_outcome"], record["task_contract"]) if record.get("task_outcome") else None,
+        "adversarial_review": review_status(task_dir) if record.get("task_outcome") else None,
         "minimal_eligibility": record.get("eligibility", {}),
         "upgrade_pending": upgrade_pending,
         "upgrade_reason": upgrade.get("reason") if upgrade_pending else None,
@@ -184,7 +184,7 @@ def recommendations(signals: list[dict[str, Any]]) -> list[dict[str, str]]:
     review_states = {(item.get("adversarial_review") or {}).get("status") for item in signals}
     if "NotOffered" in review_states:
         return [{"command": "verify", "reason": "工程结果已保存；主动询问是否进行对抗性审查，明确同意前不得开始。"}]
-    if review_states.intersection({"InProgress", "Blocked"}):
+    if review_states.intersection({"InProgress", "Blocked", "Stale"}):
         return [{"command": "verify", "reason": "已获同意的对抗性审查尚未连续两轮无问题；先处理未解决问题或阻塞，再按原文完整审查。"}]
     if any(item.get("engineering_recorded") and item.get("pending_acceptance") for item in signals):
         return [{"command": "status", "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"}]

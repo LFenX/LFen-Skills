@@ -1,0 +1,6 @@
+{
+  "observed_at": "2026-10-23T10:25:15.463893Z",
+  "error": "Minimal-parent repair fixture used default P-TEST instead of the actual parent project id; new same-project check correctly rejected it",
+  "effect": "Isolated temporary fixture only; no shared result mutated",
+  "correction": "Pass the real parent contract project id when creating the synthetic repair"
+}

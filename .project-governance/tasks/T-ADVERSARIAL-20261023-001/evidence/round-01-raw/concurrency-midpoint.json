@@ -1,0 +1,207 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-TEST",
+  "work_item_id": "W-T-FULL",
+  "task_id": "T-FULL",
+  "revision": 4,
+  "status": "Implemented",
+  "user_decision": {
+    "outcome": "Pending"
+  },
+  "adversarial_review": [
+    {
+      "event": "Offer",
+      "recorded_at": "2026-10-23T10:07:48.835268Z",
+      "prompt": "工程结果已保存。是否启动对抗性审查？开始、不需要或稍后决定。",
+      "evidence_ref": "fixture://post-completion-question"
+    },
+    {
+      "event": "Decision",
+      "recorded_at": "2026-10-23T10:07:48.862918Z",
+      "outcome": "Accepted",
+      "response": "Fixture explicit Accepted",
+      "decided_by": "synthetic-fixture-user",
+      "evidence_ref": "fixture://answer"
+    },
+    {
+      "event": "Round",
+      "round_id": "R1",
+      "started_at": "2026-10-23T10:07:48.909561Z",
+      "recorded_at": "2026-10-23T10:07:48.909628Z",
+      "reviewer": "independent-isolation-fixture",
+      "delivery_task_id": "T-FULL",
+      "subject_sha256": "2b3b2566e96d8447598b8d6dca09d171cf1b23eaa802f0ab3fc51fbae4987596",
+      "requirements_sha256": "d8806824ce5121f92b6f46fddd7702885ef60a81b02b2dd8ef62d5cfda5f12d2",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "fixture://concurrent-confirmed-finding/report-1"
+      ],
+      "findings": [
+        {
+          "id": "F-LOST",
+          "summary": "Confirmed fixture issue must remain unresolved",
+          "evidence_refs": [
+            "fixture://known-problem"
+          ]
+        }
+      ],
+      "resolutions": []
+    }
+  ],
+  "completed_at": "2026-10-23T10:07:48.778434Z",
+  "source_snapshot": {
+    "repository": "concurrent-confirmed-finding",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\concurrent-confirmed-finding",
+    "vcs": "unavailable",
+    "captured_at": "2026-10-23T10:07:48.778685Z"
+  },
+  "established_facts": [
+    "Isolation fixture complete"
+  ],
+  "actual_changes": [
+    "Fixture change"
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "Isolation check",
+      "evidence_refs": [
+        "fixture://verified"
+      ]
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [],
+  "evidence_refs": [],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-FULL-before",
+      "content_ref": ".project-governance/tasks/T-FULL/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "None",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-FULL-run",
+      "content_ref": ".project-governance/tasks/T-FULL/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "None",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-FULL-after",
+      "content_ref": ".project-governance/tasks/T-FULL/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "None",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "reason": "Independent isolated protocol experiment",
+      "basis": "fixture://adversarial-round-01",
+      "changed_at": "2026-10-23T10:07:48.835268Z",
+      "path": "adversarial_review.0",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Offer",
+        "recorded_at": "2026-10-23T10:07:48.835268Z",
+        "prompt": "工程结果已保存。是否启动对抗性审查？开始、不需要或稍后决定。",
+        "evidence_ref": "fixture://post-completion-question"
+      }
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "reason": "Independent isolated protocol experiment",
+      "basis": "fixture://adversarial-round-01",
+      "changed_at": "2026-10-23T10:07:48.862918Z",
+      "path": "adversarial_review.1",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T10:07:48.862918Z",
+        "outcome": "Accepted",
+        "response": "Fixture explicit Accepted",
+        "decided_by": "synthetic-fixture-user",
+        "evidence_ref": "fixture://answer"
+      }
+    },
+    {
+      "from_revision": 3,
+      "to_revision": 4,
+      "reason": "Independent isolated protocol experiment",
+      "basis": "fixture://adversarial-round-01",
+      "changed_at": "2026-10-23T10:07:48.909628Z",
+      "path": "adversarial_review.2",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Round",
+        "round_id": "R1",
+        "started_at": "2026-10-23T10:07:48.909561Z",
+        "recorded_at": "2026-10-23T10:07:48.909628Z",
+        "reviewer": "independent-isolation-fixture",
+        "delivery_task_id": "T-FULL",
+        "subject_sha256": "2b3b2566e96d8447598b8d6dca09d171cf1b23eaa802f0ab3fc51fbae4987596",
+        "requirements_sha256": "d8806824ce5121f92b6f46fddd7702885ef60a81b02b2dd8ef62d5cfda5f12d2",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "fixture://concurrent-confirmed-finding/report-1"
+        ],
+        "findings": [
+          {
+            "id": "F-LOST",
+            "summary": "Confirmed fixture issue must remain unresolved",
+            "evidence_refs": [
+              "fixture://known-problem"
+            ]
+          }
+        ],
+        "resolutions": []
+      }
+    }
+  ],
+  "scope_reconciliation": {
+    "status": "Skipped",
+    "reason": "no Git baseline in source_snapshot; nothing independent to reconcile against",
+    "out_of_scope": [],
+    "undeclared_untouched": [],
+    "changed_count": 0,
+    "baseline_sha256": "94be42e5c7ad78b77f0c331d9c94cb960169799b4ba6a92f4ec5089f457a683b",
+    "scope_sha256": "eca599e46e31fdbabf5a4ccfd1de24aa97b952e2835f5c548b8b746257b1aa3d",
+    "delivery_sha256": "5aecb53f61cbb01d4d60de653ab48ede1e18741c3b73fcb60f94349cfcc35f16",
+    "report_sha256": "0db051da19c1a7464c4830e3c1388891ddfffb1d347b6417f94d91aaecfba894"
+  }
+}

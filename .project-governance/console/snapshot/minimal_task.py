@@ -304,7 +304,7 @@ def validate_minimal_record(
         elif "user_decision" in outcome:
             errors.extend(validate_user_decision(minimal_approval_contract(record), events, outcome))
         from adversarial_review import validate_review
-        errors.extend(validate_review(outcome, minimal_approval_contract(record)))
+        errors.extend(validate_review(outcome, minimal_approval_contract(record), task_dir=task_dir, events=events))
     upgrade = record["upgrade"]
     if lifecycle == "Upgraded" and not upgrade.get("required"):
         errors.append("Upgraded Minimal carrier requires an upgrade reason")
@@ -731,7 +731,8 @@ def parse_verification(values: Iterable[str]) -> list[dict[str, Any]]:
 
 
 def minimal_approval_contract(record: dict[str, Any]) -> dict[str, Any]:
-    contract = {**record["task_contract"], "task_id": record["task_id"], "project_id": record["project_id"]}
+    contract = {**record["task_contract"], "task_id": record["task_id"], "project_id": record["project_id"],
+                "depends_on": record.get("depends_on", [])}
     if "proof_contract_version" in record:
         contract["proof_contract_version"] = record["proof_contract_version"]
     return contract
@@ -893,6 +894,7 @@ def _close_minimal_record_unlocked(
     verification: Iterable[str],
     incomplete_items: Iterable[str] = (),
     next_tasks: Iterable[dict[str, str]] = (),
+    review_parent_task_id: str | None = None,
 ) -> Path:
     if status not in OUTCOME_STATES:
         raise GovernanceError(f"unsupported Minimal outcome: {status}")
@@ -963,6 +965,9 @@ def _close_minimal_record_unlocked(
     for item in record["artifact_manifest"]:
         item["outcome"] = "Created"
     record["task_outcome"]["user_decision"] = initial_user_decision(minimal_approval_contract(record), record["run_ledger"], record["task_outcome"])
+    if review_parent_task_id is not None:
+        from adversarial_review import require_review_parent
+        record["task_outcome"]["adversarial_review_parent"] = require_review_parent(task_dir, minimal_approval_contract(record), review_parent_task_id)
     require_valid_minimal_record(record, task_dir=task_dir.resolve())
     atomic_write_json(record_path, record)
     return record_path
@@ -1035,8 +1040,8 @@ def minimal_record_sha256(record: dict[str, Any]) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
-def render_minimal_review(record: dict[str, Any]) -> str:
-    from adversarial_review import review_state
+def render_minimal_review(record: dict[str, Any], *, task_dir: Path | None = None) -> str:
+    from adversarial_review import review_state, review_status
     outcome = record.get("task_outcome")
     status = outcome.get("status") if isinstance(outcome, dict) else "Active"
     lines = [
@@ -1045,7 +1050,7 @@ def render_minimal_review(record: dict[str, Any]) -> str:
         "- Carrier: Minimal aggregate (TaskContract + RunLedger + TaskOutcome)",
         f"- Status: {status}",
         f"- User decision: {user_decision_label((outcome or {}).get('user_decision'))}",
-        f"- Adversarial review: {review_state(outcome, minimal_approval_contract(record)) if outcome else '工程尚未完成'}",
+        f"- Adversarial review: {(review_status(task_dir) if task_dir else review_state(outcome, minimal_approval_contract(record))) if outcome else '工程尚未完成'}",
         "- Proof validation: " + proof_validation_label(
             proof_validation_for_read(record, record["run_ledger"], outcome, minimal=True)[0]),
         f"- Objective: {record['task_contract']['objective']}",

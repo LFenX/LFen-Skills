@@ -1,0 +1,147 @@
+[
+  {
+    "id": "R-01",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "修复首轮发现的问题，使原要求的授权、多轮与同版两轮收敛实际生效",
+    "state": "Covered",
+    "evidence_refs": [
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/validation-summary.json",
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/source-files-5376dee45f101d83.json"
+    ],
+    "acceptance_refs": [
+      0,
+      1,
+      2
+    ],
+    "review": {
+      "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+      "conditions": [
+        "交付、原文或报告与此前轮次的绑定不再一致",
+        "工程结果修订与审查记录并发写入",
+        "存在无效输入、报告复用、时序过早或错误返修归属"
+      ],
+      "cases": [
+        {
+          "condition": 0,
+          "branch": "Met",
+          "input": "公开更换交付验证引用、改变原话或已绑定报告",
+          "expected": "显示 Stale/0，原文说明更正不误失效，旧历史仍能记录阻塞和恢复",
+          "actual": "当前版本变化与报告改动显示 Stale；原话摘要与 basis 分离，Blocked 可追加",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/validation-summary.json"
+          ]
+        },
+        {
+          "condition": 0,
+          "branch": "NotMet",
+          "input": "同一已验证版本，真实两份完整报告，原话和报告均未变",
+          "expected": "连续两轮通过且指明实际受审交付",
+          "actual": "两个载体的同版两轮及报告恢复均通过",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/validation-summary.json"
+          ]
+        },
+        {
+          "condition": 1,
+          "branch": "Met",
+          "input": "用户决定和审查问题通过公开 API 同时写入",
+          "expected": "同一记录锁保留双方，独立修订号不丢问题",
+          "actual": "single/batch 两种并发用例均保留 Rejected 与 F-KEEP",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/validation-summary.json"
+          ]
+        },
+        {
+          "condition": 1,
+          "branch": "NotMet",
+          "input": "没有并发，正常追加或补记",
+          "expected": "保留账本、工程事实与独立用户决定，增量历史正常",
+          "actual": "原有 50 项协议及 36 项结果与用户决定回归通过",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/validation-summary.json"
+          ]
+        },
+        {
+          "condition": 2,
+          "branch": "Met",
+          "input": "非对象 JSON、报告别名/副本、早于返修完成的新轮及递归开启返修审查",
+          "expected": "受控拒绝，文件不变，不计入干净轮次",
+          "actual": "41 项边界回归验证拒绝或正确状态；共用支持证据允许",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/validation-summary.json"
+          ]
+        },
+        {
+          "condition": 2,
+          "branch": "NotMet",
+          "input": "合法对象、独立报告、先复验留档及明确父会话",
+          "expected": "可正常继续并从新版本第一轮计数",
+          "actual": "Full/Minimal 返修归属 ManagedByParent，新交付从 1 到 2",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/validation-summary.json"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "R-02",
+    "source": "request_snapshot",
+    "quote": "开始审查",
+    "reading": "执行已明确同意的审查、返修与复验；保持同一审查，不重复提问",
+    "state": "Covered",
+    "evidence_refs": [
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/validation-summary.json",
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+    ],
+    "acceptance_refs": [
+      2
+    ],
+    "review": {
+      "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+      "conditions": [
+        "用户已在完工后明确同意审查、返修与复验"
+      ],
+      "cases": [
+        {
+          "condition": 0,
+          "branch": "Met",
+          "input": "实际用户回复开始审查，以及合成的暂缓后明确开始场景",
+          "expected": "沿用已有授权继续；不重新询问；返修显式归属原审查",
+          "actual": "真实同意已记录，返修仍归原任务；Full/Minimal 恢复和不递归推荐检查通过",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/boundary-regression-final.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+          ]
+        },
+        {
+          "condition": 0,
+          "branch": "NotMet",
+          "input": "无 Offer/答复、拒绝、推迟或已停止，未取得新的明确同意",
+          "expected": "不得启动或继续轮次，不冒填 Approved",
+          "actual": "原有协议负向用例继续拒绝，工程结果与用户验收保留独立状态",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-002/evidence/validation-summary.json"
+          ]
+        }
+      ]
+    }
+  }
+]

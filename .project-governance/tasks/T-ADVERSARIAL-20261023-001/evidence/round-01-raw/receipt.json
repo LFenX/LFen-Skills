@@ -1,0 +1,89 @@
+{
+  "captured_at": "2026-10-23T10:13:49.745471Z",
+  "source": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81",
+  "delivery_commit": "2c3496bb8701474d0ec3313d2143684e6d8fb2f6",
+  "files": [
+    {
+      "name": "audit.py",
+      "sha256": "bee7ac443123d41d874446ed463066557aad2c6900fdfdc8b85eca9194446e71",
+      "bytes": 14650,
+      "source_sha256": "aa110e70f64c8cc5c14775129784f68bf8caa023e65a70fda5d4e94c5bafdddd",
+      "stored_sha256": "bee7ac443123d41d874446ed463066557aad2c6900fdfdc8b85eca9194446e71",
+      "stored_bytes": 14649
+    },
+    {
+      "name": "audit_extra.py",
+      "sha256": "a116e67f2529156266647dffe94ad70b5b0edcb88fd63e83e2a6dade4a6578ec",
+      "bytes": 7704,
+      "source_sha256": "157b41beb322464bfaa6462196ad35b156218dc9f591b8a699c9073f526a01bd",
+      "stored_sha256": "a116e67f2529156266647dffe94ad70b5b0edcb88fd63e83e2a6dade4a6578ec",
+      "stored_bytes": 7703
+    },
+    {
+      "name": "audit_concurrency.py",
+      "sha256": "fe9a7a03f5aa8b2be765cb5704bfdbeddad100a423b47e12fbf7c310fb5df67e",
+      "bytes": 2789,
+      "source_sha256": "f0f269364e2fd18dd10c1a5bc1727e50b17e1c91a5722deb4ca664b71a12aea9",
+      "stored_sha256": "fe9a7a03f5aa8b2be765cb5704bfdbeddad100a423b47e12fbf7c310fb5df67e",
+      "stored_bytes": 2788
+    },
+    {
+      "name": "audit_boundaries.py",
+      "sha256": "f9b4315a714739867ce69b5a548fe5d845b6b68c643509b3c38f14e299961bd9",
+      "bytes": 3017,
+      "source_sha256": "797cabb88946ddc0e745153efb4a7b41f4141daf04f9c8a286ab60330d03ced3",
+      "stored_sha256": "f9b4315a714739867ce69b5a548fe5d845b6b68c643509b3c38f14e299961bd9",
+      "stored_bytes": 3016
+    },
+    {
+      "name": "results.json",
+      "sha256": "5f3feade12df2c7db1e87d382a87d7fc7ae484184d01192772d1277adca4b4fa",
+      "bytes": 20246,
+      "source_sha256": "e73d290509383d911a0a9cbd58e4c9985965af026413b5dbb88f8c594fd7e4aa",
+      "stored_sha256": "5f3feade12df2c7db1e87d382a87d7fc7ae484184d01192772d1277adca4b4fa",
+      "stored_bytes": 19492
+    },
+    {
+      "name": "extra-results.json",
+      "sha256": "f14447e144fe1a8bee640382b3ecd0131ae3649ab9b85a203611121ab83e7051",
+      "bytes": 11533,
+      "source_sha256": "ade2689a7958078dbcd328cf82f348f0dbed3561a07c48b6e9725585d8232180",
+      "stored_sha256": "f14447e144fe1a8bee640382b3ecd0131ae3649ab9b85a203611121ab83e7051",
+      "stored_bytes": 11207
+    },
+    {
+      "name": "concurrency-results.json",
+      "sha256": "4c66d4ac6ae8dd024ba11838f1e7afd517406841ed9a5e17bb90737944a6ffe4",
+      "bytes": 1144,
+      "source_sha256": "5bba1107b298cf7d0ec7d9f34a3db3255cfc53b04709591d90554760a8890d91",
+      "stored_sha256": "4c66d4ac6ae8dd024ba11838f1e7afd517406841ed9a5e17bb90737944a6ffe4",
+      "stored_bytes": 1107
+    },
+    {
+      "name": "boundary-results.json",
+      "sha256": "e38d273ef0b6da3e57b9b8151acd57c75e5fa56c92ebdf47c820574975a89f4b",
+      "bytes": 6517,
+      "source_sha256": "31073cddbe72b793fa67e6c4b3d23f0d30dfd4a10f8e869ee6da61d6e76b49bd",
+      "stored_sha256": "e38d273ef0b6da3e57b9b8151acd57c75e5fa56c92ebdf47c820574975a89f4b",
+      "stored_bytes": 6304
+    },
+    {
+      "name": "concurrency-midpoint.json",
+      "sha256": "50899d4392668b23ee64bb38dfc06c16065940720ec967863df7a10e19f9c072",
+      "bytes": 6980,
+      "source_sha256": "71ed67889f17b7a5a23134230be5491d0a8bae63e615014537951b5883953f8a",
+      "stored_sha256": "50899d4392668b23ee64bb38dfc06c16065940720ec967863df7a10e19f9c072",
+      "stored_bytes": 6774
+    },
+    {
+      "name": "console-page.html",
+      "sha256": "9c94ef9f015336bd4eb148889d1572ea09ec54c8a01ec4c948bbf016615e3f86",
+      "bytes": 6831,
+      "source_sha256": "106400f084a4b1f119e80464c9c9fdfe68b7f958b61d021133199d659a5004bd",
+      "stored_sha256": "9c94ef9f015336bd4eb148889d1572ea09ec54c8a01ec4c948bbf016615e3f86",
+      "stored_bytes": 6817
+    }
+  ],
+  "replay": "Copy audit*.py into a new empty OS temporary directory and run in their original order against the reviewed source version; do not replay in the shared project",
+  "storage_normalization": "UTF-8 textual evidence uses LF for Git storage; captured source byte hashes are retained separately"
+}

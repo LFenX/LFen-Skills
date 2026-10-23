@@ -1,0 +1,14 @@
+{
+  "validation_errors": [],
+  "result_path": "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-002\\after.json",
+  "review_status": {
+    "status": "ManagedByParent",
+    "parent_task_id": "T-ADVERSARIAL-20261023-001",
+    "clean_streak": 0,
+    "rounds": 0,
+    "open_findings": []
+  },
+  "user_decision": {
+    "outcome": "Pending"
+  }
+}

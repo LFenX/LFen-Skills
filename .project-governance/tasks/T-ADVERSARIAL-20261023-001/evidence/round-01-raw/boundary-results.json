@@ -1,0 +1,214 @@
+[
+  {
+    "case": "counterexample-repair-repeats-optin-recommendation",
+    "signals": [
+      {
+        "task_id": "T-FULL",
+        "carrier": "Full",
+        "lifecycle_state": "Frozen",
+        "unknown_blockers": [],
+        "pending_acceptance": true,
+        "engineering_recorded": true,
+        "user_decision": "Pending",
+        "adversarial_review": {
+          "status": "InProgress",
+          "clean_streak": 0,
+          "rounds": 1,
+          "open_findings": [
+            "F-INVITE"
+          ]
+        },
+        "minimal_eligibility": null,
+        "upgrade_pending": false,
+        "upgrade_reason": null
+      },
+      {
+        "task_id": "T-REPAIR-INVITE",
+        "carrier": "Full",
+        "lifecycle_state": "Frozen",
+        "unknown_blockers": [],
+        "pending_acceptance": true,
+        "engineering_recorded": true,
+        "user_decision": "Pending",
+        "adversarial_review": {
+          "status": "NotOffered",
+          "clean_streak": 0,
+          "rounds": 0,
+          "open_findings": []
+        },
+        "minimal_eligibility": null,
+        "upgrade_pending": false,
+        "upgrade_reason": null
+      }
+    ],
+    "recommendations": [
+      {
+        "command": "verify",
+        "reason": "工程结果已保存；主动询问是否进行对抗性审查，明确同意前不得开始。"
+      }
+    ],
+    "fixture": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\repair-invitation\\.project-governance\\tasks\\T-FULL",
+    "repair_fixture": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-adversarial-01-afe5931d5c104a2f8134d94ed1130b81\\repair-invitation\\.project-governance\\tasks\\T-REPAIR-INVITE"
+  },
+  {
+    "case": "distinct-reports-share-legitimate-support",
+    "expected": "accept",
+    "actual": "rejected",
+    "error": "each round requires a fresh review id and distinct report evidence",
+    "unchanged": true,
+    "state": {
+      "status": "InProgress",
+      "clean_streak": 1,
+      "rounds": 1,
+      "open_findings": []
+    }
+  },
+  {
+    "case": "recommendation-NotOffered",
+    "recommendations": [
+      {
+        "command": "verify",
+        "reason": "工程结果已保存；主动询问是否进行对抗性审查，明确同意前不得开始。"
+      }
+    ]
+  },
+  {
+    "case": "recommendation-AwaitingUser",
+    "recommendations": [
+      {
+        "command": "status",
+        "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"
+      }
+    ]
+  },
+  {
+    "case": "recommendation-Declined",
+    "recommendations": [
+      {
+        "command": "status",
+        "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"
+      }
+    ]
+  },
+  {
+    "case": "recommendation-Deferred",
+    "recommendations": [
+      {
+        "command": "status",
+        "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"
+      }
+    ]
+  },
+  {
+    "case": "recommendation-Stopped",
+    "recommendations": [
+      {
+        "command": "status",
+        "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"
+      }
+    ]
+  },
+  {
+    "case": "recommendation-InProgress",
+    "recommendations": [
+      {
+        "command": "verify",
+        "reason": "已获同意的对抗性审查尚未连续两轮无问题；先处理未解决问题或阻塞，再按原文完整审查。"
+      }
+    ]
+  },
+  {
+    "case": "recommendation-Blocked",
+    "recommendations": [
+      {
+        "command": "verify",
+        "reason": "已获同意的对抗性审查尚未连续两轮无问题；先处理未解决问题或阻塞，再按原文完整审查。"
+      }
+    ]
+  },
+  {
+    "case": "recommendation-Passed",
+    "recommendations": [
+      {
+        "command": "status",
+        "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"
+      }
+    ]
+  },
+  {
+    "case": "recommendation-LegacyUntracked",
+    "recommendations": [
+      {
+        "command": "status",
+        "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"
+      }
+    ]
+  },
+  {
+    "case": "recommendation-NotApplicable",
+    "recommendations": [
+      {
+        "command": "status",
+        "reason": "工程结果已保存；可稍后依据真实外部验收证据更新 user_decision，无需重新执行或回到原对话。"
+      }
+    ]
+  },
+  {
+    "case": "unfinished-state-Blocked",
+    "initial": {
+      "status": "NotApplicable",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "offer": "offer adversarial review only after an Implemented engineering result is saved"
+  },
+  {
+    "case": "unfinished-state-Cancelled",
+    "initial": {
+      "status": "NotApplicable",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "offer": "offer adversarial review only after an Implemented engineering result is saved"
+  },
+  {
+    "case": "unfinished-state-Superseded",
+    "initial": {
+      "status": "NotApplicable",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "offer": "offer adversarial review only after an Implemented engineering result is saved"
+  },
+  {
+    "case": "unfinished-state-Failed",
+    "initial": {
+      "status": "NotApplicable",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    },
+    "offer": "offer adversarial review only after an Implemented engineering result is saved"
+  },
+  {
+    "case": "Full-generic-amendment-review-erase",
+    "error": "adversarial_review is append-only; use adversarial_review.py with an actual record",
+    "validation": []
+  },
+  {
+    "case": "historical-status-preservation",
+    "old_outcome": {
+      "status": "Implemented",
+      "completed_at": "2026-08-15T00:00:00Z"
+    },
+    "review": {
+      "status": "LegacyUntracked",
+      "clean_streak": 0,
+      "rounds": 0,
+      "open_findings": []
+    }
+  }
+]

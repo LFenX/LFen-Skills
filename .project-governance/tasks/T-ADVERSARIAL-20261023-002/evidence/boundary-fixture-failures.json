@@ -1,0 +1,16 @@
+{
+  "observed_at": "2026-10-23T10:32:24.481568Z",
+  "failures": [
+    {
+      "error": "Path.relative_to mismatch between Windows ADMINI~1 Temp spelling and resolved Administrator task path",
+      "correction": "Resolve the isolated root before constructing relative report references"
+    },
+    {
+      "error": "Synthetic completed result retained user Approved; attempting a version-changing correction correctly invalidated that approval",
+      "correction": "Construct the intended Pending-user-decision scenario; preserve actual approval protection"
+    }
+  ],
+  "effect": "Only isolated temporary fixtures; no source records or real decisions were overwritten",
+  "final_protocol_boundary_checks": 37,
+  "status": "Passed after fixture corrections"
+}

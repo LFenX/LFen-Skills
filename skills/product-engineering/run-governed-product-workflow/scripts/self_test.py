@@ -2140,7 +2140,7 @@ def run_amendment_growth_fixture() -> dict[str, object]:
 
 def run_adversarial_review_fixture() -> dict[str, object]:
     """Synthetic opt-in/round records, not an actual adversarial review of this task."""
-    from adversarial_review import append_review, review_state, requirements_subject
+    from adversarial_review import append_review, review_state, requirements_subject, REVIEW_CONTRACT
     from governance_artifacts import now_utc, read_jsonl, user_decision_subject_sha256
     from minimal_task import minimal_approval_contract
     checks = 0
@@ -2193,8 +2193,13 @@ def run_adversarial_review_fixture() -> dict[str, object]:
 
             def round_record(number):
                 _, outcome, contract, events = load()
+                report = task / "evidence" / f"synthetic-round-{number}.md"
+                report.parent.mkdir(parents=True, exist_ok=True)
+                if not report.exists():
+                    report.write_text(f"Synthetic complete report for {tid} round {number}\n", encoding="utf-8")
                 return {"event": "Round", "recorded_at": now_utc(), "started_at": now_utc(),
                         "round_id": f"R{number}", "reviewer": "synthetic-reviewer", "delivery_task_id": tid,
+                        "report_ref": report.relative_to(root).as_posix(),
                         "subject_sha256": user_decision_subject_sha256(contract, events, outcome),
                         "requirements_sha256": requirements_subject(contract), "coverage": "Complete",
                         "unreviewed_items": [], "evidence_refs": [f"self-test://round-{number}"], "findings": [], "resolutions": []}
@@ -2227,7 +2232,7 @@ def run_adversarial_review_fixture() -> dict[str, object]:
             expect_governance_error("review started before opt-in", lambda: write(ready_round(1, started_at="2026-08-15T00:00:00Z")))
             write(ready_round(1))
             check(review_state(load()[1])["clean_streak"] == 1, "one clean round cannot pass")
-            expect_governance_error("same report is not a second round", lambda: write(ready_round(2, evidence_refs=["self-test://round-1"])))
+            expect_governance_error("same report is not a second round", lambda: write(ready_round(2, report_ref=(task / "evidence/synthetic-round-1.md").relative_to(root).as_posix())))
             expect_governance_error("same id is not a second round", lambda: write(ready_round(1, evidence_refs=["self-test://fresh-report"])))
             write(ready_round(2, findings=[{"id": "F1", "summary": "Synthetic edge case", "evidence_refs": ["self-test://reproduction"]}]))
             check(review_state(load()[1])["clean_streak"] == 0, "any finding must reset the streak")
@@ -2245,6 +2250,11 @@ def run_adversarial_review_fixture() -> dict[str, object]:
             write(ready_round(7))
             changed = copy.deepcopy(load()[1])
             candidate = ready_round(8, subject_sha256="a" * 64)
+            previous_round = changed["adversarial_review"][-1]
+            candidate.update(review_contract_version=REVIEW_CONTRACT,
+                             report_sha256=hashlib.sha256((root / candidate["report_ref"]).read_bytes()).hexdigest(),
+                             delivery_completed_at=previous_round["delivery_completed_at"],
+                             delivery_verified_at=previous_round["delivery_verified_at"])
             changed["adversarial_review"].append(candidate)
             check(review_state(changed)["clean_streak"] == 1, "changing delivery resets the previous clean streak")
             write(ready_round(8))
@@ -2264,7 +2274,7 @@ def run_adversarial_review_fixture() -> dict[str, object]:
             write(decision("Accepted"))
             write(ready_round(9, findings=[{"id": "F2", "summary": "Synthetic fix required", "evidence_refs": ["self-test://fix-repro"]}]))
             repair_id = tid + "-FIX"
-            repair = new_task(root, repair_id, 3 if minimal else 2, depends_on=[tid])
+            repair = new_task(root, repair_id, 3 if minimal else 2, project_id=contract["project_id"], depends_on=[tid])
             repaired_before = read_json(repair / "before.json")
             repaired_before["authority"]["required_gates"] = []
             atomic_write_json(repair / "before.json", repaired_before)
@@ -2272,7 +2282,7 @@ def run_adversarial_review_fixture() -> dict[str, object]:
             append_run_event(repair, run_id="RUN-FIX", attempt_id="A01", event_type="verification", summary="Synthetic repair verified", status="succeeded", evidence_refs=["self-test://repair-check"])
             record_fixture_acceptance(repair)
             append_run_event(repair, run_id="RUN-FIX", attempt_id="A01", event_type="run_finished", summary="Synthetic repair finished", status="succeeded")
-            repaired_path = close_task(repair, status="Implemented", established_facts=["Synthetic repair verified"], actual_changes=["Synthetic fix"], verification=[{"result": "Passed", "summary": "Synthetic repair check", "evidence_refs": ["self-test://repair-check"]}])
+            repaired_path = close_task(repair, status="Implemented", established_facts=["Synthetic repair verified"], actual_changes=["Synthetic fix"], verification=[{"result": "Passed", "summary": "Synthetic repair check", "evidence_refs": ["self-test://repair-check"]}], review_parent_task_id=tid)
             repaired_before = read_json(repair / "before.json")
             repaired_subject = user_decision_subject_sha256(repaired_before, read_jsonl(repair / "run.jsonl"), read_json(repaired_path))
             write(ready_round(10, delivery_task_id=repair_id, subject_sha256=repaired_subject, resolutions=[{"finding_id": "F2", "disposition": "Fixed", "reason": "Synthetic verified repair", "evidence_refs": ["self-test://repair-check"]}]))
@@ -2290,6 +2300,205 @@ def run_adversarial_review_fixture() -> dict[str, object]:
             legacy.pop("adversarial_review")
             check(review_state(legacy)["status"] == "LegacyUntracked", "historical absence must not invent reviews")
             check(review_state({"status": "Blocked", "adversarial_review": []})["status"] == "NotApplicable", "unfinished engineering cannot trigger a review offer")
+    return {"status": "Passed", "checks": checks}
+
+
+def run_adversarial_boundary_fixture() -> dict[str, object]:
+    """Reproduce the eight independently observed review failures through public APIs."""
+    import threading
+    import time
+    import governance_artifacts as ga
+    from adversarial_review import append_review, review_status, requirements_subject, review_state
+    from minimal_task import minimal_approval_contract
+    checks = 0
+
+    def check(condition, message):
+        nonlocal checks
+        require_test(condition, message)
+        checks += 1
+
+    with tempfile.TemporaryDirectory(prefix="v63-adversarial-boundary-") as temp:
+        root = Path(temp).resolve()
+
+        def finish(tid, ordinal, minimal=False, parent=None):
+            if minimal:
+                path = minimal_fixture_record(root, tid)
+                record = read_json(path)
+                record["depends_on"] = [parent] if parent else []
+                atomic_write_json(path, record)
+                task = path.parent
+                append_minimal_event(task, event_type="run_started", summary="Synthetic work", status="started")
+                append_minimal_event(task, event_type="verification", summary="Synthetic verification", status="succeeded", evidence_refs=["self-test://source"])
+                record_fixture_acceptance(task)
+                pending = read_json(path)
+                pending["task_contract"]["decisions"] = [item for item in pending["task_contract"]["decisions"] if item["kind"] != "Acceptance"]
+                atomic_write_json(path, pending)
+                close_minimal_record(task, status="Implemented", established_facts=["Synthetic complete"], actual_changes=["Synthetic change"], verification=["Passed::Synthetic verification::self-test://source"], review_parent_task_id=parent)
+            else:
+                task = new_task(root, tid, ordinal, depends_on=[parent] if parent else [])
+                before = read_json(task / "before.json")
+                before["authority"]["required_gates"] = []
+                atomic_write_json(task / "before.json", before)
+                append_run_event(task, run_id=tid, attempt_id="A01", event_type="run_started", summary="Synthetic work", status="started")
+                append_run_event(task, run_id=tid, attempt_id="A01", event_type="verification", summary="Synthetic verification", status="succeeded", evidence_refs=["self-test://source"])
+                record_fixture_acceptance(task)
+                pending = read_json(task / "before.json")
+                pending["decisions"] = [item for item in pending["decisions"] if item["kind"] != "Acceptance"]
+                atomic_write_json(task / "before.json", pending)
+                append_run_event(task, run_id=tid, attempt_id="A01", event_type="run_finished", summary="Synthetic complete", status="succeeded")
+                close_task(task, status="Implemented", established_facts=["Synthetic complete"], actual_changes=["Synthetic change"], verification=[{"result": "Passed", "summary": "Synthetic verification", "evidence_refs": ["self-test://source"]}], review_parent_task_id=parent)
+            return task
+
+        def load(task):
+            if (task / "before.json").is_file():
+                return task / "after.json", read_json(task / "after.json"), read_json(task / "before.json"), ga.read_jsonl(task / "run.jsonl")
+            record = read_json(task / "task-record.json")
+            return task / "task-record.json", record["task_outcome"], minimal_approval_contract(record), record["run_ledger"]
+
+        def write(task, entry):
+            return append_review(task, entry, reason="Synthetic boundary regression", basis="self-test://independent-counterexamples")
+
+        def choose(task, state):
+            write(task, {"event": "Decision", "recorded_at": ga.now_utc(), "outcome": state, "response": f"Synthetic {state}", "decided_by": "synthetic-user", "evidence_ref": "self-test://explicit-user"})
+
+        def start(task, first="Accepted"):
+            write(task, {"event": "Offer", "recorded_at": ga.now_utc(), "prompt": "Synthetic actual post-completion question", "evidence_ref": "self-test://offer"})
+            choose(task, first)
+
+        def entry(task, number, delivery=None, **changes):
+            delivery = delivery or task
+            _, out, before, events = load(delivery)
+            _, _, original, _ = load(task)
+            report = task / "evidence" / f"round-{number}.md"
+            report.parent.mkdir(parents=True, exist_ok=True)
+            report.write_text(f"Synthetic independently written report {number} for {task.name}\n", encoding="utf-8")
+            result = {"event": "Round", "recorded_at": ga.now_utc(), "started_at": ga.now_utc(), "round_id": f"B-{number}", "reviewer": "synthetic-reviewer", "delivery_task_id": delivery.name,
+                      "subject_sha256": ga.user_decision_subject_sha256(before, events, out), "requirements_sha256": requirements_subject(original), "report_ref": report.relative_to(root).as_posix(), "coverage": "Complete", "unreviewed_items": [],
+                      "evidence_refs": ["self-test://shared-original-and-test-log"], "findings": [], "resolutions": []}
+            result.update(changes)
+            result["recorded_at"] = ga.now_utc()
+            return result
+
+        for minimal in (False, True):
+            task = finish("T-BOUND-MIN" if minimal else "T-BOUND-FULL", 1, minimal)
+            start(task, "Deferred")
+            choose(task, "Accepted")
+            check(review_status(task)["status"] == "InProgress", "later actual opt-in must not require another question")
+            choose(task, "Stopped")
+            choose(task, "Declined")
+            choose(task, "Accepted")
+            check(review_status(task)["status"] == "InProgress", "an actual changed decision may resume an earlier offer")
+            write(task, entry(task, 1))
+            path, out, before, events = load(task)
+            original_digest = requirements_subject(before)
+            corrected = copy.deepcopy(before)
+            corrected["clarification"]["basis"] += " Synthetic metadata correction"
+            check(requirements_subject(corrected) == original_digest, "basis edits must not change original-word binding")
+            changed_words = copy.deepcopy(before)
+            changed_words["request_snapshot"]["text"] += " Synthetic new condition"
+            check(review_state(out, changed_words)["status"] == "Stale", "real word changes must stale history without making it unreadable")
+            if not minimal:
+                amend_record(task / "before.json", dotted_path="clarification.basis", new_value=corrected["clarification"]["basis"], reason="Synthetic metadata correction", basis="self-test://metadata")
+                check(review_status(task)["clean_streak"] == 1, "a public basis correction must retain the valid clean round")
+            first_report = task / "evidence/round-1.md"
+            alias = str(first_report.parent) + "/./" + first_report.name
+            expect_governance_error("same physical report aliases", lambda: write(task, entry(task, 2, report_ref=alias)))
+            copied = task / "evidence/copied.md"
+            copied.write_bytes(first_report.read_bytes())
+            expect_governance_error("copied report content", lambda: write(task, entry(task, 2, report_ref=str(copied))))
+            write(task, entry(task, 2))
+            check(review_status(task)["status"] == "Passed", "distinct reports may share original requirements and test evidence")
+            second_report = task / "evidence/round-2.md"
+            report_bytes = second_report.read_bytes()
+            second_report.write_text("Synthetic changed report after its recorded review\n", encoding="utf-8")
+            check(review_status(task)["status"] == "Stale" and review_status(task)["clean_streak"] == 0, "changing the bound report must invalidate the pass")
+            second_report.write_bytes(report_bytes)
+            check(review_status(task)["status"] == "Passed", "restoring the exact bound report must restore its verifiable state")
+            snapshot = path.read_bytes()
+            for index, invalid in enumerate(([], None, "wrong")):
+                expect_governance_error("non-object input", lambda value=invalid: write(task, value))
+                bad = root / f"invalid-{minimal}-{index}.json"
+                bad.write_text(json.dumps(invalid), encoding="utf-8")
+                result = subprocess.run([sys.executable, "-X", "utf8", str(skill_root_path() / "scripts/adversarial_review.py"), str(task), "--entry-json-file", str(bad), "--reason", "synthetic", "--basis", "self-test"], capture_output=True, text=True, encoding="utf-8")
+                check(result.returncode == 2 and "ERROR:" in result.stderr and "Traceback" not in result.stderr and path.read_bytes() == snapshot, "invalid JSON types must fail uniformly without writes")
+            if not minimal:
+                _, out, _, _ = load(task)
+                amended = copy.deepcopy(out["verification"])
+                amended[0]["evidence_refs"] = ["self-test://new-verified-reference"]
+                amend_record(path, dotted_path="verification", new_value=amended, reason="Synthetic evidence correction changes bound delivery", basis="self-test://version")
+                check(review_status(task)["status"] == "Stale" and review_status(task)["clean_streak"] == 0, "current delivery changes must invalidate a previous pass")
+                write(task, {"event": "Blocked", "recorded_at": ga.now_utc(), "reason": "Synthetic recovery check", "evidence_refs": ["self-test://blocked"]})
+                check(review_status(task)["status"] == "Blocked", "stale history must permit a truthful blocked record")
+            else:
+                choose(task, "Accepted")
+            started_before_repair = ga.now_utc()
+            repair = finish(task.name + "-REPAIR", 2, minimal, parent=task.name)
+            check(review_status(repair)["status"] == "ManagedByParent", "a repair must not recursively offer another review")
+            recs = recommendations([active_task_signal(task), active_task_signal(repair)])
+            check(not any("主动询问" in item["reason"] for item in recs), "signals must continue the already opted-in parent review")
+            expect_governance_error("round before repaired delivery completion", lambda: write(task, entry(task, 3, repair, started_at=started_before_repair)))
+            expect_governance_error("recursive repair offer", lambda: start(repair))
+            write(task, entry(task, 3, repair))
+            check(review_status(task)["clean_streak"] == 1, "verified repair must start a new clean streak")
+            write(task, entry(task, 4, repair))
+            check(review_status(task)["status"] == "Passed" and review_status(task)["reviewed_delivery"]["task_id"] == repair.name, "pass must identify the reviewed repair, not its original result")
+            check(not validate_task_directory(task) and not validate_task_directory(repair), "both carriers must retain valid engineering records")
+
+        for batch in (False, True):
+            task = finish("T-CONCURRENT-BATCH" if batch else "T-CONCURRENT-SINGLE", 10 if batch else 9)
+            start(task)
+            path, out, before, events = load(task)
+            answer = {"outcome": "Rejected", "presented": "Synthetic saved delivery", "response": "Synthetic rejection", "decided_by": "synthetic-user", "decided_at": ga.now_utc(), "evidence_ref": "self-test://user-rejection", "subject_sha256": ga.user_decision_subject_sha256(before, events, out)}
+            round_value = entry(task, 1, findings=[{"id": "F-KEEP", "summary": "Synthetic confirmed issue", "evidence_refs": ["self-test://repro"]}])
+            paused = threading.Event()
+            release = threading.Event()
+            errors = []
+            original_write = ga.atomic_write_json
+
+            def delayed_write(target, document):
+                if Path(target).resolve() == path.resolve() and threading.current_thread().name == "human-update":
+                    paused.set()
+                    if not release.wait(5):
+                        raise RuntimeError("synthetic schedule timed out")
+                return original_write(target, document)
+
+            def human_update():
+                try:
+                    if batch:
+                        ga.amend_record_batch(path, changes=[{"path": "user_decision", "value": answer}], reason="Synthetic actual user answer", basis="self-test://concurrent")
+                    else:
+                        ga.amend_record(path, dotted_path="user_decision", new_value=answer, reason="Synthetic actual user answer", basis="self-test://concurrent")
+                except Exception as exc:
+                    errors.append(str(exc))
+
+            def review_update():
+                try:
+                    write(task, round_value)
+                except Exception as exc:
+                    errors.append(str(exc))
+
+            ga.atomic_write_json = delayed_write
+            first = threading.Thread(target=human_update, name="human-update")
+            second = threading.Thread(target=review_update, name="review-update")
+            try:
+                first.start()
+                require_test(paused.wait(5), "human update never reached the deterministic pause")
+                second.start()
+                time.sleep(0.05)
+                check(second.is_alive(), "the review writer must wait for the same record lock")
+                release.set()
+                first.join(5)
+                second.join(5)
+            finally:
+                release.set()
+                first.join(5)
+                if second.ident is not None:
+                    second.join(5)
+                ga.atomic_write_json = original_write
+            final = read_json(path)
+            check(not first.is_alive() and not second.is_alive() and not errors, "both public writers must finish without lost-update errors")
+            check(final["user_decision"]["outcome"] == "Rejected" and review_status(task)["open_findings"] == ["F-KEEP"], "concurrent updates must preserve both user decision and confirmed issue")
+            check(final["revision"] == out["revision"] + 2 and not validate_task_directory(task), "concurrent successful writers need distinct revisions and a valid result")
     return {"status": "Passed", "checks": checks}
 
 
@@ -3035,6 +3244,7 @@ def main(argv: list[str] | None = None) -> int:
     amendment_growth_validation = run_amendment_growth_fixture()
     saved_result_validation = run_saved_result_user_decision_fixture()
     adversarial_review_validation = run_adversarial_review_fixture()
+    adversarial_boundary_validation = run_adversarial_boundary_fixture()
     approval_time_validation = run_approval_time_fixture()
     closed_scope_history_validation = run_closed_scope_history_fixture()
     historical_proof_compatibility_validation = run_historical_proof_compatibility_fixture()
@@ -4133,6 +4343,7 @@ def main(argv: list[str] | None = None) -> int:
         "amendment_growth": amendment_growth_validation,
         "saved_result_user_decision": saved_result_validation,
         "adversarial_review": adversarial_review_validation,
+        "adversarial_review_boundaries": adversarial_boundary_validation,
         "approval_time": approval_time_validation,
         "closed_scope_history": closed_scope_history_validation,
         "historical_proof_compatibility": historical_proof_compatibility_validation,
