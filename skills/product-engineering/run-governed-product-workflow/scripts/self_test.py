@@ -26,6 +26,8 @@ from governance_artifacts import (
     current_tailoring,
     validate_tailoring_resolution,
     require_decision,
+    approval_subject_sha256,
+    validate_implemented_contract,
     validate_requirement_items,
     reconcile_scope,
     _scope_pattern_matches,
@@ -46,6 +48,7 @@ from governance_artifacts import (
     initialize_task,
     load_tailoring_map,
     read_json,
+    now_utc,
     register_authority_asset,
     rebuild_project_state,
     resolve_all_profiles,
@@ -80,6 +83,8 @@ from minimal_task import (
     create_minimal_record,
     mark_minimal_upgrade,
     validate_minimal_record,
+    record_minimal_review,
+    minimal_approval_contract,
 )
 from get_context import should_skip_for_minimal
 from query_norm_context import run_query_planner_fixtures
@@ -125,6 +130,668 @@ def expect_governance_error(label: str, operation) -> None:
     raise SelfTestFailure(f"negative test did not fail: {label}")
 
 
+def fixture_discharge_items(contract: dict) -> list[dict]:
+    """Synthetic data for lifecycle plumbing tests, not evidence of a product review."""
+    from governance_artifacts import _requirement_source_texts
+    sources = dict(_requirement_source_texts(contract))
+    items = copy.deepcopy(contract["requirement_items"])
+    for item in items:
+        if item["state"] == "Covered":
+            item["review"] = {"source_sha256": hashlib.sha256(sources[item["source"]].encode("utf-8")).hexdigest(),
+                              "conditions": [], "cases": [{"condition": None, "branch": "Unconditional",
+                              "input": "synthetic lifecycle fixture", "expected": "fixture check passes",
+                              "actual": "fixture check passes", "result": "Passed", "evidence_refs": ["self-test://simulated-review"]}]}
+    return items
+
+
+def record_fixture_acceptance(task_dir: Path) -> None:
+    """Simulate a human answer only after a lifecycle fixture has verified delivery."""
+    from governance_artifacts import read_jsonl
+    full = (task_dir / "before.json").is_file()
+    record = read_json(task_dir / ("before.json" if full else "task-record.json"))
+    contract = record if full else minimal_approval_contract(record)
+    events = read_jsonl(task_dir / "run.jsonl") if full else record["run_ledger"]
+    decision = {"id": "D-FIXTURE-ACCEPT", "kind": "Acceptance", "presented": "verified synthetic fixture delivery",
+                "response": "accepted", "outcome": "Approved", "decided_by": "self-test",
+                "decided_at": now_utc(), "evidence_ref": "self-test://simulated-human-answer",
+                "subject_sha256": approval_subject_sha256(contract, events)}
+    items = fixture_discharge_items(contract)
+    if full:
+        amend_record_batch(task_dir / "before.json", changes=[{"path": "decisions", "value": contract["decisions"] + [decision]},
+            {"path": "requirement_items", "value": items}], reason="simulate post-verification acceptance", basis="self-test fixture only")
+    else:
+        record_minimal_review(task_dir, decisions=[decision], requirement_items=items,
+                              reason="simulate post-verification acceptance", basis="self-test fixture only")
+
+
+def run_historical_proof_compatibility_fixture() -> dict[str, object]:
+    """Exercise read compatibility and strict future actions in isolated carriers."""
+    from governance_artifacts import (PROOF_CONTRACT_VERSION, PROOF_CONTRACT_EFFECTIVE_AT,
+                                     proof_validation_for_read, read_jsonl, _set_dotted_path)
+    import console_render
+    checks = 0
+
+    def check(condition, message):
+        nonlocal checks
+        require_test(condition, message)
+        checks += 1
+
+    old = "2026-09-01T00:00:00Z"
+    with tempfile.TemporaryDirectory(prefix="v63-proof-history-") as temp:
+        root = Path(temp).resolve()
+        task = new_task(root, "T-HISTORICAL-FULL", 1)
+        before = read_json(task / "before.json")
+        check(before["proof_contract_version"] == PROOF_CONTRACT_VERSION, "new Full factories must stamp the current proof contract")
+        before.pop("proof_contract_version")
+        before.update(created_at=old, frozen_at=old, lifecycle_state="Frozen", decisions=[], amendments=[])
+        events = [{"schema_version": "6.3-candidate", "meta_type": "RunLedger", "event_id": f"RUN-HIST-E{i}",
+                   "project_id": "P-TEST", "task_id": before["task_id"], "run_id": "RUN-HIST", "attempt_id": "A01",
+                   "sequence": i, "timestamp": old, "event_type": kind, "summary": "synthetic pre-cutover fact",
+                   "status": status, "exit_code": None, "evidence_refs": [], "side_effects": [], "redactions": []}
+                  for i, (kind, status) in enumerate([("run_started", "started"), ("run_finished", "succeeded")], 1)]
+        terminal_manifest = copy.deepcopy(before["artifact_manifest"])
+        for item in terminal_manifest:
+            item["outcome"] = "Created" if item["meta_type"] == "TaskOutcome" else "Revised"
+        after = {"schema_version": "6.3-candidate", "meta_type": "TaskOutcome", "project_id": "P-TEST",
+                 "work_item_id": before["work_item_id"], "task_id": before["task_id"], "revision": 1,
+                 "status": "Implemented", "completed_at": old, "source_snapshot": {"kind": "synthetic historical fixture"},
+                 "established_facts": ["Historical completion was recorded before the new proof contract"],
+                 "actual_changes": [], "verification": [], "incomplete_items": [], "legacy_issues": [],
+                 "decisions": [], "evidence_refs": [], "next_tasks": [], "artifact_manifest": terminal_manifest, "amendments": []}
+
+        def save_full(contract, ledger, outcome):
+            atomic_write_json(task / "before.json", contract)
+            (task / "run.jsonl").write_text("".join(json.dumps(item) + "\n" for item in ledger), encoding="utf-8")
+            atomic_write_json(task / "after.json", outcome)
+
+        save_full(before, events, after)
+        check(not validate_task_directory(task), "historical Full completion must remain readable without fabricated new proof")
+        check(proof_validation_for_read(before, events, after)[0]["status"] == "HistoricalNotRevalidated", "historical read must be explicitly distinct from current proof passing")
+        for field in ("created_at", "frozen_at"):
+            changed = copy.deepcopy(before)
+            changed[field] = PROOF_CONTRACT_EFFECTIVE_AT
+            projection, errors = proof_validation_for_read(changed, events, after)
+            check(projection["status"] != "HistoricalNotRevalidated" and errors, f"deleting a marker cannot downgrade a new {field}")
+        changed_after = copy.deepcopy(after)
+        changed_after["completed_at"] = PROOF_CONTRACT_EFFECTIVE_AT
+        check(proof_validation_for_read(before, events, changed_after)[1], "new close time cannot inherit historical read exemption")
+        changed_events = copy.deepcopy(events)
+        changed_events[0]["timestamp"] = PROOF_CONTRACT_EFFECTIVE_AT
+        check(proof_validation_for_read(before, changed_events, after)[1], "new Run timestamp cannot inherit historical read exemption")
+        for marker in ("implemented-proof-v0", None):
+            changed = copy.deepcopy(before)
+            changed["proof_contract_version"] = marker
+            check(proof_validation_for_read(changed, events, after)[1], "unknown and null policy markers must fail closed")
+        for owner, field, value in [("before", "proof_contract_version", PROOF_CONTRACT_VERSION),
+                                    ("after", "scope_reconciliation", {})]:
+            b, a = copy.deepcopy(before), copy.deepcopy(after)
+            (b if owner == "before" else a)[field] = value
+            save_full(b, events, a)
+            check(validate_task_directory(task), "current proof signals must run full current validation even on old dates")
+        save_full(before, events, after)
+
+        mini_path = create_minimal_record(root, project_id="P-TEST", work_item_id="W-HIST-MIN", task_id="T-HISTORICAL-MIN",
+            ordinal=2, depends_on=[], supersedes=[], objective="Synthetic historical Minimal fixture",
+            request_snapshot={"language": "en", "text": "Synthetic historical Minimal fixture", "captured_at": old},
+            clarification=copy.deepcopy(before["clarification"]), requirement_items=[{
+                "id": "R-01", "source": "request_snapshot", "quote": "Synthetic historical Minimal fixture",
+                "reading": "synthetic fixture", "state": "Covered", "evidence_refs": ["self-test://historical"], "acceptance_refs": [0]}],
+            decisions=[], scope="one local fixture", acceptance="the local fixture reads", delivery_scenario="DS-03",
+            development_type="DT-08", change_surface="UI/UX", selected_approach="read the local fact",
+            alternative_rejected="rewrite historical approvals", plan_steps=["read the local fact"], verification="read the local fact",
+            rollback="discard the isolated directory", allowed_paths=["label.txt"], out_of_scope=[], forbidden_actions=[],
+            selection_source="automatic", basis=["synthetic compatibility fixture"], authority_refs=["self-test://authority"],
+            eligibility_evidence_refs=[f"self-test://eligibility-{i}" for i in range(7)], facts=[], constraints=[], assumptions=[],
+            fundamentals=[], causal_chain=[], decision_criteria=[])
+        mini = read_json(mini_path)
+        check(mini["proof_contract_version"] == PROOF_CONTRACT_VERSION, "new Minimal factories must stamp the current proof contract")
+        mini.pop("proof_contract_version")
+        mini.update(created_at=old, completed_at=old, lifecycle_state="Completed", amendments=[])
+        mini["run_ledger"] = [{"sequence": i, "timestamp": old, "event_type": kind, "summary": "synthetic pre-cutover fact",
+                               "status": status, "evidence_refs": []}
+                              for i, (kind, status) in enumerate([("run_started", "started"), ("run_finished", "succeeded")], 1)]
+        mini["task_outcome"] = {"status": "Implemented", "established_facts": ["historical Minimal fact"], "actual_changes": [],
+                                "verification": [{"result": "Passed", "summary": "historical check", "evidence_refs": []}],
+                                "incomplete_items": [], "completed_at": old}
+        for item in mini["artifact_manifest"]:
+            item["outcome"] = "Created"
+        atomic_write_json(mini_path, mini)
+        check(not validate_minimal_record(mini, task_dir=mini_path.parent), "historical Minimal must preserve its pre-cutover controls")
+        changed = copy.deepcopy(mini)
+        changed["completed_at"] = changed["task_outcome"]["completed_at"] = PROOF_CONTRACT_EFFECTIVE_AT
+        check(validate_minimal_record(changed, task_dir=mini_path.parent), "new Minimal completion cannot downgrade by omitting its marker")
+
+        files = [task / "before.json", task / "run.jsonl", task / "after.json", mini_path]
+        original_bytes = {str(path): path.read_bytes() for path in files}
+        state = read_json(rebuild_project_state(root, "P-TEST"))
+        check(len(state["source_tasks"]) == 2 and all(item["status"] == "Implemented" for item in state["source_tasks"]),
+              "mixed historical carriers must retain their original statuses in a real aggregate")
+        check(all(item["proof_validation"]["status"] == "HistoricalNotRevalidated" for item in state["source_tasks"]),
+              "ProjectState must expose historical proof classification for both carriers")
+        outputs = generate_views(root, project_id="P-TEST", profile_index=default_profile_index_path())
+        status_page = root / ".project-governance/generated/reviews/project-status.md"
+        check(outputs and "未追溯验证新增证明" in status_page.read_text(encoding="utf-8"), "generated status must explain historical proof limits")
+        model = console_model.scan(root)
+        check("未追溯验证新增证明" in console_render.page_task(model, before["task_id"]), "console task details must explain historical proof limits")
+        check(all(path.read_bytes() == original_bytes[str(path)] for path in files), "read validation and aggregation must not rewrite historical carrier bytes")
+
+        (task / "after.json").unlink()
+        (task / "run.jsonl").write_text(json.dumps(events[0]) + "\n", encoding="utf-8")
+        expect_governance_error("historical Full new action needs explicit policy adoption", lambda: append_run_event(task,
+            run_id="RUN-HIST", attempt_id="A01", event_type="mutation", summary="new action", status="succeeded"))
+        checks += 1
+        adopted = amend_record(task / "before.json", dotted_path="proof_contract_version", new_value=PROOF_CONTRACT_VERSION,
+                               reason="explicit isolated policy adoption", basis="self-test only", allow_add=True)
+        check(adopted["amendments"][-2 if adopted["amendments"][-1]["path"] == "tailoring_resolution" else -1]["path"] == "proof_contract_version",
+              "Full policy adoption must carry an amendment trail")
+        expect_governance_error("adoption does not fabricate Full Proceed", lambda: append_run_event(task,
+            run_id="RUN-HIST", attempt_id="A01", event_type="mutation", summary="new action", status="succeeded"))
+        checks += 1
+        for value in (None, "implemented-proof-v0", PROOF_CONTRACT_VERSION):
+            expect_governance_error("existing policy marker is immutable", lambda v=value: _set_dotted_path(adopted, "proof_contract_version", v, allow_add=True))
+            checks += 1
+
+        mini.update(completed_at=None, lifecycle_state="Frozen", task_outcome=None)
+        mini["run_ledger"] = mini["run_ledger"][:1]
+        for item in mini["artifact_manifest"]:
+            item["outcome"] = "Planned"
+        atomic_write_json(mini_path, mini)
+        expect_governance_error("historical Minimal new action needs policy adoption", lambda: append_minimal_event(mini_path.parent,
+            event_type="mutation", summary="new action", status="succeeded"))
+        checks += 1
+        record_minimal_review(mini_path.parent, adopt_proof_contract=True, reason="explicit isolated adoption", basis="self-test only")
+        check(read_json(mini_path)["proof_contract_version"] == PROOF_CONTRACT_VERSION, "Minimal official review must support explicit recorded adoption")
+        expect_governance_error("adoption does not fabricate Minimal Proceed", lambda: append_minimal_event(mini_path.parent,
+            event_type="mutation", summary="new action", status="succeeded"))
+        checks += 1
+
+        # A real cutover can interrupt an active run: the record lacks a marker
+        # while its already-recorded events are newer than the policy boundary.
+        pending = copy.deepcopy(mini)
+        pending["run_ledger"][0]["timestamp"] = PROOF_CONTRACT_EFFECTIVE_AT
+        atomic_write_json(mini_path, pending)
+        check(bool(validate_minimal_record(pending, task_dir=mini_path.parent)),
+              "unadopted post-cutover records must still fail ordinary validation")
+        record_minimal_review(mini_path.parent, adopt_proof_contract=True,
+                              reason="recover interrupted cutover", basis="isolated real-boundary regression")
+        migrated = read_json(mini_path)
+        check(not validate_minimal_record(migrated, task_dir=mini_path.parent),
+              "explicit migration must fully validate its current-policy candidate")
+        check(migrated["task_contract"] == pending["task_contract"] and migrated["run_ledger"] == pending["run_ledger"],
+              "migration must preserve original requests, human decisions and every historical event")
+        check(migrated["amendments"][:-1] == pending["amendments"] and
+              migrated["amendments"][-1]["changes"] == [{"path": "proof_contract_version",
+              "old_value": {"$missing": True}, "new_value": PROOF_CONTRACT_VERSION}],
+              "migration must append exactly its explicit policy adoption amendment")
+        expect_governance_error("migration never supplies Acceptance", lambda: close_minimal_record(mini_path.parent,
+            status="Implemented", established_facts=["fixture"], actual_changes=[], verification=["Passed::fixture::self-test://fixture"]))
+        checks += 1
+
+        malformed = []
+        broken = copy.deepcopy(pending)
+        broken["run_ledger"][0]["sequence"] = 2
+        malformed.append(broken)
+        broken = copy.deepcopy(pending)
+        broken["task_id"] = "T-OTHER-ID"
+        malformed.append(broken)
+        broken = copy.deepcopy(pending)
+        del broken["task_contract"]
+        malformed.append(broken)
+        malformed.append(json.loads(original_bytes[str(mini_path)]))  # Valid, closed legacy history.
+        for marker in (None, "implemented-proof-v0", PROOF_CONTRACT_VERSION):
+            broken = copy.deepcopy(pending)
+            broken["proof_contract_version"] = marker
+            malformed.append(broken)
+        for invalid in malformed:
+            atomic_write_json(mini_path, invalid)
+            unchanged = mini_path.read_bytes()
+            expect_governance_error("adoption cannot repair unrelated corruption, reopen history or replace a marker",
+                lambda: record_minimal_review(mini_path.parent, adopt_proof_contract=True, reason="fixture", basis="fixture"))
+            check(mini_path.read_bytes() == unchanged, "rejected adoption must not rewrite its input bytes")
+        atomic_write_json(mini_path, migrated)
+    return {"status": "passed", "checks": checks}
+
+
+def run_verification_recovery_fixture() -> dict[str, object]:
+    """Recovery preserves actual chronology and refuses stale or unsupported evidence."""
+    from datetime import datetime, timezone
+    checks = 0
+    with tempfile.TemporaryDirectory(prefix="v63-verification-recovery-") as temp:
+        root = Path(temp)
+        record_path = minimal_fixture_record(root, "T-RECOVERY")
+        task_dir = record_path.parent
+        append_minimal_event(task_dir, event_type="run_started", summary="fixture run", status="started")
+        source = root / "label.txt"
+        proof = root / "test.log"
+        source.write_text("verified fixture source", encoding="utf-8")
+        proof.write_text("synthetic test passed", encoding="utf-8")
+        receipt = {"verified_at": datetime.now(timezone.utc).isoformat(), "summary": "recover synthetic check",
+                   "result": "Passed", "source_files": [{"path": "label.txt", "sha256": sha256_file(source)}],
+                   "evidence_files": [{"path": "test.log", "sha256": sha256_file(proof)}]}
+        original = read_json(record_path)
+        before_bytes = record_path.read_bytes()
+        bad_receipts = []
+        for field, value in [("result", "Failed"), ("verified_at", "2099-01-01T00:00:00Z"),
+                             ("verified_at", "2000-01-01T00:00:00Z"), ("verified_at", "2026-01-01T00:00:00"),
+                             ("source_files", []), ("evidence_files", [])]:
+            changed = copy.deepcopy(receipt)
+            changed[field] = value
+            bad_receipts.append(changed)
+        for field, value in [("path", "../outside.log"), ("sha256", "0" * 64)]:
+            changed = copy.deepcopy(receipt)
+            changed["source_files"][0][field] = value
+            bad_receipts.append(changed)
+        changed = copy.deepcopy(receipt)
+        changed["source_files"].append(changed["source_files"][0])
+        bad_receipts.append(changed)
+        for invalid in bad_receipts:
+            expect_governance_error("recovery rejects unsupported evidence without writing",
+                lambda: record_minimal_review(task_dir, verification_receipt=invalid, reason="fixture", basis="fixture"))
+            require_test(record_path.read_bytes() == before_bytes, "failed recovery changed the record")
+            checks += 1
+        source_time = source.stat().st_mtime_ns
+        os.utime(source, ns=(source_time + 10_000_000_000, source_time + 10_000_000_000))
+        expect_governance_error("source modified after verification invalidates recovery",
+            lambda: record_minimal_review(task_dir, verification_receipt=receipt, reason="fixture", basis="fixture"))
+        os.utime(source, ns=(source_time, source_time))
+        checks += 1
+        record_minimal_review(task_dir, verification_receipt=receipt, reason="restore actual verification", basis="self-test only")
+        recovered = read_json(record_path)
+        require_test(recovered["run_ledger"][:-1] == original["run_ledger"], "recovery rewrote historical events")
+        require_test(recovered["run_ledger"][-1]["timestamp"] == receipt["verified_at"], "recovery redated the check")
+        require_test(datetime.fromisoformat(recovered["amendments"][-1]["changed_at"].replace("Z", "+00:00"))
+                     >= datetime.fromisoformat(receipt["verified_at"]),
+                     "recovery did not retain its later recording time")
+        checks += 3
+        expect_governance_error("recovery cannot replace an existing verification",
+            lambda: record_minimal_review(task_dir, verification_receipt=receipt, reason="fixture", basis="fixture"))
+        checks += 1
+        subject = approval_subject_sha256(minimal_approval_contract(recovered), recovered["run_ledger"])
+        old_answer = copy.deepcopy(recovered["task_contract"]["decisions"][-1])
+        old_answer.update(id="D-EARLY", subject_sha256=subject)
+        record_minimal_review(task_dir, decisions=[old_answer],
+            requirement_items=fixture_discharge_items(recovered["task_contract"]), reason="fixture", basis="fixture")
+        expect_governance_error("recovery never bypasses verification-before-Acceptance chronology",
+            lambda: close_minimal_record(task_dir, status="Implemented", established_facts=["fixture"],
+            actual_changes=[], verification=["Passed::fixture::test.log"]))
+        checks += 1
+        old_answer.update(id="D-VALID", decided_at=datetime.now(timezone.utc).isoformat())
+        record_minimal_review(task_dir, decisions=[old_answer], reason="synthetic later answer", basis="self-test only")
+        close_minimal_record(task_dir, status="Implemented", established_facts=["fixture"], actual_changes=[],
+                             verification=["Passed::fixture::test.log"])
+        require_test(not validate_minimal_record(read_json(record_path), task_dir=task_dir), "recovered task did not close validly")
+        checks += 1
+    return {"status": "Passed", "checks": checks}
+
+
+def run_closed_scope_history_fixture() -> dict[str, object]:
+    """Closed scope binds its original delivery, not later unrelated Git changes."""
+    from governance_artifacts import read_jsonl
+
+    checks = 0
+
+    def check(condition, message: str) -> None:
+        nonlocal checks
+        require_test(condition, message)
+        checks += 1
+
+    with tempfile.TemporaryDirectory(prefix="v63-closed-scope-history-") as temp:
+        root = Path(temp).resolve()
+
+        def git(*args: str) -> str:
+            result = subprocess.run(
+                ["git", "-c", "user.name=Workflow Self Test", "-c", "user.email=workflow-self-test@example.invalid",
+                 "-c", "commit.gpgsign=false", "-c", f"core.hooksPath={root / '.git' / 'fixture-hooks'}", *args],
+                cwd=root, capture_output=True, text=True, encoding="utf-8", errors="replace",
+            )
+            require_test(result.returncode == 0, f"isolated git {args}: {result.stdout}{result.stderr}")
+            return result.stdout.strip()
+
+        (root / "a.txt").write_text("a baseline\n", encoding="utf-8")
+        (root / "b.txt").write_text("b baseline\n", encoding="utf-8")
+        (root / "surveyed.md").write_text("surveyed by the conformance fixture\n", encoding="utf-8")
+        git("init")
+        git("add", "--", "a.txt", "b.txt", "surveyed.md")
+        git("commit", "-m", "isolated closed-scope baseline")
+        baseline = capture_source_snapshot(root)
+        check(baseline.get("vcs") == "git" and baseline.get("head_exists")
+              and baseline.get("head") == git("rev-parse", "HEAD"), "scope fixture requires a reachable real Git baseline")
+
+        task = new_task(root, "T-CLOSED-SCOPE-HISTORY", 1)
+        amend_record_batch(task / "before.json", changes=[
+            {"path": "scope.allowed_paths", "value": ["a.txt"]},
+            {"path": "source_snapshot", "value": baseline},
+        ], reason="bind the isolated task to its actual Git baseline and sole edited file", basis="self-test fixture")
+        append_run_event(task, run_id="RUN-CLOSED-SCOPE", attempt_id="A01", event_type="run_started",
+                         summary="Start isolated a.txt task", status="started")
+        (root / "a.txt").write_text("a verified delivery\n", encoding="utf-8")
+        append_run_event(task, run_id="RUN-CLOSED-SCOPE", attempt_id="A01", event_type="mutation",
+                         summary="Edit only a.txt", status="succeeded", evidence_refs=["self-test://a-change"])
+        append_run_event(task, run_id="RUN-CLOSED-SCOPE", attempt_id="A01", event_type="verification",
+                         summary="Verify a.txt delivery", status="succeeded", evidence_refs=["self-test://a-verified"])
+        record_fixture_acceptance(task)
+        contract = read_json(task / "before.json")
+        subject = approval_subject_sha256(contract, read_jsonl(task / "run.jsonl"))
+        append_run_event(task, run_id="RUN-CLOSED-SCOPE", attempt_id="A01", event_type="human_gate",
+                         summary="Independent synthetic review passed", status="succeeded",
+                         evidence_refs=["self-test://closed-scope-independent-review"], gate={
+                             "id": "independent-review", "outcome": "Passed", "subject_sha256": subject,
+                             "decided_by": "synthetic-independent-reviewer", "decided_at": now_utc(),
+                             "authority_ref": "self-test://authority"})
+        append_run_event(task, run_id="RUN-CLOSED-SCOPE", attempt_id="A01", event_type="run_finished",
+                         summary="Complete isolated a.txt task", status="succeeded")
+        after_path = close_task(task, status="Implemented", established_facts=["a.txt matches its verified delivery"],
+                                actual_changes=["Changed only a.txt"], verification=[{
+                                    "summary": "a.txt verified", "result": "Passed", "required": True,
+                                    "evidence_refs": ["self-test://a-verified"]}])
+        check(read_json(after_path)["scope_reconciliation"]["status"] == "Passed",
+              "close must generate Passed frozen scope evidence from the real Git baseline")
+        check(not validate_task_directory(task), "the legitimately closed isolated task must validate")
+        before_bytes = (task / "before.json").read_bytes()
+        ledger_bytes = (task / "run.jsonl").read_bytes()
+        after_bytes = after_path.read_bytes()
+
+        (root / "b.txt").write_text("unrelated later task delivery\n", encoding="utf-8")
+        live = reconcile_scope(root, contract)
+        check(live["status"] == "Failed" and "b.txt" in live["out_of_scope"],
+              "the later b.txt change must really be outside the old task's a.txt-only scope")
+        check(not validate_task_directory(task), "future b.txt work cannot retroactively invalidate a closed a.txt task")
+        state = read_json(rebuild_project_state(root, "P-TEST"))
+        check(any(item["task_id"] == "T-CLOSED-SCOPE-HISTORY" and item["status"] == "Implemented"
+                  for item in state["source_tasks"]), "rebuilding the project must retain the valid closed task after future work")
+
+        for label, mutate in (
+            ("missing", lambda item: item.pop("scope_reconciliation")),
+            ("baseline", lambda item: item["scope_reconciliation"].update(baseline_sha256="0" * 64)),
+            ("delivery", lambda item: item["scope_reconciliation"].update(delivery_sha256="0" * 64)),
+            ("failed", lambda item: item["scope_reconciliation"].update(status="Failed")),
+            ("out-of-scope", lambda item: item["scope_reconciliation"].update(out_of_scope=["outside.txt"])),
+            ("changed-count", lambda item: item["scope_reconciliation"].update(changed_count=0)),
+        ):
+            invalid = json.loads(after_bytes)
+            mutate(invalid)
+            atomic_write_json(after_path, invalid)
+            try:
+                check(any("scope_reconciliation" in error for error in validate_task_directory(task)),
+                      f"hand-written {label} scope evidence must be rejected")
+            finally:
+                after_path.write_bytes(after_bytes)
+        invalid_before = json.loads(before_bytes)
+        invalid_before["scope"]["allowed_paths"].append("b.txt")
+        atomic_write_json(task / "before.json", invalid_before)
+        try:
+            check(any("scope_reconciliation" in error for error in validate_task_directory(task)),
+                  "changing the old contract's scope must invalidate the frozen close-time evidence")
+        finally:
+            (task / "before.json").write_bytes(before_bytes)
+        check(not validate_task_directory(task), "restoring the original closed bytes must restore validity")
+        check((task / "before.json").read_bytes() == before_bytes and (task / "run.jsonl").read_bytes() == ledger_bytes
+              and after_path.read_bytes() == after_bytes, "historical validation must preserve the original contract, ledger and outcome")
+    return {"status": "Passed", "checks": checks}
+
+
+def run_approval_time_fixture() -> dict[str, object]:
+    """Synthetic in-memory approval contracts; no real human approval is asserted."""
+    quote = "Confirm this exact verified delivery."
+    before = {
+        "schema_version": "6.3-candidate", "meta_type": "TaskContract", "task_id": "T-APPROVAL-TIME",
+        "project_id": "P-APPROVAL-TIME", "objective": quote,
+        "request_snapshot": {"language": "en", "text": quote, "captured_at": "2026-01-01T00:00:00Z"},
+        "clarification": {"state": "Settled", "mode": "Skipped", "notice": "Synthetic approval-time fixture is unambiguous.",
+                          "survey_refs": ["self-test://approval-time-survey"], "rounds": [], "reopened_by": []},
+        "requirement_items": [{"id": "R-01", "source": "request_snapshot", "quote": quote, "reading": quote,
+                               "state": "Covered", "acceptance_refs": [0], "evidence_refs": ["self-test://verified-delivery"]}],
+        "scope": {"in_scope": ["approved fixture scope"], "out_of_scope": ["production"],
+                  "allowed_paths": ["fixture.py"], "forbidden_actions": ["deploy"]},
+        "acceptance": {"criteria": ["The verified synthetic fixture has the expected output."]},
+        "source_snapshot": {"root": "self-test://approval-time-source", "head": "verified-fixture-revision"},
+        "authority": {"required_gates": ["security-review"], "authority_references": ["self-test://reviewer-authority"],
+                      "authority_assessments": [{"reference": "self-test://reviewer-authority", "status": "Valid",
+                          "scope_refs": ["approved fixture scope"], "evidence_refs": ["self-test://authority-evidence"],
+                          "verified_at": "2026-01-01T00:00:00Z", "expires_at": None}]},
+        "decisions": [{"id": "D-PROCEED", "kind": "Proceed", "presented": "Synthetic fixture scope and acceptance",
+                       "response": "Proceed", "outcome": "Approved", "decided_by": "synthetic-user",
+                       "decided_at": "2026-01-01T01:00:00Z", "evidence_ref": "self-test://simulated-proceed"}],
+    }
+    before["requirement_items"] = fixture_discharge_items(before)
+
+    def event(sequence: int, kind: str, timestamp: str, status: str, evidence: str) -> dict:
+        return {"schema_version": "6.3-candidate", "meta_type": "RunLedger", "project_id": before["project_id"],
+                "task_id": before["task_id"], "run_id": "RUN-APPROVAL-TIME", "attempt_id": "A01",
+                "event_id": f"APPROVAL-TIME-E{sequence}", "sequence": sequence, "timestamp": timestamp,
+                "event_type": kind, "summary": f"Synthetic {kind}", "status": status,
+                "evidence_refs": [evidence], "side_effects": [], "redactions": []}
+
+    events = [event(1, "run_started", "2026-01-02T06:00:00Z", "started", "self-test://simulated-proceed"),
+              event(2, "verification", "2026-01-02T07:00:00Z", "succeeded", "self-test://verified-delivery")]
+
+    def gate(contract: dict, decided_at: str, recorded_at: str) -> dict:
+        value = event(3, "human_gate", recorded_at, "succeeded", "self-test://simulated-gate")
+        value["gate"] = {"id": "security-review", "outcome": "Passed",
+                         "subject_sha256": approval_subject_sha256(contract, events),
+                         "decided_by": "synthetic-reviewer", "decided_at": decided_at,
+                         "authority_ref": "self-test://reviewer-authority"}
+        return value
+
+    require_test(reconcile_required_gates(before, events + [gate(before, "2026-01-01T01:00:00Z", "2026-01-02T07:30:00Z")]),
+                 "a gate decided before the verified delivery cannot approve its new subject")
+    valid = copy.deepcopy(before)
+    valid["authority"]["authority_assessments"][0]["expires_at"] = "2026-01-02T08:00:00Z"
+    require_test(not reconcile_required_gates(valid, events + [gate(valid, "2026-01-02T15:00:00+08:00", "2026-01-02T15:30:00+08:00")]),
+                 "UTC+08:00 gate recorded at 07:30 UTC must precede 08:00 UTC expiry")
+    expired = copy.deepcopy(before)
+    expired["authority"]["authority_assessments"][0]["expires_at"] = "2026-01-02T15:00:00+08:00"
+    require_test(reconcile_required_gates(expired, events + [gate(expired, "2026-01-02T07:15:00Z", "2026-01-02T07:30:00Z")]),
+                 "UTC gate recorded at 07:30 must not use authority expired at 15:00 UTC+08:00")
+
+    minimal = {"task_id": "T-APPROVAL-MINIMAL", "project_id": before["project_id"], "task_contract": {
+        "objective": quote, "request_snapshot": before["request_snapshot"], "scope": "one local label",
+        "allowed_paths": ["ui/label.txt"], "out_of_scope": ["permissions"], "forbidden_actions": ["deploy"],
+        "acceptance": "The label matches the expected value.", "source_snapshot": before["source_snapshot"]}}
+    subject = approval_subject_sha256(minimal_approval_contract(minimal), events)
+    for field, replacement in (("allowed_paths", ["server/auth.py"]), ("out_of_scope", []), ("forbidden_actions", [])):
+        changed = copy.deepcopy(minimal)
+        changed["task_contract"][field] = replacement
+        require_test(approval_subject_sha256(minimal_approval_contract(changed), events) != subject,
+                     f"changing Minimal {field} must invalidate the prior approval subject")
+
+    good = copy.deepcopy(before)
+    good["decisions"].append({"id": "D-ACCEPT", "kind": "Acceptance", "presented": "Verified synthetic delivery",
+        "response": "Accepted", "outcome": "Approved", "decided_by": "synthetic-user",
+        "decided_at": "2026-01-02T07:45:00Z", "evidence_ref": "self-test://simulated-acceptance",
+        "subject_sha256": approval_subject_sha256(good, events)})
+    finished = events + [gate(good, "2026-01-02T07:15:00Z", "2026-01-02T07:30:00Z"),
+                        event(4, "run_finished", "2026-01-02T08:00:00Z", "succeeded", "self-test://verified-delivery")]
+    checks = [{"summary": "Verified synthetic delivery", "result": "Passed", "required": True,
+               "evidence_refs": ["self-test://verified-delivery"]}]
+    require_test(not validate_implemented_contract(good, finished, checks),
+                 "complete current acceptance, authority, gate, discharge and verification must pass the terminal invariant")
+    old = copy.deepcopy(good)
+    old["decisions"][-1]["decided_at"] = "2026-01-01T01:00:00Z"
+    errors = validate_implemented_contract(old, finished, checks)
+    require_test(len(errors) == 1 and "Acceptance" in errors[0],
+                 f"only the stale Acceptance time must reject an otherwise valid terminal contract: {errors}")
+    return {"status": "Passed", "checks": 8}
+
+
+def run_review_boundary_regressions_fixture() -> dict[str, object]:
+    checks = 0
+    verification = {"event_type": "verification", "status": "succeeded", "timestamp": "2026-01-01T00:00:00Z",
+                    "summary": "verified immutable delivery", "evidence_refs": ["sha256://verified-delivery-v1"]}
+    before = {"task_id": "T-REVIEW-BOUNDARIES", "objective": "fixture", "request_snapshot": {"text": "fixture"},
+              "scope": {"in_scope": ["fixture"], "allowed_paths": ["a.txt"]},
+              "authority": {"required_gates": ["review"], "authority_assessments": [{"reference": "fixture://authority",
+                 "status": "Valid", "scope_refs": ["fixture"], "evidence_refs": ["fixture://source"],
+                 "verified_at": "2025-12-01T00:00:00Z", "expires_at": None}]}}
+    subject = approval_subject_sha256(before, [verification])
+    repeated = {**verification, "timestamp": "2026-01-01T00:03:00Z", "summary": "same delivery checked again"}
+    require_test(approval_subject_sha256(before, [verification, repeated]) == subject,
+                 "same immutable delivery without an intervening material event reuses its approval anchor")
+    require_test(approval_subject_sha256(before, [verification, {**repeated, "evidence_refs": ["sha256://v2"]}]) != subject,
+                 "a different evidenced delivery invalidates prior approval")
+    checks += 2
+    for kind in ("mutation", "failure", "retry", "rollback", "external_effect"):
+        require_test(approval_subject_sha256(before, [verification, {"event_type": kind}, repeated]) != subject,
+                     f"{kind} invalidates the old verified-delivery anchor")
+        checks += 1
+    require_test(approval_subject_sha256(before, [verification, {**repeated, "status": "failed"}, repeated]) != subject,
+                 "a failed verification invalidates the old approval even if later evidence refs are reused")
+    checks += 1
+
+    def decision(outcome, time):
+        return {"id": outcome + time, "kind": "Acceptance", "outcome": outcome, "response": outcome,
+                "presented": "fixture delivery", "decided_by": "fixture-user", "decided_at": time,
+                "evidence_ref": "fixture://real-simulated-answer", "subject_sha256": subject}
+    approved = decision("Approved", "2026-01-01T00:01:00Z")
+    rejected = decision("Rejected", "2026-01-01T00:02:00Z")
+    for denial in (rejected, {**rejected, "outcome": "Deferred"}):
+        require_test(require_decision({**before, "decisions": [denial, approved]}, "Acceptance", "close", subject_sha256=subject),
+                     "late recording of an older approval cannot hide a later refusal or deferral")
+        checks += 1
+    require_test(require_decision({**before, "decisions": [approved, {**rejected, "decided_at": approved["decided_at"]}]},
+                                 "Acceptance", "close", subject_sha256=subject), "equal-time contradictory answers fail closed")
+    newest = {**approved, "id": "D-NEWEST", "decided_at": "2026-01-01T08:03:00+08:00"}
+    require_test(not require_decision({**before, "decisions": [rejected, approved, newest]}, "Acceptance", "close", subject_sha256=subject),
+                 "an actual newer affirmative answer resolves the refusal using UTC decision time")
+    require_test(not require_decision({**before, "decisions": [approved]}, "Acceptance", "close",
+                                     subject_sha256=approval_subject_sha256(before, [verification, repeated])),
+                 "same-delivery re-verification does not demand repeated acceptance")
+    checks += 3
+
+    def gate(outcome, time):
+        return {"event_type": "human_gate", "status": "succeeded", "timestamp": "2026-01-01T00:05:00Z",
+                "summary": "fixture gate", "evidence_refs": ["fixture://gate-source"],
+                "gate": {"id": "review", "outcome": outcome, "subject_sha256": subject,
+                         "decided_by": "fixture-reviewer", "decided_at": time, "authority_ref": "fixture://authority"}}
+    passed = gate("Passed", "2026-01-01T00:01:00Z")
+    failed = gate("Failed", "2026-01-01T00:02:00Z")
+    for denial in (failed, gate("Pending", "2026-01-01T00:02:00Z")):
+        require_test(reconcile_required_gates(before, [verification, denial, passed]), "older Passed gate cannot hide later failure/pending")
+        checks += 1
+    conflict = gate("Failed", "2026-01-01T00:01:00Z")
+    require_test(reconcile_required_gates(before, [verification, passed, conflict]), "equal-time contradictory gates fail closed")
+    require_test(not reconcile_required_gates(before, [verification, passed, conflict, gate("Passed", "2026-01-01T00:04:00Z")]),
+                 "a genuinely newer Passed gate resolves the historical conflict")
+    require_test(not reconcile_required_gates(before, [verification, passed, repeated]), "same-delivery re-verification preserves its current gate")
+    checks += 3
+
+    with tempfile.TemporaryDirectory(prefix="v63-review-boundaries-") as temp:
+        root = Path(temp); path = minimal_fixture_record(root, "T-REVIEW-MIN")
+        original = read_json(path)
+        for old_state in ("OutOfScope", "Deferred", "NotARequirement"):
+            saved = copy.deepcopy(original); saved["task_contract"]["requirement_items"][0]["state"] = old_state
+            atomic_write_json(path, saved)
+            for new_state in ("Open", "Covered"):
+                replacement = copy.deepcopy(saved["task_contract"]["requirement_items"]); replacement[0]["state"] = new_state
+                expect_governance_error("review cannot reverse a scope trade-off", lambda: record_minimal_review(path.parent,
+                    requirement_items=replacement, reason="fixture", basis="fixture"))
+                checks += 1
+        atomic_write_json(path, original)
+        for new_state in ("OutOfScope", "Deferred"):
+            addition = {**original["task_contract"]["requirement_items"][0], "id": "R-02", "state": new_state}
+            expect_governance_error("review cannot introduce scope trade-offs", lambda: record_minimal_review(path.parent,
+                requirement_items=original["task_contract"]["requirement_items"] + [addition], reason="fixture", basis="fixture"))
+            checks += 1
+        append_minimal_event(path.parent, event_type="run_started", summary="fixture", status="started")
+        append_minimal_event(path.parent, event_type="failure", summary="recoverable fixture failure", status="failed")
+        script = Path(__file__).with_name("manage_minimal_task.py")
+        def cli(kind, status):
+            return subprocess.run([sys.executable, "-B", "-X", "utf8", str(script), "append", str(path.parent),
+                                   "--event-type", kind, "--status", status, "--summary", "fixture", "--evidence-ref", "sha256://fixture"],
+                                  capture_output=True, text=True, encoding="utf-8")
+        retried = cli("retry", "started"); require_test(retried.returncode == 0, retried.stdout + retried.stderr)
+        attempt = read_json(path)["run_ledger"][-1]["attempt_id"]
+        verified = cli("verification", "succeeded"); require_test(verified.returncode == 0, verified.stdout + verified.stderr)
+        require_test(read_json(path)["run_ledger"][-1]["attempt_id"] == attempt != "attempt-001", "Minimal CLI retains its new retry attempt")
+        require_test(cli("retry", "started").returncode != 0, "an earlier attempt's failure cannot justify another retry")
+        require_test(len([e for e in read_json(path)["run_ledger"] if e["event_type"] == "failure"]) == 1, "retry preserves original failure history")
+        checks += 4
+    with tempfile.TemporaryDirectory(prefix="v63-legacy-decision-") as temp:
+        path = minimal_fixture_record(Path(temp), "T-LEGACY-PROCEED")
+        record = read_json(path)
+        original_answer = record["task_contract"]["decisions"][0]
+        original_answer.pop("outcome")
+        atomic_write_json(path, record)
+        enriched = {**original_answer, "id": "D-ENRICHED", "enriches": original_answer["id"], "outcome": "Approved"}
+        record_minimal_review(path.parent, decisions=[enriched], reason="structure the existing authentic fixture answer", basis=original_answer["evidence_ref"])
+        updated = read_json(path)
+        require_test(updated["task_contract"]["decisions"][0] == original_answer, "legacy enrichment preserves original answer bytes as data")
+        append_minimal_event(path.parent, event_type="run_started", summary="reuse original authorization", status="started")
+        require_test(len(updated["task_contract"]["decisions"]) == len(record["task_contract"]["decisions"]) + 1,
+                     "enrichment appends a unique record instead of manufacturing a fresh user answer")
+        for field, replacement in (("response", "a different answer"), ("decided_at", "2026-01-01T00:00:00Z"),
+                                   ("decided_by", "a different user"), ("evidence_ref", "other://source")):
+            forbidden = {**enriched, "id": "BAD-" + field, field: replacement}
+            expect_governance_error("enrichment cannot alter human facts", lambda: record_minimal_review(path.parent,
+                decisions=[forbidden], reason="invalid enrichment", basis="fixture"))
+            checks += 1
+        forbidden = {**enriched, "id": "BAD-OUTCOME", "enriches": "D-ENRICHED", "outcome": "Rejected"}
+        expect_governance_error("enrichment cannot overwrite an established outcome", lambda: record_minimal_review(path.parent,
+            decisions=[forbidden], reason="invalid enrichment", basis="fixture"))
+        checks += 3
+    return {"status": "Passed", "checks": checks}
+
+
+def run_failure_and_terminal_fixture() -> dict[str, object]:
+    from governance_artifacts import read_jsonl
+    checks = 0
+    with tempfile.TemporaryDirectory(prefix="v63-failure-terminal-") as temp:
+        root = Path(temp)
+        task = new_task(root, "T-RETRY-TERMINAL", 1)
+        initial = read_json(task / "before.json")["clarification"]
+        append_run_event(task, run_id="RUN-RETRY", attempt_id="A1", event_type="run_started", summary="fixture", status="started")
+        for index, cause in enumerate(("tool syntax", "old fixture", "implementation defect"), start=1):
+            append_run_event(task, run_id="RUN-RETRY", attempt_id=f"A{index}", event_type="failure", summary=cause, status="failed", evidence_refs=[f"self-test://failure/{index}"])
+            append_run_event(task, run_id="RUN-RETRY", attempt_id=f"A{index+1}", event_type="retry", summary="same scope, inspected side effects and authorization", status="started")
+        require_test(read_json(task / "before.json")["clarification"] == initial, "technical/implementation failure counts cannot mutate clarification")
+        require_test(len([e for e in read_jsonl(task / "run.jsonl") if e["event_type"] == "failure"]) == 3, "all failures remain in history")
+        checks += 2
+        amend_record(task / "before.json", dotted_path="scope.allowed_paths", new_value=[str(root), "src/helper.py"], reason="include helper implementing the same authorized task", basis="self-test fixture")
+        require_test(read_json(task / "before.json")["clarification"] == initial, "implementation path amendment cannot invent human questions")
+        append_run_event(task, run_id="RUN-RETRY", attempt_id="A4", event_type="verification", summary="verified source v1", status="succeeded", evidence_refs=["self-test://verified-source/v1"])
+        before = read_json(task / "before.json"); events = read_jsonl(task / "run.jsonl")
+        subject = approval_subject_sha256(before, events)
+        proof = {"id": "independent-review", "outcome": "Passed", "subject_sha256": subject,
+                 "decided_by": "independent-fixture-reviewer", "decided_at": now_utc(), "authority_ref": "self-test://authority"}
+        gate_event = {"event_type": "human_gate", "status": "succeeded", "timestamp": now_utc(), "summary": "independent review", "evidence_refs": ["self-test://independent-review"], "gate": proof}
+        require_test(not reconcile_required_gates(before, events + [gate_event]), "explicit current gate passes")
+        for field, value in (("outcome", "Pending"), ("outcome", "Failed"), ("subject_sha256", "0" * 64), ("decided_at", "2020-01-01T00:00:00Z"), ("authority_ref", "unregistered://authority")):
+            bad = copy.deepcopy(gate_event); bad["gate"][field] = value
+            require_test(reconcile_required_gates(before, events + [bad]), f"invalid gate {field}={value} must fail")
+            checks += 1
+        bad = copy.deepcopy(gate_event); bad["status"] = "recorded"
+        require_test(reconcile_required_gates(before, events + [bad]), "recorded cannot mean Passed")
+        require_test(reconcile_required_gates(before, events + [gate_event, bad]), "later pending decision supersedes an old Passed gate")
+        changed = copy.deepcopy(before); changed["scope"]["allowed_paths"].append("other.py")
+        require_test(approval_subject_sha256(changed, events) != subject, "scope changes invalidate the approval subject")
+        require_test(not approval_subject_sha256(before, events + [{"event_type": "mutation", "status": "succeeded"}]), "post-verification mutation invalidates approval subject")
+        checks += 7
+        record_fixture_acceptance(task)
+        before = read_json(task / "before.json")
+        for outcome, response in (("Rejected", "验收不通过，需要返修"), ("Deferred", "暂不验收")):
+            bad_before = copy.deepcopy(before); bad_before["decisions"][-1].update(outcome=outcome, response=response)
+            require_test(require_decision(bad_before, "Acceptance", "close", subject_sha256=subject), "a refusal or deferral is not acceptance")
+            checks += 1
+        append_run_event(task, run_id="RUN-RETRY", attempt_id="A4", event_type="human_gate", summary="explicit gate", status="succeeded", evidence_refs=gate_event["evidence_refs"], gate=proof)
+        append_run_event(task, run_id="RUN-RETRY", attempt_id="A4", event_type="run_finished", summary="fixture complete", status="succeeded")
+        close_task(task, status="Implemented", established_facts=["synthetic flow verified"], actual_changes=["temporary fixture"], verification=[{"summary":"fixture verified", "result":"Passed", "evidence_refs":["self-test://verified-source/v1"]}])
+        require_test(not validate_task_directory(task), "legitimate complete carrier must validate")
+        good = read_json(task / "before.json")
+        for mutate in (lambda b:b.update(decisions=[d for d in b["decisions"] if d["kind"] != "Acceptance"]),
+                       lambda b:b["requirement_items"][0].update(state="Open"),
+                       lambda b:b["authority"].update(required_gates=["unpassed-gate"])):
+            invalid = copy.deepcopy(good); mutate(invalid); atomic_write_json(task / "before.json", invalid)
+            require_test(validate_task_directory(task), "hand-written Implemented cannot bypass terminal invariant")
+            checks += 1
+        atomic_write_json(task / "before.json", good)
+        # A genuine acceptance change still reopens S1 and blocks material mutation.
+        other = new_task(root, "T-SEMANTIC-CHANGE", 2)
+        amend_record(other / "before.json", dotted_path="acceptance.criteria", new_value=["a new human-visible outcome"], reason="synthetic real expectation change", basis="self-test")
+        require_test(read_json(other / "before.json")["clarification"]["state"] == "Open", "genuine expectation changes remain blocked")
+        checks += 2
+    return {"status": "Passed", "checks": checks}
+
+
 def minimal_fixture_record(project_root: Path, task_id: str, *, change_surface: str = "UI/UX", delivery_scenario: str = "DS-03") -> Path:
     evidence = [
         "evidence://risk-low",
@@ -152,8 +819,8 @@ def minimal_fixture_record(project_root: Path, task_id: str, *, change_surface: 
         },
         requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "Update one local label.", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"], "acceptance_refs": [0]}],
         decisions=[
-            {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
-            {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+            {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
+            {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
         ],
         clarification={
             "state": "Settled",
@@ -296,6 +963,160 @@ def run_active_query_tree_fixtures() -> dict[str, object]:
     return {"status": "Passed", "checks": checks, "link_checks": link_checks}
 
 
+def run_requirement_review_fixture() -> dict[str, object]:
+    """Source-bound review controls; the fixture does not infer prose semantics."""
+
+    from governance_artifacts import _validate_schema_node
+
+    text = "只有备注没有实际修改时必须提示供应商改值。"
+    quote = text[:-1]
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    checks = 0
+
+    def case(branch: str, input_value: object, expected: str, actual: str) -> dict[str, object]:
+        return {
+            "condition": 0, "branch": branch, "input": input_value,
+            "expected": expected, "actual": actual, "result": "Passed",
+            "evidence_refs": [f"self-test://requirement-review/{branch}"],
+        }
+
+    base = {
+        "request_snapshot": {"text": text},
+        "clarification": {"rounds": []},
+        "acceptance": {"criteria": ["仅备注时阻止确认，已修改金额时允许确认"]},
+        "requirement_items": [{
+            "id": "R-01", "source": "request_snapshot", "quote": quote,
+            "reading": "条件是只有备注且值未改变，不是出现备注即阻止确认",
+            "state": "Covered", "evidence_refs": ["self-test://requirement-review/executed"],
+            "acceptance_refs": [0],
+            "review": {
+                "source_sha256": digest,
+                "conditions": ["管理员仅填写备注，金额仍与修改前相同"],
+                "cases": [
+                    case("Met", {"before": 100, "after": 100, "note": "请改金额"},
+                         "阻止确认并提示修改金额", "已阻止确认并显示修改金额提示"),
+                    case("NotMet", {"before": 100, "after": 120, "note": "金额已改"},
+                         "允许确认已改金额", "确认成功，保存金额120"),
+                ],
+            },
+        }],
+    }
+
+    def check(record: dict[str, object], *, valid: bool, label: str, discharge: bool = True) -> None:
+        nonlocal checks
+        errors = validate_requirement_items(record, require_discharge=discharge)
+        require_test((not errors) == valid, f"requirement-review {label}: {errors}")
+        checks += 1
+
+    check(base, valid=True, label="paired-condition-and-execution")
+    unconditional = copy.deepcopy(base)
+    review = unconditional["requirement_items"][0]["review"]
+    review["conditions"] = []
+    review["cases"] = [dict(review["cases"][0], condition=None, branch="Unconditional", input="真实输入")]
+    check(unconditional, valid=True, label="unconditional-string-input")
+    two_conditions = copy.deepcopy(base)
+    review = two_conditions["requirement_items"][0]["review"]
+    review["conditions"].append("当前记录允许编辑")
+    review["cases"].extend([dict(copy.deepcopy(value), condition=1) for value in review["cases"][:2]])
+    review["cases"].append(dict(copy.deepcopy(review["cases"][0]), branch="Exception"))
+    check(two_conditions, valid=True, label="each-condition-and-explicit-exception")
+
+    mutations = [
+        ("short-fragment-cannot-cover-clause", lambda row: row.update(quote="备注")),
+        ("blank-quote", lambda row: row.update(quote="")),
+        ("missing-review", lambda row: row.pop("review")),
+        ("missing-item-evidence", lambda row: row.update(evidence_refs=[])),
+        ("review-not-an-object", lambda row: row.update(review=[])),
+        ("quote-hash-not-source-hash", lambda row: row["review"].update(source_sha256=hashlib.sha256(quote.encode("utf-8")).hexdigest())),
+        ("invalid-source-hash", lambda row: row["review"].update(source_sha256="f" * 63)),
+        ("review-extra-field", lambda row: row["review"].update(invented=True)),
+        ("empty-condition", lambda row: row["review"].update(conditions=[" "])),
+        ("duplicate-condition", lambda row: row["review"].update(conditions=["同条件", "同条件"])),
+        ("no-cases", lambda row: row["review"].update(cases=[])),
+        ("case-not-an-object", lambda row: row["review"].update(cases=[None])),
+        ("missing-opposite-branch", lambda row: row["review"].update(cases=row["review"]["cases"][:1])),
+        ("exception-does-not-replace-notmet", lambda row: row["review"]["cases"][1].update(branch="Exception")),
+        ("conditional-null-index", lambda row: row["review"]["cases"][0].update(condition=None)),
+        ("conditional-bool-index", lambda row: row["review"]["cases"][0].update(condition=True)),
+        ("conditional-negative-index", lambda row: row["review"]["cases"][0].update(condition=-1)),
+        ("conditional-out-of-range", lambda row: row["review"]["cases"][0].update(condition=1)),
+        ("conditional-unconditional-branch", lambda row: row["review"]["cases"][0].update(branch="Unconditional")),
+        ("blank-input", lambda row: row["review"]["cases"][0].update(input=" ")),
+        ("empty-object-input", lambda row: row["review"]["cases"][0].update(input={})),
+        ("invalid-input-type", lambda row: row["review"]["cases"][0].update(input=[])),
+        ("blank-expected", lambda row: row["review"]["cases"][0].update(expected=" ")),
+        ("passed-without-actual", lambda row: row["review"]["cases"][0].update(actual="")),
+        ("passed-without-evidence", lambda row: row["review"]["cases"][0].update(evidence_refs=[])),
+        ("blank-evidence", lambda row: row["review"]["cases"][0].update(evidence_refs=[" "])),
+        ("invalid-result", lambda row: row["review"]["cases"][0].update(result="Declared")),
+        ("failed-is-not-discharged", lambda row: row["review"]["cases"][0].update(result="Failed")),
+        ("notrun-is-not-discharged", lambda row: row["review"]["cases"][0].update(result="NotRun", actual="", evidence_refs=[])),
+        ("case-extra-field", lambda row: row["review"]["cases"][0].update(invented=True)),
+        ("boolean-acceptance-index", lambda row: row.update(acceptance_refs=[True])),
+    ]
+    for label, mutate in mutations:
+        record = copy.deepcopy(base)
+        mutate(record["requirement_items"][0])
+        check(record, valid=False, label=label)
+
+    unfinished = copy.deepcopy(base)
+    unfinished["requirement_items"][0]["review"]["cases"][0].update(result="NotRun", actual="", evidence_refs=[])
+    check(unfinished, valid=True, label="notrun-readable-before-discharge", discharge=False)
+    historical = copy.deepcopy(base)
+    historical["requirement_items"][0].pop("review")
+    check(historical, valid=True, label="historical-optional-review", discharge=False)
+    failed = copy.deepcopy(base)
+    failed["requirement_items"][0]["review"]["cases"][0]["result"] = "Failed"
+    check(failed, valid=True, label="failed-execution-readable-before-discharge", discharge=False)
+    changed_source = copy.deepcopy(base)
+    changed_source["request_snapshot"]["text"] = "\n" + text
+    check(changed_source, valid=False, label="complete-raw-source-hash-includes-whitespace")
+    bad_unconditional = copy.deepcopy(unconditional)
+    bad_unconditional["requirement_items"][0]["review"]["cases"][0]["condition"] = 0
+    check(bad_unconditional, valid=False, label="unconditional-null-required")
+
+    clarified = copy.deepcopy(base)
+    clarified["clarification"] = {"rounds": [{"ordinal": 1, "exchanges": [{"answer": "是"}]}]}
+    check(clarified, valid=False, label="one-character-answer-not-silently-dropped")
+    clarified["requirement_items"].append({
+        "id": "R-02", "source": "clarification:r1.e1", "quote": "是",
+        "reading": "确认性短答，原要求未增加", "state": "NotARequirement",
+        "evidence_refs": [], "acceptance_refs": [],
+    })
+    check(clarified, valid=True, label="explicit-short-answer-disposition")
+    same_words = copy.deepcopy(base)
+    same_words["clarification"] = {"rounds": [{"ordinal": 1, "exchanges": [{"answer": text}]}]}
+    same_words["requirement_items"][0]["source"] = "clarification:r1.e1"
+    check(same_words, valid=False, label="other-source-identical-quote-cannot-cover-request")
+    bound_answer = copy.deepcopy(clarified)
+    bound_answer["requirement_items"][1].update(state="Covered", acceptance_refs=[0], evidence_refs=["self-test://answer"])
+    bound_answer["requirement_items"][1]["review"] = copy.deepcopy(unconditional["requirement_items"][0]["review"])
+    check(bound_answer, valid=False, label="answer-must-bind-own-source-hash")
+    bound_answer["requirement_items"][1]["review"]["source_sha256"] = hashlib.sha256("是".encode("utf-8")).hexdigest()
+    check(bound_answer, valid=True, label="answer-own-source-bound-review")
+
+    schemas = skill_root_path() / "assets" / "runtime" / "schemas"
+    full_item_schema = read_json(schemas / "task-before.schema.json")["properties"]["requirement_items"]["items"]
+    minimal_item_schema = read_json(schemas / "minimal-task-record.schema.json")["properties"]["task_contract"]["properties"]["requirement_items"]["items"]
+    require_test(full_item_schema == minimal_item_schema, "full/minimal requirement item schemas must agree")
+    checks += 1
+    for schema in (full_item_schema, minimal_item_schema):
+        require_test(not _validate_schema_node(base["requirement_items"][0], schema, "$"), "paired review must match schema")
+        require_test(not _validate_schema_node(unconditional["requirement_items"][0], schema, "$"), "unconditional review must match schema")
+        require_test(not _validate_schema_node(historical["requirement_items"][0], schema, "$"), "review remains optional for historical reading")
+        checks += 3
+        for label, field, value in (
+            ("unknown-field", "unknown", True),
+            ("bad-input", "input", []),
+            ("boolean-index", "condition", True),
+        ):
+            row = copy.deepcopy(base["requirement_items"][0])
+            row["review"]["cases"][0][field] = value
+            require_test(bool(_validate_schema_node(row, schema, "$")), f"schema rejects {label}")
+            checks += 1
+    return {"status": "Passed", "checks": checks, "semantic_inference": "not_performed"}
+
+
 def run_derived_view_byte_fixture() -> dict[str, object]:
     with tempfile.TemporaryDirectory(prefix="v63-derived-view-bytes-") as temp:
         project_root = Path(temp)
@@ -389,6 +1210,9 @@ def run_document_governance_fixture() -> dict[str, object]:
     with tempfile.TemporaryDirectory(prefix="v63-doc-governance-") as temp:
         root = Path(temp)
         root.mkdir(exist_ok=True)
+        dependencies = root / "requirements.txt"
+        dependencies.write_text("psycopg[binary]>=3.2\n", encoding="utf-8")
+        dependency_digest = sha256_file(dependencies)
         legacy = root / "docs"
         legacy.mkdir()
         source = legacy / "REQ-42_产品需求文档.md"
@@ -420,7 +1244,37 @@ def run_document_governance_fixture() -> dict[str, object]:
             root / "LG_project_docs" / "requirements" / "REQ-42" / "README.md"
         ).is_file()), "self-test invariant failed at original line 325: (root / 'LG_project_docs' / 'requirements' / 'REQ-42' / 'README.md').is_file()")
         require_test((not validate_project_document_layout(root)), 'self-test invariant failed at original line 328: not validate_project_document_layout(root)')
-    return {"status": "Passed", "checks": 9}
+        require_test(sha256_file(dependencies) == dependency_digest, "documentation migration changed the Python dependency manifest")
+
+        declaration = root / ".project-governance" / "tasks" / "T-DOCUMENT-DECLARATION" / "before.json"
+        atomic_write_json(declaration, {"artifact_manifest": [{"content_ref": "requirements.txt"}]})
+        require_test(not validate_project_document_layout(root), "declared Python dependency manifest was misclassified as a native document")
+
+        product_text = root / "product-requirements.txt"
+        product_text.write_text("The product must preserve the selected account.\n", encoding="utf-8")
+        require_test(
+            "product document is outside LG_project_docs: product-requirements.txt" in validate_project_document_layout(root),
+            "the dependency manifest exception exempted a real product requirement document",
+        )
+        product_text.unlink()
+        product_markdown = root / "requirements.md"
+        product_markdown.write_text("# Product requirements\n", encoding="utf-8")
+        atomic_write_json(declaration, {"artifact_manifest": [
+            {"content_ref": "requirements.txt"}, {"content_ref": "requirements.md"},
+        ]})
+        errors = validate_project_document_layout(root)
+        require_test("product document is outside LG_project_docs: requirements.md" in errors,
+                     "real Markdown requirements outside the document directory were accepted")
+        require_test("declared native document is outside LG_project_docs: requirements.md (before.json)" in errors,
+                     "declaring a real native document bypassed its layout rule")
+        require_test("product document is outside LG_project_docs: requirements.txt" not in errors,
+                     "the root Python dependency manifest remains misclassified")
+        require_test("declared native document is outside LG_project_docs: requirements.txt (before.json)" not in errors,
+                     "the declared Python dependency manifest remains misclassified")
+        product_markdown.unlink()
+        atomic_write_json(declaration, {"artifact_manifest": [{"content_ref": "requirements.txt"}]})
+        require_test(not validate_project_document_layout(root), "removing real layout violations did not restore a valid document layout")
+    return {"status": "Passed", "checks": 17}
 
 
 def run_consumer_bootstrap_fixture() -> dict[str, object]:
@@ -481,8 +1335,8 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
             requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test minimal fixture", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"], "acceptance_refs": [0]}],
             decisions=[
-                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
-                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
+                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
             ],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["surveyed.md"], "rounds": [], "basis": "self-test fixture", "reopened_by": []},
             scope="Change one label in src/label.txt.",
@@ -550,6 +1404,7 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             status="succeeded",
             evidence_refs=["test://fixture"],
         )
+        record_fixture_acceptance(task_dir)
         close_minimal_record(
             task_dir,
             status="Implemented",
@@ -557,6 +1412,17 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             actual_changes=["Changed src/label.txt."],
             verification=["Passed::Focused test passed.::test://fixture"],
         )
+        completed = read_json(record_path)
+        for field, replacement in (("decisions", []), ("requirement_items", [{**completed["task_contract"]["requirement_items"][0], "state": "Open"}])):
+            tampered = copy.deepcopy(completed); tampered["task_contract"][field] = replacement
+            require_test(validate_minimal_record(tampered, task_dir=task_dir), "hand-written Minimal outcome cannot bypass decision/discharge")
+        tampered = copy.deepcopy(completed); tampered["task_outcome"]["verification"][0]["result"] = "Failed"
+        require_test(validate_minimal_record(tampered, task_dir=task_dir), "hand-written Minimal outcome cannot bypass verification")
+        original_subject = approval_subject_sha256(minimal_approval_contract(completed), completed["run_ledger"])
+        for field in ("allowed_paths", "out_of_scope", "forbidden_actions"):
+            tampered = copy.deepcopy(completed); tampered["task_contract"][field].append("changed boundary")
+            require_test(approval_subject_sha256(minimal_approval_contract(tampered), tampered["run_ledger"]) != original_subject,
+                         f"Minimal {field} must bind the approval subject")
         state = read_json(rebuild_project_state(project_root, "P-MIN"))
         require_test(
             state["source_tasks"][0].get("carrier_mode") == "Minimal",
@@ -798,8 +1664,8 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
             requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test minimal fixture", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"], "acceptance_refs": [0]}],
             decisions=[
-                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
-                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
+                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
             ],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["surveyed.md"], "rounds": [], "basis": "self-test fixture", "reopened_by": []},
             scope="Change one label.",
@@ -855,8 +1721,8 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             request_snapshot={"language": "en", "text": "self-test minimal fixture", "captured_at": "2026-08-15T00:00:00Z"},
             requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test minimal fixture", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"], "acceptance_refs": [0]}],
             decisions=[
-                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
-                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
+                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
             ],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Requirement is unambiguous and matches the repository; skipping the question round.", "survey_refs": ["surveyed.md"], "rounds": [], "basis": "self-test fixture", "reopened_by": []},
             scope="Change one label.",
@@ -894,8 +1760,8 @@ def run_minimal_carrier_fixture() -> dict[str, object]:
             request_snapshot={"language": "en", "text": "self-test fixture request", "captured_at": "2026-08-15T00:00:00Z"},
             requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test fixture request", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"], "acceptance_refs": [0]}],
             decisions=[
-                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
-                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+                {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
+                {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
             ],
             clarification={"state": "Settled", "mode": "Skipped", "notice": "Scope is fully declared by the fixture; skipping the question round.", "survey_refs": ["surveyed.md"], "rounds": [], "basis": "self-test fixture", "reopened_by": []},
             acceptance=["All expanded-scope tests pass."],
@@ -1130,8 +1996,8 @@ def new_task(root: Path, task_id: str, ordinal: int, *, project_id: str = "P-TES
         },
         requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": f"Conformance fixture request for {task_id}", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"], "acceptance_refs": [0]}],
         decisions=[
-            {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
-            {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+            {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
+            {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
         ],
         clarification={
             "state": "Settled",
@@ -1170,6 +2036,103 @@ def new_task(root: Path, task_id: str, ordinal: int, *, project_id: str = "P-TES
         basis=["self-test"],
         source_snapshot={"kind": "self-test", "task": task_id},
     )
+
+
+def run_amendment_growth_fixture() -> dict[str, object]:
+    """Only actual contract changes add revisions; derived snapshots never do."""
+
+    checks = 0
+
+    def check(condition: bool, message: str) -> None:
+        nonlocal checks
+        require_test(condition, message)
+        checks += 1
+
+    with tempfile.TemporaryDirectory(prefix="v63-amendment-growth-") as temp:
+        root = Path(temp)
+        task = new_task(root, "T-AMENDMENT-GROWTH", 1)
+        path = task / "before.json"
+        initial = read_json(path)
+        initial_bytes = path.read_bytes()
+        options = {"reason": "synthetic growth regression", "basis": "self-test://amendment-growth"}
+        unchanged = amend_record(
+            path, dotted_path="scope.allowed_paths",
+            new_value=copy.deepcopy(initial["scope"]["allowed_paths"]), **options,
+        )
+        check(path.read_bytes() == initial_bytes, "an unchanged amendment rewrote the contract")
+        check(unchanged["revision"] == initial["revision"], "an unchanged amendment advanced the revision")
+        check(unchanged["amendments"] == initial["amendments"], "an unchanged amendment added history")
+
+        allowed = [*initial["scope"]["allowed_paths"], "src/helper.py"]
+        changed = amend_record(path, dotted_path="scope.allowed_paths", new_value=allowed, **options)
+        check(changed["revision"] == initial["revision"] + 1, "one contract edit must add exactly one revision")
+        check(len(changed["amendments"]) == len(initial["amendments"]) + 1, "derived refresh added an amendment")
+        edit = changed["amendments"][-1]
+        check(edit["path"] == "scope.allowed_paths", "the amendment does not identify the actual edit")
+        check(edit["old_value"] == initial["scope"]["allowed_paths"] and edit["new_value"] == allowed,
+              "a real edit lost its old or new value")
+        check(changed["tailoring_resolution"] == current_tailoring(changed), "derived snapshot was not refreshed")
+
+        risk = "High" if changed["task_profile"]["risk_level"] != "High" else "Low"
+        mixed = amend_record_batch(path, changes=[
+            {"path": "scope.allowed_paths", "value": allowed},
+            {"path": "task_profile.risk_level", "value": risk},
+            {"path": "scope.allowed_paths", "value": allowed},
+        ], **options)
+        check(mixed["revision"] == changed["revision"] + 1, "a mixed batch counted unchanged fields")
+        check(len(mixed["amendments"]) == len(changed["amendments"]) + 1, "a mixed batch copied derived history")
+        check(mixed["amendments"][:-1] == changed["amendments"], "a batch rewrote existing audit history")
+        check(mixed["tailoring_resolution"] == current_tailoring(mixed), "batch refresh left a stale derived snapshot")
+
+        stable_bytes = path.read_bytes()
+        for _ in range(12):
+            amend_record(path, dotted_path="scope.allowed_paths", new_value=allowed, **options)
+            amend_record_batch(path, changes=[
+                {"path": "task_profile.risk_level", "value": risk},
+                {"path": "scope.allowed_paths", "value": allowed},
+            ], **options)
+        check(path.read_bytes() == stable_bytes, "repeated unchanged operations grew the contract")
+
+        for changes in ([], [
+            {"path": "scope.allowed_paths", "value": ["src/other.py"]},
+            {"path": "revision", "value": mixed["revision"]},
+        ]):
+            expect_governance_error("invalid batch must remain atomic",
+                                    lambda: amend_record_batch(path, changes=changes, **options))
+            check(path.read_bytes() == stable_bytes, "a rejected batch changed the contract")
+
+        expect_governance_error("an unchanged immutable field is still immutable",
+                                lambda: amend_record(path, dotted_path="task_id", new_value=mixed["task_id"], **options))
+        check(path.read_bytes() == stable_bytes, "an immutable-field rejection changed the contract")
+        expect_governance_error("JSON booleans must not compare equal to integer fields",
+                                lambda: amend_record(path, dotted_path="ordinal", new_value=True, **options))
+        check(path.read_bytes() == stable_bytes, "an invalid JSON-type edit changed the contract")
+
+        broken_path = task / "invalid-before.json"
+        broken = copy.deepcopy(mixed)
+        broken["revision"] = "invalid"
+        atomic_write_json(broken_path, broken)
+        broken_bytes = broken_path.read_bytes()
+        expect_governance_error("unchanged edits still validate the record",
+                                lambda: amend_record(broken_path, dotted_path="scope.allowed_paths", new_value=allowed, **options))
+        check(broken_path.read_bytes() == broken_bytes, "validation rewrote an invalid record")
+        for dotted_path, value in (
+            ("tailoring_resolution", mixed["tailoring_resolution"]),
+            ("tailoring_resolution.stage", "S5"),
+        ):
+            expect_governance_error("derived snapshots use the refresh entrypoint",
+                                    lambda: amend_record(path, dotted_path=dotted_path, new_value=value, **options))
+            check(path.read_bytes() == stable_bytes, "a rejected derived amendment changed the contract")
+
+        command = subprocess.run([
+            sys.executable, str(skill_root_path() / "scripts" / "amend_record.py"), str(path),
+            "--path", "scope.allowed_paths", "--value-json", json.dumps(allowed),
+            "--reason", options["reason"], "--basis", options["basis"],
+        ], capture_output=True, text=True, encoding="utf-8")
+        check(command.returncode == 0 and command.stdout.startswith("UNCHANGED:"),
+              f"CLI must identify an unchanged operation: {command.stdout} {command.stderr}")
+        check(path.read_bytes() == stable_bytes, "an unchanged CLI operation rewrote the contract")
+    return {"status": "Passed", "checks": checks}
 
 
 def resolve_project_root(skill_root: Path, explicit_root: str | None) -> Path:
@@ -1557,81 +2520,20 @@ def main(argv: list[str] | None = None) -> int:
         "a clause marked as not a requirement needs no criterion",
     )
 
-    # Being wrong is evidence the reading was wrong. A reopening cannot be answered by
-    # flipping the state back; it takes a round.
-    def _reopened(**over):
-        base = {"state": "Settled", "mode": "Skipped", "notice": "n",
-                "survey_refs": ["SKILL.md"], "rounds": [], "basis": "b",
-                "reopened_by": ["amendment:acceptance"]}
-        base.update(over)
-        return base
+    # Technical history is preserved without manufacturing one question per marker.
+    base_clarification = {"state": "Settled", "mode": "Skipped", "notice": "n",
+        "survey_refs": ["SKILL.md"], "rounds": [], "basis": "b",
+        "reopened_by": ["failures:2", "failures:3", "amendment:scope.allowed_paths"]}
+    require_test(not validate_clarification(base_clarification), "technical markers cannot require synthetic question rounds")
+    require_test(validate_clarification({**base_clarification, "state": "Open"}), "old Open state is not silently cleared")
+    require_test(validate_clarification({**base_clarification, "reopened_by": ["amendment:acceptance"]}),
+                 "substantive uncertainty still requires real clarification")
+    require_test(reconcile_required_gates({"authority": {"required_gates": ["independent-review"]}},
+        [{"event_type": "human_gate", "status": "recorded", "summary": "independent-review not executed"}]),
+        "a pending gate name is not a Passed gate")
 
-    require_test(
-        (any("no longer be Skipped" in item for item in validate_clarification(_reopened()))),
-        "a reopened clarification cannot go back to Skipped",
-    )
-    one_round = [{"ordinal": 1, "asked_at": "2026-08-15T00:00:00Z", "exchanges": [
-        {"question": "q", "changes": "Scope", "recommended_default": "d",
-         "answer": "a", "answer_state": "Answered"}]}]
-    require_test(
-        (any("each reopening needs its own round" in item for item in
-             validate_clarification(_reopened(mode="Asked", rounds=one_round,
-                                              reopened_by=["amendment:scope", "failures:2"])))),
-        "two reopenings cannot be answered by one round",
-    )
-    require_test(
-        (not validate_clarification(_reopened(mode="Asked", rounds=one_round))),
-        "one reopening answered by one round settles",
-    )
-
-    # A declared gate and a gate that was passed are different facts. Only the second
-    # one is worth keeping, and until now only the first was checked.
-    def _gated(gates):
-        return {"authority": {"required_gates": gates}}
-
-    def _gate_event(summary, status="succeeded", refs=()):
-        return {"event_type": "human_gate", "summary": summary, "status": status,
-                "evidence_refs": list(refs)}
-
-    require_test((reconcile_required_gates(_gated([]), []) == []),
-                 "a task with no declared gates has nothing to reconcile")
-    require_test((reconcile_required_gates(_gated(["release-approval"]), []) ),
-                 "a declared gate with no ledger entry must block the close")
-    require_test(
-        (reconcile_required_gates(_gated(["release-approval"]),
-                                  [_gate_event("release-approval passed")]) == []),
-        "a gate named in a succeeded ledger entry counts as passed",
-    )
-    require_test(
-        (reconcile_required_gates(_gated(["release-approval"]),
-                                  [_gate_event("release-approval", status="failed")])),
-        "a failed gate event does not satisfy the gate",
-    )
-    require_test(
-        (reconcile_required_gates(_gated(["security-privacy-review"]),
-                                  [_gate_event("review done", refs=["e://security-privacy-review"])]) == []),
-        "a gate named in an evidence ref counts as passed",
-    )
-    missing_named = reconcile_required_gates(_gated(["release-approval", "human-acceptance"]),
-                                             [_gate_event("release-approval passed")])
-    require_test(
-        (any("human-acceptance" in item and "release-approval" not in item.split(":")[-1]
-             for item in missing_named)),
-        f"the unmet gate must be named on its own; got {missing_named}",
-    )
-
-    # Minimal is the common path, so a gate wired only into the full carrier is not a
-    # gate at all. Both entry points have to consume the same decision check.
-    import inspect as _inspect
-    from minimal_task import append_minimal_event as _append_min, close_minimal_record as _close_min
-    for fn, why in (
-        (_append_min, "Minimal execution must require a Proceed decision"),
-        (_close_min, "Minimal close must require an Acceptance decision"),
-    ):
-        require_test(
-            ("require_decision" in _inspect.getsource(fn)),
-            f"{why}; {fn.__name__} does not consult the decision gate",
-        )
+    # Both carriers are exercised through their real entrypoints by the lifecycle
+    # fixtures; implementation-text inspection is not evidence of a working gate.
 
     # The three gates are the whole ordering model. If the surface stops naming them the
     # next author will reinvent a state machine, which is what made tailoring_resolution
@@ -1647,7 +2549,7 @@ def main(argv: list[str] | None = None) -> int:
     # stops the run instead of looking exactly like a decision that was made.
     def _dec(**over):
         base = {"id": "D-01", "kind": "Proceed", "presented": "p", "response": "Proceed",
-                "decided_by": "someone", "decided_at": "2026-08-15T00:00:00Z"}
+                "decided_by": "someone", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"}
         base.update(over)
         return base
 
@@ -1848,8 +2750,16 @@ def main(argv: list[str] | None = None) -> int:
     query_planner_validation = run_query_planner_fixtures()
     active_query_tree_validation = run_active_query_tree_fixtures()
     derived_view_byte_validation = run_derived_view_byte_fixture()
+    requirement_review_validation = run_requirement_review_fixture()
     new_query_history_validation = run_new_query_history_fixture()
     document_governance_validation = run_document_governance_fixture()
+    amendment_growth_validation = run_amendment_growth_fixture()
+    approval_time_validation = run_approval_time_fixture()
+    closed_scope_history_validation = run_closed_scope_history_fixture()
+    historical_proof_compatibility_validation = run_historical_proof_compatibility_fixture()
+    verification_recovery_validation = run_verification_recovery_fixture()
+    failure_terminal_validation = run_failure_and_terminal_fixture()
+    review_boundary_validation = run_review_boundary_regressions_fixture()
     consumer_bootstrap_validation = run_consumer_bootstrap_fixture()
     minimal_carrier_validation = run_minimal_carrier_fixture()
     cache_prune_validation = run_cache_prune_fixture()
@@ -1934,7 +2844,7 @@ def main(argv: list[str] | None = None) -> int:
     require_test((active_query_tree_validation["link_checks"] in {0, 2}), "self-test invariant failed at original line 541: active_query_tree_validation['link_checks'] in {0, 2}")
     require_test((derived_view_byte_validation == {"status": "Passed", "checks": 2}), "self-test invariant failed at original line 542: derived_view_byte_validation == {'status': 'Passed', 'checks': 2}")
     require_test((new_query_history_validation == {"status": "Passed", "checks": 2}), "self-test invariant failed at original line 543: new_query_history_validation == {'status': 'Passed', 'checks': 2}")
-    require_test((document_governance_validation == {"status": "Passed", "checks": 9}), "self-test invariant failed at original line 544: document_governance_validation == {'status': 'Passed', 'checks': 9}")
+    require_test((document_governance_validation == {"status": "Passed", "checks": 17}), "document governance must execute all 17 positive and negative controls")
     require_test((consumer_bootstrap_validation == {"status": "Passed", "checks": 4}), "self-test invariant failed at original line 545: consumer_bootstrap_validation == {'status': 'Passed', 'checks': 4}")
     require_test(
         minimal_carrier_validation
@@ -2304,6 +3214,12 @@ def main(argv: list[str] | None = None) -> int:
             reason="answer the question the scope change raised",
             basis="self-test",
         )
+        amended_items = read_json(task_dir / "before.json")["requirement_items"] + [{
+            "id": "R-02", "source": "clarification:r1.e1", "quote": "包含",
+            "reading": "generated views are included in the fixture scope", "state": "Covered",
+            "evidence_refs": ["self-test://generated-views"], "acceptance_refs": [0]}]
+        amend_record(task_dir / "before.json", dotted_path="requirement_items", new_value=amended_items,
+                     reason="account for the short but substantive scope answer", basis="self-test")
         require_test((validate_retrieval_plan(task_dir)), ("material TaskContract amendment must stale the plan"))
         compile_result = subprocess.run(
             [
@@ -2332,7 +3248,9 @@ def main(argv: list[str] | None = None) -> int:
         append_run_event(task_dir, run_id="RUN-001", attempt_id="A-002", event_type="verification", summary="Validated generated JSON and task relationships", status="succeeded", exit_code=0, evidence_refs=["self-test://validation"])
         # The contract declares independent-review, so the ledger has to show it was
         # passed. Declaring a gate and going through one are different facts.
-        append_run_event(task_dir, run_id="RUN-001", attempt_id="A-002", event_type="human_gate", summary="independent-review passed", status="succeeded", evidence_refs=["self-test://independent-review"])
+        record_fixture_acceptance(task_dir)
+        gate_subject = approval_subject_sha256(read_json(task_dir / "before.json"), __import__("governance_artifacts").read_jsonl(task_dir / "run.jsonl"))
+        append_run_event(task_dir, run_id="RUN-001", attempt_id="A-002", event_type="human_gate", summary="independent-review passed", status="succeeded", evidence_refs=["self-test://independent-review"], gate={"id":"independent-review", "outcome":"Passed", "subject_sha256":gate_subject, "decided_by":"self-test-reviewer", "decided_at":now_utc(), "authority_ref":"self-test://authority"})
         append_run_event(task_dir, run_id="RUN-001", attempt_id="A-002", event_type="run_finished", summary="Finished isolated self-test run", status="succeeded")
         expect_governance_error(
             "late event after run_finished",
@@ -2553,8 +3471,8 @@ def main(argv: list[str] | None = None) -> int:
                 request_snapshot={"language": "en", "text": "self-test fixture request", "captured_at": "2026-08-15T00:00:00Z"},
                 requirement_items=[{"id": "R-01", "source": "request_snapshot", "quote": "self-test fixture request", "reading": "self-test fixture", "state": "Covered", "evidence_refs": ["self-test://evidence"], "acceptance_refs": [0]}],
                 decisions=[
-                    {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
-                    {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z"},
+                    {"id": "D-01", "kind": "Proceed", "presented": "range and acceptance", "response": "Proceed", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
+                    {"id": "D-02", "kind": "Acceptance", "presented": "verification result", "response": "accepted", "decided_by": "self-test", "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
                 ],
                 clarification={"state": "Settled", "mode": "Skipped", "notice": "Scope is fully declared by the fixture; skipping the question round.", "survey_refs": ["surveyed.md"], "rounds": [], "basis": "self-test fixture", "reopened_by": []},
                 acceptance=["Alias is rejected"],
@@ -2652,10 +3570,10 @@ def main(argv: list[str] | None = None) -> int:
             [
                 {"id": "D-01", "kind": "Proceed", "presented": "范围与验收",
                  "response": "Proceed", "decided_by": "self-test",
-                 "decided_at": "2026-08-15T00:00:00Z"},
+                 "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
                 {"id": "D-02", "kind": "Acceptance", "presented": "验证结果",
                  "response": "接受", "decided_by": "self-test",
-                 "decided_at": "2026-08-15T00:00:00Z"},
+                 "decided_at": "2026-08-15T00:00:00Z", "outcome": "Approved", "evidence_ref": "self-test://simulated-human-answer"},
             ],
         )
         requirement_items_file = write_fixture(
@@ -2774,8 +3692,8 @@ def main(argv: list[str] | None = None) -> int:
                 "state": "Settled", "mode": "Asked",
                 "notice": "针对你的需求和项目现状，有几个问题需要你先回答，以保证本需求完成的质量",
                 "survey_refs": ["surveyed.md"],
-                "rounds": [_round(1, "改后的目标仍限于文件输入吗？", "是"),
-                           _round(2, "扩大后的范围包含哪些路径？", "只有临时 CLI 固件")],
+                "rounds": read_json(cli_task / "before.json")["clarification"]["rounds"] + [_round(2, "改后的目标仍限于文件输入吗？", "是"),
+                           _round(3, "扩大后的范围包含哪些路径？", "只有临时 CLI 固件")],
                 "basis": "objective 与 scope 各自的修订都问过了",
                 "reopened_by": ["amendment:objective", "amendment:scope.in_scope"],
             },
@@ -2790,7 +3708,9 @@ def main(argv: list[str] | None = None) -> int:
                 {"id": "R-01", "source": "request_snapshot",
                  "quote": "用 UTF-8 JSON 文件输入跑一遍自检", "reading": "跑一遍 CLI 文件输入自检",
                  "state": "Covered", "evidence_refs": ["self-test://cli"], "acceptance_refs": [0]},
-                {"id": "R-02", "source": "clarification:r2.e1",
+                {"id": "R-03", "source": "clarification:r1.e1", "quote": "是，只覆盖文件输入", "reading": "只覆盖文件输入", "state": "Covered", "evidence_refs": ["self-test://cli"], "acceptance_refs": [0]},
+                {"id": "R-04", "source": "clarification:r2.e1", "quote": "是", "reading": "确认原有范围", "state": "NotARequirement", "evidence_refs": ["self-test://cli"], "acceptance_refs": []},
+                {"id": "R-02", "source": "clarification:r3.e1",
                  "quote": "只有临时 CLI 固件", "reading": "范围限定在临时固件目录",
                  "state": "Covered", "evidence_refs": ["self-test://cli"], "acceptance_refs": [0]},
             ],
@@ -2799,6 +3719,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         append_run_event(cli_task, run_id="RUN-CLI", attempt_id="A-001", event_type="run_started", summary="Start CLI input test", status="started")
         append_run_event(cli_task, run_id="RUN-CLI", attempt_id="A-001", event_type="verification", summary="Validate CLI JSON file inputs", status="succeeded", evidence_refs=["self-test://cli-json-files"])
+        record_fixture_acceptance(cli_task)
         append_run_event(cli_task, run_id="RUN-CLI", attempt_id="A-001", event_type="run_finished", summary="Finish CLI input test", status="succeeded")
         before_manifest = read_json(cli_task / "before.json")["artifact_manifest"]
         terminal_manifest = []
@@ -2925,8 +3846,16 @@ def main(argv: list[str] | None = None) -> int:
         "query_planner": query_planner_validation["status"],
         "active_query_tree_adversarial": active_query_tree_validation,
         "derived_view_byte_adversarial": derived_view_byte_validation,
+        "requirement_review": requirement_review_validation,
         "new_query_history": new_query_history_validation,
         "document_governance": document_governance_validation,
+        "amendment_growth": amendment_growth_validation,
+        "approval_time": approval_time_validation,
+        "closed_scope_history": closed_scope_history_validation,
+        "historical_proof_compatibility": historical_proof_compatibility_validation,
+        "verification_recovery": verification_recovery_validation,
+        "failure_and_terminal": failure_terminal_validation,
+        "review_boundaries": review_boundary_validation,
         "consumer_bootstrap": consumer_bootstrap_validation,
         "minimal_carrier": minimal_carrier_validation,
         "cache_prune": cache_prune_validation,

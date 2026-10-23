@@ -48,6 +48,18 @@
     "summary": {"type": "string", "minLength": 1},
     "status": {"enum": ["started", "succeeded", "failed", "blocked", "skipped", "recorded"]},
     "exit_code": {"type": ["integer", "null"]},
+    "gate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "outcome", "subject_sha256", "decided_by", "decided_at", "authority_ref"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "outcome": {"enum": ["Passed", "Failed", "Pending"]},
+        "subject_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "decided_by": {"type": "string", "minLength": 1},
+        "decided_at": {"type": "string", "format": "date-time"},
+        "authority_ref": {"type": "string", "minLength": 1}
+      }
+    },
     "evidence_refs": {"type": "array", "items": {"type": "string"}},
     "side_effects": {"type": "array", "items": {"type": "string"}},
     "redactions": {"type": "array", "items": {"type": "string"}}

@@ -19,6 +19,8 @@ from typing import Any, Iterable
 
 
 SCHEMA_VERSION = "6.3-candidate"
+PROOF_CONTRACT_VERSION = "implemented-proof-v1"
+PROOF_CONTRACT_EFFECTIVE_AT = "2026-10-15T08:22:24Z"
 DERIVED_VIEW_CANONICAL_FIELDS_LEGACY = (
     "schema_version",
     "meta_type",
@@ -140,7 +142,7 @@ class GovernanceError(ValueError):
 
 
 def now_utc() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return datetime.now(timezone.utc).isoformat(timespec="microseconds").replace("+00:00", "Z")
 
 
 def sha256_file(path: Path) -> str:
@@ -1275,7 +1277,7 @@ def build_default_first_principles_analysis(
 # pieces no one can quote sensibly; splitting on nothing would let a whole paragraph
 # hide behind one quote.
 _REQUIREMENT_CLAUSE_SPLIT = re.compile("[。！？!?;；" + chr(10) + "]+")
-MIN_CLAUSE_CHARS = 4
+MIN_CLAUSE_CHARS = 1
 
 
 def _requirement_source_texts(before: dict[str, Any]) -> list[tuple[str, str]]:
@@ -1283,16 +1285,18 @@ def _requirement_source_texts(before: dict[str, Any]) -> list[tuple[str, str]]:
 
     texts: list[tuple[str, str]] = []
     snapshot = before.get("request_snapshot") or {}
-    if snapshot.get("text"):
-        texts.append(("request_snapshot", str(snapshot["text"])))
+    if isinstance(snapshot, dict) and isinstance(snapshot.get("text"), str) and snapshot["text"].strip():
+        texts.append(("request_snapshot", snapshot["text"]))
     clarification = before.get("clarification") or {}
+    if not isinstance(clarification, dict):
+        return texts
     for round_item in clarification.get("rounds") or []:
         if not isinstance(round_item, dict):
             continue
         for position, exchange in enumerate(round_item.get("exchanges") or [], start=1):
-            if isinstance(exchange, dict) and exchange.get("answer"):
+            if isinstance(exchange, dict) and isinstance(exchange.get("answer"), str) and exchange["answer"].strip():
                 texts.append(
-                    (f"clarification:r{round_item.get('ordinal')}.e{position}", str(exchange["answer"]))
+                    (f"clarification:r{round_item.get('ordinal')}.e{position}", exchange["answer"])
                 )
     return texts
 
@@ -1305,17 +1309,91 @@ def _requirement_clauses(text: str) -> list[str]:
     ]
 
 
+def _validate_requirement_review(
+    review: Any, *, source_text: str | None, item_id: str, require_passed: bool
+) -> list[str]:
+    """Check source binding and declared case execution, not natural-language meaning.
+
+    The reviewer extracts conditions from the complete original source. The machine
+    does not infer them from keywords or decide whether that extraction is complete.
+    """
+
+    prefix = f"{item_id}: review"
+    if not isinstance(review, dict):
+        return [f"{prefix} must be an object"]
+    errors: list[str] = []
+    fields = {"source_sha256", "conditions", "cases"}
+    if set(review) != fields:
+        errors.append(f"{prefix} requires exactly source_sha256, conditions and cases")
+    digest = review.get("source_sha256")
+    if not isinstance(digest, str) or re.fullmatch(r"[a-f0-9]{64}", digest) is None:
+        errors.append(f"{prefix}.source_sha256 must be a lowercase SHA-256")
+    elif source_text is not None and digest != hashlib.sha256(source_text.encode("utf-8")).hexdigest():
+        errors.append(f"{prefix}.source_sha256 does not match the complete source text")
+    conditions = review.get("conditions")
+    if not isinstance(conditions, list) or any(
+        not isinstance(condition, str) or not condition.strip() for condition in conditions
+    ):
+        errors.append(f"{prefix}.conditions must be an array of nonempty strings")
+        conditions = []
+    elif len({condition.strip() for condition in conditions}) != len(conditions):
+        errors.append(f"{prefix}.conditions must be unique")
+    cases = review.get("cases")
+    if not isinstance(cases, list) or not cases:
+        return [*errors, f"{prefix}.cases must contain at least one case"]
+    branches: dict[int, set[str]] = {index: set() for index in range(len(conditions))}
+    case_fields = {"condition", "branch", "input", "expected", "actual", "result", "evidence_refs"}
+    for index, case in enumerate(cases):
+        case_prefix = f"{prefix}.cases[{index}]"
+        if not isinstance(case, dict):
+            errors.append(f"{case_prefix} must be an object")
+            continue
+        if set(case) != case_fields:
+            errors.append(f"{case_prefix} requires exactly the declared case fields")
+        condition, branch = case.get("condition"), case.get("branch")
+        if conditions:
+            if type(condition) is not int or not 0 <= condition < len(conditions):
+                errors.append(f"{case_prefix}.condition must index a declared condition")
+            elif branch not in ("Met", "NotMet", "Exception"):
+                errors.append(f"{case_prefix}.branch must be Met, NotMet or Exception")
+            else:
+                branches[condition].add(branch)
+        elif condition is not None or branch != "Unconditional":
+            errors.append(f"{case_prefix} without conditions must be Unconditional with a null condition")
+        value = case.get("input")
+        if not ((isinstance(value, str) and value.strip()) or (isinstance(value, dict) and value)):
+            errors.append(f"{case_prefix}.input must be a nonempty string or object")
+        if not isinstance(case.get("expected"), str) or not case["expected"].strip():
+            errors.append(f"{case_prefix}.expected must be nonempty")
+        result = case.get("result")
+        if result not in ("Passed", "Failed", "NotRun"):
+            errors.append(f"{case_prefix}.result must be Passed, Failed or NotRun")
+        actual = case.get("actual")
+        if not isinstance(actual, str) or (result in ("Passed", "Failed") and not actual.strip()):
+            errors.append(f"{case_prefix}.actual must describe the executed result")
+        evidence = case.get("evidence_refs")
+        if not isinstance(evidence, list) or any(
+            not isinstance(ref, str) or not ref.strip() for ref in evidence
+        ):
+            errors.append(f"{case_prefix}.evidence_refs must be an array of nonempty strings")
+        elif result in ("Passed", "Failed") and not evidence:
+            errors.append(f"{case_prefix} claims execution but cites no execution evidence")
+        if require_passed and result != "Passed":
+            errors.append(f"{case_prefix} must be Passed to discharge a Covered requirement")
+    for index, covered in branches.items():
+        if not {"Met", "NotMet"}.issubset(covered):
+            errors.append(f"{prefix}.conditions[{index}] requires both Met and NotMet cases")
+    return errors
+
+
 def validate_requirement_items(
-    before: dict[str, Any], *, require_discharge: bool = False
+    before: dict[str, Any], *, require_discharge: bool = False, require_review_proof: bool = True
 ) -> list[str]:
     """Hold the decomposition against the requester's own words.
 
-    Two checks the Agent cannot satisfy by writing something. A quote has to appear
-    verbatim in what the requester said, so an item cannot be invented; and every
-    clause of what they said has to be accounted for by some item, so nothing can be
-    left out by simply not listing it. The second is the one that matters: it asks
-    which parts of the request are unaccounted for, and the answer comes from a text
-    the Agent did not write.
+    Quotes must cover complete clauses from their own source. Covered discharge
+    additionally requires source-bound, executed review cases. These structural
+    checks do not replace an independent review of the original words and meaning.
     """
 
     items = before.get("requirement_items")
@@ -1327,10 +1405,11 @@ def validate_requirement_items(
     by_label = dict(sources)
     errors: list[str] = []
 
-    identifiers = [item.get("id") for item in items if isinstance(item, dict)]
+    identifiers = [str(item.get("id")) for item in items if isinstance(item, dict)]
     if len(set(identifiers)) != len(identifiers):
         errors.append("requirement_items ids must be unique")
 
+    quotes_by_source: dict[str, list[str]] = {label: [] for label in by_label}
     for item in items:
         if not isinstance(item, dict):
             errors.append("requirement_items entries must be objects")
@@ -1338,13 +1417,22 @@ def validate_requirement_items(
         label, quote = str(item.get("source", "")), str(item.get("quote", ""))
         if label not in by_label:
             errors.append(f"{item.get('id')}: source {label!r} is not one of the requester's texts")
-        elif quote not in by_label[label]:
+        elif not quote.strip() or quote not in by_label[label]:
             errors.append(f"{item.get('id')}: quote is not verbatim in {label}")
+        else:
+            quotes_by_source[label].append(quote)
+        if "review" in item and require_review_proof:
+            errors.extend(_validate_requirement_review(
+                item["review"], source_text=by_label.get(label),
+                item_id=str(item.get("id")),
+                require_passed=require_discharge and item.get("state") == "Covered",
+            ))
+        elif require_review_proof and require_discharge and item.get("state") == "Covered":
+            errors.append(f"{item.get('id')}: Covered discharge requires a source-bound review")
 
-    quotes = [str(item.get("quote", "")) for item in items if isinstance(item, dict)]
     for label, text in sources:
         for clause in _requirement_clauses(text):
-            if not any(quote and (quote in clause or clause in quote) for quote in quotes):
+            if not any(clause in quote for quote in quotes_by_source[label]):
                 errors.append(f"{label}: no requirement item accounts for: {clause[:48]}")
 
     # A clause nobody can say how to verify is a clause that was not understood. Tying
@@ -1371,7 +1459,7 @@ def validate_requirement_items(
             )
             continue
         for ref in refs:
-            if not isinstance(ref, int) or not 0 <= ref < len(criteria):
+            if type(ref) is not int or not 0 <= ref < len(criteria):
                 errors.append(f"{item.get('id')}: acceptance_refs[{ref}] is out of range")
 
     if require_discharge:
@@ -1387,49 +1475,261 @@ def validate_requirement_items(
 
 
 GATE_EVENT_TYPES = {"human_gate", "authority_decision_reference"}
-GATE_SATISFIED_STATUSES = {"succeeded", "recorded"}
+GATE_SATISFIED_STATUSES = {"succeeded"}
+
+
+def _parse_instant(value: Any) -> datetime | None:
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        return parsed.astimezone(timezone.utc) if parsed.tzinfo is not None else None
+    except (TypeError, ValueError):
+        return None
+
+
+def _verified_delivery_event(events: Iterable[dict[str, Any]]) -> dict[str, Any] | None:
+    verification = None
+    for event in events:
+        if event.get("event_type") in {"mutation", "external_effect", "rollback", "failure", "retry"}:
+            verification = None
+        elif event.get("event_type") == "verification":
+            candidate = event if event.get("status") == "succeeded" and event.get("evidence_refs") else None
+            if candidate is not None and verification is not None and set(candidate["evidence_refs"]) == set(verification["evidence_refs"]):
+                continue  # Same evidenced delivery, no intervening invalidation: keep its approval anchor.
+            verification = candidate
+    return verification
+
+
+def approval_subject_sha256(before: dict[str, Any], events: Iterable[dict[str, Any]]) -> str:
+    """Bind a decision to the governed scope and the latest verified delivery.
+
+    Decision/discharge amendments do not change this subject. A new material action
+    or failure after verification invalidates it until verification succeeds again.
+    Evidence refs must identify the tested source/artifact revision; this digest does
+    not establish that an arbitrary claim or a human decision is true.
+    """
+    verification = _verified_delivery_event(events)
+    if verification is None:
+        return ""
+    subject = {
+        "task_id": before.get("task_id"),
+        "project_id": before.get("project_id"),
+        "objective": before.get("objective"),
+        "sources": _requirement_source_texts(before),
+        "scope": before.get("scope"),
+        "allowed_paths": before.get("allowed_paths"),
+        "out_of_scope": before.get("out_of_scope"),
+        "forbidden_actions": before.get("forbidden_actions"),
+        "authority": before.get("authority"),
+        "task_profile": before.get("task_profile"),
+        "plan": before.get("plan"),
+        "acceptance": before.get("acceptance"),
+        "source_snapshot": before.get("source_snapshot"),
+        "verification": verification,
+    }
+    if "proof_contract_version" in before:
+        subject["proof_contract_version"] = before["proof_contract_version"]
+    return hashlib.sha256(json.dumps(subject, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+def require_current_proof_contract(document: dict[str, Any]) -> None:
+    """New execution never inherits a read-only historical exemption."""
+    if document.get("proof_contract_version") != PROOF_CONTRACT_VERSION:
+        raise GovernanceError(
+            "new execution/close requires proof_contract_version=" + PROOF_CONTRACT_VERSION
+            + "; adopt it through amend_record.py --allow-add (Full) or "
+            "manage_minimal_task.py record-review --adopt-proof-contract (Minimal), with reason and basis"
+        )
+
+
+def _is_historical_read_annotation(owner: dict[str, Any], amendment: dict[str, Any]) -> bool:
+    """Only structural index changes and append-only residue/links preserve history."""
+    path = amendment.get("path")
+    old, new = amendment.get("old_value"), amendment.get("new_value")
+    if owner.get("meta_type") == "TaskContract" and path == "ordinal":
+        return type(old) is int and type(new) is int and old > 0 and new > 0
+    if owner.get("meta_type") == "TaskOutcome" and path in {"legacy_issues", "next_tasks"}:
+        return isinstance(old, list) and isinstance(new, list) and len(new) >= len(old) and new[:len(old)] == old
+    return False
+
+
+def proof_validation_for_read(
+    contract: dict[str, Any], events: Iterable[dict[str, Any]], outcome: dict[str, Any] | None,
+    *, minimal: bool = False,
+) -> tuple[dict[str, str], list[str]]:
+    """Classify old closed facts without claiming that new proof was supplied.
+
+    A missing field alone is never a historical identity. All relevant recorded
+    times must predate the cutover, and any current proof signal opts into current
+    checking. This validates locally recorded facts, not authenticity against an
+    attacker who rewrites every byte and timestamp outside the governed tools.
+    """
+    events = list(events)
+    errors: list[str] = []
+    versions = [item.get("proof_contract_version") for item in (contract, outcome or {})
+                if "proof_contract_version" in item]
+    if any(version != PROOF_CONTRACT_VERSION for version in versions):
+        errors.append("unknown or downgraded proof_contract_version")
+    dates = [contract.get("created_at")]
+    if contract.get("frozen_at") is not None:
+        dates.append(contract.get("frozen_at"))
+    if outcome is not None:
+        dates.append(outcome.get("completed_at"))
+        if minimal:
+            dates.append(contract.get("completed_at"))
+    dates.extend(event.get("timestamp") for event in events if isinstance(event, dict))
+    core_dates = list(dates)
+    annotation_dates = []
+    for owner in (contract, outcome or {}):
+        amendments = owner.get("amendments", [])
+        if isinstance(amendments, list):
+            expected = {}
+            annotations = set()
+            for item in reversed(amendments):
+                if isinstance(item, dict) and _is_historical_read_annotation(owner, item):
+                    path = item["path"]
+                    if path not in expected:
+                        expected[path] = owner.get(path)
+                    if item.get("new_value") == expected[path]:
+                        annotations.add(id(item))
+                        expected[path] = item.get("old_value")
+            for item in amendments:
+                if isinstance(item, dict):
+                    (annotation_dates if id(item) in annotations else dates).append(item.get("changed_at"))
+    instants = [_parse_instant(value) for value in dates]
+    if any(value is None for value in instants) or any(_parse_instant(value) is None for value in annotation_dates):
+        errors.append("proof policy boundary requires valid timezone-aware record, ledger and amendment timestamps")
+    cutoff = _parse_instant(PROOF_CONTRACT_EFFECTIVE_AT)
+    all_historical = bool(instants) and all(value is not None and value < cutoff for value in instants)
+    logical_contract = contract.get("task_contract") if minimal else contract
+    logical_contract = logical_contract if isinstance(logical_contract, dict) else {}
+    requirements = logical_contract.get("requirement_items", [])
+    decisions = logical_contract.get("decisions", [])
+    requirements = requirements if isinstance(requirements, list) else []
+    decisions = decisions if isinstance(decisions, list) else []
+    current_signal = bool(versions) or "scope_reconciliation" in (outcome or {}) or any(
+        isinstance(item, dict) and "review" in item for item in requirements
+    ) or any(isinstance(item, dict) and ("outcome" in item or "subject_sha256" in item) for item in decisions
+    ) or any(isinstance(event, dict) and "gate" in event for event in events)
+    historical = outcome is not None and all_historical and not current_signal and not errors
+    if historical:
+        return {"policy": PROOF_CONTRACT_VERSION, "mode": "HistoricalRead", "status": "HistoricalNotRevalidated"}, errors
+    if versions and outcome is not None and not minimal and (
+            contract.get("proof_contract_version") != PROOF_CONTRACT_VERSION
+            or outcome.get("proof_contract_version") != PROOF_CONTRACT_VERSION):
+        errors.append("current Full contract and outcome must both retain proof_contract_version")
+    core_historical = all(_parse_instant(value) is not None and _parse_instant(value) < cutoff for value in core_dates)
+    if not versions and not core_historical:
+        errors.append("records at or after proof policy cutover require proof_contract_version; absence is not a historical exemption")
+    return {"policy": PROOF_CONTRACT_VERSION, "mode": "Current" if outcome is not None else "ActiveRead",
+            "status": "CurrentVerified" if outcome is not None else "ActivePendingTerminal"}, errors
+
+
+def proof_validation_label(projection: dict[str, Any]) -> str:
+    if projection.get("status") == "HistoricalNotRevalidated":
+        return "历史记录；未追溯验证新增证明（不代表新增门禁通过）"
+    if projection.get("status") == "ActivePendingTerminal":
+        return "活动记录；尚未进行终态证明校验"
+    if projection.get("status") == "CurrentVerified":
+        return "当前契约记录校验通过（不替代人的验收）"
+    return "未记录证明校验分类；需重建项目汇总"
 
 
 def reconcile_required_gates(
     before: dict[str, Any], events: Iterable[dict[str, Any]]
 ) -> list[str]:
-    """Hold each declared gate against a ledger entry that names it.
-
-    required_gates was only ever checked for being declared. Nothing asked whether the
-    gate was passed, so "release-approval is required" and "release-approval happened"
-    produced identical records -- a production release could close having named the gate
-    and never gone through it. Declaring a control and satisfying it are different
-    facts, and only one of them was being kept.
-
-    The ledger is append-only and written as the work happens, which makes it the right
-    place to look: a gate that was passed leaves an entry at the time, naming the gate
-    in its summary or one of its evidence refs.
-    """
+    """Require an explicit, current, evidenced outcome; a name is not approval."""
 
     required = list((before.get("authority") or {}).get("required_gates") or [])
     if not required:
         return []
-    recorded: list[str] = []
+    events = list(events)
+    subject = approval_subject_sha256(before, events)
+    verified_at = _parse_instant((_verified_delivery_event(events) or {}).get("timestamp"))
+    latest: dict[str, dict[str, Any]] = {}
+    chronology_conflicts: set[str] = set()
+    invalid_gate_dates: set[str] = set()
     for event in events:
         if not isinstance(event, dict):
             continue
         if event.get("event_type") not in GATE_EVENT_TYPES:
             continue
-        if event.get("status") not in GATE_SATISFIED_STATUSES:
-            continue
-        recorded.append(str(event.get("summary", "")))
-        recorded.extend(str(ref) for ref in event.get("evidence_refs") or [])
-    missing = [gate for gate in required if not any(gate in item for item in recorded)]
+        proof = event.get("gate")
+        if isinstance(proof, dict) and proof.get("id") in required:
+            gate_id = proof["id"]
+            prior = latest.get(gate_id)
+            recorded_time = _parse_instant(proof.get("decided_at"))
+            prior_time = _parse_instant((prior or {}).get("gate", {}).get("decided_at"))
+            if recorded_time is None:
+                invalid_gate_dates.add(gate_id)
+            elif prior is None or prior_time is None or recorded_time > prior_time:
+                latest[gate_id] = event
+                chronology_conflicts.discard(gate_id)
+            elif recorded_time == prior_time and (event.get("status") != prior.get("status") or any(
+                    proof.get(key) != prior["gate"].get(key) for key in ("outcome", "subject_sha256", "authority_ref"))):
+                chronology_conflicts.add(gate_id)
+    missing = []
+    for gate_id in required:
+        event = latest.get(gate_id, {})
+        proof = event.get("gate", {})
+        authority = proof.get("authority_ref")
+        decided_at = _parse_instant(proof.get("decided_at"))
+        recorded_at = _parse_instant(event.get("timestamp"))
+        assessments = (before.get("authority") or {}).get("authority_assessments") or []
+        valid_authority = any(
+            item.get("reference") == authority and item.get("status") == "Valid"
+            and item.get("evidence_refs")
+            and set((before.get("scope") or {}).get("in_scope") or []).issubset(set(item.get("scope_refs") or []))
+            and _parse_instant(item.get("verified_at")) is not None
+            and decided_at is not None and _parse_instant(item.get("verified_at")) <= decided_at
+            and (not item.get("expires_at") or _parse_instant(item["expires_at"]) is not None
+                 and decided_at is not None and _parse_instant(item["expires_at"]) > decided_at)
+            for item in assessments if isinstance(item, dict)
+        )
+        if not (gate_id not in chronology_conflicts and gate_id not in invalid_gate_dates
+                and event.get("status") in GATE_SATISFIED_STATUSES and proof.get("outcome") == "Passed"
+                and subject and proof.get("subject_sha256") == subject
+                and str(proof.get("decided_by", "")).strip() and proof.get("decided_at")
+                and verified_at is not None and decided_at is not None and recorded_at is not None
+                and verified_at <= decided_at <= recorded_at
+                and event.get("evidence_refs") and valid_authority):
+            missing.append(gate_id)
     if not missing:
         return []
     return [
-        "required gates were declared but never recorded as passed: " + ", ".join(missing)
-        + "; append a human_gate or authority_decision_reference event naming each gate "
-        "in its summary or an evidence ref"
+        "required gates lack a current explicit Passed outcome with authority and evidence: " + ", ".join(missing)
+        + "; record gate{id,outcome,subject_sha256,decided_by,decided_at,authority_ref}; recorded/Pending is not Passed"
     ]
 
 
-def require_decision(before: dict[str, Any], kind: str, at: str) -> list[str]:
+def validate_decision_enrichments(decisions: list[dict[str, Any]]) -> tuple[list[str], set[str]]:
+    """Permit evidence-backed structural completion without rewriting a human answer."""
+    errors: list[str] = []
+    superseded: set[str] = set()
+    seen: dict[str, dict[str, Any]] = {}
+    for item in decisions:
+        if not isinstance(item, dict):
+            continue
+        target_id = item.get("enriches")
+        if target_id is not None:
+            target = seen.get(target_id)
+            valid = target is not None and all(item.get(key) == target.get(key) for key in (
+                "kind", "presented", "response", "decided_by", "decided_at"))
+            if target is not None:
+                valid = valid and all(not target.get(key) or item.get(key) == target[key]
+                                      for key in ("evidence_ref", "outcome", "subject_sha256"))
+            valid = valid and bool(str(item.get("evidence_ref", "")).strip()) and item.get("outcome") in {"Approved", "Rejected", "Deferred"}
+            if valid:
+                superseded.add(str(target_id))
+            else:
+                errors.append(f"decision {item.get('id')} cannot enrich {target_id}: preserve the exact original answer, time, actor and existing evidence/outcome/subject")
+        if item.get("id") in seen:
+            errors.append("decision ids must be unique")
+        seen[str(item.get("id"))] = item
+    return errors, superseded
+
+
+def require_decision(before: dict[str, Any], kind: str, at: str, *, subject_sha256: str | None = None,
+                     not_before: str | None = None) -> list[str]:
     """Refuse to move past a point only a person can authorise without their answer on record.
 
     The norm says acceptance, scope trade-offs, approval and release are the human's
@@ -1443,16 +1743,34 @@ def require_decision(before: dict[str, Any], kind: str, at: str) -> list[str]:
     decisions = before.get("decisions")
     if not isinstance(decisions, list):
         return ["decisions is required"]
-    for item in decisions:
-        if isinstance(item, dict) and item.get("kind") == kind and str(item.get("response", "")).strip():
-            return []
+    enrichment_errors, enriched_ids = validate_decision_enrichments(decisions)
+    if enrichment_errors:
+        return enrichment_errors
+    matching = [item for item in decisions if isinstance(item, dict) and item.get("kind") == kind
+                and str(item.get("id")) not in enriched_ids]
+    # Decide by the actual decision time, not the order a historical answer was typed.
+    # Equal-time contradictory decisions and malformed dates fail closed.
+    dated = [(_parse_instant(item.get("decided_at")), item) for item in matching]
+    if any(instant is None for instant, _ in dated):
+        return [f"{kind} decision chronology is invalid; preserve and reconcile the real source times"]
+    latest_time = max((instant for instant, _ in dated), default=None)
+    latest = [item for instant, item in dated if instant == latest_time]
+    if len({(item.get("outcome"), item.get("subject_sha256")) for item in latest}) > 1:
+        return [f"{kind} has conflicting decisions at the same time; reconcile against the actual authority source"]
+    item = latest[-1] if latest else {}
+    decided_at = _parse_instant(item.get("decided_at"))
+    if (item.get("outcome") == "Approved" and str(item.get("response", "")).strip()
+            and str(item.get("decided_by", "")).strip() and item.get("decided_at")
+            and str(item.get("evidence_ref", "")).strip()
+            and decided_at is not None and decided_at <= datetime.now(timezone.utc)
+            and (not_before is None or _parse_instant(not_before) is not None and decided_at >= _parse_instant(not_before))
+            and (subject_sha256 is None or bool(subject_sha256) and item.get("subject_sha256") == subject_sha256)):
+        return []
     return [
-        f"no {kind} decision is recorded, so {at} cannot proceed; capture what was shown "
-        f"and the answer verbatim in decisions[] with amend_record.py"
+        f"no current affirmative {kind} decision is recorded, so {at} cannot proceed; capture what was shown "
+        f"and the real answer verbatim, explicit outcome=Approved/Rejected/Deferred, evidence_ref"
+        f"{' and subject_sha256' if subject_sha256 is not None else ''} in decisions[] with amend_record.py"
     ]
-
-
-CLARIFICATION_REOPEN_FAILURE_THRESHOLD = 2
 
 
 def validate_survey_refs(project_root: Path, clarification: Any) -> list[str]:
@@ -1610,19 +1928,20 @@ def validate_clarification(clarification: Any) -> list[str]:
         )
     if state != "Settled":
         errors.append("clarification.state must be Settled before the task leaves S1")
-    # Being wrong is evidence the understanding was wrong. Each reopening has to be
-    # answered by its own round: flipping the state back is not asking anything.
-    reopened = [str(item) for item in clarification.get("reopened_by") or []]
+    # Historical technical markers stay auditable, but do not manufacture questions.
+    # Open state and genuinely unresolved answers still block until explicitly settled.
+    reopened = [str(item) for item in clarification.get("reopened_by") or []
+                if not re.fullmatch(r"failures:[0-9]+", str(item))
+                and str(item) != "amendment:scope.allowed_paths"]
     if reopened:
         if mode != "Asked":
             errors.append(
                 "clarification was reopened by " + "; ".join(reopened)
                 + ", so it can no longer be Skipped -- ask, do not re-assert"
             )
-        if len(rounds) < len(reopened):
+        if not rounds:
             errors.append(
-                f"clarification was reopened {len(reopened)} time(s) but carries "
-                f"{len(rounds)} round(s); each reopening needs its own round: "
+                "clarification has substantive reopening reasons but no real answer round: "
                 + "; ".join(reopened)
             )
     return errors
@@ -2335,7 +2654,8 @@ def require_record_semantics(path: Path, document: dict[str, Any]) -> None:
         if isinstance(profile, dict):
             if profile.get("primary_development_type") not in profile.get("development_types", []):
                 errors.append("primary_development_type must be included in development_types")
-        errors.extend(validate_tailoring_resolution(document))
+        errors.extend(validate_historical_tailoring_sources(document) if (path.parent / "after.json").is_file()
+                      else validate_tailoring_resolution(document))
     elif document.get("meta_type") == "TaskOutcome":
         before_path = path.parent / "before.json"
         if not before_path.is_file():
@@ -2593,6 +2913,7 @@ def initialize_task(
     )
     before = {
         "schema_version": SCHEMA_VERSION,
+        "proof_contract_version": PROOF_CONTRACT_VERSION,
         "meta_type": "TaskContract",
         "project_id": project_id,
         "work_item_id": work_item_id,
@@ -2795,10 +3116,18 @@ def register_authority_asset(
 
 def _set_dotted_path(
     document: dict[str, Any], dotted_path: str, new_value: Any, *, allow_add: bool = False
-) -> Any:
+) -> tuple[Any, bool]:
     parts = [part for part in dotted_path.split(".") if part]
+    if parts and parts[0] == "proof_contract_version":
+        if (parts != ["proof_contract_version"] or "proof_contract_version" in document
+                or new_value != PROOF_CONTRACT_VERSION or not allow_add):
+            raise GovernanceError("proof_contract_version can only be adopted once with the current version; it cannot be changed or removed")
     if not parts or parts[0] in IMMUTABLE_FIELDS:
         raise GovernanceError(f"field cannot be amended: {dotted_path}")
+    if document.get("meta_type") == "TaskContract" and parts[0] == "tailoring_resolution":
+        raise GovernanceError(
+            "tailoring_resolution is derived; use refresh_tailoring_resolution.py instead of an amendment"
+        )
     owner: dict[str, Any] = document
     for part in parts[:-1]:
         child = owner.get(part)
@@ -2808,18 +3137,17 @@ def _set_dotted_path(
     final = parts[-1]
     if final not in owner and not allow_add:
         raise GovernanceError(f"field does not exist: {dotted_path}")
-    old_value = owner[final] if final in owner else {"$missing": True}
+    exists = final in owner
+    old_value = owner[final] if exists else {"$missing": True}
+    if exists and json.dumps(old_value, sort_keys=True) == json.dumps(new_value, sort_keys=True):
+        return old_value, False
     owner[final] = new_value
-    return old_value
+    return old_value, True
 
 
-def _refresh_tailoring_after_amendment(
-    document: dict[str, Any],
-    amendments: list[dict[str, Any]],
-    *,
-    reason: str,
-    basis: str,
-) -> None:
+def _refresh_tailoring_after_amendment(document: dict[str, Any]) -> None:
+    """Refresh the derived snapshot without adding a second contract revision."""
+
     if document.get("meta_type") != "TaskContract":
         return
     profile = document.get("task_profile")
@@ -2830,36 +3158,24 @@ def _refresh_tailoring_after_amendment(
     expected = resolve_tailoring(profile, stage=stage, contract_context=document)
     if stored == expected:
         return
-    from_revision = document["revision"]
     document["tailoring_resolution"] = expected
-    document["revision"] = from_revision + 1
-    amendments.append(
-        {
-            "from_revision": from_revision,
-            "to_revision": from_revision + 1,
-            "path": "tailoring_resolution",
-            "old_value": stored,
-            "new_value": expected,
-            "reason": f"automatically refresh deterministic tailoring after: {reason}",
-            "basis": basis,
-            "changed_at": now_utc(),
-        }
-    )
 
 
 CLARIFICATION_REOPEN_PATHS = ("objective", "scope", "acceptance")
 
 
-def reopen_clarification(document: dict[str, Any], reason: str) -> bool:
-    """Send S1 back to Open because something says the understanding was wrong.
+def _amendment_reopens_clarification(path: str, old_value: Any, new_value: Any) -> bool:
+    if old_value == new_value:
+        return False
+    if path == "scope.allowed_paths" or path.startswith("scope.allowed_paths."):
+        return False  # Implementation paths do not themselves change the authorized intent.
+    if path == "scope" and isinstance(old_value, dict) and isinstance(new_value, dict):
+        return any(old_value.get(key) != new_value.get(key) for key in ("in_scope", "out_of_scope", "forbidden_actions"))
+    return path.split(".")[0] in CLARIFICATION_REOPEN_PATHS
 
-    Changing what is being built, what is in scope, or what counts as done is evidence
-    that the original reading missed something. So is failing the same task twice. Both
-    used to leave clarification sitting at Settled forever: an Agent could be wrong
-    repeatedly and the record still said the requirement was understood on the first
-    pass. Reopening puts the existing S2 blocker back in the way, so the next material
-    action cannot happen until someone has actually asked.
-    """
+
+def reopen_clarification(document: dict[str, Any], reason: str) -> bool:
+    """Reopen a substantive uncertainty; failure counts are not requirement evidence."""
 
     clarification = document.get("clarification")
     if not isinstance(clarification, dict):
@@ -2891,14 +3207,19 @@ def amend_record(
         json.loads(json.dumps(document.get("clarification")))
         if dotted_path.split(".")[0] == "clarification" else None
     )
-    old_value = _set_dotted_path(document, dotted_path, new_value, allow_add=allow_add)
+    old_value, changed = _set_dotted_path(document, dotted_path, new_value, allow_add=allow_add)
+    if not changed:
+        schema_name = "task-before.schema.json" if document["meta_type"] == "TaskContract" else "task-after.schema.json"
+        require_valid_json_document(document, schema_name, path.name)
+        require_record_semantics(path, document)
+        return document
     if clarification_before is not None:
         _guard_clarification_history(clarification_before, document.get("clarification"))
     from_revision = document.get("revision")
     if not isinstance(from_revision, int):
         raise GovernanceError(f"{path}: revision must be an integer")
     document["revision"] = from_revision + 1
-    if dotted_path.split(".")[0] in CLARIFICATION_REOPEN_PATHS:
+    if _amendment_reopens_clarification(dotted_path, old_value, new_value):
         reopen_clarification(document, f"amendment:{dotted_path}")
     amendments = document.setdefault("amendments", [])
     if not isinstance(amendments, list):
@@ -2915,7 +3236,8 @@ def amend_record(
             "changed_at": now_utc(),
         }
     )
-    _refresh_tailoring_after_amendment(document, amendments, reason=reason, basis=basis)
+    if not ((path.parent / "after.json").is_file() and _is_historical_read_annotation(document, amendments[-1])):
+        _refresh_tailoring_after_amendment(document)
     schema_name = "task-before.schema.json" if document["meta_type"] == "TaskContract" else "task-after.schema.json"
     require_valid_json_document(document, schema_name, path.name)
     require_record_semantics(path, document)
@@ -2935,6 +3257,9 @@ def amend_record_batch(
     ensure_skill_integrity()
     if not reason.strip() or not basis.strip():
         raise GovernanceError("batch amendment reason and basis are required")
+    changes = list(changes)
+    if not changes:
+        raise GovernanceError("batch amendment requires at least one change")
     document = read_json(path)
     if document.get("meta_type") not in {"TaskContract", "TaskOutcome"}:
         raise GovernanceError("only TaskContract and TaskOutcome can use this amendment flow")
@@ -2945,6 +3270,7 @@ def amend_record_batch(
     # and re-adds it as answered in the next is still a relabel.
     clarification_before = json.loads(json.dumps(document.get("clarification")))
     applied = 0
+    prior_amendment_count = len(amendments)
     for change in changes:
         dotted_path = change.get("path")
         if not isinstance(dotted_path, str):
@@ -2954,11 +3280,13 @@ def amend_record_batch(
         from_revision = document.get("revision")
         if not isinstance(from_revision, int):
             raise GovernanceError(f"{path}: revision must be an integer")
-        old_value = _set_dotted_path(
+        old_value, changed = _set_dotted_path(
             document, dotted_path, change["value"], allow_add=bool(change.get("allow_add"))
         )
+        if not changed:
+            continue
         document["revision"] = from_revision + 1
-        if dotted_path.split(".")[0] in CLARIFICATION_REOPEN_PATHS:
+        if _amendment_reopens_clarification(dotted_path, old_value, change["value"]):
             reopen_clarification(document, f"amendment:{dotted_path}")
         amendments.append(
             {
@@ -2974,9 +3302,14 @@ def amend_record_batch(
         )
         applied += 1
     if not applied:
-        raise GovernanceError("batch amendment requires at least one change")
+        schema_name = "task-before.schema.json" if document["meta_type"] == "TaskContract" else "task-after.schema.json"
+        require_valid_json_document(document, schema_name, path.name)
+        require_record_semantics(path, document)
+        return document
     _guard_clarification_history(clarification_before, document.get("clarification"))
-    _refresh_tailoring_after_amendment(document, amendments, reason=reason, basis=basis)
+    if not ((path.parent / "after.json").is_file() and all(
+            _is_historical_read_annotation(document, item) for item in amendments[prior_amendment_count:])):
+        _refresh_tailoring_after_amendment(document)
     schema_name = "task-before.schema.json" if document["meta_type"] == "TaskContract" else "task-after.schema.json"
     require_valid_json_document(document, schema_name, path.name)
     require_record_semantics(path, document)
@@ -2996,6 +3329,7 @@ def _append_run_event_unlocked(
     side_effects: Iterable[str] = (),
     redactions: Iterable[str] = (),
     exit_code: int | None = None,
+    gate: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     ensure_skill_integrity()
     require_id(run_id, "run_id")
@@ -3010,10 +3344,11 @@ def _append_run_event_unlocked(
     ledger_path = task_dir / "run.jsonl"
     before = read_json(before_path)
     require_valid_json_document(before, "task-before.schema.json", "before")
+    require_current_proof_contract(before)
     tailoring_errors = validate_tailoring_resolution(before)
     if tailoring_errors:
         raise GovernanceError("invalid tailoring resolution: " + "; ".join(tailoring_errors))
-    if event_type == "run_started":
+    if event_type in {"run_started", "mutation", "external_effect", "verification", "retry"}:
         decision_errors = require_decision(before, "Proceed", "execution")
         if decision_errors:
             raise GovernanceError("; ".join(decision_errors))
@@ -3099,19 +3434,18 @@ def _append_run_event_unlocked(
         "side_effects": list(side_effects),
         "redactions": list(redactions),
     }
+    if gate is not None:
+        if event_type not in GATE_EVENT_TYPES:
+            raise GovernanceError("gate proof is only valid on a gate event")
+        event["gate"] = gate
     require_valid_json_document(event, "run-event.schema.json", f"run[{sequence}]")
     contract_changed = False
     if not events:
         before["lifecycle_state"] = "Frozen"
         before["frozen_at"] = event["timestamp"]
         contract_changed = True
-    # One failure can be the environment. Two on the same task is the plan being wrong,
-    # and a wrong plan usually means the request was read wrong -- which is a question
-    # for the requester, not another attempt.
-    if event_type == "failure":
-        failures = sum(1 for item in events if item.get("event_type") == "failure") + 1
-        if failures >= CLARIFICATION_REOPEN_FAILURE_THRESHOLD:
-            contract_changed |= reopen_clarification(before, f"failures:{failures}")
+    # Failures remain append-only execution facts. Reassess cause, authorization and
+    # side effects before retry; a count cannot establish a new human decision need.
     if contract_changed:
         require_valid_json_document(before, "task-before.schema.json", "before")
         atomic_write_json(before_path, before)
@@ -3382,6 +3716,60 @@ def _write_scope_reconciliation_view(
     )
 
 
+def validate_implemented_contract(
+    before: dict[str, Any], events: Iterable[dict[str, Any]], checks: Iterable[dict[str, Any]],
+    *, minimal: bool = False,
+) -> list[str]:
+    """One terminal invariant for producers, direct-file validation and derived state."""
+    events, checks = list(events), list(checks)
+    errors = validate_clarification(before.get("clarification"))
+    errors.extend(validate_requirement_items(before, require_discharge=True))
+    errors.extend(require_decision(before, "Proceed", "an Implemented outcome"))
+    errors.extend(require_decision(before, "Acceptance", "an Implemented outcome",
+                                   subject_sha256=approval_subject_sha256(before, events),
+                                   not_before=(_verified_delivery_event(events) or {}).get("timestamp")))
+    if not minimal:
+        errors.extend(reconcile_required_gates(before, events))
+    if not events or events[-1].get("event_type") != "run_finished" or events[-1].get("status") != "succeeded":
+        errors.append("Implemented requires a succeeded run_finished event")
+    if not approval_subject_sha256(before, events):
+        errors.append("Implemented requires a current succeeded verification RunLedger event with evidence_refs")
+    if not any(item.get("result") == "Passed" for item in checks if isinstance(item, dict)):
+        errors.append("Implemented requires at least one Passed verification result")
+    if any(item.get("required", True) and item.get("result") != "Passed" for item in checks if isinstance(item, dict)):
+        errors.append("Implemented cannot contain a required verification that has not Passed")
+    if any(item.get("result") == "Passed" and not item.get("evidence_refs") for item in checks if isinstance(item, dict)):
+        errors.append("Passed verification in an Implemented outcome requires evidence_refs")
+    return errors
+
+
+def _fact_sha256(value: Any) -> str:
+    return hashlib.sha256(json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+def validate_closed_scope_evidence(before: dict[str, Any], after: dict[str, Any]) -> list[str]:
+    """Check the close-time observation without attributing future work to this task."""
+    report = after.get("scope_reconciliation")
+    if not isinstance(report, dict):
+        return ["Implemented requires frozen close-time scope_reconciliation evidence"]
+    errors = []
+    expected = {"baseline_sha256": _fact_sha256(before.get("source_snapshot")),
+                "scope_sha256": _fact_sha256(before.get("scope")),
+                "delivery_sha256": _fact_sha256(after.get("source_snapshot"))}
+    if any(report.get(key) != value for key, value in expected.items()):
+        errors.append("closed scope_reconciliation evidence is stale for its baseline, scope or delivery")
+    body = {key: value for key, value in report.items() if key != "report_sha256"}
+    if report.get("report_sha256") != _fact_sha256(body):
+        errors.append("closed scope_reconciliation report content digest does not match")
+    if report.get("status") not in {"Passed", "Skipped"} or report.get("out_of_scope") != []:
+        errors.append("closed scope_reconciliation did not pass")
+    baseline = before.get("source_snapshot") or {}
+    git_baseline = baseline.get("vcs") == "git" and baseline.get("head_exists") and baseline.get("head")
+    if git_baseline and report.get("status") != "Passed":
+        errors.append("a Git baseline requires Passed close-time scope evidence")
+    return errors
+
+
 def close_task(
     task_dir: Path,
     *,
@@ -3402,13 +3790,10 @@ def close_task(
         raise GovernanceError(f"unsupported outcome status: {status}")
     before = read_json(task_dir / "before.json")
     require_valid_json_document(before, "task-before.schema.json", "before")
+    require_current_proof_contract(before)
     after_path = task_dir / "after.json"
     if after_path.exists():
         raise GovernanceError(f"task outcome already exists: {after_path}; use amend_record.py")
-    if status == "Implemented":
-        acceptance_errors = require_decision(before, "Acceptance", "an Implemented outcome")
-        if acceptance_errors:
-            raise GovernanceError("; ".join(acceptance_errors))
     survey_errors = validate_survey_refs(task_dir.resolve().parents[2], before.get("clarification"))
     if survey_errors:
         raise GovernanceError("; ".join(survey_errors))
@@ -3452,29 +3837,9 @@ def close_task(
             raise GovernanceError(f"verification[{position}].result is invalid")
         item.setdefault("evidence_refs", [])
     if status == "Implemented":
-        gate_errors = reconcile_required_gates(before, events)
-        if gate_errors:
-            raise GovernanceError("; ".join(gate_errors))
-        if not events or events[-1].get("status") != "succeeded":
-            raise GovernanceError("Implemented requires a succeeded run_finished event")
-        if not any(
-            event.get("event_type") == "verification" and event.get("status") == "succeeded"
-            for event in events
-        ):
-            raise GovernanceError("Implemented requires at least one succeeded verification RunLedger event")
-        if not any(item.get("result") == "Passed" for item in checks):
-            raise GovernanceError("Implemented requires at least one Passed verification result")
-        blocking = [
-            item for item in checks
-            if item.get("required", True) and item.get("result") in {"Failed", "Blocked"}
-        ]
-        if blocking:
-            raise GovernanceError("Implemented cannot contain a required Failed or Blocked verification")
-        if any(
-            item.get("result") == "Passed" and not item.get("evidence_refs")
-            for item in checks
-        ):
-            raise GovernanceError("Passed verification in an Implemented outcome requires evidence_refs")
+        terminal_errors = validate_implemented_contract(before, events, checks)
+        if terminal_errors:
+            raise GovernanceError("; ".join(terminal_errors))
     if artifact_manifest is None:
         planned_types = {item.get("meta_type") for item in before["artifact_manifest"]}
         if len(before["artifact_manifest"]) != 3 or planned_types != {"TaskContract", "RunLedger", "TaskOutcome"}:
@@ -3499,6 +3864,7 @@ def close_task(
         raise GovernanceError("; ".join(manifest_errors))
     after = {
         "schema_version": SCHEMA_VERSION,
+        "proof_contract_version": PROOF_CONTRACT_VERSION,
         "meta_type": "TaskOutcome",
         "project_id": before["project_id"],
         "work_item_id": before["work_item_id"],
@@ -3518,6 +3884,17 @@ def close_task(
         "artifact_manifest": terminal_manifest,
         "amendments": [],
     }
+    after["scope_reconciliation"] = {
+        **scope_report,
+        "baseline_sha256": _fact_sha256(before.get("source_snapshot")),
+        "scope_sha256": _fact_sha256(before.get("scope")),
+        "delivery_sha256": _fact_sha256(after["source_snapshot"]),
+    }
+    after["scope_reconciliation"]["report_sha256"] = _fact_sha256(after["scope_reconciliation"])
+    if status == "Implemented":
+        scope_errors = validate_closed_scope_evidence(before, after)
+        if scope_errors:
+            raise GovernanceError("; ".join(scope_errors))
     require_valid_json_document(after, "task-after.schema.json", "after")
     atomic_write_json(after_path, after)
     _write_scope_reconciliation_view(project_root, before, scope_report)
@@ -3688,6 +4065,7 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                     }
                 )
                 outcome = record.get("task_outcome")
+                proof_validation, _ = proof_validation_for_read(record, record["run_ledger"], outcome, minimal=True)
                 if not isinstance(outcome, dict):
                     source_tasks.append(
                         {
@@ -3695,6 +4073,7 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                             "ordinal": record["ordinal"],
                             "status": "Active",
                             "carrier_mode": "Minimal",
+                            "proof_validation": proof_validation,
                         }
                     )
                     continue
@@ -3706,6 +4085,7 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                         "revision": record["revision"],
                         "completed_at": outcome["completed_at"],
                         "carrier_mode": "Minimal",
+                        "proof_validation": proof_validation,
                     }
                 )
                 for fact in outcome.get("established_facts", []):
@@ -3760,7 +4140,9 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                 }
             )
             if not after_path.exists():
-                source_tasks.append({"task_id": before["task_id"], "ordinal": before["ordinal"], "status": "Active"})
+                proof_validation, _ = proof_validation_for_read(before, read_jsonl(task_dir / "run.jsonl"), None)
+                source_tasks.append({"task_id": before["task_id"], "ordinal": before["ordinal"], "status": "Active",
+                                     "proof_validation": proof_validation})
                 continue
             after = read_json(after_path)
             require_valid_json_document(after, "task-after.schema.json", str(after_path))
@@ -3768,6 +4150,7 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                 if after[key] != before[key]:
                     raise GovernanceError(f"{after_path}: {key} does not match TaskContract")
             digest_parts.append(after_path.read_bytes())
+            proof_validation, _ = proof_validation_for_read(before, read_jsonl(task_dir / "run.jsonl"), after)
             source_tasks.append(
                 {
                     "task_id": after["task_id"],
@@ -3775,6 +4158,7 @@ def rebuild_project_state(project_root: Path, project_id: str) -> Path:
                     "status": after["status"],
                     "revision": after["revision"],
                     "completed_at": after["completed_at"],
+                    "proof_validation": proof_validation,
                 }
             )
             for fact in after.get("established_facts", []):
@@ -3823,12 +4207,13 @@ def render_project_status(state: dict[str, Any]) -> str:
         "",
         "## Tasks",
         "",
-        "| Task | Status | Revision |",
-        "|---|---|---:|",
+        "| Task | Status | Revision | Proof validation |",
+        "|---|---|---:|---|",
     ]
     for item in state["source_tasks"]:
         lines.append(
-            f"| {item['task_id']} | {item['status']} | {item.get('revision', '')} |"
+            f"| {item['task_id']} | {item['status']} | {item.get('revision', '')} | "
+            f"{proof_validation_label(item.get('proof_validation', {}))} |"
         )
     lines.extend(["", "## Established facts", ""])
     lines.extend(
@@ -4128,7 +4513,8 @@ def generate_views(
             outputs.extend(_write_derived_view(
                 root=root,
                 content_path=review_path,
-                content=render_task_review(before, after),
+                content=render_task_review(before, after) + "\n## Proof validation\n\n"
+                + proof_validation_label(proof_validation_for_read(before, read_jsonl(task_dir / "run.jsonl"), after)[0]) + "\n",
                 project_id=project_id,
                 view_id=f"DV-{project_id}-{before['task_id']}",
                 view_kind="task-review",
@@ -4443,6 +4829,8 @@ def validate_task_directory(task_dir: Path) -> list[str]:
         except (OSError, json.JSONDecodeError, GovernanceError) as exc:
             errors.append(str(exc))
         else:
+            proof_validation, proof_errors = proof_validation_for_read(before, events, after)
+            errors.extend(proof_errors)
             errors.extend(validate_json_document(after, "task-after.schema.json", "after"))
             errors.extend(
                 validate_artifact_manifest(
@@ -4458,25 +4846,11 @@ def validate_task_directory(task_dir: Path) -> list[str]:
             errors.extend(
                 validate_run_lifecycle(before, events, terminal_required=execution_required or bool(events))
             )
-            if after.get("status") == "Implemented":
-                checks = after.get("verification", [])
-                if not events or events[-1].get("status") != "succeeded":
-                    errors.append("Implemented outcome requires a succeeded run_finished event")
-                if not any(
-                    event.get("event_type") == "verification" and event.get("status") == "succeeded"
-                    for event in events
-                ):
-                    errors.append("Implemented outcome requires a succeeded verification RunLedger event")
-                if not any(item.get("result") == "Passed" for item in checks if isinstance(item, dict)):
-                    errors.append("Implemented outcome requires at least one Passed verification")
-                if any(
-                    item.get("result") == "Passed" and not item.get("evidence_refs")
-                    for item in checks if isinstance(item, dict)
-                ):
-                    errors.append("Passed verification in an Implemented outcome requires evidence_refs")
-                if any(
-                    item.get("required", True) and item.get("result") in {"Failed", "Blocked"}
-                    for item in checks if isinstance(item, dict)
-                ):
-                    errors.append("Implemented outcome contains a required Failed or Blocked verification")
+            if (after.get("status") == "Implemented"
+                    and proof_validation["status"] != "HistoricalNotRevalidated"):
+                errors.extend(validate_implemented_contract(before, events, after.get("verification", [])))
+                errors.extend(validate_closed_scope_evidence(before, after))
+    else:
+        _, proof_errors = proof_validation_for_read(before, events, None)
+        errors.extend(proof_errors)
     return errors

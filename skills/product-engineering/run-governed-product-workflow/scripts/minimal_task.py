@@ -27,6 +27,13 @@ from governance_artifacts import (
     validate_survey_refs,
     require_decision,
     ledger_lock,
+    approval_subject_sha256,
+    validate_implemented_contract,
+    validate_decision_enrichments,
+    PROOF_CONTRACT_VERSION,
+    proof_validation_for_read,
+    proof_validation_label,
+    require_current_proof_contract,
 )
 
 
@@ -185,6 +192,10 @@ def validate_minimal_record(
     errors = validate_json_document(record, MINIMAL_SCHEMA, "task-record")
     if errors:
         return errors
+    proof_validation, proof_errors = proof_validation_for_read(
+        record, record["run_ledger"], record.get("task_outcome"), minimal=True)
+    errors.extend(proof_errors)
+    historical = proof_validation["status"] == "HistoricalNotRevalidated"
     if task_dir is not None and record["task_id"] != task_dir.name:
         errors.append("task-record.task_id must match the task directory name")
     if record["meta_types"] != MINIMAL_META_TYPES:
@@ -204,7 +215,8 @@ def validate_minimal_record(
     errors.extend(
         f"task_contract.{item}"
         for item in validate_requirement_items(
-            record["task_contract"], require_discharge=record["lifecycle_state"] == "Completed"
+            record["task_contract"], require_discharge=record["lifecycle_state"] == "Completed",
+            require_review_proof=not historical,
         )
     )
     task_profile = record["task_contract"]["task_profile"]
@@ -230,8 +242,27 @@ def validate_minimal_record(
     if sum(event.get("event_type") == "run_started" for event in events) > 1:
         errors.append("Minimal RunLedger may contain only one run_started")
     seen_event_ids: set[str] = set()
+    seen_attempts: set[str] = set()
+    current_attempt: str | None = None
+    failed_attempts: set[str] = set()
     previous_timestamp: datetime | None = None
     for event in events:
+        attempt = event.get("attempt_id", current_attempt or "attempt-001")
+        event_type = event.get("event_type")
+        if event_type == "retry":
+            if event.get("status") != "started" or attempt in seen_attempts or current_attempt not in failed_attempts:
+                errors.append("Minimal retry requires a new attempt and failure on the current attempt")
+        elif current_attempt is not None and attempt != current_attempt:
+            errors.append("Minimal attempt_id can change only on retry")
+        if event_type == "failure":
+            if event.get("status") not in {"failed", "blocked"}:
+                errors.append("Minimal failure status must be failed or blocked")
+            else:
+                failed_attempts.add(attempt)
+        if event_type == "run_started" and event.get("status") != "started":
+            errors.append("Minimal run_started status must be started")
+        current_attempt = attempt
+        seen_attempts.add(attempt)
         event_id = event.get("event_id")
         if isinstance(event_id, str):
             if event_id in seen_event_ids:
@@ -264,6 +295,8 @@ def validate_minimal_record(
             errors.append("Minimal carrier completion timestamps must match")
         if any(item.get("outcome") != "Created" for item in record["artifact_manifest"]):
             errors.append("Completed Minimal carrier requires Created manifest outcomes")
+        if outcome.get("status") == "Implemented" and not historical:
+            errors.extend(validate_implemented_contract(minimal_approval_contract(record), events, outcome.get("verification", []), minimal=True))
     upgrade = record["upgrade"]
     if lifecycle == "Upgraded" and not upgrade.get("required"):
         errors.append("Upgraded Minimal carrier requires an upgrade reason")
@@ -428,6 +461,7 @@ def create_minimal_record(
         raise GovernanceError("; ".join(survey_errors))
     record = {
         "schema_version": "6.3-candidate",
+        "proof_contract_version": PROOF_CONTRACT_VERSION,
         "carrier_version": "minimal-task-record-v1",
         "carrier_mode": "Minimal",
         "meta_types": MINIMAL_META_TYPES,
@@ -557,6 +591,7 @@ def _append_minimal_event_unlocked(
         raise GovernanceError(f"unsupported Minimal event status: {status}")
     record_path = minimal_record_path(task_dir)
     record = read_json(record_path)
+    require_current_proof_contract(record)
     require_valid_minimal_record(record, task_dir=task_dir.resolve())
     if record["lifecycle_state"] in {"Completed", "Upgraded"}:
         raise GovernanceError("cannot append to a completed or upgraded Minimal carrier")
@@ -567,18 +602,23 @@ def _append_minimal_event_unlocked(
         raise GovernanceError("run_started already exists")
     # Minimal trims carriers, never controls. Wiring the Proceed gate only into the full
     # carrier would have made the Minimal path -- the common one -- a way around it.
-    if event_type == "run_started":
+    if event_type in {"run_started", "mutation", "verification", "retry"}:
         decision_errors = require_decision(record["task_contract"], "Proceed", "execution")
         if decision_errors:
             raise GovernanceError("; ".join(decision_errors))
     if event_type == "run_finished":
         raise GovernanceError("run_finished is written by close, not append")
+    current_attempt = events[-1].get("attempt_id", "attempt-001") if events else "attempt-001"
+    if event_type == "failure" and status not in {"failed", "blocked"}:
+        raise GovernanceError("Minimal failure status must be failed or blocked")
+    if event_type == "run_started" and status != "started":
+        raise GovernanceError("Minimal run_started status must be started")
     event = {
         "sequence": len(events) + 1,
         "timestamp": now_utc(),
         "run_id": f"{record['task_id']}-run-001",
         "event_id": f"{record['task_id']}-run-001-E{len(events)+1:04d}",
-        "attempt_id": "attempt-001",
+        "attempt_id": current_attempt,
         "event_type": event_type,
         "summary": summary.strip(),
         "status": status,
@@ -589,9 +629,9 @@ def _append_minimal_event_unlocked(
     if event_type == "retry":
         if status != "started":
             raise GovernanceError("retry status must be started")
-        current_attempt = events[-1].get("attempt_id", "attempt-001") if events else "attempt-001"
-        if not any(e.get("event_type") == "failure" and e.get("status") in {"failed", "blocked"} for e in events):
-            raise GovernanceError("retry requires a prior failed or blocked event")
+        if not any(e.get("event_type") == "failure" and e.get("status") in {"failed", "blocked"}
+                   and e.get("attempt_id", "attempt-001") == current_attempt for e in events):
+            raise GovernanceError("retry requires a failed or blocked event on the current attempt")
         event["attempt_id"] = f"{current_attempt}-retry-{len(events)+1:03d}"
     events.append(event)
     record["lifecycle_state"] = "Frozen"
@@ -682,7 +722,146 @@ def parse_verification(values: Iterable[str]) -> list[dict[str, Any]]:
     return checks
 
 
-def close_minimal_record(
+def minimal_approval_contract(record: dict[str, Any]) -> dict[str, Any]:
+    contract = {**record["task_contract"], "task_id": record["task_id"], "project_id": record["project_id"]}
+    if "proof_contract_version" in record:
+        contract["proof_contract_version"] = record["proof_contract_version"]
+    return contract
+
+
+def _recover_minimal_verification(record: dict[str, Any], task_dir: Path, receipt: dict[str, Any]) -> dict[str, Any]:
+    """Recover an evidenced, previously unrecorded check without redating a human answer."""
+    required = {"verified_at", "summary", "result", "source_files", "evidence_files"}
+    if not isinstance(receipt, dict) or set(receipt) != required or receipt.get("result") != "Passed":
+        raise GovernanceError("verification recovery requires a Passed receipt with verified_at, summary, source_files and evidence_files")
+    if not isinstance(receipt["summary"], str) or not receipt["summary"].strip():
+        raise GovernanceError("verification recovery summary is required")
+    try:
+        verified = datetime.fromisoformat(receipt["verified_at"].replace("Z", "+00:00"))
+        if verified.tzinfo is None or verified > datetime.now(timezone.utc):
+            raise ValueError("future or naive verification time")
+    except (AttributeError, TypeError, ValueError) as exc:
+        raise GovernanceError("verification recovery requires an actual timezone-aware, non-future verified_at") from exc
+    events = record["run_ledger"]
+    if not events or any(event["event_type"] == "verification" for event in events):
+        raise GovernanceError("verification recovery only fills a missing verification in an existing active run")
+    if verified < datetime.fromisoformat(events[-1]["timestamp"].replace("Z", "+00:00")):
+        raise GovernanceError("verification recovery cannot precede the existing ledger or its invalidating actions")
+    decision_errors = require_decision(record["task_contract"], "Proceed", "verification recovery")
+    if decision_errors:
+        raise GovernanceError("; ".join(decision_errors))
+    proceed_times = [datetime.fromisoformat(item["decided_at"].replace("Z", "+00:00"))
+                     for item in record["task_contract"]["decisions"] if item["kind"] == "Proceed"]
+    if max(proceed_times) > verified:
+        raise GovernanceError("verification recovery cannot precede its execution authorization")
+    project_root = task_dir.resolve().parents[2]
+    refs = []
+    seen = set()
+    for group in ("source_files", "evidence_files"):
+        files = receipt[group]
+        if not isinstance(files, list) or not files:
+            raise GovernanceError("verification recovery requires nonempty source and evidence file manifests")
+        for item in files:
+            if (not isinstance(item, dict) or set(item) != {"path", "sha256"}
+                    or not isinstance(item["path"], str) or not item["path"].strip()
+                    or not isinstance(item["sha256"], str) or not re.fullmatch(r"[0-9a-f]{64}", item["sha256"])):
+                raise GovernanceError("verification recovery file entries require a path and a SHA-256")
+            relative = Path(item["path"])
+            target = (project_root / relative).resolve()
+            if relative.is_absolute() or not target.is_relative_to(project_root) or not target.is_file() or target in seen:
+                raise GovernanceError("verification recovery files must be unique existing files inside the project")
+            seen.add(target)
+            # JSON datetime precision is microseconds; filesystem precision can be finer.
+            if target.stat().st_mtime - verified.timestamp() > 0.000001:
+                raise GovernanceError("verification recovery file was modified after verified_at: " + item["path"])
+            if hashlib.sha256(target.read_bytes()).hexdigest() != item["sha256"]:
+                raise GovernanceError("verification recovery file hash mismatch: " + item["path"])
+            refs.append(item["path"] + "#sha256=" + item["sha256"])
+    return {"sequence": len(events) + 1, "timestamp": receipt["verified_at"],
+            "run_id": f"{record['task_id']}-run-001", "event_id": f"{record['task_id']}-run-001-E{len(events)+1:04d}",
+            "attempt_id": events[-1].get("attempt_id", "attempt-001"), "event_type": "verification",
+            "summary": receipt["summary"], "status": "succeeded", "evidence_refs": refs}
+
+
+def record_minimal_review(
+    task_dir: Path, *, decisions: Iterable[dict[str, Any]] = (),
+    requirement_items: list[dict[str, Any]] | None = None, reason: str, basis: str,
+    adopt_proof_contract: bool = False,
+    verification_receipt: dict[str, Any] | None = None,
+) -> Path:
+    """Append real decisions and discharge evidence without rewriting a frozen scope."""
+    if not reason.strip() or not basis.strip():
+        raise GovernanceError("review update requires reason and basis")
+    path = minimal_record_path(task_dir)
+    with ledger_lock(path):
+        record = read_json(path)
+        if adopt_proof_contract:
+            # An interrupted cutover may itself be the only validation error.
+            # Stage the explicit adoption in memory before full validation;
+            # schema, identity, history and all current proof gates still apply.
+            schema_errors = validate_json_document(record, MINIMAL_SCHEMA, "task-record")
+            if schema_errors:
+                raise GovernanceError("; ".join(schema_errors))
+            if record["lifecycle_state"] not in {"Ready", "Frozen"}:
+                raise GovernanceError("cannot adopt proof policy on a terminal Minimal carrier")
+            if "proof_contract_version" in record:
+                raise GovernanceError("proof_contract_version is already present and cannot be changed")
+            record["proof_contract_version"] = PROOF_CONTRACT_VERSION
+        require_valid_minimal_record(record, task_dir=task_dir.resolve())
+        if record["lifecycle_state"] in {"Completed", "Upgraded"}:
+            raise GovernanceError("cannot update review facts on a terminal Minimal carrier")
+        contract = record["task_contract"]
+        changes = []
+        if adopt_proof_contract:
+            changes.append({"path": "proof_contract_version", "old_value": {"$missing": True},
+                            "new_value": PROOF_CONTRACT_VERSION})
+        require_current_proof_contract(record)
+        if verification_receipt is not None:
+            event = _recover_minimal_verification(record, task_dir, verification_receipt)
+            old_events = list(record["run_ledger"])
+            record["run_ledger"] = old_events + [event]
+            changes.append({"path": "run_ledger", "old_value": old_events, "new_value": record["run_ledger"],
+                            "recovery_receipt": verification_receipt})
+        additional = list(decisions)
+        if additional:
+            existing_ids = {item["id"] for item in contract["decisions"]}
+            new_ids = [item.get("id") for item in additional]
+            if len(set(new_ids)) != len(new_ids) or existing_ids.intersection(new_ids):
+                raise GovernanceError("review decisions must append new unique ids; preserve previous answers")
+            old = list(contract["decisions"])
+            contract["decisions"] = old + additional
+            enrichment_errors, _ = validate_decision_enrichments(contract["decisions"])
+            if enrichment_errors:
+                raise GovernanceError("; ".join(enrichment_errors))
+            changes.append({"path": "task_contract.decisions", "old_value": old, "new_value": contract["decisions"]})
+        if requirement_items is not None:
+            old = contract["requirement_items"]
+            new_by_id = {item.get("id"): item for item in requirement_items}
+            old_ids = {item["id"] for item in old}
+            if any(item.get("id") not in old_ids and item.get("state") not in {"Open", "Covered", "NotARequirement"}
+                   for item in requirement_items):
+                raise GovernanceError("new scope trade-offs require a full carrier")
+            for item in old:
+                replacement = new_by_id.get(item["id"], {})
+                if any(replacement.get(key) != item.get(key) for key in ("source", "quote", "acceptance_refs")):
+                    raise GovernanceError("review update must preserve requirement identity, original quote and acceptance binding")
+                if replacement.get("state") != item.get("state") and (
+                        item.get("state") not in {"Open", "Covered"} or replacement.get("state") not in {"Open", "Covered"}):
+                    raise GovernanceError("scope trade-offs require a full carrier; review may only discharge or reopen an item")
+            contract["requirement_items"] = requirement_items
+            changes.append({"path": "task_contract.requirement_items", "old_value": old, "new_value": requirement_items})
+        if not changes:
+            raise GovernanceError("review update contains no decisions or requirement evidence")
+        prior_revision = record["revision"]
+        record["revision"] += 1
+        record["amendments"].append({"from_revision": prior_revision, "to_revision": record["revision"],
+                                     "changes": changes, "reason": reason, "basis": basis, "changed_at": now_utc()})
+        require_valid_minimal_record(record, task_dir=task_dir.resolve())
+        atomic_write_json(path, record)
+    return path
+
+
+def _close_minimal_record_unlocked(
     task_dir: Path,
     *,
     status: str,
@@ -696,9 +875,11 @@ def close_minimal_record(
         raise GovernanceError(f"unsupported Minimal outcome: {status}")
     record_path = minimal_record_path(task_dir)
     record = read_json(record_path)
+    require_current_proof_contract(record)
     if status == "Implemented":
         acceptance_errors = require_decision(
-            record["task_contract"], "Acceptance", "an Implemented outcome"
+            minimal_approval_contract(record), "Acceptance", "an Implemented outcome",
+            subject_sha256=approval_subject_sha256(minimal_approval_contract(record), record["run_ledger"]),
         )
         if acceptance_errors:
             raise GovernanceError("; ".join(acceptance_errors))
@@ -734,6 +915,9 @@ def close_minimal_record(
             {
                 "sequence": len(events) + 1,
                 "timestamp": completed_at,
+                "run_id": f"{record['task_id']}-run-001",
+                "event_id": f"{record['task_id']}-run-001-E{len(events)+1:04d}",
+                "attempt_id": events[-1].get("attempt_id", "attempt-001"),
                 "event_type": "run_finished",
                 "summary": f"Minimal task closed as {status}.",
                 "status": "succeeded" if status == "Implemented" else "recorded",
@@ -765,6 +949,12 @@ def close_minimal_record(
     return record_path
 
 
+def close_minimal_record(task_dir: Path, **kwargs: Any) -> Path:
+    """Serialize acceptance evidence updates, events and terminal writes."""
+    with ledger_lock(minimal_record_path(task_dir)):
+        return _close_minimal_record_unlocked(task_dir, **kwargs)
+
+
 def mark_minimal_upgrade(
     task_dir: Path,
     *,
@@ -774,6 +964,7 @@ def mark_minimal_upgrade(
 ) -> dict[str, Any]:
     record_path = minimal_record_path(task_dir)
     record = read_json(record_path)
+    require_current_proof_contract(record)
     require_valid_minimal_record(record, task_dir=task_dir.resolve())
     if record["lifecycle_state"] in {"Completed", "Upgraded"}:
         raise GovernanceError("only active Minimal work can upgrade")
@@ -833,6 +1024,8 @@ def render_minimal_review(record: dict[str, Any]) -> str:
         "",
         "- Carrier: Minimal aggregate (TaskContract + RunLedger + TaskOutcome)",
         f"- Status: {status}",
+        "- Proof validation: " + proof_validation_label(
+            proof_validation_for_read(record, record["run_ledger"], outcome, minimal=True)[0]),
         f"- Objective: {record['task_contract']['objective']}",
         f"- Scope: {record['task_contract']['scope']}",
         f"- Acceptance: {record['task_contract']['acceptance']}",

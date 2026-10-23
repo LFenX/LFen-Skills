@@ -2187,12 +2187,13 @@
       },
       {
         "script": "append_run_event.py",
-        "help_sha256": "60df165335352d10ec5a3ca318ad42b4348af017c545665290c176466dc91803",
+        "help_sha256": "831ea4a9f1ce019af824836c8bd9613a918aaf0bb378fbaed9908532052db714",
         "options": [
           "--attempt-id",
           "--event-type",
           "--evidence-ref",
           "--exit-code",
+          "--gate-json-file",
           "--help",
           "--redaction",
           "--run-id",
@@ -2357,7 +2358,7 @@
       },
       {
         "script": "manage_minimal_task.py",
-        "help_sha256": "a1c353a7b43d8099511ca672441a8ac78a0c57f6a1e5bed1593bd079f476c79a",
+        "help_sha256": "d86c08c4cc921c85e2394f5b3e8af2b749b34615e48ad35cc830d9aabb0d1469",
         "options": [
           "--help"
         ]
@@ -2517,6 +2518,48 @@
           "--check-mapping",
           "--execution-ready",
           "--help"
+        ]
+      },
+      {
+        "script": "manage_minimal_task.py",
+        "help_args": [
+          "record-review",
+          "--help"
+        ],
+        "help_sha256": "cf5565a371b2c5611357457177d24a858f36950ba33f5720078705557320e90f",
+        "options": [
+          "--adopt-proof-contract",
+          "--basis",
+          "--decisions-json-file",
+          "--help",
+          "--reason",
+          "--requirement-items-json-file",
+          "--verification-json-file"
+        ]
+      },
+      {
+        "script": "get_approval_subject.py",
+        "help_args": [
+          "--help"
+        ],
+        "help_sha256": "c86a663ff85898da70ebd5ce2de4c6b10cbcf1bb0ff382529fa39e46a82a5c2b",
+        "options": [
+          "--help"
+        ]
+      },
+      {
+        "script": "manage_minimal_task.py",
+        "help_args": [
+          "append",
+          "--help"
+        ],
+        "help_sha256": "40f4c65f9febb96676a277975a3e075e39f7482852a7eeee5edf28e025e2569f",
+        "options": [
+          "--event-type",
+          "--evidence-ref",
+          "--help",
+          "--status",
+          "--summary"
         ]
       }
     ]

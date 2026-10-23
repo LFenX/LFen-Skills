@@ -23,6 +23,7 @@ from minimal_task import (
     create_minimal_record,
     minimal_record_path,
     validate_minimal_record,
+    record_minimal_review,
 )
 
 
@@ -111,7 +112,7 @@ def parse_args() -> argparse.Namespace:
     append.add_argument(
         "--event-type",
         required=True,
-        choices=["run_started", "mutation", "verification", "failure"],
+        choices=["run_started", "mutation", "verification", "failure", "retry"],
     )
     append.add_argument("--summary", required=True)
     append.add_argument(
@@ -120,6 +121,16 @@ def parse_args() -> argparse.Namespace:
         choices=["started", "recorded", "succeeded", "failed", "blocked"],
     )
     append.add_argument("--evidence-ref", action="append", default=[])
+    review = commands.add_parser("record-review", help="Append actual human decisions and source-bound requirement review evidence")
+    review.add_argument("task_dir", type=Path)
+    review.add_argument("--decisions-json-file", type=Path)
+    review.add_argument("--requirement-items-json-file", type=Path)
+    review.add_argument("--verification-json-file", type=Path,
+                        help="Recover a previously unrecorded Passed verification using original time and unchanged source/evidence SHA-256 manifests")
+    review.add_argument("--reason", required=True)
+    review.add_argument("--basis", required=True)
+    review.add_argument("--adopt-proof-contract", action="store_true",
+                        help="Explicitly adopt the current proof policy on an active legacy record, without inventing decisions")
     close = commands.add_parser("close")
     close.add_argument("task_dir", type=Path)
     close.add_argument(
@@ -257,6 +268,12 @@ def main() -> int:
                 evidence_refs=args.evidence_ref,
             )
             print(json.dumps(event, ensure_ascii=False, indent=2))
+        elif args.command == "record-review":
+            print(record_minimal_review(args.task_dir,
+                decisions=decode_json_input(None, args.decisions_json_file, list, "decisions") or [],
+                requirement_items=decode_json_input(None, args.requirement_items_json_file, list, "requirement items"),
+                verification_receipt=decode_json_input(None, args.verification_json_file, dict, "verification receipt"),
+                reason=args.reason, basis=args.basis, adopt_proof_contract=args.adopt_proof_contract))
         elif args.command == "close":
             print(
                 close_minimal_record(

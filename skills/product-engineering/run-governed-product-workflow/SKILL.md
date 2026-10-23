@@ -1,8 +1,8 @@
 ---
 name: run-governed-product-workflow
 description: 用于推进具体开发任务：新功能、改需求、修 bug、重构、迁移退役、发布上线、复查验收；前端、后端、脚本、配置、文档同等适用。按团队 V6.3 规范维护可核对的需求、计划、执行、验证、验收和证据，用同一六元模型在 Minimal 与完整载体之间裁剪——小任务只写一个文件，但不因为任务小就跳过澄清和验收。凡是会改变产品行为、外部可见接口、文档布局或发布结果的改动都适用。也用于对已交付内容的复查——“review 一遍 / 再查一遍 / 是否闭环 / 有没有遗漏 / 需求是否都实现了 / 验收”，此类请求走 verify，按总原则 10 逐条对照需求原文，不抽查。用户提到 Grill Me、Task Profile、Artifact Manifest、VC-PPG、C01-C12、E01-E05 或“最轻框架”时同样适用。不用于纯只读问答，以及不改变任何行为的一次性 git 命令。
-description_en: "Drive concrete development tasks such as new features, requirement changes, bug fixes, refactors, migrations and retirement, releases, and re-acceptance — frontend, backend, scripts, config, and docs alike. Maintains verifiable requirements, plans, execution, verification, acceptance, and evidence per the team V6.3 norms, scaling between the Minimal and full carrier with the same six-element model — a small task keeps just one file but never skips clarification or acceptance. Applies to any change that alters product behavior, externally visible interfaces, documentation layout, or release outcomes. Also for reviewing delivered work — review again, check closed-loop, anything missed, all requirements implemented, acceptance — via verify, checked item by item against the original requirement text without sampling. Applies when the user mentions Grill Me, Task Profile, Artifact Manifest, VC-PPG, C01-C12, E01-E05, or the lightest framework. Not for pure read-only Q&A or one-off git commands that change no behavior."
 metadata:
+  description_en: "Drive concrete development tasks such as new features, requirement changes, bug fixes, refactors, migrations and retirement, releases, and re-acceptance — frontend, backend, scripts, config, and docs alike. Maintains verifiable requirements, plans, execution, verification, acceptance, and evidence per the team V6.3 norms, scaling between the Minimal and full carrier with the same six-element model — a small task keeps just one file but never skips clarification or acceptance. Applies to any change that alters product behavior, externally visible interfaces, documentation layout, or release outcomes. Also for reviewing delivered work — review again, check closed-loop, anything missed, all requirements implemented, acceptance — via verify, checked item by item against the original requirement text without sampling. Applies when the user mentions Grill Me, Task Profile, Artifact Manifest, VC-PPG, C01-C12, E01-E05, or the lightest framework. Not for pure read-only Q&A or one-off git commands that change no behavior."
   version: 6.3.0-candidate
 ---
 
@@ -22,6 +22,7 @@ metadata:
 8. 相同事实只维护一份权威定义；其他文件引用或按需生成。
 9. 问题拆解、方案制定和重大修订必须应用 [第一性原理执行规范](references/first-principles-method.md)。
 10. 复查与验收以**需求原文**为基准，**逐条对照，不抽查**。任务卡、完成判据、验收清单等 Agent 起草的派生物只能作为补充，不能替代原文：它们在起草时就可能漏掉原文里的要求，拿它们验自己写的实现，查多少遍都不会红。执行方式见 [commands/verify.md](commands/verify.md)。
+11. 实现和工程验证完成后，必须向人交付可核对的结果并主动发起一次真实 Acceptance 确认。已有覆盖本次交付版本与范围、仍有效的明确验收通过决定时不重复询问；没有回答、回答含糊、拒绝或推迟时均不得记作验收通过。待答规则见 [commands/verify.md](commands/verify.md)，正式收尾见 [commands/close.md](commands/close.md)。
 
 ## 路径约定
 
@@ -74,6 +75,8 @@ python <skill-root>/scripts/get_context.py --task-dir <project-root>/.project-go
 
 **归档。** 用户原话进 `request_snapshot`，澄清过程进 `clarification`：每轮的问题、它会改变的项、推荐默认、用户回答原话、回答状态。两者同等重要，都是验收基准。二者缺失、或 `clarification.state` 不是 `Settled`、或还有回答处于 `Ambiguous`/`Deferred` 时，`resolve_tailoring` 从 S2 起返回 blocker，任务无法进入二次确认与计划。
 
+执行失败后先核实失败原因和已有授权。已授权同范围内的工具、环境、夹具、断言或实现修正，若未引入目标、Scope、Acceptance、Authority、风险或安全边界的新未知，必须保留失败与 Retry 证据，不能仅凭失败次数要求人重复确认同一授权。真实新未知仍须停止受影响动作并澄清；机器明确阻断时必须按官方路径处理，不得伪造问答或绕过 Gate。详见 [commands/clarify.md](commands/clarify.md)。
+
 轮次、追问与退出条件见 [commands/clarify.md](commands/clarify.md)。
 
 ## 三道门
@@ -87,6 +90,8 @@ python <skill-root>/scripts/get_context.py --task-dir <project-root>/.project-go
 | 出 S6 | 每条需求已交代且有证据；存在 `Acceptance` 决定；声明范围与 git 实际改动一致 | `close_task` 三处阻断 |
 
 `tailoring_stage` 是给裁剪算 blocker 用的，不是状态机；三道门之外不设顺序校验。
+
+工程验证通过不是出 S6，也不是人的 Acceptance。未取得本次交付的有效肯定验收时，应明确报告“待人验收”，保留实际验证与未覆盖项；不得为了生成 `after.json` / `task_outcome` 而伪标 `Implemented`、`Deferred` 或 `Blocked`。“待人验收”是对真实进度的说明，不新增正式终态。
 
 ## 路由
 
@@ -136,6 +141,8 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 
 首次 `run_started` 会冻结 TaskContract。之后 Scope、Acceptance、Authority、Plan 或 Task Profile 变化必须先停止受影响动作，再用 `<skill-root>/scripts/amend_record.py` 或 `<skill-root>/scripts/refresh_tailoring_resolution.py` 修订；禁止静默覆盖。
 
+新增证明契约使用 `proof_contract_version` 区分新执行与历史读取。旧终态按原始结构、身份和账本关系校验并保留原状态；项目汇总标明是否为 `HistoricalNotRevalidated`，不追溯补造新增证明，也不把兼容读取称为当前门禁通过。旧活动任务继续执行前须通过正式 Amendment 采用当前契约并核验有效授权；新建、追加执行和收尾不能使用历史豁免。边界及操作见 [verify](commands/verify.md)。
+
 项目文档默认进入 `<project-root>/LG_project_docs/requirements/<RequirementID>/<DocumentType>/`；旧 `*_需求澄清备案*.md` 和 `*_执行计划.md` 只兼容读取，不再作为新任务默认载体。
 
 ## 事实与权限边界
@@ -145,6 +152,8 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 必须由人完成：目标和验收确认、范围取舍、批准、发布、例外、剩余风险接受和最终 Gate。
 
 Ask 只是交互和恢复通道；正式决定、批准和 Gate 以权威事实源为准。工具成功、聊天回复、沉默或 Ask 点击都不等于批准。
+
+决定必须保留实际展示内容、回答原话、决定人与时间、真实来源引用及明确 `outcome`；肯定决定为 `Approved`，拒绝和推迟不能当作批准。Acceptance 还须绑定当前已验证交付的 `subject_sha256`，required Gate 使用结构化 proof；操作见 [verify](commands/verify.md) 和 [close](commands/close.md)。Agent 补齐字段不证明人已作决定，结构校验不能代替事实核验。
 
 写治理文件或 skill runtime 文件前先按 [commands/run.md](commands/run.md) 调用 `<skill-root>/scripts/check_write_guard.py`。守卫失败只警告放行；守卫明确拒绝时停止该写入。
 
@@ -174,3 +183,5 @@ Ask 只是交互和恢复通道；正式决定、批准和 Gate 以权威事实�
 ```
 
 二次确认是执行停点，不是排版：澄清 `Settled` 后固定展示要解决的问题、期望结果、本次会做、本次不做、如何验收、主要风险或未知、采用的默认项，并以 Ask：Proceed / Revise / Stop 结束，等到答复才继续。
+
+完工交接同样是人侧停点。先提交交付对象与版本、从完整 `request_snapshot` 和真实澄清回答独立穷举的覆盖结果、实际证据及未验项，再请求“验收通过 / 需要返修 / 暂不验收”。不得用开工 Proceed、测试全绿、沉默或另一版本的验收代替本次 Acceptance。拟以 `Implemented` 收尾时，完整载体须在真实 Acceptance 和各 required Gate 已记录后写成功的 `run_finished` 并 close；Minimal 在确认后调用 close，由其写入最终事件。没有真实答复时保持待人验收，不补写人的决定；真实失败、取消或其他未完成结果仍按各自事实记录，不套用验收通过流程。

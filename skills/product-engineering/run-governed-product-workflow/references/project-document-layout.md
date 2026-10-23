@@ -54,6 +54,7 @@ LG_project_docs/
 以下文件不迁入 `LG_project_docs/`：
 
 - 仓库根目录的 `README*`、`LICENSE*`、`CONTRIBUTING*`、`CHANGELOG*`、`SECURITY*`、`CODE_OF_CONDUCT*`。
+- 仓库根目录的 Python 依赖清单 `requirements.txt`（文件名不区分大小写），包括任务产物清单对该文件的引用；不因文件名含 `requirement` 而将其迁移为产品文档。此例外不扩展到 `product-requirements.txt`、`requirements.md` 等真实需求文档。
 - 与代码组件同目录、直接说明该组件构建或 API 的 `README.md`。
 - 应用运行所需的 HTML、图片、图标、静态资源和测试 Fixture；只有被 TaskContract/AuthorityAsset 声明为产品文档时才受本文档目录约束。
 - 第三方依赖、构建输出、缓存和 VCS 内部文件。

@@ -9,6 +9,7 @@ on:
       - "skills/**/SKILL.md"
       - "catalog/**"
       - "scripts/update_catalog.py"
+      - "scripts/test_update_catalog.py"
       - "scripts/check_install_links.py"
       - "scripts/test_check_install_links.py"
       - "scripts/test_installers.py"
@@ -25,6 +26,7 @@ on:
       - "skills/**/SKILL.md"
       - "catalog/**"
       - "scripts/update_catalog.py"
+      - "scripts/test_update_catalog.py"
       - "scripts/check_install_links.py"
       - "scripts/test_check_install_links.py"
       - "scripts/test_installers.py"
@@ -48,6 +50,8 @@ jobs:
           python-version: "3.11"
       - name: Validate taxonomy and generated catalogs
         run: python scripts/update_catalog.py --check
+      - name: Test catalog frontmatter compatibility
+        run: python scripts/test_update_catalog.py
       # Install entries live in home directories CI cannot see; the checker itself is tested
       # on symlinks here and on junctions locally.
       - name: Test the install entry checker

@@ -190,7 +190,7 @@
       "source": "skill-local:references/project-document-layout.md",
       "logical_path": "references/project-document-layout.md",
       "embedded": "references/project-document-layout.md",
-      "sha256": "b4f6d78f5657d0879382679555c3ba8b82c1b0dd8e2edd2b03b7b29cf494297d"
+      "sha256": "d7327c1a8c7ff375d8897b440b2da54211e6a286167e2806711b6cbb1a6d0824"
     },
     {
       "role": "skill-reference",
@@ -218,7 +218,7 @@
       "source": "skill-local:schemas/minimal-task-record.schema.json",
       "logical_path": "schemas/minimal-task-record.schema.json",
       "embedded": "assets/runtime/schemas/minimal-task-record.schema.json",
-      "sha256": "3f46ec8dc369c0808e031f4c58260391352675bba5fdf6e62046036c1b4467fb"
+      "sha256": "3c62811c6e5d45741f6571bc1e7110bb62ce35e2544c0c99a380b9dea77db602"
     },
     {
       "role": "schema",
@@ -253,28 +253,28 @@
       "source": "skill-local:schemas/project-state.schema.json",
       "logical_path": "schemas/project-state.schema.json",
       "embedded": "assets/runtime/schemas/project-state.schema.json",
-      "sha256": "6dedec5413d0dea3078818ac68dba7c8840ca07236be5aa427677711b9688f72"
+      "sha256": "a4b085fee161db4bd70b7b21092fa0a80914784ed8f2ba564ac646b892ec343b"
     },
     {
       "role": "schema",
       "source": "skill-local:schemas/run-event.schema.json",
       "logical_path": "schemas/run-event.schema.json",
       "embedded": "assets/runtime/schemas/run-event.schema.json",
-      "sha256": "82a9b5a848736594b49ae94593ff06616b025942302be76983cee66019681a3e"
+      "sha256": "e7255dffcc97d5e20f99717818e6c642d064fc387cabfcd57c7f2a645ce8065e"
     },
     {
       "role": "schema",
       "source": "skill-local:schemas/task-after.schema.json",
       "logical_path": "schemas/task-after.schema.json",
       "embedded": "assets/runtime/schemas/task-after.schema.json",
-      "sha256": "32320684c264ead10cf35020350dc83643ce64c2d2f16e4f204cf25ef4d3b014"
+      "sha256": "92eeda101f4aee01096707491c3e38a18eb36415e7a23f0d574bcc1faa3a2415"
     },
     {
       "role": "schema",
       "source": "skill-local:schemas/task-before.schema.json",
       "logical_path": "schemas/task-before.schema.json",
       "embedded": "assets/runtime/schemas/task-before.schema.json",
-      "sha256": "fbfab5ffc08a2eac0211e6ecce46e7629751040103410171da1358fef1805f13"
+      "sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045"
     },
     {
       "role": "evaluation",
@@ -288,7 +288,7 @@
       "source": "skill-local:evaluations/norm-retrieval-gold.json",
       "logical_path": "evaluations/norm-retrieval-gold.json",
       "embedded": "assets/runtime/evaluations/norm-retrieval-gold.json",
-      "sha256": "a09c9a6680e191bc4fdc926c1281b931651ec7d2d15f8cb20712d7bd05b94a0f"
+      "sha256": "60b93c0a84583b8a9136ce5e5d28cbb161780bb45606a4b2d53255d358b8ee2f"
     },
     {
       "role": "asset-template",

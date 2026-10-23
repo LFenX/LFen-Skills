@@ -88,6 +88,57 @@ def unquote_yaml_scalar(value: str) -> str:
     return value
 
 
+def catalog_scalar_fields(lines: list[str], indent: int = 0) -> dict[str, str]:
+    """Read catalog scalars at one mapping level, preserving the legacy format."""
+
+    fields: dict[str, str] = {}
+    pattern = re.compile(r"^" + " " * indent + r"(name|description_en|description):\s*(.*)$")
+    index = 0
+    while index < len(lines):
+        match = pattern.match(lines[index])
+        if not match:
+            index += 1
+            continue
+
+        key, raw_value = match.groups()
+        if raw_value in {"|", "|-", "|+", ">", ">-", ">+"}:
+            block: list[str] = []
+            index += 1
+            while index < len(lines):
+                line = lines[index]
+                if line.strip() and len(line) - len(line.lstrip(" ")) <= indent:
+                    break
+                block.append(line.strip())
+                index += 1
+            fields[key] = ("\n" if raw_value.startswith("|") else " ").join(block).strip()
+            continue
+
+        fields[key] = unquote_yaml_scalar(raw_value)
+        index += 1
+    return fields
+
+
+def metadata_catalog_fields(lines: list[str]) -> dict[str, str]:
+    """Only direct children of a block metadata mapping provide catalog metadata."""
+
+    for index, line in enumerate(lines):
+        if not re.fullmatch(r"metadata:\s*(?:#.*)?", line):
+            continue
+        block: list[str] = []
+        for child in lines[index + 1 :]:
+            if child.strip() and not child.startswith((" ", "#")):
+                break
+            block.append(child)
+        indents = [
+            len(child) - len(child.lstrip(" "))
+            for child in block
+            if child.strip() and not child.lstrip().startswith("#")
+        ]
+        if indents:
+            return catalog_scalar_fields(block, min(indents))
+    return {}
+
+
 def parse_frontmatter(skill_file: Path) -> tuple[str, str, str]:
     text = skill_file.read_text(encoding="utf-8-sig")
     lines = text.splitlines()
@@ -99,32 +150,21 @@ def parse_frontmatter(skill_file: Path) -> tuple[str, str, str]:
     except StopIteration as exc:
         raise CatalogError(f"{skill_file.relative_to(ROOT)} 的 YAML frontmatter 未闭合") from exc
 
-    fields: dict[str, str] = {}
-    index = 1
-    while index < end:
-        match = re.match(r"^(name|description_en|description):\s*(.*)$", lines[index])
-        if not match:
-            index += 1
-            continue
-
-        key, raw_value = match.groups()
-        if raw_value in {"|", "|-", "|+", ">", ">-", ">+"}:
-            block: list[str] = []
-            index += 1
-            while index < end and (not lines[index].strip() or lines[index][:1].isspace()):
-                block.append(lines[index].strip())
-                index += 1
-            fields[key] = ("\n" if raw_value.startswith("|") else " ").join(block).strip()
-            continue
-
-        fields[key] = unquote_yaml_scalar(raw_value)
-        index += 1
-
+    frontmatter = lines[1:end]
+    fields = catalog_scalar_fields(frontmatter)
+    metadata = metadata_catalog_fields(frontmatter)
     name = fields.get("name", "").strip()
     description = fields.get("description", "").strip()
-    description_en = fields.get("description_en", "").strip()
+    legacy_description_en = fields.get("description_en", "").strip()
+    metadata_description_en = metadata.get("description_en", "").strip()
+    if "description_en" in fields and "description_en" in metadata and legacy_description_en != metadata_description_en:
+        raise CatalogError(f"{skill_file.relative_to(ROOT)} 的 description_en 与 metadata.description_en 冲突")
+    description_en = metadata_description_en or legacy_description_en
     if not name or not description or not description_en:
-        raise CatalogError(f"{skill_file.relative_to(ROOT)} 必须包含 name、description 和 description_en")
+        raise CatalogError(
+            f"{skill_file.relative_to(ROOT)} 必须包含 name、description 和 "
+            "metadata.description_en（兼容顶层 description_en）"
+        )
     return name, description, description_en
 
 

@@ -117,6 +117,7 @@ def _task_entry(task_dir: Path, node: dict[str, Any], status: str, project_root:
         "task_id": node["task_id"],
         "ordinal": node.get("ordinal", 0),
         "status": status,
+        "proof_validation": node.get("proof_validation", {}),
         "carrier": "未知",
         "objective": "",
         "risk_level": "",
@@ -265,10 +266,12 @@ def state_provenance(project_root: Path, state: dict[str, Any]) -> dict[str, Any
 def scan_tasks(project_root: Path, state: dict[str, Any]) -> list[dict[str, Any]]:
     tasks_root = project_root / GOVERNANCE_DIR / "tasks"
     status_by_id = {item["task_id"]: item.get("status", "Active") for item in state.get("source_tasks", [])}
+    proof_by_id = {item["task_id"]: item.get("proof_validation", {}) for item in state.get("source_tasks", [])}
     entries = []
     for node in sorted(state.get("task_graph", []), key=lambda item: item.get("ordinal", 0)):
         entries.append(
-            _task_entry(tasks_root / node["task_id"], node, status_by_id.get(node["task_id"], "Active"), project_root)
+            _task_entry(tasks_root / node["task_id"], {**node, "proof_validation": proof_by_id.get(node["task_id"], {})},
+                        status_by_id.get(node["task_id"], "Active"), project_root)
         )
     return entries
 

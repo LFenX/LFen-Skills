@@ -11,7 +11,7 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 
-from governance_artifacts import GovernanceError, amend_record, amend_record_batch
+from governance_artifacts import GovernanceError, amend_record, amend_record_batch, read_json
 
 
 def parse_args() -> argparse.Namespace:
@@ -44,6 +44,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     try:
+        previous_revision = read_json(args.record).get("revision")
         if args.changes_json_base64 is not None or args.changes_json_file is not None:
             if args.path or args.value_json is not None or args.value_json_base64 is not None or args.value_json_file is not None or args.allow_add:
                 raise GovernanceError("batch changes cannot be combined with single-field options")
@@ -61,7 +62,8 @@ def main() -> int:
                 reason=args.reason,
                 basis=args.basis,
             )
-            print(f"AMENDED: {args.record} revision {document['revision']}")
+            result = "UNCHANGED" if document["revision"] == previous_revision else "AMENDED"
+            print(f"{result}: {args.record} revision {document['revision']}")
             return 0
         if not args.path or (args.value_json is None and args.value_json_base64 is None and args.value_json_file is None):
             raise GovernanceError("single-field mode requires --path and one value option")
@@ -84,7 +86,8 @@ def main() -> int:
     except (OSError, ValueError, UnicodeError, json.JSONDecodeError, GovernanceError) as exc:
         print(f"ERROR: {exc}")
         return 2
-    print(f"AMENDED: {args.record} revision {document['revision']}")
+    result = "UNCHANGED" if document["revision"] == previous_revision else "AMENDED"
+    print(f"{result}: {args.record} revision {document['revision']}")
     return 0
 
 

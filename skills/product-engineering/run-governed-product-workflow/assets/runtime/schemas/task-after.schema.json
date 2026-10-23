@@ -7,11 +7,28 @@
   "required": ["schema_version", "meta_type", "project_id", "work_item_id", "task_id", "revision", "status", "completed_at", "source_snapshot", "established_facts", "actual_changes", "verification", "incomplete_items", "legacy_issues", "decisions", "evidence_refs", "next_tasks", "artifact_manifest", "amendments"],
   "properties": {
     "schema_version": {"const": "6.3-candidate"},
+    "proof_contract_version": {"const": "implemented-proof-v1"},
     "meta_type": {"const": "TaskOutcome"},
     "project_id": {"type": "string", "minLength": 1},
     "work_item_id": {"type": "string", "minLength": 1},
     "task_id": {"type": "string", "minLength": 1},
     "revision": {"type": "integer", "minimum": 1},
+    "scope_reconciliation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "changed_count", "out_of_scope", "undeclared_untouched", "baseline_sha256", "scope_sha256", "delivery_sha256", "report_sha256"],
+      "properties": {
+        "status": {"enum": ["Passed", "Skipped"]},
+        "changed_count": {"type": "integer", "minimum": 0},
+        "out_of_scope": {"type": "array", "items": {"type": "string"}},
+        "undeclared_untouched": {"type": "array", "items": {"type": "string"}},
+        "external_declarations": {"type": "array", "items": {"type": "string"}},
+        "reason": {"type": "string"},
+        "baseline_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "scope_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "delivery_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "report_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
     "status": {"enum": ["Implemented", "Deferred", "Cancelled", "Blocked", "Superseded"]},
     "completed_at": {"type": "string", "format": "date-time"},
     "source_snapshot": {"type": "object", "minProperties": 1},

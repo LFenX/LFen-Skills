@@ -12,7 +12,18 @@
     "generated": {"const": true},
     "generated_at": {"type": "string", "format": "date-time"},
     "source_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-    "source_tasks": {"type": "array", "items": {"type": "object", "required": ["task_id", "ordinal", "status"]}},
+    "source_tasks": {"type": "array", "items": {
+      "type": "object", "required": ["task_id", "ordinal", "status"],
+      "properties": {"proof_validation": {
+        "type": "object", "additionalProperties": false,
+        "required": ["policy", "mode", "status"],
+        "properties": {
+          "policy": {"const": "implemented-proof-v1"},
+          "mode": {"enum": ["HistoricalRead", "Current", "ActiveRead"]},
+          "status": {"enum": ["HistoricalNotRevalidated", "CurrentVerified", "ActivePendingTerminal"]}
+        }
+      }}
+    }},
     "current_facts": {"type": "array", "items": {"type": "object", "required": ["task_id", "ordinal", "fact"]}},
     "unresolved_items": {"type": "array", "items": {"type": "object", "required": ["task_id", "ordinal", "category", "summary", "reason", "impact", "owner", "reentry_condition"]}},
     "task_graph": {

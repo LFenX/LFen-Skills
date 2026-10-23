@@ -56,6 +56,28 @@ python <skill-root>/scripts/manage_minimal_task.py append <project-root>/.projec
 
 收尾：
 
+先按 [verify](verify.md) 独立对照完整用户原话和真实回答，交付本次版本的实际证据、条件成立/不成立对照和未验项，再主动请求一次真实 Acceptance。已存在覆盖同版本、同范围且仍有效的明确验收通过决定时不重复问；零轮澄清与不重复 Proceed 均不等于省略 Acceptance。
+
+没有明确肯定回答时保持待人验收，不写 `Implemented`，不为生成 `task_outcome` 伪标 `Deferred` / `Blocked`。真实 Acceptance 记录后再执行 close；该命令自动写 `run_finished`，不要提前封账。结构校验、手写 outcome 和测试通过均不能替代人的验收。
+
+完工后的原文复核与真实人侧决定通过专用接口补录，不重新 init、不直接手写 outcome：
+
+```console
+python <skill-root>/scripts/manage_minimal_task.py record-review <project-root>/.project-governance/tasks/<TaskID> --decisions-json-file <new-decisions.json> --requirement-items-json-file <complete-requirement-items.json> --reason <reason> --basis <evidence-ref>
+```
+
+两个 JSON 参数至少提供一个，可只传决定或只传需求复核。决定文件是新增决定的数组，使用新唯一 ID；禁止改旧回答或覆盖已有决定。完整需求台账保留原 `id`、`source`、`quote` 和 `acceptance_refs`，只修订实际 reading、Open/Covered 状态、证据与 `review`；本接口不能改 Scope。工具保留 amendments。
+
+旧活动记录可单独使用 `record-review --adopt-proof-contract --reason <实际原因> --basis <真实依据>` 正式采用当前证明契约；原有决定保留，不据此补造批准。采用后新追加执行和 close 仍按当前门禁核验。旧终态仅兼容读取，状态原样保留并标明未追溯补验，不能借此再次执行或收尾；完整规则见 [verify](verify.md)。
+
+切换中断导致真实验证未能入账时，可使用`record-review --verification-json-file <receipt.json> --reason <实际原因> --basis <真实依据>`补录。receipt仅含`verified_at`（实际验证时间）、`summary`、`result: "Passed"`、`source_files`与`evidence_files`；两组非空文件清单每项为`{path,sha256}`，路径相对于项目根。工具核对文件仍存在、未越界、内容摘要相符且未在验证后修改；拒绝未来时间、早于现有账本或执行授权的时间，以及替换已有验证。原验证时间进入新追加事件，本次补录时间与完整receipt进入Amendment。补录不修改历史事件或人的决定，正式收尾继续校验先验证、后验收及当前交付绑定。仅有本次重跑的测试不能冒充此前的验证；没有原始证据时不得使用补录。
+
+旧决定已有真实授权原话但缺少新结构时，可新增唯一 ID 并写 `enriches: "<旧决定ID>"`：原 kind、presented、response、decided_by、decided_at 逐字保持，既有 evidence_ref、outcome 和 subject 不得改，只补缺失结构及真实来源。旧项保留，此受控补录不构成同时间相反决定，也不要求人重答。不能借补录把拒绝改成批准或改造决定时间。
+
+失败后先记 failure，再用 `append --event-type retry --status started` 开新 Attempt；后续事件沿用新 Attempt，旧 Attempt 的失败不能反复给新 Attempt 充当重试依据。连续失败不按次数重开需求澄清。已有 OutOfScope、Deferred 或 NotARequirement 不得借 record-review 改成 Covered/Open；范围取舍走完整载体。
+
+先记录带证据的成功 verification，再用 [verify](verify.md) 的 `get_approval_subject.py` 取得绑定；Acceptance 必须来自真实回答，显式 `outcome=Approved`、有 `evidence_ref`，且 `subject_sha256` 匹配该交付。复核字段与条件对照也遵循 verify。不要复制旧摘要为新版本制造批准，不要把没有回答写成 Approved。
+
 ```console
 python <skill-root>/scripts/manage_minimal_task.py close <project-root>/.project-governance/tasks/<TaskID> --status Implemented --fact <fact> --change <change> --verification "Passed::<summary>::<evidence-ref>"
 ```

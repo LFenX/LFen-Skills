@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -24,6 +25,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--evidence-ref", action="append", default=[])
     parser.add_argument("--side-effect", action="append", default=[])
     parser.add_argument("--redaction", action="append", default=[])
+    parser.add_argument("--gate-json-file", type=Path, help="Structured gate proof, with explicit outcome and verified delivery subject")
     return parser.parse_args()
 
 
@@ -41,8 +43,9 @@ def main() -> int:
             evidence_refs=args.evidence_ref,
             side_effects=args.side_effect,
             redactions=args.redaction,
+            gate=json.loads(args.gate_json_file.read_text(encoding="utf-8")) if args.gate_json_file else None,
         )
-    except (OSError, GovernanceError) as exc:
+    except (OSError, ValueError, GovernanceError) as exc:
         print(f"ERROR: {exc}")
         return 2
     print(f"APPENDED: {event['event_id']}")
