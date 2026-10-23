@@ -1,0 +1,33 @@
+{
+  "observed_at": "2026-10-23T11:45:03.046658Z",
+  "validation_errors": [],
+  "result_path": "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-003\\after.json",
+  "review_status": {
+    "status": "ManagedByParent",
+    "parent_task_id": "T-ADVERSARIAL-20261023-001",
+    "clean_streak": 0,
+    "rounds": 0,
+    "open_findings": []
+  },
+  "user_decision": {
+    "outcome": "Pending"
+  },
+  "parent_review_status": {
+    "status": "Stale",
+    "clean_streak": 0,
+    "rounds": 2,
+    "open_findings": [
+      "AR02-F001",
+      "AR02-F002"
+    ],
+    "reviewed_delivery": {
+      "task_id": "T-ADVERSARIAL-20261023-002",
+      "subject_sha256": "ddea2a42c5005fa2c65d908e0346259e9711edee3957e762cf3768cd6a4baea0",
+      "requirements_sha256": "57bfbf29e4c6814f1e5638d026ebc0c59a448ec654942469a082c53d94dd92ca"
+    },
+    "current_delivery": {
+      "task_id": "T-ADVERSARIAL-20261023-003",
+      "subject_sha256": "76a38c7581a32bc3e2dbba5d0e789d7a56673e9aeb82a78386a02ea6bfc53273"
+    }
+  }
+}

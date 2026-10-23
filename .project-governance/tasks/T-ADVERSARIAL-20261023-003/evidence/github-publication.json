@@ -1,0 +1,44 @@
+{
+  "captured_at": "2026-10-23T11:39:48.851287Z",
+  "source_commit": "ea4a45c0155aa92ac51af99deee6f6ce3dfb426d",
+  "remote_main": "ea4a45c0155aa92ac51af99deee6f6ce3dfb426d",
+  "source_freeze_sha256": "3ef1adf1ff23fb1fb48dfb4fe9b4e16ef2b815fa084fb2d70d31eed1d01244a8",
+  "run": {
+    "id": 39946719659,
+    "name": "Skill gates",
+    "head_sha": "ea4a45c0155aa92ac51af99deee6f6ce3dfb426d",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/39946719659"
+  },
+  "jobs": [
+    {
+      "id": 120391057228,
+      "name": "gates (3.13)",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/39946719659/job/120391057228"
+    },
+    {
+      "id": 120391057404,
+      "name": "gates (3.11)",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/39946719659/job/120391057404"
+    },
+    {
+      "id": 120391057494,
+      "name": "gates (3.12)",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/39946719659/job/120391057494"
+    },
+    {
+      "id": 120391747546,
+      "name": "release",
+      "status": "completed",
+      "conclusion": "skipped",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/39946719659/job/120391747546"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "observed_at": "2026-10-23T11:41:06.603027Z",
+  "step": "engineering result evidence summary",
+  "error": "static-checks.json is an array; governance_artifacts.read_json accepts objects only",
+  "effect": "GitHub receipt created; validation-summary, requirement review and before amendment were not written",
+  "correction": "Use standard json.loads for the array; preserve actual product verification and source freeze unchanged"
+}

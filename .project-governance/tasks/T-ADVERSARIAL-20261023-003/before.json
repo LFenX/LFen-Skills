@@ -6,7 +6,7 @@
   "work_item_id": "W-ADVERSARIAL-20261023",
   "task_id": "T-ADVERSARIAL-20261023-003",
   "ordinal": 17,
-  "revision": 1,
+  "revision": 2,
   "lifecycle_state": "Frozen",
   "created_at": "2026-10-23T11:00:23.247804Z",
   "frozen_at": "2026-10-23T11:05:23.033049Z",
@@ -34,26 +34,183 @@
       "source": "request_snapshot",
       "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
       "reading": "有效报告路径可用；新返修成为当前交付后清零，旧交付不能继续凑两轮；原工作流约束保持生效",
-      "state": "Open",
-      "evidence_refs": [],
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+      ],
       "acceptance_refs": [
         0,
         1,
         2
-      ]
+      ],
+      "review": {
+        "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+        "conditions": [
+          "工程实现与必要验证完成并已保存结果",
+          "用户明确同意启动本次对抗性审查",
+          "当前同一交付已有两轮完整无问题审查且无未解决或未检查项",
+          "返修属于已授权原会话且已完成复验留档"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "Full/Minimal 已保存 Implemented，随后记录实际询问",
+            "expected": "新结果 NotOffered，询问后 AwaitingUser",
+            "actual": "协议50项与边界63项通过，包含完工后的询问路径",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "合成尚未保存结果时尝试 Offer/Round",
+            "expected": "拒绝且原文件不变",
+            "actual": "两个载体的未完成分支均受控拒绝",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "Met",
+            "input": "明确 Accepted，包括暂缓或拒绝后主动开始",
+            "expected": "允许多轮及同范围返修，不重复询问",
+            "actual": "协议与边界回归通过；原结果保存真实同意和两轮实际报告",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "NotMet",
+            "input": "合成未答、拒绝、暂缓、停止或仅普通验收同意",
+            "expected": "不能开始；验收不替代审查授权",
+            "actual": "两个载体均拒绝，工程结果和用户决定保持独立",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+            ]
+          },
+          {
+            "condition": 2,
+            "branch": "Met",
+            "input": "当前Gamma，同版完整无问题；独立非空报告、合法绝对或相对路径及共享支持证据",
+            "expected": "报告规范化保存，同版两轮从1到2并点名当前交付",
+            "actual": "两个载体 Passed/2，绝对和 ./ 相对路径均成功规范化",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+            ]
+          },
+          {
+            "condition": 2,
+            "branch": "NotMet",
+            "input": "Alpha首轮后保存Beta再保存Gamma；回用旧交付、复用或修改报告、Incomplete、未解项或Blocked",
+            "expected": "旧计数Stale/0，旧版受控拒绝且历史不变，其他不合格轮次清零",
+            "actual": "新旧版本与报告/问题/覆盖正反例通过；无关新任务保留原计数",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+            ]
+          },
+          {
+            "condition": 3,
+            "branch": "Met",
+            "input": "Full/Minimal 显式父会话归属，复验与保存后才启动新轮",
+            "expected": "ManagedByParent，不递归询问，新版本从第一轮计数",
+            "actual": "两个载体的返修关系、实际受审版本与时序正向路径通过",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+            ]
+          },
+          {
+            "condition": 3,
+            "branch": "NotMet",
+            "input": "合成错误或未授权父任务、递归Offer、早于返修验证与完成时间的新轮",
+            "expected": "受控拒绝，不能凑数或递归启动",
+            "actual": "父关系、递归启动与时序反例均被拒绝，原文件保留",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "R-02",
       "source": "request_snapshot",
       "quote": "开始审查",
       "reading": "沿用明确同意开展本范围返修、复验和多轮审查；工程结果与用户验收独立",
-      "state": "Open",
+      "state": "Covered",
       "evidence_refs": [
-        ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
       ],
       "acceptance_refs": [
         2
-      ]
+      ],
+      "review": {
+        "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+        "conditions": [
+          "用户已在完工后明确同意本范围审查、返修与复验"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "实际回答“开始审查”，所展示问题已包含返修复验",
+            "expected": "沿用授权并保持用户验收独立",
+            "actual": "原结果已保存两轮；工程回归验证返修不递归询问，原结果验收仍Pending",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "合成没有明确同意、仅普通验收或沉默",
+            "expected": "禁止启动，不伪造人的决定",
+            "actual": "协议负向回归通过，未将合成测试计为真实轮次",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+            ]
+          }
+        ]
+      }
     }
   ],
   "decisions": [
@@ -460,7 +617,229 @@
       "human_confirmation_refs": []
     }
   ],
-  "amendments": [],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "path": "requirement_items",
+      "old_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+          "reading": "有效报告路径可用；新返修成为当前交付后清零，旧交付不能继续凑两轮；原工作流约束保持生效",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "开始审查",
+          "reading": "沿用明确同意开展本范围返修、复验和多轮审查；工程结果与用户验收独立",
+          "state": "Open",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+          ],
+          "acceptance_refs": [
+            2
+          ]
+        }
+      ],
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+          "reading": "有效报告路径可用；新返修成为当前交付后清零，旧交付不能继续凑两轮；原工作流约束保持生效",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+          ],
+          "acceptance_refs": [
+            0,
+            1,
+            2
+          ],
+          "review": {
+            "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+            "conditions": [
+              "工程实现与必要验证完成并已保存结果",
+              "用户明确同意启动本次对抗性审查",
+              "当前同一交付已有两轮完整无问题审查且无未解决或未检查项",
+              "返修属于已授权原会话且已完成复验留档"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "Full/Minimal 已保存 Implemented，随后记录实际询问",
+                "expected": "新结果 NotOffered，询问后 AwaitingUser",
+                "actual": "协议50项与边界63项通过，包含完工后的询问路径",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "合成尚未保存结果时尝试 Offer/Round",
+                "expected": "拒绝且原文件不变",
+                "actual": "两个载体的未完成分支均受控拒绝",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+                ]
+              },
+              {
+                "condition": 1,
+                "branch": "Met",
+                "input": "明确 Accepted，包括暂缓或拒绝后主动开始",
+                "expected": "允许多轮及同范围返修，不重复询问",
+                "actual": "协议与边界回归通过；原结果保存真实同意和两轮实际报告",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+                ]
+              },
+              {
+                "condition": 1,
+                "branch": "NotMet",
+                "input": "合成未答、拒绝、暂缓、停止或仅普通验收同意",
+                "expected": "不能开始；验收不替代审查授权",
+                "actual": "两个载体均拒绝，工程结果和用户决定保持独立",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+                ]
+              },
+              {
+                "condition": 2,
+                "branch": "Met",
+                "input": "当前Gamma，同版完整无问题；独立非空报告、合法绝对或相对路径及共享支持证据",
+                "expected": "报告规范化保存，同版两轮从1到2并点名当前交付",
+                "actual": "两个载体 Passed/2，绝对和 ./ 相对路径均成功规范化",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+                ]
+              },
+              {
+                "condition": 2,
+                "branch": "NotMet",
+                "input": "Alpha首轮后保存Beta再保存Gamma；回用旧交付、复用或修改报告、Incomplete、未解项或Blocked",
+                "expected": "旧计数Stale/0，旧版受控拒绝且历史不变，其他不合格轮次清零",
+                "actual": "新旧版本与报告/问题/覆盖正反例通过；无关新任务保留原计数",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+                ]
+              },
+              {
+                "condition": 3,
+                "branch": "Met",
+                "input": "Full/Minimal 显式父会话归属，复验与保存后才启动新轮",
+                "expected": "ManagedByParent，不递归询问，新版本从第一轮计数",
+                "actual": "两个载体的返修关系、实际受审版本与时序正向路径通过",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+                ]
+              },
+              {
+                "condition": 3,
+                "branch": "NotMet",
+                "input": "合成错误或未授权父任务、递归Offer、早于返修验证与完成时间的新轮",
+                "expected": "受控拒绝，不能凑数或递归启动",
+                "actual": "父关系、递归启动与时序反例均被拒绝，原文件保留",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "开始审查",
+          "reading": "沿用明确同意开展本范围返修、复验和多轮审查；工程结果与用户验收独立",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+          ],
+          "acceptance_refs": [
+            2
+          ],
+          "review": {
+            "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+            "conditions": [
+              "用户已在完工后明确同意本范围审查、返修与复验"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "实际回答“开始审查”，所展示问题已包含返修复验",
+                "expected": "沿用授权并保持用户验收独立",
+                "actual": "原结果已保存两轮；工程回归验证返修不递归询问，原结果验收仍Pending",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "合成没有明确同意、仅普通验收或沉默",
+                "expected": "禁止启动，不伪造人的决定",
+                "actual": "协议负向回归通过，未将合成测试计为真实轮次",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/self-test-A02.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/validation-summary.json"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "reason": "逐条保存原话条件的正反对照与真实工程验证，实际轮次仍记录于原任务",
+      "basis": ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/requirement-review.json",
+      "changed_at": "2026-10-23T11:42:30.947833Z"
+    }
+  ],
   "tailoring_resolution": {
     "rule_set_id": "VC-PPG-TAIL-001",
     "rule_set_version": "6.3 Candidate",
@@ -470,7 +849,7 @@
     "resolver_sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
     "task_contract_schema_sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045",
     "input_digest": "53f66701ce4590fc9d0920f1acf8964f4b4a9adc8dd73d07d356ca7a58b3660f",
-    "stage": "S5",
+    "stage": "S8",
     "applicable_standards": [
       "C02",
       "C03",
@@ -489,10 +868,6 @@
     "pending_standards": [],
     "stage_context_standards": [
       "C04",
-      "C05",
-      "C06",
-      "C07",
-      "C08",
       "C09",
       "C10",
       "C11",
@@ -568,10 +943,8 @@
         "source_id": "VC-PPG-PRO-001",
         "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
         "sections": [
-          "7",
           "9",
-          "10",
-          "13",
+          "14",
           "16",
           "17"
         ]

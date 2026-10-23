@@ -1,0 +1,10 @@
+{
+  "installed_root": "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow",
+  "consumer_test_root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-installed-compat-a03-zg8kntb2",
+  "exit": 0,
+  "files_checked": 96,
+  "changed_during_test": [],
+  "installed_governance_sha256": "ff8124ccd76fcc76527ac2ea1ee2c848aff0604f2a15319e6bf193066bee4bd3",
+  "log": ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/installed-self-test-A03.log",
+  "scope": "Actual installed combination including retained parallel compatibility repair; synthetic tests only"
+}

@@ -1,0 +1,347 @@
+{
+  "captured_at": "2026-10-23T11:42:30.913244Z",
+  "source_commit": "ea4a45c0155aa92ac51af99deee6f6ce3dfb426d",
+  "source_sha256": "3ef1adf1ff23fb1fb48dfb4fe9b4e16ef2b815fa084fb2d70d31eed1d01244a8",
+  "source_files": 96,
+  "repository_self_test": {
+    "profiles": 137,
+    "meta_types": 6,
+    "runtime_assets": 46,
+    "retrieval_gold_cases": 28,
+    "parser_fixture_records": 12,
+    "index_lifecycle": "Passed",
+    "query_planner": "Passed",
+    "active_query_tree_adversarial": {
+      "status": "Passed",
+      "checks": 10,
+      "link_checks": 2
+    },
+    "derived_view_byte_adversarial": {
+      "status": "Passed",
+      "checks": 2
+    },
+    "requirement_review": {
+      "status": "Passed",
+      "checks": 57,
+      "semantic_inference": "not_performed"
+    },
+    "new_query_history": {
+      "status": "Passed",
+      "checks": 2
+    },
+    "document_governance": {
+      "status": "Passed",
+      "checks": 17
+    },
+    "amendment_growth": {
+      "status": "Passed",
+      "checks": 22
+    },
+    "saved_result_user_decision": {
+      "status": "Passed",
+      "checks": 36
+    },
+    "adversarial_review": {
+      "status": "Passed",
+      "checks": 50
+    },
+    "adversarial_review_boundaries": {
+      "status": "Passed",
+      "checks": 63
+    },
+    "approval_time": {
+      "status": "Passed",
+      "checks": 8
+    },
+    "closed_scope_history": {
+      "status": "Passed",
+      "checks": 15
+    },
+    "historical_proof_compatibility": {
+      "status": "passed",
+      "checks": 40
+    },
+    "verification_recovery": {
+      "status": "Passed",
+      "checks": 16
+    },
+    "failure_and_terminal": {
+      "status": "Passed",
+      "checks": 21
+    },
+    "review_boundaries": {
+      "status": "Passed",
+      "checks": 37
+    },
+    "consumer_bootstrap": {
+      "status": "Passed",
+      "checks": 4
+    },
+    "minimal_carrier": {
+      "status": "Passed",
+      "lifecycle": "single-file",
+      "upgrade": "one-way",
+      "defaults": "traceable"
+    },
+    "cache_prune": {
+      "status": "Passed",
+      "checks": 5
+    },
+    "write_guard": {
+      "status": "Passed",
+      "checks": 8
+    },
+    "console_deployment": {
+      "status": "Passed",
+      "checks": 12
+    },
+    "positive": "passed",
+    "negative": "passed"
+  },
+  "installed_self_test": {
+    "receipt": {
+      "installed_root": "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow",
+      "consumer_test_root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen-installed-compat-a03-zg8kntb2",
+      "exit": 0,
+      "files_checked": 96,
+      "changed_during_test": [],
+      "installed_governance_sha256": "ff8124ccd76fcc76527ac2ea1ee2c848aff0604f2a15319e6bf193066bee4bd3",
+      "log": ".project-governance/tasks/T-ADVERSARIAL-20261023-003/evidence/installed-self-test-A03.log",
+      "scope": "Actual installed combination including retained parallel compatibility repair; synthetic tests only"
+    },
+    "results": {
+      "profiles": 137,
+      "meta_types": 6,
+      "runtime_assets": 46,
+      "retrieval_gold_cases": 28,
+      "parser_fixture_records": 12,
+      "index_lifecycle": "Passed",
+      "query_planner": "Passed",
+      "active_query_tree_adversarial": {
+        "status": "Passed",
+        "checks": 10,
+        "link_checks": 2
+      },
+      "derived_view_byte_adversarial": {
+        "status": "Passed",
+        "checks": 2
+      },
+      "requirement_review": {
+        "status": "Passed",
+        "checks": 57,
+        "semantic_inference": "not_performed"
+      },
+      "new_query_history": {
+        "status": "Passed",
+        "checks": 2
+      },
+      "document_governance": {
+        "status": "Passed",
+        "checks": 17
+      },
+      "amendment_growth": {
+        "status": "Passed",
+        "checks": 22
+      },
+      "saved_result_user_decision": {
+        "status": "Passed",
+        "checks": 36
+      },
+      "adversarial_review": {
+        "status": "Passed",
+        "checks": 50
+      },
+      "adversarial_review_boundaries": {
+        "status": "Passed",
+        "checks": 63
+      },
+      "approval_time": {
+        "status": "Passed",
+        "checks": 8
+      },
+      "closed_scope_history": {
+        "status": "Passed",
+        "checks": 15
+      },
+      "historical_proof_compatibility": {
+        "status": "passed",
+        "checks": 40
+      },
+      "verification_recovery": {
+        "status": "Passed",
+        "checks": 16
+      },
+      "failure_and_terminal": {
+        "status": "Passed",
+        "checks": 21
+      },
+      "review_boundaries": {
+        "status": "Passed",
+        "checks": 37
+      },
+      "consumer_bootstrap": {
+        "status": "Passed",
+        "checks": 4
+      },
+      "minimal_carrier": {
+        "status": "Passed",
+        "lifecycle": "single-file",
+        "upgrade": "one-way",
+        "defaults": "traceable"
+      },
+      "cache_prune": {
+        "status": "Passed",
+        "checks": 5
+      },
+      "write_guard": {
+        "status": "Passed",
+        "checks": 8
+      },
+      "console_deployment": {
+        "status": "Passed",
+        "checks": 12
+      },
+      "positive": "passed",
+      "negative": "passed"
+    }
+  },
+  "schemas_valid": 11,
+  "runtime_retrieval": {
+    "exit": 0,
+    "log": ".project-governance\\tasks\\T-ADVERSARIAL-20261023-003\\evidence\\runtime-retrieval.log"
+  },
+  "runtime_consistency": {
+    "audit_digest": "7b2ba12f47549ba97eb68b497dd463d0a1e9a767a4bad4cab1bbbaa7a65ad4cf",
+    "audit_status": "Complete",
+    "next_gate": "T-013-eligible",
+    "norm_index_ready": true,
+    "outputs": [
+      ".project-governance\\tasks\\T-ADVERSARIAL-20261023-003\\evidence\\runtime-consistency\\norm-consistency-audit.json",
+      ".project-governance\\tasks\\T-ADVERSARIAL-20261023-003\\evidence\\runtime-consistency\\norm-consistency-audit.json.view.json",
+      ".project-governance\\tasks\\T-ADVERSARIAL-20261023-003\\evidence\\runtime-consistency\\norm-consistency-audit.md",
+      ".project-governance\\tasks\\T-ADVERSARIAL-20261023-003\\evidence\\runtime-consistency\\norm-consistency-audit.md.view.json"
+    ],
+    "summary": {
+      "by_category": {
+        "task_contract_snapshot_not_applicable": 1
+      },
+      "by_severity": {
+        "Blocker": 0,
+        "Major": 0,
+        "Minor": 0,
+        "Observation": 1
+      },
+      "total_findings": 1
+    }
+  },
+  "static_checks": [
+    {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "C:/Users/Administrator/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+        "skills/product-engineering/run-governed-product-workflow"
+      ],
+      "exit": 0,
+      "output": "Skill is valid!\r\n"
+    },
+    {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "scripts/update_catalog.py",
+        "--check"
+      ],
+      "exit": 0,
+      "output": "分类目录校验通过：8 个 skill，5 个一级分类，Markdown 与 JSON 目录一致\r\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "format": {
+    "checks": [
+      {
+        "command": [
+          "git",
+          "diff",
+          "--cached",
+          "--check"
+        ],
+        "exit": 2,
+        "output": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:27: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:28: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:33: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:34: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:66: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:103: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:104: trailing whitespace.\n+ \n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/installation-observation.diff:103: new blank line at EOF.\n.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/reproduce_findings.py:41: new blank line at EOF.\n"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--cached",
+          "--check",
+          "--",
+          ".",
+          ":(exclude).project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-02-raw/**"
+        ],
+        "exit": 0,
+        "output": ""
+      }
+    ],
+    "interpretation": "Raw unified diff evidence contains required context-line spaces; an original reproduction script has a blank EOF. Preserve captured evidence bytes and receipts. Source and delivery-record formatting check passes with raw evidence excluded."
+  },
+  "github": {
+    "captured_at": "2026-10-23T11:39:48.851287Z",
+    "source_commit": "ea4a45c0155aa92ac51af99deee6f6ce3dfb426d",
+    "remote_main": "ea4a45c0155aa92ac51af99deee6f6ce3dfb426d",
+    "source_freeze_sha256": "3ef1adf1ff23fb1fb48dfb4fe9b4e16ef2b815fa084fb2d70d31eed1d01244a8",
+    "run": {
+      "id": 39946719659,
+      "name": "Skill gates",
+      "head_sha": "ea4a45c0155aa92ac51af99deee6f6ce3dfb426d",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/39946719659"
+    },
+    "jobs": [
+      {
+        "id": 120391057228,
+        "name": "gates (3.13)",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/39946719659/job/120391057228"
+      },
+      {
+        "id": 120391057404,
+        "name": "gates (3.11)",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/39946719659/job/120391057404"
+      },
+      {
+        "id": 120391057494,
+        "name": "gates (3.12)",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/39946719659/job/120391057494"
+      },
+      {
+        "id": 120391747546,
+        "name": "release",
+        "status": "completed",
+        "conclusion": "skipped",
+        "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/39946719659/job/120391747546"
+      }
+    ]
+  },
+  "limits": [
+    "工程合成回归不计为真实对抗性审查轮次",
+    "实际安装保留并行治理修复；本任务3个文件一致、95文件匹配仓库，完整组合自检通过",
+    "原始差异证据的格式告警保留，不声称全量格式检查通过"
+  ]
+}

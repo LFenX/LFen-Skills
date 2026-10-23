@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-10-23T10:41:44.335794Z",
-  "source_digest": "4efd8fa8d7fa59af278ac807782a86688410d284326271e9339137563db08522",
+  "generated_at": "2026-10-23T11:46:07.751913Z",
+  "source_digest": "09d3eab6906712142194abae47f5f8b2808a11145fcd0b00b4926cc48134dbe1",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -164,7 +164,7 @@
       "ordinal": 15,
       "status": "Implemented",
       "user_decision": "Pending",
-      "revision": 5,
+      "revision": 6,
       "completed_at": "2026-10-23T09:34:07.840577Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",
@@ -179,6 +179,19 @@
       "user_decision": "Pending",
       "revision": 1,
       "completed_at": "2026-10-23T10:41:43.098330Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "Current",
+        "status": "CurrentVerified"
+      }
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-003",
+      "ordinal": 17,
+      "status": "Implemented",
+      "user_decision": "Pending",
+      "revision": 1,
+      "completed_at": "2026-10-23T11:45:02.743157Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",
         "mode": "Current",
@@ -416,6 +429,16 @@
       "task_id": "T-ADVERSARIAL-20261023-002",
       "ordinal": 16,
       "fact": "本次工程收尾时，原任务尚需新版本的实际对抗性审查；人工验收决定保持独立"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-003",
+      "ordinal": 17,
+      "fact": "第二轮确认的两项缺陷已完成工程修复与复验"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-003",
+      "ordinal": 17,
+      "fact": "本次工程留档时，原会话仍待新版本实际对抗性审查；工程回归不计为真实轮次"
     }
   ],
   "unresolved_items": [
@@ -621,12 +644,25 @@
       "next_tasks": [],
       "derived_from": [],
       "required_by": [
-        "T-ADVERSARIAL-20261023-002"
+        "T-ADVERSARIAL-20261023-002",
+        "T-ADVERSARIAL-20261023-003"
       ]
     },
     {
       "task_id": "T-ADVERSARIAL-20261023-002",
       "ordinal": 16,
+      "depends_on": [
+        "T-ADVERSARIAL-20261023-001"
+      ],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-003",
+      "ordinal": 17,
       "depends_on": [
         "T-ADVERSARIAL-20261023-001"
       ],

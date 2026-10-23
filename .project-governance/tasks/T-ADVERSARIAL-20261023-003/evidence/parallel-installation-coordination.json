@@ -1,0 +1,19 @@
+{
+  "captured_at": "2026-10-23T11:35:54.715247Z",
+  "authorization": {
+    "question": "是否允许把安装端的具体报错和证据发给正在修改共享 skill 的聊天“排查概览页数字差异”，协调其并行修复？",
+    "response": "允许发送并协调（推荐）",
+    "source": "user-question-reply://current-thread/call_0f72e799e8eb4dc19064e907a3fb9366/0"
+  },
+  "coordinated_thread": {
+    "thread_id": "01a15d93-5d32-7b92-8f75-0773c017830e",
+    "title": "排查概览页数字差异"
+  },
+  "owner_reported": "仅改其 governance_artifacts.py，移除额外输出字段，改用既有 reason；未改本任务三文件、Schema、Manifest 或本仓库；其完整安装自检及11个dirty-scope边界用例通过。",
+  "independently_observed_installed_sha256": "ff8124ccd76fcc76527ac2ea1ee2c848aff0604f2a15319e6bf193066bee4bd3",
+  "owner_patch": {
+    "path": "D:\\LFEN_project\\dev_project\\AI客诉系统\\outputs\\readmodel-p2-fix-20261023\\governance-runtime.patch",
+    "sha256": "769b3439fe169abaa36d060c3164d3d1bef7e8f17c9e6b42ba343b01025ef69a"
+  },
+  "scope": "Parallel change retained in installation; not included in this task repository source freeze."
+}
