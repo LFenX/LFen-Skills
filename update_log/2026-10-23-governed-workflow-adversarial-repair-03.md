@@ -15,3 +15,10 @@
 - 最终 A02 协议50、边界81、完整源码 self_test 通过；安装 ff8124 并行治理脚本组合完整自检通过，96文件测试前后稳定；只同步本任务三个文件，95/96与源码匹配。
 - 受保护资产46、gold28、CLI25的 runtime 检索检查通过；runtime一致性 Complete，Blocker/Major/Minor=0，1项Observation为未指定Task快照不适用；格式、skill与目录检查通过。
 - 源码冻结96文件：a6d4cdcbfd9e3544dc66080e78df075bc54b166f5a648268cecf64884af8a349。正在发布源码并等待远端CI；工程结果将在发布验证后保存，实际连续干净轮次仍为0。
+
+## 2026-10-23T12:31:38.502275Z
+
+- 已保存 T-ADVERSARIAL-20261023-004/after.json：Implemented、user_decision Pending、ManagedByParent；完成时间 2026-10-23T12:31:38.238433Z。
+- 68bb066 三版本CI成功；最新安装 add9aff 组合完整自检通过，96文件前后稳定。
+- 收尾辅助脚本next_tasks类型错误、S4新Run准备被阶段校验拒绝均留档；没有写入新Run，没有向已结束账本补事件，按既有close入口保存成功。
+- 原会话 Stale/0、实际3轮；AR03-001留待后续独立轮次凭证据正式关闭，继续完整实际审查。

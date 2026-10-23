@@ -1,0 +1,34 @@
+{
+  "saved_at": "2026-10-23T12:31:38.357632Z",
+  "after_path": ".project-governance/tasks/T-ADVERSARIAL-20261023-004/after.json",
+  "completed_at": "2026-10-23T12:31:38.238433Z",
+  "user_decision": {
+    "outcome": "Pending"
+  },
+  "repair_state": {
+    "status": "ManagedByParent",
+    "parent_task_id": "T-ADVERSARIAL-20261023-001",
+    "clean_streak": 0,
+    "rounds": 0,
+    "open_findings": []
+  },
+  "parent_state": {
+    "status": "Stale",
+    "clean_streak": 0,
+    "rounds": 3,
+    "open_findings": [
+      "AR03-001"
+    ],
+    "reviewed_delivery": {
+      "task_id": "T-ADVERSARIAL-20261023-003",
+      "subject_sha256": "76a38c7581a32bc3e2dbba5d0e789d7a56673e9aeb82a78386a02ea6bfc53273",
+      "requirements_sha256": "57bfbf29e4c6814f1e5638d026ebc0c59a448ec654942469a082c53d94dd92ca"
+    },
+    "current_delivery": {
+      "task_id": "T-ADVERSARIAL-20261023-004",
+      "subject_sha256": "cec29541e44fc647f301f859e7fcc7f195bf8293615af3d755e534758b2f324a"
+    }
+  },
+  "subject_sha256": "cec29541e44fc647f301f859e7fcc7f195bf8293615af3d755e534758b2f324a",
+  "errors": []
+}

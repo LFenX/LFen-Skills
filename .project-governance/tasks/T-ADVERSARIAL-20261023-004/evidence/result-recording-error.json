@@ -1,0 +1,10 @@
+{
+  "observed_at": "2026-10-23T12:27:51.908281Z",
+  "phase": "close_task after Run finished",
+  "error": "after.next_tasks[0]: expected type object, got str",
+  "side_effects": "Previous engineering Run finished; close_task validated candidate before writing and no after.json was saved",
+  "cause": "Caller supplied a string where next_tasks requires structured task object",
+  "correction": "Use schema-correct close_task on the already completed engineering Run; preserve post-run failures in outcome evidence without appending ended ledger or fabricating a new Run",
+  "additional_readiness_observation": "Attempting a new recording Run after the finished engineering Run failed execution readiness because the official active query remains S8; no new Run or event was written",
+  "official_recovery": "Use the existing completed engineering Run and retry close_task with schema-correct default next_tasks; preserve this post-run tool failure as outcome evidence without modifying the ended ledger"
+}
