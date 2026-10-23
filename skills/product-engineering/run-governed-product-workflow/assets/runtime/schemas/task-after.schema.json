@@ -658,6 +658,9 @@
                 "type": "string",
                 "format": "date-time"
               },
+              "session_completed": {
+                "type": "boolean"
+              },
               "unreviewed_items": {
                 "type": "array",
                 "uniqueItems": true,

@@ -1,0 +1,67 @@
+{
+  "checked_at": "2026-10-23T13:10:45.689210Z",
+  "synthetic": true,
+  "source_evidence_unmodified": true,
+  "isolation_root": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\lfen-ar04-fix-public-coq0szkk",
+  "results": [
+    {
+      "source_raw": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\raw\\0318-ended-round-without-new-decision.json",
+      "source_task_copied": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\fixtures\\ended_session\\.project-governance\\tasks\\T-ENDED-SESSION",
+      "isolated_task": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\lfen-ar04-fix-public-coq0szkk\\ended_session\\.project-governance\\tasks\\T-ENDED-SESSION",
+      "state_after_fix": {
+        "status": "RestartRequired",
+        "clean_streak": 0,
+        "rounds": 3,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-ENDED-SESSION",
+          "subject_sha256": "f77606ef0cb39ee049c92ba5885d69ceb41e9708bc4b27addc895a24ae4b1db3",
+          "requirements_sha256": "1aec204dd4029e36cb3840a9e5ebe1b80193ce248e91dee449ec2c874e36f7de"
+        },
+        "current_delivery": {
+          "task_id": "T-ENDED-SESSION",
+          "subject_sha256": "f77606ef0cb39ee049c92ba5885d69ceb41e9708bc4b27addc895a24ae4b1db3"
+        },
+        "requirements_sha256": "1aec204dd4029e36cb3840a9e5ebe1b80193ce248e91dee449ec2c874e36f7de",
+        "delivery_task_id": "T-ENDED-SESSION",
+        "subject_sha256": "f77606ef0cb39ee049c92ba5885d69ceb41e9708bc4b27addc895a24ae4b1db3"
+      },
+      "new_round_without_new_decision": {
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "ERROR: the review session has ended; record a real new user decision before restarting\n"
+      },
+      "outcome_unchanged_after_rejection": true
+    },
+    {
+      "source_raw": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\raw\\0330-legacy-round-after-metadata-without-new-decision.json",
+      "source_task_copied": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\fixtures\\full_legacy_history\\.project-governance\\tasks\\T-FULL-LEGACY-HISTORY",
+      "isolated_task": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\lfen-ar04-fix-public-coq0szkk\\full_legacy_history\\.project-governance\\tasks\\T-FULL-LEGACY-HISTORY",
+      "state_after_fix": {
+        "status": "RestartRequired",
+        "clean_streak": 0,
+        "rounds": 4,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-FULL-LEGACY-HISTORY",
+          "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd",
+          "requirements_sha256": "b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4"
+        },
+        "current_delivery": {
+          "task_id": "T-FULL-LEGACY-HISTORY",
+          "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd"
+        },
+        "requirements_sha256": "b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4",
+        "delivery_task_id": "T-FULL-LEGACY-HISTORY",
+        "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd"
+      },
+      "new_round_without_new_decision": {
+        "exit_code": 2,
+        "stdout": "",
+        "stderr": "ERROR: the review session has ended; record a real new user decision before restarting\n"
+      },
+      "outcome_unchanged_after_rejection": true
+    }
+  ],
+  "status": "Passed"
+}

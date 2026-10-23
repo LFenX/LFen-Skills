@@ -1,0 +1,82 @@
+{
+  "id": "AR04-F01",
+  "severity": "P2",
+  "status": "Open",
+  "title": "已结束的审查因证据或说明修订变成 Stale 后，无新决定即可重新开始",
+  "locations": [
+    {
+      "file": "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+      "line": 141,
+      "reason": "仅用动态 status==Passed 拦截继续，未保存已结束会话的事实。"
+    },
+    {
+      "file": "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+      "line": 190,
+      "reason": "recorded_streak 已保留历史收敛信号，但新的 Round 入口未据此要求新决定。"
+    },
+    {
+      "file": "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+      "line": 195,
+      "reason": "当前绑定失效会把旧 Passed 重算为 Stale；accepted 仍为 True。"
+    },
+    {
+      "file": "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+      "line": 192,
+      "reason": "旧协议的会话结束依赖 current；说明元数据修订会丢失旧协议已结束状态。"
+    }
+  ],
+  "contract_refs": [
+    {
+      "file": "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\verify.md",
+      "quote": "用户稍后主动明确开始时，直接追加真实新决定，不要求重新提问；已停止或已结束后再开始也须真实新决定。"
+    },
+    {
+      "file": "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\commands\\verify.md",
+      "quote": "原协议曾收敛时标 LegacyNotRevalidated，不会自动重启。"
+    }
+  ],
+  "primary_repro": {
+    "script": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\reproduce_AR04_F01.py",
+    "steps": [
+      "用真实公开 CLI 对合成 Full 交付保存 Offer、Accepted 和两轮不同完整报告，得到 Passed/2。",
+      "用公开 amend_record.py 修改 after.verification 的合法说明，保留同一已保存工程结果及审查历史。",
+      "状态变 Stale/0；未追加新 Decision，使用当前 subject 和新独立报告追加 Round。"
+    ],
+    "expected": "旧会话已结束；新的 Round 应 exit 2 且不修改结果，直到新的真实 Accepted。Stale 只能表示证明失效，不能恢复旧会话授权。",
+    "actual": "新的 Round exit 0，写入结果，状态 InProgress，clean_streak=1，rounds=3。",
+    "case_ids": [
+      "C143",
+      "C144",
+      "C145",
+      "C146",
+      "C147",
+      "C148",
+      "C149"
+    ],
+    "evidence_refs": [
+      "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\raw\\0318-ended-round-without-new-decision.json",
+      "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\inputs\\ended-round-without-new-decision.json"
+    ]
+  },
+  "legacy_repro": {
+    "setup": "合成旧格式终态用于兼容读取测试；并非真实历史或真实人的审批。先查询 LegacyNotRevalidated，再用正规 amendment 仅修改 clarification.basis。",
+    "expected": "会话保持已结束；当前协议 Round 必须等待真实新决定。",
+    "actual": "状态 Stale，随后无新决定的 Round exit 0/InProgress/1。",
+    "case_ids": [
+      "C150",
+      "C151",
+      "C152",
+      "C153",
+      "C154",
+      "C155",
+      "C156"
+    ],
+    "evidence_refs": [
+      "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\raw\\0327-legacy-corrected-explanation-still-ended.json",
+      "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\raw\\0330-legacy-round-after-metadata-without-new-decision.json"
+    ]
+  },
+  "impact": "结束条件与授权边界失效。旧 Accepted 能被合法修订重新用于追加审查；操作者无需新的用户开始决定。初次启动、显式停止等已测路径仍正确阻断。",
+  "root_cause": "把当前证明有效性与会话是否已经结束放在同一动态 status 中回放。已结束的旧会话在绑定失效时丢失终止语义。",
+  "remediation_direction": "独立保留/回放会话终止事实及后续真实新决定；证明失效时清零当前计数，同时维持已结束会话不可直接继续。兼容旧协议时不能由说明元数据变化恢复旧授权。"
+}

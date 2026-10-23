@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-23T12:49:06.611029Z",
+  "case_count": 224,
+  "passed": 216,
+  "product_assertion_failures": 6,
+  "setup_failures_retried": 2,
+  "unique_confirmed_findings": [
+    "AR04-F01"
+  ]
+}

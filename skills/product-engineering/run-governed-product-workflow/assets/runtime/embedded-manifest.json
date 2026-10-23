@@ -218,7 +218,7 @@
       "source": "skill-local:schemas/minimal-task-record.schema.json",
       "logical_path": "schemas/minimal-task-record.schema.json",
       "embedded": "assets/runtime/schemas/minimal-task-record.schema.json",
-      "sha256": "81d0771a436d1731c978a3cb05e5e79208750ba216a46654b7f2f1e441c39f51"
+      "sha256": "2af18fdebbfd3b86140cbc4ea746804c5661df84c25fd7f44526d770700e8b0c"
     },
     {
       "role": "schema",
@@ -267,7 +267,7 @@
       "source": "skill-local:schemas/task-after.schema.json",
       "logical_path": "schemas/task-after.schema.json",
       "embedded": "assets/runtime/schemas/task-after.schema.json",
-      "sha256": "4f67dba4ed4813c064187c6d656b79a6a5068eef9e8c02c9d1dcce0d5d50c94a"
+      "sha256": "eda5d2453476a7fabe5045c542dac33c8c8f2ecf776807fa006f58fe298500dd"
     },
     {
       "role": "schema",

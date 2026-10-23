@@ -135,7 +135,7 @@ python <skill-root>/scripts/manage_minimal_task.py record-review <project-root>/
 ### 计数与结束
 
 - 发现任何问题、覆盖不完整、有未检查项、存在未解决问题或阻塞：本轮不计为干净轮次，连续计数归零。
-- 交付版本或原始需求/澄清变化使旧计数失效；查询对照当前交付和报告，失效显示 `Stale`，保留历史并允许记录阻塞及在现有授权内继续。basis、survey_refs、捕获时间等说明更正不改变新版原文绑定。修复后从新版本第一轮重新计数，开始时间必须晚于该交付的验证和留档时间。已发现问题须在后续轮以证据登记 `Fixed` 或 `NotAnIssue`；`Fixed` 必须绑定重新验证的新交付。
+- 交付版本或原始需求/澄清变化使旧计数失效；尚未结束的会话显示 `Stale`，保留历史并允许记录阻塞及在现有授权内继续。已结束会话的证明失效显示 `RestartRequired`，须有真实新 `Accepted` 才可重新开始，不能恢复旧同意。basis、survey_refs、捕获时间等说明更正不改变新版原文绑定。修复后从新版本第一轮重新计数，开始时间必须晚于该交付的验证和留档时间。已发现问题须在后续轮以证据登记 `Fixed` 或 `NotAnIssue`；`Fixed` 必须绑定重新验证的新交付。
 - 第一轮完整无问题记为 1；保持同版再完整审查一轮仍无问题记为 2，自动得到 `Passed`，随后结束。独立报告、轮次 ID、时间与版本必须分别可核对，不能复用一份报告凑数。
 - 交付轮次、版本、问题及处置、实际验证和限制；这只证明规定范围内两轮未发现问题，不宣称绝对无缺陷，不替代用户 Acceptance 或发布批准。
 
@@ -160,5 +160,7 @@ python <skill-root>/scripts/adversarial_review.py <project-root>/.project-govern
 只读命令同时输出摘要：`subject_sha256` 取**本轮交付任务**的状态输出，与 `get_approval_subject.py` 一致；`requirements_sha256` 取**原审查任务**的状态输出，绑定 request_snapshot.text 与澄清各轮的原问题、推荐默认和真实回答上下文。顶层摘要表示所查询任务的工程结果，`reviewed_delivery` 点名审查末轮实际绑定的交付，`current_delivery` 点名当前应审查的已保存交付；返修后这些对象不能混淆。`findings` 每项为 `{id, summary, evidence_refs}`；`resolutions` 每项为 `{finding_id, disposition: Fixed|NotAnIssue, reason, evidence_refs}`，详情在引用报告中。没有对应条目时写空数组；未检查项必须列明，不能填空以伪造完整覆盖。
 
 `report_ref` 为原审查任务目录内的实际非空报告，推荐 `evidence/round-<n>.md`，路径相对项目根或使用绝对路径。脚本规范化路径并从实际文件写入 `report_sha256`、`review_contract_version=report-bound-v2` 和所引用交付的 `delivery_verified_at` / `delivery_completed_at`；提供这些派生值时须与实际相符。报告路径别名或相同内容副本不能计为两轮；去重同时核对当前文件与已登记的历史摘要，原文件修改或删除不解除旧内容的复用限制。独立报告可以共享 `evidence_refs` 中的需求、测试等支持证据。旧轮次原件可读，不补造绑定证明；缺少新版报告绑定的旧干净轮次不计入新版连续两轮，原协议曾收敛时标 `LegacyNotRevalidated`，不会自动重启。已有未解决问题继续保留。
+
+新轮次由脚本写入 `session_completed`：只有追加时实际算出同版两轮完整无问题才为 true。这是该次会话当时已结束的记录，不随当前证明失效而撤销，禁止手填不符值。旧记录缺少此字段时不补造凭据；其中声称已收敛的记录在证明失效后同样须有真实新启动决定。历史仍可读取，未结束的会话不受此结束边界影响。
 
 脚本核对已保存工程结果、时间顺序、明确同意、原文绑定、当前交付摘要、返修关系、问题处置和不同报告，自动计算状态及连续轮数；禁止手填 Passed/clean_streak 或用普通 amendment 改删审查历史及返修归属。Full amendment 与审查追加持有同一记录锁，避免并发丢失问题或用户决定。修订历史每次只留新增项，避免复制此前所有轮次。字段完整与摘要匹配不证明自然语言审查质量或来源真实，执行者仍须读取原件并保留实际证据。`signals.py` 和生成的审阅 Markdown 显示审查状态；`NotOffered` 提示先询问，只有获同意的未完审查才提示继续。旧工程结果不自动补录、不因缺少审查字段追溯判失败。

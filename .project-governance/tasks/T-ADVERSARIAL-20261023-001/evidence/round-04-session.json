@@ -1,0 +1,26 @@
+{
+  "round_id": "AR-04",
+  "started_at": "2026-10-23T12:32:59.265574Z",
+  "source_commit": "1e2c597762bc9e571a582e46528d0a2ea4e335c2",
+  "source_sha256": "a6d4cdcbfd9e3544dc66080e78df075bc54b166f5a648268cecf64884af8a349",
+  "delivery_task_id": "T-ADVERSARIAL-20261023-004",
+  "delivery_completed_at": "2026-10-23T12:31:38.238433Z",
+  "mode": "fresh read-only independent full review; tests isolated in OS Temp",
+  "parent_state_at_start": {
+    "status": "Stale",
+    "clean_streak": 0,
+    "rounds": 3,
+    "open_findings": [
+      "AR03-001"
+    ],
+    "reviewed_delivery": {
+      "task_id": "T-ADVERSARIAL-20261023-003",
+      "subject_sha256": "76a38c7581a32bc3e2dbba5d0e789d7a56673e9aeb82a78386a02ea6bfc53273",
+      "requirements_sha256": "57bfbf29e4c6814f1e5638d026ebc0c59a448ec654942469a082c53d94dd92ca"
+    },
+    "current_delivery": {
+      "task_id": "T-ADVERSARIAL-20261023-004",
+      "subject_sha256": "cec29541e44fc647f301f859e7fcc7f195bf8293615af3d755e534758b2f324a"
+    }
+  }
+}

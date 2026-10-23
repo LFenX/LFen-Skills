@@ -1,0 +1,6 @@
+{
+  "recorded_at": "2026-10-23T13:17:13.255531Z",
+  "first_attempt": "TypeError: amend_record() got an unexpected keyword argument path_expression",
+  "effect": "Python rejected arguments before entering function; no task mutation",
+  "retry": "use observed dotted_path/new_value API"
+}

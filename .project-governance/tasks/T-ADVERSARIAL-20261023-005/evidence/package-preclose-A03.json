@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\validate_task_package.py",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-005",
+    "--check-mapping",
+    "--execution-ready"
+  ],
+  "exit_code": 0,
+  "output": "VALID MAPPING: 6 meta types; 137/137 legacy profiles resolved; counts={'AuthorityAsset': 119, 'DerivedView': 11, 'ProjectState': 0, 'RunLedger': 2, 'TaskContract': 2, 'TaskOutcome': 3}\nEXECUTION READY: V6.3 default task directory; 6 meta types; 137 compatibility profiles available.\n",
+  "checked_at": "2026-10-23T13:21:21.728897Z"
+}

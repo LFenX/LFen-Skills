@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\deploy_console.py",
+    "--project-root",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\deployed-console"
+  ],
+  "exit_code": 2,
+  "stdout": "",
+  "stderr": "项目尚未建立治理目录：C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\deployed-console\n",
+  "finished_at": "2026-10-23T12:47:19.106020Z"
+}

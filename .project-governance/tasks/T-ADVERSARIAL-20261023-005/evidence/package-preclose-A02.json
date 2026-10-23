@@ -1,0 +1,14 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "skills/product-engineering/run-governed-product-workflow/scripts/validate_task_package.py",
+    ".project-governance/tasks/T-ADVERSARIAL-20261023-005",
+    "--check-mapping",
+    "--execution-ready"
+  ],
+  "exit_code": 1,
+  "output": "VALID MAPPING: 6 meta types; 137/137 legacy profiles resolved; counts={'AuthorityAsset': 119, 'DerivedView': 11, 'ProjectState': 0, 'RunLedger': 2, 'TaskContract': 2, 'TaskOutcome': 3}\nINVALID\n- retrieval plan source boundary is stale\n- retrieval plan input is stale or invalid: task-contract\n- retrieval plan request_template is stale or unsafe\n- retrieval plan envelope is stale: source_snapshot\n- active query output is invalid: retrieval plan is invalid: retrieval plan source boundary is stale; retrieval plan input is stale or invalid: task-contract; retrieval plan request_template is stale or unsafe; retrieval plan envelope is stale: source_snapshot\n"
+}

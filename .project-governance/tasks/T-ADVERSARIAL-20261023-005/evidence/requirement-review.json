@@ -1,0 +1,190 @@
+{
+  "reviewed_at": "2026-10-23T13:17:13.514878Z",
+  "review_kind": "source-bound engineering coverage; not an actual adversarial clean round",
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "原流程全部约束继续生效；结束会话不因当前证据失效而恢复旧授权；原实际未结束会话继续本范围修复复验",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+      ],
+      "acceptance_refs": [
+        0,
+        1,
+        2
+      ],
+      "review": {
+        "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+        "conditions": [
+          "工程完成、验证并保存结果后主动询问，明确同意才启动",
+          "当前同一交付连续两轮完整独立审查无问题才通过，问题或未检项使连续计数归零",
+          "发现问题先修复复验并保存返修结果，再继续原未结束会话",
+          "已结束会话的授权不因证明失效而恢复；新真实决定后重新两轮计数，活动会话可继续"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "Full/Minimal 正常完成结果再Offer和Accepted",
+            "expected": "合法转移按当前交付完整检查，留档真实状态",
+            "actual": "协议50及边界105的正反向授权与时序路径通过",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "未完成/无结果/无Offer/未回答/拒绝/推迟的Round",
+            "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+            "actual": "协议50及边界105的正反向授权与时序路径通过",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "Met",
+            "input": "同版两份不同报告，完整覆盖且无开放问题",
+            "expected": "合法转移按当前交付完整检查，留档真实状态",
+            "actual": "协议50及边界105的正反计数与独立证据检查通过，合成夹具不算真实干净轮",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "NotMet",
+            "input": "更换版本、修改报告、复用报告、存在问题或未检项",
+            "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+            "actual": "协议50及边界105的正反计数与独立证据检查通过，合成夹具不算真实干净轮",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 2,
+            "branch": "Met",
+            "input": "ManagedByParent已验证返修完成后审查",
+            "expected": "合法转移按当前交付完整检查，留档真实状态",
+            "actual": "既有返修归属和时间约束回归通过，原实际会话四轮均有真实报告",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 2,
+            "branch": "NotMet",
+            "input": "过早轮次、未关联返修、无授权/无关父任务",
+            "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+            "actual": "既有返修归属和时间约束回归通过，原实际会话四轮均有真实报告",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 3,
+            "branch": "Met",
+            "input": "已结束后新Accepted再两份新报告；活动Stale续审",
+            "expected": "合法转移按当前交付完整检查，留档真实状态",
+            "actual": "新增24条Full/Minimal边界通过；两个原始公开反例均RestartRequired并拒绝新Round，记录字节不变",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 3,
+            "branch": "NotMet",
+            "input": "已结束证明失效后沿用旧Accepted追加Round或Blocked",
+            "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+            "actual": "新增24条Full/Minimal边界通过；两个原始公开反例均RestartRequired并拒绝新Round，记录字节不变",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "开始审查",
+      "reading": "原流程全部约束继续生效；结束会话不因当前证据失效而恢复旧授权；原实际未结束会话继续本范围修复复验",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+      ],
+      "acceptance_refs": [
+        2
+      ],
+      "review": {
+        "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+        "conditions": [
+          "实际完工后用户已明确同意原范围审查、返修、复验，Proceed不冒充Acceptance"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "真实原问题及“开始审查”答复",
+            "expected": "合法转移按当前交付完整检查，留档真实状态",
+            "actual": "原实际会话已有四轮；协议/边界授权反例通过，用户验收仍Pending",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "没有同意或仅普通验收同意",
+            "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+            "actual": "原实际会话已有四轮；协议/边界授权反例通过，用户验收仍Pending",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "actual_parent_review": "4 actual nonclean rounds; clean_streak 0; AR04-F01 awaits fresh independent review"
+}

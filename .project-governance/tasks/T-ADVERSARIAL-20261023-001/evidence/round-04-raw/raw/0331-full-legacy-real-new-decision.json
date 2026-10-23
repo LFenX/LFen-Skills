@@ -1,0 +1,20 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\fixtures\\full_legacy_history\\.project-governance\\tasks\\T-FULL-LEGACY-HISTORY",
+    "--entry-json-file",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\inputs\\full-legacy-real-new-decision.json",
+    "--reason",
+    "Independent synthetic protocol check",
+    "--basis",
+    "ar04://isolated-fixture"
+  ],
+  "exit_code": 2,
+  "stdout": "",
+  "stderr": "ERROR: an active review only accepts an explicit stop decision\n",
+  "finished_at": "2026-10-23T12:44:46.159910Z"
+}

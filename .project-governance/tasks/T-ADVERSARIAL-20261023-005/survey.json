@@ -1,0 +1,16 @@
+{
+  "observed_at": "2026-10-23T12:54:50.030919Z",
+  "source_commit": "1e2c597762bc9e571a582e46528d0a2ea4e335c2",
+  "finding": "AR04-F01",
+  "observation": "独立审查已用公开CLI证实Passed后合法修改verification说明，或旧协议收敛后修改clarification.basis，变Stale后未有新Decision仍可追加Round",
+  "evidence_refs": [
+    "C:/Users/Administrator/AppData/Local/Temp/lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857/session_history_checks.py",
+    "C:/Users/Administrator/AppData/Local/Temp/lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857/cases.json",
+    ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+  ],
+  "scope_boundaries": [
+    "同一原会话已获用户明确同意，尚未通过，本轮返修仍由原授权覆盖",
+    "保留安装端add9aff并行治理脚本，不合入本仓库源码",
+    "已有轮次和工程结果不改写"
+  ]
+}

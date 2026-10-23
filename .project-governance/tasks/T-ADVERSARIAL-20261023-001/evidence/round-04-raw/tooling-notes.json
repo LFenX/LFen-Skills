@@ -1,0 +1,14 @@
+{
+  "incidents": [
+    {
+      "command": "Auxiliary schema audit attempt",
+      "observed": "AttributeError: governance_artifacts has no load_schema",
+      "reason": "Review script referenced an absent helper; replaced with direct JSON file loading. This boundary script executes corrected schema assertions."
+    },
+    {
+      "command": "Auxiliary one-line code read",
+      "observed": "SyntaxError: unterminated string literal",
+      "reason": "PowerShell quoting in the read command; retried with a single quoted here-string."
+    }
+  ]
+}

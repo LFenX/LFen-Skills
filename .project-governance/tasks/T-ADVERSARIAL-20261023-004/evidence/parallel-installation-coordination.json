@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-10-23T12:39:43.303191+00:00",
+  "coordination_authorization": "user-question-reply://current-thread/call_0f72e799e8eb4dc19064e907a3fb9366/0",
+  "authorized_peer_thread_id": "01a15d93-5d32-7b92-8f75-0773c017830e",
+  "peer_thread_title": "排查概览页数字差异",
+  "peer_reported_change": "Windows long-path baseline reads; no Schema/protocol output change; 15 long-path and 11 existing boundary cases reported by owner",
+  "independently_observed_installed_sha256": "add9aff766c9b5ddb3eed0cdf5da8f7e464707648f5ea4870c98a462002ae153",
+  "independently_observed_patch_path": "D:\\LFEN_project\\dev_project\\AI客诉系统\\outputs\\readmodel-p2-fix-20261023\\governance-longpath.patch",
+  "independently_observed_patch_sha256": "c3e0a20d5d11929dea705df1de55bc3f5fbddb7028944d0f4679af9416c52aaf",
+  "own_verification_reference": ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/installed-compatibility-latest.json",
+  "own_source_sha256": "a6d4cdcbfd9e3544dc66080e78df075bc54b166f5a648268cecf64884af8a349",
+  "scope": "Patch preserved in separately owned installation; not imported into this source delivery; owner-reported case counts not claimed as our own tests"
+}

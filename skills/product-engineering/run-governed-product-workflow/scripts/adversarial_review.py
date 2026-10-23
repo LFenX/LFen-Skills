@@ -43,6 +43,7 @@ def review_schema() -> dict[str, Any]:
                   "report_ref": text, "report_sha256": digest,
                   "delivery_completed_at": {"type": "string", "format": "date-time"},
                   "delivery_verified_at": {"type": "string", "format": "date-time"},
+                  "session_completed": {"type": "boolean"},
                   "unreviewed_items": strings, "evidence_refs": refs,
                   "findings": {"type": "array", "items": obj({"id": text, "summary": text,
                                                               "evidence_refs": refs})},
@@ -52,7 +53,7 @@ def review_schema() -> dict[str, Any]:
     for kind, properties in details.items():
         variants.append(obj({"event": {"const": kind},
                              "recorded_at": {"type": "string", "format": "date-time"}, **properties},
-                            ("review_contract_version", "report_ref", "report_sha256", "delivery_completed_at", "delivery_verified_at") if kind == "Round" else ()))
+                            ("review_contract_version", "report_ref", "report_sha256", "delivery_completed_at", "delivery_verified_at", "session_completed") if kind == "Round" else ()))
     return {"type": "array", "items": {"oneOf": variants}}
 
 
@@ -107,6 +108,7 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
     legacy_streak = 0
     recorded_streak = 0
     offered = accepted = False
+    session_closed = False
     last_subject = None
     ids: set[str] = set()
     reports: set[str] = set()
@@ -123,7 +125,7 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
             raise GovernanceError("adversarial review records must follow engineering completion and prior records")
         kind = item["event"]
         if kind == "Offer":
-            if accepted and status != "Passed" and recorded_streak != 2:
+            if accepted and not session_closed and status != "Passed" and recorded_streak != 2:
                 raise GovernanceError("an active review must be completed or stopped before offering it again")
             offered, accepted, streak, status = True, False, 0, "AwaitingUser"
             legacy_streak = recorded_streak = 0
@@ -132,17 +134,20 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
                 raise GovernanceError("record the actual post-completion question before a user decision")
             if item["outcome"] == "Stopped" and not accepted:
                 raise GovernanceError("only an opted-in review can be stopped")
-            if accepted and status not in {"Passed", "LegacyNotRevalidated"} and recorded_streak != 2 and item["outcome"] != "Stopped":
+            if accepted and not session_closed and status not in {"Passed", "LegacyNotRevalidated"} and recorded_streak != 2 and item["outcome"] != "Stopped":
                 raise GovernanceError("an active review only accepts an explicit stop decision")
             accepted = item["outcome"] == "Accepted"
+            if accepted:
+                session_closed = False
             status = "InProgress" if accepted else item["outcome"]
             streak = legacy_streak = recorded_streak = 0
         else:
-            if not accepted or status == "Passed":
+            if not accepted or status == "Passed" and not session_closed:
                 raise GovernanceError("do not start review without explicit opt-in, or continue after two clean rounds")
             if kind == "Blocked":
                 streak, legacy_streak, recorded_streak, status = 0, 0, 0, "Blocked"
             else:
+                authorized_round = not session_closed
                 start = _instant(item["started_at"])
                 if start < previous or start > stamp:
                     raise GovernanceError("each round must start after opt-in and after the previous round finished")
@@ -188,15 +193,26 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
                 # accepted duplicate evidence. Historical claims never validate
                 # current counts; only current, distinct reports can do that.
                 recorded_streak = min(2, recorded_streak + 1) if clean and (not bound or recorded_report) else 0
-                streak = streak + 1 if clean and current and report_valid else 0
-                legacy_streak = legacy_streak + 1 if clean and current and not bound else 0
+                streak = streak + 1 if clean and current and report_valid and authorized_round else 0
+                legacy_streak = legacy_streak + 1 if clean and current and not bound and authorized_round else 0
                 rounds += 1
                 last_subject = subject
                 status = "Stale" if not current or bound and not report_valid else "Passed" if streak == 2 else "InProgress"
                 if legacy_streak == 2:
                     status = "LegacyNotRevalidated"
-                    accepted = False
+                # Completion is a historical authorization boundary, independent
+                # of whether its report or delivery still matches today. Older
+                # records lack this receipt, so a claimed completed pair needs
+                # a real new decision before any further current-protocol round.
+                if item.get("session_completed"):
+                    if not bound or not clean or recorded_streak != 2:
+                        raise GovernanceError("session completion must follow a complete clean pair")
+                    session_closed = True
+                elif "session_completed" not in item and recorded_streak == 2:
+                    session_closed = True
         previous = stamp
+    if session_closed and status in {"Stale", "InProgress", "Blocked"}:
+        status, streak = "RestartRequired", 0
     result = {"status": status, "clean_streak": streak, "rounds": rounds, "open_findings": sorted(findings)}
     if last_subject is not None:
         result["reviewed_delivery"] = {"task_id": last_subject[0], "subject_sha256": last_subject[1],
@@ -352,6 +368,15 @@ def append_review(task_dir: Path, entry: dict[str, Any], *, reason: str, basis: 
             raise GovernanceError("legacy results are not automatically enrolled in the new review protocol")
         if outcome.get("adversarial_review_parent"):
             raise GovernanceError("record rounds on the original review task; this repair is managed by its parent")
+        current_state = bound_review_state(task_dir, outcome, contract, original_events)
+        kind = entry["event"]
+        if kind in {"Round", "Blocked"} and current_state["status"] in {"Passed", "LegacyNotRevalidated", "RestartRequired"}:
+            raise GovernanceError("the review session has ended; record a real new user decision before restarting")
+        if kind == "Offer" and current_state["status"] in {"InProgress", "Blocked", "Stale"}:
+            raise GovernanceError("an active review must be completed or stopped before offering it again")
+        if kind == "Decision" and entry["outcome"] != "Stopped" and current_state["status"] in {"InProgress", "Blocked", "Stale"}:
+            raise GovernanceError("an active review only accepts an explicit stop decision")
+        declared_completion = entry.get("session_completed")
         if entry.get("event") == "Round":
             delivery_id = entry.get("delivery_task_id", "")
             if not TASK_ID.fullmatch(delivery_id):
@@ -391,9 +416,17 @@ def append_review(task_dir: Path, entry: dict[str, Any], *, reason: str, basis: 
                 if key != "report_ref" and key in entry and entry[key] != value:
                     raise GovernanceError(f"{key} must match the actual report or delivery")
             entry.update(facts)
+            entry["session_completed"] = False
         records = outcome["adversarial_review"]
         records.append(copy.deepcopy(entry))
-        bound_review_state(task_dir, outcome, contract, original_events)
+        state = bound_review_state(task_dir, outcome, contract, original_events)
+        if kind == "Round":
+            completed = state["status"] == "Passed"
+            if declared_completion is not None and declared_completion != completed:
+                raise GovernanceError("session_completed must match the actual computed clean pair")
+            entry["session_completed"] = completed
+            records[-1]["session_completed"] = completed
+            bound_review_state(task_dir, outcome, contract, original_events)
         revision = document["revision"]
         document["revision"] += 1
         field = "adversarial_review" if path.name == "after.json" else "task_outcome.adversarial_review"

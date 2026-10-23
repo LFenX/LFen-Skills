@@ -1,0 +1,50 @@
+{
+  "reconciled_at": "2026-10-23T13:20:04.259615Z",
+  "initial_validation": "exit 1: active query output invalid, stage S5 differs from current S8",
+  "guard_first_attempt": "CLI rejected two positional paths; repeated singly and explicitly refused outside allowed_paths; no writes performed before official scope amendment",
+  "scope_update": "only exact own generated query paths, same review task record lifecycle",
+  "archived": [
+    {
+      "query_digest": "1b35d06983949c695d8f8002f92915d150a149391860ea5c27529f9a16eb4ace",
+      "stage": "S5",
+      "files": {
+        "clause-context.md": "e83652ed257f892611dbcdc7c71b47a98d67985b7bdad1056719e1460f7da67f",
+        "clause-context.md.view.json": "e0fa65bae2f196695eac30e0d3c80785e6fd8cfb94920a7ce391a5b97b83fb03",
+        "query-result.json": "368b35934c3bd24c0bee248e032f1376c04199bab256e51de8a123e4edaa46d9",
+        "query-result.json.view.json": "666e85cdcd31d9e41d2e105c30e28449ca7ac48e0d6490881aae99ba8c81054c"
+      },
+      "request_sha256": "5c11a96c3b23b099bddde043fa35982cfd5b863e955278e2605245dfc9712121"
+    },
+    {
+      "query_digest": "a127fcc2c07525e820e00804d2ea3ef2ab347e44fa2ef23bb48d66b8536b4aa5",
+      "stage": "S5",
+      "files": {
+        "clause-context.md": "f5cc3fbbf2125d15a7043422708fdccd31d500c2c791e75e5c73371e89edf50d",
+        "clause-context.md.view.json": "8d1932322e4db7b86fe3c4b06678b0610a241db4fbcf0414f8de9dae1ac03a4e",
+        "query-result.json": "cf0f1797a6a66213c2488102a3edc8bdbe9c5e19ceba05386ac118851e856e04",
+        "query-result.json.view.json": "4006f7dd7cf526763765ed24627c5802395f5d50625a4e38baa90e13fd8069be"
+      },
+      "request_sha256": "9658dd4cbd92cc25a5377ac6bdee5a369dddc365a198f4a7783aed361a861293"
+    },
+    {
+      "query_digest": "eb8142bc471fc6196904023f9a563eb59cc3c1b02ecc45c8dc23dc2339fa3c50",
+      "stage": "S4",
+      "files": {
+        "clause-context.md": "df751bb7005f8ca32b1fb95e876b26874b89bb2bceedd2111ee041c1697164df",
+        "clause-context.md.view.json": "33c86244db68e15c62554f9f2c72f7ae61fb1abf5a3ea59e2cc1241093e0dbe7",
+        "query-result.json": "22bdc976689c56a4cd3a6ca12f43b83fe11b918c9c1ba2fbc166ce2c333fc9f7",
+        "query-result.json.view.json": "c53d6c7029c73139f50cbd33374f1a65c6a2e28f462f99b25df3aa1ad8cea6a6"
+      },
+      "request_sha256": "e82b5582833895358cdd0fc4459854cf4afbf3e6f282b568bb7d1a25892bac68"
+    }
+  ],
+  "index_rebuild_exit": 0,
+  "index_rebuild_output": "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\generated\\query-history\\T-ADVERSARIAL-20261023-005\\archive-index.json\n{'status': 'Passed', 'publications': 3, 'archive_files': 12, 'redirects': 12, 'archived_request_sets': 1, 'archived_request_files': 3, 'active_publications': 1, 'active_files': 4, 'current_active_query_result': '.project-governance/generated/queries/T-ADVERSARIAL-20261023-005/12f7f57ab3ce2edb87a43f2670166db0961405bf5b16c46cf51c6707b018602e/query-result.json'}\n",
+  "scope_refresh_retry": {
+    "invalid_result_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/package-preclose-A02.json",
+    "action": "get_context official recompiled stale plan; all context consumed, Expanded8/8; superseded S8 archived intact",
+    "current_query_digest": "9bf14c02e381ed6107b52d823a80f8c38c14d314e0602ead5a14d31171f35ddb",
+    "rebuild_exit": 0,
+    "output": "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\generated\\query-history\\T-ADVERSARIAL-20261023-005\\archive-index.json\n{'status': 'Passed', 'publications': 4, 'archive_files': 16, 'redirects': 16, 'archived_request_sets': 1, 'archived_request_files': 4, 'active_publications': 1, 'active_files': 4, 'current_active_query_result': '.project-governance/generated/queries/T-ADVERSARIAL-20261023-005/9bf14c02e381ed6107b52d823a80f8c38c14d314e0602ead5a14d31171f35ddb/query-result.json'}\n"
+  }
+}

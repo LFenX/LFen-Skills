@@ -1,0 +1,1286 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskContract",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-ADVERSARIAL-20261023",
+  "task_id": "T-ADVERSARIAL-20261023-005",
+  "ordinal": 19,
+  "revision": 3,
+  "lifecycle_state": "Frozen",
+  "created_at": "2026-10-23T12:54:50.502533Z",
+  "frozen_at": "2026-10-23T12:58:59.443363Z",
+  "objective": "修复已结束的审查因交付或说明修订而复用旧授权重新启动的问题，保持失效计数与会话结束事实独立",
+  "request_snapshot": {
+    "language": "zh",
+    "text": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查\n\n开始审查",
+    "captured_at": "2026-10-23T12:54:50.030919Z",
+    "source": "user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0"
+  },
+  "clarification": {
+    "mode": "Skipped",
+    "state": "Settled",
+    "notice": "第四轮确认缺陷有公开复现；沿用原未结束会话授权返修，不重复询问。",
+    "survey_refs": [
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+    ],
+    "rounds": [],
+    "basis": "边界与缺陷明确，无新增范围、权限或阻断未知。",
+    "reopened_by": []
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "原流程全部约束继续生效；结束会话不因当前证据失效而恢复旧授权；原实际未结束会话继续本范围修复复验",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+      ],
+      "acceptance_refs": [
+        0,
+        1,
+        2
+      ],
+      "review": {
+        "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+        "conditions": [
+          "工程完成、验证并保存结果后主动询问，明确同意才启动",
+          "当前同一交付连续两轮完整独立审查无问题才通过，问题或未检项使连续计数归零",
+          "发现问题先修复复验并保存返修结果，再继续原未结束会话",
+          "已结束会话的授权不因证明失效而恢复；新真实决定后重新两轮计数，活动会话可继续"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "Full/Minimal 正常完成结果再Offer和Accepted",
+            "expected": "合法转移按当前交付完整检查，留档真实状态",
+            "actual": "协议50及边界105的正反向授权与时序路径通过",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "未完成/无结果/无Offer/未回答/拒绝/推迟的Round",
+            "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+            "actual": "协议50及边界105的正反向授权与时序路径通过",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "Met",
+            "input": "同版两份不同报告，完整覆盖且无开放问题",
+            "expected": "合法转移按当前交付完整检查，留档真实状态",
+            "actual": "协议50及边界105的正反计数与独立证据检查通过，合成夹具不算真实干净轮",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "NotMet",
+            "input": "更换版本、修改报告、复用报告、存在问题或未检项",
+            "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+            "actual": "协议50及边界105的正反计数与独立证据检查通过，合成夹具不算真实干净轮",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 2,
+            "branch": "Met",
+            "input": "ManagedByParent已验证返修完成后审查",
+            "expected": "合法转移按当前交付完整检查，留档真实状态",
+            "actual": "既有返修归属和时间约束回归通过，原实际会话四轮均有真实报告",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 2,
+            "branch": "NotMet",
+            "input": "过早轮次、未关联返修、无授权/无关父任务",
+            "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+            "actual": "既有返修归属和时间约束回归通过，原实际会话四轮均有真实报告",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 3,
+            "branch": "Met",
+            "input": "已结束后新Accepted再两份新报告；活动Stale续审",
+            "expected": "合法转移按当前交付完整检查，留档真实状态",
+            "actual": "新增24条Full/Minimal边界通过；两个原始公开反例均RestartRequired并拒绝新Round，记录字节不变",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          },
+          {
+            "condition": 3,
+            "branch": "NotMet",
+            "input": "已结束证明失效后沿用旧Accepted追加Round或Blocked",
+            "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+            "actual": "新增24条Full/Minimal边界通过；两个原始公开反例均RestartRequired并拒绝新Round，记录字节不变",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "开始审查",
+      "reading": "原流程全部约束继续生效；结束会话不因当前证据失效而恢复旧授权；原实际未结束会话继续本范围修复复验",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+      ],
+      "acceptance_refs": [
+        2
+      ],
+      "review": {
+        "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+        "conditions": [
+          "实际完工后用户已明确同意原范围审查、返修、复验，Proceed不冒充Acceptance"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "真实原问题及“开始审查”答复",
+            "expected": "合法转移按当前交付完整检查，留档真实状态",
+            "actual": "原实际会话已有四轮；协议/边界授权反例通过，用户验收仍Pending",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "没有同意或仅普通验收同意",
+            "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+            "actual": "原实际会话已有四轮；协议/边界授权反例通过，用户验收仍Pending",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D-01",
+      "kind": "Proceed",
+      "presented": "本任务的工程实现、验证和结果留档已完成。是否现在启动多轮对抗性审查？开始后将逐条核对原始需求，发现问题则修复并复验，直至同一交付版本连续两轮完整审查均未发现问题。",
+      "response": "开始审查",
+      "decided_by": "user",
+      "decided_at": "2026-10-23T09:58:06.866514Z",
+      "evidence_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
+      "outcome": "Approved"
+    }
+  ],
+  "depends_on": [
+    "T-ADVERSARIAL-20261023-001"
+  ],
+  "supersedes": [],
+  "blocked_by": [],
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "1e2c597762bc9e571a582e46528d0a2ea4e335c2",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 3,
+    "status_digest": "8ff370f13a52a3f29f5b220612d0a6a21a78500a0ff4d1b90bb59d96a3ee99ce",
+    "captured_at": "2026-10-23T12:54:50.229040Z"
+  },
+  "scope": {
+    "in_scope": [
+      "修复第四轮确认的结束会话授权恢复缺陷，复验并继续原已授权的未结束审查"
+    ],
+    "out_of_scope": [
+      "消费项目业务变更、并行治理基线补丁、增加无Offer事前授权模式、实时控制台新界面、目录重构"
+    ],
+    "allowed_paths": [
+      "skills/product-engineering/run-governed-product-workflow",
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-001",
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-005",
+      ".project-governance/console",
+      ".project-governance/project-state.json",
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/parallel-installation-coordination.json",
+      "update_log/2026-10-23-governed-workflow-adversarial-repair-04.md",
+      "update_log/2026-10-23-governed-workflow-adversarial-review.md",
+      "C:/Users/Administrator/.lfenskills/skills/product-engineering/run-governed-product-workflow",
+      ".project-governance/generated/query-history/T-ADVERSARIAL-20261023-005",
+      ".project-governance/generated/queries/T-ADVERSARIAL-20261023-005"
+    ],
+    "forbidden_actions": [
+      "伪造用户决定或审查报告",
+      "改写已结束账本或原始报告",
+      "以旧会话授权自动启动已结束审查",
+      "以合成用例冒充实际无问题轮次"
+    ]
+  },
+  "authority": {
+    "execution_permissions": [
+      "read",
+      "edit-in-scope",
+      "validate",
+      "external-effect"
+    ],
+    "required_gates": [],
+    "stop_conditions": [
+      "scope-expansion",
+      "authority-conflict",
+      "critical-evidence-missing"
+    ],
+    "authority_references": [
+      "user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0"
+    ],
+    "authority_assessments": [
+      {
+        "reference": "user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0",
+        "source_kind": "Policy",
+        "status": "Valid",
+        "scope_refs": [
+          "修复第四轮确认的结束会话授权恢复缺陷，复验并继续原已授权的未结束审查"
+        ],
+        "evidence_refs": [
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+        ],
+        "verified_at": "2026-10-23T12:54:50.030919Z",
+        "expires_at": null
+      }
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      "Full/Minimal 已通过或旧协议收敛的审查在合法修订后失效，仍须真实新决定才可追加轮次；拒绝不写入",
+      "尚未结束的审查证据或交付失效后可沿用现有授权继续；历史可读，新授权重启后重新两轮计数",
+      "Schema、状态推荐、审阅视图和安装分发保持一致；完整回归和GitHub门禁通过，工程结果ManagedByParent且用户验收Pending"
+    ],
+    "decision_owner": "task-initiator"
+  },
+  "plan": {
+    "steps": [
+      "归档第四轮原话完整报告与公开复现并记录确认问题",
+      "分离会话结束事实与当前交付计数，同步机器入口及派生调用方并补边界回归",
+      "验证新旧记录恢复、完整工程套件、受保护契约及实际安装分发",
+      "保存新工程结果并继续原审查直至同版连续两轮完整无问题"
+    ],
+    "verification": [
+      "公开CLI复现结束后旧Accepted重用，并验证受控拒绝与新决定后正常重启",
+      "反向验证未结束Stale续审、旧协议和旧版已保存记录的读取恢复",
+      "协议/边界与完整自检、Schema一致性、检索审计、安装字节与GitHub三版本门禁"
+    ],
+    "rollback": [
+      "只回退本次修复与分发副本，保留真实决定、失败及审查记录"
+    ]
+  },
+  "first_principles_analysis": {
+    "method_version": "first-principles-v1",
+    "depth": "Concise",
+    "outcome": "修复已结束的审查因交付或说明修订而复用旧授权重新启动的问题，保持失效计数与会话结束事实独立",
+    "facts": [
+      {
+        "id": "F1",
+        "statement": "用户明确同意原任务范围多轮审查、修复和复验，原实际会话尚未获得两轮无问题",
+        "evidence_refs": [
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+        ]
+      },
+      {
+        "id": "F2",
+        "statement": "公开入口将当前绑定失效与历史结束授权混为同一状态，已结束会话可复用旧Accepted追加Round",
+        "evidence_refs": [
+          "C:/Users/Administrator/AppData/Local/Temp/lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857/session_history_checks.py",
+          "C:/Users/Administrator/AppData/Local/Temp/lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857/cases.json"
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "id": "C1",
+        "statement": "执行范围仅限：修复第四轮确认的结束会话授权恢复缺陷，复验并继续原已授权的未结束审查",
+        "source_refs": [
+          "user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+        ]
+      },
+      {
+        "id": "C2",
+        "statement": "执行必须遵守允许路径、排除范围和禁止动作；allowed=['skills/product-engineering/run-governed-product-workflow', '.project-governance/tasks/T-ADVERSARIAL-20261023-001', '.project-governance/tasks/T-ADVERSARIAL-20261023-005', '.project-governance/console', '.project-governance/project-state.json', '.project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/parallel-installation-coordination.json', 'update_log/2026-10-23-governed-workflow-adversarial-repair-04.md', 'update_log/2026-10-23-governed-workflow-adversarial-review.md', 'C:/Users/Administrator/.lfenskills/skills/product-engineering/run-governed-product-workflow']；out=['消费项目业务变更、并行治理基线补丁、增加无Offer事前授权模式、实时控制台新界面、目录重构']；forbidden=['伪造用户决定或审查报告', '改写已结束账本或原始报告', '以旧会话授权自动启动已结束审查', '以合成用例冒充实际无问题轮次']",
+        "source_refs": [
+          "user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+        ]
+      }
+    ],
+    "assumptions": [],
+    "unknowns": [],
+    "fundamentals": [
+      {
+        "id": "P1",
+        "statement": "交付是否仍被有效审查与一段授权会话是否已经结束是两个独立事实",
+        "derived_from": [
+          "F2"
+        ]
+      },
+      {
+        "id": "P2",
+        "statement": "任何方案必须保持已确认的范围、权限和禁止边界。",
+        "derived_from": [
+          "C1",
+          "C2"
+        ]
+      }
+    ],
+    "causal_links": [
+      {
+        "from_ref": "P1",
+        "to_ref": "O1",
+        "rationale": "选定方案必须产生目标状态变化。",
+        "evidence_refs": [
+          "user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+        ]
+      },
+      {
+        "from_ref": "P2",
+        "to_ref": "O1",
+        "rationale": "选定方案必须在授权边界内可执行。",
+        "evidence_refs": [
+          "user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+        ]
+      }
+    ],
+    "alternatives": [
+      {
+        "id": "O0",
+        "description": "保持只按当前绑定重放推导结束状态",
+        "status": "Rejected",
+        "derived_from": [
+          "F1"
+        ],
+        "tradeoffs": [
+          "无需变更",
+          "合法修订仍可恢复已结束会话旧授权"
+        ]
+      },
+      {
+        "id": "O1",
+        "description": "机器留存当时会话完成事实，计数按当前绑定失效；结束后新启动要求真实新决定",
+        "status": "Selected",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "tradeoffs": [
+          "阻止静默重新授权并保持活动会话正常恢复",
+          "需同步新旧记录兼容、Schema与调用方边界"
+        ]
+      }
+    ],
+    "decision_criteria": [
+      {
+        "id": "K1",
+        "statement": "Full/Minimal 已通过或旧协议收敛的审查在合法修订后失效，仍须真实新决定才可追加轮次；拒绝不写入",
+        "source_refs": [
+          "user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+        ]
+      },
+      {
+        "id": "K2",
+        "statement": "尚未结束的审查证据或交付失效后可沿用现有授权继续；历史可读，新授权重启后重新两轮计数",
+        "source_refs": [
+          "user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+        ]
+      },
+      {
+        "id": "K3",
+        "statement": "Schema、状态推荐、审阅视图和安装分发保持一致；完整回归和GitHub门禁通过，工程结果ManagedByParent且用户验收Pending",
+        "source_refs": [
+          "user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+        ]
+      }
+    ],
+    "selected_approach": "O1",
+    "derivation": [
+      {
+        "plan_step": "归档第四轮原话完整报告与公开复现并记录确认问题",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3"
+        ]
+      },
+      {
+        "plan_step": "分离会话结束事实与当前交付计数，同步机器入口及派生调用方并补边界回归",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3"
+        ]
+      },
+      {
+        "plan_step": "验证新旧记录恢复、完整工程套件、受保护契约及实际安装分发",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3"
+        ]
+      },
+      {
+        "plan_step": "保存新工程结果并继续原审查直至同版连续两轮完整无问题",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3"
+        ]
+      }
+    ],
+    "validation_refs": [
+      "公开CLI复现结束后旧Accepted重用，并验证受控拒绝与新决定后正常重启",
+      "反向验证未结束Stale续审、旧协议和旧版已保存记录的读取恢复",
+      "协议/边界与完整自检、Schema一致性、检索审计、安装字节与GitHub三版本门禁"
+    ],
+    "source_refs": [
+      "user-question-reply://current-thread/call_8cd6b5e9865947c0874609e44fcfba2c/0",
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+    ]
+  },
+  "task_profile": {
+    "delivery_scenario": "DS-03",
+    "development_types": [
+      "DT-06"
+    ],
+    "primary_development_type": "DT-06",
+    "development_type_scopes": {
+      "DT-06": [
+        "修复第四轮确认的结束会话授权恢复缺陷，复验并继续原已授权的未结束审查"
+      ]
+    },
+    "change_surfaces": [
+      "Agent/Collaboration",
+      "Data/Schema",
+      "API/Integration"
+    ],
+    "risk_level": "Low",
+    "extension_triggers": {
+      "E01": "Inactive",
+      "E02": "Inactive",
+      "E03": "Active",
+      "E04": "Active",
+      "E05": "Inactive"
+    },
+    "extension_evidence_refs": {
+      "E01": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+      ],
+      "E02": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+      ],
+      "E03": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+      ],
+      "E04": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+      ],
+      "E05": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+      ]
+    },
+    "baseline_inheritance": [
+      "Revise"
+    ],
+    "mode": "Normal",
+    "confidence": "High",
+    "basis": [
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+    ],
+    "open_questions": [],
+    "applicability_facts": {
+      "product_intent_change": "No",
+      "initiative_scope_change": "No",
+      "requirement_change": "Yes",
+      "external_behavior_change": "Yes",
+      "design_change": "Yes",
+      "architecture_impact": "No",
+      "security_privacy_impact": "No",
+      "data_ai_impact": "Yes",
+      "formal_knowledge_records": "Yes",
+      "operations_impact": "No",
+      "production_release": "No",
+      "irreversible_change": "No",
+      "actual_execution": "Yes",
+      "authority_available": "Yes",
+      "migration_retirement": "No",
+      "external_system_effect": "Yes",
+      "formal_review_or_gate": "No"
+    }
+  },
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-ADVERSARIAL-20261023-005-before",
+      "content_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-005/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "1e2c597762bc9e571a582e46528d0a2ea4e335c2",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-ADVERSARIAL-20261023-005-run",
+      "content_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-005/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "1e2c597762bc9e571a582e46528d0a2ea4e335c2",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-ADVERSARIAL-20261023-005-after",
+      "content_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-005/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "1e2c597762bc9e571a582e46528d0a2ea4e335c2",
+      "human_confirmation_refs": []
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "path": "requirement_items",
+      "old_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+          "reading": "原流程全部约束继续生效；结束会话不因当前证据失效而恢复旧授权；原实际未结束会话继续本范围修复复验",
+          "state": "Open",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+          ],
+          "acceptance_refs": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "开始审查",
+          "reading": "原流程全部约束继续生效；结束会话不因当前证据失效而恢复旧授权；原实际未结束会话继续本范围修复复验",
+          "state": "Open",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-005/survey.json"
+          ],
+          "acceptance_refs": [
+            2
+          ]
+        }
+      ],
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+          "reading": "原流程全部约束继续生效；结束会话不因当前证据失效而恢复旧授权；原实际未结束会话继续本范围修复复验",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+          ],
+          "acceptance_refs": [
+            0,
+            1,
+            2
+          ],
+          "review": {
+            "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+            "conditions": [
+              "工程完成、验证并保存结果后主动询问，明确同意才启动",
+              "当前同一交付连续两轮完整独立审查无问题才通过，问题或未检项使连续计数归零",
+              "发现问题先修复复验并保存返修结果，再继续原未结束会话",
+              "已结束会话的授权不因证明失效而恢复；新真实决定后重新两轮计数，活动会话可继续"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "Full/Minimal 正常完成结果再Offer和Accepted",
+                "expected": "合法转移按当前交付完整检查，留档真实状态",
+                "actual": "协议50及边界105的正反向授权与时序路径通过",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "未完成/无结果/无Offer/未回答/拒绝/推迟的Round",
+                "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+                "actual": "协议50及边界105的正反向授权与时序路径通过",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+                ]
+              },
+              {
+                "condition": 1,
+                "branch": "Met",
+                "input": "同版两份不同报告，完整覆盖且无开放问题",
+                "expected": "合法转移按当前交付完整检查，留档真实状态",
+                "actual": "协议50及边界105的正反计数与独立证据检查通过，合成夹具不算真实干净轮",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+                ]
+              },
+              {
+                "condition": 1,
+                "branch": "NotMet",
+                "input": "更换版本、修改报告、复用报告、存在问题或未检项",
+                "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+                "actual": "协议50及边界105的正反计数与独立证据检查通过，合成夹具不算真实干净轮",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+                ]
+              },
+              {
+                "condition": 2,
+                "branch": "Met",
+                "input": "ManagedByParent已验证返修完成后审查",
+                "expected": "合法转移按当前交付完整检查，留档真实状态",
+                "actual": "既有返修归属和时间约束回归通过，原实际会话四轮均有真实报告",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+                ]
+              },
+              {
+                "condition": 2,
+                "branch": "NotMet",
+                "input": "过早轮次、未关联返修、无授权/无关父任务",
+                "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+                "actual": "既有返修归属和时间约束回归通过，原实际会话四轮均有真实报告",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+                ]
+              },
+              {
+                "condition": 3,
+                "branch": "Met",
+                "input": "已结束后新Accepted再两份新报告；活动Stale续审",
+                "expected": "合法转移按当前交付完整检查，留档真实状态",
+                "actual": "新增24条Full/Minimal边界通过；两个原始公开反例均RestartRequired并拒绝新Round，记录字节不变",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+                ]
+              },
+              {
+                "condition": 3,
+                "branch": "NotMet",
+                "input": "已结束证明失效后沿用旧Accepted追加Round或Blocked",
+                "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+                "actual": "新增24条Full/Minimal边界通过；两个原始公开反例均RestartRequired并拒绝新Round，记录字节不变",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "开始审查",
+          "reading": "原流程全部约束继续生效；结束会话不因当前证据失效而恢复旧授权；原实际未结束会话继续本范围修复复验",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json"
+          ],
+          "acceptance_refs": [
+            2
+          ],
+          "review": {
+            "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+            "conditions": [
+              "实际完工后用户已明确同意原范围审查、返修、复验，Proceed不冒充Acceptance"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "真实原问题及“开始审查”答复",
+                "expected": "合法转移按当前交付完整检查，留档真实状态",
+                "actual": "原实际会话已有四轮；协议/边界授权反例通过，用户验收仍Pending",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "没有同意或仅普通验收同意",
+                "expected": "不越过授权、完成或覆盖门禁；拒绝不写入",
+                "actual": "原实际会话已有四轮；协议/边界授权反例通过，用户验收仍Pending",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/targeted-A01.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/public-original-counterexamples.json",
+                  ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "reason": "逐条对照原话及实际授权，补齐工程正反验收证明",
+      "basis": "协议50/边界105、完整源码自测及两个原始公开反例均实际执行通过；不声明真实审查已收敛",
+      "changed_at": "2026-10-23T13:17:13.293179Z"
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "path": "scope.allowed_paths",
+      "old_value": [
+        "skills/product-engineering/run-governed-product-workflow",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-001",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005",
+        ".project-governance/console",
+        ".project-governance/project-state.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/parallel-installation-coordination.json",
+        "update_log/2026-10-23-governed-workflow-adversarial-repair-04.md",
+        "update_log/2026-10-23-governed-workflow-adversarial-review.md",
+        "C:/Users/Administrator/.lfenskills/skills/product-engineering/run-governed-product-workflow"
+      ],
+      "new_value": [
+        "skills/product-engineering/run-governed-product-workflow",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-001",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-005",
+        ".project-governance/console",
+        ".project-governance/project-state.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/parallel-installation-coordination.json",
+        "update_log/2026-10-23-governed-workflow-adversarial-repair-04.md",
+        "update_log/2026-10-23-governed-workflow-adversarial-review.md",
+        "C:/Users/Administrator/.lfenskills/skills/product-engineering/run-governed-product-workflow",
+        ".project-governance/generated/query-history/T-ADVERSARIAL-20261023-005",
+        ".project-governance/generated/queries/T-ADVERSARIAL-20261023-005"
+      ],
+      "reason": "补齐当前任务既有阶段查询的派生归档路径，不改变业务或执行范围",
+      "basis": "S8 close_task 已完成8/8查询；旧S5活动查询导致结构校验失败，归档保留原内容及摘要再官方重建索引",
+      "changed_at": "2026-10-23T13:20:03.459517Z"
+    }
+  ],
+  "tailoring_resolution": {
+    "rule_set_id": "VC-PPG-TAIL-001",
+    "rule_set_version": "6.3 Candidate",
+    "rule_set_status": "In Review",
+    "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+    "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+    "resolver_sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+    "task_contract_schema_sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045",
+    "input_digest": "0fd8ae73f96ca17d8fa5406229ee286925bd9447b72beb2ba01720cd6161bcf0",
+    "stage": "S8",
+    "applicable_standards": [
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E03",
+      "E04"
+    ],
+    "pending_standards": [],
+    "stage_context_standards": [
+      "C04",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E03",
+      "E04"
+    ],
+    "control_strength": "minimum",
+    "independent_review": false,
+    "explicit_human_gate": false,
+    "blocking_reasons": [],
+    "rule_ids": [
+      "VC-PPG-TAIL-001:always_applicable",
+      "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:data_ai_impact=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_system_effect=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+      "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+      "VC-PPG-TAIL-001:change_surfaces:API/Integration",
+      "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+      "VC-PPG-TAIL-001:change_surfaces:Data/Schema",
+      "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+      "VC-PPG-TAIL-001:development_types:DT-06",
+      "VC-PPG-TAIL-001:execution_modes:Normal",
+      "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E03:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+      "VC-PPG-TAIL-001:risk_levels:Low"
+    ],
+    "source_sections": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sections": [
+          "2",
+          "10",
+          "12"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "22",
+          "23"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sections": [
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sections": [
+          "9",
+          "14",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "9"
+        ]
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E03",
+        "path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      }
+    ],
+    "complete_source_files": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+      },
+      {
+        "source_id": "E03",
+        "path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+        "sha256": "bb6a10422c6e672f3f67e6dc109c5bfaa594b195924758b21911fe44a18c603b"
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sha256": "8cb8a7b01cec9b1c868a1cba27352fef1c6314ff85f1956072af6dee9eeabdf0"
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+      }
+    ],
+    "profile_coverage_digest": {
+      "applicable": 104,
+      "total": 137,
+      "sha256": "5589b7e6ebcaec0cdddd357ebd77c7184c2833836a8bcea351e4746a74a1fdfc"
+    }
+  }
+}

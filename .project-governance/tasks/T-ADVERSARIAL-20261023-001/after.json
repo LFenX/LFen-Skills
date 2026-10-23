@@ -5,7 +5,7 @@
   "project_id": "P-LFEN-SKILLS",
   "work_item_id": "W-ADVERSARIAL-20261023",
   "task_id": "T-ADVERSARIAL-20261023-001",
-  "revision": 7,
+  "revision": 8,
   "status": "Implemented",
   "user_decision": {
     "outcome": "Pending"
@@ -284,6 +284,52 @@
       "report_sha256": "bac876a100a5d7279206ac2dc5017028315e6fc4b3d900b4ac78dcfabbcaa459",
       "delivery_completed_at": "2026-10-23T11:45:02.743157Z",
       "delivery_verified_at": "2026-10-23T11:44:12.724569Z"
+    },
+    {
+      "event": "Round",
+      "recorded_at": "2026-10-23T12:59:40.651078Z",
+      "started_at": "2026-10-23T12:34:20.6539750Z",
+      "round_id": "AR-04",
+      "reviewer": "/root/adversarial_round_04",
+      "delivery_task_id": "T-ADVERSARIAL-20261023-004",
+      "subject_sha256": "cec29541e44fc647f301f859e7fcc7f195bf8293615af3d755e534758b2f324a",
+      "requirements_sha256": "57bfbf29e4c6814f1e5638d026ebc0c59a448ec654942469a082c53d94dd92ca",
+      "report_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04.md",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04-raw/cases.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04-raw/storage-receipt.json"
+      ],
+      "findings": [
+        {
+          "id": "AR04-F01",
+          "summary": "[P2] 已结束或旧协议收敛的会话在合法修订失效后可沿用旧Accepted追加Round，缺少真实新决定",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04.md",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04-raw/finding_AR04_F01.json"
+          ]
+        }
+      ],
+      "resolutions": [
+        {
+          "finding_id": "AR03-001",
+          "disposition": "Fixed",
+          "reason": "Full/Minimal 在原报告修改或删除后均拒绝历史原内容副本，拒绝不写入；已存重复摘要不再计数，历史转移恢复和两份新报告收敛通过工程回归，本轮独立报告证据检查一致。",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/github-publication.json",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04.md",
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04-raw/cases.json"
+          ]
+        }
+      ],
+      "review_contract_version": "report-bound-v2",
+      "report_sha256": "2dcb43c4caef9592d803187fa116b1b0fe50df0dbf385b40ec582e3441cabb24",
+      "delivery_completed_at": "2026-10-23T12:31:38.238433Z",
+      "delivery_verified_at": "2026-10-23T12:26:36.601603Z"
     }
   ],
   "completed_at": "2026-10-23T09:34:07.840577Z",
@@ -730,6 +776,63 @@
         "report_sha256": "bac876a100a5d7279206ac2dc5017028315e6fc4b3d900b4ac78dcfabbcaa459",
         "delivery_completed_at": "2026-10-23T11:45:02.743157Z",
         "delivery_verified_at": "2026-10-23T11:44:12.724569Z"
+      }
+    },
+    {
+      "from_revision": 7,
+      "to_revision": 8,
+      "reason": "第四轮完整独立审查确认结束会话旧授权重用，关闭已验证报告历史身份缺陷并继续返修",
+      "basis": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04.md",
+      "changed_at": "2026-10-23T12:59:40.651078Z",
+      "path": "adversarial_review.5",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T12:59:40.651078Z",
+        "started_at": "2026-10-23T12:34:20.6539750Z",
+        "round_id": "AR-04",
+        "reviewer": "/root/adversarial_round_04",
+        "delivery_task_id": "T-ADVERSARIAL-20261023-004",
+        "subject_sha256": "cec29541e44fc647f301f859e7fcc7f195bf8293615af3d755e534758b2f324a",
+        "requirements_sha256": "57bfbf29e4c6814f1e5638d026ebc0c59a448ec654942469a082c53d94dd92ca",
+        "report_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04.md",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04-raw/cases.json",
+          ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04-raw/storage-receipt.json"
+        ],
+        "findings": [
+          {
+            "id": "AR04-F01",
+            "summary": "[P2] 已结束或旧协议收敛的会话在合法修订失效后可沿用旧Accepted追加Round，缺少真实新决定",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04.md",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04-raw/finding_AR04_F01.json"
+            ]
+          }
+        ],
+        "resolutions": [
+          {
+            "finding_id": "AR03-001",
+            "disposition": "Fixed",
+            "reason": "Full/Minimal 在原报告修改或删除后均拒绝历史原内容副本，拒绝不写入；已存重复摘要不再计数，历史转移恢复和两份新报告收敛通过工程回归，本轮独立报告证据检查一致。",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/github-publication.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04.md",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-04-raw/cases.json"
+            ]
+          }
+        ],
+        "review_contract_version": "report-bound-v2",
+        "report_sha256": "2dcb43c4caef9592d803187fa116b1b0fe50df0dbf385b40ec582e3441cabb24",
+        "delivery_completed_at": "2026-10-23T12:31:38.238433Z",
+        "delivery_verified_at": "2026-10-23T12:26:36.601603Z"
       }
     }
   ],

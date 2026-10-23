@@ -184,6 +184,8 @@ def recommendations(signals: list[dict[str, Any]]) -> list[dict[str, str]]:
     review_states = {(item.get("adversarial_review") or {}).get("status") for item in signals}
     if "NotOffered" in review_states:
         return [{"command": "verify", "reason": "工程结果已保存；主动询问是否进行对抗性审查，明确同意前不得开始。"}]
+    if "RestartRequired" in review_states:
+        return [{"command": "verify", "reason": "此前审查会话已结束，当前证明已失效；重新启动须取得用户真实新决定。"}]
     if review_states.intersection({"InProgress", "Blocked", "Stale"}):
         return [{"command": "verify", "reason": "已获同意的对抗性审查尚未连续两轮无问题；先处理未解决问题或阻塞，再按原文完整审查。"}]
     if any(item.get("engineering_recorded") and item.get("pending_acceptance") for item in signals):

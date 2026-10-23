@@ -1,0 +1,20 @@
+{
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\adversarial_review.py",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\fixtures\\full_legacy_history\\.project-governance\\tasks\\T-FULL-LEGACY-HISTORY",
+    "--entry-json-file",
+    "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\inputs\\legacy-round-after-metadata-without-new-decision.json",
+    "--reason",
+    "Independent synthetic protocol check",
+    "--basis",
+    "ar04://isolated-fixture"
+  ],
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 3,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-FULL-LEGACY-HISTORY\",\n    \"subject_sha256\": \"e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd\",\n    \"requirements_sha256\": \"b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-FULL-LEGACY-HISTORY\",\n    \"subject_sha256\": \"e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd\"\n  },\n  \"requirements_sha256\": \"b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4\",\n  \"delivery_task_id\": \"T-FULL-LEGACY-HISTORY\",\n  \"subject_sha256\": \"e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd\"\n}\n",
+  "stderr": "",
+  "finished_at": "2026-10-23T12:44:46.020312Z"
+}

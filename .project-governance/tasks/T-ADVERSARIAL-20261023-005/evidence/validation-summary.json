@@ -1,0 +1,85 @@
+{
+  "verified_at": "2026-10-23T13:18:16.528219Z",
+  "status": "Passed",
+  "source_sha256": "f0f3ce7fedddffcc889a3ec941009839521f0705a62e19b1fcea11aaf585e6af",
+  "source_files": 96,
+  "protocol_checks": 50,
+  "boundary_checks": 105,
+  "full_self_test": {
+    "started_at": "2026-10-23T13:08:49.698912Z",
+    "finished_at": "2026-10-23T13:10:22.032873Z",
+    "exit_code": 0,
+    "log": ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/self-test-A01.log"
+  },
+  "installed_self_test": {
+    "started_at": "2026-10-23T13:15:33.677606Z",
+    "finished_at": "2026-10-23T13:17:10.422499Z",
+    "exit_code": 0,
+    "installed_files_stable": true,
+    "file_count": 96,
+    "log": ".project-governance/tasks/T-ADVERSARIAL-20261023-005/evidence/installed-self-test-A01.log",
+    "source_sha256": "f0f3ce7fedddffcc889a3ec941009839521f0705a62e19b1fcea11aaf585e6af",
+    "preserved_peer_governance_sha256": "add9aff766c9b5ddb3eed0cdf5da8f7e464707648f5ea4870c98a462002ae153"
+  },
+  "runtime_retrieval": "Passed; runtime-retrieval.log",
+  "runtime_consistency_summary": {
+    "by_category": {
+      "task_contract_snapshot_not_applicable": 1
+    },
+    "by_severity": {
+      "Blocker": 0,
+      "Major": 0,
+      "Minor": 0,
+      "Observation": 1
+    },
+    "total_findings": 1
+  },
+  "static_checks": {
+    "checked_at": "2026-10-23T13:10:45.377060Z",
+    "checks": [
+      {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "C:/Users/Administrator/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+          "skills/product-engineering/run-governed-product-workflow"
+        ],
+        "exit": 0,
+        "output": "Skill is valid!\n"
+      },
+      {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "scripts/update_catalog.py",
+          "--check"
+        ],
+        "exit": 0,
+        "output": "分类目录校验通过：8 个 skill，5 个一级分类，Markdown 与 JSON 目录一致\n"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exit": 0,
+        "output": ""
+      }
+    ]
+  },
+  "actual_review_rounds": 4,
+  "actual_clean_streak": 0,
+  "actual_open_findings": [
+    "AR04-F01"
+  ],
+  "limitations": [
+    "工程回归不是实际无问题轮次；下一轮独立审查尚未执行",
+    "Python 3.13本机验证；当前工作源码GitHub三版本门禁待推送后实际完成",
+    "安装端另有独立所有者治理补丁，仅在记录时间核对稳定组合，不将其导入本仓库源码"
+  ]
+}

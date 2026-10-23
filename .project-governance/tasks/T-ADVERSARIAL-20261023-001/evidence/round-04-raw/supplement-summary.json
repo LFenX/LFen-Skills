@@ -1,0 +1,263 @@
+{
+  "at": "2026-10-23T12:44:48.938041Z",
+  "case_count": 166,
+  "failed": [
+    {
+      "id": "C149",
+      "name": "ended-round-without-new-decision",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T12:44:43.343442Z",
+        "round_id": "ended-new-round",
+        "started_at": "2026-10-23T12:44:43.343438Z",
+        "reviewer": "ar04-synthetic-ended-new-round",
+        "delivery_task_id": "T-ENDED-SESSION",
+        "subject_sha256": "f77606ef0cb39ee049c92ba5885d69ceb41e9708bc4b27addc895a24ae4b1db3",
+        "requirements_sha256": "1aec204dd4029e36cb3840a9e5ebe1b80193ce248e91dee449ec2c874e36f7de",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\fixtures\\ended_session\\.project-governance\\tasks\\T-ENDED-SESSION\\evidence\\ended-new-round.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "ar04://case-ended-new-round"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": {
+        "exit_code": 2,
+        "unchanged_after_rejection": true
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": {
+          "status": "InProgress",
+          "clean_streak": 1,
+          "rounds": 3,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "task_id": "T-ENDED-SESSION",
+            "subject_sha256": "f77606ef0cb39ee049c92ba5885d69ceb41e9708bc4b27addc895a24ae4b1db3",
+            "requirements_sha256": "1aec204dd4029e36cb3840a9e5ebe1b80193ce248e91dee449ec2c874e36f7de"
+          },
+          "current_delivery": {
+            "task_id": "T-ENDED-SESSION",
+            "subject_sha256": "f77606ef0cb39ee049c92ba5885d69ceb41e9708bc4b27addc895a24ae4b1db3"
+          },
+          "requirements_sha256": "1aec204dd4029e36cb3840a9e5ebe1b80193ce248e91dee449ec2c874e36f7de",
+          "delivery_task_id": "T-ENDED-SESSION",
+          "subject_sha256": "f77606ef0cb39ee049c92ba5885d69ceb41e9708bc4b27addc895a24ae4b1db3"
+        },
+        "stderr": "",
+        "unchanged": false
+      },
+      "result": "Failed",
+      "evidence_refs": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\raw\\0318-ended-round-without-new-decision.json"
+      ]
+    },
+    {
+      "id": "C155",
+      "name": "legacy-corrected-explanation-still-ended",
+      "input": {
+        "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\fixtures\\full_legacy_history\\.project-governance\\tasks\\T-FULL-LEGACY-HISTORY",
+        "operation": "status"
+      },
+      "expected": {
+        "exit_code": 0,
+        "status": "LegacyNotRevalidated",
+        "clean_streak": 0
+      },
+      "actual": {
+        "status": "Stale",
+        "clean_streak": 0,
+        "rounds": 2,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-FULL-LEGACY-HISTORY",
+          "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd",
+          "requirements_sha256": "5a3a325ffa51761a548628d5ce4c9f1dcece1d34236a01cceefcd67000fec691"
+        },
+        "current_delivery": {
+          "task_id": "T-FULL-LEGACY-HISTORY",
+          "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd"
+        },
+        "requirements_sha256": "b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4",
+        "delivery_task_id": "T-FULL-LEGACY-HISTORY",
+        "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd"
+      },
+      "result": "Failed",
+      "evidence_refs": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\raw\\0327-legacy-corrected-explanation-still-ended.json"
+      ]
+    },
+    {
+      "id": "C156",
+      "name": "legacy-round-after-metadata-without-new-decision",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T12:44:45.840313Z",
+        "round_id": "legacy-reopened-by-metadata",
+        "started_at": "2026-10-23T12:44:45.840307Z",
+        "reviewer": "ar04-synthetic-legacy-reopened-by-metadata",
+        "delivery_task_id": "T-FULL-LEGACY-HISTORY",
+        "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd",
+        "requirements_sha256": "b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\fixtures\\full_legacy_history\\.project-governance\\tasks\\T-FULL-LEGACY-HISTORY\\evidence\\legacy-reopened-by-metadata.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "ar04://case-legacy-reopened-by-metadata"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": {
+        "exit_code": 2,
+        "unchanged_after_rejection": true
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": {
+          "status": "InProgress",
+          "clean_streak": 1,
+          "rounds": 3,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "task_id": "T-FULL-LEGACY-HISTORY",
+            "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd",
+            "requirements_sha256": "b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4"
+          },
+          "current_delivery": {
+            "task_id": "T-FULL-LEGACY-HISTORY",
+            "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd"
+          },
+          "requirements_sha256": "b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4",
+          "delivery_task_id": "T-FULL-LEGACY-HISTORY",
+          "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd"
+        },
+        "stderr": "",
+        "unchanged": false
+      },
+      "result": "Failed",
+      "evidence_refs": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\raw\\0330-legacy-round-after-metadata-without-new-decision.json"
+      ]
+    },
+    {
+      "id": "C157",
+      "name": "full-legacy-real-new-decision",
+      "input": {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T12:44:46.022919Z",
+        "outcome": "Accepted",
+        "response": "Synthetic explicit Accepted",
+        "decided_by": "synthetic-user",
+        "evidence_ref": "ar04://synthetic-answer"
+      },
+      "expected": {
+        "exit_code": 0
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": null,
+        "stderr": "ERROR: an active review only accepts an explicit stop decision\n",
+        "unchanged": true
+      },
+      "result": "Failed",
+      "evidence_refs": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\raw\\0331-full-legacy-real-new-decision.json"
+      ]
+    },
+    {
+      "id": "C158",
+      "name": "full-legacy-current-one",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T12:44:46.412539Z",
+        "round_id": "full-legacy-current-one",
+        "started_at": "2026-10-23T12:44:46.412535Z",
+        "reviewer": "ar04-synthetic-full-legacy-current-one",
+        "delivery_task_id": "T-FULL-LEGACY-HISTORY",
+        "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd",
+        "requirements_sha256": "b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\fixtures\\full_legacy_history\\.project-governance\\tasks\\T-FULL-LEGACY-HISTORY\\evidence\\full-legacy-current-one.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "ar04://case-full-legacy-current-one"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": {
+        "exit_code": 0,
+        "status": "InProgress",
+        "clean_streak": 1
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": {
+          "status": "Passed",
+          "clean_streak": 2,
+          "rounds": 4,
+          "open_findings": [],
+          "reviewed_delivery": {
+            "task_id": "T-FULL-LEGACY-HISTORY",
+            "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd",
+            "requirements_sha256": "b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4"
+          },
+          "current_delivery": {
+            "task_id": "T-FULL-LEGACY-HISTORY",
+            "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd"
+          },
+          "requirements_sha256": "b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4",
+          "delivery_task_id": "T-FULL-LEGACY-HISTORY",
+          "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd"
+        },
+        "stderr": "",
+        "unchanged": false
+      },
+      "result": "Failed",
+      "evidence_refs": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\raw\\0334-full-legacy-current-one.json"
+      ]
+    },
+    {
+      "id": "C159",
+      "name": "full-legacy-current-two",
+      "input": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T12:44:46.848585Z",
+        "round_id": "full-legacy-current-two",
+        "started_at": "2026-10-23T12:44:46.848579Z",
+        "reviewer": "ar04-synthetic-full-legacy-current-two",
+        "delivery_task_id": "T-FULL-LEGACY-HISTORY",
+        "subject_sha256": "e8f1e0ec0eda8e4cccd0256e1ca1e91cf54d53206cbe04399ae136fee1944acd",
+        "requirements_sha256": "b96fe540716d35d0ded199181ff963d0b6287147b95bbfb276d89914bf69e1d4",
+        "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\fixtures\\full_legacy_history\\.project-governance\\tasks\\T-FULL-LEGACY-HISTORY\\evidence\\full-legacy-current-two.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "ar04://case-full-legacy-current-two"
+        ],
+        "findings": [],
+        "resolutions": []
+      },
+      "expected": {
+        "exit_code": 0,
+        "status": "Passed",
+        "clean_streak": 2
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": null,
+        "stderr": "ERROR: do not start review without explicit opt-in, or continue after two clean rounds\n",
+        "unchanged": true
+      },
+      "result": "Failed",
+      "evidence_refs": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\lfen_ar04_27cb1b45821e4e74b8ab7bd882dd0857\\raw\\0337-full-legacy-current-two.json"
+      ]
+    }
+  ]
+}

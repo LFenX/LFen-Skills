@@ -2418,7 +2418,7 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
             second_report = task / "evidence/round-2.md"
             report_bytes = second_report.read_bytes()
             second_report.write_text("Synthetic changed report after its recorded review\n", encoding="utf-8")
-            check(review_status(task)["status"] == "Stale" and review_status(task)["clean_streak"] == 0, "changing the bound report must invalidate the pass")
+            check(review_status(task)["status"] == "RestartRequired" and review_status(task)["clean_streak"] == 0, "changing a completed review's report must require a new decision")
             second_report.write_bytes(report_bytes)
             check(review_status(task)["status"] == "Passed", "restoring the exact bound report must restore its verifiable state")
             snapshot = path.read_bytes()
@@ -2433,7 +2433,9 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
                 amended = copy.deepcopy(out["verification"])
                 amended[0]["evidence_refs"] = ["self-test://new-verified-reference"]
                 amend_record(path, dotted_path="verification", new_value=amended, reason="Synthetic evidence correction changes bound delivery", basis="self-test://version")
-                check(review_status(task)["status"] == "Stale" and review_status(task)["clean_streak"] == 0, "current delivery changes must invalidate a previous pass")
+                check(review_status(task)["status"] == "RestartRequired" and review_status(task)["clean_streak"] == 0, "current delivery changes must not restore a completed review's authorization")
+                expect_governance_error("completed stale review cannot continue without new decision", lambda: write(task, entry(task, 3)))
+                choose(task, "Accepted")
                 write(task, {"event": "Blocked", "recorded_at": ga.now_utc(), "reason": "Synthetic recovery check", "evidence_refs": ["self-test://blocked"]})
                 check(review_status(task)["status"] == "Blocked", "stale history must permit a truthful blocked record")
             else:
@@ -2512,20 +2514,22 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
             # Read a synthetic saved history produced by the prior public-CLI bug.
             # Its copied report must not regain a clean count when the old file changes.
             faulty = copy.deepcopy(old_out)
+            for old_round in faulty["adversarial_review"]:
+                old_round.pop("session_completed", None)
             duplicate = {**copy.deepcopy(faulty["adversarial_review"][-1]), **reused}
             duplicate["report_sha256"] = faulty["adversarial_review"][-1]["report_sha256"]
             faulty["adversarial_review"].append(duplicate)
             hashes = {captured["round_id"]: None, reused["round_id"]: duplicate["report_sha256"]}
             recovered = review_state(faulty, original_before, report_hashes=hashes)
-            check(recovered["status"] == "Stale" and recovered["clean_streak"] == 0,
-                  "a persisted duplicate report digest cannot count even if its current file matches")
+            check(recovered["status"] == "RestartRequired" and recovered["clean_streak"] == 0,
+                  "a persisted old claimed pair cannot count or restore authorization")
             third = entry(identity_task, 3)
             third_sha = hashlib.sha256((root / third["report_ref"]).read_bytes()).hexdigest()
             faulty["adversarial_review"].append({**copy.deepcopy(duplicate), **third, "report_sha256": third_sha})
             hashes[third["round_id"]] = third_sha
             recovered = review_state(faulty, original_before, report_hashes=hashes)
-            check(recovered["status"] != "Passed" and recovered["clean_streak"] == 1,
-                  "a prior erroneous pass must retain only its genuinely new final report")
+            check(recovered["status"] == "RestartRequired" and recovered["clean_streak"] == 0,
+                  "a prior ended or ambiguous old session needs a new decision before further reports count")
             faulty["adversarial_review"].append({"event": "Offer", "recorded_at": ga.now_utc(),
                 "prompt": "Synthetic question accepted after the prior erroneous pass", "evidence_ref": "self-test://historical-offer"})
             check(review_state(faulty, original_before, report_hashes=hashes)["status"] == "AwaitingUser",
@@ -2540,6 +2544,48 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
             write(identity_task, entry(identity_task, 4))
             check(review_status(identity_task)["status"] == "Passed" and not validate_task_directory(identity_task),
                   "two distinct new reports must still converge without rewriting stale history")
+
+            ended_task = finish("T-ENDED-MIN" if minimal else "T-ENDED-FULL", 40, minimal)
+            start(ended_task)
+            ended_path = load(ended_task)[0]
+            unchanged = ended_path.read_bytes()
+            expect_governance_error("false completion claim on first round", lambda: write(ended_task, entry(ended_task, 1, session_completed=True)))
+            check(ended_path.read_bytes() == unchanged, "a fabricated completion claim must not be written")
+            write(ended_task, entry(ended_task, 1))
+            check(load(ended_task)[1]["adversarial_review"][-1]["session_completed"] is False, "one round must not end its authorization session")
+            unchanged = ended_path.read_bytes()
+            expect_governance_error("false incomplete claim on clean pair", lambda: write(ended_task, entry(ended_task, 2, session_completed=False)))
+            check(ended_path.read_bytes() == unchanged, "a caller cannot suppress a real session completion")
+            write(ended_task, entry(ended_task, 2))
+            _, ended_out, ended_before, _ = load(ended_task)
+            check(ended_out["adversarial_review"][-1]["session_completed"] is True, "the machine must record when its clean pair ended the session")
+            import adversarial_review as ar
+            legacy = copy.deepcopy(ended_out)
+            for old_round in legacy["adversarial_review"]:
+                if old_round["event"] == "Round":
+                    for field in ("session_completed", "review_contract_version", "report_ref", "report_sha256", "delivery_verified_at", "delivery_completed_at"):
+                        old_round.pop(field, None)
+                    old_round["requirements_sha256"] = ar._legacy_requirements_subject(ended_before)
+            check(review_state(legacy, ended_before)["status"] == "LegacyNotRevalidated", "old completed pairs remain readable without claiming current passage")
+            corrected_before = copy.deepcopy(ended_before)
+            corrected_before["clarification"]["basis"] += " Synthetic later explanation correction"
+            check(review_state(legacy, corrected_before)["status"] == "RestartRequired", "metadata changes must not reactivate an ended legacy authorization")
+            ended_report = ended_task / "evidence/round-2.md"
+            ended_report.write_bytes(ended_report.read_bytes() + b"Synthetic post-completion evidence correction\n")
+            state = review_status(ended_task)
+            check(state["status"] == "RestartRequired" and state["clean_streak"] == 0, "proof invalidation must preserve the ended session boundary")
+            unchanged = ended_path.read_bytes()
+            expect_governance_error("ended review cannot restart with old opt-in", lambda: write(ended_task, entry(ended_task, 3)))
+            expect_governance_error("ended review cannot continue as blocked", lambda: write(ended_task, {"event": "Blocked", "recorded_at": ga.now_utc(), "reason": "Synthetic blocked after end", "evidence_refs": ["self-test://ended"]}))
+            check(ended_path.read_bytes() == unchanged, "rejected restarts must preserve outcome bytes and revisions")
+            recs = recommendations([active_task_signal(ended_task)])
+            check(any("新决定" in item["reason"] for item in recs), "recommendations must request a new decision for an ended stale session")
+            choose(ended_task, "Accepted")
+            check(review_status(ended_task)["status"] == "InProgress" and review_status(ended_task)["clean_streak"] == 0, "a real new decision may restart without fabricating another Offer")
+            write(ended_task, entry(ended_task, 3))
+            check(review_status(ended_task)["clean_streak"] == 1, "a restarted session must earn its first clean round again")
+            write(ended_task, entry(ended_task, 4))
+            check(review_status(ended_task)["status"] == "Passed" and not validate_task_directory(ended_task), "only a second new clean report may complete the restarted session")
 
         for batch in (False, True):
             task = finish("T-CONCURRENT-BATCH" if batch else "T-CONCURRENT-SINGLE", 10 if batch else 9)
