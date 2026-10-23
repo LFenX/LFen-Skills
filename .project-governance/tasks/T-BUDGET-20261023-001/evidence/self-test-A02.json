@@ -1,0 +1,14 @@
+{
+  "started_at": "2026-10-23T15:11:52.736542+00:00",
+  "finished_at": "2026-10-23T15:11:55.758338+00:00",
+  "command": [
+    "C:\\Program Files\\Python313\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "skills/product-engineering/run-governed-product-workflow/scripts/self_test.py"
+  ],
+  "exit_code": 1,
+  "log": ".project-governance\\tasks\\T-BUDGET-20261023-001\\evidence\\self-test-A02.log",
+  "error_tail": "\nTraceback (most recent call last):\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\self_test.py\", line 4603, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\self_test.py\", line 3435, in main\n    retrieval_validation = validate_contracts(\n        project_root,\n        verify_project_snapshots=False,\n    )\n  File \"D:\\LFEN_project\\dev_project\\LFen-Skills\\skills\\product-engineering\\run-governed-product-workflow\\scripts\\audit_norm_retrieval.py\", line 799, in validate_contracts\n    raise GovernanceError(f\"{expected['script']} {' '.join(help_args)}: CLI help contract changed\")\ngovernance_artifacts.GovernanceError: adversarial_review.py --help: CLI help contract changed\n"
+}

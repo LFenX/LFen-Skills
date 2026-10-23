@@ -1,0 +1,8 @@
+{
+  "observed_at": "2026-10-23T15:08:35.272593Z",
+  "result": "Failed",
+  "stage": "targeted-A01",
+  "error": "历史无预算Accepted的状态预期仍为InProgress，新增停止规则正确返回BudgetRequired，旧夹具预期须同步。",
+  "effects": "仅临时夹具；未启动真实审查，未修改共享安装",
+  "correction": "更新历史兼容预期并增加实际预算边界用例，随后重跑"
+}

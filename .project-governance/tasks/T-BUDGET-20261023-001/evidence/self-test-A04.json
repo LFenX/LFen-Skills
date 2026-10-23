@@ -1,0 +1,19 @@
+{
+  "started_at": "2026-10-23T15:15:09.089841+00:00",
+  "finished_at": "2026-10-23T15:16:37.221291+00:00",
+  "exit_code": 0,
+  "log": ".project-governance\\tasks\\T-BUDGET-20261023-001\\evidence\\self-test-A04.log",
+  "status": "Passed",
+  "protocol": {
+    "status": "Passed",
+    "checks": 50
+  },
+  "boundaries": {
+    "status": "Passed",
+    "checks": 181
+  },
+  "console_deployment": {
+    "status": "Passed",
+    "checks": 12
+  }
+}

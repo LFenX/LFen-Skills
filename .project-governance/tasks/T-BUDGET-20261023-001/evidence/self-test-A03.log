@@ -1,0 +1,20 @@
+
+Traceback (most recent call last):
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\self_test.py", line 4603, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\self_test.py", line 3496, in main
+    console_deployment_validation = run_console_deployment_fixture()
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\self_test.py", line 1806, in run_console_deployment_fixture
+    require_test(
+    ~~~~~~~~~~~~^
+        deploy_console.SNAPSHOT_MODULES == deploy_console.computed_closure(scripts_dir),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        f"computed={deploy_console.computed_closure(scripts_dir)}",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\LFEN_project\dev_project\LFen-Skills\skills\product-engineering\run-governed-product-workflow\scripts\self_test.py", line 101, in require_test
+    raise SelfTestFailure(str(message))
+SelfTestFailure: console snapshot list must equal the console's real import closure: declared=('adversarial_review.py', 'audit_console.py', 'check_write_guard.py', 'console.py', 'console_assets.py', 'console_model.py', 'console_render.py', 'deploy_console.py', 'governance_artifacts.py', 'manage_project_docs.py', 'minimal_task.py') computed=('adversarial_review.py', 'audit_console.py', 'check_write_guard.py', 'console.py', 'console_assets.py', 'console_model.py', 'console_render.py', 'deploy_console.py', 'governance_artifacts.py', 'manage_project_docs.py', 'minimal_task.py', 'review_budget.py')

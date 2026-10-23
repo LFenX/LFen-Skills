@@ -1,0 +1,1862 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskContract",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-REVIEW-BUDGET-20261023",
+  "task_id": "T-BUDGET-20261023-001",
+  "ordinal": 21,
+  "revision": 7,
+  "lifecycle_state": "Frozen",
+  "created_at": "2026-10-23T14:58:41.486750Z",
+  "frozen_at": "2026-10-23T15:01:15.319398Z",
+  "objective": "为现有可选对抗性审查补入停止预算和跨会话防循环规则",
+  "request_snapshot": {
+    "text": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续；连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环。",
+    "language": "zh",
+    "captured_at": "2026-10-23T14:58:41.247365Z",
+    "source": "user-message://current-thread/review-stop-budget"
+  },
+  "clarification": {
+    "state": "Settled",
+    "mode": "Skipped",
+    "notice": "你的需求已经描述的非常清楚了，并且和项目现状一致，本次跳过向你提问的阶段",
+    "survey_refs": [
+      ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+    ],
+    "rounds": [],
+    "basis": "停止目标和边界已明确；数值为可配置默认，未回复不记为授权。；回滚误加禁止动作后，仅登记既有实现路径，原授权目标和边界不变，无新待答未知。",
+    "reopened_by": [
+      "amendment:scope.allowed_paths"
+    ]
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续",
+      "reading": "审查与返修预算有限且开始工作前扣减，任一耗尽后汇总并等待用户真实决定",
+      "state": "Covered",
+      "acceptance_refs": [
+        0
+      ],
+      "evidence_refs": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+      ],
+      "review": {
+        "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+        "conditions": [
+          "达到预算上限"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "达到预算上限成立",
+            "expected": "未到限可扣费；任一到限拒绝新工作",
+            "actual": "Full/Minimal 均验证开始即扣费、达到返修和审查上限拒绝新工作；真实新决定可续预算",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "达到预算上限不成立",
+            "expected": "未到限可扣费；任一到限拒绝新工作",
+            "actual": "Full/Minimal 均验证开始即扣费、达到返修和审查上限拒绝新工作；真实新决定可续预算",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续",
+      "reading": "不自动续预算、不借新任务或跨会话消息绕过",
+      "state": "Covered",
+      "acceptance_refs": [
+        1
+      ],
+      "evidence_refs": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+      ],
+      "review": {
+        "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+        "conditions": [
+          "预算耗尽后的继续决定"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "预算耗尽后的继续决定成立",
+            "expected": "未答复或推迟不得继续，真实新决定才能续预算",
+            "actual": "续预算 Offer 仅 AwaitingUser，Deferred 拒绝继续；Accepted 更新有限额度并保留原问题",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "预算耗尽后的继续决定不成立",
+            "expected": "未答复或推迟不得继续，真实新决定才能续预算",
+            "actual": "续预算 Offer 仅 AwaitingUser，Deferred 拒绝继续；Accepted 更新有限额度并保留原问题",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-03",
+      "source": "request_snapshot",
+      "quote": "连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环",
+      "reading": "同一交付连续两轮完整无问题仍是审查通过条件",
+      "state": "Covered",
+      "acceptance_refs": [
+        2
+      ],
+      "evidence_refs": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+      ],
+      "review": {
+        "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+        "conditions": [
+          "同一版本连续两轮完整无问题"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "同一版本连续两轮完整无问题成立",
+            "expected": "两轮才通过；仅一轮即使到限也不通过",
+            "actual": "两轮在预算边界 Passed；单轮预算耗尽保留 clean_streak=1 且 BudgetExhausted",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "同一版本连续两轮完整无问题不成立",
+            "expected": "两轮才通过；仅一轮即使到限也不通过",
+            "actual": "两轮在预算边界 Passed；单轮预算耗尽保留 clean_streak=1 且 BudgetExhausted",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-04",
+      "source": "request_snapshot",
+      "quote": "连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环",
+      "reading": "禁止跨会话互相触发修复循环；Full与Minimal共用原任务的预算和停止规则",
+      "state": "Covered",
+      "acceptance_refs": [
+        3
+      ],
+      "evidence_refs": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json",
+        "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+        "skills/product-engineering/run-governed-product-workflow/commands/verify.md"
+      ],
+      "review": {
+        "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "逐条读取新增跨会话执行约束及原任务扣费入口",
+            "expected": "skill 明确禁止跨会话互相触发修复循环，原任务统一预算和汇总",
+            "actual": "已逐条复核 SKILL 原则12及 verify 跨会话规则；明确消息仅为证据、不可续授权、不得互发触发；本任务未发送会话消息",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+              ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json",
+              "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+              "skills/product-engineering/run-governed-product-workflow/commands/verify.md"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D-BUDGET-PROCEED",
+      "kind": "Proceed",
+      "presented": "为现有可选对抗性审查补入停止预算和跨会话防循环规则",
+      "response": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续；连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环。",
+      "decided_by": "user",
+      "decided_at": "2026-10-23T14:58:41.247374Z",
+      "evidence_ref": "user-message://current-thread/review-stop-budget",
+      "outcome": "Approved"
+    }
+  ],
+  "depends_on": [],
+  "supersedes": [],
+  "blocked_by": [],
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "e44aec482324dde248b6ac50b3fc2f5ee4245706",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 4,
+    "status_digest": "810f624d55c8998604b530e035947268da0b84f48ed05b51e55ff0ff3fe9648d",
+    "captured_at": "2026-10-23T14:58:41.288418Z"
+  },
+  "scope": {
+    "in_scope": [
+      "为现有可选对抗性审查补入停止预算和跨会话防循环规则"
+    ],
+    "out_of_scope": [
+      "不启动真实对抗性审查",
+      "不向其他会话发消息",
+      "不修改共享安装副本",
+      "不扩展原目录结构"
+    ],
+    "allowed_paths": [
+      "skills/product-engineering/run-governed-product-workflow/**",
+      ".project-governance/tasks/T-BUDGET-20261023-001/**",
+      ".project-governance/generated/queries/T-BUDGET-20261023-001/**",
+      ".project-governance/generated/query-history/T-BUDGET-20261023-001/**",
+      "update_log/2026-10-23-governed-workflow-review-budget.md",
+      "update_log/2026-10-23-governed-workflow-adversarial-review.md"
+    ],
+    "forbidden_actions": [
+      "不启动真实对抗性审查",
+      "不向其他会话发消息",
+      "不修改共享安装副本",
+      "不扩展原目录结构"
+    ]
+  },
+  "authority": {
+    "execution_permissions": [
+      "read",
+      "edit-in-scope",
+      "validate",
+      "external-effect"
+    ],
+    "required_gates": [],
+    "stop_conditions": [
+      "scope-expansion",
+      "authority-conflict",
+      "critical-evidence-missing"
+    ],
+    "authority_references": [
+      "user-message://current-thread/review-stop-budget"
+    ],
+    "authority_assessments": [
+      {
+        "reference": "user-message://current-thread/review-stop-budget",
+        "source_kind": "Policy",
+        "status": "Valid",
+        "scope_refs": [
+          "为现有可选对抗性审查补入停止预算和跨会话防循环规则"
+        ],
+        "evidence_refs": [
+          "user-message://current-thread/review-stop-budget",
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ],
+        "verified_at": "2026-10-23T14:59:56.413436Z",
+        "expires_at": null
+      }
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      "审查与返修预算有限且开始工作前扣减，任一耗尽后汇总并等待用户真实决定",
+      "不自动续预算、不借新任务或跨会话消息绕过",
+      "同一交付连续两轮完整无问题仍是审查通过条件",
+      "Full与Minimal规则一致且历史记录可读"
+    ],
+    "decision_owner": "task-initiator"
+  },
+  "plan": {
+    "steps": [
+      "增加预算状态、工作计费与耗尽阻断",
+      "同步完工询问、停止汇总和跨会话规则",
+      "执行预算边界测试和现有回归并保存结果"
+    ],
+    "verification": [
+      "预算到限拒绝新工作；真实新决定可继续；两轮通过和历史兼容回归"
+    ],
+    "rollback": [
+      "仅回退本任务预算代码和指引，不改写既有审查记录"
+    ]
+  },
+  "first_principles_analysis": {
+    "method_version": "first-principles-v1",
+    "depth": "Concise",
+    "outcome": "为现有可选对抗性审查补入停止预算和跨会话防循环规则",
+    "facts": [
+      {
+        "id": "F1",
+        "statement": "任务发起人已确认目标：为现有可选对抗性审查补入停止预算和跨会话防循环规则",
+        "evidence_refs": [
+          "user-message://current-thread/review-stop-budget",
+          "AGENTS.md",
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "id": "C1",
+        "statement": "执行范围仅限：为现有可选对抗性审查补入停止预算和跨会话防循环规则",
+        "source_refs": [
+          "user-message://current-thread/review-stop-budget",
+          "AGENTS.md",
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ]
+      },
+      {
+        "id": "C2",
+        "statement": "执行必须遵守允许路径、排除范围和禁止动作；allowed=['skills/product-engineering/run-governed-product-workflow/**', '.project-governance/tasks/T-BUDGET-20261023-001/**', '.project-governance/generated/queries/T-BUDGET-20261023-001/**', '.project-governance/generated/query-history/T-BUDGET-20261023-001/**', 'update_log/2026-10-23-governed-workflow-review-budget.md']；out=['不启动真实对抗性审查', '不向其他会话发消息', '不修改共享安装副本', '不扩展原目录结构']；forbidden=['不启动真实对抗性审查', '不向其他会话发消息', '不修改共享安装副本', '不扩展原目录结构']",
+        "source_refs": [
+          "user-message://current-thread/review-stop-budget",
+          "AGENTS.md",
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ]
+      }
+    ],
+    "assumptions": [],
+    "unknowns": [],
+    "fundamentals": [
+      {
+        "id": "P1",
+        "statement": "任何方案必须直接改变已确认的目标状态，而不是只完成活动清单。",
+        "derived_from": [
+          "F1"
+        ]
+      },
+      {
+        "id": "P2",
+        "statement": "任何方案必须保持已确认的范围、权限和禁止边界。",
+        "derived_from": [
+          "C1",
+          "C2"
+        ]
+      }
+    ],
+    "causal_links": [
+      {
+        "from_ref": "P1",
+        "to_ref": "O1",
+        "rationale": "选定方案必须产生目标状态变化。",
+        "evidence_refs": [
+          "user-message://current-thread/review-stop-budget",
+          "AGENTS.md",
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ]
+      },
+      {
+        "from_ref": "P2",
+        "to_ref": "O1",
+        "rationale": "选定方案必须在授权边界内可执行。",
+        "evidence_refs": [
+          "user-message://current-thread/review-stop-budget",
+          "AGENTS.md",
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ]
+      }
+    ],
+    "alternatives": [
+      {
+        "id": "O0",
+        "description": "保持现状，不实施本任务变更",
+        "status": "Rejected",
+        "derived_from": [
+          "F1"
+        ],
+        "tradeoffs": [
+          "无新增实施成本",
+          "不能达到已确认目标"
+        ]
+      },
+      {
+        "id": "O1",
+        "description": "按已确认计划在授权范围内实施并验证",
+        "status": "Selected",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "tradeoffs": [
+          "直接覆盖验收标准",
+          "需要实施与回归验证成本"
+        ]
+      }
+    ],
+    "decision_criteria": [
+      {
+        "id": "K1",
+        "statement": "审查与返修预算有限且开始工作前扣减，任一耗尽后汇总并等待用户真实决定",
+        "source_refs": [
+          "user-message://current-thread/review-stop-budget",
+          "AGENTS.md",
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ]
+      },
+      {
+        "id": "K2",
+        "statement": "不自动续预算、不借新任务或跨会话消息绕过",
+        "source_refs": [
+          "user-message://current-thread/review-stop-budget",
+          "AGENTS.md",
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ]
+      },
+      {
+        "id": "K3",
+        "statement": "同一交付连续两轮完整无问题仍是审查通过条件",
+        "source_refs": [
+          "user-message://current-thread/review-stop-budget",
+          "AGENTS.md",
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ]
+      },
+      {
+        "id": "K4",
+        "statement": "Full与Minimal规则一致且历史记录可读",
+        "source_refs": [
+          "user-message://current-thread/review-stop-budget",
+          "AGENTS.md",
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ]
+      }
+    ],
+    "selected_approach": "O1",
+    "derivation": [
+      {
+        "plan_step": "增加预算状态、工作计费与耗尽阻断",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ]
+      },
+      {
+        "plan_step": "同步完工询问、停止汇总和跨会话规则",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ]
+      },
+      {
+        "plan_step": "执行预算边界测试和现有回归并保存结果",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ]
+      }
+    ],
+    "validation_refs": [
+      "预算到限拒绝新工作；真实新决定可继续；两轮通过和历史兼容回归"
+    ],
+    "source_refs": [
+      "user-message://current-thread/review-stop-budget",
+      "AGENTS.md",
+      ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+    ]
+  },
+  "task_profile": {
+    "delivery_scenario": "DS-03",
+    "development_types": [
+      "DT-06"
+    ],
+    "primary_development_type": "DT-06",
+    "development_type_scopes": {
+      "DT-06": [
+        "为现有可选对抗性审查补入停止预算和跨会话防循环规则"
+      ]
+    },
+    "change_surfaces": [
+      "Agent/Collaboration",
+      "Data/Schema",
+      "API/Integration"
+    ],
+    "risk_level": "Low",
+    "extension_triggers": {
+      "E01": "Inactive",
+      "E02": "Inactive",
+      "E03": "Active",
+      "E04": "Active",
+      "E05": "Inactive"
+    },
+    "extension_evidence_refs": {
+      "E01": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+      ],
+      "E02": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+      ],
+      "E03": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+      ],
+      "E04": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+      ],
+      "E05": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+      ]
+    },
+    "baseline_inheritance": [
+      "Revise"
+    ],
+    "mode": "Normal",
+    "confidence": "High",
+    "basis": [
+      ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+    ],
+    "open_questions": [],
+    "applicability_facts": {
+      "product_intent_change": "No",
+      "initiative_scope_change": "No",
+      "requirement_change": "Yes",
+      "external_behavior_change": "Yes",
+      "design_change": "Yes",
+      "architecture_impact": "No",
+      "security_privacy_impact": "No",
+      "data_ai_impact": "Yes",
+      "formal_knowledge_records": "Yes",
+      "operations_impact": "No",
+      "production_release": "No",
+      "irreversible_change": "No",
+      "actual_execution": "Yes",
+      "authority_available": "Yes",
+      "migration_retirement": "No",
+      "external_system_effect": "Yes",
+      "formal_review_or_gate": "No"
+    }
+  },
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-BUDGET-20261023-001-before",
+      "content_ref": ".project-governance/tasks/T-BUDGET-20261023-001/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "e44aec482324dde248b6ac50b3fc2f5ee4245706",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-BUDGET-20261023-001-run",
+      "content_ref": ".project-governance/tasks/T-BUDGET-20261023-001/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "e44aec482324dde248b6ac50b3fc2f5ee4245706",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-BUDGET-20261023-001-after",
+      "content_ref": ".project-governance/tasks/T-BUDGET-20261023-001/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "e44aec482324dde248b6ac50b3fc2f5ee4245706",
+      "human_confirmation_refs": []
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "path": "authority",
+      "old_value": {
+        "execution_permissions": [
+          "read",
+          "edit-in-scope",
+          "validate"
+        ],
+        "required_gates": [],
+        "stop_conditions": [
+          "scope-expansion",
+          "authority-conflict",
+          "critical-evidence-missing"
+        ],
+        "authority_references": [
+          "user-message://current-thread/review-stop-budget",
+          "AGENTS.md"
+        ],
+        "authority_assessments": []
+      },
+      "new_value": {
+        "execution_permissions": [
+          "read",
+          "edit-in-scope",
+          "validate",
+          "external-effect"
+        ],
+        "required_gates": [],
+        "stop_conditions": [
+          "scope-expansion",
+          "authority-conflict",
+          "critical-evidence-missing"
+        ],
+        "authority_references": [
+          "user-message://current-thread/review-stop-budget"
+        ],
+        "authority_assessments": [
+          {
+            "reference": "user-message://current-thread/review-stop-budget",
+            "source_kind": "Policy",
+            "status": "Valid",
+            "scope_refs": [
+              "为现有可选对抗性审查补入停止预算和跨会话防循环规则"
+            ],
+            "evidence_refs": [
+              "user-message://current-thread/review-stop-budget",
+              ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+            ],
+            "verified_at": "2026-10-23T14:59:56.413436Z",
+            "expires_at": null
+          }
+        ]
+      },
+      "reason": "补齐已明确任务指令的结构化范围授权和仓库同步权限，不沿用旧审查同意",
+      "basis": "user-message://current-thread/review-stop-budget",
+      "changed_at": "2026-10-23T14:59:56.433290Z"
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "path": "requirement_items",
+      "old_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续",
+          "reading": "审查与返修预算有限且开始工作前扣减，任一耗尽后汇总并等待用户真实决定",
+          "state": "Open",
+          "acceptance_refs": [
+            0
+          ],
+          "evidence_refs": []
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续",
+          "reading": "不自动续预算、不借新任务或跨会话消息绕过",
+          "state": "Open",
+          "acceptance_refs": [
+            1
+          ],
+          "evidence_refs": []
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环",
+          "reading": "同一交付连续两轮完整无问题仍是审查通过条件",
+          "state": "Open",
+          "acceptance_refs": [
+            2
+          ],
+          "evidence_refs": []
+        },
+        {
+          "id": "R-04",
+          "source": "request_snapshot",
+          "quote": "连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环",
+          "reading": "Full与Minimal规则一致且历史记录可读",
+          "state": "Open",
+          "acceptance_refs": [
+            3
+          ],
+          "evidence_refs": []
+        }
+      ],
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续",
+          "reading": "审查与返修预算有限且开始工作前扣减，任一耗尽后汇总并等待用户真实决定",
+          "state": "Covered",
+          "acceptance_refs": [
+            0
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [
+              "达到预算上限"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "达到预算上限成立",
+                "expected": "未到限可扣费；任一到限拒绝新工作",
+                "actual": "Full/Minimal 均验证开始即扣费、达到返修和审查上限拒绝新工作；真实新决定可续预算",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "达到预算上限不成立",
+                "expected": "未到限可扣费；任一到限拒绝新工作",
+                "actual": "Full/Minimal 均验证开始即扣费、达到返修和审查上限拒绝新工作；真实新决定可续预算",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续",
+          "reading": "不自动续预算、不借新任务或跨会话消息绕过",
+          "state": "Covered",
+          "acceptance_refs": [
+            1
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [
+              "预算耗尽后的继续决定"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "预算耗尽后的继续决定成立",
+                "expected": "未答复或推迟不得继续，真实新决定才能续预算",
+                "actual": "续预算 Offer 仅 AwaitingUser，Deferred 拒绝继续；Accepted 更新有限额度并保留原问题",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "预算耗尽后的继续决定不成立",
+                "expected": "未答复或推迟不得继续，真实新决定才能续预算",
+                "actual": "续预算 Offer 仅 AwaitingUser，Deferred 拒绝继续；Accepted 更新有限额度并保留原问题",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环",
+          "reading": "同一交付连续两轮完整无问题仍是审查通过条件",
+          "state": "Covered",
+          "acceptance_refs": [
+            2
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [
+              "同一版本连续两轮完整无问题"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "同一版本连续两轮完整无问题成立",
+                "expected": "两轮才通过；仅一轮即使到限也不通过",
+                "actual": "两轮在预算边界 Passed；单轮预算耗尽保留 clean_streak=1 且 BudgetExhausted",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "同一版本连续两轮完整无问题不成立",
+                "expected": "两轮才通过；仅一轮即使到限也不通过",
+                "actual": "两轮在预算边界 Passed；单轮预算耗尽保留 clean_streak=1 且 BudgetExhausted",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-04",
+          "source": "request_snapshot",
+          "quote": "连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环",
+          "reading": "Full与Minimal规则一致且历史记录可读",
+          "state": "Covered",
+          "acceptance_refs": [
+            3
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json",
+            "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+            "skills/product-engineering/run-governed-product-workflow/commands/verify.md"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "逐条读取新增跨会话执行约束及原任务扣费入口",
+                "expected": "skill 明确禁止跨会话互相触发修复循环，原任务统一预算和汇总",
+                "actual": "已逐条复核 SKILL 原则12及 verify 跨会话规则；明确消息仅为证据、不可续授权、不得互发触发；本任务未发送会话消息",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json",
+                  "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+                  "skills/product-engineering/run-governed-product-workflow/commands/verify.md"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "reason": "按原话核对预算、用户决定、两轮通过和跨会话防循环的实际实现与验证",
+      "basis": ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+      "changed_at": "2026-10-23T15:18:35.153560Z"
+    },
+    {
+      "from_revision": 3,
+      "to_revision": 4,
+      "path": "requirement_items",
+      "old_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续",
+          "reading": "审查与返修预算有限且开始工作前扣减，任一耗尽后汇总并等待用户真实决定",
+          "state": "Covered",
+          "acceptance_refs": [
+            0
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [
+              "达到预算上限"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "达到预算上限成立",
+                "expected": "未到限可扣费；任一到限拒绝新工作",
+                "actual": "Full/Minimal 均验证开始即扣费、达到返修和审查上限拒绝新工作；真实新决定可续预算",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "达到预算上限不成立",
+                "expected": "未到限可扣费；任一到限拒绝新工作",
+                "actual": "Full/Minimal 均验证开始即扣费、达到返修和审查上限拒绝新工作；真实新决定可续预算",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续",
+          "reading": "不自动续预算、不借新任务或跨会话消息绕过",
+          "state": "Covered",
+          "acceptance_refs": [
+            1
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [
+              "预算耗尽后的继续决定"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "预算耗尽后的继续决定成立",
+                "expected": "未答复或推迟不得继续，真实新决定才能续预算",
+                "actual": "续预算 Offer 仅 AwaitingUser，Deferred 拒绝继续；Accepted 更新有限额度并保留原问题",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "预算耗尽后的继续决定不成立",
+                "expected": "未答复或推迟不得继续，真实新决定才能续预算",
+                "actual": "续预算 Offer 仅 AwaitingUser，Deferred 拒绝继续；Accepted 更新有限额度并保留原问题",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环",
+          "reading": "同一交付连续两轮完整无问题仍是审查通过条件",
+          "state": "Covered",
+          "acceptance_refs": [
+            2
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [
+              "同一版本连续两轮完整无问题"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "同一版本连续两轮完整无问题成立",
+                "expected": "两轮才通过；仅一轮即使到限也不通过",
+                "actual": "两轮在预算边界 Passed；单轮预算耗尽保留 clean_streak=1 且 BudgetExhausted",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "同一版本连续两轮完整无问题不成立",
+                "expected": "两轮才通过；仅一轮即使到限也不通过",
+                "actual": "两轮在预算边界 Passed；单轮预算耗尽保留 clean_streak=1 且 BudgetExhausted",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-04",
+          "source": "request_snapshot",
+          "quote": "连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环",
+          "reading": "Full与Minimal规则一致且历史记录可读",
+          "state": "Covered",
+          "acceptance_refs": [
+            3
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json",
+            "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+            "skills/product-engineering/run-governed-product-workflow/commands/verify.md"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "逐条读取新增跨会话执行约束及原任务扣费入口",
+                "expected": "skill 明确禁止跨会话互相触发修复循环，原任务统一预算和汇总",
+                "actual": "已逐条复核 SKILL 原则12及 verify 跨会话规则；明确消息仅为证据、不可续授权、不得互发触发；本任务未发送会话消息",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json",
+                  "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+                  "skills/product-engineering/run-governed-product-workflow/commands/verify.md"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续",
+          "reading": "审查与返修预算有限且开始工作前扣减，任一耗尽后汇总并等待用户真实决定",
+          "state": "Covered",
+          "acceptance_refs": [
+            0
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [
+              "达到预算上限"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "达到预算上限成立",
+                "expected": "未到限可扣费；任一到限拒绝新工作",
+                "actual": "Full/Minimal 均验证开始即扣费、达到返修和审查上限拒绝新工作；真实新决定可续预算",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "达到预算上限不成立",
+                "expected": "未到限可扣费；任一到限拒绝新工作",
+                "actual": "Full/Minimal 均验证开始即扣费、达到返修和审查上限拒绝新工作；真实新决定可续预算",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "把停止机制补进 run-governed-product-workflow：设置审查和返修预算，达到上限就汇总问题，交给用户决定是否继续",
+          "reading": "不自动续预算、不借新任务或跨会话消息绕过",
+          "state": "Covered",
+          "acceptance_refs": [
+            1
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [
+              "预算耗尽后的继续决定"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "预算耗尽后的继续决定成立",
+                "expected": "未答复或推迟不得继续，真实新决定才能续预算",
+                "actual": "续预算 Offer 仅 AwaitingUser，Deferred 拒绝继续；Accepted 更新有限额度并保留原问题",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "预算耗尽后的继续决定不成立",
+                "expected": "未答复或推迟不得继续，真实新决定才能续预算",
+                "actual": "续预算 Offer 仅 AwaitingUser，Deferred 拒绝继续；Accepted 更新有限额度并保留原问题",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环",
+          "reading": "同一交付连续两轮完整无问题仍是审查通过条件",
+          "state": "Covered",
+          "acceptance_refs": [
+            2
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [
+              "同一版本连续两轮完整无问题"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "同一版本连续两轮完整无问题成立",
+                "expected": "两轮才通过；仅一轮即使到限也不通过",
+                "actual": "两轮在预算边界 Passed；单轮预算耗尽保留 clean_streak=1 且 BudgetExhausted",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "同一版本连续两轮完整无问题不成立",
+                "expected": "两轮才通过；仅一轮即使到限也不通过",
+                "actual": "两轮在预算边界 Passed；单轮预算耗尽保留 clean_streak=1 且 BudgetExhausted",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-04",
+          "source": "request_snapshot",
+          "quote": "连续两轮无问题仍是通过条件，同时禁止跨会话互相触发修复循环",
+          "reading": "禁止跨会话互相触发修复循环；Full与Minimal共用原任务的预算和停止规则",
+          "state": "Covered",
+          "acceptance_refs": [
+            3
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+            ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json",
+            "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+            "skills/product-engineering/run-governed-product-workflow/commands/verify.md"
+          ],
+          "review": {
+            "source_sha256": "6b31d238dee7eda1ba7acd29c65e2d85a63087e7adc0ec116b036f1a5452ab5b",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "逐条读取新增跨会话执行约束及原任务扣费入口",
+                "expected": "skill 明确禁止跨会话互相触发修复循环，原任务统一预算和汇总",
+                "actual": "已逐条复核 SKILL 原则12及 verify 跨会话规则；明确消息仅为证据、不可续授权、不得互发触发；本任务未发送会话消息",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+                  ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json",
+                  "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+                  "skills/product-engineering/run-governed-product-workflow/commands/verify.md"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "reason": "将跨会话禁止规则在原文reading中显式列出，与实际文档证据一致",
+      "basis": ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json",
+      "changed_at": "2026-10-23T15:20:08.889414Z"
+    },
+    {
+      "from_revision": 4,
+      "to_revision": 5,
+      "path": "scope",
+      "old_value": {
+        "in_scope": [
+          "为现有可选对抗性审查补入停止预算和跨会话防循环规则"
+        ],
+        "out_of_scope": [
+          "不启动真实对抗性审查",
+          "不向其他会话发消息",
+          "不修改共享安装副本",
+          "不扩展原目录结构"
+        ],
+        "allowed_paths": [
+          "skills/product-engineering/run-governed-product-workflow/**",
+          ".project-governance/tasks/T-BUDGET-20261023-001/**",
+          ".project-governance/generated/queries/T-BUDGET-20261023-001/**",
+          ".project-governance/generated/query-history/T-BUDGET-20261023-001/**",
+          "update_log/2026-10-23-governed-workflow-review-budget.md"
+        ],
+        "forbidden_actions": [
+          "不启动真实对抗性审查",
+          "不向其他会话发消息",
+          "不修改共享安装副本",
+          "不扩展原目录结构"
+        ]
+      },
+      "new_value": {
+        "in_scope": [
+          "为现有可选对抗性审查补入停止预算和跨会话防循环规则"
+        ],
+        "out_of_scope": [
+          "不启动真实对抗性审查",
+          "不向其他会话发消息",
+          "不修改共享安装副本",
+          "不扩展原目录结构"
+        ],
+        "allowed_paths": [
+          "skills/product-engineering/run-governed-product-workflow/**",
+          ".project-governance/tasks/T-BUDGET-20261023-001/**",
+          ".project-governance/generated/queries/T-BUDGET-20261023-001/**",
+          ".project-governance/generated/query-history/T-BUDGET-20261023-001/**",
+          "update_log/2026-10-23-governed-workflow-review-budget.md",
+          "update_log/2026-10-23-governed-workflow-adversarial-review.md"
+        ],
+        "forbidden_actions": [
+          "不启动真实对抗性审查",
+          "不向其他会话发消息",
+          "不修改共享安装副本",
+          "不扩展原目录结构",
+          "禁止编辑或提交任务开始前已存在的暂停日志；其SHA256须与evidence/preexisting-scope.json一致"
+        ]
+      },
+      "reason": "仅声明并保留开始前既有暂停日志差异，解除全工作树范围对账误归属；不增加产品变更范围",
+      "basis": ".project-governance\\tasks\\T-BUDGET-20261023-001\\evidence\\preexisting-scope.json",
+      "changed_at": "2026-10-23T15:26:46.040005Z"
+    },
+    {
+      "from_revision": 5,
+      "to_revision": 6,
+      "path": "scope",
+      "old_value": {
+        "in_scope": [
+          "为现有可选对抗性审查补入停止预算和跨会话防循环规则"
+        ],
+        "out_of_scope": [
+          "不启动真实对抗性审查",
+          "不向其他会话发消息",
+          "不修改共享安装副本",
+          "不扩展原目录结构"
+        ],
+        "allowed_paths": [
+          "skills/product-engineering/run-governed-product-workflow/**",
+          ".project-governance/tasks/T-BUDGET-20261023-001/**",
+          ".project-governance/generated/queries/T-BUDGET-20261023-001/**",
+          ".project-governance/generated/query-history/T-BUDGET-20261023-001/**",
+          "update_log/2026-10-23-governed-workflow-review-budget.md",
+          "update_log/2026-10-23-governed-workflow-adversarial-review.md"
+        ],
+        "forbidden_actions": [
+          "不启动真实对抗性审查",
+          "不向其他会话发消息",
+          "不修改共享安装副本",
+          "不扩展原目录结构",
+          "禁止编辑或提交任务开始前已存在的暂停日志；其SHA256须与evidence/preexisting-scope.json一致"
+        ]
+      },
+      "new_value": {
+        "in_scope": [
+          "为现有可选对抗性审查补入停止预算和跨会话防循环规则"
+        ],
+        "out_of_scope": [
+          "不启动真实对抗性审查",
+          "不向其他会话发消息",
+          "不修改共享安装副本",
+          "不扩展原目录结构"
+        ],
+        "allowed_paths": [
+          "skills/product-engineering/run-governed-product-workflow/**",
+          ".project-governance/tasks/T-BUDGET-20261023-001/**",
+          ".project-governance/generated/queries/T-BUDGET-20261023-001/**",
+          ".project-governance/generated/query-history/T-BUDGET-20261023-001/**",
+          "update_log/2026-10-23-governed-workflow-review-budget.md",
+          "update_log/2026-10-23-governed-workflow-adversarial-review.md"
+        ],
+        "forbidden_actions": [
+          "不启动真实对抗性审查",
+          "不向其他会话发消息",
+          "不修改共享安装副本",
+          "不扩展原目录结构"
+        ]
+      },
+      "reason": "正式撤销Agent误加的禁止动作及其派生重开状态，剩余仅为代码已明确豁免重开的实现路径登记",
+      "basis": ".project-governance\\tasks\\T-BUDGET-20261023-001\\evidence\\scope-record-correction.json",
+      "changed_at": "2026-10-23T15:28:53.986408Z"
+    },
+    {
+      "from_revision": 6,
+      "to_revision": 7,
+      "path": "clarification",
+      "old_value": {
+        "state": "Open",
+        "mode": "Skipped",
+        "notice": "你的需求已经描述的非常清楚了，并且和项目现状一致，本次跳过向你提问的阶段",
+        "survey_refs": [
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ],
+        "rounds": [],
+        "basis": "停止目标和边界已明确；数值为可配置默认，未回复不记为授权。",
+        "reopened_by": [
+          "amendment:scope"
+        ]
+      },
+      "new_value": {
+        "state": "Settled",
+        "mode": "Skipped",
+        "notice": "你的需求已经描述的非常清楚了，并且和项目现状一致，本次跳过向你提问的阶段",
+        "survey_refs": [
+          ".project-governance/tasks/T-BUDGET-20261023-001/survey.json"
+        ],
+        "rounds": [],
+        "basis": "停止目标和边界已明确；数值为可配置默认，未回复不记为授权。；回滚误加禁止动作后，仅登记既有实现路径，原授权目标和边界不变，无新待答未知。",
+        "reopened_by": [
+          "amendment:scope.allowed_paths"
+        ]
+      },
+      "reason": "正式撤销Agent误加的禁止动作及其派生重开状态，剩余仅为代码已明确豁免重开的实现路径登记",
+      "basis": ".project-governance\\tasks\\T-BUDGET-20261023-001\\evidence\\scope-record-correction.json",
+      "changed_at": "2026-10-23T15:28:53.986437Z"
+    }
+  ],
+  "tailoring_resolution": {
+    "rule_set_id": "VC-PPG-TAIL-001",
+    "rule_set_version": "6.3 Candidate",
+    "rule_set_status": "In Review",
+    "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+    "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+    "resolver_sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+    "task_contract_schema_sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045",
+    "input_digest": "500dfc736526658272ee8d2015ebd3e5162fdf293c6f7c2665afb7767e882744",
+    "stage": "S8",
+    "applicable_standards": [
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E03",
+      "E04"
+    ],
+    "pending_standards": [],
+    "stage_context_standards": [
+      "C04",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E03",
+      "E04"
+    ],
+    "control_strength": "minimum",
+    "independent_review": false,
+    "explicit_human_gate": false,
+    "blocking_reasons": [],
+    "rule_ids": [
+      "VC-PPG-TAIL-001:always_applicable",
+      "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:data_ai_impact=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:design_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_system_effect=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+      "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+      "VC-PPG-TAIL-001:change_surfaces:API/Integration",
+      "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+      "VC-PPG-TAIL-001:change_surfaces:Data/Schema",
+      "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+      "VC-PPG-TAIL-001:development_types:DT-06",
+      "VC-PPG-TAIL-001:execution_modes:Normal",
+      "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E03:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+      "VC-PPG-TAIL-001:risk_levels:Low"
+    ],
+    "source_sections": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sections": [
+          "2",
+          "10",
+          "12"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "22",
+          "23"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sections": [
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sections": [
+          "9",
+          "14",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "9"
+        ]
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E03",
+        "path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      }
+    ],
+    "complete_source_files": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+      },
+      {
+        "source_id": "E03",
+        "path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+        "sha256": "bb6a10422c6e672f3f67e6dc109c5bfaa594b195924758b21911fe44a18c603b"
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sha256": "8cb8a7b01cec9b1c868a1cba27352fef1c6314ff85f1956072af6dee9eeabdf0"
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+      }
+    ],
+    "profile_coverage_digest": {
+      "applicable": 104,
+      "total": 137,
+      "sha256": "5589b7e6ebcaec0cdddd357ebd77c7184c2833836a8bcea351e4746a74a1fdfc"
+    }
+  }
+}

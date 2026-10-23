@@ -1,0 +1,23 @@
+{
+  "text_newlines": "UTF-8 LF，与Git保存字节一致",
+  "normalized_paths": [
+    "survey.json",
+    "evidence/adversarial-decision.json",
+    "evidence/adversarial-offer.json",
+    "evidence/github-ci.json",
+    "evidence/legacy-budget-boundary.json",
+    "evidence/preexisting-scope.json",
+    "evidence/scope-record-correction.json",
+    "evidence/self-test-A02.json",
+    "evidence/self-test-A02.log",
+    "evidence/self-test-A03.json",
+    "evidence/self-test-A03.log",
+    "evidence/self-test-A04.json",
+    "evidence/self-test-A04.log",
+    "evidence/source-files.json",
+    "evidence/source-publication.json",
+    "evidence/targeted-A01-failure.json",
+    "evidence/targeted-A02.json"
+  ],
+  "log_adjustment": "移除保存器在空stderr后人为附加的一个EOF空行，测试输出和结论不变；没有编辑任何源码或旧任务文件。"
+}

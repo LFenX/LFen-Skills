@@ -1,0 +1,8 @@
+{
+  "observed_at": "2026-10-23T15:28:53.966358Z",
+  "failed_context": "BLOCKED: clarification has substantive reopening reasons but no real answer round: amendment:scope",
+  "cause": "为保护既有文件误增forbidden_actions，导致系统视为授权边界变化；此新增条目不是用户需求。",
+  "correction": "通过正式批量Amendment撤销Agent误加的禁止动作，恢复原已授权的in_scope/out_of_scope/forbidden_actions。仅保留实现路径allowed_paths登记；现有_amendment_reopens_clarification明确对该字段不重开澄清。原误操作、阻断与更正完整保留，不补造人回答。",
+  "code_reference": "scripts/governance_artifacts.py:_amendment_reopens_clarification",
+  "no_product_change": true
+}

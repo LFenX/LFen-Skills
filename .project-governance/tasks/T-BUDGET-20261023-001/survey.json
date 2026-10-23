@@ -1,0 +1,23 @@
+{
+  "observed_at": "2026-10-23T14:57:39.671184Z",
+  "locations": [
+    "scripts/adversarial_review.py",
+    "scripts/signals.py",
+    "commands/verify.md",
+    "SKILL.md"
+  ],
+  "existing": "已有真实完工后选择及两轮完整无问题条件，尚无有限预算与耗尽出口。",
+  "approach": "沿用现有审查事件载体，增加有限预算、工作开始计费及耗尽阻断，文档明确跨会话消息不构成继续授权。",
+  "boundaries": [
+    "不启动真实对抗性审查",
+    "不向其他会话发消息",
+    "不修改共享安装副本",
+    "不扩展原目录结构"
+  ],
+  "defaults": {
+    "review_rounds": 3,
+    "repair_batches": 2,
+    "elapsed_minutes": 60
+  },
+  "default_basis": "预算数值作为可配置默认；未将未回答的偏好问题记作用户同意。"
+}

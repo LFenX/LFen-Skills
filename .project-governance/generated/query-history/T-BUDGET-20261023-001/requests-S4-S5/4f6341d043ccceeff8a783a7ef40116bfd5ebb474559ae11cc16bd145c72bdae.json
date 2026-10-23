@@ -1,0 +1,15 @@
+{
+  "action": "edit_in_scope",
+  "budget_profile": "standard",
+  "modes": [
+    "exact",
+    "fts"
+  ],
+  "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+  "query_text": "预算到限停止、两轮通过与跨会话禁止循环",
+  "requested_additional_control_types": [],
+  "schema_version": "6.3-candidate",
+  "stage": "S5",
+  "tailoring_resolution_sha256": "41f4f1f3b7b63b909bff13f9b70b5bcd386a2249bbb19a6f6dad079d029e657c",
+  "task_id": "T-BUDGET-20261023-001"
+}

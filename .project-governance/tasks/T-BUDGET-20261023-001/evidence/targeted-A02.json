@@ -1,0 +1,14 @@
+{
+  "started_at": "2026-10-23T15:09:45.166711Z",
+  "kind": "synthetic engineering regression; not an actual adversarial review",
+  "protocol": {
+    "status": "Passed",
+    "checks": 50
+  },
+  "boundaries": {
+    "status": "Passed",
+    "checks": 181
+  },
+  "status": "Passed",
+  "finished_at": "2026-10-23T15:10:14.621072Z"
+}

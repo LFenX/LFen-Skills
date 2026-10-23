@@ -1,0 +1,8 @@
+{
+  "observed_at": "2026-10-23T15:26:46.017323Z",
+  "close_attempt": "Rejected before outcome creation",
+  "reason": "Git范围校验同时包含任务开始前已经存在的暂停日志差异，不会扣除既有脏文件。",
+  "preexisting_path": "update_log/2026-10-23-governed-workflow-adversarial-review.md",
+  "preserved_sha256": "c707674410399d06a38ecd3c4e6b037f79eb63c9ed8f5713187ba1e63829c1c5",
+  "policy": "只在范围对账中声明保留此既有差异；不编辑、不提交，不把此前工作归入本任务；不追加已结束Run。"
+}

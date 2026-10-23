@@ -1,0 +1,182 @@
+{
+  "schema_version": "6.3-candidate",
+  "task_id": "T-BUDGET-20261023-001",
+  "reconciled_at": "2026-10-23T15:29:51.600471Z",
+  "reason": "正式元数据更正后仅保留当前已消费S8上下文，保留全部旧上下文原件",
+  "legacy_index_archived_at": null,
+  "publications": [
+    {
+      "query_digest": "448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1",
+      "generated_at": "2026-10-23T15:00:06.526080Z",
+      "archived_at": "2026-10-23T15:23:53.405233Z",
+      "original_path": ".project-governance/generated/queries/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1",
+      "archived_path": ".project-governance/generated/query-history/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1",
+      "files": {
+        "clause-context.md": "8d2e6a6c8947505cb3a6b92ec2a01169b526d373490fa2a6ed66c591593df08c",
+        "clause-context.md.view.json": "3b0077bbce89e30170eccc28976260726c61289b8d9c1c6ea92ad8fed04249a7",
+        "query-result.json": "1a84759dfddeafdbba6b44ddf9f380a16d2d9f4be0bd2e379154195394948573",
+        "query-result.json.view.json": "2208c8fa765ddfcfdb6cba28cfeb2b7f73edfdf5ecb89c20c83536a30f4472ca"
+      }
+    },
+    {
+      "query_digest": "4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae",
+      "generated_at": "2026-10-23T15:01:20.842727Z",
+      "archived_at": "2026-10-23T15:23:53.405233Z",
+      "original_path": ".project-governance/generated/queries/T-BUDGET-20261023-001/4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae",
+      "archived_path": ".project-governance/generated/query-history/T-BUDGET-20261023-001/4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae",
+      "files": {
+        "clause-context.md": "0999cecd8cb009877ae7f5a9457759ba5bfb6aa46cdc1c092cc9dbebf32b1a8b",
+        "clause-context.md.view.json": "dae49cbf9c353a22b9fa70418ee8a627596c0e6e060fbcfcdc82ec8839ab03ed",
+        "query-result.json": "e5680d4c244c071e8bb8e15b694e7032801a919478701c0783192913ae9adc1f",
+        "query-result.json.view.json": "e6f423ca548231bec41c50a748a54c7adea1d2c3bd21135cd05d15cd639a9a4b"
+      }
+    },
+    {
+      "query_digest": "6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4",
+      "generated_at": "2026-10-23T14:59:05.353583Z",
+      "archived_at": "2026-10-23T15:01:00.260840Z",
+      "original_path": ".project-governance/generated/queries/T-BUDGET-20261023-001/6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4",
+      "archived_path": ".project-governance/generated/query-history/T-BUDGET-20261023-001/6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4",
+      "files": {
+        "clause-context.md": "7953970d72d42ebe72150406e3822059da71b3d6a7e4503957b77d07f6831a49",
+        "clause-context.md.view.json": "104dec6b89f6d4153649ab61e4cd409f07c0fe5237e9b692416a42d412c168bf",
+        "query-result.json": "b22e5de9d736a20af168d14176a13f3d64545a73a95587ff03f36b156c5a9939",
+        "query-result.json.view.json": "b04b741a00b1a8c4abc613e1940bac173eca7e80f582951cc0923ca0498c22a4"
+      }
+    },
+    {
+      "query_digest": "aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469",
+      "generated_at": "2026-10-23T15:22:49.723115Z",
+      "archived_at": "2026-10-23T15:29:51.600471Z",
+      "original_path": ".project-governance/generated/queries/T-BUDGET-20261023-001/aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469",
+      "archived_path": ".project-governance/generated/query-history/T-BUDGET-20261023-001/aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469",
+      "files": {
+        "clause-context.md": "8f6d810363383e63f91509c86217f01f7b4cfef602067b6ad4eb6ad6923be775",
+        "clause-context.md.view.json": "e33919c1ea6b133b2c7efe601f93ada093907f82b4bd4af129a36b22cc5621b1",
+        "query-result.json": "dd24e4930870075bdb4ed25027127de1f11ef654718572fdcb16d7a54e386bbf",
+        "query-result.json.view.json": "e9f41ed320d592a1aeef2362d67089ed169b312d3f1611d1431c426d8722d848"
+      }
+    }
+  ],
+  "archived_request_sets": [
+    {
+      "path": ".project-governance/generated/query-history/T-BUDGET-20261023-001/requests-S4-S5",
+      "files": {
+        "448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1.json": "31b57a31605a40691a28d399bdca6747b5e5b258b2f73fcffeca97b55c0d113b",
+        "4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae.json": "9ab29aa5fa70fc9091821259ab153474ad769c0f2b761815533076c45f16c530"
+      }
+    },
+    {
+      "path": ".project-governance/generated/query-history/T-BUDGET-20261023-001/requests-before-authority",
+      "files": {
+        "6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4.json": "571ae66f4b0b4dca8b5969c13d45155614fac0c9c44a1e10fe9ff3b1cd3de35f"
+      }
+    },
+    {
+      "path": ".project-governance/generated/query-history/T-BUDGET-20261023-001/requests-before-preservation-declaration",
+      "files": {
+        "aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469.json": "d927f3fb624ba46e96290d2d481019d76e30fb84cbfe68bc714a0f9ab13cc2ae"
+      }
+    }
+  ],
+  "evidence_redirects": [
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1/clause-context.md",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1/clause-context.md",
+      "sha256": "8d2e6a6c8947505cb3a6b92ec2a01169b526d373490fa2a6ed66c591593df08c"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1/clause-context.md.view.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1/clause-context.md.view.json",
+      "sha256": "3b0077bbce89e30170eccc28976260726c61289b8d9c1c6ea92ad8fed04249a7"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1/query-result.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1/query-result.json",
+      "sha256": "1a84759dfddeafdbba6b44ddf9f380a16d2d9f4be0bd2e379154195394948573"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1/query-result.json.view.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1/query-result.json.view.json",
+      "sha256": "2208c8fa765ddfcfdb6cba28cfeb2b7f73edfdf5ecb89c20c83536a30f4472ca"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae/clause-context.md",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae/clause-context.md",
+      "sha256": "0999cecd8cb009877ae7f5a9457759ba5bfb6aa46cdc1c092cc9dbebf32b1a8b"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae/clause-context.md.view.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae/clause-context.md.view.json",
+      "sha256": "dae49cbf9c353a22b9fa70418ee8a627596c0e6e060fbcfcdc82ec8839ab03ed"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae/query-result.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae/query-result.json",
+      "sha256": "e5680d4c244c071e8bb8e15b694e7032801a919478701c0783192913ae9adc1f"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae/query-result.json.view.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/4f6341d043ccceeff8a783a7ef40116bfd5ebb474559ae11cc16bd145c72bdae/query-result.json.view.json",
+      "sha256": "e6f423ca548231bec41c50a748a54c7adea1d2c3bd21135cd05d15cd639a9a4b"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4/clause-context.md",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4/clause-context.md",
+      "sha256": "7953970d72d42ebe72150406e3822059da71b3d6a7e4503957b77d07f6831a49"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4/clause-context.md.view.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4/clause-context.md.view.json",
+      "sha256": "104dec6b89f6d4153649ab61e4cd409f07c0fe5237e9b692416a42d412c168bf"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4/query-result.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4/query-result.json",
+      "sha256": "b22e5de9d736a20af168d14176a13f3d64545a73a95587ff03f36b156c5a9939"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4/query-result.json.view.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/6012c936fb902f28011b07aaff77877c2f223ca714389c674c6ffcca57161cc4/query-result.json.view.json",
+      "sha256": "b04b741a00b1a8c4abc613e1940bac173eca7e80f582951cc0923ca0498c22a4"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469/clause-context.md",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469/clause-context.md",
+      "sha256": "8f6d810363383e63f91509c86217f01f7b4cfef602067b6ad4eb6ad6923be775"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469/clause-context.md.view.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469/clause-context.md.view.json",
+      "sha256": "e33919c1ea6b133b2c7efe601f93ada093907f82b4bd4af129a36b22cc5621b1"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469/query-result.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469/query-result.json",
+      "sha256": "dd24e4930870075bdb4ed25027127de1f11ef654718572fdcb16d7a54e386bbf"
+    },
+    {
+      "original_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469/query-result.json.view.json",
+      "archived_ref": ".project-governance/generated/query-history/T-BUDGET-20261023-001/aa02a490d2d1dfdae927a83430263a3bb9c7bf9b43f8bd194cf2d51e8e4ca469/query-result.json.view.json",
+      "sha256": "e9f41ed320d592a1aeef2362d67089ed169b312d3f1611d1431c426d8722d848"
+    }
+  ],
+  "active_publications": [
+    {
+      "query_digest": "f9d35ee537f068e85f7f0f746317190f75a63e1605c2ff3fd69e8dae2683e790",
+      "task_id": "T-BUDGET-20261023-001",
+      "action": "close_task",
+      "generated_at": "2026-10-23T15:28:59.317501Z",
+      "result_path": ".project-governance/generated/queries/T-BUDGET-20261023-001/f9d35ee537f068e85f7f0f746317190f75a63e1605c2ff3fd69e8dae2683e790/query-result.json",
+      "files": {
+        "clause-context.md": "14f60b2b3ab698f71b0ae77bff0a8b4f8e17b98e86a629ab47fa7a07f8157aa3",
+        "clause-context.md.view.json": "74663204261a5c6f034983e3c8925e7c6e577ada9b7adea667487d88975ef2d2",
+        "query-result.json": "5d16bfdf1060ce955ad0449cdf8d82138aa38a525af954f676fc4a826d4bd00b",
+        "query-result.json.view.json": "dcb2af69733c0863ff3028a1a9205e0951aa75f1c962d20e2e441d6fab5b33e3"
+      },
+      "request_path": ".project-governance/generated/queries/T-BUDGET-20261023-001/requests/f9d35ee537f068e85f7f0f746317190f75a63e1605c2ff3fd69e8dae2683e790.json",
+      "request_sha256": "e1b0838c67a4377b466bab2b4674b702fd2e7ff95f90040f33f866c1bf65a050"
+    }
+  ],
+  "current_active_query_result": ".project-governance/generated/queries/T-BUDGET-20261023-001/f9d35ee537f068e85f7f0f746317190f75a63e1605c2ff3fd69e8dae2683e790/query-result.json"
+}

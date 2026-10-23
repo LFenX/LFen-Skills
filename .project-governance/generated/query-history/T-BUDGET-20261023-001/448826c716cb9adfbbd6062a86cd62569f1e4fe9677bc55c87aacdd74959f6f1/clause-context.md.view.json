@@ -1,0 +1,16 @@
+{
+  "schema_version": "6.3-candidate",
+  "meta_type": "DerivedView",
+  "project_id": "P-LFEN-SKILLS",
+  "view_id": "DV-T-BUDGET-20261023-001-CLAUSE-CONTEXT-448826c716cb9adf",
+  "view_kind": "clause-context",
+  "legacy_kind": null,
+  "generated_at": "2026-10-23T15:00:06.526080Z",
+  "generator": "run-governed-product-workflow/scripts/governance_artifacts.py",
+  "source_snapshot": "919a62a48a71172aee17e048c4270a7c6492c7cc4d1a23ba2aaad17d792e0763",
+  "sources": [
+    ".project-governance/generated/queries/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1/query-result.json"
+  ],
+  "content_ref": ".project-governance/generated/queries/T-BUDGET-20261023-001/448826c716cb9adfbbd6062a86cd62569f1e4fe9677bc55c87aacdd74959f6f1/clause-context.md",
+  "integrity_status": "Complete"
+}

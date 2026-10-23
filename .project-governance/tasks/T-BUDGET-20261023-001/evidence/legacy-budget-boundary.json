@@ -1,0 +1,29 @@
+{
+  "observed_at": "2026-10-23T15:18:35.135836Z",
+  "result": "Passed",
+  "kind": "read-only legacy budget boundary",
+  "status": {
+    "status": "BudgetRequired",
+    "clean_streak": 0,
+    "rounds": 6,
+    "open_findings": [
+      "AR06-F01"
+    ],
+    "budget": {
+      "status": "BudgetRequired"
+    },
+    "reviewed_delivery": {
+      "task_id": "T-ADVERSARIAL-20261023-005",
+      "subject_sha256": "1ec6406b7c95580a24ef77723932c6bfd76fbd1a40bbf900f685f7261fd6acac",
+      "requirements_sha256": "57bfbf29e4c6814f1e5638d026ebc0c59a448ec654942469a082c53d94dd92ca"
+    },
+    "current_delivery": {
+      "task_id": "T-ADVERSARIAL-20261023-006",
+      "subject_sha256": "857f512d4df3e8a9cd369c1fc71dc3b391c215dd8d4890536fce977b9ff8b526"
+    }
+  },
+  "original_after_sha256": "6aebab34ac5daf4045c9b81e90af6e117441aafee43ac09d6348eab188537319",
+  "original_unchanged": true,
+  "source_bundle_sha256": "a8b0df25ca7617b2ef29407741392e1ff19fce5f4462576ffe37f4176326608a",
+  "limits": "跨会话规则是执行者约束；本测试未声称平台可全局拦截所有其他聊天的消息。共享安装副本未修改。"
+}

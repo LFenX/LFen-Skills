@@ -1,0 +1,196 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-REVIEW-BUDGET-20261023",
+  "task_id": "T-BUDGET-20261023-001",
+  "revision": 3,
+  "status": "Implemented",
+  "user_decision": {
+    "outcome": "Pending"
+  },
+  "adversarial_review": [
+    {
+      "event": "Offer",
+      "recorded_at": "2026-10-23T15:30:48.265993Z",
+      "prompt": "停止机制已实现并留档，源码 89565de 已推送 GitHub，CI 已通过。是否对本次修改启动对抗性审查？预算最多 3 轮审查、2 批返修、60 分钟，任一到限即汇总交还你决定；同一版本连续两轮完整无问题才通过。未明确同意不会启动。",
+      "evidence_ref": ".project-governance/tasks/T-BUDGET-20261023-001/evidence/adversarial-offer.json",
+      "budget": {
+        "review_rounds": 3,
+        "repair_batches": 2,
+        "elapsed_minutes": 60
+      }
+    },
+    {
+      "event": "Decision",
+      "recorded_at": "2026-10-23T15:31:52.154889Z",
+      "outcome": "Declined",
+      "response": "不启动，结束本任务（推荐）",
+      "decided_by": "user",
+      "evidence_ref": "user-question-reply://current-thread/call_a2d16e06305d4167b3221721f9662f38/0"
+    }
+  ],
+  "completed_at": "2026-10-23T15:29:52.176783Z",
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "89565de8a25c60640f1655570e8070d5a50fb90b",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 25,
+    "status_digest": "d329f58cc7532f0f75c80d9ee17dec3841da82f1c662f596e270ba331e72b91b",
+    "captured_at": "2026-10-23T15:29:52.177308Z"
+  },
+  "established_facts": [
+    "默认每次3轮审查、2批返修、60分钟；任一到限停止新增工作并汇总给用户决定",
+    "连续两轮完整无问题仍为通过条件，到限不等于通过",
+    "源码89565de已推送GitHub，三版本门禁和目录CI成功",
+    "未启动真实审查、未发送会话消息、未覆盖冻结的共享安装；保留任务前既有暂停日志且不提交"
+  ],
+  "actual_changes": [
+    "在现有审查事件载体中增加有限预算与WorkStarted开始计费；旧无预算活动会话需真实新决定",
+    "返修保存核对原任务已扣费TaskID，预算到限停止提示；保留两轮通过与Full/Minimal一致性",
+    "SKILL及verify/run/close/minimal/status同步到限汇总、用户继续决定及禁止跨会话互相触发循环规则",
+    "同步两个schema、CLI帮助合同、保护摘要与控制台分发依赖，新增预算边界验证"
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "完整self_test：协议50/边界181/控制台分发12",
+      "evidence_refs": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/self-test-A04.json",
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/targeted-A02.json"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "GitHub Python3.11/3.12/3.13 Skill gates及目录、安装器CI",
+      "evidence_refs": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/github-ci.json",
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-publication.json"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "原已暂停审查只读返回BudgetRequired且after原件摘要不变",
+      "evidence_refs": [
+        ".project-governance/tasks/T-BUDGET-20261023-001/evidence/legacy-budget-boundary.json"
+      ]
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [
+    "工程留档与人的验收独立，user_decision保持Pending",
+    "跨会话规则约束执行者，不声称CLI可全局拦截所有聊天的工具调用；共享安装未更新"
+  ],
+  "evidence_refs": [
+    ".project-governance/tasks/T-BUDGET-20261023-001/evidence/source-files.json",
+    ".project-governance/tasks/T-BUDGET-20261023-001/evidence/github-ci.json",
+    ".project-governance/tasks/T-BUDGET-20261023-001/evidence/preexisting-scope.json",
+    ".project-governance/tasks/T-BUDGET-20261023-001/evidence/scope-record-correction.json",
+    "update_log/2026-10-23-governed-workflow-review-budget.md"
+  ],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-BUDGET-20261023-001-before",
+      "content_ref": ".project-governance/tasks/T-BUDGET-20261023-001/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "e44aec482324dde248b6ac50b3fc2f5ee4245706",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-BUDGET-20261023-001-run",
+      "content_ref": ".project-governance/tasks/T-BUDGET-20261023-001/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "e44aec482324dde248b6ac50b3fc2f5ee4245706",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-BUDGET-20261023-001-after",
+      "content_ref": ".project-governance/tasks/T-BUDGET-20261023-001/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "e44aec482324dde248b6ac50b3fc2f5ee4245706",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "reason": "工程实现和结果留档完成后实际发出有限预算审查询问，不将机制实现指令当启动授权",
+      "basis": ".project-governance/tasks/T-BUDGET-20261023-001/evidence/adversarial-offer.json",
+      "changed_at": "2026-10-23T15:30:48.265993Z",
+      "path": "adversarial_review.0",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Offer",
+        "recorded_at": "2026-10-23T15:30:48.265993Z",
+        "prompt": "停止机制已实现并留档，源码 89565de 已推送 GitHub，CI 已通过。是否对本次修改启动对抗性审查？预算最多 3 轮审查、2 批返修、60 分钟，任一到限即汇总交还你决定；同一版本连续两轮完整无问题才通过。未明确同意不会启动。",
+        "evidence_ref": ".project-governance/tasks/T-BUDGET-20261023-001/evidence/adversarial-offer.json",
+        "budget": {
+          "review_rounds": 3,
+          "repair_batches": 2,
+          "elapsed_minutes": 60
+        }
+      }
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "reason": "用户明确选择不启动审查并结束本任务；保留已完成工程结果，不开启任何审查轮次",
+      "basis": ".project-governance/tasks/T-BUDGET-20261023-001/evidence/adversarial-decision.json",
+      "changed_at": "2026-10-23T15:31:52.154889Z",
+      "path": "adversarial_review.1",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T15:31:52.154889Z",
+        "outcome": "Declined",
+        "response": "不启动，结束本任务（推荐）",
+        "decided_by": "user",
+        "evidence_ref": "user-question-reply://current-thread/call_a2d16e06305d4167b3221721f9662f38/0"
+      }
+    }
+  ],
+  "scope_reconciliation": {
+    "status": "Passed",
+    "changed_count": 40,
+    "out_of_scope": [],
+    "undeclared_untouched": [
+      ".project-governance/generated/queries/T-BUDGET-20261023-001/**",
+      ".project-governance/generated/query-history/T-BUDGET-20261023-001/**"
+    ],
+    "external_declarations": [],
+    "baseline_sha256": "e78a699de3e634bc28fa5b496c57e83f89d6e4d41695aadec5a7b8d2a3389eab",
+    "scope_sha256": "6064a0b6a05048dcd73a2f4cc7cb82376076f6348900a08bd4ac3737db1aee52",
+    "delivery_sha256": "f37a0ed5268953bcad52597949e06fcfdb4e3ca481a8c8b8986d5ee14bc85621",
+    "report_sha256": "0004f144923de21acdc6d11ea6ba13b2adc51ef96094eae77c6af92cafaf4e31"
+  }
+}

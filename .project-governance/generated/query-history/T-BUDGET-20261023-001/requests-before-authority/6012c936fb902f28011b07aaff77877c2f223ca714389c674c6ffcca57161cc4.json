@@ -1,0 +1,15 @@
+{
+  "action": "run_started",
+  "budget_profile": "standard",
+  "modes": [
+    "exact",
+    "fts"
+  ],
+  "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+  "query_text": "对抗性审查停止预算与跨会话防循环",
+  "requested_additional_control_types": [],
+  "schema_version": "6.3-candidate",
+  "stage": "S4",
+  "tailoring_resolution_sha256": "03f3ad06fde0ac29d74354e8f864293b4ddfcf84811542cbae654c5f9e9d7cd9",
+  "task_id": "T-BUDGET-20261023-001"
+}

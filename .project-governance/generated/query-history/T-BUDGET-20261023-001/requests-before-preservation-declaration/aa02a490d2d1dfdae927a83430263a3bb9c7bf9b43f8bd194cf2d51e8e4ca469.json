@@ -1,0 +1,15 @@
+{
+  "action": "close_task",
+  "budget_profile": "standard",
+  "modes": [
+    "exact",
+    "fts"
+  ],
+  "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+  "query_text": "有限预算、到限汇总与用户继续决定、连续两轮无问题及跨会话防循环的工程结果留档",
+  "requested_additional_control_types": [],
+  "schema_version": "6.3-candidate",
+  "stage": "S8",
+  "tailoring_resolution_sha256": "f4f6648a66e61cbc7626d009a8ce3ed0218e12a9590b17d1ea6d711481c9b618",
+  "task_id": "T-BUDGET-20261023-001"
+}

@@ -1,0 +1,50 @@
+{
+  "observed_at": "2026-10-23T15:23:52.894797Z",
+  "status": "Passed",
+  "source_commit": "89565de8a25c60640f1655570e8070d5a50fb90b",
+  "source_bundle_sha256": "a8b0df25ca7617b2ef29407741392e1ff19fce5f4462576ffe37f4176326608a",
+  "runs": [
+    {
+      "run_id": 39977441636,
+      "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39977441636",
+      "jobs": [
+        {
+          "name": "gates (3.13)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "gates (3.11)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "gates (3.12)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "release",
+          "status": "completed",
+          "conclusion": "skipped"
+        }
+      ]
+    },
+    {
+      "run_id": 39977441486,
+      "url": "https://github.com/LFenX/LFen-Skills/actions/runs/39977441486",
+      "jobs": [
+        {
+          "name": "validate",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "installer-windows",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}
