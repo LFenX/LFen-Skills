@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-10-23T12:05:32.796219Z",
+  "source_commit": "11ecd2a3d05f51268ff51ed15cb0ab3cd7990648",
+  "original_task": "T-ADVERSARIAL-20261023-001",
+  "delivery_task": "T-ADVERSARIAL-20261023-003",
+  "finding": "AR03-001",
+  "observation": "独立审查通过公开 CLI 在 Full/Minimal 登记重复 report_sha256 后得到 Passed/2",
+  "evidence_refs": [
+    "C:/Users/Administrator/AppData/Local/Temp/LFen-AR03-20261023/report-identity-repro-Full.json",
+    "C:/Users/Administrator/AppData/Local/Temp/LFen-AR03-20261023/report-identity-repro-Minimal.json",
+    ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+  ],
+  "constraints": [
+    "沿用原授权修复复验",
+    "保留并行安装治理脚本，不纳入本任务源码修复",
+    "不改写历史报告"
+  ]
+}

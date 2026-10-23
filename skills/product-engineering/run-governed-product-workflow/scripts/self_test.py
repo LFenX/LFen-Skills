@@ -2491,6 +2491,56 @@ def run_adversarial_boundary_fixture() -> dict[str, object]:
                   "only two complete reviews of the current saved delivery may pass")
             check(not validate_task_directory(original), "version succession must preserve valid engineering and review records")
 
+            identity_task = finish("T-IDENTITY-MIN" if minimal else "T-IDENTITY-FULL", 30, minimal)
+            start(identity_task)
+            captured = entry(identity_task, 1)
+            write(identity_task, captured)
+            captured_report = root / captured["report_ref"]
+            captured_bytes = captured_report.read_bytes()
+            captured_report.write_bytes(captured_bytes + b"Synthetic correction after review\n")
+            check(review_status(identity_task)["status"] == "Stale" and review_status(identity_task)["clean_streak"] == 0,
+                  "a changed report must invalidate its original clean round")
+            reused = entry(identity_task, 2)
+            (root / reused["report_ref"]).write_bytes(captured_bytes)
+            identity_path, old_out, original_before, _ = load(identity_task)
+            unchanged = identity_path.read_bytes()
+            expect_governance_error("reuse recorded report content after its file changed", lambda: write(identity_task, reused))
+            check(identity_path.read_bytes() == unchanged, "rejecting reused historical content must not change either carrier")
+            captured_report.unlink()
+            expect_governance_error("reuse recorded report content after its file disappeared", lambda: write(identity_task, reused))
+            check(identity_path.read_bytes() == unchanged, "a missing original report must not release its recorded identity")
+            # Read a synthetic saved history produced by the prior public-CLI bug.
+            # Its copied report must not regain a clean count when the old file changes.
+            faulty = copy.deepcopy(old_out)
+            duplicate = {**copy.deepcopy(faulty["adversarial_review"][-1]), **reused}
+            duplicate["report_sha256"] = faulty["adversarial_review"][-1]["report_sha256"]
+            faulty["adversarial_review"].append(duplicate)
+            hashes = {captured["round_id"]: None, reused["round_id"]: duplicate["report_sha256"]}
+            recovered = review_state(faulty, original_before, report_hashes=hashes)
+            check(recovered["status"] == "Stale" and recovered["clean_streak"] == 0,
+                  "a persisted duplicate report digest cannot count even if its current file matches")
+            third = entry(identity_task, 3)
+            third_sha = hashlib.sha256((root / third["report_ref"]).read_bytes()).hexdigest()
+            faulty["adversarial_review"].append({**copy.deepcopy(duplicate), **third, "report_sha256": third_sha})
+            hashes[third["round_id"]] = third_sha
+            recovered = review_state(faulty, original_before, report_hashes=hashes)
+            check(recovered["status"] != "Passed" and recovered["clean_streak"] == 1,
+                  "a prior erroneous pass must retain only its genuinely new final report")
+            faulty["adversarial_review"].append({"event": "Offer", "recorded_at": ga.now_utc(),
+                "prompt": "Synthetic question accepted after the prior erroneous pass", "evidence_ref": "self-test://historical-offer"})
+            check(review_state(faulty, original_before, report_hashes=hashes)["status"] == "AwaitingUser",
+                  "invalid old counting must not make a historical post-pass Offer unreadable")
+            faulty["adversarial_review"].append({"event": "Decision", "recorded_at": ga.now_utc(), "outcome": "Accepted",
+                "response": "Synthetic later explicit opt-in", "decided_by": "synthetic-user", "evidence_ref": "self-test://historical-decision"})
+            recovered = review_state(faulty, original_before, report_hashes=hashes)
+            check(recovered["status"] == "InProgress" and recovered["clean_streak"] == 0,
+                  "a readable historical restart must still require two new valid reports")
+            write(identity_task, entry(identity_task, 3))
+            check(review_status(identity_task)["clean_streak"] == 1, "one genuinely new report must restart the clean streak")
+            write(identity_task, entry(identity_task, 4))
+            check(review_status(identity_task)["status"] == "Passed" and not validate_task_directory(identity_task),
+                  "two distinct new reports must still converge without rewriting stale history")
+
         for batch in (False, True):
             task = finish("T-CONCURRENT-BATCH" if batch else "T-CONCURRENT-SINGLE", 10 if batch else 9)
             start(task)

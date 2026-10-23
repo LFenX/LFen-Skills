@@ -1,0 +1,311 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-TEST",
+  "work_item_id": "W-T-PARENT",
+  "task_id": "T-PARENT",
+  "revision": 6,
+  "status": "Implemented",
+  "user_decision": {
+    "outcome": "Pending"
+  },
+  "adversarial_review": [
+    {
+      "event": "Offer",
+      "recorded_at": "2026-10-23T12:00:04.281532Z",
+      "prompt": "工程结果已保存。是否启动多轮对抗性审查？选择开始、不需要或稍后。",
+      "evidence_ref": "ar03://synthetic-offer"
+    },
+    {
+      "event": "Decision",
+      "recorded_at": "2026-10-23T12:00:04.434113Z",
+      "outcome": "Accepted",
+      "response": "开始审查",
+      "decided_by": "synthetic-fixture",
+      "evidence_ref": "ar03://synthetic-response"
+    },
+    {
+      "event": "Round",
+      "recorded_at": "2026-10-23T12:00:04.586088Z",
+      "round_id": "Full-identity-original",
+      "started_at": "2026-10-23T12:00:04.585992Z",
+      "reviewer": "AR03 synthetic protocol case",
+      "delivery_task_id": "T-PARENT",
+      "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022",
+      "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+      "report_ref": ".project-governance/tasks/T-PARENT/evidence/Full-identity-original.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "src/label.txt"
+      ],
+      "findings": [],
+      "resolutions": [],
+      "review_contract_version": "report-bound-v2",
+      "report_sha256": "403ed028dcc74a8e3d02fee3b01f626f7063786a197e1313f8703ff87a7c64d1",
+      "delivery_completed_at": "2026-10-23T12:00:04.212094Z",
+      "delivery_verified_at": "2026-10-23T12:00:03.944930Z"
+    },
+    {
+      "event": "Round",
+      "recorded_at": "2026-10-23T12:00:04.870303Z",
+      "round_id": "Full-identity-reused",
+      "started_at": "2026-10-23T12:00:04.870202Z",
+      "reviewer": "AR03 synthetic protocol case",
+      "delivery_task_id": "T-PARENT",
+      "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022",
+      "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+      "report_ref": ".project-governance/tasks/T-PARENT/evidence/Full-identity-reused.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "src/label.txt"
+      ],
+      "findings": [],
+      "resolutions": [],
+      "review_contract_version": "report-bound-v2",
+      "report_sha256": "403ed028dcc74a8e3d02fee3b01f626f7063786a197e1313f8703ff87a7c64d1",
+      "delivery_completed_at": "2026-10-23T12:00:04.212094Z",
+      "delivery_verified_at": "2026-10-23T12:00:03.944930Z"
+    },
+    {
+      "event": "Round",
+      "recorded_at": "2026-10-23T12:00:05.057029Z",
+      "round_id": "Full-identity-fresh-final",
+      "started_at": "2026-10-23T12:00:05.056942Z",
+      "reviewer": "AR03 synthetic protocol case",
+      "delivery_task_id": "T-PARENT",
+      "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022",
+      "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+      "report_ref": ".project-governance/tasks/T-PARENT/evidence/Full-identity-fresh-final.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        "src/label.txt"
+      ],
+      "findings": [],
+      "resolutions": [],
+      "review_contract_version": "report-bound-v2",
+      "report_sha256": "75c197414b202a64795da681e40038df7d172c169315611207537c79bd5f7eb5",
+      "delivery_completed_at": "2026-10-23T12:00:04.212094Z",
+      "delivery_verified_at": "2026-10-23T12:00:03.944930Z"
+    }
+  ],
+  "completed_at": "2026-10-23T12:00:04.212094Z",
+  "source_snapshot": {
+    "repository": "report-identity-Full",
+    "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full",
+    "vcs": "unavailable",
+    "captured_at": "2026-10-23T12:00:04.212377Z"
+  },
+  "established_facts": [
+    "Synthetic fixture label checked"
+  ],
+  "actual_changes": [
+    "Synthetic local label delivery"
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "Exact local label bytes checked",
+      "evidence_refs": [
+        "src/label.txt"
+      ]
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [],
+  "evidence_refs": [],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-PARENT-before",
+      "content_ref": ".project-governance/tasks/T-PARENT/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "None",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-PARENT-run",
+      "content_ref": ".project-governance/tasks/T-PARENT/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "None",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-PARENT-after",
+      "content_ref": ".project-governance/tasks/T-PARENT/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "None",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "reason": "AR03 synthetic protocol case",
+      "basis": "ar03://Full-identity-offer",
+      "changed_at": "2026-10-23T12:00:04.281532Z",
+      "path": "adversarial_review.0",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Offer",
+        "recorded_at": "2026-10-23T12:00:04.281532Z",
+        "prompt": "工程结果已保存。是否启动多轮对抗性审查？选择开始、不需要或稍后。",
+        "evidence_ref": "ar03://synthetic-offer"
+      }
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "reason": "AR03 synthetic protocol case",
+      "basis": "ar03://Full-identity-accept",
+      "changed_at": "2026-10-23T12:00:04.434113Z",
+      "path": "adversarial_review.1",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T12:00:04.434113Z",
+        "outcome": "Accepted",
+        "response": "开始审查",
+        "decided_by": "synthetic-fixture",
+        "evidence_ref": "ar03://synthetic-response"
+      }
+    },
+    {
+      "from_revision": 3,
+      "to_revision": 4,
+      "reason": "AR03 synthetic protocol case",
+      "basis": "ar03://Full-identity-original",
+      "changed_at": "2026-10-23T12:00:04.586088Z",
+      "path": "adversarial_review.2",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T12:00:04.586088Z",
+        "round_id": "Full-identity-original",
+        "started_at": "2026-10-23T12:00:04.585992Z",
+        "reviewer": "AR03 synthetic protocol case",
+        "delivery_task_id": "T-PARENT",
+        "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022",
+        "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+        "report_ref": ".project-governance/tasks/T-PARENT/evidence/Full-identity-original.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "src/label.txt"
+        ],
+        "findings": [],
+        "resolutions": [],
+        "review_contract_version": "report-bound-v2",
+        "report_sha256": "403ed028dcc74a8e3d02fee3b01f626f7063786a197e1313f8703ff87a7c64d1",
+        "delivery_completed_at": "2026-10-23T12:00:04.212094Z",
+        "delivery_verified_at": "2026-10-23T12:00:03.944930Z"
+      }
+    },
+    {
+      "from_revision": 4,
+      "to_revision": 5,
+      "reason": "AR03 synthetic protocol case",
+      "basis": "ar03://Full-identity-reuse-recorded-content",
+      "changed_at": "2026-10-23T12:00:04.870303Z",
+      "path": "adversarial_review.3",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T12:00:04.870303Z",
+        "round_id": "Full-identity-reused",
+        "started_at": "2026-10-23T12:00:04.870202Z",
+        "reviewer": "AR03 synthetic protocol case",
+        "delivery_task_id": "T-PARENT",
+        "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022",
+        "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+        "report_ref": ".project-governance/tasks/T-PARENT/evidence/Full-identity-reused.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "src/label.txt"
+        ],
+        "findings": [],
+        "resolutions": [],
+        "review_contract_version": "report-bound-v2",
+        "report_sha256": "403ed028dcc74a8e3d02fee3b01f626f7063786a197e1313f8703ff87a7c64d1",
+        "delivery_completed_at": "2026-10-23T12:00:04.212094Z",
+        "delivery_verified_at": "2026-10-23T12:00:03.944930Z"
+      }
+    },
+    {
+      "from_revision": 5,
+      "to_revision": 6,
+      "reason": "AR03 synthetic protocol case",
+      "basis": "ar03://Full-identity-false-pass",
+      "changed_at": "2026-10-23T12:00:05.057029Z",
+      "path": "adversarial_review.4",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Round",
+        "recorded_at": "2026-10-23T12:00:05.057029Z",
+        "round_id": "Full-identity-fresh-final",
+        "started_at": "2026-10-23T12:00:05.056942Z",
+        "reviewer": "AR03 synthetic protocol case",
+        "delivery_task_id": "T-PARENT",
+        "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022",
+        "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+        "report_ref": ".project-governance/tasks/T-PARENT/evidence/Full-identity-fresh-final.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "src/label.txt"
+        ],
+        "findings": [],
+        "resolutions": [],
+        "review_contract_version": "report-bound-v2",
+        "report_sha256": "75c197414b202a64795da681e40038df7d172c169315611207537c79bd5f7eb5",
+        "delivery_completed_at": "2026-10-23T12:00:04.212094Z",
+        "delivery_verified_at": "2026-10-23T12:00:03.944930Z"
+      }
+    }
+  ],
+  "scope_reconciliation": {
+    "status": "Skipped",
+    "reason": "no Git baseline in source_snapshot; nothing independent to reconcile against",
+    "out_of_scope": [],
+    "undeclared_untouched": [],
+    "changed_count": 0,
+    "baseline_sha256": "8001432cd15012118dcab9c1379b40432d1a135b0974ce10e3733839328927e6",
+    "scope_sha256": "28487130f395902fb5b28f08bd1948d69c2c12baeefecd04136bfca713784ff7",
+    "delivery_sha256": "452fc4e0bf8a363aff0bc33ca18af0d5386ea105d0da90666b5e4c8fe0c03ce1",
+    "report_sha256": "9b19a30489075de66eb153dc6e525282c52d1f6540e63636e6ccb42799ba2ed4"
+  }
+}

@@ -160,9 +160,9 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
                 if current_delivery_ids is not None:
                     current = current and len(current_delivery_ids) == 1 and item["delivery_task_id"] in current_delivery_ids
                 identity = (report_hashes or {}).get(item["round_id"]) if report_hashes is not None else item.get("report_sha256")
-                report_valid = bound and bool(identity) and identity == item.get("report_sha256") and identity not in reports
                 recorded_report = item.get("report_sha256")
                 recorded_report_valid = not bound or bool(recorded_report) and recorded_report not in recorded_reports
+                report_valid = bound and bool(identity) and identity == recorded_report and identity not in reports and recorded_report_valid
                 if identity:
                     reports.add(identity)
                 if recorded_report:
@@ -184,9 +184,10 @@ def review_state(outcome: dict[str, Any], contract: dict[str, Any] | None = None
                 if subject != last_subject:
                     streak = legacy_streak = recorded_streak = 0
                 clean = item["coverage"] == "Complete" and not item["unreviewed_items"] and not item["findings"] and not findings
-                # Later version changes invalidate current counts, not the legality
-                # of an Offer or Decision made after a historically completed pair.
-                recorded_streak = recorded_streak + 1 if clean and recorded_report_valid else 0
+                # Replay later Offer/Decision records even if an older version
+                # accepted duplicate evidence. Historical claims never validate
+                # current counts; only current, distinct reports can do that.
+                recorded_streak = min(2, recorded_streak + 1) if clean and (not bound or recorded_report) else 0
                 streak = streak + 1 if clean and current and report_valid else 0
                 legacy_streak = legacy_streak + 1 if clean and current and not bound else 0
                 rounds += 1
@@ -379,7 +380,8 @@ def append_review(task_dir: Path, entry: dict[str, Any], *, reason: str, basis: 
             if not contents.strip():
                 raise GovernanceError("the actual round report must not be empty")
             report_sha = hashlib.sha256(contents).hexdigest()
-            if report_sha in report_hashes.values():
+            recorded_hashes = {item.get("report_sha256") for item in outcome["adversarial_review"] if item.get("event") == "Round"}
+            if report_sha in report_hashes.values() or report_sha in recorded_hashes:
                 raise GovernanceError("each round needs a distinct report; aliases and copied content cannot count twice")
             facts = {"review_contract_version": REVIEW_CONTRACT,
                      "report_ref": report.relative_to(task_dir.parents[2]).as_posix(), "report_sha256": report_sha,

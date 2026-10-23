@@ -1,0 +1,498 @@
+{
+  "id": "AR03-001",
+  "severity": "P2",
+  "title": "报告更正后历史报告副本可重新计数并导致错误 Passed",
+  "source_commit": "11ecd2a3d05f51268ff51ed15cb0ab3cd7990648",
+  "steps": [
+    "保存合法 Implemented 工程结果，通过公开 CLI 写入 Offer 和 Accepted。",
+    "通过公开 CLI 写入第一轮完整无问题报告 A，clean_streak=1。",
+    "更正 A 文件内容；只读查询正确变为 Stale、clean_streak=0。",
+    "将 A 在第一轮记录时的原始字节另存为报告 B，使用新 round_id 和真实当前时间，通过公开 CLI 追加 Round。",
+    "该重复内容被接受为 clean_streak=1；再提交独立报告 C，实际返回 Passed、clean_streak=2。"
+  ],
+  "expected": "B 的摘要已出现在持久历史 report_sha256 中，应拒绝追加或不得计为干净轮次；随后单独 C 不能使审查 Passed。",
+  "actual": "Full 与 Minimal 均接受 B；A/B 持久 report_sha256 相同；最终错误 Passed。",
+  "locations": [
+    "scripts/adversarial_review.py:253",
+    "scripts/adversarial_review.py:382",
+    "scripts/adversarial_review.py:163",
+    "scripts/adversarial_review.py:190"
+  ],
+  "cause_inference": "追加只与现存文件的当前摘要去重；回放的 report_valid 也只比较当前文件摘要唯一性，历史摘要去重 recorded_report_valid 未进入实际 streak 条件。旧文件内容更正后，原始摘要从当前文件摘要集合消失，原内容副本被重新当作新报告。",
+  "impact": "同一授权、同一已验证交付中，无需改写审查 JSON 或伪造交付字段，即可让重复报告参与连续两轮并错误通过。",
+  "boundary": "需先发生旧报告内容变更，再复用旧原始内容；没有内容变更时复制和路径别名均被正确拒绝。未验证略改报告的语义独立性，也不声称机器可以证明人类来源。",
+  "reproductions": {
+    "Full": {
+      "carrier": "Full",
+      "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full\\.project-governance\\tasks\\T-PARENT",
+      "original_sha256": "403ed028dcc74a8e3d02fee3b01f626f7063786a197e1313f8703ff87a7c64d1",
+      "same_recorded_report_sha256": [
+        "403ed028dcc74a8e3d02fee3b01f626f7063786a197e1313f8703ff87a7c64d1",
+        "403ed028dcc74a8e3d02fee3b01f626f7063786a197e1313f8703ff87a7c64d1",
+        "75c197414b202a64795da681e40038df7d172c169315611207537c79bd5f7eb5"
+      ],
+      "final_status": {
+        "status": "Passed",
+        "clean_streak": 2,
+        "rounds": 3,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-PARENT",
+          "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022",
+          "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52"
+        },
+        "current_delivery": {
+          "task_id": "T-PARENT",
+          "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022"
+        },
+        "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+        "delivery_task_id": "T-PARENT",
+        "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022"
+      },
+      "artifact": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full\\.project-governance\\tasks\\T-PARENT\\after.json"
+    },
+    "Minimal": {
+      "carrier": "Minimal",
+      "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT",
+      "original_sha256": "adf360e3573ebbbb42cd565af52a50a1fddebc2ac5a1f1e9d91c067f2cfdab1b",
+      "same_recorded_report_sha256": [
+        "adf360e3573ebbbb42cd565af52a50a1fddebc2ac5a1f1e9d91c067f2cfdab1b",
+        "adf360e3573ebbbb42cd565af52a50a1fddebc2ac5a1f1e9d91c067f2cfdab1b",
+        "614f9c71a43d79f12c0e3bbea4f9e3e2e5e9864ac169e595a3ae5c8b6573082e"
+      ],
+      "final_status": {
+        "status": "Passed",
+        "clean_streak": 2,
+        "rounds": 3,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-PARENT",
+          "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        },
+        "current_delivery": {
+          "task_id": "T-PARENT",
+          "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a"
+        },
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "delivery_task_id": "T-PARENT",
+        "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a"
+      },
+      "artifact": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT\\task-record.json"
+    }
+  },
+  "public_cli_cases": [
+    {
+      "id": "Full-identity-offer",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full\\.project-governance\\tasks\\T-PARENT",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\inputs\\Full-identity-offer.json",
+          "--reason",
+          "AR03 synthetic protocol case",
+          "--basis",
+          "ar03://Full-identity-offer"
+        ],
+        "entry_json": {
+          "event": "Offer",
+          "recorded_at": "2026-10-23T12:00:04.281532Z",
+          "prompt": "工程结果已保存。是否启动多轮对抗性审查？选择开始、不需要或稍后。",
+          "evidence_ref": "ar03://synthetic-offer"
+        }
+      },
+      "expected": {
+        "returncode": 0
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"AwaitingUser\",\n  \"clean_streak\": 0,\n  \"rounds\": 0,\n  \"open_findings\": [],\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n  },\n  \"requirements_sha256\": \"4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "Full-identity-accept",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full\\.project-governance\\tasks\\T-PARENT",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\inputs\\Full-identity-accept.json",
+          "--reason",
+          "AR03 synthetic protocol case",
+          "--basis",
+          "ar03://Full-identity-accept"
+        ],
+        "entry_json": {
+          "event": "Decision",
+          "recorded_at": "2026-10-23T12:00:04.434113Z",
+          "outcome": "Accepted",
+          "response": "开始审查",
+          "decided_by": "synthetic-fixture",
+          "evidence_ref": "ar03://synthetic-response"
+        }
+      },
+      "expected": {
+        "returncode": 0
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 0,\n  \"rounds\": 0,\n  \"open_findings\": [],\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n  },\n  \"requirements_sha256\": \"4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "Full-identity-original",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full\\.project-governance\\tasks\\T-PARENT",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\inputs\\Full-identity-original.json",
+          "--reason",
+          "AR03 synthetic protocol case",
+          "--basis",
+          "ar03://Full-identity-original"
+        ],
+        "entry_json": {
+          "event": "Round",
+          "recorded_at": "2026-10-23T12:00:04.586088Z",
+          "round_id": "Full-identity-original",
+          "started_at": "2026-10-23T12:00:04.585992Z",
+          "reviewer": "AR03 synthetic protocol case",
+          "delivery_task_id": "T-PARENT",
+          "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022",
+          "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+          "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full\\.project-governance\\tasks\\T-PARENT\\evidence\\Full-identity-original.md",
+          "coverage": "Complete",
+          "unreviewed_items": [],
+          "evidence_refs": [
+            "src/label.txt"
+          ],
+          "findings": [],
+          "resolutions": []
+        }
+      },
+      "expected": {
+        "returncode": 0
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\",\n    \"requirements_sha256\": \"4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n  },\n  \"requirements_sha256\": \"4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "Full-identity-old-report-stale",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full\\.project-governance\\tasks\\T-PARENT"
+        ]
+      },
+      "expected": {
+        "returncode": 0
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"Stale\",\n  \"clean_streak\": 0,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\",\n    \"requirements_sha256\": \"4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n  },\n  \"requirements_sha256\": \"4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "Full-identity-reuse-recorded-content",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full\\.project-governance\\tasks\\T-PARENT",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\inputs\\Full-identity-reuse-recorded-content.json",
+          "--reason",
+          "AR03 synthetic protocol case",
+          "--basis",
+          "ar03://Full-identity-reuse-recorded-content"
+        ],
+        "entry_json": {
+          "event": "Round",
+          "recorded_at": "2026-10-23T12:00:04.870303Z",
+          "round_id": "Full-identity-reused",
+          "started_at": "2026-10-23T12:00:04.870202Z",
+          "reviewer": "AR03 synthetic protocol case",
+          "delivery_task_id": "T-PARENT",
+          "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022",
+          "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+          "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full\\.project-governance\\tasks\\T-PARENT\\evidence\\Full-identity-reused.md",
+          "coverage": "Complete",
+          "unreviewed_items": [],
+          "evidence_refs": [
+            "src/label.txt"
+          ],
+          "findings": [],
+          "resolutions": []
+        }
+      },
+      "expected": {
+        "returncode": 2
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 2,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\",\n    \"requirements_sha256\": \"4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n  },\n  \"requirements_sha256\": \"4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Failed"
+    },
+    {
+      "id": "Full-identity-false-pass",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full\\.project-governance\\tasks\\T-PARENT",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\inputs\\Full-identity-false-pass.json",
+          "--reason",
+          "AR03 synthetic protocol case",
+          "--basis",
+          "ar03://Full-identity-false-pass"
+        ],
+        "entry_json": {
+          "event": "Round",
+          "recorded_at": "2026-10-23T12:00:05.057029Z",
+          "round_id": "Full-identity-fresh-final",
+          "started_at": "2026-10-23T12:00:05.056942Z",
+          "reviewer": "AR03 synthetic protocol case",
+          "delivery_task_id": "T-PARENT",
+          "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022",
+          "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52",
+          "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Full\\.project-governance\\tasks\\T-PARENT\\evidence\\Full-identity-fresh-final.md",
+          "coverage": "Complete",
+          "unreviewed_items": [],
+          "evidence_refs": [
+            "src/label.txt"
+          ],
+          "findings": [],
+          "resolutions": []
+        }
+      },
+      "expected": {
+        "returncode": 0
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"Passed\",\n  \"clean_streak\": 2,\n  \"rounds\": 3,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\",\n    \"requirements_sha256\": \"4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n  },\n  \"requirements_sha256\": \"4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Failed"
+    },
+    {
+      "id": "Minimal-identity-offer",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\inputs\\Minimal-identity-offer.json",
+          "--reason",
+          "AR03 synthetic protocol case",
+          "--basis",
+          "ar03://Minimal-identity-offer"
+        ],
+        "entry_json": {
+          "event": "Offer",
+          "recorded_at": "2026-10-23T12:00:05.369518Z",
+          "prompt": "工程结果已保存。是否启动多轮对抗性审查？选择开始、不需要或稍后。",
+          "evidence_ref": "ar03://synthetic-offer"
+        }
+      },
+      "expected": {
+        "returncode": 0
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"AwaitingUser\",\n  \"clean_streak\": 0,\n  \"rounds\": 0,\n  \"open_findings\": [],\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n  },\n  \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "Minimal-identity-accept",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\inputs\\Minimal-identity-accept.json",
+          "--reason",
+          "AR03 synthetic protocol case",
+          "--basis",
+          "ar03://Minimal-identity-accept"
+        ],
+        "entry_json": {
+          "event": "Decision",
+          "recorded_at": "2026-10-23T12:00:05.490725Z",
+          "outcome": "Accepted",
+          "response": "开始审查",
+          "decided_by": "synthetic-fixture",
+          "evidence_ref": "ar03://synthetic-response"
+        }
+      },
+      "expected": {
+        "returncode": 0
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 0,\n  \"rounds\": 0,\n  \"open_findings\": [],\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n  },\n  \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "Minimal-identity-original",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\inputs\\Minimal-identity-original.json",
+          "--reason",
+          "AR03 synthetic protocol case",
+          "--basis",
+          "ar03://Minimal-identity-original"
+        ],
+        "entry_json": {
+          "event": "Round",
+          "recorded_at": "2026-10-23T12:00:05.615327Z",
+          "round_id": "Minimal-identity-original",
+          "started_at": "2026-10-23T12:00:05.615260Z",
+          "reviewer": "AR03 synthetic protocol case",
+          "delivery_task_id": "T-PARENT",
+          "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+          "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT\\evidence\\Minimal-identity-original.md",
+          "coverage": "Complete",
+          "unreviewed_items": [],
+          "evidence_refs": [
+            "src/label.txt"
+          ],
+          "findings": [],
+          "resolutions": []
+        }
+      },
+      "expected": {
+        "returncode": 0
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\",\n    \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n  },\n  \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "Minimal-identity-old-report-stale",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT"
+        ]
+      },
+      "expected": {
+        "returncode": 0
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"Stale\",\n  \"clean_streak\": 0,\n  \"rounds\": 1,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\",\n    \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n  },\n  \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Passed"
+    },
+    {
+      "id": "Minimal-identity-reuse-recorded-content",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\inputs\\Minimal-identity-reuse-recorded-content.json",
+          "--reason",
+          "AR03 synthetic protocol case",
+          "--basis",
+          "ar03://Minimal-identity-reuse-recorded-content"
+        ],
+        "entry_json": {
+          "event": "Round",
+          "recorded_at": "2026-10-23T12:00:05.844251Z",
+          "round_id": "Minimal-identity-reused",
+          "started_at": "2026-10-23T12:00:05.844179Z",
+          "reviewer": "AR03 synthetic protocol case",
+          "delivery_task_id": "T-PARENT",
+          "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+          "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT\\evidence\\Minimal-identity-reused.md",
+          "coverage": "Complete",
+          "unreviewed_items": [],
+          "evidence_refs": [
+            "src/label.txt"
+          ],
+          "findings": [],
+          "resolutions": []
+        }
+      },
+      "expected": {
+        "returncode": 2
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"InProgress\",\n  \"clean_streak\": 1,\n  \"rounds\": 2,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\",\n    \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n  },\n  \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Failed"
+    },
+    {
+      "id": "Minimal-identity-false-pass",
+      "input": {
+        "script": "adversarial_review.py",
+        "args": [
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT",
+          "--entry-json-file",
+          "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\inputs\\Minimal-identity-false-pass.json",
+          "--reason",
+          "AR03 synthetic protocol case",
+          "--basis",
+          "ar03://Minimal-identity-false-pass"
+        ],
+        "entry_json": {
+          "event": "Round",
+          "recorded_at": "2026-10-23T12:00:05.990753Z",
+          "round_id": "Minimal-identity-fresh-final",
+          "started_at": "2026-10-23T12:00:05.990662Z",
+          "reviewer": "AR03 synthetic protocol case",
+          "delivery_task_id": "T-PARENT",
+          "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+          "report_ref": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT\\evidence\\Minimal-identity-fresh-final.md",
+          "coverage": "Complete",
+          "unreviewed_items": [],
+          "evidence_refs": [
+            "src/label.txt"
+          ],
+          "findings": [],
+          "resolutions": []
+        }
+      },
+      "expected": {
+        "returncode": 0
+      },
+      "actual": {
+        "returncode": 0,
+        "stdout": "{\n  \"status\": \"Passed\",\n  \"clean_streak\": 2,\n  \"rounds\": 3,\n  \"open_findings\": [],\n  \"reviewed_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\",\n    \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\"\n  },\n  \"current_delivery\": {\n    \"task_id\": \"T-PARENT\",\n    \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n  },\n  \"requirements_sha256\": \"6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a\",\n  \"delivery_task_id\": \"T-PARENT\",\n  \"subject_sha256\": \"2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a\"\n}\n",
+        "stderr": ""
+      },
+      "result": "Failed"
+    }
+  ]
+}

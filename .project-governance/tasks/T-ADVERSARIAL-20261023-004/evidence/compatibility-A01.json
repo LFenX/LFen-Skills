@@ -1,0 +1,10 @@
+{
+  "observed_at": "2026-10-23T12:14:40.104321Z",
+  "status": "Failed",
+  "scenario": "Synthetic copy of actual prior public-CLI duplicate history followed by a post-pass Offer legally accepted by the prior implementation",
+  "actual_error": "an active review must be completed or stopped before offering it again",
+  "impact": "Stricter current report identity calculation must not make historical transitions unreadable",
+  "source_evidence": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-03-raw/report-identity-repro-Full.json",
+  "side_effects": "In-memory isolated replay only; no source, installed or task result mutated",
+  "correction": "Keep historical transition claims separate from current valid counts; cap historical clean claim at a completed pair; duplicate reports never contribute to current counts"
+}

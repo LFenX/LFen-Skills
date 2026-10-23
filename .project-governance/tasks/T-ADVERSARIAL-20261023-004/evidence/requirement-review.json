@@ -1,0 +1,178 @@
+{
+  "reviewed_at": "2026-10-23T12:19:46.478224Z",
+  "review_kind": "source-bound engineering coverage; not an actual clean adversarial round",
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "保留原流程全部条件；历史报告内容不复用；沿用真实授权，用户验收独立",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log"
+      ],
+      "acceptance_refs": [
+        0,
+        1,
+        2
+      ],
+      "review": {
+        "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+        "conditions": [
+          "工程实现、必要验证完成并已保存结果后询问用户",
+          "必须有实际明确同意后才启动，多轮中保留停止与暂缓选择",
+          "只有当前同一交付连续两轮完整独立审查均无问题且无未解决或未检查项才通过",
+          "发现问题先修复复验，返修沿用原会话授权，历史证据保持可读且不复用"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "Full/Minimal 合成 Implemented 后记录 Offer",
+            "expected": "NotOffered→AwaitingUser",
+            "actual": "协议50和边界81正向路径通过",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "合成无结果、未完成状态尝试询问或启动",
+            "expected": "拒绝且记录不变",
+            "actual": "既有协议与边界负向检查通过",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "Met",
+            "input": "实际完工后用户回答“开始审查”；合成真实明确 Accepted 路径",
+            "expected": "保留原授权执行并允许停止/稍后开始",
+            "actual": "原会话已有三轮独立报告；合成授权正向与恢复检查通过",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log"
+            ]
+          },
+          {
+            "condition": 1,
+            "branch": "NotMet",
+            "input": "无 Offer/无答复/Declined/Deferred/Stopped 的合成轮次",
+            "expected": "禁止启动，不将合成或沉默当作真实人的决定",
+            "actual": "协议授权反例通过，实际人的 Acceptance 保持 Pending",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log"
+            ]
+          },
+          {
+            "condition": 2,
+            "branch": "Met",
+            "input": "同版两份不同新报告、完整覆盖且没有未处置问题的合成审查",
+            "expected": "计数1再2、Passed",
+            "actual": "Full/Minimal 正向收敛通过；这些是工程夹具，不冒充本任务实际干净轮次",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log"
+            ]
+          },
+          {
+            "condition": 2,
+            "branch": "NotMet",
+            "input": "修改/删除原报告后复制历史原内容、旧交付、未检项、问题或阻塞",
+            "expected": "历史复用拒绝且不写入，旧错误计数失效，不合格轮次清零",
+            "actual": "原始 Full/Minimal 错误 Passed 夹具现在只计最后一份新报告为1；新旧版本、问题与覆盖反例通过",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log"
+            ]
+          },
+          {
+            "condition": 3,
+            "branch": "Met",
+            "input": "Full/Minimal 已归属原会话且复验留档后开始下一轮",
+            "expected": "ManagedByParent，验证和保存时间早于轮次，旧历史可读并可继续",
+            "actual": "返修与时序正向、旧错误计数后的 Offer/Decision 重放、两份新报告恢复通过",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log"
+            ]
+          },
+          {
+            "condition": 3,
+            "branch": "NotMet",
+            "input": "未授权/无关/递归父任务、早于返修完成、复用历史报告内容",
+            "expected": "拒绝，保持原授权边界和历史",
+            "actual": "协议及边界反例通过；没有新增启动依据或改变原询问规则",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "开始审查",
+      "reading": "保留原流程全部条件；历史报告内容不复用；沿用真实授权，用户验收独立",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+        ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log"
+      ],
+      "acceptance_refs": [
+        2
+      ],
+      "review": {
+        "source_sha256": "cd8cd2ce6780427d4fb7127f256d047c3573e95ff0e214bda9a3ff43219b4131",
+        "conditions": [
+          "用户已在完工后明确同意原范围内多轮审查、返修与复验"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "实际回答“开始审查”，所展示问题已包含修复复验",
+            "expected": "沿用授权，不递归询问，不将 Proceed 当作 Acceptance",
+            "actual": "真实原会话已有三轮；当前为第三轮报告复用问题返修",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "合成未明确同意或仅普通验收同意",
+            "expected": "禁止审查，不伪造授权",
+            "actual": "协议50与边界81中的授权负向检查通过",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/targeted-A02.json",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log",
+              ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-consent.json"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "actual_parent_review": "3 actual rounds, clean_streak 0; AR03-001 pending next independent verification"
+}

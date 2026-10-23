@@ -1,0 +1,7 @@
+{
+  "timestamp": "2026-10-23T12:04:38.381698Z",
+  "action": "build survey before initialize_task",
+  "error": "KeyError: commit; capture_source_snapshot uses head",
+  "record_mutated": false,
+  "correction": "Checked actual snapshot and use its head field"
+}

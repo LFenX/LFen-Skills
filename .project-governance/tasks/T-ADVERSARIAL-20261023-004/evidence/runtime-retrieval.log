@@ -1,0 +1,490 @@
+{
+  "status": "Passed",
+  "validation": {
+    "manifest_files": 46,
+    "role_counts": {
+      "norm": 22,
+      "mapping": 3,
+      "skill-reference": 3,
+      "schema": 11,
+      "evaluation": 2,
+      "asset-template": 5
+    },
+    "schema_count": 4,
+    "schema_ids": [
+      "https://lfen.local/schemas/v6.3/norm-consistency-report.schema.json",
+      "https://lfen.local/schemas/v6.3/norm-index-metadata.schema.json",
+      "https://lfen.local/schemas/v6.3/norm-query-result.schema.json",
+      "https://lfen.local/schemas/v6.3/norm-query.schema.json"
+    ],
+    "fixture_counts": {
+      "positive": 8,
+      "schema_negative": 21,
+      "semantic_negative": 13
+    },
+    "action_count": 12,
+    "control_type_count": 18,
+    "gold_case_count": 28,
+    "requirement_coverage": 41,
+    "acceptance_coverage": 25,
+    "hard_gate_count": 8,
+    "hard_gate_negative_count": 8,
+    "mandatory_target_count": 12,
+    "mandatory_target_case_count": 21,
+    "executed_structural_checks": [
+      "budget-baseline-definition",
+      "cli-contract-regression",
+      "gold-coverage-closure",
+      "hard-gate-evaluator-fixtures",
+      "mandatory-target-integrity",
+      "manifest-runtime-closure",
+      "output-path-contract",
+      "schema-draft-and-fixtures",
+      "semantic-invariants",
+      "tailoring-source-boundary",
+      "taxonomy-closure"
+    ],
+    "verification_mode": "protected-runtime",
+    "skipped_structural_checks": [
+      "legacy-source-pack-regression"
+    ],
+    "compatibility": {
+      "t008_s5": {},
+      "cli_contract_count": 25,
+      "cli_contracts": [
+        {
+          "script": "amend_record.py",
+          "help_sha256": "c6c54c1c6c672b4adebbcc3e07b2c4362301c10797315608301bf3dd5729fe53",
+          "options": [
+            "--allow-add",
+            "--basis",
+            "--changes-json-base64",
+            "--changes-json-file",
+            "--help",
+            "--path",
+            "--reason",
+            "--value-json",
+            "--value-json-base64",
+            "--value-json-file"
+          ]
+        },
+        {
+          "script": "append_run_event.py",
+          "help_sha256": "831ea4a9f1ce019af824836c8bd9613a918aaf0bb378fbaed9908532052db714",
+          "options": [
+            "--attempt-id",
+            "--event-type",
+            "--evidence-ref",
+            "--exit-code",
+            "--gate-json-file",
+            "--help",
+            "--redaction",
+            "--run-id",
+            "--side-effect",
+            "--status",
+            "--summary"
+          ]
+        },
+        {
+          "script": "audit_norm_consistency.py",
+          "help_sha256": "df255a9f3e4be5f112ee6169ae15484adda6c200c99c02eab821984a1bc25df8",
+          "options": [
+            "--fail-on",
+            "--help",
+            "--output-dir",
+            "--project-id",
+            "--project-root",
+            "--runtime-only",
+            "--self-test",
+            "--task-id"
+          ]
+        },
+        {
+          "script": "audit_tailoring_coverage.py",
+          "help_sha256": "532df7085177e4498036197cbe916e62cd6769b61d4298af1ab3df61fdce6153",
+          "options": [
+            "--help",
+            "--output",
+            "--project-id",
+            "--project-root",
+            "--view-id"
+          ]
+        },
+        {
+          "script": "close_task.py",
+          "help_sha256": "42628f98c0ad31f884c6bed12dee7c411bb66da0cc044ea4799ba0a0c7a41a6c",
+          "options": [
+            "--artifact-manifest-json-base64",
+            "--artifact-manifest-json-file",
+            "--change",
+            "--decision",
+            "--evidence-ref",
+            "--fact",
+            "--help",
+            "--incomplete-json-base64",
+            "--incomplete-json-file",
+            "--legacy-issues-json-base64",
+            "--legacy-issues-json-file",
+            "--next-task",
+            "--review-parent-task-id",
+            "--source-snapshot-json-base64",
+            "--source-snapshot-json-file",
+            "--status",
+            "--verification",
+            "--verification-json-base64",
+            "--verification-json-file"
+          ]
+        },
+        {
+          "script": "compile_norm_context.py",
+          "help_sha256": "e5093045912bebde799bd8d048499843f3ba8dbcd6caa2c3e9b9ffb6c8ff345d",
+          "options": [
+            "--enforce",
+            "--help",
+            "--include-source-text",
+            "--output-dir",
+            "--stage",
+            "--task-dir"
+          ]
+        },
+        {
+          "script": "check_write_guard.py",
+          "help_sha256": "17e695a61573f3ac1c536d928d1ca6c67fb207ccdb68350b3e6ee0e8f897e984",
+          "options": [
+            "--help",
+            "--task-dir"
+          ]
+        },
+        {
+          "script": "generate_review_views.py",
+          "help_sha256": "c6a367b5424c0a6617c9b29e90b1cd0e8dc4e74c6f3305986a5edb3a1df9184c",
+          "options": [
+            "--help",
+            "--mapping",
+            "--profile-index",
+            "--project-id",
+            "--project-root"
+          ]
+        },
+        {
+          "script": "get_context.py",
+          "help_sha256": "63edda7002c5e15148248b89073b6f7c49fcdc719d2e78ce7e9db5c4dc2bf00f",
+          "options": [
+            "--action",
+            "--help",
+            "--query-text",
+            "--task-dir"
+          ]
+        },
+        {
+          "script": "init_task.py",
+          "help_sha256": "135378eda42f86b1a3362a415ede944872aa1363d74e92b02933437fb7b212e3",
+          "options": [
+            "--acceptance",
+            "--allowed-path",
+            "--applicability-fact",
+            "--artifact-manifest-json-base64",
+            "--artifact-manifest-json-file",
+            "--authority-assessments-json-base64",
+            "--authority-assessments-json-file",
+            "--authority-reference",
+            "--baseline-inheritance",
+            "--basis",
+            "--change-surface",
+            "--clarification-basis",
+            "--clarification-json-base64",
+            "--clarification-json-file",
+            "--clarification-notice",
+            "--clarification-skipped",
+            "--confidence",
+            "--decisions-json-base64",
+            "--decisions-json-file",
+            "--delivery-scenario",
+            "--depends-on",
+            "--development-type",
+            "--development-type-scope",
+            "--execution-permission",
+            "--extension-evidence-ref",
+            "--extension-trigger",
+            "--first-principles-json-base64",
+            "--first-principles-json-file",
+            "--forbidden-action",
+            "--help",
+            "--in-scope",
+            "--mode",
+            "--objective",
+            "--open-questions-json-base64",
+            "--open-questions-json-file",
+            "--ordinal",
+            "--out-of-scope",
+            "--plan-step",
+            "--primary-development-type",
+            "--project-id",
+            "--project-root",
+            "--request-language",
+            "--request-snapshot",
+            "--required-gate",
+            "--requirement-items-json-base64",
+            "--requirement-items-json-file",
+            "--risk-level",
+            "--rollback",
+            "--source-snapshot-json-base64",
+            "--source-snapshot-json-file",
+            "--supersedes",
+            "--survey-ref",
+            "--tailoring-stage",
+            "--task-id",
+            "--upgrade-minimal-basis",
+            "--upgrade-minimal-reason",
+            "--verification-plan",
+            "--work-item-id"
+          ]
+        },
+        {
+          "script": "manage_minimal_task.py",
+          "help_sha256": "d86c08c4cc921c85e2394f5b3e8af2b749b34615e48ad35cc830d9aabb0d1469",
+          "options": [
+            "--help"
+          ]
+        },
+        {
+          "script": "manage_minimal_task.py",
+          "help_sha256": "8160368202235adb58e9cec3fbac4b6691abd5351f5a9247eb0f2bf1d59d2adb",
+          "options": [
+            "--acceptance",
+            "--allowed-path",
+            "--alternative-rejected",
+            "--assumption",
+            "--authority-ref",
+            "--basis",
+            "--causal-link",
+            "--change-surface",
+            "--clarification-basis",
+            "--clarification-json-base64",
+            "--clarification-json-file",
+            "--clarification-notice",
+            "--clarification-skipped",
+            "--constraint",
+            "--decision-criterion",
+            "--decisions-json-base64",
+            "--decisions-json-file",
+            "--delivery-scenario",
+            "--depends-on",
+            "--development-type",
+            "--eligibility-evidence-ref",
+            "--fact",
+            "--forbidden-action",
+            "--fundamental",
+            "--help",
+            "--objective",
+            "--ordinal",
+            "--out-of-scope",
+            "--plan-step",
+            "--project-id",
+            "--project-root",
+            "--request-language",
+            "--request-snapshot",
+            "--requirement-items-json-base64",
+            "--requirement-items-json-file",
+            "--rollback",
+            "--scope",
+            "--selected-approach",
+            "--selection-source",
+            "--supersedes",
+            "--survey-ref",
+            "--task-id",
+            "--verification",
+            "--work-item-id"
+          ],
+          "help_args": [
+            "init",
+            "--help"
+          ]
+        },
+        {
+          "script": "migrate_legacy_artifacts.py",
+          "help_sha256": "b28c4504a0d520505ea08499baba570577077a46da44ca294fc2dc9f0ca6375b",
+          "options": [
+            "--help",
+            "--legacy-kind",
+            "--mapping",
+            "--output",
+            "--profile-index"
+          ]
+        },
+        {
+          "script": "rebuild_project_state.py",
+          "help_sha256": "ab6c178568f08456dc5ea29cbd74382727f7cf96474472a192cb3827bf89c903",
+          "options": [
+            "--help",
+            "--project-id",
+            "--project-root"
+          ]
+        },
+        {
+          "script": "query_norm_context.py",
+          "help_sha256": "ccc69d29a65067083f631dc9c0a82a4ba92a06be375c5fb36c6bdac9a9933ae1",
+          "options": [
+            "--budget-baseline",
+            "--consistency-report",
+            "--help",
+            "--index-metadata",
+            "--output-dir",
+            "--page",
+            "--request-json-file",
+            "--task-dir",
+            "--validate-only"
+          ]
+        },
+        {
+          "script": "refresh_tailoring_resolution.py",
+          "help_sha256": "f7cb85bace61538e3781a3861d7a3cef343adda8b3fc32c7034eef225d330f36",
+          "options": [
+            "--applicability-fact",
+            "--basis",
+            "--extension-evidence-ref",
+            "--extension-trigger",
+            "--help",
+            "--reason",
+            "--stage",
+            "--task-profile-json-base64",
+            "--task-profile-json-file"
+          ]
+        },
+        {
+          "script": "register_authority_asset.py",
+          "help_sha256": "13629747dbf48f55a8bb68859144c47245bb4a8e6670d8b4916e073b85f14c4e",
+          "options": [
+            "--access-classification",
+            "--asset-id",
+            "--content-ref",
+            "--help",
+            "--history-ref",
+            "--legacy-kind",
+            "--mapping",
+            "--native-format",
+            "--owner",
+            "--profile-fields-json",
+            "--profile-fields-json-base64",
+            "--profile-fields-json-file",
+            "--profile-index",
+            "--project-id",
+            "--project-root",
+            "--retention-rule",
+            "--revision",
+            "--scope",
+            "--source",
+            "--state",
+            "--title",
+            "--trace-ref"
+          ]
+        },
+        {
+          "script": "signals.py",
+          "help_sha256": "1df7598e15ca68ceabbaef2f2ca7a091814989bfd9b433ba609a5183572e8b4b",
+          "options": [
+            "--help",
+            "--project-root"
+          ]
+        },
+        {
+          "script": "sync_embedded_references.py",
+          "help_sha256": "f32b615fcb076369e73ba1001d937ed766375ff60f275625f9cce284ba7e7e10",
+          "options": [
+            "--help",
+            "--publish-to"
+          ]
+        },
+        {
+          "script": "validate_task_package.py",
+          "help_sha256": "94fd3ad49ccf2c05e95f12b8f90ba348b50923ebd33a39b382697b5d113137b3",
+          "options": [
+            "--check-mapping",
+            "--execution-ready",
+            "--help"
+          ]
+        },
+        {
+          "script": "manage_minimal_task.py",
+          "help_sha256": "029bfb552886d9bdae1211d951063d37bb4d1d05772ca48f9aca049e910eb5eb",
+          "options": [
+            "--adopt-proof-contract",
+            "--basis",
+            "--decisions-json-file",
+            "--help",
+            "--reason",
+            "--requirement-items-json-file",
+            "--user-decision-json-file",
+            "--verification-json-file"
+          ],
+          "help_args": [
+            "record-review",
+            "--help"
+          ]
+        },
+        {
+          "script": "get_approval_subject.py",
+          "help_sha256": "c86a663ff85898da70ebd5ce2de4c6b10cbcf1bb0ff382529fa39e46a82a5c2b",
+          "options": [
+            "--help"
+          ]
+        },
+        {
+          "script": "manage_minimal_task.py",
+          "help_sha256": "40f4c65f9febb96676a277975a3e075e39f7482852a7eeee5edf28e025e2569f",
+          "options": [
+            "--event-type",
+            "--evidence-ref",
+            "--help",
+            "--status",
+            "--summary"
+          ],
+          "help_args": [
+            "append",
+            "--help"
+          ]
+        },
+        {
+          "script": "adversarial_review.py",
+          "help_sha256": "4a7056e5c465539ac47e0953ea8463f32a046b5a5b852bc95a1a026b34450f64",
+          "options": [
+            "--basis",
+            "--entry-json-file",
+            "--help",
+            "--reason"
+          ]
+        },
+        {
+          "script": "manage_minimal_task.py",
+          "help_sha256": "484b591321f3d41d16f08d78aae81e4db4bb8c4b4a470b69b26288417997fc26",
+          "options": [
+            "--change",
+            "--fact",
+            "--help",
+            "--incomplete-item",
+            "--next-task",
+            "--review-parent-task-id",
+            "--status",
+            "--verification"
+          ],
+          "help_args": [
+            "close",
+            "--help"
+          ]
+        }
+      ],
+      "output_paths": [
+        ".project-governance/tasks/{task_id}/before.json",
+        ".project-governance/tasks/{task_id}/run.jsonl",
+        ".project-governance/tasks/{task_id}/after.json",
+        ".project-governance/generated/contexts/{task_id}/{stage}/norm-packet.json",
+        ".project-governance/generated/contexts/{task_id}/{stage}/norm-packet.md",
+        ".project-governance/generated/contexts/{task_id}/{stage}/norm-source-pack.md",
+        ".project-governance/generated/reviews/{task_id}.md",
+        ".project-governance/runtime-cache/norm-index/{index_digest}.sqlite3"
+      ]
+    },
+    "taxonomy_sha256": "d814fc5a9ccf0cc6e547f3a23d534d3100039d73dca59cdc23fbe819bc8b3882",
+    "gold_sha256": "2790e3a6800375d7ea64ac3ef9e3db113ad82154cd508b45236cf01c01e9e714"
+  }
+}

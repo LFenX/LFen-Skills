@@ -1,0 +1,6 @@
+{
+  "observed_at": "2026-10-23T12:07:26.571781Z",
+  "first_attempt": "Execution readiness validation ran before the context-generating command completed and returned missing retrieval plan/query output",
+  "side_effects": "No run or source mutation occurred",
+  "correction": "Consume the completed S4 run_started context, then rerun readiness sequentially"
+}

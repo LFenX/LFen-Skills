@@ -1,0 +1,588 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "carrier_version": "minimal-task-record-v1",
+  "carrier_mode": "Minimal",
+  "meta_types": [
+    "TaskContract",
+    "RunLedger",
+    "TaskOutcome"
+  ],
+  "project_id": "P-MIN",
+  "work_item_id": "W-T-PARENT",
+  "task_id": "T-PARENT",
+  "ordinal": 1,
+  "depends_on": [],
+  "supersedes": [],
+  "blocked_by": [],
+  "revision": 10,
+  "lifecycle_state": "Completed",
+  "created_at": "2026-10-23T12:00:05.240954Z",
+  "completed_at": "2026-10-23T12:00:05.363509Z",
+  "selection": {
+    "source": "automatic",
+    "basis": [
+      "All Minimal eligibility facts were inspected.",
+      "script default: omitted non-blocking Minimal fields were populated by manage_minimal_task.py."
+    ],
+    "authority_refs": [
+      "conversation://fixture"
+    ]
+  },
+  "eligibility": {
+    "risk_level": "Low",
+    "reversible": true,
+    "single_scope": true,
+    "external_system_effect": false,
+    "production_release": false,
+    "security_privacy_impact": false,
+    "extension_triggers": {
+      "E01": "Inactive",
+      "E02": "Inactive",
+      "E03": "Inactive",
+      "E04": "Inactive",
+      "E05": "Inactive"
+    },
+    "blocking_unknowns": [],
+    "special_gates": [],
+    "evidence_refs": [
+      "evidence://risk-low",
+      "evidence://reversible",
+      "evidence://single-scope",
+      "evidence://no-external-effect",
+      "evidence://no-production",
+      "evidence://no-security",
+      "evidence://extensions-inactive"
+    ]
+  },
+  "task_contract": {
+    "objective": "Update one local label.",
+    "request_snapshot": {
+      "language": "en",
+      "text": "Update one local label.",
+      "captured_at": "2026-08-15T00:00:00Z"
+    },
+    "requirement_items": [
+      {
+        "id": "R-01",
+        "source": "request_snapshot",
+        "quote": "Update one local label.",
+        "reading": "self-test fixture",
+        "state": "Covered",
+        "evidence_refs": [
+          "self-test://evidence"
+        ],
+        "acceptance_refs": [
+          0
+        ],
+        "review": {
+          "source_sha256": "6f7bfd908a3910fee0f015d377748b540f03730f4b6e43e48731b2573fb9f910",
+          "conditions": [],
+          "cases": [
+            {
+              "condition": null,
+              "branch": "Unconditional",
+              "input": "src/label.txt bytes",
+              "expected": "label=v1",
+              "actual": "label=v1",
+              "result": "Passed",
+              "evidence_refs": [
+                "src/label.txt"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "decisions": [
+      {
+        "id": "D-01",
+        "kind": "Proceed",
+        "presented": "range and acceptance",
+        "response": "Proceed",
+        "decided_by": "self-test",
+        "decided_at": "2026-08-15T00:00:00Z",
+        "outcome": "Approved",
+        "evidence_ref": "self-test://simulated-human-answer"
+      },
+      {
+        "id": "D-02",
+        "kind": "Acceptance",
+        "presented": "verification result",
+        "response": "accepted",
+        "decided_by": "self-test",
+        "decided_at": "2026-08-15T00:00:00Z",
+        "outcome": "Approved",
+        "evidence_ref": "self-test://simulated-human-answer"
+      }
+    ],
+    "clarification": {
+      "state": "Settled",
+      "mode": "Skipped",
+      "notice": "Requirement is unambiguous and matches the repository; skipping the question round.",
+      "survey_refs": [
+        "surveyed.md"
+      ],
+      "rounds": [],
+      "basis": "self-test fixture: single label change, fully declared",
+      "reopened_by": []
+    },
+    "scope": "Change one label.",
+    "out_of_scope": [
+      "script default: no additional exclusions beyond the stated Minimal scope."
+    ],
+    "allowed_paths": [
+      "src/label.txt"
+    ],
+    "forbidden_actions": [
+      "script default: files outside allowed_paths are forbidden."
+    ],
+    "acceptance": "The focused test passes.",
+    "task_profile": {
+      "delivery_scenario": "DS-03",
+      "development_type": "DT-08",
+      "change_surface": "UI/UX",
+      "risk_level": "Low",
+      "extension_triggers": {
+        "E01": "Inactive",
+        "E02": "Inactive",
+        "E03": "Inactive",
+        "E04": "Inactive",
+        "E05": "Inactive"
+      }
+    },
+    "plan": {
+      "selected_approach": "Edit one label.",
+      "alternative_rejected": "Keep current text.",
+      "steps": [
+        "Edit."
+      ],
+      "verification": "Run focused test.",
+      "rollback": "Restore line."
+    },
+    "first_principles_analysis": {
+      "outcome": "Update one local label.",
+      "facts": [
+        "The current label is observable."
+      ],
+      "constraints": [
+        "Only src/label.txt is authorized."
+      ],
+      "assumptions": [
+        "script default: Minimal eligibility facts remain valid; upgrade if a hard boundary is crossed."
+      ],
+      "unknowns": [],
+      "fundamentals": [
+        "One value changes.",
+        "The change is reversible."
+      ],
+      "causal_chain": [
+        "A focused edit satisfies acceptance."
+      ],
+      "alternatives": [
+        "Edit one label.",
+        "Keep current text."
+      ],
+      "decision_criteria": [
+        "The test passes."
+      ],
+      "selected_approach": "Edit one label.",
+      "validation": "Run focused test."
+    },
+    "source_snapshot": {
+      "repository": "report-identity-Minimal",
+      "root": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal",
+      "vcs": "unavailable",
+      "captured_at": "2026-10-23T12:00:05.241547Z"
+    }
+  },
+  "run_ledger": [
+    {
+      "sequence": 1,
+      "timestamp": "2026-10-23T12:00:05.346988Z",
+      "run_id": "T-PARENT-run-001",
+      "event_id": "T-PARENT-run-001-E0001",
+      "attempt_id": "attempt-001",
+      "event_type": "run_started",
+      "summary": "AR03 fixture verified local label",
+      "status": "started",
+      "evidence_refs": [
+        "src/label.txt"
+      ]
+    },
+    {
+      "sequence": 2,
+      "timestamp": "2026-10-23T12:00:05.355233Z",
+      "run_id": "T-PARENT-run-001",
+      "event_id": "T-PARENT-run-001-E0002",
+      "attempt_id": "attempt-001",
+      "event_type": "verification",
+      "summary": "AR03 fixture verified local label",
+      "status": "succeeded",
+      "evidence_refs": [
+        "src/label.txt"
+      ]
+    },
+    {
+      "sequence": 3,
+      "timestamp": "2026-10-23T12:00:05.363509Z",
+      "run_id": "T-PARENT-run-001",
+      "event_id": "T-PARENT-run-001-E0003",
+      "attempt_id": "attempt-001",
+      "event_type": "run_finished",
+      "summary": "Minimal task closed as Implemented.",
+      "status": "succeeded",
+      "evidence_refs": [
+        "src/label.txt"
+      ]
+    }
+  ],
+  "task_outcome": {
+    "status": "Implemented",
+    "user_decision": {
+      "outcome": "Pending"
+    },
+    "adversarial_review": [
+      {
+        "event": "Offer",
+        "recorded_at": "2026-10-23T12:00:05.369518Z",
+        "prompt": "工程结果已保存。是否启动多轮对抗性审查？选择开始、不需要或稍后。",
+        "evidence_ref": "ar03://synthetic-offer"
+      },
+      {
+        "event": "Decision",
+        "recorded_at": "2026-10-23T12:00:05.490725Z",
+        "outcome": "Accepted",
+        "response": "开始审查",
+        "decided_by": "synthetic-fixture",
+        "evidence_ref": "ar03://synthetic-response"
+      },
+      {
+        "event": "Round",
+        "recorded_at": "2026-10-23T12:00:05.615327Z",
+        "round_id": "Minimal-identity-original",
+        "started_at": "2026-10-23T12:00:05.615260Z",
+        "reviewer": "AR03 synthetic protocol case",
+        "delivery_task_id": "T-PARENT",
+        "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": ".project-governance/tasks/T-PARENT/evidence/Minimal-identity-original.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "src/label.txt"
+        ],
+        "findings": [],
+        "resolutions": [],
+        "review_contract_version": "report-bound-v2",
+        "report_sha256": "adf360e3573ebbbb42cd565af52a50a1fddebc2ac5a1f1e9d91c067f2cfdab1b",
+        "delivery_completed_at": "2026-10-23T12:00:05.363509Z",
+        "delivery_verified_at": "2026-10-23T12:00:05.355233Z"
+      },
+      {
+        "event": "Round",
+        "recorded_at": "2026-10-23T12:00:05.844251Z",
+        "round_id": "Minimal-identity-reused",
+        "started_at": "2026-10-23T12:00:05.844179Z",
+        "reviewer": "AR03 synthetic protocol case",
+        "delivery_task_id": "T-PARENT",
+        "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": ".project-governance/tasks/T-PARENT/evidence/Minimal-identity-reused.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "src/label.txt"
+        ],
+        "findings": [],
+        "resolutions": [],
+        "review_contract_version": "report-bound-v2",
+        "report_sha256": "adf360e3573ebbbb42cd565af52a50a1fddebc2ac5a1f1e9d91c067f2cfdab1b",
+        "delivery_completed_at": "2026-10-23T12:00:05.363509Z",
+        "delivery_verified_at": "2026-10-23T12:00:05.355233Z"
+      },
+      {
+        "event": "Round",
+        "recorded_at": "2026-10-23T12:00:05.990753Z",
+        "round_id": "Minimal-identity-fresh-final",
+        "started_at": "2026-10-23T12:00:05.990662Z",
+        "reviewer": "AR03 synthetic protocol case",
+        "delivery_task_id": "T-PARENT",
+        "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+        "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+        "report_ref": ".project-governance/tasks/T-PARENT/evidence/Minimal-identity-fresh-final.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          "src/label.txt"
+        ],
+        "findings": [],
+        "resolutions": [],
+        "review_contract_version": "report-bound-v2",
+        "report_sha256": "614f9c71a43d79f12c0e3bbea4f9e3e2e5e9864ac169e595a3ae5c8b6573082e",
+        "delivery_completed_at": "2026-10-23T12:00:05.363509Z",
+        "delivery_verified_at": "2026-10-23T12:00:05.355233Z"
+      }
+    ],
+    "established_facts": [
+      "AR03 label checked"
+    ],
+    "actual_changes": [
+      "AR03 local delivery"
+    ],
+    "verification": [
+      {
+        "result": "Passed",
+        "summary": "Label checked",
+        "evidence_refs": [
+          "src/label.txt"
+        ]
+      }
+    ],
+    "incomplete_items": [],
+    "completed_at": "2026-10-23T12:00:05.363509Z"
+  },
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "action": "Create/Revise",
+      "content_ref": ".project-governance/tasks/T-PARENT/task-record.json",
+      "outcome": "Created"
+    },
+    {
+      "meta_type": "RunLedger",
+      "action": "Create/Revise",
+      "content_ref": ".project-governance/tasks/T-PARENT/task-record.json",
+      "outcome": "Created"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "action": "Create/Revise",
+      "content_ref": ".project-governance/tasks/T-PARENT/task-record.json",
+      "outcome": "Created"
+    }
+  ],
+  "upgrade": {
+    "required": false,
+    "triggered_at": null,
+    "reason": null,
+    "basis": null,
+    "full_carrier_ref": null
+  },
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "changes": [
+        {
+          "path": "task_contract.requirement_items",
+          "old_value": [
+            {
+              "id": "R-01",
+              "source": "request_snapshot",
+              "quote": "Update one local label.",
+              "reading": "self-test fixture",
+              "state": "Covered",
+              "evidence_refs": [
+                "self-test://evidence"
+              ],
+              "acceptance_refs": [
+                0
+              ]
+            }
+          ],
+          "new_value": [
+            {
+              "id": "R-01",
+              "source": "request_snapshot",
+              "quote": "Update one local label.",
+              "reading": "self-test fixture",
+              "state": "Covered",
+              "evidence_refs": [
+                "self-test://evidence"
+              ],
+              "acceptance_refs": [
+                0
+              ],
+              "review": {
+                "source_sha256": "6f7bfd908a3910fee0f015d377748b540f03730f4b6e43e48731b2573fb9f910",
+                "conditions": [],
+                "cases": [
+                  {
+                    "condition": null,
+                    "branch": "Unconditional",
+                    "input": "src/label.txt bytes",
+                    "expected": "label=v1",
+                    "actual": "label=v1",
+                    "result": "Passed",
+                    "evidence_refs": [
+                      "src/label.txt"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "reason": "AR03 synthetic source review",
+      "basis": "src/label.txt",
+      "changed_at": "2026-10-23T12:00:05.338211Z"
+    },
+    {
+      "from_revision": 5,
+      "to_revision": 6,
+      "reason": "AR03 synthetic protocol case",
+      "basis": "ar03://Minimal-identity-offer",
+      "changed_at": "2026-10-23T12:00:05.369518Z",
+      "changes": [
+        {
+          "path": "task_outcome.adversarial_review.0",
+          "old_value": {
+            "$missing": true
+          },
+          "new_value": {
+            "event": "Offer",
+            "recorded_at": "2026-10-23T12:00:05.369518Z",
+            "prompt": "工程结果已保存。是否启动多轮对抗性审查？选择开始、不需要或稍后。",
+            "evidence_ref": "ar03://synthetic-offer"
+          }
+        }
+      ]
+    },
+    {
+      "from_revision": 6,
+      "to_revision": 7,
+      "reason": "AR03 synthetic protocol case",
+      "basis": "ar03://Minimal-identity-accept",
+      "changed_at": "2026-10-23T12:00:05.490725Z",
+      "changes": [
+        {
+          "path": "task_outcome.adversarial_review.1",
+          "old_value": {
+            "$missing": true
+          },
+          "new_value": {
+            "event": "Decision",
+            "recorded_at": "2026-10-23T12:00:05.490725Z",
+            "outcome": "Accepted",
+            "response": "开始审查",
+            "decided_by": "synthetic-fixture",
+            "evidence_ref": "ar03://synthetic-response"
+          }
+        }
+      ]
+    },
+    {
+      "from_revision": 7,
+      "to_revision": 8,
+      "reason": "AR03 synthetic protocol case",
+      "basis": "ar03://Minimal-identity-original",
+      "changed_at": "2026-10-23T12:00:05.615327Z",
+      "changes": [
+        {
+          "path": "task_outcome.adversarial_review.2",
+          "old_value": {
+            "$missing": true
+          },
+          "new_value": {
+            "event": "Round",
+            "recorded_at": "2026-10-23T12:00:05.615327Z",
+            "round_id": "Minimal-identity-original",
+            "started_at": "2026-10-23T12:00:05.615260Z",
+            "reviewer": "AR03 synthetic protocol case",
+            "delivery_task_id": "T-PARENT",
+            "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+            "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+            "report_ref": ".project-governance/tasks/T-PARENT/evidence/Minimal-identity-original.md",
+            "coverage": "Complete",
+            "unreviewed_items": [],
+            "evidence_refs": [
+              "src/label.txt"
+            ],
+            "findings": [],
+            "resolutions": [],
+            "review_contract_version": "report-bound-v2",
+            "report_sha256": "adf360e3573ebbbb42cd565af52a50a1fddebc2ac5a1f1e9d91c067f2cfdab1b",
+            "delivery_completed_at": "2026-10-23T12:00:05.363509Z",
+            "delivery_verified_at": "2026-10-23T12:00:05.355233Z"
+          }
+        }
+      ]
+    },
+    {
+      "from_revision": 8,
+      "to_revision": 9,
+      "reason": "AR03 synthetic protocol case",
+      "basis": "ar03://Minimal-identity-reuse-recorded-content",
+      "changed_at": "2026-10-23T12:00:05.844251Z",
+      "changes": [
+        {
+          "path": "task_outcome.adversarial_review.3",
+          "old_value": {
+            "$missing": true
+          },
+          "new_value": {
+            "event": "Round",
+            "recorded_at": "2026-10-23T12:00:05.844251Z",
+            "round_id": "Minimal-identity-reused",
+            "started_at": "2026-10-23T12:00:05.844179Z",
+            "reviewer": "AR03 synthetic protocol case",
+            "delivery_task_id": "T-PARENT",
+            "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+            "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+            "report_ref": ".project-governance/tasks/T-PARENT/evidence/Minimal-identity-reused.md",
+            "coverage": "Complete",
+            "unreviewed_items": [],
+            "evidence_refs": [
+              "src/label.txt"
+            ],
+            "findings": [],
+            "resolutions": [],
+            "review_contract_version": "report-bound-v2",
+            "report_sha256": "adf360e3573ebbbb42cd565af52a50a1fddebc2ac5a1f1e9d91c067f2cfdab1b",
+            "delivery_completed_at": "2026-10-23T12:00:05.363509Z",
+            "delivery_verified_at": "2026-10-23T12:00:05.355233Z"
+          }
+        }
+      ]
+    },
+    {
+      "from_revision": 9,
+      "to_revision": 10,
+      "reason": "AR03 synthetic protocol case",
+      "basis": "ar03://Minimal-identity-false-pass",
+      "changed_at": "2026-10-23T12:00:05.990753Z",
+      "changes": [
+        {
+          "path": "task_outcome.adversarial_review.4",
+          "old_value": {
+            "$missing": true
+          },
+          "new_value": {
+            "event": "Round",
+            "recorded_at": "2026-10-23T12:00:05.990753Z",
+            "round_id": "Minimal-identity-fresh-final",
+            "started_at": "2026-10-23T12:00:05.990662Z",
+            "reviewer": "AR03 synthetic protocol case",
+            "delivery_task_id": "T-PARENT",
+            "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+            "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+            "report_ref": ".project-governance/tasks/T-PARENT/evidence/Minimal-identity-fresh-final.md",
+            "coverage": "Complete",
+            "unreviewed_items": [],
+            "evidence_refs": [
+              "src/label.txt"
+            ],
+            "findings": [],
+            "resolutions": [],
+            "review_contract_version": "report-bound-v2",
+            "report_sha256": "614f9c71a43d79f12c0e3bbea4f9e3e2e5e9864ac169e595a3ae5c8b6573082e",
+            "delivery_completed_at": "2026-10-23T12:00:05.363509Z",
+            "delivery_verified_at": "2026-10-23T12:00:05.355233Z"
+          }
+        }
+      ]
+    }
+  ]
+}

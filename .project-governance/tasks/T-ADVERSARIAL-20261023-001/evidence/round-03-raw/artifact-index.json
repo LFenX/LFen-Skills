@@ -1,0 +1,67 @@
+[
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report.md",
+    "bytes": 10424,
+    "sha256": "2f1b08998b805717306d1270d7381dc661eb7c8c905ba7f7207ec9d1b84e89fa"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\finding-AR03-001.json",
+    "bytes": 28512,
+    "sha256": "9ad60f65053ebfdb6e07e20a75335f456fe7e50b23088eabdf2caed15352035f"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\results.json",
+    "bytes": 206269,
+    "sha256": "2a1dea9042c23980a1a099528914abec3bdd00411f21bc14b07079426d3894c7"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\source-verification.json",
+    "bytes": 32428,
+    "sha256": "feea39c3e70ffc0c995a2a8df64a1991f639eff23a8c485afc8cecec66642a83"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\requirement-review.json",
+    "bytes": 5130,
+    "sha256": "42cd50dc867ef443fe087f95f30be59a0177bbc2617b0b339dc12a3a0afecb62"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\review-summary.json",
+    "bytes": 734,
+    "sha256": "617d8c0eba9d54dcb99c96ae38e96d3f83173ce2626bae29ed2b9dfa2a2d72ee"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\ar03_audit.py",
+    "bytes": 12631,
+    "sha256": "2fd3c9363ad6a49d753a433cf9b5921aadb79d10c902c4c63a43fa60843edbbf"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\ar03_extended.py",
+    "bytes": 17004,
+    "sha256": "b98e0797053559feca92a1cccae7c507d59bd60e0203cc4d6c239e7ffba5a857"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\ar03_boundaries.py",
+    "bytes": 8106,
+    "sha256": "34c69ea4084ff075a0e18d91208b191a85a366a79be0c3e5ec4ef1f2a7f229cd"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\ar03_report_identity.py",
+    "bytes": 1833,
+    "sha256": "096ad2fe7181783d5a56424b8d3366788bc90bd2255dc69ce91470b542b3a853"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-repro-Full.json",
+    "bytes": 1429,
+    "sha256": "837ccca0a3a9bb5443aed15f74f11e2f6da60499450d743a98791d49fe907364"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-repro-Minimal.json",
+    "bytes": 1444,
+    "sha256": "59e7174f67884fda4ffa82a4902c8d15be18077ad807b99cad4431d54554e520"
+  },
+  {
+    "path": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\run-metadata.json",
+    "bytes": 165,
+    "sha256": "93321f9e7f74d58f502389d8ffea3951e4088a66497da833904be4a1495db096"
+  }
+]

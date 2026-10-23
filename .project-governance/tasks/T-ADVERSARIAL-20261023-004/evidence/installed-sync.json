@@ -1,0 +1,34 @@
+{
+  "synchronized_at": "2026-10-23T12:17:36.352010Z",
+  "installed_root": "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow",
+  "owned_files": [
+    {
+      "path": "scripts/adversarial_review.py",
+      "before_sha256": "2d09682c1463e89026831eaeb0e35a45db80953a850ac8fe60b211c66a515c9e",
+      "after_sha256": "894bfcab61a66a9ef7b71dd95e28df1419839a2ec4d51ee69dfc972d692e76a2",
+      "backup_path": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\lfen-ar03-install-backup-l7lw9ts7\\scripts\\adversarial_review.py"
+    },
+    {
+      "path": "scripts/self_test.py",
+      "before_sha256": "7b65856c2fb23eefb488f47eb968b9365c7be82f8afb655ee5eff5d2c64778d6",
+      "after_sha256": "40fac15038ea7797965239d3af0c4de16dca00260efe9e3c1740ab50e6943ab3",
+      "backup_path": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\lfen-ar03-install-backup-l7lw9ts7\\scripts\\self_test.py"
+    },
+    {
+      "path": "commands/verify.md",
+      "before_sha256": "e3ddcf3200d39cc4af7b2036ce818e9e84dd7adc10b04016347ef1ff978c9a93",
+      "after_sha256": "68fed0f16821e680e3bba6b57c1005f8924abb58c8d5fe2cc3bcd26169fc7755",
+      "backup_path": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\lfen-ar03-install-backup-l7lw9ts7\\commands\\verify.md"
+    }
+  ],
+  "source_matching_files": 95,
+  "total_files": 96,
+  "preserved_parallel_files": [
+    {
+      "path": "scripts/governance_artifacts.py",
+      "source_sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+      "installed_sha256": "ff8124ccd76fcc76527ac2ea1ee2c848aff0604f2a15319e6bf193066bee4bd3"
+    }
+  ],
+  "whole_install_reset": false
+}

@@ -1,0 +1,87 @@
+{
+  "source": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/before.json",
+  "request_snapshot": {
+    "language": "zh",
+    "text": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "captured_at": "2026-10-23T09:14:37.697082Z",
+    "source": "user-directive://current-thread/2026-10-23/adversarial-review"
+  },
+  "clarification": {
+    "mode": "Skipped",
+    "state": "Settled",
+    "notice": "你的需求已明确，本次跳过澄清提问。",
+    "survey_refs": [
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-001/survey.json"
+    ],
+    "rounds": [],
+    "basis": "已勘察既有结果、收尾、修订入口，用户明确启动与终止条件。",
+    "reopened_by": []
+  },
+  "items": [
+    {
+      "id": "R01",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "针对本任务进行多轮对抗性审查",
+      "state": "已实现",
+      "evidence_refs": [
+        "commands/verify.md:127",
+        "scripts/adversarial_review.py:85"
+      ],
+      "detail": "Full/Minimal 多轮、问题处置、返修归属及独立执行流程均已实现。"
+    },
+    {
+      "id": "R02",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "直到连续两次对抗性审查均没有发现任何问题",
+      "state": "部分实现",
+      "evidence_refs": [
+        "commands/verify.md:135",
+        "scripts/adversarial_review.py:190"
+      ],
+      "detail": "普通同版两轮及清零分支成立；AR03-001 允许重复历史报告被重新计为一轮并错误 Passed。"
+    },
+    {
+      "id": "R03",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "优化表述与流程",
+      "state": "已实现",
+      "evidence_refs": [
+        "SKILL.md:26",
+        "SKILL.md:190",
+        "commands/verify.md:119"
+      ],
+      "detail": "表述明确开始条件、拒绝/推迟、每轮完整覆盖、返修复验、计数和停止条件。"
+    },
+    {
+      "id": "R04",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "嵌入该 skill 并确保能够发挥作用",
+      "state": "部分实现",
+      "evidence_refs": [
+        "scripts/governance_artifacts.py:3975",
+        "scripts/minimal_task.py:952",
+        "scripts/signals.py:184",
+        "scripts/deploy_console.py:42"
+      ],
+      "detail": "Full/Minimal、状态、Schema、分发及安装入口均已接入；AR03-001 使关键两轮通过判定在报告更正边界失效。"
+    },
+    {
+      "id": "R05",
+      "source": "request_snapshot",
+      "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+      "reading": "不能直接开始；任务完成后主动询问用户是否需要审查",
+      "state": "已实现",
+      "evidence_refs": [
+        "SKILL.md:190",
+        "commands/close.md:49",
+        "commands/minimal.md:61",
+        "scripts/adversarial_review.py:120"
+      ],
+      "detail": "已保存 Implemented 后才可 Offer，明确 Accepted 才可 Round；无答复、拒绝、推迟、停止均不启动。"
+    }
+  ]
+}

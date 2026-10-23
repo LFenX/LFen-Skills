@@ -1,0 +1,29 @@
+{
+  "carrier": "Minimal",
+  "task": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT",
+  "original_sha256": "adf360e3573ebbbb42cd565af52a50a1fddebc2ac5a1f1e9d91c067f2cfdab1b",
+  "same_recorded_report_sha256": [
+    "adf360e3573ebbbb42cd565af52a50a1fddebc2ac5a1f1e9d91c067f2cfdab1b",
+    "adf360e3573ebbbb42cd565af52a50a1fddebc2ac5a1f1e9d91c067f2cfdab1b",
+    "614f9c71a43d79f12c0e3bbea4f9e3e2e5e9864ac169e595a3ae5c8b6573082e"
+  ],
+  "final_status": {
+    "status": "Passed",
+    "clean_streak": 2,
+    "rounds": 3,
+    "open_findings": [],
+    "reviewed_delivery": {
+      "task_id": "T-PARENT",
+      "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+      "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+    },
+    "current_delivery": {
+      "task_id": "T-PARENT",
+      "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a"
+    },
+    "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a",
+    "delivery_task_id": "T-PARENT",
+    "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a"
+  },
+  "artifact": "C:\\Users\\Administrator\\AppData\\Local\\Temp\\LFen-AR03-20261023\\report-identity-Minimal\\.project-governance\\tasks\\T-PARENT\\task-record.json"
+}

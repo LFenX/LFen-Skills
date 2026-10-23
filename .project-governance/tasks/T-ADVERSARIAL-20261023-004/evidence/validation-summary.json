@@ -1,0 +1,78 @@
+{
+  "verified_at": "2026-10-23T12:20:40.151799Z",
+  "status": "Passed",
+  "source_sha256": "a6d4cdcbfd9e3544dc66080e78df075bc54b166f5a648268cecf64884af8a349",
+  "source_files": 96,
+  "protocol_checks": 50,
+  "boundary_checks": 81,
+  "full_self_test": {
+    "started_at": "2026-10-23T12:15:39.722685Z",
+    "finished_at": "2026-10-23T12:17:10.599251Z",
+    "exit_code": 0,
+    "log": ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/self-test-A02.log"
+  },
+  "installed_self_test": {
+    "started_at": "2026-10-23T12:17:36.905856Z",
+    "finished_at": "2026-10-23T12:19:10.904165Z",
+    "exit_code": 0,
+    "stable_during_test": true,
+    "files_checked": 96,
+    "installed_governance_sha256": "ff8124ccd76fcc76527ac2ea1ee2c848aff0604f2a15319e6bf193066bee4bd3",
+    "log": ".project-governance/tasks/T-ADVERSARIAL-20261023-004/evidence/installed-self-test-A02.log"
+  },
+  "runtime_consistency_status": "Complete",
+  "static_checks": {
+    "checked_at": "2026-10-23T12:12:23.296665Z",
+    "checks": [
+      {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "C:/Users/Administrator/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+          "skills/product-engineering/run-governed-product-workflow"
+        ],
+        "exit": 0,
+        "output": "Skill is valid!\n"
+      },
+      {
+        "command": [
+          "C:\\Program Files\\Python313\\python.exe",
+          "-B",
+          "-X",
+          "utf8",
+          "scripts/update_catalog.py",
+          "--check"
+        ],
+        "exit": 0,
+        "output": "分类目录校验通过：8 个 skill，5 个一级分类，Markdown 与 JSON 目录一致\n"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exit": 0,
+        "output": ""
+      }
+    ]
+  },
+  "scope": "AR03-001, existing authorized review workflow only",
+  "actual_review_rounds": 3,
+  "actual_clean_streak": 0,
+  "actual_open_findings": [
+    "AR03-001"
+  ],
+  "failures_preserved": [
+    "setup-failure.json",
+    "readiness-retry.json",
+    "compatibility-A01.json"
+  ],
+  "limitations": [
+    "Windows Python 3.13 actual local runtime; GitHub CI not yet run for this uncommitted source",
+    "Parallel installed governance baseline remains separately owned; ff8124 combination tested stable at recorded times, future owner changes require compatibility check",
+    "Engineering fixtures are not actual clean rounds; user Acceptance remains Pending"
+  ]
+}

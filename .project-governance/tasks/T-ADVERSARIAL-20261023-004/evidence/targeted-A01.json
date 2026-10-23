@@ -1,0 +1,52 @@
+{
+  "started_at": "2026-10-23T12:09:19.627843Z",
+  "attempt": "A01",
+  "protocol": {
+    "status": "Passed",
+    "checks": 50
+  },
+  "boundaries": {
+    "status": "Passed",
+    "checks": 75
+  },
+  "persisted_prior_bug": {
+    "Full": {
+      "state": {
+        "status": "InProgress",
+        "clean_streak": 1,
+        "rounds": 3,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-PARENT",
+          "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022",
+          "requirements_sha256": "4d1ddf017da3b2aa4333354238667dface11d2b41b3f5c36ec39b7fa25b55e52"
+        },
+        "current_delivery": {
+          "task_id": "T-PARENT",
+          "subject_sha256": "04fe4eca14c9366bf57471032669637fd66a94fdf6a26e689f75c907eb4e4022"
+        }
+      },
+      "expected": "not Passed; only the last genuinely distinct report counts as 1"
+    },
+    "Minimal": {
+      "state": {
+        "status": "InProgress",
+        "clean_streak": 1,
+        "rounds": 3,
+        "open_findings": [],
+        "reviewed_delivery": {
+          "task_id": "T-PARENT",
+          "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a",
+          "requirements_sha256": "6357a4ebd3f432f0b91140b68250a99136bf47a79f70e6bce41b5d1faca5861a"
+        },
+        "current_delivery": {
+          "task_id": "T-PARENT",
+          "subject_sha256": "2ea9d7b76fe94ce1cea1ca6411cc503398b50002baaf32bbce9c519084f6073a"
+        }
+      },
+      "expected": "not Passed; only the last genuinely distinct report counts as 1"
+    }
+  },
+  "status": "Passed",
+  "finished_at": "2026-10-23T12:09:45.880019Z"
+}
