@@ -1,0 +1,15 @@
+{
+  "verified_at": "2026-10-23T09:32:17.682143Z",
+  "self_test": "Passed",
+  "log": ".project-governance\\tasks\\T-ADVERSARIAL-20261023-001\\evidence\\self-test-final-public.log",
+  "adversarial_protocol_checks": 50,
+  "saved_user_decision_checks": 36,
+  "amendment_growth_checks": 22,
+  "schema_count": 11,
+  "runtime_assets": 46,
+  "cli_contracts": 24,
+  "catalog": "Passed",
+  "quick_validate": "Passed",
+  "diff_check": "Passed",
+  "actual_adversarial_review": "NotStarted; no user opt-in"
+}

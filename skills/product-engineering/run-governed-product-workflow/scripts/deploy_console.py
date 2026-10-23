@@ -39,7 +39,9 @@ README_TEMPLATE = "console.README.md"
 # set is auditable and stable. self_test holds this list against the real closure,
 # so it cannot drift silently as the console gains or drops an import.
 SNAPSHOT_MODULES = (
+    "adversarial_review.py",
     "audit_console.py",
+    "check_write_guard.py",
     "console.py",
     "console_assets.py",
     "console_model.py",

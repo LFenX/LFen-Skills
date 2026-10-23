@@ -46,6 +46,8 @@ python <skill-root>/scripts/append_run_event.py <project-root>/.project-governan
 
 TaskOutcome 写明成立事实、实际变化、验证、遗留项、责任人、后续 TaskID 和独立 `user_decision`。后续决定的字段格式及补记命令见 [verify](verify.md)。
 
+新结果同时初始化 `adversarial_review: []`；工程状态为 `Implemented` 时其含义为“尚未询问”。保存并交付后必须主动询问是否启动对抗性审查，再记录实际 Offer；不得先审查后补问。未回答、拒绝和推迟均不撤回结果，也不代表审查通过。获明确同意后按 [verify 的对抗性审查流程](verify.md#完工后可选对抗性审查) 追加记录；不要向已结束的 Run 补事件。该选择与 `user_decision` 中的人工验收决定分开，不能相互代替。
+
 完整 close 在当时实际核对 Git 范围，并冻结 `scope_reconciliation`，绑定起始快照、范围、交付快照及报告摘要。后续读取校验这份关闭时证据，不把未来任务的工作树变化追记到已关闭任务。摘要校验只证明内容绑定，不能证明伪造的观察为真；缺证据不得手填 Passed。
 
 TaskOutcome 建立后修订必须使用：
@@ -67,4 +69,4 @@ python <skill-root>/scripts/generate_review_views.py --project-root <project-roo
 
 Minimal 收尾只适用于未升级的合法 `task-record.json`；升级后必须走完整载体收尾。
 
-Minimal 的 close 在工程验证完成后追加最终 `run_finished` 并生成 `task_outcome`，其中 `user_decision` 默认 `Pending`。稍后用 `record-review --user-decision-json-file` 补记真实决定；已完成载体只允许这一独立更新，不重写工程事实或执行账本。完整与 Minimal 均保留工程证明校验，不以文件存在或 `Implemented` 宣称用户已通过验收。
+Minimal 的 close 在工程验证完成后追加最终 `run_finished` 并生成 `task_outcome`，其中 `user_decision` 默认 `Pending`。稍后用 `record-review --user-decision-json-file` 补记真实决定，对抗性审查记录使用 `adversarial_review.py` 追加；均不重写工程事实或执行账本。完整与 Minimal 均保留工程证明校验，不以文件存在或 `Implemented` 宣称用户已通过验收。

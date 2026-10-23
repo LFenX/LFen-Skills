@@ -1,0 +1,6 @@
+[
+  {
+    "error": "at least one baseline inheritance value is required",
+    "resolution": "按既有 Task Profile 明确传入 baseline_inheritance；未改变用户需求或授权"
+  }
+]

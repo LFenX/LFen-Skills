@@ -1,0 +1,36 @@
+# 完工后可选对抗性审查
+
+- 开始时间：2026-10-23 17:13（Asia/Shanghai，UTC+8）。
+- 任务：`.project-governance/tasks/T-ADVERSARIAL-20261023-001/`。
+- 涉及：`skills/product-engineering/run-governed-product-workflow/`、本任务记录、项目状态和审阅派生物、已安装的同一 skill。
+- 原因：用户要求工程完成后主动询问，明确同意后多轮对抗性审查，连续两轮无问题才通过。
+- 设计：结果先保存；审查与验收分别记录；审查记录追加且每次只保存增量，禁止复制整段历史造成膨胀。
+- 完成工程验证：2026-10-23 17:32（Asia/Shanghai，UTC+8）。
+
+## 变更
+
+- 总原则新增完工后主动询问；明确同意前禁止启动，拒绝、推迟、沉默不影响工程结果留档。
+- verify 明确逐条核对原始需求、独立形成每轮判断、反例与边界验证、问题处置、返修复验、版本变化归零、同版连续两轮完整无问题的终止条件；缺证据和未检查不得算通过。
+- Full `after.json`、Minimal `task_outcome` 增加可追加的 `adversarial_review`。统一脚本核对 Offer、真实 Decision、Round、Blocked，自动计算状态和连续轮数；不允许普通 amendment 改删历史。
+- 每轮绑定原需求/澄清摘要及已验证交付摘要；修复通过直接依赖原任务的后续任务交付，不向已结束账本补事件。固定问题须有新交付证据，误报须有反证。
+- 同一已授权审查的返修不递归询问；所有确认问题均处理，不能用严重度阈值忽略问题或用最大轮次伪造收敛。
+- 历史结果不自动补造审查；审查状态与用户 Acceptance 独立。每次修订只保存新增记录，避免复制全部旧轮次。
+- 更新 Full/Minimal Schema、CLI 契约、状态信号、审阅视图、现有控制台依赖闭包和命令卡；沿用原目录和命名。
+- 实际安装入口已同步：96 个文件哈希一致，只更新该 skill 的变更，保留安装仓库其他文件及既有改动。来源摘要：`a16fe6f3fec491040f3bd4865675965eb9779c0dfc4004c1372a22d034f9c48f`。
+
+## 实际验证
+
+- 完整 `self_test.py` 最终退出码 0：`evidence/self-test-final-public.log`；新增协议合成检查 50 项通过，包含 Full/Minimal、未同意拒绝、重复报告拒绝、未解决问题/未覆盖/阻塞归零、换版本归零、真实引用返修交付并重新收敛、CLI 读取和增量历史。
+- 既有用户决定回归 36 项、修订膨胀 22 项、历史证明兼容 40 项、验证补录 16 项及其他完整自检通过。
+- 11 份 Schema 的 Draft 2020-12 结构检查、46 份受保护资产、28 个 gold case、24 项 CLI 契约通过；Full/Minimal 嵌入的审查 Schema 与唯一运行定义一致。
+- runtime 一致性 Complete，Blocker/Major/Minor 均为 0；1 项 Observation 为未指定 TaskContract 的快照检查不适用。
+- 官方 quick_validate、目录生成检查及 git diff --check 通过。
+- 上述为工程测试，不是本任务的实际对抗性审查；尚无用户启动决定，不将合成轮次写入本任务结果。
+- 已保存本任务 after.json，工程状态 Implemented、user_decision 为 Pending；随后通过询问工具实际发出可选对抗性审查问题并追加 Offer。登记时状态 AwaitingUser、真实审查轮次 0，未将预选选项当成用户同意。
+
+## 失败及修正
+
+- 初始化缺少 baseline_inheritance 被拒绝；明确沿用既有任务分类约定后初始化成功，保留 setup-failures.json。
+- 资产恢复原始换行并重封期间，上下文检测到旧摘要后阻断；完成官方重封、刷新派生来源后恢复，记录 failure/retry。
+- 首次完整自检发现控制台声明的快照缺少新增审查模块及写守卫依赖；按真实 import closure 补齐，后续完整自检通过。原失败日志保留。
+- 公开接口最终调整后再次运行完整自检通过；没有改写失败或伪造用户验收。

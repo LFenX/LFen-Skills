@@ -113,3 +113,50 @@ python <skill-root>/scripts/manage_minimal_task.py record-review <project-root>/
 两者保留修订历史和原工程事实，不向已结束 Run 补事件。无来源、错误版本、未来时间、早于交付验证的决定，以及用较早批准覆盖较晚拒绝，均不得记入。`Rejected` / `Deferred` 仍保留已保存工程结果；返修按实际范围启动后续任务，不把人的选择改写成工程事实。
 
 缺少 `user_decision` 的旧文件继续按原有证明和历史兼容规则读取，不能把“没有字段”当成新的 `Pending` 或 `Approved`，也不批量补造人的决定。新的生成器始终写该字段。`Proceed`、工程 required Gate 和发布权限保持各自的校验，不能用工程结果留档替代。
+
+## 完工后可选对抗性审查
+
+**规则表述：**工程实现及必要验证完成、工程结果保存后，主动询问用户是否启动多轮对抗性审查。仅在用户明确同意后开展。每轮以原始需求、澄清原话和当前已验证交付为基准，独立寻找遗漏、反例和失效路径；发现问题先修复并复验，再启动下一轮。只有同一交付版本连续两轮完整审查均未发现任何问题，且无未解决或未检查项，才结束并标为审查通过。
+
+### 启动与授权
+
+1. 先完成普通工程验证并按 [close](close.md) 保存 Full `after.json` 或 Minimal `task_outcome`，再交付并发出开始 / 不需要 / 稍后决定的真实询问。此规则不把普通测试或已要求的工程 Gate 改成可选项。
+2. 将实际问题记为 `Offer`。无答复为 `AwaitingUser`；拒绝、推迟分别为 `Declined`、`Deferred`，均不得开始。只有 `Decision.outcome=Accepted` 且保留回答原话、实际决定人、时间和来源，才可进入审查。编写此机制、普通验收同意和沉默都不构成启动授权。
+3. 同意覆盖本任务范围内的多轮审查、返修和复验；不扩展生产操作、发布或权限。越界、缺少环境/证据或无法安全修复时记录 `Blocked`，向用户说明解除条件；用户要求停止时记录真实 `Stopped` 决定。未达到两轮不得报告通过，不以固定最大轮次代替收敛。
+
+### 每轮怎样审查
+
+- 重新读取需求原文和澄清原话，逐条核对当前交付；不能只读完成清单、上一轮结论或实施者自述。每轮覆盖完整约定范围，检查需求遗漏、条件/例外、权限和状态边界、失败恢复、兼容及证据真实性；不因未改动而抽掉相关路径。
+- 从“如何证明本交付仍然有错”出发构造可运行反例，核对实现、测试和实际输出。每轮换用反例或失效视角，但保持完整覆盖。只重跑同一测试、复制报告、分段抽查合并成两轮，均不成立。
+- 每轮独立形成判断，不把上一轮“无问题”作为前提。获用户同意后，若平台支持且授权允许，使用新的只读审查子 Agent；输入原话、约束、交付版本与证据位置，不输入预设结论。没有独立执行者时以新一轮审查上下文开展，明确记录由同一执行者复核，禁止声称独立人员审查。
+- 每个问题记录唯一 ID、可复现条件、预期/实际差异、影响、位置和证据；完整报告放入该轮的独立证据文件，结果只保存摘要与引用。所有确认问题均处理，不以低严重度忽略问题。疑似误报必须凭证据说明 `NotAnIssue`，未决争议不能记为无问题。
+- 修复使用依赖原任务的后续任务，执行已有范围与工程验证规则，保存新结果；不改写原工程结果或向已结束账本补事件。同一审查中的返修不重复询问是否审查，轮次仍记在原任务，`delivery_task_id` 指向本轮实际复验完成的任务，返修任务直接 `depends_on` 原任务。
+
+### 计数与结束
+
+- 发现任何问题、覆盖不完整、有未检查项、存在未解决问题或阻塞：本轮不计为干净轮次，连续计数归零。
+- 交付版本或原始需求/澄清变化使旧计数失效；修复后从新版本第一轮重新计数。已发现问题须在后续轮以证据登记 `Fixed` 或 `NotAnIssue`；`Fixed` 必须绑定重新验证的新交付。
+- 第一轮完整无问题记为 1；保持同版再完整审查一轮仍无问题记为 2，自动得到 `Passed`，随后结束。独立报告、轮次 ID、时间与版本必须分别可核对，不能复用一份报告凑数。
+- 交付轮次、版本、问题及处置、实际验证和限制；这只证明规定范围内两轮未发现问题，不宣称绝对无缺陷，不替代用户 Acceptance 或发布批准。
+
+### 记录与机器校验
+
+Full 与 Minimal 均在工程结果的 `adversarial_review` 数组中追加 `Offer`、`Decision`、`Round` 或 `Blocked`，不另建任务档位或独立治理载体。使用唯一入口：
+
+```console
+python <skill-root>/scripts/adversarial_review.py <project-root>/.project-governance/tasks/<TaskID>
+python <skill-root>/scripts/adversarial_review.py <project-root>/.project-governance/tasks/<TaskID> --entry-json-file <actual-record.json> --reason <实际原因> --basis <真实来源>
+```
+
+无 `--entry-json-file` 为只读状态查询。输入字段如下，均为真实观察，不得填占位审批或虚构审查；每条都有 `event` 和 `recorded_at`（含时区的实际发生时间）：
+
+| event | 其他必填字段 |
+|---|---|
+| `Offer` | `prompt`、`evidence_ref`：实际发出的完工后问题和来源 |
+| `Decision` | `outcome=Accepted/Declined/Deferred/Stopped`、`response`、`decided_by`、`evidence_ref` |
+| `Blocked` | `reason`、`evidence_refs` |
+| `Round` | `round_id`、`started_at`、`reviewer`、`delivery_task_id`、`subject_sha256`、`requirements_sha256`、`coverage=Complete/Incomplete`、`unreviewed_items`、`evidence_refs`、`findings`、`resolutions` |
+
+只读命令同时输出摘要：`subject_sha256` 取**本轮交付任务**的状态输出，与 `get_approval_subject.py` 一致；`requirements_sha256` 取**原审查任务**的状态输出，绑定 request_snapshot 和 clarification 原文。`findings` 每项为 `{id, summary, evidence_refs}`；`resolutions` 每项为 `{finding_id, disposition: Fixed|NotAnIssue, reason, evidence_refs}`，详情在引用报告中。没有对应条目时写空数组；未检查项必须列明，不能填空以伪造完整覆盖。
+
+脚本核对已保存工程结果、时间顺序、明确同意、原文绑定、交付摘要、返修关系、问题处置和不同报告，自动计算状态及连续轮数；禁止手填 Passed/clean_streak 或用普通 amendment 改删审查历史。修订历史每次只留新增项，避免复制此前所有轮次。字段完整与摘要匹配不证明自然语言审查质量或来源真实，执行者仍须读取原件并保留实际证据。`signals.py` 和审阅页显示审查状态；`NotOffered` 提示先询问，只有获同意的未完审查才提示继续。旧结果不自动补录、不因缺少字段追溯判失败。

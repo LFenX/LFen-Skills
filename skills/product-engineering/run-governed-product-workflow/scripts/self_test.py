@@ -2138,6 +2138,161 @@ def run_amendment_growth_fixture() -> dict[str, object]:
     return {"status": "Passed", "checks": checks}
 
 
+def run_adversarial_review_fixture() -> dict[str, object]:
+    """Synthetic opt-in/round records, not an actual adversarial review of this task."""
+    from adversarial_review import append_review, review_state, requirements_subject
+    from governance_artifacts import now_utc, read_jsonl, user_decision_subject_sha256
+    from minimal_task import minimal_approval_contract
+    checks = 0
+
+    def check(condition: bool, message: str) -> None:
+        nonlocal checks
+        require_test(condition, message)
+        checks += 1
+
+    with tempfile.TemporaryDirectory(prefix="v63-adversarial-") as temp:
+        root = Path(temp)
+        for minimal in (False, True):
+            tid = "T-REVIEW-MIN" if minimal else "T-REVIEW-FULL"
+            task = root / ".project-governance/tasks" / tid
+            if minimal:
+                path = minimal_fixture_record(root, tid)
+                expect_governance_error("cannot offer before Minimal completion", lambda: append_review(task,
+                    {"event": "Offer", "recorded_at": now_utc(), "prompt": "Synthetic opt-in?", "evidence_ref": "self-test://question"}, reason="fixture", basis="self-test"))
+                append_minimal_event(task, event_type="run_started", summary="Synthetic work", status="started")
+                append_minimal_event(task, event_type="verification", summary="Synthetic verification", status="succeeded", evidence_refs=["self-test://verification"])
+                record_fixture_acceptance(task)
+                close_minimal_record(task, status="Implemented", established_facts=["Synthetic work complete"], actual_changes=["Synthetic change"], verification=["Passed::Synthetic check::self-test://verification"])
+            else:
+                new_task(root, tid, 1)
+                before = read_json(task / "before.json")
+                before["authority"]["required_gates"] = []
+                atomic_write_json(task / "before.json", before)
+                append_run_event(task, run_id="RUN-REVIEW", attempt_id="A01", event_type="run_started", summary="Synthetic work", status="started")
+                append_run_event(task, run_id="RUN-REVIEW", attempt_id="A01", event_type="verification", summary="Synthetic verification", status="succeeded", evidence_refs=["self-test://verification"])
+                record_fixture_acceptance(task)
+                append_run_event(task, run_id="RUN-REVIEW", attempt_id="A01", event_type="run_finished", summary="Synthetic finished", status="succeeded")
+                path = close_task(task, status="Implemented", established_facts=["Synthetic work complete"], actual_changes=["Synthetic change"], verification=[{"result": "Passed", "summary": "Synthetic check", "evidence_refs": ["self-test://verification"]}])
+
+            def load():
+                document = read_json(path)
+                outcome = document["task_outcome"] if minimal else document
+                contract = minimal_approval_contract(document) if minimal else read_json(task / "before.json")
+                events = document["run_ledger"] if minimal else read_jsonl(task / "run.jsonl")
+                return document, outcome, contract, events
+
+            def write(entry):
+                return append_review(task, entry, reason="Synthetic protocol check", basis="self-test://adversarial")
+
+            def offer():
+                write({"event": "Offer", "recorded_at": now_utc(), "prompt": "Synthetic opt-in question after engineering completion?", "evidence_ref": "self-test://question"})
+
+            def decision(choice):
+                return {"event": "Decision", "recorded_at": now_utc(), "outcome": choice,
+                        "response": f"Synthetic explicit {choice}", "decided_by": "synthetic-user", "evidence_ref": "self-test://answer"}
+
+            def round_record(number):
+                _, outcome, contract, events = load()
+                return {"event": "Round", "recorded_at": now_utc(), "started_at": now_utc(),
+                        "round_id": f"R{number}", "reviewer": "synthetic-reviewer", "delivery_task_id": tid,
+                        "subject_sha256": user_decision_subject_sha256(contract, events, outcome),
+                        "requirements_sha256": requirements_subject(contract), "coverage": "Complete",
+                        "unreviewed_items": [], "evidence_refs": [f"self-test://round-{number}"], "findings": [], "resolutions": []}
+
+            def ready_round(number, **changes):
+                record = round_record(number)
+                record.update(changes)
+                record["recorded_at"] = now_utc()
+                return record
+
+            original, initial, contract, events = load()
+            ledger = copy.deepcopy(events)
+            user_decision = copy.deepcopy(initial["user_decision"])
+            check(review_state(initial)["status"] == "NotOffered", "new results must prompt after completion")
+            expect_governance_error("answer without actual question", lambda: write(decision("Accepted")))
+            offer()
+            snapshot = path.read_bytes()
+            expect_governance_error("silence is not opt-in", lambda: write(ready_round(1)))
+            check(path.read_bytes() == snapshot, "denied review must not write the result")
+            check(review_state(load()[1])["status"] == "AwaitingUser", "unanswered offer must remain waiting")
+            for choice in ("Declined", "Deferred"):
+                write(decision(choice))
+                expect_governance_error(f"{choice} is not opt-in", lambda: write(ready_round(1)))
+                check(review_state(load()[1])["status"] == choice, "user choice must remain separate from engineering")
+                offer()
+            write(decision("Accepted"))
+            check(review_state(load()[1])["status"] == "InProgress", "explicit opt-in starts review")
+            expect_governance_error("wrong delivery version", lambda: write(ready_round(1, subject_sha256="f" * 64)))
+            expect_governance_error("wrong original request", lambda: write(ready_round(1, requirements_sha256="f" * 64)))
+            expect_governance_error("review started before opt-in", lambda: write(ready_round(1, started_at="2026-08-15T00:00:00Z")))
+            write(ready_round(1))
+            check(review_state(load()[1])["clean_streak"] == 1, "one clean round cannot pass")
+            expect_governance_error("same report is not a second round", lambda: write(ready_round(2, evidence_refs=["self-test://round-1"])))
+            expect_governance_error("same id is not a second round", lambda: write(ready_round(1, evidence_refs=["self-test://fresh-report"])))
+            write(ready_round(2, findings=[{"id": "F1", "summary": "Synthetic edge case", "evidence_refs": ["self-test://reproduction"]}]))
+            check(review_state(load()[1])["clean_streak"] == 0, "any finding must reset the streak")
+            write(ready_round(3))
+            check(review_state(load()[1])["clean_streak"] == 0 and review_state(load()[1])["open_findings"] == ["F1"], "unresolved findings block a clean round")
+            expect_governance_error("fixed without new verified delivery", lambda: write(ready_round(4, resolutions=[{"finding_id": "F1", "disposition": "Fixed", "reason": "Synthetic fix claim", "evidence_refs": ["self-test://fix"]}])))
+            write(ready_round(4, resolutions=[{"finding_id": "F1", "disposition": "NotAnIssue", "reason": "Synthetic counterevidence disproves issue", "evidence_refs": ["self-test://counterevidence"]}]))
+            check(review_state(load()[1])["clean_streak"] == 1, "evidenced false-positive resolution permits first clean round")
+            write(ready_round(5, coverage="Incomplete"))
+            check(review_state(load()[1])["clean_streak"] == 0, "incomplete coverage must reset")
+            write(ready_round(6, unreviewed_items=["Synthetic unavailable environment"]))
+            check(review_state(load()[1])["clean_streak"] == 0, "unreviewed items must reset")
+            write({"event": "Blocked", "recorded_at": now_utc(), "reason": "Synthetic tool unavailable", "evidence_refs": ["self-test://blocked"]})
+            check(review_state(load()[1])["status"] == "Blocked", "blockers cannot be reported as pass")
+            write(ready_round(7))
+            changed = copy.deepcopy(load()[1])
+            candidate = ready_round(8, subject_sha256="a" * 64)
+            changed["adversarial_review"].append(candidate)
+            check(review_state(changed)["clean_streak"] == 1, "changing delivery resets the previous clean streak")
+            write(ready_round(8))
+            state = review_state(load()[1])
+            check(state["status"] == "Passed" and state["clean_streak"] == 2 and not state["open_findings"], "only two consecutive complete clean rounds pass")
+            expect_governance_error("no unsolicited extra rounds after pass", lambda: write(ready_round(9)))
+            document, outcome, contract, events = load()
+            check(events == ledger and outcome["user_decision"] == user_decision, "review must preserve finished ledger and user acceptance")
+            check(not validate_task_directory(task), "review-enriched carrier must remain valid")
+            last_amendment = document["amendments"][-1]
+            delta = last_amendment["changes"][0] if minimal else last_amendment
+            check(isinstance(delta["new_value"], dict) and delta["old_value"] == {"$missing": True}, "review history must store only one new record, not old and new series")
+            check(active_task_signal(task)["adversarial_review"]["status"] == "Passed", "public status must expose review progress")
+            if not minimal:
+                expect_governance_error("generic amendments cannot erase review", lambda: amend_record(path, dotted_path="adversarial_review", new_value=[], reason="Synthetic erase", basis="self-test"))
+            offer()
+            write(decision("Accepted"))
+            write(ready_round(9, findings=[{"id": "F2", "summary": "Synthetic fix required", "evidence_refs": ["self-test://fix-repro"]}]))
+            repair_id = tid + "-FIX"
+            repair = new_task(root, repair_id, 3 if minimal else 2, depends_on=[tid])
+            repaired_before = read_json(repair / "before.json")
+            repaired_before["authority"]["required_gates"] = []
+            atomic_write_json(repair / "before.json", repaired_before)
+            append_run_event(repair, run_id="RUN-FIX", attempt_id="A01", event_type="run_started", summary="Synthetic repair", status="started")
+            append_run_event(repair, run_id="RUN-FIX", attempt_id="A01", event_type="verification", summary="Synthetic repair verified", status="succeeded", evidence_refs=["self-test://repair-check"])
+            record_fixture_acceptance(repair)
+            append_run_event(repair, run_id="RUN-FIX", attempt_id="A01", event_type="run_finished", summary="Synthetic repair finished", status="succeeded")
+            repaired_path = close_task(repair, status="Implemented", established_facts=["Synthetic repair verified"], actual_changes=["Synthetic fix"], verification=[{"result": "Passed", "summary": "Synthetic repair check", "evidence_refs": ["self-test://repair-check"]}])
+            repaired_before = read_json(repair / "before.json")
+            repaired_subject = user_decision_subject_sha256(repaired_before, read_jsonl(repair / "run.jsonl"), read_json(repaired_path))
+            write(ready_round(10, delivery_task_id=repair_id, subject_sha256=repaired_subject, resolutions=[{"finding_id": "F2", "disposition": "Fixed", "reason": "Synthetic verified repair", "evidence_refs": ["self-test://repair-check"]}]))
+            check(review_state(load()[1])["clean_streak"] == 1, "repaired delivery must begin a new clean streak")
+            write(ready_round(11, delivery_task_id=repair_id, subject_sha256=repaired_subject))
+            check(review_state(load()[1])["status"] == "Passed", "a linked verified repair can converge with two new clean rounds")
+            public = subprocess.run([sys.executable, "-X", "utf8", str(skill_root_path() / "scripts/adversarial_review.py"), str(task)], capture_output=True, text=True, encoding="utf-8")
+            check(public.returncode == 0 and json.loads(public.stdout)["status"] == "Passed", "public review CLI must read both carriers")
+            offer()
+            write(decision("Accepted"))
+            write(decision("Stopped"))
+            expect_governance_error("stopped review cannot continue", lambda: write(ready_round(9)))
+            check(review_state(load()[1])["status"] == "Stopped", "explicit stop must be preserved")
+            legacy = copy.deepcopy(initial)
+            legacy.pop("adversarial_review")
+            check(review_state(legacy)["status"] == "LegacyUntracked", "historical absence must not invent reviews")
+            check(review_state({"status": "Blocked", "adversarial_review": []})["status"] == "NotApplicable", "unfinished engineering cannot trigger a review offer")
+    return {"status": "Passed", "checks": checks}
+
+
 def run_saved_result_user_decision_fixture() -> dict[str, object]:
     """Engineering results survive delayed acceptance; actual decisions remain source-bound."""
     from governance_artifacts import now_utc, read_jsonl, user_decision_subject_sha256, user_decision_label, initial_user_decision
@@ -2879,6 +3034,7 @@ def main(argv: list[str] | None = None) -> int:
     document_governance_validation = run_document_governance_fixture()
     amendment_growth_validation = run_amendment_growth_fixture()
     saved_result_validation = run_saved_result_user_decision_fixture()
+    adversarial_review_validation = run_adversarial_review_fixture()
     approval_time_validation = run_approval_time_fixture()
     closed_scope_history_validation = run_closed_scope_history_fixture()
     historical_proof_compatibility_validation = run_historical_proof_compatibility_fixture()
@@ -3976,6 +4132,7 @@ def main(argv: list[str] | None = None) -> int:
         "document_governance": document_governance_validation,
         "amendment_growth": amendment_growth_validation,
         "saved_result_user_decision": saved_result_validation,
+        "adversarial_review": adversarial_review_validation,
         "approval_time": approval_time_validation,
         "closed_scope_history": closed_scope_history_validation,
         "historical_proof_compatibility": historical_proof_compatibility_validation,

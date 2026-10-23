@@ -1,0 +1,13 @@
+{
+  "validation_errors": [],
+  "user_decision": {
+    "outcome": "Pending"
+  },
+  "adversarial_review": {
+    "status": "AwaitingUser",
+    "clean_streak": 0,
+    "rounds": 0,
+    "open_findings": []
+  },
+  "source_sha256": "a16fe6f3fec491040f3bd4865675965eb9779c0dfc4004c1372a22d034f9c48f"
+}

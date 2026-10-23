@@ -12,7 +12,7 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 
 - blocking_unknowns：仍阻断的 Unknown。
 - pending_acceptance_tasks：活动任务及已有工程结果但待用户决定的任务。
-- task_progress：每项任务的工程结果是否已保存、独立用户决定和待验收标志。
+- task_progress：每项任务的工程结果是否已保存、独立用户决定、待验收标志和 `adversarial_review` 的状态、轮数、连续无问题轮数与未解决问题。
 - snapshot_stale：TaskContract Source Snapshot 与当前仓库差异。
 - minimal_eligibility_facts：已有 Minimal 资格事实。
 - update_available：本地索引与当前 skill 运行快照不一致时提示。
@@ -25,6 +25,8 @@ python <skill-root>/scripts/signals.py --project-root <project-root>
 `pending_acceptance_tasks` 包括尚未保存工程结果的活动任务，以及结果已保存但 `user_decision` 为 `Pending` / `Deferred` 的任务。结合 `engineering_recorded`、RunLedger、原文覆盖、验证证据和未完成项说明进度；不能仅凭一个 pending 标志宣称工程验证通过。工程结果已保存时展示版本及用户决定，不建议重新执行，也不要求用户回到原对话重复验收。
 
 `Implemented` 表示工程实现和必要验证完成，用户未答时仍须保存 `after.json` / `task_outcome` 并将 `user_decision` 记为 `Pending`。人的拒绝或推迟独立于工程状态；不伪造批准，不用 `Deferred` / `Blocked` 填补缺少验收答复。旧文件未单列用户决定时明确显示历史未单列，不推定通过。
+
+对抗性审查 `NotOffered` 时先主动询问；`AwaitingUser`、`Declined`、`Deferred` 不得启动或自动催问；`InProgress`、`Blocked` 只针对已经明确同意的审查，按 [verify](verify.md#完工后可选对抗性审查) 处理。`Passed` 仅由同版连续两轮完整无问题计算得出，不代表人的验收。`LegacyUntracked` 表示旧结果未记录该协议，不批量补造询问和轮次。同一已授权审查的返修从原审查任务继续，不递归询问。
 
 `signals.py` 的 `derivation_audit` 按 C10 §8.2 关系符号分开统计衍生：`affected-by`（本次引入）计入回归链深，`observed-from`（顺带发现）单独计数——前者链长说明修复方式有系统性问题，后者多则相反。`recorded_but_not_created` 列出已记录为衍生目标但项目里尚不存在的任务，那是「发现了却没人接手」的线索。
 

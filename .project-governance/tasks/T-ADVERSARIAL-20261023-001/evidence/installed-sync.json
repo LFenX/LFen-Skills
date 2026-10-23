@@ -1,0 +1,25 @@
+{
+  "captured_at": "2026-10-23T09:30:10.852214Z",
+  "destination": "C:\\Users\\Administrator\\.lfenskills\\skills\\product-engineering\\run-governed-product-workflow",
+  "changed_files": [
+    "scripts/adversarial_review.py",
+    "SKILL.md",
+    "assets/runtime/embedded-manifest.json",
+    "assets/runtime/evaluations/norm-retrieval-gold.json",
+    "assets/runtime/schemas/minimal-task-record.schema.json",
+    "assets/runtime/schemas/task-after.schema.json",
+    "commands/close.md",
+    "commands/minimal.md",
+    "commands/status.md",
+    "commands/verify.md",
+    "scripts/deploy_console.py",
+    "scripts/governance_artifacts.py",
+    "scripts/minimal_task.py",
+    "scripts/self_test.py",
+    "scripts/signals.py"
+  ],
+  "verified_files": 96,
+  "source_sha256": "a16fe6f3fec491040f3bd4865675965eb9779c0dfc4004c1372a22d034f9c48f",
+  "all_match": true,
+  "unrelated_files": "preserved"
+}

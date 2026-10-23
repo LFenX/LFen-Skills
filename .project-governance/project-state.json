@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-10-23T08:57:45.521930Z",
-  "source_digest": "48e414cdfa108e1f5050358d795b01400435d329f87edb3158c8ab6e8292e8ed",
+  "generated_at": "2026-10-23T09:34:54.870423Z",
+  "source_digest": "a579bb05b21bd8812e6b4cab35426520c9bf665343ff3028dffcae7fe96ebf4f",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -153,6 +153,19 @@
       "user_decision": "Pending",
       "revision": 1,
       "completed_at": "2026-10-23T08:56:56.790066Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "Current",
+        "status": "CurrentVerified"
+      }
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-001",
+      "ordinal": 15,
+      "status": "Implemented",
+      "user_decision": "Pending",
+      "revision": 2,
+      "completed_at": "2026-10-23T09:34:07.840577Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",
         "mode": "Current",
@@ -370,6 +383,16 @@
       "task_id": "T-AFTER-20261023-001",
       "ordinal": 14,
       "fact": "本任务没有用户 Acceptance，user_decision 如实保持 Pending；中间失败及重试证据保留"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-001",
+      "ordinal": 15,
+      "fact": "工程实现与必要验证完成，用户验收决定独立为 Pending"
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-001",
+      "ordinal": 15,
+      "fact": "本任务尚未开展实际对抗性审查；50 项为协议的合成回归检查"
     }
   ],
   "unresolved_items": [
@@ -559,6 +582,16 @@
     {
       "task_id": "T-AFTER-20261023-001",
       "ordinal": 14,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-ADVERSARIAL-20261023-001",
+      "ordinal": 15,
       "depends_on": [],
       "supersedes": [],
       "blocked_by": [],

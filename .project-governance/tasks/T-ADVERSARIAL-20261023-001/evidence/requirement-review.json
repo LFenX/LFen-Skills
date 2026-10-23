@@ -1,0 +1,94 @@
+[
+  {
+    "id": "R-01",
+    "source": "request_snapshot",
+    "quote": "在工作流中加一个点就是 针对此任务进行多轮对抗性审查，直到连续2次对抗性审查没有发现任何问题，请优化该表述 以及 流程，然后嵌入该skill，确保其能够发挥作用，另外，对抗性审查不能直接开始，而是要在任务完成后主动询问用户是否需要进行对抗性审查",
+    "reading": "完工后主动询问，明确同意后按原文逐条多轮审查；修复复验且连续两轮无问题才通过；嵌入流程与机器校验",
+    "state": "Covered",
+    "evidence_refs": [
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/self-test-final.log",
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/source-files-a16fe6f3fec49104.json"
+    ],
+    "acceptance_refs": [
+      0,
+      1,
+      2
+    ],
+    "review": {
+      "source_sha256": "56eff5cc03c9c7811d552e257f531333fc5cb3eec43609a857230657ccdeb448",
+      "conditions": [
+        "工程实现及验证完成并已保存结果",
+        "用户在完工后询问中明确同意启动审查",
+        "同一交付版本连续两轮完整审查均无问题且没有未解决项"
+      ],
+      "cases": [
+        {
+          "condition": 0,
+          "branch": "Met",
+          "input": "Full/Minimal 工程完成后的结果",
+          "expected": "初始化 NotOffered 并提示先询问",
+          "actual": "两种载体的状态与推荐入口均通过隔离验证",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/self-test-final.log"
+          ]
+        },
+        {
+          "condition": 0,
+          "branch": "NotMet",
+          "input": "未完成或未保存工程结果",
+          "expected": "不允许发起或写入审查记录",
+          "actual": "未保存结果拒绝写入，非 Implemented 为 NotApplicable",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/self-test-final.log"
+          ]
+        },
+        {
+          "condition": 1,
+          "branch": "Met",
+          "input": "真实 Offer 后明确 Accepted",
+          "expected": "允许开始逐轮审查",
+          "actual": "两种载体均进入 InProgress，轮次可独立追加",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/self-test-final.log"
+          ]
+        },
+        {
+          "condition": 1,
+          "branch": "NotMet",
+          "input": "无回复、Declined、Deferred 或 Stopped",
+          "expected": "不得开始或继续审查",
+          "actual": "两种载体均拒绝轮次写入，原工程结果和账本保留",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/self-test-final.log"
+          ]
+        },
+        {
+          "condition": 2,
+          "branch": "Met",
+          "input": "两份不同报告，同一已验证版本，两轮完整无问题",
+          "expected": "Passed 且 clean_streak 为 2",
+          "actual": "同版连续两轮通过；返修后新版本也从 1 重新收敛到 2",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/self-test-final.log"
+          ]
+        },
+        {
+          "condition": 2,
+          "branch": "NotMet",
+          "input": "仅一轮、发现问题、问题未处置、未覆盖、阻塞、版本变化或重复报告",
+          "expected": "不得通过；非干净轮次或换版本清零",
+          "actual": "相应状态与负向拒绝均通过；版本变化后只记为 1，复用报告被拒绝",
+          "result": "Passed",
+          "evidence_refs": [
+            ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/self-test-final.log"
+          ]
+        }
+      ]
+    }
+  }
+]

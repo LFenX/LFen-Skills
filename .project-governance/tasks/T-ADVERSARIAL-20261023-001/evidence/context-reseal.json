@@ -1,0 +1,6 @@
+{
+  "observation": "validate_change 上下文在 Schema/Evaluation 恢复原换行并重封前读到旧 Manifest：immutable query output inputs are stale，退出码 1",
+  "effect": "仅上下文生成被阻断，未发生审查、业务修改或发布",
+  "correction": "恢复原资产 CRLF 后运行官方 sync_embedded_references.py，再 refresh_tailoring_resolution.py 并重新读取上下文",
+  "authority": "用户原任务的实现及验证授权持续有效，范围和验收未改变"
+}

@@ -1,0 +1,155 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-ADVERSARIAL-20261023",
+  "task_id": "T-ADVERSARIAL-20261023-001",
+  "revision": 2,
+  "status": "Implemented",
+  "user_decision": {
+    "outcome": "Pending"
+  },
+  "adversarial_review": [
+    {
+      "event": "Offer",
+      "recorded_at": "2026-10-23T09:34:53.863146Z",
+      "prompt": "本任务的工程实现、验证和结果留档已完成。是否现在启动多轮对抗性审查？开始后将逐条核对原始需求，发现问题则修复并复验，直至同一交付版本连续两轮完整审查均未发现问题。",
+      "evidence_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-offer.json"
+    }
+  ],
+  "completed_at": "2026-10-23T09:34:07.840577Z",
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "57b85527e0c81ac42286a61cf95adbc70851ecc4",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 42,
+    "status_digest": "4bccf43cbf2a801365bc521890f9b9f13a8941a0d9644228c34fafd8a87891f9",
+    "captured_at": "2026-10-23T09:34:07.840909Z"
+  },
+  "established_facts": [
+    "工程实现与必要验证完成，用户验收决定独立为 Pending",
+    "本任务尚未开展实际对抗性审查；50 项为协议的合成回归检查"
+  ],
+  "actual_changes": [
+    "SKILL 与 verify/close/minimal/status 嵌入完工后主动询问，明确同意后多轮对抗性审查；同版连续两轮完整无问题才通过",
+    "统一审查记录器及 Full/Minimal Schema 核验授权、原文、版本、问题处置、轮次与报告；增量历史不复制旧轮次",
+    "状态与审阅视图、24 项 CLI 契约、现有控制台依赖闭包和 50 项回归同步；已安装 skill 的 96 文件与冻结来源一致"
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "最终完整自检，新增 50 项审查协议检查及既有历史、用户决定和膨胀回归",
+      "evidence_refs": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-001\\evidence\\self-test-final-public.log"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "46 资产、28 gold、24 CLI、11 Schema、quick_validate、目录及 diff 检查通过；runtime 一致性零 Blocker/Major/Minor，1 项不适用 Observation",
+      "evidence_refs": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-001\\evidence\\validation-summary.json",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-001\\evidence\\runtime-retrieval.log",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-001\\evidence\\runtime-consistency.log"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "实际安装入口 96 文件哈希一致，冻结来源 a16fe6f3fec491040f3bd4865675965eb9779c0dfc4004c1372a22d034f9c48f",
+      "evidence_refs": [
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-001\\evidence\\installed-sync.json",
+        "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-001\\evidence\\delivery-freeze.json"
+      ]
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [
+    "本任务的工程实现授权不等于实际对抗性审查授权；完工后先询问并记录真实选择，明确同意前不开始"
+  ],
+  "evidence_refs": [
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-001\\evidence\\validation-summary.json",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-001\\evidence\\delivery-freeze.json",
+    "D:\\LFEN_project\\dev_project\\LFen-Skills\\.project-governance\\tasks\\T-ADVERSARIAL-20261023-001\\survey.json"
+  ],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-ADVERSARIAL-20261023-001-before",
+      "content_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "57b85527e0c81ac42286a61cf95adbc70851ecc4",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-ADVERSARIAL-20261023-001-run",
+      "content_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "57b85527e0c81ac42286a61cf95adbc70851ecc4",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-ADVERSARIAL-20261023-001-after",
+      "content_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "57b85527e0c81ac42286a61cf95adbc70851ecc4",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "reason": "工程结果保存后按用户明确要求主动询问是否启动审查；尚无启动决定",
+      "basis": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-offer.json",
+      "changed_at": "2026-10-23T09:34:53.863146Z",
+      "path": "adversarial_review.0",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Offer",
+        "recorded_at": "2026-10-23T09:34:53.863146Z",
+        "prompt": "本任务的工程实现、验证和结果留档已完成。是否现在启动多轮对抗性审查？开始后将逐条核对原始需求，发现问题则修复并复验，直至同一交付版本连续两轮完整审查均未发现问题。",
+        "evidence_ref": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/review-offer.json"
+      }
+    }
+  ],
+  "scope_reconciliation": {
+    "status": "Passed",
+    "changed_count": 42,
+    "out_of_scope": [],
+    "undeclared_untouched": [
+      ".project-governance/project-state.json"
+    ],
+    "external_declarations": [
+      "C:/Users/Administrator/.lfenskills/skills/product-engineering/run-governed-product-workflow"
+    ],
+    "baseline_sha256": "1880d20cb53387746ca151ee5bbc077410bedd6b6077bbed6411978213d2269b",
+    "scope_sha256": "47c221a28769f40457af560ab5f747f2d4245a5149fbc26448651ed795be832c",
+    "delivery_sha256": "4830a6b86b3eb7e7e8b170f6d7156062595a0196f7fe96f4ce20f4560e9d7bc1",
+    "report_sha256": "1233a8dd51f1ef6406d38921b95e9a0f4d85bfc672abd7bae3db12035527cd7d"
+  }
+}

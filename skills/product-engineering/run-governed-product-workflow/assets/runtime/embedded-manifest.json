@@ -218,7 +218,7 @@
       "source": "skill-local:schemas/minimal-task-record.schema.json",
       "logical_path": "schemas/minimal-task-record.schema.json",
       "embedded": "assets/runtime/schemas/minimal-task-record.schema.json",
-      "sha256": "ccd165e08d6cc6cad1f26b4a25a2ae70c36cc8df2a814f1c3f4d7c70c8fbe86f"
+      "sha256": "b753de448610a4dcd51718e0e25ea6dbcd9d5096ffc669322429de71cefae532"
     },
     {
       "role": "schema",
@@ -267,7 +267,7 @@
       "source": "skill-local:schemas/task-after.schema.json",
       "logical_path": "schemas/task-after.schema.json",
       "embedded": "assets/runtime/schemas/task-after.schema.json",
-      "sha256": "93028764539c8af23116caa846d9cc58614ace73b316d4a35b449f1502e79e26"
+      "sha256": "29b22547c7d3e29a22682401c3d1e2e92b3b44f97c431f03c8d4e572deef64cd"
     },
     {
       "role": "schema",
@@ -288,7 +288,7 @@
       "source": "skill-local:evaluations/norm-retrieval-gold.json",
       "logical_path": "evaluations/norm-retrieval-gold.json",
       "embedded": "assets/runtime/evaluations/norm-retrieval-gold.json",
-      "sha256": "77607c4a67e91751f2bedb15b3e2b822bb2a4257d3cb18dc459b812fd21c587c"
+      "sha256": "a8ae8100195cbdfa478a45542e6c886f1bdf9ed6f5d279f95f651e685798f6e8"
     },
     {
       "role": "asset-template",

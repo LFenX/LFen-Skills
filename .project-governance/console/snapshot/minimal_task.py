@@ -303,6 +303,8 @@ def validate_minimal_record(
             errors.extend(validate_implemented_contract(minimal_approval_contract(record), events, outcome.get("verification", []), minimal=True, outcome=outcome))
         elif "user_decision" in outcome:
             errors.extend(validate_user_decision(minimal_approval_contract(record), events, outcome))
+        from adversarial_review import validate_review
+        errors.extend(validate_review(outcome, minimal_approval_contract(record)))
     upgrade = record["upgrade"]
     if lifecycle == "Upgraded" and not upgrade.get("required"):
         errors.append("Upgraded Minimal carrier requires an upgrade reason")
@@ -945,6 +947,7 @@ def _close_minimal_record_unlocked(
     record["task_outcome"] = {
         "status": status,
         "user_decision": {"outcome": "Pending"},
+        "adversarial_review": [],
         "established_facts": [value for value in established_facts if value],
         "actual_changes": changes,
         "verification": checks,
@@ -1033,6 +1036,7 @@ def minimal_record_sha256(record: dict[str, Any]) -> str:
 
 
 def render_minimal_review(record: dict[str, Any]) -> str:
+    from adversarial_review import review_state
     outcome = record.get("task_outcome")
     status = outcome.get("status") if isinstance(outcome, dict) else "Active"
     lines = [
@@ -1041,6 +1045,7 @@ def render_minimal_review(record: dict[str, Any]) -> str:
         "- Carrier: Minimal aggregate (TaskContract + RunLedger + TaskOutcome)",
         f"- Status: {status}",
         f"- User decision: {user_decision_label((outcome or {}).get('user_decision'))}",
+        f"- Adversarial review: {review_state(outcome, minimal_approval_contract(record)) if outcome else '工程尚未完成'}",
         "- Proof validation: " + proof_validation_label(
             proof_validation_for_read(record, record["run_ledger"], outcome, minimal=True)[0]),
         f"- Objective: {record['task_contract']['objective']}",

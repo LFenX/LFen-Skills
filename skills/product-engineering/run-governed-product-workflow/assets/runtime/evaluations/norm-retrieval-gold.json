@@ -2562,6 +2562,16 @@
           "--status",
           "--summary"
         ]
+      },
+      {
+        "script": "adversarial_review.py",
+        "help_sha256": "4a7056e5c465539ac47e0953ea8463f32a046b5a5b852bc95a1a026b34450f64",
+        "options": [
+          "--basis",
+          "--entry-json-file",
+          "--help",
+          "--reason"
+        ]
       }
     ]
   },

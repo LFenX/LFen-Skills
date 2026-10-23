@@ -374,10 +374,10 @@ def _validate_schema_node(value: Any, schema: dict[str, Any], location: str) -> 
     return errors
 
 
-def validate_json_document(value: dict[str, Any], schema_name: str, location: str = "$") -> list[str]:
-    """Validate against the JSON-Schema subset used by this Skill, using stdlib only."""
+def validate_json_document(value: Any, schema_name: str | dict[str, Any], location: str = "$") -> list[str]:
+    """Validate a named runtime schema or an explicit schema, using stdlib only."""
 
-    schema = read_json(schema_path(schema_name))
+    schema = read_json(schema_path(schema_name)) if isinstance(schema_name, str) else schema_name
     return _validate_schema_node(value, schema, location)
 
 
@@ -2662,6 +2662,8 @@ def require_record_semantics(path: Path, document: dict[str, Any]) -> None:
             errors.append(f"TaskOutcome amendment requires sibling {before_path.name}")
         else:
             before = read_json(before_path)
+            from adversarial_review import validate_review
+            errors.extend(validate_review(document, before))
             errors.extend(
                 validate_artifact_manifest(
                     document.get("artifact_manifest"),
@@ -3137,6 +3139,8 @@ def _set_dotted_path(
         )
     if document.get("meta_type") == "TaskOutcome" and parts[0] == "user_decision" and len(parts) != 1:
         raise GovernanceError("update the complete user_decision with its actual answer and source")
+    if document.get("meta_type") == "TaskOutcome" and parts[0] == "adversarial_review":
+        raise GovernanceError("adversarial_review is append-only; use adversarial_review.py with an actual record")
     owner: dict[str, Any] = document
     for part in parts[:-1]:
         child = owner.get(part)
@@ -3965,6 +3969,7 @@ def close_task(
         "revision": 1,
         "status": status,
         "user_decision": {"outcome": "Pending"},
+        "adversarial_review": [],
         "completed_at": now_utc(),
         "source_snapshot": source_snapshot or capture_source_snapshot(task_dir.resolve().parents[2]),
         "established_facts": [value for value in established_facts if value],
@@ -4327,6 +4332,7 @@ def render_project_status(state: dict[str, Any]) -> str:
 
 
 def render_task_review(before: dict[str, Any], after: dict[str, Any] | None) -> str:
+    from adversarial_review import review_state
     lines = [
         f"# Task Review: {before['task_id']}",
         "",
@@ -4349,6 +4355,7 @@ def render_task_review(before: dict[str, Any], after: dict[str, Any] | None) -> 
             "",
             f"- Status: {after['status']}",
             f"- User decision: {user_decision_label(after.get('user_decision'))}",
+            f"- Adversarial review: {review_state(after, before)}",
             f"- Revision: {after['revision']}",
             "",
             "## Established facts",
@@ -4950,6 +4957,8 @@ def validate_task_directory(task_dir: Path) -> list[str]:
                 errors.extend(validate_closed_scope_evidence(before, after))
             elif "user_decision" in after:
                 errors.extend(validate_user_decision(before, events, after))
+            from adversarial_review import validate_review
+            errors.extend(validate_review(after, before))
     else:
         _, proof_errors = proof_validation_for_read(before, events, None)
         errors.extend(proof_errors)
