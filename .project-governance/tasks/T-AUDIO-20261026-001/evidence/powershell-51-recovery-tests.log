@@ -1,0 +1,18 @@
+PASS default preflight is read only
+What if: Performing the operation "Stop Windows Audio, restart verified audio-only controller once, restore services" on target "PCI\VEN_10DE&DEV_TEST\AUDIO".
+PASS Apply WhatIf does not require admin or mutate
+PASS ambiguous audio selection is rejected
+PASS explicit audio selection resolves ambiguity without repair
+PASS Display parent is rejected
+PASS non NVIDIA parent is rejected
+PASS controller pending reboot is rejected before stop
+PASS unelevated Apply is rejected before stop
+PASS success restarts only the verified controller and restores transitive dependents
+PASS native 3010 is failure, restores services and does not retry
+PASS native 50 is failure, restores services and does not retry
+PASS held audiodg causes restore without device reset
+PASS native exception restores all prior running services
+PASS partial service stop failure still restores dependents
+PASS restore failure is reported and does not skip later services
+PASS changed parent during stopped service is rejected
+Passed 16 isolated recovery checks; no real service or device was modified.

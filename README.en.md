@@ -14,7 +14,7 @@
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/skills-8-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
+  <img src="https://img.shields.io/badge/skills-9-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
   <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat&labelColor=1E1B4B" alt="platforms">
   <img src="https://img.shields.io/badge/license-MIT-475569?style=flat&labelColor=1E1B4B" alt="license">
 </p>
@@ -1001,6 +1001,165 @@ bash -o pipefail -c '
 </details>
 
 <details name="install-skill">
+<summary><code>repair-windows-monitor-audio</code></summary>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>OpenCode</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>Claude Code</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>Codex</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>Cursor</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>Gemini CLI</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>GitHub Copilot</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>Windsurf</summary>
+
+**Windows (PowerShell)**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux (Bash)**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+</details>
+
+<details name="install-skill">
 <summary><code>run-governed-product-workflow</code></summary>
 
 <details name="install-platform-run-governed-product-workflow">
@@ -1386,6 +1545,7 @@ Detailed introductions for every skill live on the **[Skills](SKILLS.en.md)** pa
 |  | [`run-koc-feedback-workflow`](skills/product-engineering/run-koc-feedback-workflow/SKILL.md) | Filter, list, claim, and drive development items from the KOC feedback base, syncing clarification, planning, execution, review, rework, and completion status after user authorization. |
 | [**Dev&nbsp;Tools**](CATALOG.md#dev-tools) |  | Setup, integration, troubleshooting, and maintenance for dev environments, toolchains, and AI coding assistants. |
 |  | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) | Connect opencode to third-party OpenAI-compatible model providers such as a LiteLLM gateway. |
+|  | [`repair-windows-monitor-audio`](skills/dev-tools/repair-windows-monitor-audio/SKILL.md) | Diagnose system-wide silence from HDMI/DisplayPort monitor speakers after standby or wake on Windows. |
 | [**Debugging**](CATALOG.md#debug) |  | Record and unpack confirmed execution problems, keeping observations separate from inferences. |
 |  | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | Record a confirmed Agent Skill incident as JSON, keeping verifiable observations separate from inferred causes. |
 | [**Ai&nbsp;Complaint&nbsp;System**](CATALOG.md#ai-complaint-system) |  | Deployment, upgrades, and operations for the AI complaint system. |

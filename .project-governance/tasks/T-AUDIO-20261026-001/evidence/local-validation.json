@@ -1,0 +1,16 @@
+{
+  "skill_frontmatter": "Passed using skill-creator quick_validate.py with validation-only PyYAML dependency",
+  "powershell_syntax": "Passed for all three PowerShell entry/test files",
+  "powershell_7_isolated_cases": 16,
+  "windows_powershell_51_isolated_cases": 16,
+  "real_default_collector_powershell_7": "ReadOnlySnapshot; no tone, clock stream, service restart or device reset",
+  "real_default_collector_windows_powershell_51": "ReadOnlySnapshot; two active endpoints; no tone or recovery",
+  "real_recovery_preflight": "PreflightOnly; verified System/HDAudBus audio controller; services and audio-engine instances unchanged",
+  "catalog_check": "Passed; 9 skills in 5 top-level categories; generated Markdown/JSON synchronized",
+  "catalog_unit_tests": 22,
+  "install_link_unit_tests": 10,
+  "installer_tests": {"run": 17, "passed": 16, "skipped": 1, "skip_reason": "POSIX PTY interaction test requires a POSIX host"},
+  "private_device_identifiers_in_skill_source": false,
+  "real_apply_executed_during_skill_development": false,
+  "long_standby_recurrence_test_performed": false
+}

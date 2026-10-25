@@ -55,7 +55,8 @@
       "description": "开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。",
       "description_en": "Setup, integration, troubleshooting, and maintenance for dev environments, toolchains, and AI coding assistants.",
       "skills": [
-        "add-opencode-model-provider"
+        "add-opencode-model-provider",
+        "repair-windows-monitor-audio"
       ],
       "children": []
     },
@@ -132,6 +133,16 @@
         "openai-compatible",
         "opencode",
         "tool-configuration"
+      ]
+    },
+    "repair-windows-monitor-audio": {
+      "scope": "general",
+      "tags": [
+        "audio",
+        "hdmi",
+        "nvidia",
+        "troubleshooting",
+        "windows"
       ]
     },
     "record-skill-incident": {

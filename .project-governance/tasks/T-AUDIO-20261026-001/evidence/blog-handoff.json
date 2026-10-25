@@ -1,0 +1,15 @@
+{
+  "destination_title": "LFEN Blog：模板整理与文章共创",
+  "message_delivery_confirmed": true,
+  "priority": "Sent before skill implementation, as requested",
+  "contents": [
+    "Symptoms, environment, user observations and exact test sequence",
+    "3010 and 50 were blocked operations, not completed negative recovery trials",
+    "Successful isolated NVIDIA PCI audio-controller restart and user-confirmed audibility",
+    "Final device/service checks and unverified long-standby recurrence hypothesis",
+    "Source chat index, local evidence paths and primary source URLs",
+    "Actual drawing-tool request for background/cover and explanatory body diagrams"
+  ],
+  "access_control_changes": false,
+  "website_implementation_owner": "The user-selected blog chat"
+}

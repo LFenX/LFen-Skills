@@ -6,7 +6,7 @@
     "skills_root": "skills",
     "layout": "skills/<category-path>/<skill-name>"
   },
-  "skill_count": 8,
+  "skill_count": 9,
   "scopes": {
     "general": {
       "name": "通用",
@@ -56,7 +56,7 @@
       "name_path": [
         "开发工具"
       ],
-      "skill_count": 1
+      "skill_count": 2
     },
     {
       "id": "debug",
@@ -230,6 +230,32 @@
         "incident-record",
         "skill-debug",
         "skill-incident"
+      ]
+    },
+    {
+      "name": "repair-windows-monitor-audio",
+      "description": "排查 Windows 通过 HDMI/DP 连接的显示器扬声器在待机或唤醒后全局无声的问题，保存证据并分层检查默认输出、音频服务、端点和 NVIDIA 独立音频控制器。适用于音量正常、系统有播放信号却听不到声音，希望定位故障并尝试不重启电脑恢复的场景。",
+      "path": "skills/dev-tools/repair-windows-monitor-audio/SKILL.md",
+      "category": {
+        "id": "dev-tools",
+        "name": "开发工具",
+        "path": [
+          "dev-tools"
+        ],
+        "name_path": [
+          "开发工具"
+        ]
+      },
+      "scope": {
+        "id": "general",
+        "name": "通用"
+      },
+      "tags": [
+        "audio",
+        "hdmi",
+        "nvidia",
+        "troubleshooting",
+        "windows"
       ]
     },
     {

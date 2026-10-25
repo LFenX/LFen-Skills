@@ -14,7 +14,7 @@
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/skills-8-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
+  <img src="https://img.shields.io/badge/skills-9-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
   <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat&labelColor=1E1B4B" alt="platforms">
   <img src="https://img.shields.io/badge/license-MIT-475569?style=flat&labelColor=1E1B4B" alt="license">
 </p>
@@ -1001,6 +1001,165 @@ bash -o pipefail -c '
 </details>
 
 <details name="install-skill">
+<summary><code>repair-windows-monitor-audio</code></summary>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>OpenCode</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>Claude Code</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>Codex</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>Cursor</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>Gemini CLI</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>GitHub Copilot</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+<details name="install-platform-repair-windows-monitor-audio">
+<summary>Windsurf</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill repair-windows-monitor-audio
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill repair-windows-monitor-audio
+'
+```
+
+</details>
+
+</details>
+
+<details name="install-skill">
 <summary><code>run-governed-product-workflow</code></summary>
 
 <details name="install-platform-run-governed-product-workflow">
@@ -1386,6 +1545,7 @@ python scripts/check_install_links.py --platform claude,codex,opencode,cursor  #
 |  | [`run-koc-feedback-workflow`](skills/product-engineering/run-koc-feedback-workflow/SKILL.md) | 从 KOC 后台反馈 Base 筛选、列举、认领并推进开发登记项，在用户授权后同步澄清、规划、执行、复核、返修和完成状态。 |
 | [**开发工具**](CATALOG.md#dev-tools) |  | 开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。 |
 |  | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) | 为 opencode 接入第三方 OpenAI 兼容模型供应商（如 LiteLLM 网关）。 |
+|  | [`repair-windows-monitor-audio`](skills/dev-tools/repair-windows-monitor-audio/SKILL.md) | 排查 Windows 通过 HDMI/DP 连接的显示器扬声器在待机或唤醒后全局无声的问题，保存证据并分层检查默认输出、音频服务、端点和 NVIDIA 独立音频控制器。 |
 | [**调试排障**](CATALOG.md#debug) |  | 记录和拆解已确认的执行问题，把可核对观察与推理分开。 |
 |  | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | 把已确认的 Agent Skill 问题整理成 JSON：可核对观察与推理原因必须分开。 |
 | [**Ai&nbsp;Complaint&nbsp;System**](CATALOG.md#ai-complaint-system) |  | AI 客诉系统的部署、升级与运行维护。 |

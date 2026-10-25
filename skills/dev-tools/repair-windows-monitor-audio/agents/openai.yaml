@@ -1,0 +1,4 @@
+interface:
+  display_name: "Windows 显示器音频排查"
+  short_description: "分层排查待机后显示器全局无声，并验证局部音频控制器恢复"
+  default_prompt: "使用 $repair-windows-monitor-audio 排查显示器唤醒后电脑全局无声，先保存证据，再确认是否执行局部恢复。"

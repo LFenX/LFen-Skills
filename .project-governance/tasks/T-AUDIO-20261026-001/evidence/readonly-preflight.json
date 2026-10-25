@@ -1,0 +1,13 @@
+{
+  "collector_mode": "ReadOnlySnapshot",
+  "active_endpoint_count": 2,
+  "test_tone_played": false,
+  "clock_stream_opened": false,
+  "recovery_mode": "PreflightOnly",
+  "controller_class": "System",
+  "controller_service": "HDAudBus",
+  "controller_pending_reboot": false,
+  "services_unchanged": true,
+  "audio_engine_instances_unchanged": true,
+  "real_recovery_executed": false
+}
