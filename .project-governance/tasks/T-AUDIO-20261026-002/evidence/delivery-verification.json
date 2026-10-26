@@ -1,0 +1,29 @@
+{
+  "observed_at": "2026-10-26T00:05:58.919576+00:00",
+  "product_commit": "b19a4cf488a36e0b44d23848b2cd805750a9eb2b",
+  "product_unchanged": true,
+  "remote_main_matches_product": true,
+  "catalog_check": true,
+  "catalog_output": "分类目录校验通过：9 个 skill，5 个一级分类，Markdown 与 JSON 目录一致",
+  "workflows": [
+    {
+      "id": 40246789131,
+      "name": "Validate skill catalog",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "b19a4cf488a36e0b44d23848b2cd805750a9eb2b",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40246789131"
+    },
+    {
+      "id": 40246789087,
+      "name": "Skill gates",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "b19a4cf488a36e0b44d23848b2cd805750a9eb2b",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40246789087"
+    }
+  ],
+  "historical_validation_evidence": ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json",
+  "real_hardware_reset_during_delivery": false,
+  "blog_handoff_evidence": ".project-governance/tasks/T-AUDIO-20261026-001/evidence/blog-handoff.json"
+}

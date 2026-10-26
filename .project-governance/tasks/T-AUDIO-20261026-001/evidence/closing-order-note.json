@@ -1,0 +1,5 @@
+{
+  "observation": "The first close was correctly rejected because an external_effect event followed verification and invalidated that verification anchor.",
+  "correction": "Preserve the original ledger. Open a new run in the existing authorized scope and actually recheck the published source and remote state, then record verification after all material events.",
+  "product_code_changed_for_correction": false
+}

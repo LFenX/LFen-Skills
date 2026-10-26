@@ -1,0 +1,1162 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskContract",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-AUDIO-20261026-001",
+  "task_id": "T-AUDIO-20261026-002",
+  "ordinal": 24,
+  "revision": 2,
+  "lifecycle_state": "Frozen",
+  "created_at": "2026-10-26T00:05:30.600320Z",
+  "frozen_at": "2026-10-26T00:05:44.165383Z",
+  "objective": "把本次 Windows 显示器音频修复沉淀为可复用 Skill，按既有流程发布，并向指定博客会话交接完整事实与配图要求",
+  "request_snapshot": {
+    "language": "zh-CN",
+    "text": "把这次的这个经历做成一个 scale，然后传到李丰 Gear这个仓库里面。你用我的凭证，用我的 GitHub，本机 GitHub凭证你就能看到这个仓库。同时呢，向这个李丰 Inc项目的那个 blog，B-L-O-G相关的那个会话，发送一个什么呢，发送一个关于本次修复的详细的描述，让他去生成一个 blog，相关的就是分享的 blog，放在我的那个个人网站上面。\nLFen-Skills仓库\n本机似乎，本机是有这个相关项目的。你要先同步一下远端的 schema 仓库，然后再做这个 schema 再传上去。传的方式你看一下仓库里面固有的方式。\nLFEN Blog：模板整理与文章共创 这是我要你发的那个绘画啊，我要你发的那个绘画，先把这个绘画发过去吧，先把这本次详细的这个描述，这个这个绘画，发到这个绘画里面去，让它去生成出来。记得让它用就是画图的那个工具做一些，就是首先是背景图嘛，然后再是画一些描述啊，用图来描述。\n一定要把这个描述发得清楚一点，或者给他让他就给他读你绘画的权限。",
+    "captured_at": "2026-10-26T00:05:30.260184Z"
+  },
+  "clarification": {
+    "state": "Settled",
+    "mode": "Skipped",
+    "notice": "你的需求已经描述得很清楚，并且和项目现状一致，本次跳过向你提问的阶段",
+    "survey_refs": [
+      "README.md",
+      "catalog/taxonomy.json"
+    ],
+    "rounds": [],
+    "basis": "目标仓库与会话已由用户指明，已检查本地干净仓库并同步到远端；仓库提供明确新增与发布流程。",
+    "reopened_by": []
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "把这次的这个经历做成一个 scale，然后传到李丰 Gear这个仓库里面。",
+      "reading": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+      ],
+      "acceptance_refs": [
+        0,
+        1,
+        3
+      ],
+      "review": {
+        "source_sha256": "9fd7f0632178555930c73dbc7ad30369d5922488d9ae0b2320c7f50d5f7a1173",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "把这次的这个经历做成一个 scale，然后传到李丰 Gear这个仓库里面。",
+            "expected": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+            "actual": "已找到既有干净main，在新增Skill前fast-forward到3cab18d；依现有README/分类生成方式提交，并通过本机正常Git凭证流程推送b19a4cf，ls-remote核对一致。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "你用我的凭证，用我的 GitHub，本机 GitHub凭证你就能看到这个仓库。",
+      "reading": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+      ],
+      "acceptance_refs": [
+        0,
+        1,
+        3
+      ],
+      "review": {
+        "source_sha256": "9fd7f0632178555930c73dbc7ad30369d5922488d9ae0b2320c7f50d5f7a1173",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "你用我的凭证，用我的 GitHub，本机 GitHub凭证你就能看到这个仓库。",
+            "expected": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+            "actual": "已找到既有干净main，在新增Skill前fast-forward到3cab18d；依现有README/分类生成方式提交，并通过本机正常Git凭证流程推送b19a4cf，ls-remote核对一致。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-03",
+      "source": "request_snapshot",
+      "quote": "同时呢，向这个李丰 Inc项目的那个 blog，B-L-O-G相关的那个会话，发送一个什么呢，发送一个关于本次修复的详细的描述，让他去生成一个 blog，相关的就是分享的 blog，放在我的那个个人网站上面。",
+      "reading": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/blog-handoff.json"
+      ],
+      "acceptance_refs": [
+        0,
+        1,
+        3
+      ],
+      "review": {
+        "source_sha256": "9fd7f0632178555930c73dbc7ad30369d5922488d9ae0b2320c7f50d5f7a1173",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "同时呢，向这个李丰 Inc项目的那个 blog，B-L-O-G相关的那个会话，发送一个什么呢，发送一个关于本次修复的详细的描述，让他去生成一个 blog，相关的就是分享的 blog，放在我的那个个人网站上面。",
+            "expected": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+            "actual": "已优先向用户指定的博客会话发送完整事实、各步结果、证据、源会话索引和题图/正文说明图要求；后续补发已发布Skill链接。网站生成由该会话执行，未伪造ACL变更或宣称网站已发布。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/blog-handoff.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-04",
+      "source": "request_snapshot",
+      "quote": "LFen-Skills仓库",
+      "reading": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+      ],
+      "acceptance_refs": [
+        1
+      ],
+      "review": {
+        "source_sha256": "9fd7f0632178555930c73dbc7ad30369d5922488d9ae0b2320c7f50d5f7a1173",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "LFen-Skills仓库",
+            "expected": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+            "actual": "已找到既有干净main，在新增Skill前fast-forward到3cab18d；依现有README/分类生成方式提交，并通过本机正常Git凭证流程推送b19a4cf，ls-remote核对一致。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-05",
+      "source": "request_snapshot",
+      "quote": "本机似乎，本机是有这个相关项目的。",
+      "reading": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+      ],
+      "acceptance_refs": [
+        1,
+        2
+      ],
+      "review": {
+        "source_sha256": "9fd7f0632178555930c73dbc7ad30369d5922488d9ae0b2320c7f50d5f7a1173",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "本机似乎，本机是有这个相关项目的。",
+            "expected": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+            "actual": "已找到既有干净main，在新增Skill前fast-forward到3cab18d；依现有README/分类生成方式提交，并通过本机正常Git凭证流程推送b19a4cf，ls-remote核对一致。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-06",
+      "source": "request_snapshot",
+      "quote": "你要先同步一下远端的 schema 仓库，然后再做这个 schema 再传上去。",
+      "reading": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+      ],
+      "acceptance_refs": [
+        1,
+        2
+      ],
+      "review": {
+        "source_sha256": "9fd7f0632178555930c73dbc7ad30369d5922488d9ae0b2320c7f50d5f7a1173",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "你要先同步一下远端的 schema 仓库，然后再做这个 schema 再传上去。",
+            "expected": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+            "actual": "已找到既有干净main，在新增Skill前fast-forward到3cab18d；依现有README/分类生成方式提交，并通过本机正常Git凭证流程推送b19a4cf，ls-remote核对一致。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-07",
+      "source": "request_snapshot",
+      "quote": "传的方式你看一下仓库里面固有的方式。",
+      "reading": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+      ],
+      "acceptance_refs": [
+        1,
+        2
+      ],
+      "review": {
+        "source_sha256": "9fd7f0632178555930c73dbc7ad30369d5922488d9ae0b2320c7f50d5f7a1173",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "传的方式你看一下仓库里面固有的方式。",
+            "expected": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+            "actual": "已找到既有干净main，在新增Skill前fast-forward到3cab18d；依现有README/分类生成方式提交，并通过本机正常Git凭证流程推送b19a4cf，ls-remote核对一致。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/publication.json",
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/local-validation.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-08",
+      "source": "request_snapshot",
+      "quote": "LFEN Blog：模板整理与文章共创 这是我要你发的那个绘画啊，我要你发的那个绘画，先把这个绘画发过去吧，先把这本次详细的这个描述，这个这个绘画，发到这个绘画里面去，让它去生成出来。",
+      "reading": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/blog-handoff.json"
+      ],
+      "acceptance_refs": [
+        3
+      ],
+      "review": {
+        "source_sha256": "9fd7f0632178555930c73dbc7ad30369d5922488d9ae0b2320c7f50d5f7a1173",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "LFEN Blog：模板整理与文章共创 这是我要你发的那个绘画啊，我要你发的那个绘画，先把这个绘画发过去吧，先把这本次详细的这个描述，这个这个绘画，发到这个绘画里面去，让它去生成出来。",
+            "expected": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+            "actual": "已优先向用户指定的博客会话发送完整事实、各步结果、证据、源会话索引和题图/正文说明图要求；后续补发已发布Skill链接。网站生成由该会话执行，未伪造ACL变更或宣称网站已发布。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/blog-handoff.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-09",
+      "source": "request_snapshot",
+      "quote": "记得让它用就是画图的那个工具做一些，就是首先是背景图嘛，然后再是画一些描述啊，用图来描述。",
+      "reading": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/blog-handoff.json"
+      ],
+      "acceptance_refs": [
+        3
+      ],
+      "review": {
+        "source_sha256": "9fd7f0632178555930c73dbc7ad30369d5922488d9ae0b2320c7f50d5f7a1173",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "记得让它用就是画图的那个工具做一些，就是首先是背景图嘛，然后再是画一些描述啊，用图来描述。",
+            "expected": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+            "actual": "已优先向用户指定的博客会话发送完整事实、各步结果、证据、源会话索引和题图/正文说明图要求；后续补发已发布Skill链接。网站生成由该会话执行，未伪造ACL变更或宣称网站已发布。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/blog-handoff.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-10",
+      "source": "request_snapshot",
+      "quote": "一定要把这个描述发得清楚一点，或者给他让他就给他读你绘画的权限。",
+      "reading": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-AUDIO-20261026-001/evidence/blog-handoff.json"
+      ],
+      "acceptance_refs": [
+        3
+      ],
+      "review": {
+        "source_sha256": "9fd7f0632178555930c73dbc7ad30369d5922488d9ae0b2320c7f50d5f7a1173",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "一定要把这个描述发得清楚一点，或者给他让他就给他读你绘画的权限。",
+            "expected": "按用户原句覆盖制作、现有仓库同步发布或指定博客交接，语音识别仓库名以用户后续 LFen-Skills 更正为准。",
+            "actual": "已优先向用户指定的博客会话发送完整事实、各步结果、证据、源会话索引和题图/正文说明图要求；后续补发已发布Skill链接。网站生成由该会话执行，未伪造ACL变更或宣称网站已发布。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-AUDIO-20261026-001/evidence/blog-handoff.json"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D-01",
+      "kind": "Proceed",
+      "presented": "用户直接要求制作并上传 Skill，并优先发送博客交接。",
+      "response": "把这次的这个经历做成一个 scale，然后传到李丰 Gear这个仓库里面。你用我的凭证，用我的 GitHub，本机 GitHub凭证你就能看到这个仓库。同时呢，向这个李丰 Inc项目的那个 blog，B-L-O-G相关的那个会话，发送一个什么呢，发送一个关于本次修复的详细的描述，让他去生成一个 blog，相关的就是分享的 blog，放在我的那个个人网站上面。\nLFen-Skills仓库\n本机似乎，本机是有这个相关项目的。你要先同步一下远端的 schema 仓库，然后再做这个 schema 再传上去。传的方式你看一下仓库里面固有的方式。\nLFEN Blog：模板整理与文章共创 这是我要你发的那个绘画啊，我要你发的那个绘画，先把这个绘画发过去吧，先把这本次详细的这个描述，这个这个绘画，发到这个绘画里面去，让它去生成出来。记得让它用就是画图的那个工具做一些，就是首先是背景图嘛，然后再是画一些描述啊，用图来描述。\n一定要把这个描述发得清楚一点，或者给他让他就给他读你绘画的权限。",
+      "decided_by": "user",
+      "decided_at": "2026-10-25T23:21:50+00:00",
+      "evidence_ref": "user-request:current-chat",
+      "outcome": "Approved"
+    }
+  ],
+  "depends_on": [
+    "T-AUDIO-20261026-001"
+  ],
+  "supersedes": [
+    "T-AUDIO-20261026-001"
+  ],
+  "blocked_by": [],
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFen_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "b19a4cf488a36e0b44d23848b2cd805750a9eb2b",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 6,
+    "status_digest": "18ca1c34c518dda931e91d1dff3e2e8e8256889a85a4833a8d2f5859098fd582",
+    "captured_at": "2026-10-26T00:05:30.310298Z"
+  },
+  "scope": {
+    "in_scope": [
+      "新增独立音频排障 Skill、默认只读的定向控制器恢复助手、匿名案例、双语目录与发布、博客交接"
+    ],
+    "out_of_scope": [
+      "不修改已发布产品代码，不执行真实音频恢复，不重复发送外部消息"
+    ],
+    "allowed_paths": [
+      "skills/dev-tools/repair-windows-monitor-audio/",
+      "catalog/taxonomy.json",
+      "README.md",
+      "README.en.md",
+      "SKILLS.md",
+      "SKILLS.en.md",
+      "CATALOG.md",
+      "catalog/index.json",
+      "update_log/2026-10-26-monitor-audio-skill.md",
+      ".project-governance/tasks/T-AUDIO-20261026-001/",
+      ".project-governance/project-state.json",
+      ".project-governance/tasks/T-AUDIO-20261026-002/"
+    ],
+    "forbidden_actions": []
+  },
+  "authority": {
+    "execution_permissions": [
+      "read",
+      "edit-in-scope",
+      "validate",
+      "external-effect",
+      "rollback"
+    ],
+    "required_gates": [],
+    "stop_conditions": [
+      "scope-expansion",
+      "authority-conflict",
+      "critical-evidence-missing"
+    ],
+    "authority_references": [
+      "user-request:current-chat"
+    ],
+    "authority_assessments": [
+      {
+        "reference": "user-request:current-chat",
+        "source_kind": "Policy",
+        "status": "Valid",
+        "scope_refs": [
+          "新增独立音频排障 Skill、默认只读的定向控制器恢复助手、匿名案例、双语目录与发布、博客交接"
+        ],
+        "evidence_refs": [
+          "README.md",
+          "catalog/taxonomy.json"
+        ],
+        "verified_at": "2026-10-25T23:35:14.198373+00:00",
+        "expires_at": null
+      }
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      "Skill 和恢复助手可复用、无硬编码设备实例、默认只读，保留事实与推断边界",
+      "先同步现有仓库后将本任务提交推送 LFenX/LFen-Skills，并核对远端",
+      "按原分类与双语索引生成流程完成检查，并保留实际测试结果",
+      "已优先发送指定博客会话：详尽修复描述、证据索引、背景题图与正文配图要求"
+    ],
+    "decision_owner": "task-initiator"
+  },
+  "plan": {
+    "steps": [
+      "沿用已发布并经过验证的Skill，按原文检查Git远端、CI、目录及博客交接证据，并按先外部结果后验证的顺序保存工程结论"
+    ],
+    "verification": [
+      "实际核对发布代码无变化、Git远端、CI状态与原始检查日志；不冒充重新执行真实恢复"
+    ],
+    "rollback": [
+      "只撤回本任务新建审计记录，不改动已验证的产品Skill"
+    ]
+  },
+  "first_principles_analysis": {
+    "method_version": "first-principles-v1",
+    "depth": "Standard",
+    "outcome": "把本次 Windows 显示器音频修复沉淀为可复用 Skill，按既有流程发布，并向指定博客会话交接完整事实与配图要求",
+    "facts": [
+      {
+        "id": "F1",
+        "statement": "任务发起人已确认目标：把本次 Windows 显示器音频修复沉淀为可复用 Skill，按既有流程发布，并向指定博客会话交接完整事实与配图要求",
+        "evidence_refs": [
+          "user-request:current-chat",
+          ".project-governance/tasks/T-AUDIO-20261026-001/after.json"
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "id": "C1",
+        "statement": "执行范围仅限：新增独立音频排障 Skill、默认只读的定向控制器恢复助手、匿名案例、双语目录与发布、博客交接",
+        "source_refs": [
+          "user-request:current-chat",
+          ".project-governance/tasks/T-AUDIO-20261026-001/after.json"
+        ]
+      },
+      {
+        "id": "C2",
+        "statement": "执行必须遵守允许路径、排除范围和禁止动作；allowed=['skills/dev-tools/repair-windows-monitor-audio/', 'catalog/taxonomy.json', 'README.md', 'README.en.md', 'SKILLS.md', 'SKILLS.en.md', 'CATALOG.md', 'catalog/index.json', 'update_log/2026-10-26-monitor-audio-skill.md', '.project-governance/tasks/T-AUDIO-20261026-001/', '.project-governance/project-state.json', '.project-governance/tasks/T-AUDIO-20261026-002/']；out=['不修改已发布产品代码，不执行真实音频恢复，不重复发送外部消息']；forbidden=['无额外禁止动作']",
+        "source_refs": [
+          "user-request:current-chat",
+          ".project-governance/tasks/T-AUDIO-20261026-001/after.json"
+        ]
+      }
+    ],
+    "assumptions": [],
+    "unknowns": [],
+    "fundamentals": [
+      {
+        "id": "P1",
+        "statement": "任何方案必须直接改变已确认的目标状态，而不是只完成活动清单。",
+        "derived_from": [
+          "F1"
+        ]
+      },
+      {
+        "id": "P2",
+        "statement": "任何方案必须保持已确认的范围、权限和禁止边界。",
+        "derived_from": [
+          "C1",
+          "C2"
+        ]
+      }
+    ],
+    "causal_links": [
+      {
+        "from_ref": "P1",
+        "to_ref": "O1",
+        "rationale": "选定方案必须产生目标状态变化。",
+        "evidence_refs": [
+          "user-request:current-chat",
+          ".project-governance/tasks/T-AUDIO-20261026-001/after.json"
+        ]
+      },
+      {
+        "from_ref": "P2",
+        "to_ref": "O1",
+        "rationale": "选定方案必须在授权边界内可执行。",
+        "evidence_refs": [
+          "user-request:current-chat",
+          ".project-governance/tasks/T-AUDIO-20261026-001/after.json"
+        ]
+      }
+    ],
+    "alternatives": [
+      {
+        "id": "O0",
+        "description": "保持现状，不实施本任务变更",
+        "status": "Rejected",
+        "derived_from": [
+          "F1"
+        ],
+        "tradeoffs": [
+          "无新增实施成本",
+          "不能达到已确认目标"
+        ]
+      },
+      {
+        "id": "O1",
+        "description": "按已确认计划在授权范围内实施并验证",
+        "status": "Selected",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "tradeoffs": [
+          "直接覆盖验收标准",
+          "需要实施与回归验证成本"
+        ]
+      },
+      {
+        "id": "O2",
+        "description": "仅实施局部修补并推迟体系性变更",
+        "status": "Rejected",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "tradeoffs": [
+          "短期改动较少",
+          "不能闭合全部目标与长期一致性"
+        ]
+      }
+    ],
+    "decision_criteria": [
+      {
+        "id": "K1",
+        "statement": "Skill 和恢复助手可复用、无硬编码设备实例、默认只读，保留事实与推断边界",
+        "source_refs": [
+          "user-request:current-chat",
+          ".project-governance/tasks/T-AUDIO-20261026-001/after.json"
+        ]
+      },
+      {
+        "id": "K2",
+        "statement": "先同步现有仓库后将本任务提交推送 LFenX/LFen-Skills，并核对远端",
+        "source_refs": [
+          "user-request:current-chat",
+          ".project-governance/tasks/T-AUDIO-20261026-001/after.json"
+        ]
+      },
+      {
+        "id": "K3",
+        "statement": "按原分类与双语索引生成流程完成检查，并保留实际测试结果",
+        "source_refs": [
+          "user-request:current-chat",
+          ".project-governance/tasks/T-AUDIO-20261026-001/after.json"
+        ]
+      },
+      {
+        "id": "K4",
+        "statement": "已优先发送指定博客会话：详尽修复描述、证据索引、背景题图与正文配图要求",
+        "source_refs": [
+          "user-request:current-chat",
+          ".project-governance/tasks/T-AUDIO-20261026-001/after.json"
+        ]
+      }
+    ],
+    "selected_approach": "O1",
+    "derivation": [
+      {
+        "plan_step": "沿用已发布并经过验证的Skill，按原文检查Git远端、CI、目录及博客交接证据，并按先外部结果后验证的顺序保存工程结论",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ]
+      }
+    ],
+    "validation_refs": [
+      "实际核对发布代码无变化、Git远端、CI状态与原始检查日志；不冒充重新执行真实恢复"
+    ],
+    "source_refs": [
+      "user-request:current-chat",
+      ".project-governance/tasks/T-AUDIO-20261026-001/after.json"
+    ]
+  },
+  "task_profile": {
+    "delivery_scenario": "DS-03",
+    "development_types": [
+      "DT-02"
+    ],
+    "primary_development_type": "DT-02",
+    "development_type_scopes": {
+      "DT-02": [
+        "新增独立音频排障 Skill、默认只读的定向控制器恢复助手、匿名案例、双语目录与发布、博客交接"
+      ]
+    },
+    "change_surfaces": [
+      "Agent/Collaboration",
+      "Deploy/Operations"
+    ],
+    "risk_level": "Medium",
+    "extension_triggers": {
+      "E01": "Inactive",
+      "E02": "Inactive",
+      "E03": "Inactive",
+      "E04": "Active",
+      "E05": "Active"
+    },
+    "extension_evidence_refs": {
+      "E01": [],
+      "E02": [],
+      "E03": [],
+      "E04": [],
+      "E05": []
+    },
+    "baseline_inheritance": [
+      "Reference"
+    ],
+    "mode": "Normal",
+    "confidence": "Medium",
+    "basis": [
+      ".project-governance/tasks/T-AUDIO-20261026-001/after.json"
+    ],
+    "open_questions": [],
+    "applicability_facts": {
+      "product_intent_change": "No",
+      "initiative_scope_change": "No",
+      "requirement_change": "Yes",
+      "external_behavior_change": "Yes",
+      "design_change": "No",
+      "architecture_impact": "No",
+      "security_privacy_impact": "No",
+      "data_ai_impact": "No",
+      "formal_knowledge_records": "Yes",
+      "operations_impact": "Yes",
+      "production_release": "No",
+      "irreversible_change": "No",
+      "actual_execution": "Yes",
+      "authority_available": "Yes",
+      "migration_retirement": "No",
+      "external_system_effect": "Yes",
+      "formal_review_or_gate": "No"
+    }
+  },
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-AUDIO-20261026-002-before",
+      "content_ref": ".project-governance/tasks/T-AUDIO-20261026-002/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "b19a4cf488a36e0b44d23848b2cd805750a9eb2b",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-AUDIO-20261026-002-run",
+      "content_ref": ".project-governance/tasks/T-AUDIO-20261026-002/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "b19a4cf488a36e0b44d23848b2cd805750a9eb2b",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-AUDIO-20261026-002-after",
+      "content_ref": ".project-governance/tasks/T-AUDIO-20261026-002/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "b19a4cf488a36e0b44d23848b2cd805750a9eb2b",
+      "human_confirmation_refs": []
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "path": "ordinal",
+      "old_value": 22,
+      "new_value": 24,
+      "reason": "按实际任务目录去重编号并保持同一工作项顺序，缓存状态未列出BUDGET序号21；仅修正索引不改工程事实",
+      "basis": ".project-governance/tasks/T-BUDGET-20261023-001/before.json",
+      "changed_at": "2026-10-26T00:09:00.145678Z"
+    }
+  ],
+  "tailoring_resolution": {
+    "rule_set_id": "VC-PPG-TAIL-001",
+    "rule_set_version": "6.3 Candidate",
+    "rule_set_status": "In Review",
+    "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+    "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+    "resolver_sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+    "task_contract_schema_sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045",
+    "input_digest": "80d6eaec9c3f23d620c1c5d8a8eac9cb7b6d43d3d74af5267b5b883d89b0ef49",
+    "stage": "S6",
+    "applicable_standards": [
+      "C01",
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E04",
+      "E05"
+    ],
+    "pending_standards": [],
+    "stage_context_standards": [
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E04",
+      "E05"
+    ],
+    "control_strength": "standard",
+    "independent_review": false,
+    "explicit_human_gate": false,
+    "blocking_reasons": [],
+    "rule_ids": [
+      "VC-PPG-TAIL-001:always_applicable",
+      "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_system_effect=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:operations_impact=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+      "VC-PPG-TAIL-001:baseline_inheritance:Reference",
+      "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+      "VC-PPG-TAIL-001:change_surfaces:Deploy/Operations",
+      "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+      "VC-PPG-TAIL-001:development_types:DT-02",
+      "VC-PPG-TAIL-001:execution_modes:Normal",
+      "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E05:Active",
+      "VC-PPG-TAIL-001:risk_levels:Medium"
+    ],
+    "source_sections": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sections": [
+          "2",
+          "10",
+          "12"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "22",
+          "23"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sections": [
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sections": [
+          "10",
+          "14",
+          "15",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "9"
+        ]
+      },
+      {
+        "source_id": "C01",
+        "path": "references/02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E05",
+        "path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      }
+    ],
+    "complete_source_files": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+      },
+      {
+        "source_id": "C01",
+        "path": "references/02_核心规范/C01_Product_Discovery_Evidence_and_Intent_Standard.md",
+        "sha256": "afd73ffbde490eb2774af346046034692c83093612d0d60e0649cae8744c1773"
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sha256": "8cb8a7b01cec9b1c868a1cba27352fef1c6314ff85f1956072af6dee9eeabdf0"
+      },
+      {
+        "source_id": "E05",
+        "path": "references/03_扩展规范/E05_Product_Operations_and_Service_Management_Extension_Standard.md",
+        "sha256": "326d746628fd6b214527cd28ca71b5ea7b12148d4a0c102efcb0fb43f5c677da"
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+      }
+    ],
+    "profile_coverage_digest": {
+      "applicable": 111,
+      "total": 137,
+      "sha256": "82032b245c0c3cf6344548b7f2e85e5f155d7efb5720f7de0a87f64ff5c77bde"
+    }
+  }
+}

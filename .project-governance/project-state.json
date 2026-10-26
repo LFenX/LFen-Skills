@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-10-23T14:32:31.459228Z",
-  "source_digest": "eab469d172abd09b7ea1148ff07c83cca0c90c82b585016d44b04548f0071858",
+  "generated_at": "2026-10-26T00:09:03.075568Z",
+  "source_digest": "1c17d7c17881056bf719c770dfc68f34d4458280fb6496841ea8c674efdd978d",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -231,6 +231,45 @@
       "user_decision": "Pending",
       "revision": 1,
       "completed_at": "2026-10-23T14:31:49.937846Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "Current",
+        "status": "CurrentVerified"
+      }
+    },
+    {
+      "task_id": "T-BUDGET-20261023-001",
+      "ordinal": 21,
+      "status": "Implemented",
+      "user_decision": "Pending",
+      "revision": 3,
+      "completed_at": "2026-10-23T15:29:52.176783Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "Current",
+        "status": "CurrentVerified"
+      }
+    },
+    {
+      "task_id": "T-AUDIO-20261026-001",
+      "ordinal": 23,
+      "status": "Superseded",
+      "user_decision": "Pending",
+      "revision": 1,
+      "completed_at": "2026-10-26T00:05:10.046502Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "Current",
+        "status": "CurrentVerified"
+      }
+    },
+    {
+      "task_id": "T-AUDIO-20261026-002",
+      "ordinal": 24,
+      "status": "Implemented",
+      "user_decision": "Pending",
+      "revision": 1,
+      "completed_at": "2026-10-26T00:05:59.980823Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",
         "mode": "Current",
@@ -543,6 +582,46 @@
       "task_id": "T-ADVERSARIAL-20261023-006",
       "ordinal": 20,
       "fact": "源码及第五/六轮报告证据已发布，三Python版本GitHub门禁成功；原始日志空行如实保留，未宣称全部归档格式通过；人工验收Pending"
+    },
+    {
+      "task_id": "T-BUDGET-20261023-001",
+      "ordinal": 21,
+      "fact": "默认每次3轮审查、2批返修、60分钟；任一到限停止新增工作并汇总给用户决定"
+    },
+    {
+      "task_id": "T-BUDGET-20261023-001",
+      "ordinal": 21,
+      "fact": "连续两轮完整无问题仍为通过条件，到限不等于通过"
+    },
+    {
+      "task_id": "T-BUDGET-20261023-001",
+      "ordinal": 21,
+      "fact": "源码89565de已推送GitHub，三版本门禁和目录CI成功"
+    },
+    {
+      "task_id": "T-BUDGET-20261023-001",
+      "ordinal": 21,
+      "fact": "未启动真实审查、未发送会话消息、未覆盖冻结的共享安装；保留任务前既有暂停日志且不提交"
+    },
+    {
+      "task_id": "T-AUDIO-20261026-001",
+      "ordinal": 23,
+      "fact": "产品Skill已发布且CI成功；原Run的外部副作用晚于验证，原账本保留不改写"
+    },
+    {
+      "task_id": "T-AUDIO-20261026-001",
+      "ordinal": 23,
+      "fact": "工程收尾交由同范围T-AUDIO-20261026-002执行发布后核验，无需重复用户授权"
+    },
+    {
+      "task_id": "T-AUDIO-20261026-002",
+      "ordinal": 24,
+      "fact": "复用前任务交付的音频Skill并确认远端和两组CI成功；博客交接已先行送达"
+    },
+    {
+      "task_id": "T-AUDIO-20261026-002",
+      "ordinal": 24,
+      "fact": "原任务收尾被验证顺序校验拒绝，保留原账本并以Superseded衔接本次实际核验，未绕过门禁"
     }
   ],
   "unresolved_items": [
@@ -813,6 +892,54 @@
       "blocked_by": [],
       "next_tasks": [],
       "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-BUDGET-20261023-001",
+      "ordinal": 21,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-AUDIO-20261026-001",
+      "ordinal": 23,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [
+        {
+          "task_id": "T-AUDIO-20261026-002",
+          "relation": "extends",
+          "reason": "同范围发布后验证与工程收尾"
+        }
+      ],
+      "derived_from": [],
+      "required_by": [
+        "T-AUDIO-20261026-002"
+      ]
+    },
+    {
+      "task_id": "T-AUDIO-20261026-002",
+      "ordinal": 24,
+      "depends_on": [
+        "T-AUDIO-20261026-001"
+      ],
+      "supersedes": [
+        "T-AUDIO-20261026-001"
+      ],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [
+        {
+          "task_id": "T-AUDIO-20261026-001",
+          "relation": "extends",
+          "reason": "同范围发布后验证与工程收尾"
+        }
+      ],
       "required_by": []
     }
   ],

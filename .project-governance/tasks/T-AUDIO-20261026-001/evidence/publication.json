@@ -1,0 +1,32 @@
+{
+  "checked_at": "2026-10-25T23:57:54.645173+00:00",
+  "repository": "https://github.com/LFenX/LFen-Skills",
+  "product_commit": "b19a4cf488a36e0b44d23848b2cd805750a9eb2b",
+  "remote_main_confirmed": true,
+  "publication_method": "Existing clean checkout fast-forwarded before edits, repository catalog generation/check followed by ordinary git commit and git push origin main",
+  "credentials": "Normal local Git credential flow; no token was printed or stored in the package",
+  "catalog_ci": "success",
+  "catalog_ci_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40246789131",
+  "skill_gates_ci_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40246789087",
+  "blog_skill_link_followup_delivered": true,
+  "ci_observed_at": "2026-10-26T00:01:07.211083+00:00",
+  "workflows": [
+    {
+      "id": 40246789131,
+      "name": "Validate skill catalog",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "b19a4cf488a36e0b44d23848b2cd805750a9eb2b",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40246789131"
+    },
+    {
+      "id": 40246789087,
+      "name": "Skill gates",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "b19a4cf488a36e0b44d23848b2cd805750a9eb2b",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40246789087"
+    }
+  ],
+  "skill_gates_ci": "success"
+}
