@@ -1,0 +1,28 @@
+{
+  "round_id": "AR-07",
+  "started_at": "2026-10-23T14:34:00.887314Z",
+  "source_commit": "e44aec482324dde248b6ac50b3fc2f5ee4245706",
+  "source_sha256": "b3c52807836222f13a4a85acd5ce53add8e2a1a98eaf7856331580885cbf8a66",
+  "delivery_task_id": "T-ADVERSARIAL-20261023-006",
+  "delivery_completed_at": "2026-10-23T14:31:49.937846Z",
+  "mode": "fresh read-only independent full review, filtered exact original sources; no prior review inputs",
+  "filtered_input": "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\AR07-source-input-vm1bpov1\\allowed-review-input.json",
+  "filtered_input_sha256": "af102e177271618cc80fd8f585b05fc1b1286706dc25fd392467a0a22acecef5",
+  "parent_state_at_start": {
+    "status": "Stale",
+    "clean_streak": 0,
+    "rounds": 6,
+    "open_findings": [
+      "AR06-F01"
+    ],
+    "reviewed_delivery": {
+      "task_id": "T-ADVERSARIAL-20261023-005",
+      "subject_sha256": "1ec6406b7c95580a24ef77723932c6bfd76fbd1a40bbf900f685f7261fd6acac",
+      "requirements_sha256": "57bfbf29e4c6814f1e5638d026ebc0c59a448ec654942469a082c53d94dd92ca"
+    },
+    "current_delivery": {
+      "task_id": "T-ADVERSARIAL-20261023-006",
+      "subject_sha256": "857f512d4df3e8a9cd369c1fc71dc3b391c215dd8d4890536fce977b9ff8b526"
+    }
+  }
+}
