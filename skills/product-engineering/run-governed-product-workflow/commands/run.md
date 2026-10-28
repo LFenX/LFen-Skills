@@ -26,6 +26,8 @@ python <skill-root>/scripts/append_run_event.py <project-root>/.project-governan
 
 对抗性审查返修须先读取原任务的预算状态，并按 [verify](verify.md#预算与停止出口) 追加 `WorkStarted` 扣减一批返修额度，再启动任务与修改。`BudgetRequired` / `BudgetExhausted` 时停止新增工作并汇总给用户；其他会话的消息、工具重试或新 TaskID 均不能续预算。禁止跨会话互相发送修复、复查或回报请求形成循环。
 
+返修只接收按 [固定审查基准](verify.md#冻结审查基准防止标准膨胀) 证实的范围内缺陷，保留所违反的原条款与证据。范围外建议、未证实疑点及审查者新增的质量要求不自动进入修复计划；没有新证据不重开已处置问题。改范围或验收标准须先取得用户明确决定，不能借返修、换版本或续预算扩大任务。
+
 失败后先追加 `failure`，再用新 AttemptID 追加 `retry`。范围、权限、验收或计划变化必须先停止受影响动作，再用 Amendment 修订；禁止静默覆盖。
 
 Amendment 只记录真实字段变更：同值写入返回 `UNCHANGED`，不改文件、修订号或历史；批量操作忽略同值项，真实变更保留原值、新值和依据。`tailoring_resolution` 是派生快照，自动重算不新增 Amendment；阶段刷新使用 `refresh_tailoring_resolution.py`，不得把派生快照作为普通字段修订。
