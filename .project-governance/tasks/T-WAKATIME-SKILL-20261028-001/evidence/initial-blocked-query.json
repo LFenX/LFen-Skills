@@ -1,0 +1,31 @@
+{
+  "meta_type": "DerivedView",
+  "purpose": "保留实际阻断摘要，不复制无关规范摘录。",
+  "source_result_sha256": "e81d002f46e209990ecc03b9d811e0619cb103e549ac5ec32f99463592deae1f",
+  "query_digest": "ef38738c66d63746ca3f397408d21598dd9748b5ab47c1ed4627960e1d853171",
+  "status": "Blocked",
+  "blocker_reasons": [
+    "norm-packet-required-control-unsupported:data"
+  ],
+  "coverage": {
+    "missing": [],
+    "present": [
+      "change",
+      "evidence",
+      "permission",
+      "prohibition",
+      "scope",
+      "validation"
+    ],
+    "required": [
+      "change",
+      "evidence",
+      "permission",
+      "prohibition",
+      "scope",
+      "validation"
+    ]
+  },
+  "index_digest": "e85eb60745ea722b8ea1d8aa20ce768f841534dbfe34d482d5dad08de119ac69",
+  "source_result_ref": ".project-governance/generated/queries/T-WAKATIME-SKILL-20261028-001/ef38738c66d63746ca3f397408d21598dd9748b5ab47c1ed4627960e1d853171/query-result.json"
+}

@@ -6,7 +6,7 @@
     "skills_root": "skills",
     "layout": "skills/<category-path>/<skill-name>"
   },
-  "skill_count": 9,
+  "skill_count": 10,
   "scopes": {
     "general": {
       "name": "通用",
@@ -57,6 +57,32 @@
         "开发工具"
       ],
       "skill_count": 2
+    },
+    {
+      "id": "coding-activity-analytics",
+      "name": "编程活动统计",
+      "description": "编程活动、项目时长与 AI 编码指标的采集接入、准确性核验和同步排障。",
+      "path": [
+        "coding-activity-analytics"
+      ],
+      "name_path": [
+        "编程活动统计"
+      ],
+      "skill_count": 1
+    },
+    {
+      "id": "wakatime",
+      "name": "WakaTime",
+      "description": "WakaTime 的多工具、多设备接入，以及项目、语言、模型标识和离线同步核验。",
+      "path": [
+        "coding-activity-analytics",
+        "wakatime"
+      ],
+      "name_path": [
+        "编程活动统计",
+        "WakaTime"
+      ],
+      "skill_count": 1
     },
     {
       "id": "debug",
@@ -304,6 +330,36 @@
         "feedback-management",
         "feishu-base",
         "koc"
+      ]
+    },
+    {
+      "name": "setup-wakatime-ai-tracking",
+      "description": "将 Codex 桌面客户端、Cursor、VS Code、Claude Code 和 OpenCode 的真实编程活动接入 WakaTime，支持多设备汇总，并核对项目、语言、模型和离线队列。用于安装配置、重复采集排查、Other 占比异常、模型仅显示 GPT、非 Git 项目命名及同步积压；不用于模型供应商接入或修改 GitHub 主页卡片。",
+      "path": "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md",
+      "category": {
+        "id": "wakatime",
+        "name": "WakaTime",
+        "path": [
+          "coding-activity-analytics",
+          "wakatime"
+        ],
+        "name_path": [
+          "编程活动统计",
+          "WakaTime"
+        ]
+      },
+      "scope": {
+        "id": "general",
+        "name": "通用"
+      },
+      "tags": [
+        "ai-coding-metrics",
+        "codex",
+        "coding-activity",
+        "cursor",
+        "multi-device",
+        "opencode",
+        "wakatime"
       ]
     }
   ],

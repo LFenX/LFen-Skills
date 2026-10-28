@@ -14,7 +14,7 @@
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/skills-9-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
+  <img src="https://img.shields.io/badge/skills-10-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
   <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat&labelColor=1E1B4B" alt="platforms">
   <img src="https://img.shields.io/badge/license-MIT-475569?style=flat&labelColor=1E1B4B" alt="license">
 </p>
@@ -1476,6 +1476,165 @@ bash -o pipefail -c '
 </details>
 
 </details>
+
+<details name="install-skill">
+<summary><code>setup-wakatime-ai-tracking</code></summary>
+
+<details name="install-platform-setup-wakatime-ai-tracking">
+<summary>OpenCode</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill setup-wakatime-ai-tracking
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill setup-wakatime-ai-tracking
+'
+```
+
+</details>
+
+<details name="install-platform-setup-wakatime-ai-tracking">
+<summary>Claude Code</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill setup-wakatime-ai-tracking
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill setup-wakatime-ai-tracking
+'
+```
+
+</details>
+
+<details name="install-platform-setup-wakatime-ai-tracking">
+<summary>Codex</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill setup-wakatime-ai-tracking
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill setup-wakatime-ai-tracking
+'
+```
+
+</details>
+
+<details name="install-platform-setup-wakatime-ai-tracking">
+<summary>Cursor</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill setup-wakatime-ai-tracking
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill setup-wakatime-ai-tracking
+'
+```
+
+</details>
+
+<details name="install-platform-setup-wakatime-ai-tracking">
+<summary>Gemini CLI</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill setup-wakatime-ai-tracking
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill setup-wakatime-ai-tracking
+'
+```
+
+</details>
+
+<details name="install-platform-setup-wakatime-ai-tracking">
+<summary>GitHub Copilot</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill setup-wakatime-ai-tracking
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill setup-wakatime-ai-tracking
+'
+```
+
+</details>
+
+<details name="install-platform-setup-wakatime-ai-tracking">
+<summary>Windsurf</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill setup-wakatime-ai-tracking
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill setup-wakatime-ai-tracking
+'
+```
+
+</details>
+
+</details>
 <!-- install-commands:end -->
 
 本地脚本可用 `.\install.ps1 -Codex -Skill match-tabular-records` 或 `bash install.sh --codex --skill match-tabular-records`。单项参数 `-Skill` / `--skill` 遇到未知名称时以非零状态退出。
@@ -1546,6 +1705,8 @@ python scripts/check_install_links.py --platform claude,codex,opencode,cursor  #
 | [**开发工具**](CATALOG.md#dev-tools) |  | 开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。 |
 |  | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) | 为 opencode 接入第三方 OpenAI 兼容模型供应商（如 LiteLLM 网关）。 |
 |  | [`repair-windows-monitor-audio`](skills/dev-tools/repair-windows-monitor-audio/SKILL.md) | 排查 Windows 通过 HDMI/DP 连接的显示器扬声器在待机或唤醒后全局无声的问题，保存证据并分层检查默认输出、音频服务、端点和 NVIDIA 独立音频控制器。 |
+| [**编程活动统计**](CATALOG.md#coding-activity-analytics) |  | 编程活动、项目时长与 AI 编码指标的采集接入、准确性核验和同步排障。 |
+|  | [`setup-wakatime-ai-tracking`](skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md) | 将 Codex 桌面客户端、Cursor、VS Code、Claude Code 和 OpenCode 的真实编程活动接入 WakaTime，支持多设备汇总，并核对项目、语言、模型和离线队列。 |
 | [**调试排障**](CATALOG.md#debug) |  | 记录和拆解已确认的执行问题，把可核对观察与推理分开。 |
 |  | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | 把已确认的 Agent Skill 问题整理成 JSON：可核对观察与推理原因必须分开。 |
 | [**Ai&nbsp;Complaint&nbsp;System**](CATALOG.md#ai-complaint-system) |  | AI 客诉系统的部署、升级与运行维护。 |
@@ -1570,7 +1731,7 @@ python scripts/check_install_links.py --platform claude,codex,opencode,cursor  #
 
 ## 新增 Skill
 
-1. 在 `skills/<主分类>/` 下新增 `<skill-name>/SKILL.md`，目录名必须与 frontmatter 的 `name` 一致，frontmatter 必须包含 `name`、`description`（中文）和 `description_en`（英文）。
+1. 在 `skills/<category-path>/` 下新增 `<skill-name>/SKILL.md`，目录名必须与 frontmatter 的 `name` 一致。frontmatter 包含 `name`、`description`（中文）和 `metadata.description_en`（英文，兼容顶层 `description_en`）；`category-path` 使用分类树中一至两级的叶子路径。
 2. 将 skill 名称加入 `catalog/taxonomy.json` 的同名叶子分类，并在 `skill_metadata` 中填写 `scope` 与排序后的 `tags`。
 3. 运行 `python scripts/update_catalog.py` 重新生成 `README.md`、`README.en.md`、`SKILLS.md`、`SKILLS.en.md`、`CATALOG.md` 和 `catalog/index.json`。
 4. 运行 `python scripts/update_catalog.py --check` 检查遗漏、重复归类、非法元数据和生成物漂移，然后提交推送。

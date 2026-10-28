@@ -6,7 +6,7 @@
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/skills-9-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
+  <img src="https://img.shields.io/badge/skills-10-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
   <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat&labelColor=1E1B4B" alt="platforms">
   <img src="https://img.shields.io/badge/license-MIT-475569?style=flat&labelColor=1E1B4B" alt="license">
 </p>
@@ -32,6 +32,8 @@
 | [**开发工具**](CATALOG.md#dev-tools) |  | 开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。 |
 |  | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) | 为 opencode 接入第三方 OpenAI 兼容模型供应商（如 LiteLLM 网关）。 |
 |  | [`repair-windows-monitor-audio`](skills/dev-tools/repair-windows-monitor-audio/SKILL.md) | 排查 Windows 通过 HDMI/DP 连接的显示器扬声器在待机或唤醒后全局无声的问题，保存证据并分层检查默认输出、音频服务、端点和 NVIDIA 独立音频控制器。 |
+| [**编程活动统计**](CATALOG.md#coding-activity-analytics) |  | 编程活动、项目时长与 AI 编码指标的采集接入、准确性核验和同步排障。 |
+|  | [`setup-wakatime-ai-tracking`](skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md) | 将 Codex 桌面客户端、Cursor、VS Code、Claude Code 和 OpenCode 的真实编程活动接入 WakaTime，支持多设备汇总，并核对项目、语言、模型和离线队列。 |
 | [**调试排障**](CATALOG.md#debug) |  | 记录和拆解已确认的执行问题，把可核对观察与推理分开。 |
 |  | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | 把已确认的 Agent Skill 问题整理成 JSON：可核对观察与推理原因必须分开。 |
 | [**Ai&nbsp;Complaint&nbsp;System**](CATALOG.md#ai-complaint-system) |  | AI 客诉系统的部署、升级与运行维护。 |

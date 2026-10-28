@@ -1,0 +1,19 @@
+{
+  "status": "Resolved",
+  "failed_attempt": "A1",
+  "retry_attempt": "A2",
+  "symptom": "edit_in_scope returned norm-packet-required-control-unsupported:data",
+  "cause": "只读元数据摘要属于数据处理，初始 Task Profile 遗漏 E03。",
+  "effect": "阻断时未编写 skill 内容，没有外部上传。",
+  "correction": "正式 Amendment 增加 AI/Data Governance 与 E03，重新获取 edit_in_scope 上下文通过。",
+  "evidence": [
+    "initial-blocked-query.json",
+    "../before.json",
+    "../run.jsonl"
+  ],
+  "local_preparation_issues": [
+    "Git worktree 首次 checkout 因 Windows 路径过长失败；命令级 core.longpaths 完成重试。",
+    "长目录中治理 SQLite 打开失败；在 workspace 内移动为短路径后成功。",
+    "初始化工具附带的无关控制台文件变化已恢复为新 checkout 的原始内容。"
+  ]
+}

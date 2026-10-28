@@ -1,0 +1,96 @@
+{
+  "recorded_at": "2026-10-28T11:39:27.869672+00:00",
+  "environment": {
+    "os": "Windows",
+    "python": "3.13"
+  },
+  "checks": [
+    {
+      "command": "python scripts/test_inspect_wakatime.py",
+      "working_directory": "skill root",
+      "tests": 9,
+      "passed": 9,
+      "skipped": 0,
+      "source": "tool-output:275f06"
+    },
+    {
+      "command": "skill-creator quick_validate.py <skill directory>",
+      "result": "Passed",
+      "source": "tool-output:275f06"
+    },
+    {
+      "command": "python scripts/update_catalog.py --check",
+      "result": "Passed",
+      "skill_count": 10,
+      "source": "tool-output:f15ae8"
+    },
+    {
+      "command": "python scripts/test_update_catalog.py",
+      "tests": 22,
+      "passed": 22,
+      "skipped": 0,
+      "source": "tool-output:8d989b"
+    },
+    {
+      "command": "python scripts/test_check_install_links.py",
+      "tests": 10,
+      "passed": 10,
+      "skipped": 0,
+      "source": "tool-output:8d989b"
+    },
+    {
+      "command": "python scripts/test_installers.py",
+      "tests": 17,
+      "passed": 16,
+      "skipped": 1,
+      "skip_reason": "POSIX-only case on Windows",
+      "source": "tool-output:453c80"
+    },
+    {
+      "command": "bash -n install.sh",
+      "result": "Passed",
+      "source": "tool-output:453c80"
+    },
+    {
+      "command": "python scripts/inspect_wakatime.py --sample-limit 100",
+      "result": "Passed",
+      "new_heartbeats_requested": false,
+      "network_upload_requested": false,
+      "full_model_version_preserved": true,
+      "source": "tool-output:4e696f"
+    },
+    {
+      "command": "baseline path comparison, UI metadata, local links, exact key and private project path scan, git diff --check",
+      "result": "Passed",
+      "old_skill_paths_preserved": 9,
+      "new_skill_count": 1,
+      "category_levels": 2,
+      "sensitive_hits": 0,
+      "source": "tool-output:f15ae8"
+    }
+  ],
+  "totals": {
+    "tests": 58,
+    "passed": 57,
+    "skipped": 1
+  },
+  "limitations": [
+    "真实本机冒烟仅在当前 Windows 环境执行；没有重新验证其他设备或已有 WakaTime 云端统计。",
+    "内置已知模型 token 列表不代表所有模型；未匹配不作故障判定。"
+  ],
+  "source_hashes": {
+    "catalog/index.json": "3f6251d29b90ca4517be3b56f007a87477dace66067abd2ae6dc5542b2f5a81a",
+    "catalog/taxonomy.json": "648641e477670a032166de1c83c8b814ef0dc28658ca39917b3d1f3dbbc97bc4",
+    "CATALOG.md": "656b9b73cd58d15692adc2b8f18a6d2a9383a42a53e594bf14e054bc28af7789",
+    "README.en.md": "fb6f1310600dcc19297d1f13dd3b72afc15eefc277e94b922f52c291e4fefe65",
+    "README.md": "91575b15e2a1b8a9517a9d875cad1c0045ae52c32f29181506bbfc45ce815001",
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/agents/openai.yaml": "8deb952f888cbcfdcabf43df49fc557859b009fffa3f97c2ef73a8c3b76c930e",
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/references/accuracy-and-recovery.md": "df46bd62e4c0b5b2962f216f903b0c60ad7564ceeb93f24ba83e7ad867da9845",
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/references/tool-setup.md": "c2d01463b44820773822b0ddd05939ba3ff58508ec3d315f2ed34d1531f5a2aa",
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/scripts/inspect_wakatime.py": "3df3e5238e3fc428ffaf63acd731f91bb28796d897093232f3b4055829c1125c",
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/scripts/test_inspect_wakatime.py": "a7363452025c047a95e9f71c09983917afa1f751e80e6c9a75a2af061a57b916",
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md": "f86515d28d6e0378c366feea8dcc78f589700801b6769c67f4db82ff55d80265",
+    "SKILLS.en.md": "170837134ae37033df5591d889c7c31ba5e14785c92983c0391e16c63edca957",
+    "SKILLS.md": "fffaa45559536e55fd38cd4c9267c6ae03923bbd859565454d3f1caae57ce287"
+  }
+}

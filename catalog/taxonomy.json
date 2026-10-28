@@ -61,6 +61,27 @@
       "children": []
     },
     {
+      "id": "coding-activity-analytics",
+      "name": "编程活动统计",
+      "name_en": "Coding Activity Analytics",
+      "description": "编程活动、项目时长与 AI 编码指标的采集接入、准确性核验和同步排障。",
+      "description_en": "Integration, accuracy verification, and synchronization troubleshooting for coding activity, project time, and AI coding metrics.",
+      "skills": [],
+      "children": [
+        {
+          "id": "wakatime",
+          "name": "WakaTime",
+          "name_en": "WakaTime",
+          "description": "WakaTime 的多工具、多设备接入，以及项目、语言、模型标识和离线同步核验。",
+          "description_en": "Multi-tool and multi-device WakaTime setup, with project, language, model metadata, and offline synchronization checks.",
+          "skills": [
+            "setup-wakatime-ai-tracking"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
       "id": "debug",
       "name": "调试排障",
       "name_en": "Debugging",
@@ -160,6 +181,18 @@
         "deployment",
         "docker",
         "maintenance"
+      ]
+    },
+    "setup-wakatime-ai-tracking": {
+      "scope": "general",
+      "tags": [
+        "ai-coding-metrics",
+        "codex",
+        "coding-activity",
+        "cursor",
+        "multi-device",
+        "opencode",
+        "wakatime"
       ]
     }
   },

@@ -9,16 +9,17 @@
 | [数据处理](#data-processing) | 结构化数据的匹配、清洗、转换、分析与质量核验。 | 2 |
 | [产品研发](#product-engineering) | 产品定义、研发执行、质量控制、交付与运营流程。 | 3 |
 | [开发工具](#dev-tools) | 开发环境、工具链与 AI 编码助手的配置、接入、排障与维护。 | 2 |
+| [编程活动统计](#coding-activity-analytics) | 编程活动、项目时长与 AI 编码指标的采集接入、准确性核验和同步排障。 | 1 |
 | [调试排障](#debug) | 记录和拆解已确认的执行问题，把可核对观察与推理分开。 | 1 |
 | [Ai Complaint System](#ai-complaint-system) | AI 客诉系统的部署、升级与运行维护。 | 1 |
 
-共收录 **9** 个 skill。机器可读目录见 [`catalog/index.json`](catalog/index.json)。
+共收录 **10** 个 skill。机器可读目录见 [`catalog/index.json`](catalog/index.json)。
 
 ## 适用范围
 
 | 范围 | 定义 | Skill 数量 |
 | --- | --- | ---: |
-| 通用 | 不依赖 LFen 团队或单一项目上下文，可跨项目复用。 | 6 |
+| 通用 | 不依赖 LFen 团队或单一项目上下文，可跨项目复用。 | 7 |
 | 团队 | 依赖 LFen 团队规范、流程或共享约定。 | 1 |
 | 项目 | 面向一个明确项目、系统或业务工作流。 | 2 |
 
@@ -54,6 +55,20 @@
 | --- | --- | --- | --- |
 | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) | 通用 | `model-provider`, `openai-compatible`, `opencode`, `tool-configuration` | 为 opencode 接入第三方 OpenAI 兼容模型供应商（如 LiteLLM 网关）。覆盖 provider 配置结构、模型注册、网关验证、常见错误排查。当用户要添加新的模型供应商、配置 opencode.json 的 provider 段、或模型配置后不生效时使用。 |
 | [`repair-windows-monitor-audio`](skills/dev-tools/repair-windows-monitor-audio/SKILL.md) | 通用 | `audio`, `hdmi`, `nvidia`, `troubleshooting`, `windows` | 排查 Windows 通过 HDMI/DP 连接的显示器扬声器在待机或唤醒后全局无声的问题，保存证据并分层检查默认输出、音频服务、端点和 NVIDIA 独立音频控制器。适用于音量正常、系统有播放信号却听不到声音，希望定位故障并尝试不重启电脑恢复的场景。 |
+
+<a id="coding-activity-analytics"></a>
+## 编程活动统计
+
+编程活动、项目时长与 AI 编码指标的采集接入、准确性核验和同步排障。
+
+<a id="wakatime"></a>
+### WakaTime
+
+WakaTime 的多工具、多设备接入，以及项目、语言、模型标识和离线同步核验。
+
+| Skill | 适用范围 | 标签 | 能力说明 |
+| --- | --- | --- | --- |
+| [`setup-wakatime-ai-tracking`](skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md) | 通用 | `ai-coding-metrics`, `codex`, `coding-activity`, `cursor`, `multi-device`, `opencode`, `wakatime` | 将 Codex 桌面客户端、Cursor、VS Code、Claude Code 和 OpenCode 的真实编程活动接入 WakaTime，支持多设备汇总，并核对项目、语言、模型和离线队列。用于安装配置、重复采集排查、Other 占比异常、模型仅显示 GPT、非 Git 项目命名及同步积压；不用于模型供应商接入或修改 GitHub 主页卡片。 |
 
 <a id="debug"></a>
 ## 调试排障
