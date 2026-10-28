@@ -1,0 +1,15 @@
+{
+  "observed_at": "2026-10-28T12:14:32.466423Z",
+  "status": "Restored",
+  "reason": "任务初始化自动更新项目自己的派生控制台快照；起始工作树中这些文件无修改。恢复基线以保持本次仅三份指引的范围。",
+  "restored_tracked": [
+    ".project-governance/console/README.md",
+    ".project-governance/console/deployment.json",
+    ".project-governance/console/snapshot/adversarial_review.py",
+    ".project-governance/console/snapshot/deploy_console.py"
+  ],
+  "removed_generated_only": ".project-governance/console/snapshot/review_budget.py",
+  "shared_installation_touched": false,
+  "recording_error": "恢复已完成，但正式rollback事件记录缺少细分rollback权限而被拒绝，账本未写入此事件。",
+  "permission_basis": "恢复对象均是本轮初始化生成器的附带输出，起始状态已确认；属于完成原任务所需的可逆恢复，不增加产品修改范围、不代表新的用户批准。"
+}

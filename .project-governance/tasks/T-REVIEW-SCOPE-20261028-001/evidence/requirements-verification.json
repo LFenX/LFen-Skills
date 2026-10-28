@@ -1,0 +1,42 @@
+{
+  "verified_at": "2026-10-28T12:11:20.384447Z",
+  "status": "Passed",
+  "method": "普通工程静态核对及现有回归，不是新增对抗性审查",
+  "checks": [
+    {
+      "requirement": "同步及剩余记录",
+      "method": "Git快进与已推送对象原件逐字节核对",
+      "actual": "先快进3个远端提交；fa27980随后先行发布指定3份记录且原件SHA256一致",
+      "evidence_refs": [
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/remaining-records-publication.json"
+      ]
+    },
+    {
+      "requirement": "冻结审查基准",
+      "method": "静态逐条对照需求与三份修改后的指引",
+      "actual": "冻结原文、验收、对象、排除项与检查深度；不得将原要求/强制Gate/直接回归划到范围外。建议单列，不写入阻断数组。",
+      "evidence_refs": [
+        "skills/product-engineering/run-governed-product-workflow/commands/verify.md"
+      ]
+    },
+    {
+      "requirement": "防止标准膨胀",
+      "method": "静态核对范围内/外及新证据条件的正反分支",
+      "actual": "违反原条款且有反证为缺陷；纯偏好或额外优化不自动返修；范围内未决不报无问题；已处置问题无新证据不重开；改基准要用户明确决定。",
+      "evidence_refs": [
+        "skills/product-engineering/run-governed-product-workflow/commands/verify.md",
+        "skills/product-engineering/run-governed-product-workflow/commands/run.md"
+      ]
+    },
+    {
+      "requirement": "保留收敛和停止条件、不启动新审查",
+      "method": "静态核对规则与本次实际执行",
+      "actual": "同一基准同版连续两轮范围内无缺陷才通过，原预算继续累计；本次遵守用户明确拒绝，不提问、不起Agent、不发消息，不补造Offer/审查记录。",
+      "evidence_refs": [
+        "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+      ]
+    }
+  ],
+  "limitation": "未做Agent行为实测；自然语言范围归类由执行者按指引判断，不声称CLI自动识别其语义。"
+}

@@ -1,0 +1,25 @@
+{
+  "observed_at": "2026-10-28T12:06:52.769967Z",
+  "source_user_instruction": "先推送",
+  "status": "Succeeded",
+  "commit": "fa27980836448b902f3b5048692cc5d796b38a2a",
+  "url": "https://github.com/LFenX/LFen-Skills/commit/fa27980836448b902f3b5048692cc5d796b38a2a",
+  "records": [
+    {
+      "path": "update_log/2026-10-23-governed-workflow-adversarial-review.md",
+      "sha256": "c707674410399d06a38ecd3c4e6b037f79eb63c9ed8f5713187ba1e63829c1c5",
+      "published_original_bytes": true
+    },
+    {
+      "path": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-07-interrupted.json",
+      "sha256": "844ea01ef0ff40007cff13db1731b925122d1c360c6bd71c383b34749bd09771",
+      "published_original_bytes": true
+    },
+    {
+      "path": ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-07-session.json",
+      "sha256": "3626be882f853b3bb77e409cd45cc13c5ce7a6f7d7264f12a7b00567611dc9c3",
+      "published_original_bytes": true
+    }
+  ],
+  "new_review_started": false
+}

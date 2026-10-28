@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-10-28T12:20:06.122070Z",
+  "kind": "普通工程验证，不是对抗性审查",
+  "source_commit": "6a84c81c8780ea7f53f57293f7a4b7583df4b878",
+  "remote_main": "6a84c81c8780ea7f53f57293f7a4b7583df4b878",
+  "source_file_count": 97,
+  "source_bundle_sha256": "2ca18b1491c74f3e19a11290b72864a4113c84375d53be762a22fa5fdd33825c",
+  "source_digest_check": "Passed; all 97 files unchanged since the completed local validation",
+  "remaining_records": {
+    "update_log/2026-10-23-governed-workflow-adversarial-review.md": "c707674410399d06a38ecd3c4e6b037f79eb63c9ed8f5713187ba1e63829c1c5",
+    ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-07-interrupted.json": "844ea01ef0ff40007cff13db1731b925122d1c360c6bd71c383b34749bd09771",
+    ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-07-session.json": "3626be882f853b3bb77e409cd45cc13c5ce7a6f7d7264f12a7b00567611dc9c3"
+  },
+  "remaining_record_bytes_match_published_commit": true,
+  "generated_console_restored": true,
+  "task_package_check": "Passed; 137/137 mapping resolved",
+  "ci_status": "Passed",
+  "review_started": false,
+  "shared_installation_updated": false,
+  "status": "Passed"
+}

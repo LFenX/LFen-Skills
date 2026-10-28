@@ -1,0 +1,1342 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskContract",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-REVIEW-SCOPE-20261028",
+  "task_id": "T-REVIEW-SCOPE-20261028-001",
+  "ordinal": 26,
+  "revision": 4,
+  "lifecycle_state": "Frozen",
+  "created_at": "2026-10-28T12:01:17.657261Z",
+  "frozen_at": "2026-10-28T12:02:55.366748Z",
+  "objective": "补入冻结审查范围和验收标准的执行规则，连同既有三份暂停记录提交推送",
+  "request_snapshot": {
+    "text": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查。",
+    "language": "zh",
+    "captured_at": "2026-10-28T12:01:17.415925Z",
+    "source": "user-message://current-thread/20261028/freeze-review-scope"
+  },
+  "clarification": {
+    "state": "Settled",
+    "mode": "Skipped",
+    "notice": "你的需求已经描述的非常清楚了，并且和项目现状一致，本次跳过向你提问的阶段",
+    "survey_refs": [
+      ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+    ],
+    "rounds": [],
+    "basis": "当前要求明确接受此前提出的固定范围方案；仅修改既有指引及提交用户指定的既有记录，无新待答未知。",
+    "reopened_by": []
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+      "reading": "先同步远端且完整保留原有三份未提交记录",
+      "state": "Covered",
+      "acceptance_refs": [
+        0
+      ],
+      "evidence_refs": [
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+      ],
+      "review": {
+        "source_sha256": "4e6f567ed638d361221efe7916a2b85b836dd5918d4faa4a29472d1dee21019b",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "Git快进与已推送对象原件逐字节核对",
+            "expected": "先同步远端且完整保留原有三份未提交记录",
+            "actual": "先快进3个远端提交；fa27980随后先行发布指定3份记录且原件SHA256一致",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+      "reading": "审查原始需求、验收标准、范围和排除项冻结；范围外建议不自动阻塞或返修",
+      "state": "Covered",
+      "acceptance_refs": [
+        1
+      ],
+      "evidence_refs": [
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+      ],
+      "review": {
+        "source_sha256": "4e6f567ed638d361221efe7916a2b85b836dd5918d4faa4a29472d1dee21019b",
+        "conditions": [
+          "已有明确审查边界"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "条文核对：已有明确审查边界成立",
+            "expected": "审查原始需求、验收标准、范围和排除项冻结；范围外建议不自动阻塞或返修",
+            "actual": "冻结原文、验收、对象、排除项与检查深度；不得将原要求/强制Gate/直接回归划到范围外。建议单列，不写入阻断数组。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "条文核对：已有明确审查边界不成立",
+            "expected": "审查原始需求、验收标准、范围和排除项冻结；范围外建议不自动阻塞或返修",
+            "actual": "冻结原文、验收、对象、排除项与检查深度；不得将原要求/强制Gate/直接回归划到范围外。建议单列，不写入阻断数组。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-03",
+      "source": "request_snapshot",
+      "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+      "reading": "缺陷绑定原要求与证据，不新增无依据质量门槛、不无新证据翻案；两轮通过及原预算保留",
+      "state": "Covered",
+      "acceptance_refs": [
+        2
+      ],
+      "evidence_refs": [
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+      ],
+      "review": {
+        "source_sha256": "4e6f567ed638d361221efe7916a2b85b836dd5918d4faa4a29472d1dee21019b",
+        "conditions": [
+          "发现内容确实违反原基准并有证据"
+        ],
+        "cases": [
+          {
+            "condition": 0,
+            "branch": "Met",
+            "input": "条文核对：发现内容确实违反原基准并有证据成立",
+            "expected": "缺陷绑定原要求与证据，不新增无依据质量门槛、不无新证据翻案；两轮通过及原预算保留",
+            "actual": "违反原条款且有反证为缺陷；纯偏好或额外优化不自动返修；范围内未决不报无问题；已处置问题无新证据不重开；改基准要用户明确决定。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+            ]
+          },
+          {
+            "condition": 0,
+            "branch": "NotMet",
+            "input": "条文核对：发现内容确实违反原基准并有证据不成立",
+            "expected": "缺陷绑定原要求与证据，不新增无依据质量门槛、不无新证据翻案；两轮通过及原预算保留",
+            "actual": "违反原条款且有反证为缺陷；纯偏好或额外优化不自动返修；范围内未决不报无问题；已处置问题无新证据不重开；改基准要用户明确决定。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-04",
+      "source": "request_snapshot",
+      "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+      "reading": "规则和剩余记录全部提交推送；不启动新审查、不联系其他会话",
+      "state": "Covered",
+      "acceptance_refs": [
+        3
+      ],
+      "evidence_refs": [
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+      ],
+      "review": {
+        "source_sha256": "4e6f567ed638d361221efe7916a2b85b836dd5918d4faa4a29472d1dee21019b",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "静态核对规则与本次实际执行",
+            "expected": "规则和剩余记录全部提交推送；不启动新审查、不联系其他会话",
+            "actual": "同一基准同版连续两轮范围内无缺陷才通过，原预算继续累计；本次遵守用户明确拒绝，不提问、不起Agent、不发消息，不补造Offer/审查记录。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+              ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D-SCOPE-PROCEED",
+      "kind": "Proceed",
+      "presented": "同步远端后补入范围冻结和防止标准膨胀规则，提交全部剩余记录，不启动新审查。",
+      "response": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查。",
+      "decided_by": "user",
+      "decided_at": "2026-10-28T12:01:17.415937Z",
+      "evidence_ref": "user-message://current-thread/20261028/freeze-review-scope",
+      "outcome": "Approved"
+    }
+  ],
+  "depends_on": [],
+  "supersedes": [],
+  "blocked_by": [],
+  "source_snapshot": {
+    "repository": "LFen-Skills",
+    "root": "D:\\LFEN_project\\dev_project\\LFen-Skills",
+    "vcs": "git",
+    "branch": "main",
+    "head": "f9e8a0f8177418f0c2e4da26470827495fcdad35",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 4,
+    "status_digest": "c5ce182b951fa9bbfdd6f1f7c044f4d7f29d2cdbf9806cc2f2d7347bbd23232c",
+    "captured_at": "2026-10-28T12:01:17.482223Z"
+  },
+  "scope": {
+    "in_scope": [
+      "补入冻结审查范围和验收标准的执行规则，连同既有三份暂停记录提交推送"
+    ],
+    "out_of_scope": [
+      "更改CLI、schema或运行时逻辑",
+      "更新共享安装副本",
+      "新一轮对抗性审查或跨会话协调"
+    ],
+    "allowed_paths": [
+      "skills/product-engineering/run-governed-product-workflow/SKILL.md",
+      "skills/product-engineering/run-governed-product-workflow/commands/verify.md",
+      "skills/product-engineering/run-governed-product-workflow/commands/run.md",
+      "update_log/2026-10-23-governed-workflow-adversarial-review.md",
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-07-interrupted.json",
+      ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-07-session.json",
+      ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/**",
+      ".project-governance/generated/queries/T-REVIEW-SCOPE-20261028-001/**",
+      ".project-governance/generated/query-history/T-REVIEW-SCOPE-20261028-001/**",
+      "update_log/2026-10-28-governed-workflow-review-scope.md"
+    ],
+    "forbidden_actions": [
+      "启动新的审查",
+      "发送其他会话消息",
+      "覆盖共享安装副本",
+      "修改无关文件"
+    ]
+  },
+  "authority": {
+    "execution_permissions": [
+      "read",
+      "edit-in-scope",
+      "validate",
+      "external-effect",
+      "rollback"
+    ],
+    "required_gates": [],
+    "stop_conditions": [
+      "scope-expansion",
+      "authority-conflict",
+      "critical-evidence-missing"
+    ],
+    "authority_references": [
+      "user-message://current-thread/20261028/freeze-review-scope"
+    ],
+    "authority_assessments": [
+      {
+        "reference": "user-message://current-thread/20261028/freeze-review-scope",
+        "source_kind": "Policy",
+        "status": "Valid",
+        "scope_refs": [
+          "补入冻结审查范围和验收标准的执行规则，连同既有三份暂停记录提交推送"
+        ],
+        "evidence_refs": [
+          "user-message://current-thread/20261028/freeze-review-scope",
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ],
+        "verified_at": "2026-10-28T12:01:17.415944Z",
+        "expires_at": null
+      }
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      "先同步远端且完整保留原有三份未提交记录",
+      "审查原始需求、验收标准、范围和排除项冻结；范围外建议不自动阻塞或返修",
+      "缺陷绑定原要求与证据，不新增无依据质量门槛、不无新证据翻案；两轮通过及原预算保留",
+      "规则和剩余记录全部提交推送；不启动新审查、不联系其他会话"
+    ],
+    "decision_owner": "task-initiator"
+  },
+  "plan": {
+    "steps": [
+      "在既有指引中固定审查基准和缺陷判定，不改运行接口",
+      "核对需求和文档一致性，执行现有验证",
+      "保存结果并连同三份既有记录提交推送，不启动审查"
+    ],
+    "verification": [
+      "范围规则逐条原文对照、quick_validate、目录校验、现有完整self_test、git范围与远端一致性"
+    ],
+    "rollback": [
+      "仅回退本任务三份指引修改，保留原暂停记录原件"
+    ]
+  },
+  "first_principles_analysis": {
+    "method_version": "first-principles-v1",
+    "depth": "Concise",
+    "outcome": "补入冻结审查范围和验收标准的执行规则，连同既有三份暂停记录提交推送",
+    "facts": [
+      {
+        "id": "F1",
+        "statement": "任务发起人已确认目标：补入冻结审查范围和验收标准的执行规则，连同既有三份暂停记录提交推送",
+        "evidence_refs": [
+          "user-message://current-thread/20261028/freeze-review-scope",
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "id": "C1",
+        "statement": "执行范围仅限：补入冻结审查范围和验收标准的执行规则，连同既有三份暂停记录提交推送",
+        "source_refs": [
+          "user-message://current-thread/20261028/freeze-review-scope",
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ]
+      },
+      {
+        "id": "C2",
+        "statement": "执行必须遵守允许路径、排除范围和禁止动作；allowed=['skills/product-engineering/run-governed-product-workflow/SKILL.md', 'skills/product-engineering/run-governed-product-workflow/commands/verify.md', 'skills/product-engineering/run-governed-product-workflow/commands/run.md', 'update_log/2026-10-23-governed-workflow-adversarial-review.md', '.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-07-interrupted.json', '.project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-07-session.json', '.project-governance/tasks/T-REVIEW-SCOPE-20261028-001/**', '.project-governance/generated/queries/T-REVIEW-SCOPE-20261028-001/**', '.project-governance/generated/query-history/T-REVIEW-SCOPE-20261028-001/**', 'update_log/2026-10-28-governed-workflow-review-scope.md']；out=['更改CLI、schema或运行时逻辑', '更新共享安装副本', '新一轮对抗性审查或跨会话协调']；forbidden=['启动新的审查', '发送其他会话消息', '覆盖共享安装副本', '修改无关文件']",
+        "source_refs": [
+          "user-message://current-thread/20261028/freeze-review-scope",
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ]
+      }
+    ],
+    "assumptions": [],
+    "unknowns": [],
+    "fundamentals": [
+      {
+        "id": "P1",
+        "statement": "任何方案必须直接改变已确认的目标状态，而不是只完成活动清单。",
+        "derived_from": [
+          "F1"
+        ]
+      },
+      {
+        "id": "P2",
+        "statement": "任何方案必须保持已确认的范围、权限和禁止边界。",
+        "derived_from": [
+          "C1",
+          "C2"
+        ]
+      }
+    ],
+    "causal_links": [
+      {
+        "from_ref": "P1",
+        "to_ref": "O1",
+        "rationale": "选定方案必须产生目标状态变化。",
+        "evidence_refs": [
+          "user-message://current-thread/20261028/freeze-review-scope",
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ]
+      },
+      {
+        "from_ref": "P2",
+        "to_ref": "O1",
+        "rationale": "选定方案必须在授权边界内可执行。",
+        "evidence_refs": [
+          "user-message://current-thread/20261028/freeze-review-scope",
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ]
+      }
+    ],
+    "alternatives": [
+      {
+        "id": "O0",
+        "description": "保持现状，不实施本任务变更",
+        "status": "Rejected",
+        "derived_from": [
+          "F1"
+        ],
+        "tradeoffs": [
+          "无新增实施成本",
+          "不能达到已确认目标"
+        ]
+      },
+      {
+        "id": "O1",
+        "description": "按已确认计划在授权范围内实施并验证",
+        "status": "Selected",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "tradeoffs": [
+          "直接覆盖验收标准",
+          "需要实施与回归验证成本"
+        ]
+      }
+    ],
+    "decision_criteria": [
+      {
+        "id": "K1",
+        "statement": "先同步远端且完整保留原有三份未提交记录",
+        "source_refs": [
+          "user-message://current-thread/20261028/freeze-review-scope",
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ]
+      },
+      {
+        "id": "K2",
+        "statement": "审查原始需求、验收标准、范围和排除项冻结；范围外建议不自动阻塞或返修",
+        "source_refs": [
+          "user-message://current-thread/20261028/freeze-review-scope",
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ]
+      },
+      {
+        "id": "K3",
+        "statement": "缺陷绑定原要求与证据，不新增无依据质量门槛、不无新证据翻案；两轮通过及原预算保留",
+        "source_refs": [
+          "user-message://current-thread/20261028/freeze-review-scope",
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ]
+      },
+      {
+        "id": "K4",
+        "statement": "规则和剩余记录全部提交推送；不启动新审查、不联系其他会话",
+        "source_refs": [
+          "user-message://current-thread/20261028/freeze-review-scope",
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ]
+      }
+    ],
+    "selected_approach": "O1",
+    "derivation": [
+      {
+        "plan_step": "在既有指引中固定审查基准和缺陷判定，不改运行接口",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ]
+      },
+      {
+        "plan_step": "核对需求和文档一致性，执行现有验证",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ]
+      },
+      {
+        "plan_step": "保存结果并连同三份既有记录提交推送，不启动审查",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3",
+          "K4"
+        ]
+      }
+    ],
+    "validation_refs": [
+      "范围规则逐条原文对照、quick_validate、目录校验、现有完整self_test、git范围与远端一致性"
+    ],
+    "source_refs": [
+      "user-message://current-thread/20261028/freeze-review-scope",
+      ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+    ]
+  },
+  "task_profile": {
+    "delivery_scenario": "DS-03",
+    "development_types": [
+      "DT-06"
+    ],
+    "primary_development_type": "DT-06",
+    "development_type_scopes": {
+      "DT-06": [
+        "补入冻结审查范围和验收标准的执行规则，连同既有三份暂停记录提交推送"
+      ]
+    },
+    "change_surfaces": [
+      "Agent/Collaboration"
+    ],
+    "risk_level": "Low",
+    "extension_triggers": {
+      "E01": "Inactive",
+      "E02": "Inactive",
+      "E03": "Inactive",
+      "E04": "Active",
+      "E05": "Inactive"
+    },
+    "extension_evidence_refs": {
+      "E01": [
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+      ],
+      "E02": [
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+      ],
+      "E03": [
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+      ],
+      "E04": [
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+      ],
+      "E05": [
+        ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+      ]
+    },
+    "baseline_inheritance": [
+      "Revise"
+    ],
+    "mode": "Normal",
+    "confidence": "High",
+    "basis": [
+      ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+    ],
+    "open_questions": [],
+    "applicability_facts": {
+      "product_intent_change": "No",
+      "initiative_scope_change": "No",
+      "requirement_change": "Yes",
+      "external_behavior_change": "Yes",
+      "design_change": "No",
+      "architecture_impact": "No",
+      "security_privacy_impact": "No",
+      "data_ai_impact": "No",
+      "formal_knowledge_records": "Yes",
+      "operations_impact": "No",
+      "production_release": "No",
+      "irreversible_change": "No",
+      "actual_execution": "Yes",
+      "authority_available": "Yes",
+      "migration_retirement": "No",
+      "external_system_effect": "Yes",
+      "formal_review_or_gate": "No"
+    }
+  },
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-REVIEW-SCOPE-20261028-001-before",
+      "content_ref": ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "f9e8a0f8177418f0c2e4da26470827495fcdad35",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-REVIEW-SCOPE-20261028-001-run",
+      "content_ref": ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "f9e8a0f8177418f0c2e4da26470827495fcdad35",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-REVIEW-SCOPE-20261028-001-after",
+      "content_ref": ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "f9e8a0f8177418f0c2e4da26470827495fcdad35",
+      "human_confirmation_refs": []
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "path": "task_profile",
+      "old_value": {
+        "delivery_scenario": "DS-03",
+        "development_types": [
+          "DT-06"
+        ],
+        "primary_development_type": "DT-06",
+        "development_type_scopes": {
+          "DT-06": [
+            "补入冻结审查范围和验收标准的执行规则，连同既有三份暂停记录提交推送"
+          ]
+        },
+        "change_surfaces": [
+          "Agent/Collaboration"
+        ],
+        "risk_level": "Low",
+        "extension_triggers": {
+          "E01": "Inactive",
+          "E02": "Inactive",
+          "E03": "Inactive",
+          "E04": "Active",
+          "E05": "Inactive"
+        },
+        "extension_evidence_refs": {
+          "E01": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+          ],
+          "E02": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+          ],
+          "E03": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+          ],
+          "E04": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+          ],
+          "E05": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+          ]
+        },
+        "baseline_inheritance": [
+          "Revise"
+        ],
+        "mode": "Normal",
+        "confidence": "High",
+        "basis": [
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ],
+        "open_questions": [],
+        "applicability_facts": {
+          "product_intent_change": "No",
+          "initiative_scope_change": "No",
+          "requirement_change": "Yes",
+          "external_behavior_change": "Yes",
+          "design_change": "Yes",
+          "architecture_impact": "No",
+          "security_privacy_impact": "No",
+          "data_ai_impact": "No",
+          "formal_knowledge_records": "Yes",
+          "operations_impact": "No",
+          "production_release": "No",
+          "irreversible_change": "No",
+          "actual_execution": "Yes",
+          "authority_available": "Yes",
+          "migration_retirement": "No",
+          "external_system_effect": "Yes",
+          "formal_review_or_gate": "No"
+        }
+      },
+      "new_value": {
+        "delivery_scenario": "DS-03",
+        "development_types": [
+          "DT-06"
+        ],
+        "primary_development_type": "DT-06",
+        "development_type_scopes": {
+          "DT-06": [
+            "补入冻结审查范围和验收标准的执行规则，连同既有三份暂停记录提交推送"
+          ]
+        },
+        "change_surfaces": [
+          "Agent/Collaboration"
+        ],
+        "risk_level": "Low",
+        "extension_triggers": {
+          "E01": "Inactive",
+          "E02": "Inactive",
+          "E03": "Inactive",
+          "E04": "Active",
+          "E05": "Inactive"
+        },
+        "extension_evidence_refs": {
+          "E01": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+          ],
+          "E02": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+          ],
+          "E03": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+          ],
+          "E04": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+          ],
+          "E05": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+          ]
+        },
+        "baseline_inheritance": [
+          "Revise"
+        ],
+        "mode": "Normal",
+        "confidence": "High",
+        "basis": [
+          ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json"
+        ],
+        "open_questions": [],
+        "applicability_facts": {
+          "product_intent_change": "No",
+          "initiative_scope_change": "No",
+          "requirement_change": "Yes",
+          "external_behavior_change": "Yes",
+          "design_change": "No",
+          "architecture_impact": "No",
+          "security_privacy_impact": "No",
+          "data_ai_impact": "No",
+          "formal_knowledge_records": "Yes",
+          "operations_impact": "No",
+          "production_release": "No",
+          "irreversible_change": "No",
+          "actual_execution": "Yes",
+          "authority_available": "Yes",
+          "migration_retirement": "No",
+          "external_system_effect": "Yes",
+          "formal_review_or_gate": "No"
+        }
+      },
+      "reason": "本次仅修改审查执行指引，未改变UI、接口、数据或架构设计，修正沿用资料中的设计标记",
+      "basis": ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/survey.json",
+      "changed_at": "2026-10-28T12:01:36.049570Z"
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "path": "requirement_items",
+      "old_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+          "reading": "先同步远端且完整保留原有三份未提交记录",
+          "state": "Open",
+          "acceptance_refs": [
+            0
+          ],
+          "evidence_refs": []
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+          "reading": "审查原始需求、验收标准、范围和排除项冻结；范围外建议不自动阻塞或返修",
+          "state": "Open",
+          "acceptance_refs": [
+            1
+          ],
+          "evidence_refs": []
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+          "reading": "缺陷绑定原要求与证据，不新增无依据质量门槛、不无新证据翻案；两轮通过及原预算保留",
+          "state": "Open",
+          "acceptance_refs": [
+            2
+          ],
+          "evidence_refs": []
+        },
+        {
+          "id": "R-04",
+          "source": "request_snapshot",
+          "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+          "reading": "规则和剩余记录全部提交推送；不启动新审查、不联系其他会话",
+          "state": "Open",
+          "acceptance_refs": [
+            3
+          ],
+          "evidence_refs": []
+        }
+      ],
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+          "reading": "先同步远端且完整保留原有三份未提交记录",
+          "state": "Covered",
+          "acceptance_refs": [
+            0
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+          ],
+          "review": {
+            "source_sha256": "4e6f567ed638d361221efe7916a2b85b836dd5918d4faa4a29472d1dee21019b",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "Git快进与已推送对象原件逐字节核对",
+                "expected": "先同步远端且完整保留原有三份未提交记录",
+                "actual": "先快进3个远端提交；fa27980随后先行发布指定3份记录且原件SHA256一致",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+          "reading": "审查原始需求、验收标准、范围和排除项冻结；范围外建议不自动阻塞或返修",
+          "state": "Covered",
+          "acceptance_refs": [
+            1
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+          ],
+          "review": {
+            "source_sha256": "4e6f567ed638d361221efe7916a2b85b836dd5918d4faa4a29472d1dee21019b",
+            "conditions": [
+              "已有明确审查边界"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "条文核对：已有明确审查边界成立",
+                "expected": "审查原始需求、验收标准、范围和排除项冻结；范围外建议不自动阻塞或返修",
+                "actual": "冻结原文、验收、对象、排除项与检查深度；不得将原要求/强制Gate/直接回归划到范围外。建议单列，不写入阻断数组。",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "条文核对：已有明确审查边界不成立",
+                "expected": "审查原始需求、验收标准、范围和排除项冻结；范围外建议不自动阻塞或返修",
+                "actual": "冻结原文、验收、对象、排除项与检查深度；不得将原要求/强制Gate/直接回归划到范围外。建议单列，不写入阻断数组。",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+          "reading": "缺陷绑定原要求与证据，不新增无依据质量门槛、不无新证据翻案；两轮通过及原预算保留",
+          "state": "Covered",
+          "acceptance_refs": [
+            2
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+          ],
+          "review": {
+            "source_sha256": "4e6f567ed638d361221efe7916a2b85b836dd5918d4faa4a29472d1dee21019b",
+            "conditions": [
+              "发现内容确实违反原基准并有证据"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "条文核对：发现内容确实违反原基准并有证据成立",
+                "expected": "缺陷绑定原要求与证据，不新增无依据质量门槛、不无新证据翻案；两轮通过及原预算保留",
+                "actual": "违反原条款且有反证为缺陷；纯偏好或额外优化不自动返修；范围内未决不报无问题；已处置问题无新证据不重开；改基准要用户明确决定。",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "条文核对：发现内容确实违反原基准并有证据不成立",
+                "expected": "缺陷绑定原要求与证据，不新增无依据质量门槛、不无新证据翻案；两轮通过及原预算保留",
+                "actual": "违反原条款且有反证为缺陷；纯偏好或额外优化不自动返修；范围内未决不报无问题；已处置问题无新证据不重开；改基准要用户明确决定。",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-04",
+          "source": "request_snapshot",
+          "quote": "先同步远端，再把冻结审查范围、防止标准膨胀的规则补进 skill，连同剩余记录全部提交推送，不启动新的审查",
+          "reading": "规则和剩余记录全部提交推送；不启动新审查、不联系其他会话",
+          "state": "Covered",
+          "acceptance_refs": [
+            3
+          ],
+          "evidence_refs": [
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+            ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+          ],
+          "review": {
+            "source_sha256": "4e6f567ed638d361221efe7916a2b85b836dd5918d4faa4a29472d1dee21019b",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "静态核对规则与本次实际执行",
+                "expected": "规则和剩余记录全部提交推送；不启动新审查、不联系其他会话",
+                "actual": "同一基准同版连续两轮范围内无缺陷才通过，原预算继续累计；本次遵守用户明确拒绝，不提问、不起Agent、不发消息，不补造Offer/审查记录。",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/source-files.json",
+                  ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/validation.json"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "reason": "按用户原话对照范围冻结、防标准膨胀、发布与不启动审查要求，保留静态核对和真实回归证据",
+      "basis": ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/requirements-verification.json",
+      "changed_at": "2026-10-28T12:11:20.401211Z"
+    },
+    {
+      "from_revision": 3,
+      "to_revision": 4,
+      "path": "authority.execution_permissions",
+      "old_value": [
+        "read",
+        "edit-in-scope",
+        "validate",
+        "external-effect"
+      ],
+      "new_value": [
+        "read",
+        "edit-in-scope",
+        "validate",
+        "external-effect",
+        "rollback"
+      ],
+      "reason": "为撤销本轮生成器无关副作用的已授权可逆恢复补齐正式事件权限；对象仅为本轮派生文件，未扩大产品范围或风险",
+      "basis": ".project-governance/tasks/T-REVIEW-SCOPE-20261028-001/evidence/generated-console-restoration.json",
+      "changed_at": "2026-10-28T12:16:05.549935Z"
+    }
+  ],
+  "tailoring_resolution": {
+    "rule_set_id": "VC-PPG-TAIL-001",
+    "rule_set_version": "6.3 Candidate",
+    "rule_set_status": "In Review",
+    "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+    "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+    "resolver_sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+    "task_contract_schema_sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045",
+    "input_digest": "aac28cc0aa64f47eaebbefe25e2d525c26d7b7675231498dc6529cc9ffe78b53",
+    "stage": "S8",
+    "applicable_standards": [
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E04"
+    ],
+    "pending_standards": [],
+    "stage_context_standards": [
+      "C04",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E04"
+    ],
+    "control_strength": "minimum",
+    "independent_review": false,
+    "explicit_human_gate": false,
+    "blocking_reasons": [],
+    "rule_ids": [
+      "VC-PPG-TAIL-001:always_applicable",
+      "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_system_effect=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:requirement_change=Yes",
+      "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+      "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+      "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+      "VC-PPG-TAIL-001:development_types:DT-06",
+      "VC-PPG-TAIL-001:execution_modes:Normal",
+      "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E02:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E03:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+      "VC-PPG-TAIL-001:risk_levels:Low"
+    ],
+    "source_sections": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sections": [
+          "2",
+          "10",
+          "12"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "22",
+          "23"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sections": [
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sections": [
+          "9",
+          "14",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "9"
+        ]
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      }
+    ],
+    "complete_source_files": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sha256": "8cb8a7b01cec9b1c868a1cba27352fef1c6314ff85f1956072af6dee9eeabdf0"
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+      }
+    ],
+    "profile_coverage_digest": {
+      "applicable": 85,
+      "total": 137,
+      "sha256": "4766fcc7435b32db84ee3cb0eae112ab12532206ce824de429434e0122be7e1e"
+    }
+  }
+}

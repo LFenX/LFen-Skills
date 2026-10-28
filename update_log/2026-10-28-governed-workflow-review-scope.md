@@ -10,3 +10,7 @@
 - 验证：quick_validate、目录检查、git diff --check、既有完整self_test均exit0；证据见本任务evidence/validation.json。
 - 适用限制：本次仅补充执行指引，未更改CLI/schema/运行代码；自检不证明Agent总能正确理解自然语言范围。未更新冻结的共享安装副本。
 - 生成器副作用：任务初始化自动刷新了本地项目控制台快照；交付前恢复其基线，不纳入本次三份指引的修改范围。
+
+- 最终发布：规则提交6a84c81c8780ea7f53f57293f7a4b7583df4b878已推送，Skill gates与Validate skill catalog均success。
+- 交付留档：after.json已保存Implemented；人工决定Pending，用户明确不审查的指令已记录，未生成审查问答。
+- 恢复留痕：生成控制台副作用已还原；rollback记录权限拒绝及正式修订、A02重试均保留，复核97份源码摘要未变。

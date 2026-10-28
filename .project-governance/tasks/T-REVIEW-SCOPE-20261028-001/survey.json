@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-10-28T12:01:17.372938Z",
+  "baseline_before_sync": "3cab18d5082a730099e5abc2f2cd37deac45bf26",
+  "synced_head": "f9e8a0f8177418f0c2e4da26470827495fcdad35",
+  "sync": "git fetch origin; git merge --ff-only origin/main，快进3个提交且无冲突",
+  "preserved_records": {
+    "update_log/2026-10-23-governed-workflow-adversarial-review.md": "c707674410399d06a38ecd3c4e6b037f79eb63c9ed8f5713187ba1e63829c1c5",
+    ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-07-interrupted.json": "844ea01ef0ff40007cff13db1731b925122d1c360c6bd71c383b34749bd09771",
+    ".project-governance/tasks/T-ADVERSARIAL-20261023-001/evidence/round-07-session.json": "3626be882f853b3bb77e409cd45cc13c5ce7a6f7d7264f12a7b00567611dc9c3"
+  },
+  "locations": [
+    "SKILL.md原则12与完工输出",
+    "commands/verify.md可选对抗性审查",
+    "commands/run.md返修执行"
+  ],
+  "current": "已有3轮/2批/60分钟预算、连续两轮通过和跨会话防循环；缺少固定审查基准与范围外建议分流。",
+  "choice": "仅修订三个既有Markdown指引，不改变schema、CLI和运行代码；复用现有原任务证据引用保存冻结基准。",
+  "unknowns": [],
+  "authorization": "当前用户明确要求同步、规则修订及全部剩余记录推送，并明确禁止新审查。"
+}
