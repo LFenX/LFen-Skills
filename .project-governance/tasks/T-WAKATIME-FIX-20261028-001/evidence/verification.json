@@ -1,0 +1,42 @@
+{
+  "recorded_at": "2026-10-28T12:39:41.487528+00:00",
+  "tests": {
+    "diagnostic": {
+      "passed": 11,
+      "source": "tool-output:7fbdc6"
+    },
+    "catalog": {
+      "passed": 22,
+      "source": "tool-output:e8a584"
+    },
+    "install_links": {
+      "passed": 10,
+      "source": "tool-output:e8a584"
+    },
+    "total_passed": 43
+  },
+  "other_checks": {
+    "skill_structure": "Passed",
+    "catalog_consistency": "Passed (10 skills / 6 top categories)",
+    "git_diff_check": "Passed",
+    "source": "tool-output:a165f1"
+  },
+  "resolved_findings": {
+    "F01": "默认诊断移除全部CLI执行；合成损坏队列/配置及文件名不变，进程、shell、socket调用均为零；明确队列未检查。",
+    "F02": "带引号与项目专用值规范化，旧UUID v4保守过滤；原泄露形态及成功对照通过。"
+  },
+  "validation_actor": "Codex 工程安全隐私回归验证；不是人工最终验收或新的对抗性审查。",
+  "limits": [
+    "只用合成配置、队列和mock；未执行真实CLI、读取真实凭证或触及真实队列。",
+    "安装器未改，本批未重跑其17项测试。",
+    "真实队列数量、语言和模型不再由默认诊断获取；明确not_checked。"
+  ],
+  "source_hashes": {
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md": "224cafe67aabeecdc58d0710a83aa9e3948ccefdfb1bd1cd6254557afef088e0",
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/references/accuracy-and-recovery.md": "a9bc9a17832211c512152554e832e876e1a9614aa73ea5bc69a6aeb16c100ead",
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/scripts/inspect_wakatime.py": "ab822681c7256f744d8d1a81ba80de0d5bea7a03fa029a83f4149b7d47509040",
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/scripts/test_inspect_wakatime.py": "719cf655416e3b1d513fc99a3dad5483b3c13fb35f819e06a2b08fdf951605e9"
+  },
+  "additional_review_rounds": 0,
+  "repair_batches": 1
+}

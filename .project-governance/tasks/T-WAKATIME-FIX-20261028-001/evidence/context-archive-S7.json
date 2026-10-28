@@ -1,0 +1,11 @@
+{
+  "recorded_at": "2026-10-28T12:41:08.543841+00:00",
+  "reason": "阶段变更，保留旧查询和请求原件，防止旧阶段缓存混作当前证据。",
+  "hashes": {
+    ".project-governance/generated/query-history/T-WAKATIME-FIX-20261028-001/fff505409612a1ed8a0b751533401ad7a36c1e8d53306455c59a4d797b25d512/clause-context.md": "e417e28167c49e64164ada8a95e3f2aa09b7ed1f60819f08ec564791b745e8ea",
+    ".project-governance/generated/query-history/T-WAKATIME-FIX-20261028-001/fff505409612a1ed8a0b751533401ad7a36c1e8d53306455c59a4d797b25d512/clause-context.md.view.json": "9fe721f3ff81a9d21ec4a9954258f1183a3722e96c5a09d3d2bef4c878db06f1",
+    ".project-governance/generated/query-history/T-WAKATIME-FIX-20261028-001/fff505409612a1ed8a0b751533401ad7a36c1e8d53306455c59a4d797b25d512/query-result.json": "cba38eae72f64a1214d2c3f16feaf4f4955df44b300fbc96871330056afaf3c9",
+    ".project-governance/generated/query-history/T-WAKATIME-FIX-20261028-001/fff505409612a1ed8a0b751533401ad7a36c1e8d53306455c59a4d797b25d512/query-result.json.view.json": "5ed2d62ef9555de820ce966bbc7c50c3598e97b99f7d345e14f3aedb04205708",
+    ".project-governance/generated/query-history/T-WAKATIME-FIX-20261028-001/requests-before-s7-20261028T124108/fff505409612a1ed8a0b751533401ad7a36c1e8d53306455c59a4d797b25d512.json": "3bdc7663f7c2e575895125f80aba4903b03d1068a4e593f458f33b2ef422974b"
+  }
+}

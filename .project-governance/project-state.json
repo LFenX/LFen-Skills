@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-10-26T00:09:03.075568Z",
-  "source_digest": "1c17d7c17881056bf719c770dfc68f34d4458280fb6496841ea8c674efdd978d",
+  "generated_at": "2026-10-28T12:41:58.708174Z",
+  "source_digest": "bd0befda5ff4e07ef61c8e08c9d998784f66560560c0e91f427e289be9290504",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -274,6 +274,29 @@
         "policy": "implemented-proof-v1",
         "mode": "Current",
         "status": "CurrentVerified"
+      }
+    },
+    {
+      "task_id": "T-WAKATIME-SKILL-20261028-001",
+      "ordinal": 25,
+      "status": "Implemented",
+      "user_decision": "Pending",
+      "revision": 8,
+      "completed_at": "2026-10-28T12:00:31.116037Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "Current",
+        "status": "CurrentVerified"
+      }
+    },
+    {
+      "task_id": "T-WAKATIME-FIX-20261028-001",
+      "ordinal": 26,
+      "status": "Active",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "ActiveRead",
+        "status": "ActivePendingTerminal"
       }
     }
   ],
@@ -622,6 +645,21 @@
       "task_id": "T-AUDIO-20261026-002",
       "ordinal": 24,
       "fact": "原任务收尾被验证顺序校验拒绝，保留原账本并以Superseded衔接本次实际核验，未绕过门禁"
+    },
+    {
+      "task_id": "T-WAKATIME-SKILL-20261028-001",
+      "ordinal": 25,
+      "fact": "专属 skill 已按编程活动统计/WakaTime 两级分类加入 LFen-Skills，原 9 个 skill 名称与路径不变。"
+    },
+    {
+      "task_id": "T-WAKATIME-SKILL-20261028-001",
+      "ordinal": 25,
+      "fact": "内容提交 f9e8a0f8177418f0c2e4da26470827495fcdad35 已推送 origin/main，远端核对一致，两项 GitHub Actions 成功。"
+    },
+    {
+      "task_id": "T-WAKATIME-SKILL-20261028-001",
+      "ordinal": 25,
+      "fact": "本任务没有重新配置实时 WakaTime 环境；既有桌面执行及云端未验项在参考文档中保持明确限制。"
     }
   ],
   "unresolved_items": [
@@ -940,6 +978,30 @@
           "reason": "同范围发布后验证与工程收尾"
         }
       ],
+      "required_by": []
+    },
+    {
+      "task_id": "T-WAKATIME-SKILL-20261028-001",
+      "ordinal": 25,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": [
+        "T-WAKATIME-FIX-20261028-001"
+      ]
+    },
+    {
+      "task_id": "T-WAKATIME-FIX-20261028-001",
+      "ordinal": 26,
+      "depends_on": [
+        "T-WAKATIME-SKILL-20261028-001"
+      ],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
       "required_by": []
     }
   ],

@@ -1,0 +1,452 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskOutcome",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-WAKATIME-SKILL-20261028-001",
+  "task_id": "T-WAKATIME-SKILL-20261028-001",
+  "revision": 8,
+  "status": "Implemented",
+  "user_decision": {
+    "outcome": "Pending"
+  },
+  "adversarial_review": [
+    {
+      "event": "Offer",
+      "prompt": "WakaTime 专属 skill 已上传。是否启动可选对抗性审查？预算最多 3 轮审查、2 批返修、60 分钟；任一到限就停止并汇总，只有同一版本连续两轮完整无问题才通过。",
+      "evidence_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-authorization.json",
+      "budget": {
+        "review_rounds": 3,
+        "repair_batches": 2,
+        "elapsed_minutes": 60
+      },
+      "recorded_at": "2026-10-28T12:09:45.899180+00:00"
+    },
+    {
+      "event": "Offer",
+      "prompt": "一轮对抗性审查即可",
+      "evidence_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-authorization.json",
+      "budget": {
+        "review_rounds": 1,
+        "repair_batches": 2,
+        "elapsed_minutes": 60
+      },
+      "recorded_at": "2026-10-28T12:09:46.230617+00:00"
+    },
+    {
+      "event": "Decision",
+      "outcome": "Accepted",
+      "response": "一轮对抗性审查即可",
+      "decided_by": "当前会话的人类用户",
+      "evidence_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-authorization.json",
+      "recorded_at": "2026-10-28T12:09:46.547768+00:00",
+      "budget": {
+        "review_rounds": 1,
+        "repair_batches": 2,
+        "elapsed_minutes": 60
+      }
+    },
+    {
+      "event": "WorkStarted",
+      "work_type": "Review",
+      "work_id": "WAKATIME-REVIEW-01",
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-authorization.json"
+      ],
+      "recorded_at": "2026-10-28T12:09:46.866794+00:00"
+    },
+    {
+      "event": "Round",
+      "recorded_at": "2026-10-28T12:26:55.724460+00:00",
+      "round_id": "WAKATIME-REVIEW-01",
+      "started_at": "2026-10-28T12:09:46.866794+00:00",
+      "reviewer": "独立只读子 Agent /root/wakatime_review_one",
+      "delivery_task_id": "T-WAKATIME-SKILL-20261028-001",
+      "subject_sha256": "6a6997d93847d5a5bf78a4b7f8adf0147d14c5e60f3dbf32ea1a6a8cbb9ce0f5",
+      "requirements_sha256": "1d2b6ca097a750b12f1d9ab0c0bf85c4c74185bfceb3eb36904dd10dfe09f5f4",
+      "report_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md",
+      "coverage": "Complete",
+      "unreviewed_items": [],
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md"
+      ],
+      "findings": [
+        {
+          "id": "F01",
+          "summary": "P1：原队列 CLI 探针未隔离；损坏恢复会改名数据库并触发诊断上传及凭证命令",
+          "evidence_refs": [
+            ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md"
+          ]
+        },
+        {
+          "id": "F02",
+          "summary": "P2：带引号与项目专用旧 UUID v4 凭证在元数据输出中漏脱敏",
+          "evidence_refs": [
+            ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md"
+          ]
+        }
+      ],
+      "resolutions": [],
+      "review_contract_version": "report-bound-v2",
+      "report_sha256": "042c455319e614c40d0b7d2677eafb5cced65e25789d601b696e61fa4132aa83",
+      "delivery_completed_at": "2026-10-28T12:00:31.116037Z",
+      "delivery_verified_at": "2026-10-28T12:00:30.615080Z",
+      "session_completed": false
+    }
+  ],
+  "completed_at": "2026-10-28T12:00:31.116037Z",
+  "source_snapshot": {
+    "repository": "waka",
+    "root": "C:\\Users\\Administrator\\Documents\\Codex\\work\\waka",
+    "vcs": "git",
+    "branch": "codex/wakatime-coding-analytics",
+    "head": "f9e8a0f8177418f0c2e4da26470827495fcdad35",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 7,
+    "status_digest": "046f07758c2d3b0002e93c93800f3387c392020f42ef9f1a38b40d3ad28a840a",
+    "captured_at": "2026-10-28T12:00:31.116290Z",
+    "worktree_baseline": {
+      "version": "dirty-path-bytes-v1",
+      "paths": {
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/before.json": {
+          "worktree": {
+            "kind": "file",
+            "sha256": "199f7f72707fb2227ca05f67ddd7cd42840dbdd8a2d5d03ed263d027df443bcb",
+            "mode": 438
+          },
+          "index": [
+            "100644 b6ec933733cd0fb36a870cc3998885b7ea0a2ec7 0"
+          ]
+        },
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/failure-and-recovery.json": {
+          "worktree": {
+            "kind": "file",
+            "sha256": "5201ae5bdcbcd553d3b84be9a56b556830e0fc9a36065bf05223b39beb70ec85",
+            "mode": 438
+          },
+          "index": [
+            "100644 0d2e164f4d19a85c80aa86f9b908ff2baf3ac1bc 0"
+          ]
+        },
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/publication.json": {
+          "worktree": {
+            "kind": "file",
+            "sha256": "9119b7ebddadcca8d0c49779b147593aa9c7151c4d8480f6ad3cb8cc3eb15ef5",
+            "mode": 438
+          },
+          "index": []
+        },
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/query-history-recovery.json": {
+          "worktree": {
+            "kind": "file",
+            "sha256": "bc5a679cb14177adc99e9024b6b56f65fbd43128e68c950fe02d33d041874ff8",
+            "mode": 438
+          },
+          "index": []
+        },
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/requirements-review.md": {
+          "worktree": {
+            "kind": "file",
+            "sha256": "e1f60fb050f39267447b4d5332a2e53bfc72b85cbfeecb7f3773b9723434185f",
+            "mode": 438
+          },
+          "index": []
+        },
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/run.jsonl": {
+          "worktree": {
+            "kind": "file",
+            "sha256": "b7fe9e0411a9b479dc34abd2770501ebae09b10bdd819a45e6a384dcafec345c",
+            "mode": 438
+          },
+          "index": [
+            "100644 194cbc48bd772226ddd188a3741f9e4822011ff0 0"
+          ]
+        },
+        "update_log/2026-10-28-wakatime-ai-tracking-skill.md": {
+          "worktree": {
+            "kind": "file",
+            "sha256": "cf3c6fde0aac450b5ee37e0ecbbafb965bf72ec5638c5792b1010dc5fe482014",
+            "mode": 438
+          },
+          "index": [
+            "100644 adc0c81d5fc199f6061c236f913c9fffaf9b98c6 0"
+          ]
+        }
+      },
+      "sha256": "24d2e2badec62637e39093086652bfd802e6639a0622483b65156098d1cfc104"
+    }
+  },
+  "established_facts": [
+    "专属 skill 已按编程活动统计/WakaTime 两级分类加入 LFen-Skills，原 9 个 skill 名称与路径不变。",
+    "内容提交 f9e8a0f8177418f0c2e4da26470827495fcdad35 已推送 origin/main，远端核对一致，两项 GitHub Actions 成功。",
+    "本任务没有重新配置实时 WakaTime 环境；既有桌面执行及云端未验项在参考文档中保持明确限制。"
+  ],
+  "actual_changes": [
+    "新增技能正文、UI 元数据、两份参考、只读诊断及 9 项隔离测试。",
+    "新增精准两级分类，更新分类源、六份生成目录和中英文新增说明，记录独立更新日志。",
+    "按完整载体保留委托原文、执行失败与恢复、逐项复核、测试和实际发布证据；没有改动治理运行实现。",
+    "结果保存后以仓库当前治理工具成功重建项目状态与审核视图；保留旧安装副本 schema 不兼容的失败记录，没有改写历史任务。"
+  ],
+  "verification": [
+    {
+      "result": "Passed",
+      "summary": "58 项测试中 57 项通过、1 项 POSIX 专用跳过；结构、目录、安装器、只读冒烟及隐私检查通过",
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "远端 SHA 和两项 CI 均核实，已测试源文件 SHA 一致",
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/publication.json"
+      ]
+    },
+    {
+      "result": "Passed",
+      "summary": "历史查询原件保留，索引及当前任务包正式校验通过",
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/query-history-recovery.json"
+      ]
+    }
+  ],
+  "incomplete_items": [],
+  "legacy_issues": [],
+  "decisions": [],
+  "evidence_refs": [
+    ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/requirements-review.md",
+    ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/finalization.json"
+  ],
+  "next_tasks": [],
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-WAKATIME-SKILL-20261028-001-before",
+      "content_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "fbb125db45f7e2152f45f317d5c91abac113fc3d",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-WAKATIME-SKILL-20261028-001-run",
+      "content_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "fbb125db45f7e2152f45f317d5c91abac113fc3d",
+      "human_confirmation_refs": [],
+      "outcome": "Revised"
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-WAKATIME-SKILL-20261028-001-after",
+      "content_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "fbb125db45f7e2152f45f317d5c91abac113fc3d",
+      "human_confirmation_refs": [],
+      "outcome": "Created"
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "path": "evidence_refs",
+      "old_value": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/requirements-review.md"
+      ],
+      "new_value": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/requirements-review.md",
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/finalization.json"
+      ],
+      "reason": "如实补充结果留档后派生视图生成的失败与恢复，原工程事实和用户 Pending 决定保持。",
+      "basis": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/finalization.json",
+      "changed_at": "2026-10-28T12:03:39.882513Z"
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "path": "actual_changes",
+      "old_value": [
+        "新增技能正文、UI 元数据、两份参考、只读诊断及 9 项隔离测试。",
+        "新增精准两级分类，更新分类源、六份生成目录和中英文新增说明，记录独立更新日志。",
+        "按完整载体保留委托原文、执行失败与恢复、逐项复核、测试和实际发布证据；没有改动治理运行实现。"
+      ],
+      "new_value": [
+        "新增技能正文、UI 元数据、两份参考、只读诊断及 9 项隔离测试。",
+        "新增精准两级分类，更新分类源、六份生成目录和中英文新增说明，记录独立更新日志。",
+        "按完整载体保留委托原文、执行失败与恢复、逐项复核、测试和实际发布证据；没有改动治理运行实现。",
+        "结果保存后以仓库当前治理工具成功重建项目状态与审核视图；保留旧安装副本 schema 不兼容的失败记录，没有改写历史任务。"
+      ],
+      "reason": "如实补充结果留档后派生视图生成的失败与恢复，原工程事实和用户 Pending 决定保持。",
+      "basis": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/finalization.json",
+      "changed_at": "2026-10-28T12:03:39.882538Z"
+    },
+    {
+      "from_revision": 3,
+      "to_revision": 4,
+      "reason": "按真实用户答复将一轮额度记账并启动只读审查",
+      "basis": "questionItemId=[\"request_user_input_async\",\"call_aa5f7e15b6e64a269ee46575aa75848b\",0]; current human user reply",
+      "changed_at": "2026-10-28T12:09:45.899180+00:00",
+      "path": "adversarial_review.0",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Offer",
+        "prompt": "WakaTime 专属 skill 已上传。是否启动可选对抗性审查？预算最多 3 轮审查、2 批返修、60 分钟；任一到限就停止并汇总，只有同一版本连续两轮完整无问题才通过。",
+        "evidence_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-authorization.json",
+        "budget": {
+          "review_rounds": 3,
+          "repair_batches": 2,
+          "elapsed_minutes": 60
+        },
+        "recorded_at": "2026-10-28T12:09:45.899180+00:00"
+      }
+    },
+    {
+      "from_revision": 4,
+      "to_revision": 5,
+      "reason": "按真实用户答复将一轮额度记账并启动只读审查",
+      "basis": "questionItemId=[\"request_user_input_async\",\"call_aa5f7e15b6e64a269ee46575aa75848b\",0]; current human user reply",
+      "changed_at": "2026-10-28T12:09:46.230617+00:00",
+      "path": "adversarial_review.1",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Offer",
+        "prompt": "一轮对抗性审查即可",
+        "evidence_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-authorization.json",
+        "budget": {
+          "review_rounds": 1,
+          "repair_batches": 2,
+          "elapsed_minutes": 60
+        },
+        "recorded_at": "2026-10-28T12:09:46.230617+00:00"
+      }
+    },
+    {
+      "from_revision": 5,
+      "to_revision": 6,
+      "reason": "按真实用户答复将一轮额度记账并启动只读审查",
+      "basis": "questionItemId=[\"request_user_input_async\",\"call_aa5f7e15b6e64a269ee46575aa75848b\",0]; current human user reply",
+      "changed_at": "2026-10-28T12:09:46.547768+00:00",
+      "path": "adversarial_review.2",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Decision",
+        "outcome": "Accepted",
+        "response": "一轮对抗性审查即可",
+        "decided_by": "当前会话的人类用户",
+        "evidence_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-authorization.json",
+        "recorded_at": "2026-10-28T12:09:46.547768+00:00",
+        "budget": {
+          "review_rounds": 1,
+          "repair_batches": 2,
+          "elapsed_minutes": 60
+        }
+      }
+    },
+    {
+      "from_revision": 6,
+      "to_revision": 7,
+      "reason": "按真实用户答复将一轮额度记账并启动只读审查",
+      "basis": "questionItemId=[\"request_user_input_async\",\"call_aa5f7e15b6e64a269ee46575aa75848b\",0]; current human user reply",
+      "changed_at": "2026-10-28T12:09:46.866794+00:00",
+      "path": "adversarial_review.3",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "WorkStarted",
+        "work_type": "Review",
+        "work_id": "WAKATIME-REVIEW-01",
+        "evidence_refs": [
+          ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-authorization.json"
+        ],
+        "recorded_at": "2026-10-28T12:09:46.866794+00:00"
+      }
+    },
+    {
+      "from_revision": 7,
+      "to_revision": 8,
+      "reason": "保存获准的一轮独立审查真实发现；不增加审查轮次",
+      "basis": "subagent:/root/wakatime_review_one:final-report",
+      "changed_at": "2026-10-28T12:26:55.724460+00:00",
+      "path": "adversarial_review.4",
+      "old_value": {
+        "$missing": true
+      },
+      "new_value": {
+        "event": "Round",
+        "recorded_at": "2026-10-28T12:26:55.724460+00:00",
+        "round_id": "WAKATIME-REVIEW-01",
+        "started_at": "2026-10-28T12:09:46.866794+00:00",
+        "reviewer": "独立只读子 Agent /root/wakatime_review_one",
+        "delivery_task_id": "T-WAKATIME-SKILL-20261028-001",
+        "subject_sha256": "6a6997d93847d5a5bf78a4b7f8adf0147d14c5e60f3dbf32ea1a6a8cbb9ce0f5",
+        "requirements_sha256": "1d2b6ca097a750b12f1d9ab0c0bf85c4c74185bfceb3eb36904dd10dfe09f5f4",
+        "report_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md",
+        "coverage": "Complete",
+        "unreviewed_items": [],
+        "evidence_refs": [
+          ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md"
+        ],
+        "findings": [
+          {
+            "id": "F01",
+            "summary": "P1：原队列 CLI 探针未隔离；损坏恢复会改名数据库并触发诊断上传及凭证命令",
+            "evidence_refs": [
+              ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md"
+            ]
+          },
+          {
+            "id": "F02",
+            "summary": "P2：带引号与项目专用旧 UUID v4 凭证在元数据输出中漏脱敏",
+            "evidence_refs": [
+              ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md"
+            ]
+          }
+        ],
+        "resolutions": [],
+        "review_contract_version": "report-bound-v2",
+        "report_sha256": "042c455319e614c40d0b7d2677eafb5cced65e25789d601b696e61fa4132aa83",
+        "delivery_completed_at": "2026-10-28T12:00:31.116037Z",
+        "delivery_verified_at": "2026-10-28T12:00:30.615080Z",
+        "session_completed": false
+      }
+    }
+  ],
+  "scope_reconciliation": {
+    "status": "Passed",
+    "changed_count": 23,
+    "out_of_scope": [],
+    "undeclared_untouched": [
+      ".project-governance/project-state.json",
+      ".project-governance/generated/queries/T-WAKATIME-SKILL-20261028-001",
+      ".project-governance/generated/query-history/T-WAKATIME-SKILL-20261028-001"
+    ],
+    "external_declarations": [],
+    "reason": "dirty-path-bytes-v1: 0 preexisting paths retained byte/index-identical and uncommitted",
+    "baseline_sha256": "b5d5d6ea5b5a8c04dd6234cbab958b7fffc55a6a7d0eb4afc464e7774095247d",
+    "scope_sha256": "344e3a3a0699e1a8318df16497b24f70d73f0bc52ba920eeb8966f4da32e612f",
+    "delivery_sha256": "0a6815f272f0e6eb2a982462a1c02d47399ab2a08a0a85380483924b2f5b0647",
+    "report_sha256": "b66dd50394054ff4598799c7cdfc701871ec03dacaa83e9a99ed40e41e11f5a5"
+  }
+}

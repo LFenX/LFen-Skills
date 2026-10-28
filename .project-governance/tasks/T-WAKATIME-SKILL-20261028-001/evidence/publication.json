@@ -1,0 +1,27 @@
+{
+  "verified_at": "2026-10-28T11:46:26.465332+00:00",
+  "repository": "https://github.com/LFenX/LFen-Skills",
+  "target_ref": "refs/heads/main",
+  "content_commit": "f9e8a0f8177418f0c2e4da26470827495fcdad35",
+  "remote_commit_at_verification": "f9e8a0f8177418f0c2e4da26470827495fcdad35",
+  "push_kind": "normal fast-forward; no force",
+  "push_source": "tool-output:04ae39",
+  "source_hashes_unchanged": true,
+  "ci": [
+    {
+      "id": 40682015423,
+      "name": "Validate skill catalog",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40682015423"
+    },
+    {
+      "id": 40682015443,
+      "name": "Skill gates",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40682015443"
+    }
+  ],
+  "rollback": "仅为本任务内容追加 revert 提交，不强推或删除共享历史。"
+}

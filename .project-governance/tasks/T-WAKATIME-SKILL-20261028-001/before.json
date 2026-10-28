@@ -6,7 +6,7 @@
   "work_item_id": "W-WAKATIME-SKILL-20261028-001",
   "task_id": "T-WAKATIME-SKILL-20261028-001",
   "ordinal": 25,
-  "revision": 6,
+  "revision": 9,
   "lifecycle_state": "Frozen",
   "created_at": "2026-10-28T11:15:07.779860Z",
   "frozen_at": "2026-10-28T11:19:52.002941Z",
@@ -70,11 +70,30 @@
       "source": "request_snapshot",
       "quote": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
       "reading": "将 skill 放入 LFen-Skills 仓库并完成 GitHub 上传。",
-      "state": "Open",
-      "evidence_refs": [],
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/publication.json"
+      ],
       "acceptance_refs": [
         2
-      ]
+      ],
+      "review": {
+        "source_sha256": "564e613a9bfed65dab8d91eb8aa595a90fe1c6eaee66befefd4cc5b172a17615",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+            "expected": "专属 skill 按仓库流程上传 LFen-Skills。",
+            "actual": "提交 f9e8a0f8177418f0c2e4da26470827495fcdad35 已推送 origin/main，远端 SHA 一致，两项 CI 均成功。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/publication.json"
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "R-03",
@@ -218,7 +237,9 @@
       "SKILLS.en.md",
       "update_log/2026-10-28-wakatime-ai-tracking-skill.md",
       ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001",
-      ".project-governance/project-state.json"
+      ".project-governance/project-state.json",
+      ".project-governance/generated/queries/T-WAKATIME-SKILL-20261028-001",
+      ".project-governance/generated/query-history/T-WAKATIME-SKILL-20261028-001"
     ],
     "forbidden_actions": [
       "禁止上传密钥、用户配置副本、私人项目路径和原始会话；禁止强推或覆盖其他任务。"
@@ -495,7 +516,8 @@
     "mode": "Normal",
     "confidence": "Medium",
     "basis": [
-      "README.md"
+      "README.md",
+      ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/publication.json"
     ],
     "open_questions": [],
     "applicability_facts": {
@@ -1098,6 +1120,342 @@
       "reason": "逐条对照用户完整原话，登记已验证的 skill、分类及基本流程；远端上传一条保持 Open，待实际推送后复核。",
       "basis": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json",
       "changed_at": "2026-10-28T11:39:27.954550Z"
+    },
+    {
+      "from_revision": 6,
+      "to_revision": 7,
+      "path": "requirement_items",
+      "old_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+          "reading": "总结本次多工具接入过程、步骤与失败经验，形成可复用的专属 skill。",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json",
+            "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md",
+            "catalog/index.json"
+          ],
+          "acceptance_refs": [
+            0
+          ],
+          "review": {
+            "source_sha256": "564e613a9bfed65dab8d91eb8aa595a90fe1c6eaee66befefd4cc5b172a17615",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+                "expected": "总结本次多工具接入过程、步骤与失败经验，形成可复用的专属 skill。",
+                "actual": "正文、参考、诊断与测试已完成；分类生成和范围检查通过，具体证据见 verification.json。",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json",
+                  "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md",
+                  "catalog/index.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+          "reading": "将 skill 放入 LFen-Skills 仓库并完成 GitHub 上传。",
+          "state": "Open",
+          "evidence_refs": [],
+          "acceptance_refs": [
+            2
+          ]
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+          "reading": "执行仓库规定的分类登记、目录生成、验证、更新日志和 Git 提交流程。",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json",
+            "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md",
+            "catalog/index.json"
+          ],
+          "acceptance_refs": [
+            1
+          ],
+          "review": {
+            "source_sha256": "564e613a9bfed65dab8d91eb8aa595a90fe1c6eaee66befefd4cc5b172a17615",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+                "expected": "执行仓库规定的分类登记、目录生成、验证、更新日志和 Git 提交流程。",
+                "actual": "正文、参考、诊断与测试已完成；分类生成和范围检查通过，具体证据见 verification.json。",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json",
+                  "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md",
+                  "catalog/index.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-04",
+          "source": "request_snapshot",
+          "quote": "分类要精准，如果用现有文件夹那要搞多级文件夹，否则容易和其他skill混淆",
+          "reading": "精确区分用途，采用编程活动统计/WakaTime 两级分类并保留现有 skill 路径。",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json",
+            "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md",
+            "catalog/index.json"
+          ],
+          "acceptance_refs": [
+            1
+          ],
+          "review": {
+            "source_sha256": "564e613a9bfed65dab8d91eb8aa595a90fe1c6eaee66befefd4cc5b172a17615",
+            "conditions": [
+              "如果用现有文件夹，则使用多级文件夹，避免与其他 skill 混淆。"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "复用已有 skills 根目录承载本次新增 skill。",
+                "expected": "目录按明确主题形成多级路径。",
+                "actual": "新增路径 skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking，分类两级且生成器校验通过。",
+                "result": "Passed",
+                "evidence_refs": [
+                  "catalog/taxonomy.json",
+                  "catalog/index.json",
+                  ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "不复用 dev-tools 现有叶子分类，不迁移旧 skill。",
+                "expected": "专属主题分类明确，旧路径保持。",
+                "actual": "新增编程活动统计/WakaTime 分类；独立比较基线确认原 9 个 skill 路径不变。",
+                "result": "Passed",
+                "evidence_refs": [
+                  "catalog/taxonomy.json",
+                  ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+          "reading": "总结本次多工具接入过程、步骤与失败经验，形成可复用的专属 skill。",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json",
+            "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md",
+            "catalog/index.json"
+          ],
+          "acceptance_refs": [
+            0
+          ],
+          "review": {
+            "source_sha256": "564e613a9bfed65dab8d91eb8aa595a90fe1c6eaee66befefd4cc5b172a17615",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+                "expected": "总结本次多工具接入过程、步骤与失败经验，形成可复用的专属 skill。",
+                "actual": "正文、参考、诊断与测试已完成；分类生成和范围检查通过，具体证据见 verification.json。",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json",
+                  "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md",
+                  "catalog/index.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-02",
+          "source": "request_snapshot",
+          "quote": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+          "reading": "将 skill 放入 LFen-Skills 仓库并完成 GitHub 上传。",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/publication.json"
+          ],
+          "acceptance_refs": [
+            2
+          ],
+          "review": {
+            "source_sha256": "564e613a9bfed65dab8d91eb8aa595a90fe1c6eaee66befefd4cc5b172a17615",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+                "expected": "专属 skill 按仓库流程上传 LFen-Skills。",
+                "actual": "提交 f9e8a0f8177418f0c2e4da26470827495fcdad35 已推送 origin/main，远端 SHA 一致，两项 CI 均成功。",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/publication.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-03",
+          "source": "request_snapshot",
+          "quote": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+          "reading": "执行仓库规定的分类登记、目录生成、验证、更新日志和 Git 提交流程。",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json",
+            "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md",
+            "catalog/index.json"
+          ],
+          "acceptance_refs": [
+            1
+          ],
+          "review": {
+            "source_sha256": "564e613a9bfed65dab8d91eb8aa595a90fe1c6eaee66befefd4cc5b172a17615",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "请你将你上述接入这些的过程和步骤经验总结为一个专属的skill，放到 LFen-skills仓库中，注意遵循基本的操作流程来上传",
+                "expected": "执行仓库规定的分类登记、目录生成、验证、更新日志和 Git 提交流程。",
+                "actual": "正文、参考、诊断与测试已完成；分类生成和范围检查通过，具体证据见 verification.json。",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json",
+                  "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md",
+                  "catalog/index.json"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "R-04",
+          "source": "request_snapshot",
+          "quote": "分类要精准，如果用现有文件夹那要搞多级文件夹，否则容易和其他skill混淆",
+          "reading": "精确区分用途，采用编程活动统计/WakaTime 两级分类并保留现有 skill 路径。",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json",
+            "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md",
+            "catalog/index.json"
+          ],
+          "acceptance_refs": [
+            1
+          ],
+          "review": {
+            "source_sha256": "564e613a9bfed65dab8d91eb8aa595a90fe1c6eaee66befefd4cc5b172a17615",
+            "conditions": [
+              "如果用现有文件夹，则使用多级文件夹，避免与其他 skill 混淆。"
+            ],
+            "cases": [
+              {
+                "condition": 0,
+                "branch": "Met",
+                "input": "复用已有 skills 根目录承载本次新增 skill。",
+                "expected": "目录按明确主题形成多级路径。",
+                "actual": "新增路径 skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking，分类两级且生成器校验通过。",
+                "result": "Passed",
+                "evidence_refs": [
+                  "catalog/taxonomy.json",
+                  "catalog/index.json",
+                  ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json"
+                ]
+              },
+              {
+                "condition": 0,
+                "branch": "NotMet",
+                "input": "不复用 dev-tools 现有叶子分类，不迁移旧 skill。",
+                "expected": "专属主题分类明确，旧路径保持。",
+                "actual": "新增编程活动统计/WakaTime 分类；独立比较基线确认原 9 个 skill 路径不变。",
+                "result": "Passed",
+                "evidence_refs": [
+                  "catalog/taxonomy.json",
+                  ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/verification.json"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "reason": "依据实际提交、GitHub 远端 SHA 和 CI 成功结果补齐上传一条；不把用户委托改记为最终验收。",
+      "basis": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/publication.json",
+      "changed_at": "2026-10-28T11:46:26.550126Z"
+    },
+    {
+      "from_revision": 7,
+      "to_revision": 8,
+      "path": "task_profile.basis",
+      "old_value": [
+        "README.md"
+      ],
+      "new_value": [
+        "README.md",
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/publication.json"
+      ],
+      "reason": "将实际远端发布与 CI 结果纳入当前任务事实依据，并通过正式 Amendment 刷新阶段切换后的查询快照；保留已有查询历史。",
+      "basis": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/publication.json",
+      "changed_at": "2026-10-28T11:50:41.895532Z"
+    },
+    {
+      "from_revision": 8,
+      "to_revision": 9,
+      "path": "scope.allowed_paths",
+      "old_value": [
+        "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking",
+        "catalog/taxonomy.json",
+        "catalog/index.json",
+        "CATALOG.md",
+        "README.md",
+        "README.en.md",
+        "SKILLS.md",
+        "SKILLS.en.md",
+        "update_log/2026-10-28-wakatime-ai-tracking-skill.md",
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001",
+        ".project-governance/project-state.json"
+      ],
+      "new_value": [
+        "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking",
+        "catalog/taxonomy.json",
+        "catalog/index.json",
+        "CATALOG.md",
+        "README.md",
+        "README.en.md",
+        "SKILLS.md",
+        "SKILLS.en.md",
+        "update_log/2026-10-28-wakatime-ai-tracking-skill.md",
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001",
+        ".project-governance/project-state.json",
+        ".project-governance/generated/queries/T-WAKATIME-SKILL-20261028-001",
+        ".project-governance/generated/query-history/T-WAKATIME-SKILL-20261028-001"
+      ],
+      "reason": "补齐仅属于本任务的派生查询及历史目录，以保留旧阶段原件并维护合法初态的查询索引；不增加产品范围或外部权限。",
+      "basis": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/publication.json",
+      "changed_at": "2026-10-28T11:57:11.530728Z"
     }
   ],
   "tailoring_resolution": {
@@ -1108,8 +1466,8 @@
     "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
     "resolver_sha256": "add9aff766c9b5ddb3eed0cdf5da8f7e464707648f5ea4870c98a462002ae153",
     "task_contract_schema_sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045",
-    "input_digest": "0c6878313f351e260d6130ffbc2f9d5e27a916de8229b39e3c9dcb4aab2ab33a",
-    "stage": "S7",
+    "input_digest": "d5f02fccf6d5c018ecb2d2c75daeb4015d8a0b6d7a7697b369926aa671e3a482",
+    "stage": "S8",
     "applicable_standards": [
       "C01",
       "C02",
@@ -1128,9 +1486,7 @@
     ],
     "pending_standards": [],
     "stage_context_standards": [
-      "C05",
-      "C06",
-      "C07",
+      "C04",
       "C09",
       "C10",
       "C11",
@@ -1206,11 +1562,9 @@
         "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
         "sections": [
           "9",
-          "10",
-          "15",
+          "14",
           "16",
-          "17",
-          "18"
+          "17"
         ]
       },
       {

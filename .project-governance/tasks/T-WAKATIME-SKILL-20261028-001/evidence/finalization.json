@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-10-28T12:03:39.741217+00:00",
+  "first_project_view_attempt": {
+    "result": "Failed",
+    "runtime": "本机已安装的旧治理工具副本",
+    "error": "既有 T-BUDGET-20261023-001 的 adversarial_review budget 分支不被该副本 schema 接受。",
+    "effect": "未修改历史任务或已发布 skill 内容。"
+  },
+  "recovery": {
+    "result": "Passed",
+    "runtime": "LFen-Skills 当前提交中的治理工具",
+    "commands": [
+      "rebuild_project_state.py --project-root . --project-id P-LFEN-SKILLS",
+      "generate_review_views.py --project-root . --project-id P-LFEN-SKILLS",
+      "validate_task_package.py .project-governance/tasks/T-WAKATIME-SKILL-20261028-001 --check-mapping"
+    ],
+    "source": "tool-output:04561d"
+  },
+  "engineering_status": "Implemented",
+  "user_decision": "Pending"
+}

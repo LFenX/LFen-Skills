@@ -1,0 +1,9 @@
+{
+  "event": "WorkStarted",
+  "work_type": "Review",
+  "work_id": "WAKATIME-REVIEW-01",
+  "evidence_refs": [
+    ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-authorization.json"
+  ],
+  "recorded_at": "2026-10-28T12:09:46.866794+00:00"
+}

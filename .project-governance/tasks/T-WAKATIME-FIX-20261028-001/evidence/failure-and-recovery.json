@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-10-28T12:39:41.488594+00:00",
+  "setup_failures": [
+    {
+      "source": "tool-output:040f91",
+      "symptom": "init要求R-数字ID，初始自定义ID被拒绝；未创建可执行任务。",
+      "recovery": "使用R-01并保留完整原文。"
+    },
+    {
+      "source": "tool-output:3202b6",
+      "symptom": "自动需求项未覆盖含问题说明的完整快照；init拒绝。",
+      "recovery": "显式传入完整原文引用，不省略问题与预算。"
+    },
+    {
+      "source": "tool-output:5309bc",
+      "symptom": "首次上下文要求声明security-privacy-review。",
+      "recovery": "正式amend登记工程安全隐私验证门，再重新查询；未先修改代码。"
+    }
+  ],
+  "side_effects": "以上失败没有执行业务修改、CLI或外部上传；成功execution-ready后才运行本批。"
+}

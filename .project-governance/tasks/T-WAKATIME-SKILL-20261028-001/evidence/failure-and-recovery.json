@@ -15,5 +15,17 @@
     "Git worktree 首次 checkout 因 Windows 路径过长失败；命令级 core.longpaths 完成重试。",
     "长目录中治理 SQLite 打开失败；在 workspace 内移动为短路径后成功。",
     "初始化工具附带的无关控制台文件变化已恢复为新 checkout 的原始内容。"
-  ]
+  ],
+  "stage_query_recovery": {
+    "status": "Resolved",
+    "failed_attempts": [
+      "A2",
+      "A3"
+    ],
+    "retry_attempt": "A4",
+    "symptom": "旧 S7 查询仍在活动目录，S8 补充校验不通过。",
+    "effect": "未改变已上传的 skill 内容及通过的 CI。",
+    "correction": "范围明确补齐本任务派生目录；旧原件和请求按 SHA 不变迁移，rebuild_query_history_index 生成索引后正式校验通过。",
+    "evidence_ref": "query-history-recovery.json"
+  }
 }

@@ -1,0 +1,11 @@
+{
+  "event": "Offer",
+  "prompt": "WakaTime 专属 skill 已上传。是否启动可选对抗性审查？预算最多 3 轮审查、2 批返修、60 分钟；任一到限就停止并汇总，只有同一版本连续两轮完整无问题才通过。",
+  "evidence_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-authorization.json",
+  "budget": {
+    "review_rounds": 3,
+    "repair_batches": 2,
+    "elapsed_minutes": 60
+  },
+  "recorded_at": "2026-10-28T12:09:45.899180+00:00"
+}

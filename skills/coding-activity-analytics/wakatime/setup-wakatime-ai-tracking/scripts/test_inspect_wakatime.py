@@ -4,7 +4,6 @@ import json
 import contextlib
 import io
 from pathlib import Path
-import subprocess
 import tempfile
 import unittest
 from unittest import mock
@@ -71,23 +70,68 @@ class ReadOnlyDiagnosticsTest(unittest.TestCase):
         self.assertNotIn(secret, json.dumps(result))
         self.assertEqual(result["redacted_model_tokens"], 1)
 
-    @mock.patch.object(inspect.subprocess, "run")
-    def test_subprocess_failures_never_echo_output(self, run):
-        run.return_value = subprocess.CompletedProcess([], 9, "private stdout", "private stderr")
-        with self.assertRaisesRegex(inspect.ProbeError, "^cli_nonzero_exit$"):
-            inspect.probe(Path("cli"), ["--offline-count"], Path("config"), 2)
-        run.side_effect = subprocess.TimeoutExpired("private command", 2, output="private output")
-        with self.assertRaisesRegex(inspect.ProbeError, "^cli_timeout$"):
-            inspect.probe(Path("cli"), ["--offline-count"], Path("config"), 2)
-
-    @mock.patch.object(inspect, "probe")
-    def test_collect_uses_only_local_read_commands(self, probe):
-        probe.side_effect = ["v2.28.0\n", "0\n", "[]"]
+    def test_corrupt_queue_and_vault_config_never_start_process_or_network(self):
         with tempfile.TemporaryDirectory() as directory:
-            result = inspect.collect(Path("trusted-cli"), Path(directory) / "missing", 5, 2)
-        self.assertEqual(result["offline_count"], 0)
+            root = Path(directory)
+            config, queue, cli = root / "wakatime.cfg", root / "queue.db", root / "fake-cli"
+            config.write_text("[settings]\napi_key_vault_cmd = must-not-execute\n", encoding="utf-8")
+            queue.write_bytes(b"corrupt synthetic queue, never repair or rename")
+            cli.write_text("must never execute", encoding="utf-8")
+            before = {path.name: path.read_bytes() for path in root.iterdir()}
+            output = io.StringIO()
+            argv = ["inspect_wakatime.py", "--config", str(config), "--cli", str(cli), "--sample-limit", "5", "--timeout", "2"]
+            with contextlib.ExitStack() as stack:
+                calls = [stack.enter_context(mock.patch(name, side_effect=AssertionError(name)))
+                         for name in ("subprocess.run", "subprocess.Popen", "os.system", "socket.socket", "socket.create_connection")]
+                stack.enter_context(mock.patch("sys.argv", argv))
+                stack.enter_context(contextlib.redirect_stdout(output))
+                self.assertEqual(inspect.main(), 0)
+                for call in calls:
+                    call.assert_not_called()
+            result = json.loads(output.getvalue())
+            self.assertEqual({path.name: path.read_bytes() for path in root.iterdir()}, before)
+        self.assertTrue(result["cli_found"])
+        self.assertFalse(result["cli_executed"])
+        self.assertEqual(result["offline_queue"], {"status": "not_checked", "reason": "live_cli_probes_disabled"})
+        self.assertNotIn("offline_count", result)
+        self.assertNotIn("queue_sample", result)
         self.assertEqual(result["errors"], [])
-        self.assertEqual([call.args[1] for call in probe.call_args_list], [["--version"], ["--offline-count"], ["--print-offline-heartbeats", "5"]])
+
+    def test_quoted_and_project_credentials_are_normalized_and_filtered(self):
+        secret = "12345-synthetic-credential-for-isolated-test"
+        cases = (
+            f"[settings]\napi_key = {secret}\n",
+            f'[settings]\napi_key = "{secret}"\n',
+            f"[settings]\napi_key = '{secret}'\n",
+            f"[settings]\n[project_api_key]\n^/Projects/example = {secret}\n",
+            f'[settings]\n[project_api_key]\n^/Projects/example = "{secret}"\n',
+            f'[settings]\n[api_urls]\n^/Projects/example = "https://example.invalid/api/v1|{secret}"\n',
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "synthetic.cfg"
+            for index, text in enumerate(cases):
+                with self.subTest(case=index):
+                    path.write_text(text, encoding="utf-8")
+                    summary, secrets = inspect.config_summary(path)
+                    self.assertIn(secret, secrets)
+                    result = inspect.queue_summary([{"type": "app", "language": secret, "user_agent": "gpt/" + secret}], secrets)
+                    self.assertNotIn(secret, json.dumps([summary, result]))
+                    self.assertEqual(path.read_text(encoding="utf-8"), text)
+
+    def test_legacy_uuid_credentials_are_filtered_without_config_values(self):
+        credential = "12345678-1234-4abc-8def-123456789abc"
+        for value in (credential, credential.upper()):
+            with self.subTest(value=value):
+                result = inspect.queue_summary([{"type": "app", "language": value, "user_agent": "gpt/" + value}], set())
+                self.assertNotIn(value, json.dumps(result))
+                self.assertEqual(result["redacted_model_tokens"], 1)
+
+    def test_empty_quoted_key_is_not_reported_as_configured(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "empty.cfg"
+            path.write_text('[settings]\napi_key = ""\n', encoding="utf-8")
+            summary, _ = inspect.config_summary(path)
+            self.assertFalse(summary["api_key_in_selected_config"])
 
 
 if __name__ == "__main__":

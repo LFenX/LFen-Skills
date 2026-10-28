@@ -1,0 +1,75 @@
+{
+  "status": "Passed",
+  "recorded_at": "2026-10-28T11:59:01.551235+00:00",
+  "method": "原件在本任务派生目录间迁移，逐文件 SHA 保持不变，再由 rebuild_query_history_index 生成并验证索引。",
+  "archived_publications": 7,
+  "archived_requests": 7,
+  "active_query_digest": "0513f4120dfc25542475027b6b5f0b71438ef4c2c4ad4141a2390c48cfa14860",
+  "archive_index_sha256": "af1ce5336290c7ccb9b2bb3d1a6e99d476abfa426c2796466fdc520a1bb61ea3",
+  "manifest": [
+    {
+      "query_digest": "503bf825cbcafb1adca7ffe98d6083f1f1131f62e62576b32ce237d23c30cad7",
+      "files": {
+        "clause-context.md": "7df255ed988b78dd26f4d490a959a1a26d74a1abd1bb639e2e1c6134c090d126",
+        "clause-context.md.view.json": "14a077a06d40a72385d7774ac8eae8d28bb7260270a4b7518f85080b4938c74b",
+        "query-result.json": "de165987a869d8440717c0c00058df572ba99deee6078f424c0b4ad272557711",
+        "query-result.json.view.json": "2853c006eb80639cb37116f7155857e9949a5bdd563a5980d27a0c05f63354a3"
+      }
+    },
+    {
+      "query_digest": "51afb84c338cc4a4d3ea2f7f143ef7e276b7f167183db0de69a36f81ad5e7456",
+      "files": {
+        "clause-context.md": "f4a1e8712452521b344cb65f0167cbe0a552fa2fbd3aabb9c51c405cedd10d34",
+        "clause-context.md.view.json": "af0e8dd314a374a45f2543e03a08904d0a7a88e3166405788eb1b9ad72ae5210",
+        "query-result.json": "1c114dc71fbb39516c1c5d9bca8135e1d0ad6943053512d7754cc52ad0d10f1c",
+        "query-result.json.view.json": "59250b4eaa961fe5382194f0fdca572dc682b1e28bad8b9aeb65afa7fc636505"
+      }
+    },
+    {
+      "query_digest": "97028534df56658b7066a4af57a6811633fd8af4791fcbb3964d56c9b70996b8",
+      "files": {
+        "clause-context.md": "6c5b1fcb5ef47534b2f9a533fd0a79c8ad5a27938b5da8933e1ca0e263470458",
+        "clause-context.md.view.json": "2537ecb489532201b2cd7241c9bc125089eaf069f3eb959130e2b85a55bc63e0",
+        "query-result.json": "d5202251e4ab7b4e1f53388a7c6198a528e6ba362ee96b7f47e3f5535442ae5d",
+        "query-result.json.view.json": "23947b966ac5ae18a21dac87bdaf5f8d2e7dec2ad166e68154e10b2c259ddf60"
+      }
+    },
+    {
+      "query_digest": "ae228fbb85bae3431551e6d8a4f5baf8335aef8e45a9ff89cbe3e0d02cb7126f",
+      "files": {
+        "clause-context.md": "852e88cc92ea6aa5be950a2af39f4d55b68454182b0ee5b8dee7e8887667bb39",
+        "clause-context.md.view.json": "36e105a9136ee078f881a1174d5e5a29e4d3c998f6bd0c435a04761d502092f5",
+        "query-result.json": "12f2f7ad434e6e400fcf8b8b7437137cbbf097213836f4fc0c82709d1201505c",
+        "query-result.json.view.json": "75fb1508d0670097e886a39924d6fe7dbcafdfd3ac652a6a176e60f78166d9cf"
+      }
+    },
+    {
+      "query_digest": "be3d7c4c63e75eed3defeb71e72e3b1bb5d1ee0a1f81f036ea9ca51258ba4268",
+      "files": {
+        "clause-context.md": "6b461b050c00d05bd46a14817fc80dc79a31357239417fcebe8280320475e846",
+        "clause-context.md.view.json": "22177449c1bc3e15e5636a4f1abe0a906ed52b2f1f45e5c91ab45983fe5bd476",
+        "query-result.json": "122daece382f836596ffe35932f825963890b818b046841da0ef197c237233d1",
+        "query-result.json.view.json": "42f34767c6b104d79bc32ed71c7333af75d3f4cef6e2164cbee79da495d8f0e7"
+      }
+    },
+    {
+      "query_digest": "c9f614cc506947b14ed57a2ce02443307904c473d0e8e6f528bc69a78dd95491",
+      "files": {
+        "clause-context.md": "a4f4a77c9e2d0370e16f3d0765f31a43972b177612641a75e77b1d4a7e650b34",
+        "clause-context.md.view.json": "d81ce1d4526f467b2c9a33642a10e19ba324619181615d947e4a8705539e6301",
+        "query-result.json": "3ea9bf8279e46617c40bbc8859122b70f940ac4cc537e58edfdb0b2885f21fe7",
+        "query-result.json.view.json": "c5bb6d87e94dab9066e4df7b845ecc8eb6f9b2d122da8da3287188cecfd9f7b7"
+      }
+    },
+    {
+      "query_digest": "ef38738c66d63746ca3f397408d21598dd9748b5ab47c1ed4627960e1d853171",
+      "files": {
+        "clause-context.md": "7e8e39356e757dea25acde7fffe543893389390b8f720602d033f467f90fffa7",
+        "clause-context.md.view.json": "8992422ff1b1bf334da3c9519cad19cfeeac6ed4c2704024d7c6b8b4429092be",
+        "query-result.json": "e81d002f46e209990ecc03b9d811e0619cb103e549ac5ec32f99463592deae1f",
+        "query-result.json.view.json": "04c50de42f286579398cb9fedcde30bbfea868158fb79102d1c1f57aae5f8cb8"
+      }
+    }
+  ],
+  "result": "validate_task_package --check-mapping --execution-ready 已通过。"
+}

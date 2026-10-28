@@ -7,14 +7,16 @@
 在本 skill 目录运行：
 
 ```powershell
-python scripts/inspect_wakatime.py --sample-limit 100
+python scripts/inspect_wakatime.py
 ```
 
-脚本仅调用本机 CLI 的版本、队列数量和有限队列读取功能。输出配置状态、事件类型/语言计数及已知模型 token，不输出 key、项目名、文件路径、hostname 值、提示词、代码或原始 user-agent。
+脚本只读取所选配置的状态并检查 CLI 文件是否存在，不启动任何 CLI。输出 `cli_executed=false`、`offline_queue.status=not_checked`；不获取版本、真实队列数量、事件、语言或模型。不输出 key、项目名、文件路径、hostname 值、提示词、代码或原始 user-agent。
 
 非标准 CLI 位置使用 `--cli`；非标准配置使用 `--config`，值是本机文件路径。脚本不执行 `api_key_vault_cmd`，不递归读取导入配置，不扫描整个会话目录。`api_key_in_selected_config` 仅表示选中文件有该字段，不是有效凭证或全部配置已解析的证明。
 
-输出始终标为样本。没有匹配内置模型系列不等于采集失败；未知模型需按当前 parser 源码核对。配置解析失败、CLI 超时或队列格式不符时返回固定错误类别，不输出包含凭证的异常原文，也不将失败当作空队列。
+未检查的队列不能报告为零或已同步。旧命令的 `--sample-limit`、`--timeout` 继续接受，但不触发读取或子进程；解析摘要函数只用于隔离输入及测试。摘要对选中配置的敏感值、项目专用 key、凭证前缀及旧 UUID v4 保守脱敏；不把未知模型或缺少样本视为采集失败。配置解析失败返回固定错误类别，不输出异常原文。
+
+原因：v2.28.0 的本地队列查询以可写方式打开数据库；损坏恢复会改名原队列，错误分支还会强制启用诊断发送并加载凭证。因此 `--offline-count` 和 `--print-offline-heartbeats` 不能被包装成无副作用的只读探针。真实 CLI 操作需按实际恢复、凭证与网络行为核对，不能据参数名称认定安全。来源：[队列打开与恢复](https://github.com/wakatime/wakatime-cli/blob/v2.28.0/pkg/offline/offline.go#L445-L603)、[强制诊断分支](https://github.com/wakatime/wakatime-cli/blob/v2.28.0/pkg/offline/error.go#L29-L42)。
 
 ## 2. 多个 Codex 标签
 

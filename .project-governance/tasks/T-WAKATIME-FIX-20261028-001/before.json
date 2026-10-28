@@ -1,0 +1,874 @@
+{
+  "schema_version": "6.3-candidate",
+  "proof_contract_version": "implemented-proof-v1",
+  "meta_type": "TaskContract",
+  "project_id": "P-LFEN-SKILLS",
+  "work_item_id": "W-WAKATIME-FIX-20261028-001",
+  "task_id": "T-WAKATIME-FIX-20261028-001",
+  "ordinal": 26,
+  "revision": 2,
+  "lifecycle_state": "Frozen",
+  "created_at": "2026-10-28T12:29:53.382051Z",
+  "frozen_at": "2026-10-28T12:32:31.982545Z",
+  "objective": "修复 WakaTime 诊断隔离与凭证脱敏缺陷，复验上传，不再审查。",
+  "request_snapshot": {
+    "language": "zh",
+    "text": "一轮审查已确认两项问题：①诊断脚本调用底层 CLI，损坏队列时会改名数据库并触发诊断上传；②带引号或项目专用的旧格式 API Key 未被完整脱敏。是否授权修复这两项并复验、上传？范围限 1 批修复、30 分钟，不新增对抗性审查轮次。\n\n修复、复验并上传，不再审查（推荐）",
+    "captured_at": "2026-10-28T12:29:53.173480Z"
+  },
+  "clarification": {
+    "state": "Settled",
+    "mode": "Skipped",
+    "notice": "现在只修复这两项，补上隔离回归测试后上传；不再启动对抗性审查。",
+    "survey_refs": [
+      ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md"
+    ],
+    "rounds": [],
+    "basis": "具体两项修复与不再审查已获真实人类确认。",
+    "reopened_by": []
+  },
+  "requirement_items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "一轮审查已确认两项问题：①诊断脚本调用底层 CLI，损坏队列时会改名数据库并触发诊断上传；②带引号或项目专用的旧格式 API Key 未被完整脱敏。是否授权修复这两项并复验、上传？范围限 1 批修复、30 分钟，不新增对抗性审查轮次。\n\n修复、复验并上传，不再审查（推荐）",
+      "reading": "按具体问题 F01/F02 修复、复验与上传，1批30分钟，不再审查。",
+      "state": "Open",
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+      ],
+      "acceptance_refs": [
+        0,
+        1,
+        2
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D-WAKATIME-FIX-USER",
+      "kind": "Proceed",
+      "presented": "一轮审查已确认两项问题：①诊断脚本调用底层 CLI，损坏队列时会改名数据库并触发诊断上传；②带引号或项目专用的旧格式 API Key 未被完整脱敏。是否授权修复这两项并复验、上传？范围限 1 批修复、30 分钟，不新增对抗性审查轮次。",
+      "response": "修复、复验并上传，不再审查（推荐）",
+      "decided_by": "当前会话人类用户",
+      "decided_at": "2026-10-28T12:26:56.157548+00:00",
+      "evidence_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json",
+      "outcome": "Approved"
+    }
+  ],
+  "depends_on": [
+    "T-WAKATIME-SKILL-20261028-001"
+  ],
+  "supersedes": [],
+  "blocked_by": [],
+  "source_snapshot": {
+    "repository": "waka",
+    "root": "C:\\Users\\Administrator\\Documents\\Codex\\work\\waka",
+    "vcs": "git",
+    "branch": "codex/wakatime-coding-analytics",
+    "head": "6a84c81c8780ea7f53f57293f7a4b7583df4b878",
+    "head_exists": true,
+    "dirty": true,
+    "dirty_entries": 18,
+    "status_digest": "f1de832d5113860aa70c65ad22ba813ce2da491e61d857797529d3e224369e68",
+    "captured_at": "2026-10-28T12:29:53.217717Z"
+  },
+  "scope": {
+    "in_scope": [
+      "仅修复 F01 诊断隔离及 F02 凭证脱敏，补齐合成回归测试、同步能力边界、记录并复验后常规上传；不新增对抗性审查。"
+    ],
+    "out_of_scope": [
+      "不新增审查，不操作真实配置或队列，不改分类、命名及其他任务。"
+    ],
+    "allowed_paths": [
+      "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking",
+      ".project-governance/tasks/T-WAKATIME-FIX-20261028-001",
+      ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001",
+      ".project-governance/project-state.json",
+      "update_log/2026-10-28-wakatime-diagnostic-fixes.md",
+      "update_log/2026-10-28-wakatime-ai-tracking-skill.md",
+      ".project-governance/generated/queries/T-WAKATIME-FIX-20261028-001",
+      ".project-governance/generated/query-history/T-WAKATIME-FIX-20261028-001"
+    ],
+    "forbidden_actions": [
+      "不运行真实 CLI，不读取密钥，不新增审查，不改原审查事实。"
+    ]
+  },
+  "authority": {
+    "execution_permissions": [
+      "read",
+      "edit-in-scope",
+      "validate",
+      "external-effect",
+      "rollback"
+    ],
+    "required_gates": [
+      "security-privacy-review"
+    ],
+    "stop_conditions": [
+      "scope-expansion",
+      "authority-conflict",
+      "critical-evidence-missing"
+    ],
+    "authority_references": [
+      ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+    ],
+    "authority_assessments": [
+      {
+        "reference": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json",
+        "source_kind": "UserDirective",
+        "status": "Valid",
+        "scope_refs": [
+          "仅修复 F01 诊断隔离及 F02 凭证脱敏，补齐合成回归测试、同步能力边界、记录并复验后常规上传；不新增对抗性审查。"
+        ],
+        "evidence_refs": [
+          ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+        ],
+        "verified_at": "2026-10-28T12:29:38.873987+00:00",
+        "expires_at": null
+      }
+    ]
+  },
+  "acceptance": {
+    "criteria": [
+      "默认诊断不启动 CLI、网络或凭证命令，原队列字节不变并明确未检查。",
+      "带引号、项目专用及旧 UUID v4 凭证均脱敏，合成回归通过。",
+      "同步能力边界与证据，常规上传，不再审查。"
+    ],
+    "decision_owner": "task-initiator"
+  },
+  "plan": {
+    "steps": [
+      "删除默认真实队列 CLI 探针，同步文档。",
+      "规范化凭证并补齐两项合成反例与副作用回归。",
+      "复验、留档、常规推送；不再审查。"
+    ],
+    "verification": [
+      "隔离 mock、合成配置与损坏队列不变、隐私回归、skill/目录及任务包检查。"
+    ],
+    "rollback": [
+      "用新提交仅回退本修复；不强推。"
+    ]
+  },
+  "first_principles_analysis": {
+    "method_version": "first-principles-v1",
+    "depth": "Standard",
+    "outcome": "修复 WakaTime 诊断隔离与凭证脱敏缺陷，复验上传，不再审查。",
+    "facts": [
+      {
+        "id": "F1",
+        "statement": "任务发起人已确认目标：修复 WakaTime 诊断隔离与凭证脱敏缺陷，复验上传，不再审查。",
+        "evidence_refs": [
+          ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+        ]
+      }
+    ],
+    "constraints": [
+      {
+        "id": "C1",
+        "statement": "执行范围仅限：仅修复 F01 诊断隔离及 F02 凭证脱敏，补齐合成回归测试、同步能力边界、记录并复验后常规上传；不新增对抗性审查。",
+        "source_refs": [
+          ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+        ]
+      },
+      {
+        "id": "C2",
+        "statement": "执行必须遵守允许路径、排除范围和禁止动作；allowed=['skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking', '.project-governance/tasks/T-WAKATIME-FIX-20261028-001', '.project-governance/tasks/T-WAKATIME-SKILL-20261028-001', '.project-governance/project-state.json', 'update_log/2026-10-28-wakatime-diagnostic-fixes.md', 'update_log/2026-10-28-wakatime-ai-tracking-skill.md', '.project-governance/generated/queries/T-WAKATIME-FIX-20261028-001', '.project-governance/generated/query-history/T-WAKATIME-FIX-20261028-001']；out=['不新增审查，不操作真实配置或队列，不改分类、命名及其他任务。']；forbidden=['不运行真实 CLI，不读取密钥，不新增审查，不改原审查事实。']",
+        "source_refs": [
+          ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+        ]
+      }
+    ],
+    "assumptions": [],
+    "unknowns": [],
+    "fundamentals": [
+      {
+        "id": "P1",
+        "statement": "任何方案必须直接改变已确认的目标状态，而不是只完成活动清单。",
+        "derived_from": [
+          "F1"
+        ]
+      },
+      {
+        "id": "P2",
+        "statement": "任何方案必须保持已确认的范围、权限和禁止边界。",
+        "derived_from": [
+          "C1",
+          "C2"
+        ]
+      }
+    ],
+    "causal_links": [
+      {
+        "from_ref": "P1",
+        "to_ref": "O1",
+        "rationale": "选定方案必须产生目标状态变化。",
+        "evidence_refs": [
+          ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+        ]
+      },
+      {
+        "from_ref": "P2",
+        "to_ref": "O1",
+        "rationale": "选定方案必须在授权边界内可执行。",
+        "evidence_refs": [
+          ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+        ]
+      }
+    ],
+    "alternatives": [
+      {
+        "id": "O0",
+        "description": "保持现状，不实施本任务变更",
+        "status": "Rejected",
+        "derived_from": [
+          "F1"
+        ],
+        "tradeoffs": [
+          "无新增实施成本",
+          "不能达到已确认目标"
+        ]
+      },
+      {
+        "id": "O1",
+        "description": "按已确认计划在授权范围内实施并验证",
+        "status": "Selected",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "tradeoffs": [
+          "直接覆盖验收标准",
+          "需要实施与回归验证成本"
+        ]
+      },
+      {
+        "id": "O2",
+        "description": "仅实施局部修补并推迟体系性变更",
+        "status": "Rejected",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "tradeoffs": [
+          "短期改动较少",
+          "不能闭合全部目标与长期一致性"
+        ]
+      }
+    ],
+    "decision_criteria": [
+      {
+        "id": "K1",
+        "statement": "默认诊断不启动 CLI、网络或凭证命令，原队列字节不变并明确未检查。",
+        "source_refs": [
+          ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+        ]
+      },
+      {
+        "id": "K2",
+        "statement": "带引号、项目专用及旧 UUID v4 凭证均脱敏，合成回归通过。",
+        "source_refs": [
+          ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+        ]
+      },
+      {
+        "id": "K3",
+        "statement": "同步能力边界与证据，常规上传，不再审查。",
+        "source_refs": [
+          ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+        ]
+      }
+    ],
+    "selected_approach": "O1",
+    "derivation": [
+      {
+        "plan_step": "删除默认真实队列 CLI 探针，同步文档。",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3"
+        ]
+      },
+      {
+        "plan_step": "规范化凭证并补齐两项合成反例与副作用回归。",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3"
+        ]
+      },
+      {
+        "plan_step": "复验、留档、常规推送；不再审查。",
+        "derived_from": [
+          "P1",
+          "P2"
+        ],
+        "supports": [
+          "K1",
+          "K2",
+          "K3"
+        ]
+      }
+    ],
+    "validation_refs": [
+      "隔离 mock、合成配置与损坏队列不变、隐私回归、skill/目录及任务包检查。"
+    ],
+    "source_refs": [
+      ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+    ]
+  },
+  "task_profile": {
+    "delivery_scenario": "DS-03",
+    "development_types": [
+      "DT-03"
+    ],
+    "primary_development_type": "DT-03",
+    "development_type_scopes": {
+      "DT-03": [
+        "仅修复 F01 诊断隔离及 F02 凭证脱敏，补齐合成回归测试、同步能力边界、记录并复验后常规上传；不新增对抗性审查。"
+      ]
+    },
+    "change_surfaces": [
+      "Identity/Security/Privacy",
+      "AI/Data Governance",
+      "Agent/Collaboration"
+    ],
+    "risk_level": "Medium",
+    "extension_triggers": {
+      "E01": "Inactive",
+      "E02": "Active",
+      "E03": "Active",
+      "E04": "Active",
+      "E05": "Inactive"
+    },
+    "extension_evidence_refs": {
+      "E01": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+      ],
+      "E02": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+      ],
+      "E03": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+      ],
+      "E04": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+      ],
+      "E05": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+      ]
+    },
+    "baseline_inheritance": [
+      "Revise"
+    ],
+    "mode": "Normal",
+    "confidence": "Medium",
+    "basis": [
+      ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+    ],
+    "open_questions": [],
+    "applicability_facts": {
+      "product_intent_change": "No",
+      "initiative_scope_change": "No",
+      "requirement_change": "No",
+      "external_behavior_change": "Yes",
+      "design_change": "No",
+      "architecture_impact": "No",
+      "security_privacy_impact": "Yes",
+      "data_ai_impact": "Yes",
+      "formal_knowledge_records": "Yes",
+      "operations_impact": "No",
+      "production_release": "No",
+      "irreversible_change": "No",
+      "actual_execution": "Yes",
+      "authority_available": "Yes",
+      "migration_retirement": "No",
+      "external_system_effect": "Yes",
+      "formal_review_or_gate": "No"
+    }
+  },
+  "artifact_manifest": [
+    {
+      "meta_type": "TaskContract",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-WAKATIME-FIX-20261028-001-before",
+      "content_ref": ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/before.json",
+      "reason": "freeze execution input",
+      "rule_reference": "VC-PPG-PRO-001 §8.1",
+      "owner": "task-initiator",
+      "source_snapshot": "6a84c81c8780ea7f53f57293f7a4b7583df4b878",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "RunLedger",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-WAKATIME-FIX-20261028-001-run",
+      "content_ref": ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/run.jsonl",
+      "reason": "record material execution events",
+      "rule_reference": "VC-PPG-PRO-001 §8.2",
+      "owner": "execution-agent",
+      "source_snapshot": "6a84c81c8780ea7f53f57293f7a4b7583df4b878",
+      "human_confirmation_refs": []
+    },
+    {
+      "meta_type": "TaskOutcome",
+      "legacy_kind": null,
+      "action": "Create/Revise",
+      "asset_id": "T-WAKATIME-FIX-20261028-001-after",
+      "content_ref": ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/after.json",
+      "reason": "record terminal facts and residue",
+      "rule_reference": "VC-PPG-PRO-001 §8.3",
+      "owner": "task-initiator",
+      "source_snapshot": "6a84c81c8780ea7f53f57293f7a4b7583df4b878",
+      "human_confirmation_refs": []
+    }
+  ],
+  "amendments": [
+    {
+      "from_revision": 1,
+      "to_revision": 2,
+      "path": "authority.required_gates",
+      "old_value": [],
+      "new_value": [
+        "security-privacy-review"
+      ],
+      "reason": "上下文要求登记安全隐私工程验证门；以合成隔离回归作为实际证据，不代替用户验收",
+      "basis": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json",
+      "changed_at": "2026-10-28T12:30:39.374589Z"
+    }
+  ],
+  "tailoring_resolution": {
+    "rule_set_id": "VC-PPG-TAIL-001",
+    "rule_set_version": "6.3 Candidate",
+    "rule_set_status": "In Review",
+    "rule_set_sha256": "d7abae34423493620a86aa8f1533a977dbe4b3e612f773fadea4ec83fc6d6eee",
+    "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
+    "resolver_sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
+    "task_contract_schema_sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045",
+    "input_digest": "44aafb0154927beb8c814fd8cc68d7d9affe63abd50883391ac1d274ef376cd4",
+    "stage": "S7",
+    "applicable_standards": [
+      "C02",
+      "C03",
+      "C04",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E02",
+      "E03",
+      "E04"
+    ],
+    "pending_standards": [],
+    "stage_context_standards": [
+      "C05",
+      "C06",
+      "C07",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "E02",
+      "E03",
+      "E04"
+    ],
+    "control_strength": "standard",
+    "independent_review": false,
+    "explicit_human_gate": false,
+    "blocking_reasons": [],
+    "rule_ids": [
+      "VC-PPG-TAIL-001:always_applicable",
+      "VC-PPG-TAIL-001:applicability_facts:actual_execution=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:authority_available=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:data_ai_impact=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_behavior_change=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:external_system_effect=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:formal_knowledge_records=Yes",
+      "VC-PPG-TAIL-001:applicability_facts:security_privacy_impact=Yes",
+      "VC-PPG-TAIL-001:baseline_inheritance:Revise",
+      "VC-PPG-TAIL-001:change_surfaces:AI/Data Governance",
+      "VC-PPG-TAIL-001:change_surfaces:Agent/Collaboration",
+      "VC-PPG-TAIL-001:change_surfaces:Identity/Security/Privacy",
+      "VC-PPG-TAIL-001:delivery_scenarios:DS-03",
+      "VC-PPG-TAIL-001:development_types:DT-03",
+      "VC-PPG-TAIL-001:execution_modes:Normal",
+      "VC-PPG-TAIL-001:extension_resolution:E01:Inactive",
+      "VC-PPG-TAIL-001:extension_resolution:E02:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E03:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E04:Active",
+      "VC-PPG-TAIL-001:extension_resolution:E05:Inactive",
+      "VC-PPG-TAIL-001:risk_levels:Medium"
+    ],
+    "source_sections": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sections": [
+          "2",
+          "10",
+          "12"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "22",
+          "23"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sections": [
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sections": [
+          "9",
+          "10",
+          "15",
+          "16",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sections": [
+          "2",
+          "3",
+          "4",
+          "9"
+        ]
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "12",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E02",
+        "path": "references/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E03",
+        "path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sections": [
+          "3",
+          "7",
+          "8",
+          "10",
+          "13",
+          "15",
+          "17",
+          "18"
+        ]
+      }
+    ],
+    "complete_source_files": [
+      {
+        "source_id": "VC-PPG-COM-001",
+        "path": "references/01_治理基线/Vibe_Coding_公共术语与规范性用语基线_V6.3.md",
+        "sha256": "79fd8f6eaf64bf8f153afa2ae75bcf97c1479f31553ce6b218bb64fe6b1696e0"
+      },
+      {
+        "source_id": "VC-PPG-COM-002",
+        "path": "references/01_治理基线/Vibe_Coding_受控产物目录与状态模型_V6.3.md",
+        "sha256": "c1a4d23a10810d47cff41620e3d305597106b71fbd0365136277159ff3e5eece"
+      },
+      {
+        "source_id": "VC-PPG-DEC-001",
+        "path": "references/01_治理基线/Vibe_Coding_P2裁剪与扩展规范适用性决议_V6.3.md",
+        "sha256": "30ea3d582201f35b1cb0e408129eb439bd49d94c6ec521dbc6682cb58ad517bd"
+      },
+      {
+        "source_id": "VC-PPG-PRO-001",
+        "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
+        "sha256": "548a810a1cbce4fc7970f87778c71f56c9d0921e3ba385a73d085b8ed0276329"
+      },
+      {
+        "source_id": "C02",
+        "path": "references/02_核心规范/C02_Initiative_and_Scope_Standard.md",
+        "sha256": "41a07e3f463fc41086114782bb6805a83ba0fd3a6968a4d8bdf1b7330a91a850"
+      },
+      {
+        "source_id": "C03",
+        "path": "references/02_核心规范/C03_PRD_and_Feature_Standard.md",
+        "sha256": "3a758c17120b4af03786ee86c842b6a4c03eed7a2103f2b376f0ab595dcb9107"
+      },
+      {
+        "source_id": "C04",
+        "path": "references/02_核心规范/C04_Atomic_Requirement_and_Evolution_Standard.md",
+        "sha256": "fcd2ddd5b49b3dd16f66efb4bb4355eab21d0f4612f4b3e340446fcca60a08b2"
+      },
+      {
+        "source_id": "C05",
+        "path": "references/02_核心规范/C05_Acceptance_Verification_and_Validation_Standard.md",
+        "sha256": "7973bcb4ea442030772e36b7418cc1e03f55e0b3aaa6072f4ec1c198d1b537c7"
+      },
+      {
+        "source_id": "C06",
+        "path": "references/02_核心规范/C06_UX_and_Technical_Design_Standard.md",
+        "sha256": "8b87093accc35af8562178dc095e388aef6b8468bed6e3615cdb695eb0392906"
+      },
+      {
+        "source_id": "C07",
+        "path": "references/02_核心规范/C07_Human_Agent_Collaboration_Standard.md",
+        "sha256": "a1fc4e903d8b690f938d6e8fdf45a57abff2e94bcefbdb9729db1914804f016a"
+      },
+      {
+        "source_id": "C08",
+        "path": "references/02_核心规范/C08_Agent_Context_Governance_Standard.md",
+        "sha256": "262f2a190f130cb97955e58fca57d2216e2edf949d2f271413e5dff5d6faeb6d"
+      },
+      {
+        "source_id": "C09",
+        "path": "references/02_核心规范/C09_Agent_Execution_and_Evidence_Standard.md",
+        "sha256": "6897694e362bf48cb3a13bb4e68d79d7173945daad2ba3e8f0b6c75be944c01e"
+      },
+      {
+        "source_id": "C10",
+        "path": "references/02_核心规范/C10_Decision_Traceability_and_Lineage_Standard.md",
+        "sha256": "0eba391e52d509b37f7e6882b631729627eee8d27a887ccf391c58cc8e6a7534"
+      },
+      {
+        "source_id": "C11",
+        "path": "references/02_核心规范/C11_Configuration_Version_Baseline_and_Change_Standard.md",
+        "sha256": "88ec56f78f6d3da6f94b1684c7b1296ed1825bfcc961f0f8d3636c8c6a26f7e1"
+      },
+      {
+        "source_id": "C12",
+        "path": "references/02_核心规范/C12_Review_Quality_Gate_and_Product_Health_Standard.md",
+        "sha256": "508ab6263bb1db5b1568cb16233ce7413a51da2f73bbe9eb39a56c9ad08d5565"
+      },
+      {
+        "source_id": "E02",
+        "path": "references/03_扩展规范/E02_Security_Privacy_and_Compliance_Extension_Standard.md",
+        "sha256": "7353dcc98f73b6f68d9fb90ab1d0ed4e9ede362d1fcd9c4106685d68b7f57ebd"
+      },
+      {
+        "source_id": "E03",
+        "path": "references/03_扩展规范/E03_Data_and_AI_Data_Governance_Extension_Standard.md",
+        "sha256": "bb6a10422c6e672f3f67e6dc109c5bfaa594b195924758b21911fe44a18c603b"
+      },
+      {
+        "source_id": "E04",
+        "path": "references/03_扩展规范/E04_Knowledge_and_Records_Governance_Extension_Standard.md",
+        "sha256": "8cb8a7b01cec9b1c868a1cba27352fef1c6314ff85f1956072af6dee9eeabdf0"
+      },
+      {
+        "source_id": "VC-PPG-IDX-001",
+        "path": "references/05_记录与登记册/V6.3_跨规范产物归属索引.md",
+        "sha256": "7de946e2b8804e84de13871719fa603598d93a6880cdbf25f127a5cc124a7682"
+      }
+    ],
+    "profile_coverage_digest": {
+      "applicable": 113,
+      "total": 137,
+      "sha256": "5cc8bdf0c235989a269945ed96a29ceea50791587be6038cf38e639c637d648a"
+    }
+  }
+}

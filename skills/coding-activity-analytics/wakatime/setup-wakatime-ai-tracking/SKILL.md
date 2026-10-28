@@ -21,7 +21,7 @@ metadata:
 
 - 安装、密钥输入、hooks 信任、多设备：读 [工具接入步骤](references/tool-setup.md)。
 - 项目名、Other、模型显示、重复来源、离线同步：读 [准确性与恢复](references/accuracy-and-recovery.md)。
-- 本地检查：在本 skill 目录运行 `python scripts/inspect_wakatime.py --sample-limit 100`。仅依赖 Python 标准库；不安装插件、不修改配置、不调用网络上传、不产生新 heartbeat。
+- 本地检查：在本 skill 目录运行 `python scripts/inspect_wakatime.py`。仅读取配置状态和检查 CLI 文件是否存在，不启动 CLI、不读取真实队列、不修改配置、不调用网络上传、不产生新 heartbeat。输出 `offline_queue.status=not_checked` 不是空队列或同步成功的证明。
 
 执行前核对当前官方安装页、插件来源和本机 `--help`。参考文档中的版本用于说明已观察行为，不是最低版本或永久兼容保证。
 

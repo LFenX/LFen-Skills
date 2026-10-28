@@ -12,7 +12,6 @@ from pathlib import Path
 import platform
 import re
 import shutil
-import subprocess
 
 
 MODEL_TOKEN = re.compile(
@@ -20,6 +19,10 @@ MODEL_TOKEN = re.compile(
     r"/[0-9][A-Za-z0-9_.+-]{0,95})(?=\s|$)", re.IGNORECASE
 )
 SENSITIVE_TOKEN = re.compile(r"waka_|sk-|gh[pousr]_|github_pat_", re.IGNORECASE)
+LEGACY_API_KEY = re.compile(
+    r"(?<![0-9a-f])[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}"
+    r"-[89ab][0-9a-f]{3}-[0-9a-f]{12}(?![0-9a-f])", re.IGNORECASE
+)
 LANGUAGE_LABEL = re.compile(r"[\w .+#()-]{1,64}\Z")
 
 
@@ -56,13 +59,17 @@ def config_summary(path: Path) -> tuple[dict, set[str]]:
     except (OSError, UnicodeError, configparser.Error):
         summary["error"] = "config_unreadable_or_invalid"
         return summary, secrets
-    settings = dict(parser.items("settings", raw=True)) if parser.has_section("settings") else {}
+    def normalized(value: str) -> str:
+        return value.strip().strip("\"'").strip()
+
+    settings = {key: normalized(value) for key, value in parser.items("settings", raw=True)} if parser.has_section("settings") else {}
     for section in parser.sections():
         for key, value in parser.items(section, raw=True):
-            if re.search(r"key|token|password", key, re.IGNORECASE) and value.strip():
-                secrets.add(value.strip())
-            if section == "api_urls" and "|" in value:
-                secrets.add(value.rsplit("|", 1)[-1].strip())
+            value = normalized(value)
+            if value and (section.casefold() == "project_api_key" or re.search(r"key|token|password", key, re.IGNORECASE)):
+                secrets.add(value)
+            if section.casefold() == "api_urls" and "|" in value:
+                secrets.add(normalized(value.rsplit("|", 1)[-1]))
     summary.update(
         parsed=True,
         api_key_in_selected_config=bool(settings.get("api_key", "").strip()),
@@ -92,21 +99,6 @@ def find_cli(explicit: Path | None, home: Path) -> Path | None:
     return None
 
 
-def probe(cli: Path, args: list[str], config: Path, timeout: int) -> str:
-    options = {"capture_output": True, "text": True, "encoding": "utf-8", "timeout": timeout}
-    if os.name == "nt":
-        options["creationflags"] = subprocess.CREATE_NO_WINDOW
-    try:
-        result = subprocess.run([str(cli), "--config", str(config), *args], **options)
-    except subprocess.TimeoutExpired:
-        raise ProbeError("cli_timeout") from None
-    except (OSError, UnicodeError):
-        raise ProbeError("cli_execution_failed") from None
-    if result.returncode != 0:
-        raise ProbeError("cli_nonzero_exit")
-    return result.stdout
-
-
 def parse_queue(raw: str) -> list[dict]:
     if not raw.strip():
         return []
@@ -129,10 +121,15 @@ def parse_queue(raw: str) -> list[dict]:
     return parsed
 
 
+def contains_credential(value: str, secrets: set[str]) -> bool:
+    return bool(SENSITIVE_TOKEN.search(value) or LEGACY_API_KEY.search(value)
+                or any(secret and secret in value for secret in secrets))
+
+
 def safe_label(value: object, secrets: set[str]) -> str | None:
     if not isinstance(value, str) or not LANGUAGE_LABEL.fullmatch(value):
         return None
-    if SENSITIVE_TOKEN.search(value) or any(secret and secret in value for secret in secrets):
+    if contains_credential(value, secrets):
         return None
     return value
 
@@ -153,7 +150,7 @@ def queue_summary(rows: list[dict], secrets: set[str]) -> dict:
         tokens = MODEL_TOKEN.findall(ua) if isinstance(ua, str) else []
         visible = []
         for token in tokens:
-            if SENSITIVE_TOKEN.search(token) or any(secret and secret in token for secret in secrets):
+            if contains_credential(token, secrets):
                 redacted += 1
             else:
                 visible.append(token)
@@ -171,32 +168,19 @@ def queue_summary(rows: list[dict], secrets: set[str]) -> dict:
 
 
 def collect(cli: Path | None, config: Path, sample_limit: int, timeout: int) -> dict:
-    selected, secrets = config_summary(config)
-    report = {"read_only": True, "config": selected, "cli_found": cli is not None, "errors": []}
+    # Keep legacy arguments accepted without ever launching the CLI. Its local
+    # queue commands can repair databases and send diagnostics on an error.
+    selected, _ = config_summary(config)
+    report = {
+        "read_only": True,
+        "config": selected,
+        "cli_found": cli is not None,
+        "cli_executed": False,
+        "offline_queue": {"status": "not_checked", "reason": "live_cli_probes_disabled"},
+        "errors": [],
+    }
     if cli is None:
         report["errors"].append("cli_not_found")
-        return report
-    for name, args in (
-        ("version", ["--version"]),
-        ("offline_count", ["--offline-count"]),
-        ("queue_sample", ["--print-offline-heartbeats", str(sample_limit)]),
-    ):
-        try:
-            raw = probe(cli, args, config, timeout)
-            if name == "version":
-                match = re.fullmatch(r"v?(\d+\.\d+\.\d+(?:[-+][A-Za-z0-9.-]+)?)\s*", raw.strip())
-                if not match:
-                    raise ProbeError("version_format_invalid")
-                report[name] = match.group(1)
-            elif name == "offline_count":
-                if not re.fullmatch(r"\d+", raw.strip()):
-                    raise ProbeError("count_format_invalid")
-                report[name] = int(raw.strip())
-            else:
-                report[name] = queue_summary(parse_queue(raw), secrets)
-                report[name]["requested_limit"] = sample_limit
-        except ProbeError as error:
-            report["errors"].append(str(error))
     if selected.get("error"):
         report["errors"].append(selected["error"])
     return report
@@ -213,8 +197,8 @@ def main() -> int:
     parser = RedactedParser(description=__doc__)
     parser.add_argument("--cli", type=Path)
     parser.add_argument("--config", type=Path)
-    parser.add_argument("--sample-limit", type=bounded_integer, default=100)
-    parser.add_argument("--timeout", type=bounded_integer, default=10, help="per local probe timeout in seconds")
+    parser.add_argument("--sample-limit", type=bounded_integer, default=100, help="legacy option; live queue inspection is disabled")
+    parser.add_argument("--timeout", type=bounded_integer, default=10, help="legacy option; no subprocess is started")
     args = parser.parse_args()
     config = select_config(Path.home(), dict(os.environ), args.config)
     report = collect(find_cli(args.cli, Path.home()), config, args.sample_limit, args.timeout)

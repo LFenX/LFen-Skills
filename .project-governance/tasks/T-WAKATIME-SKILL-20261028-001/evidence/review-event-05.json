@@ -1,0 +1,33 @@
+{
+  "event": "Round",
+  "recorded_at": "2026-10-28T12:26:55.724460+00:00",
+  "round_id": "WAKATIME-REVIEW-01",
+  "started_at": "2026-10-28T12:09:46.866794+00:00",
+  "reviewer": "独立只读子 Agent /root/wakatime_review_one",
+  "delivery_task_id": "T-WAKATIME-SKILL-20261028-001",
+  "subject_sha256": "6a6997d93847d5a5bf78a4b7f8adf0147d14c5e60f3dbf32ea1a6a8cbb9ce0f5",
+  "requirements_sha256": "1d2b6ca097a750b12f1d9ab0c0bf85c4c74185bfceb3eb36904dd10dfe09f5f4",
+  "report_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md",
+  "coverage": "Complete",
+  "unreviewed_items": [],
+  "evidence_refs": [
+    ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md"
+  ],
+  "findings": [
+    {
+      "id": "F01",
+      "summary": "P1：原队列 CLI 探针未隔离；损坏恢复会改名数据库并触发诊断上传及凭证命令",
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md"
+      ]
+    },
+    {
+      "id": "F02",
+      "summary": "P2：带引号与项目专用旧 UUID v4 凭证在元数据输出中漏脱敏",
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-round-01.md"
+      ]
+    }
+  ],
+  "resolutions": []
+}

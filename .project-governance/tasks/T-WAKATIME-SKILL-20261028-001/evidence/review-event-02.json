@@ -1,0 +1,11 @@
+{
+  "event": "Offer",
+  "prompt": "一轮对抗性审查即可",
+  "evidence_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/review-authorization.json",
+  "budget": {
+    "review_rounds": 1,
+    "repair_batches": 2,
+    "elapsed_minutes": 60
+  },
+  "recorded_at": "2026-10-28T12:09:46.230617+00:00"
+}
