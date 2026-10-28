@@ -22,6 +22,8 @@ python scripts/inspect_wakatime.py
 
 从实际进程、安装记录、hooks、原始 session source 和采集器链调查。v2.28.0 的 Codex parser 可以按 session `source` 生成 `codex-<source>`；本次桌面记录出现过 `source=vscode`。单看 `Codex Vscode` 不能推出用户正在 VS Code 编码。
 
+用户已明确：Codex 使用 Cursor 的编辑器能力时，主工具应统计为 Codex，Cursor 是宿主编辑器。核对活动发起方、会话、时间与项目关联，再确定归属；编辑器名不等于 AI 工具名。保留原始来源供追溯，不把所有 Cursor 历史记录统一改名为 Codex，也不将缺少关联证据的记录强行归类。模型另按原始 model 核验。
+
 本次曾额外安装社区 `codex-wakatime`，与内置 AI 同步并存，出现额外来源。修复时备份并移除了本次新增的社区 hooks 和包，保留其他 notify，改用 WakaTime 官方插件。该修复经验不构成“所有同名来源都是重复”的规则。
 
 卸载前确认归属，只移除已经识别的冗余采集器；不清空整个 hooks 配置，不禁用用户仍在使用的集成。未来事件的来源修正不能承诺自动重写旧图表。

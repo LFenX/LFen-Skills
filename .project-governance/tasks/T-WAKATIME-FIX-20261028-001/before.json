@@ -5,8 +5,8 @@
   "project_id": "P-LFEN-SKILLS",
   "work_item_id": "W-WAKATIME-FIX-20261028-001",
   "task_id": "T-WAKATIME-FIX-20261028-001",
-  "ordinal": 26,
-  "revision": 2,
+  "ordinal": 27,
+  "revision": 5,
   "lifecycle_state": "Frozen",
   "created_at": "2026-10-28T12:29:53.382051Z",
   "frozen_at": "2026-10-28T12:32:31.982545Z",
@@ -33,15 +33,34 @@
       "source": "request_snapshot",
       "quote": "一轮审查已确认两项问题：①诊断脚本调用底层 CLI，损坏队列时会改名数据库并触发诊断上传；②带引号或项目专用的旧格式 API Key 未被完整脱敏。是否授权修复这两项并复验、上传？范围限 1 批修复、30 分钟，不新增对抗性审查轮次。\n\n修复、复验并上传，不再审查（推荐）",
       "reading": "按具体问题 F01/F02 修复、复验与上传，1批30分钟，不再审查。",
-      "state": "Open",
+      "state": "Covered",
       "evidence_refs": [
-        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+        ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/evidence/verification.json",
+        ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/evidence/publication.json"
       ],
       "acceptance_refs": [
         0,
         1,
         2
-      ]
+      ],
+      "review": {
+        "source_sha256": "9c8f559bc7f2e64cd5ebe969e7533617aa9a9af32f30df969570eb68dad81f52",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "一轮审查已确认两项问题：①诊断脚本调用底层 CLI，损坏队列时会改名数据库并触发诊断上传；②带引号或项目专用的旧格式 API Key 未被完整脱敏。是否授权修复这两项并复验、上传？范围限 1 批修复、30 分钟，不新增对抗性审查轮次。\n\n修复、复验并上传，不再审查（推荐）",
+            "expected": "F01/F02修复、复验并上传；仅一批、不新增审查。",
+            "actual": "F01默认零CLI/网络/vault且损坏合成队列不变，F02六类配置及旧UUID过滤通过；43项测试通过，1ae752b远端及两项CI成功，无新审查。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/evidence/verification.json",
+              ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/evidence/publication.json"
+            ]
+          }
+        ]
+      }
     }
   ],
   "decisions": [
@@ -66,12 +85,12 @@
     "root": "C:\\Users\\Administrator\\Documents\\Codex\\work\\waka",
     "vcs": "git",
     "branch": "codex/wakatime-coding-analytics",
-    "head": "6a84c81c8780ea7f53f57293f7a4b7583df4b878",
+    "head": "1ae752bf304f2c61600fffc4c484078a5a5bb239",
     "head_exists": true,
     "dirty": true,
-    "dirty_entries": 18,
-    "status_digest": "f1de832d5113860aa70c65ad22ba813ce2da491e61d857797529d3e224369e68",
-    "captured_at": "2026-10-28T12:29:53.217717Z"
+    "dirty_entries": 7,
+    "status_digest": "f3daec47f96faa47571be092e7fdbfafc9b92b122dc8898a5f75aeafe9fb3b9f",
+    "captured_at": "2026-10-28T12:49:41.915524Z"
   },
   "scope": {
     "in_scope": [
@@ -445,6 +464,109 @@
       "reason": "上下文要求登记安全隐私工程验证门；以合成隔离回归作为实际证据，不代替用户验收",
       "basis": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json",
       "changed_at": "2026-10-28T12:30:39.374589Z"
+    },
+    {
+      "from_revision": 2,
+      "to_revision": 3,
+      "path": "requirement_items",
+      "old_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "一轮审查已确认两项问题：①诊断脚本调用底层 CLI，损坏队列时会改名数据库并触发诊断上传；②带引号或项目专用的旧格式 API Key 未被完整脱敏。是否授权修复这两项并复验、上传？范围限 1 批修复、30 分钟，不新增对抗性审查轮次。\n\n修复、复验并上传，不再审查（推荐）",
+          "reading": "按具体问题 F01/F02 修复、复验与上传，1批30分钟，不再审查。",
+          "state": "Open",
+          "evidence_refs": [
+            ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+          ],
+          "acceptance_refs": [
+            0,
+            1,
+            2
+          ]
+        }
+      ],
+      "new_value": [
+        {
+          "id": "R-01",
+          "source": "request_snapshot",
+          "quote": "一轮审查已确认两项问题：①诊断脚本调用底层 CLI，损坏队列时会改名数据库并触发诊断上传；②带引号或项目专用的旧格式 API Key 未被完整脱敏。是否授权修复这两项并复验、上传？范围限 1 批修复、30 分钟，不新增对抗性审查轮次。\n\n修复、复验并上传，不再审查（推荐）",
+          "reading": "按具体问题 F01/F02 修复、复验与上传，1批30分钟，不再审查。",
+          "state": "Covered",
+          "evidence_refs": [
+            ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/evidence/verification.json",
+            ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/evidence/publication.json"
+          ],
+          "acceptance_refs": [
+            0,
+            1,
+            2
+          ],
+          "review": {
+            "source_sha256": "9c8f559bc7f2e64cd5ebe969e7533617aa9a9af32f30df969570eb68dad81f52",
+            "conditions": [],
+            "cases": [
+              {
+                "condition": null,
+                "branch": "Unconditional",
+                "input": "一轮审查已确认两项问题：①诊断脚本调用底层 CLI，损坏队列时会改名数据库并触发诊断上传；②带引号或项目专用的旧格式 API Key 未被完整脱敏。是否授权修复这两项并复验、上传？范围限 1 批修复、30 分钟，不新增对抗性审查轮次。\n\n修复、复验并上传，不再审查（推荐）",
+                "expected": "F01/F02修复、复验并上传；仅一批、不新增审查。",
+                "actual": "F01默认零CLI/网络/vault且损坏合成队列不变，F02六类配置及旧UUID过滤通过；43项测试通过，1ae752b远端及两项CI成功，无新审查。",
+                "result": "Passed",
+                "evidence_refs": [
+                  ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/evidence/verification.json",
+                  ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/evidence/publication.json"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "reason": "已实际上传并核对CI后记录原文覆盖；并发远端66c8fbe由正常快进合入，本次以当前真实已发布快照继续留档，原始快照保留Amendment，不把其他任务纳入本修复。",
+      "basis": ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/evidence/publication.json",
+      "changed_at": "2026-10-28T12:49:42.212955Z"
+    },
+    {
+      "from_revision": 3,
+      "to_revision": 4,
+      "path": "source_snapshot",
+      "old_value": {
+        "repository": "waka",
+        "root": "C:\\Users\\Administrator\\Documents\\Codex\\work\\waka",
+        "vcs": "git",
+        "branch": "codex/wakatime-coding-analytics",
+        "head": "6a84c81c8780ea7f53f57293f7a4b7583df4b878",
+        "head_exists": true,
+        "dirty": true,
+        "dirty_entries": 18,
+        "status_digest": "f1de832d5113860aa70c65ad22ba813ce2da491e61d857797529d3e224369e68",
+        "captured_at": "2026-10-28T12:29:53.217717Z"
+      },
+      "new_value": {
+        "repository": "waka",
+        "root": "C:\\Users\\Administrator\\Documents\\Codex\\work\\waka",
+        "vcs": "git",
+        "branch": "codex/wakatime-coding-analytics",
+        "head": "1ae752bf304f2c61600fffc4c484078a5a5bb239",
+        "head_exists": true,
+        "dirty": true,
+        "dirty_entries": 7,
+        "status_digest": "f3daec47f96faa47571be092e7fdbfafc9b92b122dc8898a5f75aeafe9fb3b9f",
+        "captured_at": "2026-10-28T12:49:41.915524Z"
+      },
+      "reason": "已实际上传并核对CI后记录原文覆盖；并发远端66c8fbe由正常快进合入，本次以当前真实已发布快照继续留档，原始快照保留Amendment，不把其他任务纳入本修复。",
+      "basis": ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/evidence/publication.json",
+      "changed_at": "2026-10-28T12:49:42.212981Z"
+    },
+    {
+      "from_revision": 4,
+      "to_revision": 5,
+      "path": "ordinal",
+      "old_value": 26,
+      "new_value": 27,
+      "reason": "合入远端并发任务后项目生成器发现同序号26；仅修订本任务序号，不改变交付或原审查范围。",
+      "basis": ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/evidence/finalization.json",
+      "changed_at": "2026-10-28T12:53:27.887805Z"
     }
   ],
   "tailoring_resolution": {
@@ -455,8 +577,8 @@
     "normative_sources_sha256": "43c0990e110fec3ae97a99bd2fc7b43a31c5786e21f9ce7b8876811c87efb3ac",
     "resolver_sha256": "7737ed94dfe35f785e783d6385aed0db0bbe284e5c73f938f1d839d52ef1d574",
     "task_contract_schema_sha256": "ad3db51c243bee235546c3093cba400fdb2227e7fc7e97dc2a4fc2d055672045",
-    "input_digest": "44aafb0154927beb8c814fd8cc68d7d9affe63abd50883391ac1d274ef376cd4",
-    "stage": "S7",
+    "input_digest": "71dce15b088429d68e145ca94f53a0c33ab3e855071754bc935b8ce02bcb4535",
+    "stage": "S8",
     "applicable_standards": [
       "C02",
       "C03",
@@ -475,9 +597,7 @@
     ],
     "pending_standards": [],
     "stage_context_standards": [
-      "C05",
-      "C06",
-      "C07",
+      "C04",
       "C09",
       "C10",
       "C11",
@@ -554,11 +674,9 @@
         "path": "references/01_治理基线/Vibe_Coding_任务类型裁剪与统一执行流程规范_V6.3.md",
         "sections": [
           "9",
-          "10",
-          "15",
+          "14",
           "16",
-          "17",
-          "18"
+          "17"
         ]
       },
       {

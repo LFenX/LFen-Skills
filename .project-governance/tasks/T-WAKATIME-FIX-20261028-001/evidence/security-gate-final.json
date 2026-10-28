@@ -1,0 +1,8 @@
+{
+  "id": "security-privacy-review",
+  "outcome": "Passed",
+  "subject_sha256": "e37d1fb30443096e4fd81738b43084288fcdb703d406cdb5e08f8922555d181e",
+  "decided_by": "Codex 工程安全隐私回归验证（非人工验收）",
+  "decided_at": "2026-10-28T12:50:52.558721+00:00",
+  "authority_ref": ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/repair-authorization.json"
+}

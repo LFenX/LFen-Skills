@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-10-28T12:39:41.487528+00:00",
+  "recorded_at": "2026-10-28T12:49:41.252098+00:00",
   "tests": {
     "diagnostic": {
       "passed": 11,
@@ -32,11 +32,38 @@
     "真实队列数量、语言和模型不再由默认诊断获取；明确not_checked。"
   ],
   "source_hashes": {
-    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md": "224cafe67aabeecdc58d0710a83aa9e3948ccefdfb1bd1cd6254557afef088e0",
-    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/references/accuracy-and-recovery.md": "a9bc9a17832211c512152554e832e876e1a9614aa73ea5bc69a6aeb16c100ead",
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md": "e034b7d5ba6c442893c6ccbe566531bcdbb952928d964837ca12ecb3a2d8579c",
+    "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/references/accuracy-and-recovery.md": "7591d097e56392b4d26f737b8a73d2bfdd0af892b8fdfea5f39e48e445161e1e",
     "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/scripts/inspect_wakatime.py": "ab822681c7256f744d8d1a81ba80de0d5bea7a03fa029a83f4149b7d47509040",
     "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/scripts/test_inspect_wakatime.py": "719cf655416e3b1d513fc99a3dad5483b3c13fb35f819e06a2b08fdf951605e9"
   },
   "additional_review_rounds": 0,
-  "repair_batches": 1
+  "repair_batches": 1,
+  "publication": {
+    "recorded_at": "2026-10-28T12:49:41.250516+00:00",
+    "content_commit": "1ae752bf304f2c61600fffc4c484078a5a5bb239",
+    "remote_main": "1ae752bf304f2c61600fffc4c484078a5a5bb239",
+    "push": "normal fast-forward; no force",
+    "ci": [
+      {
+        "name": "Validate skill catalog",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40690085045"
+      },
+      {
+        "name": "Skill gates",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40690085146"
+      }
+    ],
+    "source": "tool-output:0bc9b3; GitHub Actions public API head_sha match"
+  },
+  "documentation_clarification": {
+    "recorded_at": "2026-10-28T12:49:41.251157+00:00",
+    "source": "当前会话用户新消息",
+    "quote": "比如我codex用的是cursor的editor不能说是用cursor而是codex",
+    "handling": "为原有工具身份与宿主区别规则补充明确例子：Codex发起的活动归Codex，Cursor作为宿主。只补充skill文字，本批不修改真实采集或历史统计。"
+  }
 }

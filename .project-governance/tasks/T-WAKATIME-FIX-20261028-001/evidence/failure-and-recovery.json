@@ -17,5 +17,10 @@
       "recovery": "正式amend登记工程安全隐私验证门，再重新查询；未先修改代码。"
     }
   ],
-  "side_effects": "以上失败没有执行业务修改、CLI或外部上传；成功execution-ready后才运行本批。"
+  "side_effects": "以上失败没有执行业务修改、CLI或外部上传；成功execution-ready后才运行本批。",
+  "read_only_postprocessing_correction": {
+    "source": "tool-output:c1a2b8",
+    "symptom": "读取审批摘要后错误地将纯hex文本按JSON解析；工程验证事件已真实成功。",
+    "recovery": "按64位hex校验原始文本，正式Gate记录随后成功；未重新执行CLI、代码修改或外部上传。"
+  }
 }

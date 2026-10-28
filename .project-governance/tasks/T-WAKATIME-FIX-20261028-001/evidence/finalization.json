@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-10-28T12:53:27.747340+00:00",
+  "failure": "项目视图生成检测到并发任务T-REVIEW-SCOPE与本任务同为ordinal26，拒绝生成。",
+  "source": "tool-output:66510a",
+  "cause": "本任务创建后正常合入远端并发任务，独立序号发生冲突。",
+  "recovery": "仅以正式Amendment调整本任务ordinal为27，保留原值和来源；不改TaskID、skill路径、代码或其他任务。",
+  "recheck": {
+    "task_package": "Passed",
+    "project_state": "Passed",
+    "review_views": "Passed",
+    "source": "tool-output:9d40f7"
+  }
+}

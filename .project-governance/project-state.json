@@ -3,8 +3,8 @@
   "meta_type": "ProjectState",
   "project_id": "P-LFEN-SKILLS",
   "generated": true,
-  "generated_at": "2026-10-28T12:41:58.708174Z",
-  "source_digest": "bd0befda5ff4e07ef61c8e08c9d998784f66560560c0e91f427e289be9290504",
+  "generated_at": "2026-10-28T12:53:30.575860Z",
+  "source_digest": "941ff4ad8a29d05ef07ed8641d9da6c88df1982e624bc9d3f74bcb5a8e6cdf3d",
   "source_tasks": [
     {
       "task_id": "T-RWPW-20260821-001",
@@ -281,7 +281,7 @@
       "ordinal": 25,
       "status": "Implemented",
       "user_decision": "Pending",
-      "revision": 8,
+      "revision": 10,
       "completed_at": "2026-10-28T12:00:31.116037Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",
@@ -290,13 +290,29 @@
       }
     },
     {
-      "task_id": "T-WAKATIME-FIX-20261028-001",
+      "task_id": "T-REVIEW-SCOPE-20261028-001",
       "ordinal": 26,
-      "status": "Active",
+      "status": "Implemented",
+      "user_decision": "Pending",
+      "revision": 1,
+      "completed_at": "2026-10-28T12:20:06.480293Z",
       "proof_validation": {
         "policy": "implemented-proof-v1",
-        "mode": "ActiveRead",
-        "status": "ActivePendingTerminal"
+        "mode": "Current",
+        "status": "CurrentVerified"
+      }
+    },
+    {
+      "task_id": "T-WAKATIME-FIX-20261028-001",
+      "ordinal": 27,
+      "status": "Implemented",
+      "user_decision": "Pending",
+      "revision": 1,
+      "completed_at": "2026-10-28T12:52:21.239103Z",
+      "proof_validation": {
+        "policy": "implemented-proof-v1",
+        "mode": "Current",
+        "status": "CurrentVerified"
       }
     }
   ],
@@ -660,6 +676,36 @@
       "task_id": "T-WAKATIME-SKILL-20261028-001",
       "ordinal": 25,
       "fact": "本任务没有重新配置实时 WakaTime 环境；既有桌面执行及云端未验项在参考文档中保持明确限制。"
+    },
+    {
+      "task_id": "T-REVIEW-SCOPE-20261028-001",
+      "ordinal": 26,
+      "fact": "先快进同步origin/main至f9e8a0f8177418f0c2e4da26470827495fcdad35，再按追加指令将三份旧记录以fa27980836448b902f3b5048692cc5d796b38a2a原字节提交推送。"
+    },
+    {
+      "task_id": "T-REVIEW-SCOPE-20261028-001",
+      "ordinal": 26,
+      "fact": "冻结审查范围与防止标准膨胀规则以6a84c81c8780ea7f53f57293f7a4b7583df4b878推送origin/main；本地验证及该提交的两项GitHub CI均通过。"
+    },
+    {
+      "task_id": "T-REVIEW-SCOPE-20261028-001",
+      "ordinal": 26,
+      "fact": "初始化生成的本地控制台副作用已恢复；记录rollback事件时曾被权限检查拒绝，原始失败及正式权限修订、A02重试和实际恢复证据均保留，未引起源码变化。"
+    },
+    {
+      "task_id": "T-REVIEW-SCOPE-20261028-001",
+      "ordinal": 26,
+      "fact": "用户明确要求不启动新的审查；本任务未启动审查、未委派Agent、未发送跨会话消息，未更新冻结共享安装副本。"
+    },
+    {
+      "task_id": "T-WAKATIME-FIX-20261028-001",
+      "ordinal": 27,
+      "fact": "用户明确授权一次F01/F02修复与复验上传，不新增审查；本批已完成。"
+    },
+    {
+      "task_id": "T-WAKATIME-FIX-20261028-001",
+      "ordinal": 27,
+      "fact": "提交1ae752b已正常上传，远端SHA及两项CI已核对。"
     }
   ],
   "unresolved_items": [
@@ -986,22 +1032,44 @@
       "depends_on": [],
       "supersedes": [],
       "blocked_by": [],
-      "next_tasks": [],
+      "next_tasks": [
+        {
+          "task_id": "T-WAKATIME-FIX-20261028-001",
+          "relation": "addresses",
+          "reason": "用户直接授权的单批F01/F02修复已复验上传；原一轮发现历史保留，不启动新审查。"
+        }
+      ],
       "derived_from": [],
       "required_by": [
         "T-WAKATIME-FIX-20261028-001"
       ]
     },
     {
-      "task_id": "T-WAKATIME-FIX-20261028-001",
+      "task_id": "T-REVIEW-SCOPE-20261028-001",
       "ordinal": 26,
+      "depends_on": [],
+      "supersedes": [],
+      "blocked_by": [],
+      "next_tasks": [],
+      "derived_from": [],
+      "required_by": []
+    },
+    {
+      "task_id": "T-WAKATIME-FIX-20261028-001",
+      "ordinal": 27,
       "depends_on": [
         "T-WAKATIME-SKILL-20261028-001"
       ],
       "supersedes": [],
       "blocked_by": [],
       "next_tasks": [],
-      "derived_from": [],
+      "derived_from": [
+        {
+          "task_id": "T-WAKATIME-SKILL-20261028-001",
+          "relation": "addresses",
+          "reason": "用户直接授权的单批F01/F02修复已复验上传；原一轮发现历史保留，不启动新审查。"
+        }
+      ],
       "required_by": []
     }
   ],

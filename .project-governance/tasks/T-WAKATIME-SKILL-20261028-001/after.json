@@ -5,7 +5,7 @@
   "project_id": "P-LFEN-SKILLS",
   "work_item_id": "W-WAKATIME-SKILL-20261028-001",
   "task_id": "T-WAKATIME-SKILL-20261028-001",
-  "revision": 8,
+  "revision": 10,
   "status": "Implemented",
   "user_decision": {
     "outcome": "Pending"
@@ -216,9 +216,16 @@
   "decisions": [],
   "evidence_refs": [
     ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/requirements-review.md",
-    ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/finalization.json"
+    ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/finalization.json",
+    ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/after.json"
   ],
-  "next_tasks": [],
+  "next_tasks": [
+    {
+      "task_id": "T-WAKATIME-FIX-20261028-001",
+      "relation": "addresses",
+      "reason": "用户直接授权的单批F01/F02修复已复验上传；原一轮发现历史保留，不启动新审查。"
+    }
+  ],
   "artifact_manifest": [
     {
       "meta_type": "TaskContract",
@@ -431,6 +438,39 @@
         "delivery_verified_at": "2026-10-28T12:00:30.615080Z",
         "session_completed": false
       }
+    },
+    {
+      "from_revision": 8,
+      "to_revision": 9,
+      "path": "next_tasks",
+      "old_value": [],
+      "new_value": [
+        {
+          "task_id": "T-WAKATIME-FIX-20261028-001",
+          "relation": "addresses",
+          "reason": "用户直接授权的单批F01/F02修复已复验上传；原一轮发现历史保留，不启动新审查。"
+        }
+      ],
+      "reason": "将真实单轮发现关联到用户后来直接授权并完成的修复结果；不改原发现、原轮次或原工程事实。",
+      "basis": ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/after.json",
+      "changed_at": "2026-10-28T12:52:21.850159Z"
+    },
+    {
+      "from_revision": 9,
+      "to_revision": 10,
+      "path": "evidence_refs",
+      "old_value": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/requirements-review.md",
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/finalization.json"
+      ],
+      "new_value": [
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/requirements-review.md",
+        ".project-governance/tasks/T-WAKATIME-SKILL-20261028-001/evidence/finalization.json",
+        ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/after.json"
+      ],
+      "reason": "将真实单轮发现关联到用户后来直接授权并完成的修复结果；不改原发现、原轮次或原工程事实。",
+      "basis": ".project-governance/tasks/T-WAKATIME-FIX-20261028-001/after.json",
+      "changed_at": "2026-10-28T12:52:21.850182Z"
     }
   ],
   "scope_reconciliation": {
