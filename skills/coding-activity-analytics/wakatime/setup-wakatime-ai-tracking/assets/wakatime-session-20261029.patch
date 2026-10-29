@@ -1,0 +1,1578 @@
+diff --git a/pkg/ai/activity_identity.go b/pkg/ai/activity_identity.go
+new file mode 100644
+index 0000000..d4cc675
+--- /dev/null
++++ b/pkg/ai/activity_identity.go
+@@ -0,0 +1,72 @@
++package ai
++
++import "strings"
++
++// aiToolUserAgent writes an explicit model/tool pair and keeps the host as
++// metadata. The caller supplies the actual model from its parser; a software
++// version or previous session's model must never become an unknown model.
++func aiToolUserAgent(userAgent, modelToken, tool string) string {
++	header, products := splitUserAgent(userAgent)
++	fields := strings.Fields(products)
++	actor := strings.ToLower(canonicalAgentToken(tool))
++	switch actor {
++	case "claude":
++		actor = "claude-code"
++	case "cursor-agent":
++		actor = "cursor"
++	}
++
++	version := "unknown"
++	for _, token := range fields {
++		product, candidate, found := strings.Cut(token, "/")
++		product = strings.ToLower(product)
++		if found && candidate != "" && !strings.Contains(product, "wakatime") &&
++			(product == actor || strings.HasPrefix(product, actor+"-")) {
++			version = candidate
++			break
++		}
++	}
++
++	actorToken := actor + "/" + version
++	if actor == "grok-bot" && version == "unknown" {
++		actorToken = actor // This source does not expose an application version.
++	}
++	if modelToken == "" || modelToken == "unknown/unknown" || modelToken == "unknown-model" {
++		// Keep the missing model explicit, followed only by the measured tool
++		// name. In the service, codex/<app version> can be consumed as a model.
++		// No app version or trailing provenance product may fill that slot.
++		return strings.TrimSpace(header + " unknown/unknown " + actor)
++	}
++	result := []string{modelToken, actorToken}
++	seen := map[string]bool{strings.ToLower(result[0]): true, strings.ToLower(result[1]): true}
++	for _, token := range fields {
++		if strings.EqualFold(token, modelToken) {
++			continue
++		}
++		if strings.EqualFold(token, result[1]) {
++			if _, host := knownIDEFieldIndex([]string{token}); !host {
++				continue
++			}
++		}
++		product := strings.ToLower(userAgentProduct(token))
++		// A prefix such as source-codex-cli/ still matches WakaTime's editor
++		// detector. Keep provenance in a value, never as a second product token.
++		if strings.HasPrefix(token, "host/") || strings.HasPrefix(token, "source/") || strings.HasPrefix(token, "uploader/") {
++			// Already normalized; retain it without accumulating wrappers.
++		} else {
++			kind := "source"
++			if _, known := knownIDEFieldIndex([]string{token}); known || strings.HasPrefix(product, "host-") {
++				kind = "host"
++			} else if strings.Contains(product, "wakatime") {
++				kind = "uploader"
++			}
++			token = kind + "/" + strings.ReplaceAll(strings.TrimPrefix(strings.TrimPrefix(token, "host-"), "source-"), "/", "@")
++		}
++		key := strings.ToLower(token)
++		if !seen[key] {
++			result = append(result, token)
++			seen[key] = true
++		}
++	}
++	return strings.TrimSpace(header + " " + strings.Join(result, " "))
++}
+diff --git a/pkg/ai/activity_identity_internal_test.go b/pkg/ai/activity_identity_internal_test.go
+new file mode 100644
+index 0000000..df6527c
+--- /dev/null
++++ b/pkg/ai/activity_identity_internal_test.go
+@@ -0,0 +1,96 @@
++//go:build (!freebsd && !openbsd && !netbsd && !dragonfly) || (freebsd && (amd64 || arm64)) || (openbsd && (amd64 || arm64))
++
++package ai
++
++import (
++	"testing"
++	"time"
++
++	"github.com/stretchr/testify/assert"
++	"github.com/stretchr/testify/require"
++	"github.com/wakatime/wakatime-cli/pkg/heartbeat"
++)
++
++func TestToolIdentitySeparatesCodexFromCursor(t *testing.T) {
++	config := ParserConfig{ToolIdentity: true}
++	codex := Codex(config)
++	got := codex.userAgent("/project/main.go", "gpt-6.1-sol-max", "0.163", "vscode",
++		map[string]string{"/project/main.go": "cursor/1.128 vscode-wakatime/30.2"}, "codex-cli/0.154")
++	assert.Equal(t, "gpt/6.1-sol-max codex/0.163 host/cursor@1.128 source/codex-vscode@0.163 uploader/vscode-wakatime@30.2", got)
++	assert.Equal(t, got, aiToolUserAgent(got, "gpt/6.1-sol-max", "Codex"))
++}
++
++func TestToolIdentityUnknownModelIsNotSoftwareVersion(t *testing.T) {
++	codex := Codex(ParserConfig{ToolIdentity: true})
++	got := codex.userAgent("/project/main.go", "", "0.163", "vscode", nil, "codex-cli/0.154 plugin-wakatime/1")
++	assert.Equal(t, "unknown/unknown codex", got)
++	assert.NotContains(t, got, "gpt/")
++	assert.Equal(t, "unknown/unknown grok-bot",
++		aiToolUserAgent("grok-bot codex-cli/0.154 codex-cli-wakatime/1", "", "Grok Bot"))
++	assert.Equal(t, "unknown/unknown grok-bot",
++		aiToolUserAgent("grok-bot/0.77.0 codex-cli/0.154 codex-cli-wakatime/1", "", "Grok Bot"))
++	assert.Equal(t, "wakatime/v2.28.0 (Windows NT-10.0-amd64) go1.27.3 unknown/unknown codex",
++		aiToolUserAgent("wakatime/v2.28.0 (Windows NT-10.0-amd64) go1.27.3 codex/0.163 source/codex-cli@0.154", "unknown-model", "Codex"))
++}
++
++func TestToolIdentityKeepsModelVersionAndReasoningEffort(t *testing.T) {
++	for _, model := range []string{"gpt/6.1-sol-max", "gpt/6-astra-xhigh", "opus/5.5", "deepseek/4-pro", "composer/2.5"} {
++		got := aiToolUserAgent(model+" cursor/1.128 codex-vscode/0.163 vscode-wakatime/30.2", model, "Codex")
++		assert.Contains(t, got, model+" codex/0.163 ")
++	}
++}
++
++func TestToolIdentityRetainsHeaderAndOtherClients(t *testing.T) {
++	got := aiToolUserAgent("wakatime/v2.28.0 (Windows NT-10.0-amd64) go1.27.3 opus/5.5 cursor/1.128 claude-code/2.0 vscode-wakatime/30.2", "opus/5.5", "Claude")
++	assert.Contains(t, got, "wakatime/v2.28.0 (Windows NT-10.0-amd64) go1.27.3 opus/5.5 claude-code/2.0 host/cursor@1.128")
++	opencode := newCheckpointOpenCode(ParserConfig{ToolIdentity: true, FallbackUserAgent: "cursor/1.128 vscode-wakatime/30.2"})
++	assert.Contains(t, opencode.userAgent("/project/main.py", "deepseek-4-pro", "1.2"), "deepseek/4-pro opencode/1.2 host/cursor@1.128")
++	cursor := Cursor(ParserConfig{ToolIdentity: true, FallbackUserAgent: "cursor/1.128 vscode-wakatime/30.2"})
++	assert.Contains(t, cursor.userAgent("/project/main.ts", "composer-2.5"), "composer/2.5 cursor/1.128 host/cursor@1.128")
++}
++
++func TestToolIdentityDoesNotChangeActivityMeasurements(t *testing.T) {
++	lineChanges := 5
++	event := genericAIEvent{sessionID: "isolated-fixture", timestamp: time.Unix(1793100000, 0),
++		filePath: "/project/main.go", cwd: "/project", model: "gpt-6.1-sol-max", input: 300, cachedInput: 200, output: 50,
++		tokensFound: true, lineChanges: &lineChanges}
++	baseline := ParserConfig{FallbackUserAgent: "cursor/1.128 vscode-wakatime/30.2"}
++	expected := genericAIEventHeartbeats(Codex(baseline), baseline, event)
++	baseline.ToolIdentity = true
++	actual := genericAIEventHeartbeats(Codex(baseline), baseline, event)
++	require.Equal(t, len(expected), len(actual))
++	for i := range expected {
++		assert.NotEqual(t, expected[i].UserAgent, actual[i].UserAgent)
++		actual[i].UserAgent = expected[i].UserAgent
++		assert.Equal(t, expected[i], actual[i], "only source identity may change")
++	}
++}
++
++func TestStrictPatchPathsKeepsUnresolvedExpressionAsActivity(t *testing.T) {
++	g := Codex(ParserConfig{ToolIdentity: true, StrictPatchPaths: true})
++	stamp := time.Unix(1793100000, 0)
++	for _, expression := range []string{`"+path+"`, `" + name + "`, `' + filename + '`} {
++		input := "*** Begin Patch\n*** Add File: " + expression + "\n+print('fixture')\n*** End Patch"
++		rows := g.patchHeartbeats(stamp, "0.163", "gpt-6.1-sol-max", "vscode", "/project", nil,
++			"codex-cli/0.154", input, "fixture-session", heartbeat.AITokens{CurrentInput: 100})
++		require.Len(t, rows, 1)
++		assert.Equal(t, heartbeat.AppType, rows[0].EntityType)
++		assert.Equal(t, "Codex fixture-session", rows[0].Entity)
++		assert.Equal(t, "/project", rows[0].ProjectPathOverride)
++		assert.Nil(t, rows[0].AILineChanges)
++		assert.Nil(t, rows[0].Language)
++		assert.Equal(t, int64(100), rows[0].AIInputTokens)
++	}
++}
++
++func TestStrictPatchPathsPreservesLiteralPaths(t *testing.T) {
++	for _, name := range []string{"main.py", "A+B file.py", "literal$path.py"} {
++		g := Codex(ParserConfig{StrictPatchPaths: true})
++		rows := g.patchHeartbeats(time.Unix(1793100000, 0), "0.163", "gpt-6.1-sol-max", "vscode", "/project", nil,
++			"codex-cli/0.154", "*** Begin Patch\n*** Add File: "+name+"\n+print('fixture')\n*** End Patch", "fixture-session", heartbeat.AITokens{})
++		require.Len(t, rows, 1)
++		assert.Equal(t, heartbeat.FileType, rows[0].EntityType)
++		require.NotNil(t, rows[0].AILineChanges)
++		assert.Equal(t, 1, *rows[0].AILineChanges)
++	}
++}
+diff --git a/pkg/ai/ai.go b/pkg/ai/ai.go
+index f768017..b343e6d 100644
+--- a/pkg/ai/ai.go
++++ b/pkg/ai/ai.go
+@@ -50,7 +50,14 @@ type ParserConfig struct {
+ 	FallbackUserAgent string
+ 	UserAgents        map[string]string
+ 	ProjectInfo       ProjectInfo
+-	checkpoint        *parserCheckpoint
++	// ToolIdentity keeps the AI tool separate from its host editor (opt-in).
++	ToolIdentity bool
++	// StrictPatchPaths avoids interpreting source-code concatenations as files.
++	StrictPatchPaths   bool
++	CursorStopMetadata string
++	CursorStopSince    time.Time
++	GrokBotVersion     string
++	checkpoint         *parserCheckpoint
+ }
+ 
+ const maxTranscriptLineSize = 10 * 1024 * 1024
+@@ -319,6 +326,12 @@ func parseAIHeartbeats(
+ 	}
+ 
+ 	tracked := make(map[string]bool)
++	toolIdentity := config.V != nil && config.V.GetBool("settings.ai_tool_identity")
++	strictPatchPaths := config.V != nil && config.V.GetBool("settings.ai_strict_patch_paths")
++	grokBotVersion := ""
++	if config.V != nil {
++		grokBotVersion = config.V.GetString("settings.ai_grok_bot_version")
++	}
+ 
+ 	parserConfig := func(name string) ParserConfig {
+ 		state := checkpoints.parser(name, after)
+@@ -326,14 +339,30 @@ func parseAIHeartbeats(
+ 
+ 		return ParserConfig{
+ 			After: state.discoveryAfter(), UserAgents: userAgents, FallbackUserAgent: config.Plugin,
+-			checkpoint: state,
++			ToolIdentity:     toolIdentity,
++			StrictPatchPaths: strictPatchPaths,
++			checkpoint:       state,
++			GrokBotVersion:   grokBotVersion,
+ 		}
+ 	}
+ 
+ 	// Parsers reading SQLite databases do not take part in checkpoints. They keep
+ 	// their own per-database cursors and use the global cutoff, which keeps row
+ 	// hashes out of the checkpoint file that is loaded and rewritten on every sync.
+-	sqliteConfig := ParserConfig{After: after, UserAgents: userAgents, FallbackUserAgent: config.Plugin}
++	sqliteConfig := ParserConfig{After: after, UserAgents: userAgents, FallbackUserAgent: config.Plugin,
++		ToolIdentity: toolIdentity, StrictPatchPaths: strictPatchPaths}
++	cursorConfig := sqliteConfig
++	if config.V != nil && config.V.GetString("settings.ai_cursor_stop_metadata") != "" {
++		cursorConfig = parserConfig((Cursor{}).Name())
++		cursorConfig.CursorStopMetadata = config.V.GetString("settings.ai_cursor_stop_metadata")
++		if value := config.V.GetString("settings.ai_cursor_stop_since"); value != "" {
++			cursorConfig.CursorStopSince, err = time.Parse(time.RFC3339Nano, value)
++			if err != nil {
++				return nil, fmt.Errorf("invalid ai_cursor_stop_since: expected RFC3339 timestamp")
++			}
++		}
++		cursorConfig = cursorCheckpointConfig(cursorConfig)
++	}
+ 
+ 	parsers := []Parser{
+ 		OpenClaude(parserConfig((OpenClaude{}).Name())),
+@@ -349,7 +378,7 @@ func parseAIHeartbeats(
+ 		RooCode(parserConfig((RooCode{}).Name())),
+ 		newCheckpointOpenCode(sqliteConfig),
+ 		Copilot(sqliteConfig),
+-		Cursor(sqliteConfig),
++		Cursor(cursorConfig),
+ 		Windsurf(sqliteConfig),
+ 		Qoder(sqliteConfig),
+ 		Kiro(parserConfig((Kiro{}).Name())),
+diff --git a/pkg/ai/checkpoints.go b/pkg/ai/checkpoints.go
+index 986f7b2..9666567 100644
+--- a/pkg/ai/checkpoints.go
++++ b/pkg/ai/checkpoints.go
+@@ -32,9 +32,10 @@ type syncCheckpoints struct {
+ }
+ 
+ type parserCheckpoint struct {
+-	Cutoff   time.Time                     `json:"cutoff"`
+-	Sessions map[string]*sessionCheckpoint `json:"sessions"`
+-	Sources  map[string]checkpointSource   `json:"sources,omitempty"`
++	Cutoff      time.Time                     `json:"cutoff"`
++	Sessions    map[string]*sessionCheckpoint `json:"sessions"`
++	Sources     map[string]checkpointSource   `json:"sources,omitempty"`
++	CursorStops map[string]bool               `json:"cursor_stops,omitempty"`
+ 	// global is this run's global cutoff (ai_logs_last_parsed_at). It is the
+ 	// cutoff a session gets the first time it is seen, and is never persisted.
+ 	global time.Time
+@@ -65,6 +66,10 @@ func (p *parserCheckpoint) clone() *parserCheckpoint {
+ 		clone.Sources = make(map[string]checkpointSource, len(p.Sources))
+ 		maps.Copy(clone.Sources, p.Sources)
+ 	}
++	if p.CursorStops != nil {
++		clone.CursorStops = make(map[string]bool, len(p.CursorStops))
++		maps.Copy(clone.CursorStops, p.CursorStops)
++	}
+ 
+ 	return clone
+ }
+@@ -340,7 +345,7 @@ func atomicWriteFile(dir, pattern, path string, contents []byte) error {
+ 
+ func newCheckpointOpenCode(config ParserConfig) OpenCode {
+ 	return OpenCode{After: config.After, FallbackUserAgent: config.FallbackUserAgent, UserAgents: config.UserAgents,
+-		ProjectInfo: config.ProjectInfo, checkpoint: config.checkpoint}
++		ProjectInfo: config.ProjectInfo, ToolIdentity: config.ToolIdentity, checkpoint: config.checkpoint}
+ }
+ 
+ // getSyncLastParsedAt reads the freshest on-disk value of ai_logs_last_parsed_at,
+diff --git a/pkg/ai/claude.go b/pkg/ai/claude.go
+index 88c20a7..35530f3 100644
+--- a/pkg/ai/claude.go
++++ b/pkg/ai/claude.go
+@@ -1031,6 +1031,11 @@ func (g Claude) claudeFileHeartbeat(
+ func (g Claude) userAgent(entity string, version string, model string, complexity string, ideSession bool) string {
+ 	modelToken := aiModelUserAgentToken(model, complexity)
+ 	cli := "claude-code/" + unknownIfEmpty(version)
++	if g.ToolIdentity {
++		userAgent := aiUserAgentWithModelAndEditor(
++			entity, g.UserAgents, g.FallbackUserAgent, model, complexity, cli)
++		return aiToolUserAgent(userAgent, modelToken, g.Name())
++	}
+ 
+ 	if !ideSession {
+ 		// Foreground apps and file heartbeats do not establish IDE membership.
+diff --git a/pkg/ai/codex.go b/pkg/ai/codex.go
+index 0f19ee7..accef2e 100644
+--- a/pkg/ai/codex.go
++++ b/pkg/ai/codex.go
+@@ -49,6 +49,16 @@ type (
+ 		lastAgentMessageTime          time.Time
+ 		lastResponseItemAssistantTime time.Time
+ 		lastResponseItemUserTime      time.Time
++		turnID                        string
++		turnSequence                  int
++		pendingIdentity               []codexPendingIdentity
++		waitForModel                  bool
++	}
++
++	codexPendingIdentity struct {
++		index    int
++		turnID   string
++		sequence int
+ 	}
+ 
+ 	codexPendingPatch struct {
+@@ -96,6 +106,7 @@ type (
+ 			} `json:"settings"`
+ 		} `json:"collaboration_mode"`
+ 		CallID  *string         `json:"call_id"`
++		TurnID  string          `json:"turn_id"`
+ 		Success *bool           `json:"success"`
+ 		Output  json.RawMessage `json:"output"`
+ 	}
+@@ -164,13 +175,19 @@ func (g Codex) Parse(ctx context.Context) (Heartbeats, error) {
+ 			continue
+ 		}
+ 
+-		parsed, err := g.parseTranscriptFrom(ctx, transcript.path, transcript.start)
++		parsed, pending, err := g.parseTranscriptResult(ctx, transcript.path, transcript.start)
+ 		if err != nil {
+ 			logger.Warnf("failed parsing codex transcript %q: %s", transcript.path, err)
+ 			continue
+ 		}
+ 
+-		g.recordSource(transcript)
++		if pending && g.checkpoint != nil {
++			// A later append must restore every pending event, even if it is
++			// farther back than the incremental reader's overlap window.
++			delete(g.checkpoint.Sources, transcript.path)
++		} else {
++			g.recordSource(transcript)
++		}
+ 
+ 		heartbeats = append(heartbeats, parsed...)
+ 	}
+@@ -461,25 +478,30 @@ func (g Codex) parseTranscript(ctx context.Context, transcript string) (Heartbea
+ // parseTranscriptFrom parses transcript starting at the first full line at or
+ // after start. Session metadata always comes from the first line.
+ func (g Codex) parseTranscriptFrom(ctx context.Context, transcript string, start int64) (Heartbeats, error) {
++	hh, _, err := g.parseTranscriptResult(ctx, transcript, start)
++	return hh, err
++}
++
++func (g Codex) parseTranscriptResult(ctx context.Context, transcript string, start int64) (Heartbeats, bool, error) {
+ 	logger := log.Extract(ctx)
+ 
+ 	//nolint:gosec
+ 	fh, err := os.Open(filepath.Clean(transcript))
+ 	if err != nil {
+-		return nil, fmt.Errorf("failed to open codex transcript %q: %s", transcript, err)
++		return nil, false, fmt.Errorf("failed to open codex transcript %q: %s", transcript, err)
+ 	}
+ 	defer fh.Close() // nolint:errcheck,gosec
+ 
+ 	session, err := g.readSessionState(logger, fh, transcript)
+ 	if err != nil {
+-		return nil, err
++		return nil, false, err
+ 	}
+ 
+ 	g.After = ParserConfig(g).sessionAfter(session.id)
+ 
+ 	if session.internal {
+ 		logger.Debugf("skipping internal codex session %q", transcript)
+-		return nil, nil
++		return nil, false, nil
+ 	}
+ 
+ 	if session.source == "" && session.parentID != "" {
+@@ -489,12 +511,13 @@ func (g Codex) parseTranscriptFrom(ctx context.Context, transcript string, start
+ 
+ 	reader, err := codexReader(fh, transcript, start)
+ 	if err != nil {
+-		return nil, err
++		return nil, false, err
+ 	}
+ 
+ 	seen, _ := ctx.Value(codexSeenUsageKey{}).(map[string]bool)
+ 	state := codexParseState{seenUsage: seen, usageOwner: firstNonEmptyString(session.parentID, session.id),
+ 		pendingPatches: make(map[string]codexPendingPatch),
++		waitForModel:   g.ToolIdentity,
+ 	}
+ 
+ 	if g.checkpoint != nil {
+@@ -512,7 +535,7 @@ func (g Codex) parseTranscriptFrom(ctx context.Context, transcript string, start
+ 
+ 	for {
+ 		if ctx.Err() != nil {
+-			return nil, ctx.Err()
++			return nil, false, ctx.Err()
+ 		}
+ 
+ 		// Lines over the size limit, such as huge tool outputs, are skipped
+@@ -524,7 +547,7 @@ func (g Codex) parseTranscriptFrom(ctx context.Context, transcript string, start
+ 		}
+ 
+ 		if readErr != nil && !errors.Is(readErr, io.EOF) {
+-			return nil, fmt.Errorf("failed reading codex transcript %q: %s", transcript, readErr)
++			return nil, false, fmt.Errorf("failed reading codex transcript %q: %s", transcript, readErr)
+ 		}
+ 
+ 		g.handleTranscriptLine(logger, transcript, line, &session, &state)
+@@ -536,7 +559,23 @@ func (g Codex) parseTranscriptFrom(ctx context.Context, transcript string, start
+ 
+ 	state.applySubscriptionPlan()
+ 
+-	return translateWSLHeartbeats(transcript, state.heartbeats), nil
++	pending := len(state.pendingIdentity) > 0
++	if pending {
++		// Keep the original timestamps and checkpoint. Advancing past an
++		// unresolved opening prompt would make a later context unrecoverable.
++		first := state.heartbeats[state.pendingIdentity[0].index].Time
++		for _, item := range state.pendingIdentity {
++			first = min(first, state.heartbeats[item.index].Time)
++		}
++		ready := state.heartbeats[:0]
++		for _, h := range state.heartbeats {
++			if h.Time < first {
++				ready = append(ready, h)
++			}
++		}
++		state.heartbeats = ready
++	}
++	return translateWSLHeartbeats(transcript, state.heartbeats), pending, nil
+ }
+ 
+ func (g Codex) readSessionState(logger *log.Logger, fh *os.File, transcript string) (codexSessionState, error) {
+@@ -630,12 +669,34 @@ func (g Codex) handleTranscriptLine(
+ 	}
+ 
+ 	state.trackSubscriptionPlan(logLine)
++	if g.ToolIdentity && logLine.Payload != nil && logLine.Payload.Type != nil &&
++		*logLine.Payload.Type == "task_started" {
++		state.turnID = logLine.Payload.TurnID
++		state.turnSequence++
++		// A new turn can select a different model. Its opening message must
++		// not borrow the preceding turn's model while context is pending.
++		state.model, state.reasoningEffort = "", ""
++	}
+ 	state.trackModel(logLine)
++	if g.ToolIdentity && logLine.Type == "turn_context" && logLine.Payload != nil && state.model != "" {
++		pending := state.pendingIdentity[:0]
++		for _, item := range state.pendingIdentity {
++			if item.sequence == state.turnSequence && item.turnID == logLine.Payload.TurnID {
++				h := &state.heartbeats[item.index]
++				h.UserAgent = g.userAgent(h.Entity, codexAgentVersion(state.model, state.reasoningEffort),
++					session.version, session.source, g.UserAgents, g.FallbackUserAgent)
++			} else {
++				pending = append(pending, item)
++			}
++		}
++		state.pendingIdentity = pending
++		state.turnID = logLine.Payload.TurnID
++	}
+ 	state.trackUserMessage(logLine)
+ 
+ 	if patchHeartbeats, handled := g.handlePendingPatch(logLine, *session, state); handled {
+ 		if !logLine.Timestamp.IsZero() && timestampAtOrAfterCutoff(logLine.Timestamp, g.After) {
+-			state.heartbeats = append(state.heartbeats, patchHeartbeats...)
++			state.appendHeartbeats(patchHeartbeats...)
+ 		}
+ 
+ 		return
+@@ -670,11 +731,23 @@ func (g Codex) handleTranscriptLine(
+ 		return
+ 	}
+ 
+-	state.heartbeats = append(state.heartbeats, aiHeartbeats...)
++	state.appendHeartbeats(aiHeartbeats...)
+ 	state.trackAgentMessage(logLine)
+ 	state.trackAssistantMessage(logLine)
+ }
+ 
++func (s *codexParseState) appendHeartbeats(hh ...heartbeat.Heartbeat) {
++	first := len(s.heartbeats)
++	s.heartbeats = append(s.heartbeats, hh...)
++	if s.waitForModel && s.model == "" {
++		for index := first; index < len(s.heartbeats); index++ {
++			s.pendingIdentity = append(s.pendingIdentity, codexPendingIdentity{
++				index: index, turnID: s.turnID, sequence: s.turnSequence,
++			})
++		}
++	}
++}
++
+ func (s *codexParseState) trackTokenCount(logLine codexLogLine, after time.Time) {
+ 	if logLine.Payload == nil || logLine.Payload.Type == nil || *logLine.Payload.Type != "token_count" ||
+ 		logLine.Payload.Info == nil {
+@@ -755,7 +828,7 @@ func (s *codexParseState) trackTokenCount(logLine codexLogLine, after time.Time)
+ 	if s.usageHeartbeat != nil && (inputTokens > 0 || cachedInputTokens > 0 || outputTokens > 0) {
+ 		// Usage can arrive in a later sync than the activity that triggered it.
+ 		// Give it its own timestamp so advancing a session cannot discard it.
+-		s.heartbeats = append(s.heartbeats,
++		s.appendHeartbeats(
+ 			s.usageHeartbeat(logLine.Timestamp, inputTokens, cachedInputTokens, outputTokens))
+ 	} else if s.usageHeartbeat == nil && len(s.heartbeats) > 0 {
+ 		i := len(s.heartbeats) - 1
+@@ -1383,10 +1456,35 @@ func (g Codex) patchHeartbeats(
+ 		))
+ 		heartbeats[len(heartbeats)-1].IsUnsavedEntity = isDeleted
+ 	}
++	if g.StrictPatchPaths {
++		for i := range heartbeats {
++			if !codexUnresolvedPatchPath(heartbeats[i].Entity) {
++				continue
++			}
++			// Keep the event's time and measured usage, but do not invent a file,
++			// language, or diff measurement from an unevaluated JS expression.
++			heartbeats[i].Entity = appHeartbeatEntity(g.Name(), sessionID)
++			heartbeats[i].EntityType = heartbeat.AppType
++			heartbeats[i].AILineChanges = nil
++			heartbeats[i].IsWrite = heartbeat.PointerTo(false)
++			heartbeats[i].IsUnsavedEntity = false
++			heartbeats[i].ProjectPathOverride = cwd
++		}
++	}
+ 
+ 	return heartbeats
+ }
+ 
++func codexUnresolvedPatchPath(path string) bool {
++	compact := strings.NewReplacer(" ", "", "\t", "").Replace(path)
++	for _, marker := range []string{`"+`, `+"`, `'+`, `+'`, "`+", "+`"} {
++		if strings.Contains(compact, marker) {
++			return true
++		}
++	}
++	return false
++}
++
+ func (g Codex) messageHeartbeat(
+ 	timestamp time.Time,
+ 	sessionEntity string,
+@@ -1631,7 +1729,7 @@ func codexMoveFilePath(cwd string, line string) string {
+ 	return filepath.Join(cwd, file)
+ }
+ 
+-func (Codex) userAgent(
++func (g Codex) userAgent(
+ 	entity string,
+ 	agentVersion string,
+ 	version string,
+@@ -1639,7 +1737,7 @@ func (Codex) userAgent(
+ 	userAgents map[string]string,
+ 	fallbackUserAgent string,
+ ) string {
+-	return aiUserAgentWithModelAndEditor(
++	userAgent := aiUserAgentWithModelAndEditor(
+ 		entity,
+ 		userAgents,
+ 		fallbackUserAgent,
+@@ -1647,6 +1745,10 @@ func (Codex) userAgent(
+ 		"",
+ 		codexSourceEditor(source, version),
+ 	)
++	if g.ToolIdentity {
++		return aiToolUserAgent(userAgent, aiModelUserAgentToken(agentVersion, ""), g.Name())
++	}
++	return userAgent
+ }
+ 
+ func codexSourceEditor(source string, version string) string {
+diff --git a/pkg/ai/codex_identity_internal_test.go b/pkg/ai/codex_identity_internal_test.go
+new file mode 100644
+index 0000000..a3dc2df
+--- /dev/null
++++ b/pkg/ai/codex_identity_internal_test.go
+@@ -0,0 +1,96 @@
++//go:build (!freebsd && !openbsd && !netbsd && !dragonfly) || (freebsd && (amd64 || arm64)) || (openbsd && (amd64 || arm64))
++
++package ai
++
++import (
++	"context"
++	"path/filepath"
++	"testing"
++	"time"
++
++	"github.com/stretchr/testify/assert"
++	"github.com/stretchr/testify/require"
++)
++
++const codexOpeningFixture = `{"timestamp":"2026-10-29T05:42:56Z","type":"session_meta","payload":{"id":"session-one","cwd":"/project","cli_version":"0.163","source":"vscode"}}
++{"timestamp":"2026-10-29T05:42:56Z","type":"event_msg","payload":{"type":"task_started","turn_id":"turn-one"}}
++{"timestamp":"2026-10-29T05:42:57.344Z","type":"response_item","payload":{"type":"message","role":"user","content":[{"type":"input_text","text":"abc"}]}}
++`
++
++const codexOpeningContext = `{"timestamp":"2026-10-29T05:42:57.347Z","type":"turn_context","payload":{"turn_id":"turn-one","cwd":"/project","model":"gpt-6.1-sol","effort":"max"}}
++{"timestamp":"2026-10-29T05:42:58Z","type":"event_msg","payload":{"type":"agent_message","message":"done"}}
++`
++
++func TestCodexOpeningModelWaitsAndSurvivesRepeatedSync(t *testing.T) {
++	home := updateTestHome(t)
++	path := filepath.Join(home, ".codex", "sessions", "opening.jsonl")
++	updateWrite(t, path, codexOpeningFixture)
++	floor := time.Date(2026, 10, 29, 5, 40, 0, 0, time.UTC)
++	checkpoint := &parserCheckpoint{Cutoff: floor, global: floor, Sessions: make(map[string]*sessionCheckpoint)}
++	g := Codex(ParserConfig{ToolIdentity: true, After: floor, checkpoint: checkpoint})
++	hh, err := g.Parse(context.Background())
++	require.NoError(t, err)
++	assert.Empty(t, hh, "a model-less opening prompt stays pending")
++	assert.Empty(t, checkpoint.Sources, "pending source must be reread in full after a later append")
++	assert.Empty(t, checkpoint.filter(hh))
++
++	updateWrite(t, path, codexOpeningFixture+codexOpeningContext)
++	hh, err = g.Parse(context.Background())
++	require.NoError(t, err)
++	require.NotEmpty(t, hh)
++	first := hh[0]
++	assert.InDelta(t, 1793252577.344, first.Time, .000001)
++	assert.Equal(t, 3, first.AIPromptLength)
++	assert.Equal(t, "session-one", first.AISession)
++	assert.Equal(t, "/project", first.ProjectPathOverride)
++	for _, h := range hh {
++		assert.Contains(t, h.UserAgent, "gpt/6.1-sol-max codex/0.163")
++		assert.NotContains(t, h.UserAgent, "unknown/unknown")
++	}
++	require.NotEmpty(t, checkpoint.filter(hh))
++	require.NotEmpty(t, checkpoint.Sources)
++	again, err := g.Parse(context.Background())
++	require.NoError(t, err)
++	assert.Empty(t, checkpoint.filter(again))
++}
++
++func TestCodexOpeningModelsStayWithTheirOwnTurn(t *testing.T) {
++	home := updateTestHome(t)
++	path := filepath.Join(home, ".codex", "sessions", "switch.jsonl")
++	second := `{"timestamp":"2026-10-29T05:43:56Z","type":"event_msg","payload":{"type":"task_started","turn_id":"turn-two"}}
++{"timestamp":"2026-10-29T05:43:57Z","type":"response_item","payload":{"type":"message","role":"user","content":[{"type":"input_text","text":"def"}]}}
++{"timestamp":"2026-10-29T05:43:58Z","type":"turn_context","payload":{"turn_id":"turn-two","model":"opus-5.5","effort":"high","cwd":"/another-project"}}
++{"timestamp":"2026-10-29T05:43:59Z","type":"event_msg","payload":{"type":"agent_message","message":"done"}}
++`
++	updateWrite(t, path, codexOpeningFixture+codexOpeningContext+second)
++	expected, err := (Codex{}).parseTranscript(context.Background(), path)
++	require.NoError(t, err)
++	actual, pending, err := (Codex(ParserConfig{ToolIdentity: true})).parseTranscriptResult(context.Background(), path, 0)
++	require.NoError(t, err)
++	assert.False(t, pending)
++	require.Equal(t, len(expected), len(actual))
++	for i := range actual {
++		if actual[i].AIPromptLength > 0 {
++			if actual[i].Time < 1793252600 {
++				assert.Contains(t, actual[i].UserAgent, "gpt/6.1-sol-max codex/")
++			} else {
++				assert.Contains(t, actual[i].UserAgent, "opus/5.5-high codex/")
++			}
++		}
++		actual[i].UserAgent = expected[i].UserAgent
++		assert.Equal(t, expected[i], actual[i], "timestamps, project, prompt and activity measures are preserved")
++	}
++}
++
++func TestCodexOpeningNeverBorrowsAnotherTurnModel(t *testing.T) {
++	home := updateTestHome(t)
++	path := filepath.Join(home, ".codex", "sessions", "mismatch.jsonl")
++	updateWrite(t, path, codexOpeningFixture+`{"timestamp":"2026-10-29T05:43:56Z","type":"event_msg","payload":{"type":"task_started","turn_id":"different-turn"}}
++{"timestamp":"2026-10-29T05:43:58Z","type":"turn_context","payload":{"turn_id":"different-turn","model":"gpt-6-astra","effort":"high"}}
++{"timestamp":"2026-10-29T05:43:59Z","type":"event_msg","payload":{"type":"agent_message","message":"done"}}
++`)
++	hh, pending, err := (Codex(ParserConfig{ToolIdentity: true})).parseTranscriptResult(context.Background(), path, 0)
++	require.NoError(t, err)
++	assert.True(t, pending)
++	assert.Empty(t, hh, "later turn cannot discharge an unresolved earlier prompt")
++}
+diff --git a/pkg/ai/cursor.go b/pkg/ai/cursor.go
+index 6acd951..09120f2 100644
+--- a/pkg/ai/cursor.go
++++ b/pkg/ai/cursor.go
+@@ -68,6 +68,7 @@ type (
+ 
+ 	cursorLogLine struct {
+ 		BubbleID       string
++		RequestID      string `json:"requestId"`
+ 		BeforeContent  *string
+ 		AfterContent   *string
+ 		CreatedAt      time.Time             `json:"createdAt"`
+@@ -152,6 +153,8 @@ func (g Cursor) Parse(ctx context.Context) (Heartbeats, error) {
+ 	bubbleCWDs := make(map[string]string)
+ 	bubbleModels := make(map[string]string)
+ 	bubbleTokens := make(map[string]heartbeat.AITokens)
++	stopBindings := make(map[string]*cursorStopBinding)
++	generationBySession := make(map[string]string)
+ 
+ 	for _, row := range rows {
+ 		if err := ctx.Err(); err != nil {
+@@ -166,6 +169,21 @@ func (g Cursor) Parse(ctx context.Context) (Heartbeats, error) {
+ 		logLine.BubbleID = row.BubbleID
+ 		logLine.BeforeContent = row.BeforeContent
+ 		logLine.AfterContent = row.AfterContent
++		if logLine.Type == 1 {
++			// requestId on the user bubble is the hook generation_id. Reset on
++			// every user bubble, including missing IDs, so turns cannot leak.
++			generationBySession[logLine.BubbleID] = cursorOpaque(logLine.RequestID)
++		}
++		stopKey := cursorStopKey(cursorOpaque(logLine.BubbleID), generationBySession[logLine.BubbleID])
++		if stopKey != "" && stopBindings[stopKey] == nil {
++			stopBindings[stopKey] = &cursorStopBinding{}
++		}
++		if stopKey != "" && logLine.Type == 1 {
++			stopBindings[stopKey].startedAt = logLine.CreatedAt
++		}
++		if stopKey != "" && ((logLine.TokenCount != nil && !logLine.TokenCount.isZero()) || (logLine.Usage != nil && !logLine.Usage.isZero())) {
++			stopBindings[stopKey].nativeTokens = true
++		}
+ 
+ 		if model := g.modelName([]byte(row.Value)); model != "" && logLine.BubbleID != "" {
+ 			bubbleModels[logLine.BubbleID] = model
+@@ -179,6 +197,12 @@ func (g Cursor) Parse(ctx context.Context) (Heartbeats, error) {
+ 		if g.checkpoint != nil {
+ 			cutoff = ParserConfig(g).sessionAfter(logLine.BubbleID)
+ 		}
++		if g.CursorStopSince.After(cutoff) {
++			// The local bridge starts at its explicit activation boundary.
++			// Even a missing/rewound checkpoint cannot replay earlier activity.
++			// Model and workspace context above still come from the native store.
++			cutoff = g.CursorStopSince
++		}
+ 
+ 		if logLine.CreatedAt.IsZero() || !timestampAtOrAfterCutoff(logLine.CreatedAt, cutoff) {
+ 			bubbleTokens[logLine.BubbleID] = g.advanceTokens(tokens)
+@@ -193,8 +217,16 @@ func (g Cursor) Parse(ctx context.Context) (Heartbeats, error) {
+ 
+ 		bubbleTokens[logLine.BubbleID] = g.advanceTokens(tokens)
+ 
++		if stopKey != "" {
++			for i := range parsed {
++				stopBindings[stopKey].indices = append(stopBindings[stopKey].indices, len(heartbeats)+i)
++			}
++		}
+ 		heartbeats = append(heartbeats, parsed...)
+ 	}
++	if g.CursorStopMetadata != "" {
++		heartbeats = g.finalizeCursorStops(ctx, heartbeats, stopBindings)
++	}
+ 
+ 	return cursorApplySubscriptionPlan(heartbeats, subscriptionPlan), nil
+ }
+@@ -715,9 +747,13 @@ func (g Cursor) cursorFileHeartbeat(
+ }
+ 
+ func (g Cursor) userAgent(entity string, model string) string {
+-	return aiUserAgentWithModelTokenAndEditor(
++	userAgent := aiUserAgentWithModelTokenAndEditor(
+ 		entity, g.UserAgents, g.FallbackUserAgent, cursorModelUserAgentToken(model), aiPlugin(g, ""),
+ 	)
++	if g.ToolIdentity {
++		return aiToolUserAgent(userAgent, cursorModelUserAgentToken(model), g.Name())
++	}
++	return userAgent
+ }
+ 
+ func cursorUserAgentWithModel(userAgent string, modelToken string) string {
+diff --git a/pkg/ai/cursor_stop.go b/pkg/ai/cursor_stop.go
+new file mode 100644
+index 0000000..216caaa
+--- /dev/null
++++ b/pkg/ai/cursor_stop.go
+@@ -0,0 +1,297 @@
++//go:build (!freebsd && !openbsd && !netbsd && !dragonfly) || (freebsd && (amd64 || arm64)) || (openbsd && (amd64 || arm64))
++
++package ai
++
++import (
++	"context"
++	"crypto/sha256"
++	"encoding/json"
++	"fmt"
++	"path/filepath"
++	"strings"
++	"time"
++
++	"github.com/wakatime/wakatime-cli/pkg/heartbeat"
++	"github.com/wakatime/wakatime-cli/pkg/log"
++)
++
++type cursorStopBinding struct {
++	indices      []int
++	nativeTokens bool
++	startedAt    time.Time
++}
++
++func (g Cursor) stopBindingEligible(b *cursorStopBinding) bool {
++	return g.CursorStopSince.IsZero() || (!b.startedAt.IsZero() && !b.startedAt.Before(g.CursorStopSince))
++}
++
++type cursorStopRecord struct {
++	Conversation string            `json:"conversation_hash"`
++	Generation   string            `json:"generation_hash"`
++	Model        string            `json:"model"`
++	Client       string            `json:"client_version"`
++	Tool         string            `json:"tool"`
++	RecordedAt   time.Time         `json:"recorded_at"`
++	Tokens       map[string]*int64 `json:"raw_token_counts"`
++	conflict     bool
++}
++
++func cursorOpaque(value string) string {
++	if value == "" {
++		return ""
++	}
++	return fmt.Sprintf("%x", sha256.Sum256([]byte(value)))
++}
++func cursorStopKey(conversation, generation string) string {
++	if conversation == "" || generation == "" {
++		return ""
++	}
++	return conversation + ":" + generation
++}
++
++func cursorCheckpointConfig(config ParserConfig) ParserConfig {
++	state := config.checkpoint
++	if state != nil && !state.Cutoff.IsZero() && state.Cutoff.Before(state.global) {
++		// Another tool's activity must not skip a new Cursor conversation.
++		// This parser's own persisted cutoff is its discovery watermark.
++		state.global = state.Cutoff
++		config.After = state.discoveryAfter()
++	}
++	return config
++}
++
++// The metadata journal is a read-only side input. It cannot create activity,
++// change a project, move a timestamp, or replay an already uploaded generation.
++func readCursorStops(ctx context.Context, path string) (map[string]cursorStopRecord, error) {
++	db, err := openAISQLiteDB(ctx, path)
++	if err != nil {
++		return nil, err
++	}
++	defer db.Close()
++	if _, err := db.ExecContext(ctx, "PRAGMA query_only=ON"); err != nil {
++		return nil, err
++	}
++	rows, err := db.QueryContext(ctx, `SELECT metadata FROM (SELECT rowid, metadata, recorded_at FROM events ORDER BY rowid DESC LIMIT 10000) ORDER BY recorded_at, rowid`)
++	if err != nil {
++		return nil, err
++	}
++	defer rows.Close()
++	result := make(map[string]cursorStopRecord)
++	for rows.Next() {
++		var raw string
++		if err := rows.Scan(&raw); err != nil {
++			return nil, err
++		}
++		if len(raw) > 64*1024 {
++			continue
++		}
++		var r cursorStopRecord
++		if json.Unmarshal([]byte(raw), &r) != nil || r.Tool != "Cursor" {
++			continue
++		}
++		key := cursorStopKey(r.Conversation, r.Generation)
++		if key == "" {
++			continue
++		}
++		previous, exists := result[key]
++		if !exists {
++			result[key] = r
++			continue
++		}
++		if previous.Model != "" && r.Model != "" && previous.Model != r.Model {
++			previous.conflict = true
++		}
++		if previous.Client != "" && r.Client != "" && previous.Client != r.Client {
++			previous.conflict = true
++		}
++		if previous.Model == "" {
++			previous.Model = r.Model
++		}
++		if previous.Client == "" {
++			previous.Client = r.Client
++		}
++		if r.RecordedAt.After(previous.RecordedAt) {
++			previous.RecordedAt = r.RecordedAt
++		}
++		if previous.Tokens == nil {
++			previous.Tokens = make(map[string]*int64)
++		}
++		for k, v := range r.Tokens {
++			if v != nil {
++				previous.Tokens[k] = v
++			}
++		}
++		result[key] = previous
++	}
++	return result, rows.Err()
++}
++
++// Only this client/model/cache-write shape was reconciled against same-account
++// official billing. Other shapes retain raw values locally until calibrated.
++func (r cursorStopRecord) calibratedTokens() (int64, int64, int64, bool) {
++	if r.conflict || r.Client != "3.24.18" || (r.Model != "grok-4.7-xhigh" && r.Model != "cursor-grok-4.6-xhigh-fast") {
++		return 0, 0, 0, false
++	}
++	for _, k := range []string{"input_tokens", "output_tokens", "cache_read_tokens", "cache_write_tokens"} {
++		if r.Tokens[k] == nil || *r.Tokens[k] < 0 || *r.Tokens[k] >= 1e15 {
++			return 0, 0, 0, false
++		}
++	}
++	input, cached, write, output := *r.Tokens["input_tokens"], *r.Tokens["cache_read_tokens"], *r.Tokens["cache_write_tokens"], *r.Tokens["output_tokens"]
++	if write != 0 || input < cached {
++		return 0, 0, 0, false
++	}
++	return input - cached, cached, output, true
++}
++
++func cursorCanonicalStopModel(model string) string {
++	// The same generation identifies this explicit Cursor routing alias as
++	// grok-4.6 in modelInfo, and official billing retains the full raw alias.
++	if strings.HasPrefix(model, "cursor-grok-") {
++		return strings.TrimPrefix(model, "cursor-")
++	}
++	return model
++}
++
++func (r cursorStopRecord) complete() bool {
++	for _, k := range []string{"input_tokens", "output_tokens", "cache_read_tokens", "cache_write_tokens"} {
++		if r.Tokens[k] == nil {
++			return false
++		}
++	}
++	return true
++}
++
++// Wait for completed usage before advancing this conversation's checkpoint.
++// Keeping original timestamps preserves the project calculation. An inactive
++// generation falls back to native activity after 15 minutes if its hook fails.
++func (g Cursor) finalizeCursorStops(ctx context.Context, hh Heartbeats, bindings map[string]*cursorStopBinding) Heartbeats {
++	records, err := readCursorStops(ctx, g.CursorStopMetadata)
++	if err != nil {
++		log.Extract(ctx).Warnln("Cursor stop metadata unavailable; native activity preserved")
++		return hh
++	}
++	blocked := make(map[string]float64)
++	if g.checkpoint != nil {
++		for key, b := range bindings {
++			if !g.stopBindingEligible(b) {
++				continue
++			}
++			r := records[key]
++			settled := r.complete() && (r.RecordedAt.IsZero() || time.Since(r.RecordedAt) >= 10*time.Second)
++			if b.nativeTokens || settled || len(b.indices) == 0 {
++				continue
++			}
++			first, last := hh[b.indices[0]].Time, hh[b.indices[0]].Time
++			for _, i := range b.indices {
++				first = min(first, hh[i].Time)
++				last = max(last, hh[i].Time)
++			}
++			if time.Since(heartbeatTime(last)) > 15*time.Minute {
++				continue
++			}
++			session := hh[b.indices[0]].AISession
++			if prior, exists := blocked[session]; !exists || first < prior {
++				blocked[session] = first
++			}
++		}
++	}
++	if len(blocked) > 0 {
++		kept := make(Heartbeats, 0, len(hh))
++		mapping := make(map[int]int)
++		for i, h := range hh {
++			if at, exists := blocked[h.AISession]; exists && h.Time >= at {
++				continue
++			}
++			mapping[i] = len(kept)
++			kept = append(kept, h)
++		}
++		for _, b := range bindings {
++			indices := make([]int, 0, len(b.indices))
++			for _, i := range b.indices {
++				if newIndex, exists := mapping[i]; exists {
++					indices = append(indices, newIndex)
++				}
++			}
++			b.indices = indices
++		}
++		hh = kept
++	}
++	g.enrichCursorStopsWithRecords(hh, bindings, records)
++	return hh
++}
++
++func (g Cursor) enrichCursorStops(ctx context.Context, hh Heartbeats, bindings map[string]*cursorStopBinding) {
++	records, err := readCursorStops(ctx, g.CursorStopMetadata)
++	if err != nil {
++		log.Extract(ctx).Warnln("Cursor stop metadata unavailable; native activity preserved")
++		return
++	}
++	g.enrichCursorStopsWithRecords(hh, bindings, records)
++}
++
++func (g Cursor) enrichCursorStopsWithRecords(hh Heartbeats, bindings map[string]*cursorStopBinding, records map[string]cursorStopRecord) {
++	for key, binding := range bindings {
++		if !g.stopBindingEligible(binding) {
++			continue
++		}
++		r, ok := records[key]
++		if !ok || r.conflict {
++			continue
++		}
++		// Never replace a different actual model with the selected UI model.
++		compatible := true
++		for _, i := range binding.indices {
++			_, products := splitUserAgent(hh[i].UserAgent)
++			fields := strings.Fields(products)
++			if len(fields) == 0 {
++				continue
++			}
++			if strings.EqualFold(userAgentProduct(fields[0]), "cursor") {
++				continue // A tool-only UA contains no native model to conflict.
++			}
++			actual := cursorCanonicalStopModel(strings.Replace(fields[0], "/", "-", 1))
++			model := cursorCanonicalStopModel(r.Model)
++			if actual != "unknown-unknown" && actual != "unknown-model" && actual != model && !strings.HasPrefix(model, actual+"-") {
++				compatible = false
++				break
++			}
++		}
++		if !compatible {
++			continue
++		}
++		for _, i := range binding.indices {
++			hh[i].UserAgent = aiToolUserAgent("cursor/"+r.Client+" uploader/cursor-stop-metadata@2", cursorModelUserAgentToken(cursorCanonicalStopModel(r.Model)), "Cursor")
++		}
++		input, cached, output, valid := r.calibratedTokens()
++		if !valid || binding.nativeTokens || g.checkpoint == nil || g.checkpoint.CursorStops[key] {
++			continue
++		}
++		// Keep the exact original entity, session, project hint and activity time.
++		// No target means no upload: an unassociated usage row is never guessed.
++		target := -1
++		for _, i := range binding.indices {
++			h := hh[i]
++			previous := g.checkpoint.Sessions[h.AISession]
++			if previous != nil && !heartbeatTime(h.Time).After(previous.Cutoff) {
++				// A late update to an already uploaded heartbeat would otherwise
++				// be moved to observation time by the shared checkpoint filter.
++				// Keep historical project durations untouched instead.
++				continue
++			}
++			if h.ProjectPathOverride != "" || (h.EntityType == heartbeat.FileType && filepath.IsAbs(h.Entity)) {
++				target = i
++			}
++		}
++		if target < 0 {
++			continue
++		}
++		hh[target].AIInputTokens = input
++		hh[target].AICachedInputTokens = cached
++		hh[target].AIOutputTokens = output
++		if g.checkpoint.CursorStops == nil {
++			g.checkpoint.CursorStops = make(map[string]bool)
++		}
++		g.checkpoint.CursorStops[key] = true
++	}
++}
+diff --git a/pkg/ai/cursor_stop_internal_test.go b/pkg/ai/cursor_stop_internal_test.go
+new file mode 100644
+index 0000000..979b873
+--- /dev/null
++++ b/pkg/ai/cursor_stop_internal_test.go
+@@ -0,0 +1,370 @@
++//go:build (!freebsd && !openbsd && !netbsd && !dragonfly) || (freebsd && (amd64 || arm64)) || (openbsd && (amd64 || arm64))
++
++package ai
++
++import (
++	"context"
++	"database/sql"
++	"encoding/json"
++	"fmt"
++	"os"
++	"path/filepath"
++	"testing"
++	"time"
++
++	"github.com/stretchr/testify/assert"
++	"github.com/stretchr/testify/require"
++	"github.com/wakatime/wakatime-cli/pkg/heartbeat"
++)
++
++func stopFixture(t *testing.T, entries ...map[string]any) string {
++	t.Helper()
++	path := filepath.Join(t.TempDir(), "stop.sqlite3")
++	db, err := sql.Open("sqlite", path)
++	require.NoError(t, err)
++	_, err = db.Exec(`CREATE TABLE events(event_id TEXT PRIMARY KEY, recorded_at TEXT, metadata TEXT)`)
++	require.NoError(t, err)
++	for i, entry := range entries {
++		raw, err := json.Marshal(entry)
++		require.NoError(t, err)
++		_, err = db.Exec(`INSERT INTO events VALUES(?,?,?)`, i, i, string(raw))
++		require.NoError(t, err)
++	}
++	require.NoError(t, db.Close())
++	return path
++}
++func stopEntry(conversation, generation string) map[string]any {
++	return map[string]any{"tool": "Cursor", "conversation_hash": cursorOpaque(conversation), "generation_hash": cursorOpaque(generation), "model": "grok-4.7-xhigh", "client_version": "3.24.18", "raw_token_counts": map[string]any{"input_tokens": 24356, "cache_read_tokens": 6016, "cache_write_tokens": 0, "output_tokens": 156}}
++}
++func stopHeartbeat(at time.Time) heartbeat.Heartbeat {
++	return heartbeat.Heartbeat{Entity: "Cursor session", EntityType: heartbeat.AppType, AISession: "session", ProjectPathOverride: "C:/original-project", Time: heartbeatTimestamp(at), UserAgent: "grok/4.7 cursor/3.24.18"}
++}
++
++func TestCursorStopExactJoinPreservesMeasurementsAndDeduplicates(t *testing.T) {
++	path := stopFixture(t, stopEntry("session", "turn"), stopEntry("session", "turn"))
++	at := time.Date(2026, 10, 29, 4, 0, 0, 0, time.UTC)
++	state := &parserCheckpoint{Sessions: map[string]*sessionCheckpoint{"session": {Cutoff: at.Add(-time.Second)}}}
++	g := Cursor{ToolIdentity: true, CursorStopMetadata: path, checkpoint: state}
++	hh := Heartbeats{stopHeartbeat(at), stopHeartbeat(at.Add(time.Second))}
++	before := append(Heartbeats{}, hh...)
++	key := cursorStopKey(cursorOpaque("session"), cursorOpaque("turn"))
++	bindings := map[string]*cursorStopBinding{key: {indices: []int{0, 1}}}
++	g.enrichCursorStops(context.Background(), hh, bindings)
++	assert.Zero(t, hh[0].AIInputTokens)
++	assert.Equal(t, int64(18340), hh[1].AIInputTokens)
++	assert.Equal(t, int64(6016), hh[1].AICachedInputTokens)
++	assert.Equal(t, int64(156), hh[1].AIOutputTokens)
++	for i, h := range hh {
++		assert.Contains(t, h.UserAgent, "grok/4.7-xhigh cursor/3.24.18")
++		h.UserAgent = before[i].UserAgent
++		h.AIInputTokens = 0
++		h.AICachedInputTokens = 0
++		h.AIOutputTokens = 0
++		assert.Equal(t, before[i], h, "project/session/entity/time/line/prompt fields remain exactly equal")
++	}
++	// Simulate persisting state and restarting the process.
++	raw, err := json.Marshal(state)
++	require.NoError(t, err)
++	var restored parserCheckpoint
++	require.NoError(t, json.Unmarshal(raw, &restored))
++	g.checkpoint = &restored
++	again := Heartbeats{stopHeartbeat(at.Add(2 * time.Second))}
++	g.enrichCursorStops(context.Background(), again, map[string]*cursorStopBinding{key: {indices: []int{0}}})
++	assert.Zero(t, again[0].AIInputTokens)
++	assert.Zero(t, again[0].AIOutputTokens)
++}
++
++func TestCursorStopSafetyCases(t *testing.T) {
++	at := time.Date(2026, 10, 29, 4, 0, 0, 0, time.UTC)
++	for _, name := range []string{"wrong_conversation", "wrong_generation", "missing_generation", "missing_counts", "unknown_client", "nonzero_cache_write", "model_conflict", "native_tokens", "missing_project", "already_uploaded_boundary"} {
++		t.Run(name, func(t *testing.T) {
++			entry := stopEntry("session", "turn")
++			key := cursorStopKey(cursorOpaque("session"), cursorOpaque("turn"))
++			h := stopHeartbeat(at)
++			binding := &cursorStopBinding{indices: []int{0}}
++			cutoff := at.Add(-time.Second)
++			switch name {
++			case "wrong_conversation":
++				entry["conversation_hash"] = cursorOpaque("other")
++			case "wrong_generation":
++				entry["generation_hash"] = cursorOpaque("other")
++			case "missing_generation":
++				entry["generation_hash"] = ""
++			case "missing_counts":
++				entry["raw_token_counts"] = map[string]any{"input_tokens": 24356}
++			case "unknown_client":
++				entry["client_version"] = "future"
++			case "nonzero_cache_write":
++				entry["raw_token_counts"].(map[string]any)["cache_write_tokens"] = 10
++			case "model_conflict":
++				h.UserAgent = "opus/5.5 cursor/3.24.18"
++			case "native_tokens":
++				binding.nativeTokens = true
++			case "missing_project":
++				h.ProjectPathOverride = ""
++			case "already_uploaded_boundary":
++				cutoff = at
++			}
++			g := Cursor{CursorStopMetadata: stopFixture(t, entry), checkpoint: &parserCheckpoint{Sessions: map[string]*sessionCheckpoint{"session": {Cutoff: cutoff}}}}
++			hh := Heartbeats{h}
++			g.enrichCursorStops(context.Background(), hh, map[string]*cursorStopBinding{key: binding})
++			assert.Zero(t, hh[0].AIInputTokens)
++			assert.Zero(t, hh[0].AICachedInputTokens)
++			assert.Zero(t, hh[0].AIOutputTokens)
++			assert.Equal(t, h.Time, hh[0].Time)
++			assert.Equal(t, h.ProjectPathOverride, hh[0].ProjectPathOverride)
++		})
++	}
++}
++
++func TestCursorStopMergesEnrichedCallbacksWithoutSummingOrModelGuess(t *testing.T) {
++	empty := stopEntry("session", "turn")
++	empty["raw_token_counts"] = map[string]any{}
++	complete := stopEntry("session", "turn")
++	path := stopFixture(t, empty, complete)
++	rows, err := readCursorStops(context.Background(), path)
++	require.NoError(t, err)
++	require.Len(t, rows, 1)
++	for _, r := range rows {
++		input, cached, out, ok := r.calibratedTokens()
++		require.True(t, ok)
++		assert.Equal(t, int64(18340), input)
++		assert.Equal(t, int64(6016), cached)
++		assert.Equal(t, int64(156), out)
++	}
++	conflict := stopEntry("session", "turn")
++	conflict["model"] = "composer-2.5"
++	rows, err = readCursorStops(context.Background(), stopFixture(t, complete, conflict))
++	require.NoError(t, err)
++	for _, r := range rows {
++		_, _, _, ok := r.calibratedTokens()
++		assert.False(t, ok)
++	}
++}
++
++func TestToolIdentityProvenanceCannotMasqueradeAsAnEditor(t *testing.T) {
++	for _, tool := range []string{"Codex", "Grok Bot", "Cursor", "Claude"} {
++		ua := aiToolUserAgent("cursor/3.24.18 codex/0.163 grok-bot codex-cli/0.154 codex-cli-wakatime/1", "unknown/unknown", tool)
++		assert.NotContains(t, ua, "source-codex-cli/")
++		assert.NotContains(t, ua, "host-cursor/")
++		assert.NotContains(t, ua, " codex-cli/")
++		assert.NotContains(t, ua, " codex-cli-wakatime/")
++	}
++}
++
++func TestCursorStopParseBindsRequestAndProjectWithoutNewActivity(t *testing.T) {
++	home := t.TempDir()
++	t.Setenv("WAKATIME_HOME", home)
++	t.Setenv("HOME", home)
++	t.Setenv("USERPROFILE", home)
++	dir := filepath.Join(home, "AppData", "Roaming", "Cursor", "User", "globalStorage")
++	require.NoError(t, os.MkdirAll(dir, 0700))
++	db, err := sql.Open("sqlite", filepath.Join(dir, "state.vscdb"))
++	require.NoError(t, err)
++	_, err = db.Exec(`CREATE TABLE cursorDiskKV(key TEXT PRIMARY KEY,value BLOB)`)
++	require.NoError(t, err)
++	at := time.Now().UTC().Add(-time.Minute)
++	project := filepath.Join(home, "original-local-project")
++	other := filepath.Join(home, "other-local-project")
++	file := filepath.Join(project, "main.py")
++	add := func(session, id string, typ int, second int, request, path string) {
++		row := map[string]any{"type": typ, "createdAt": at.Add(time.Duration(second) * time.Second).Format(time.RFC3339Nano), "text": "fixture", "tokenCount": map[string]any{"inputTokens": 0, "outputTokens": 0}}
++		if typ == 1 {
++			row["requestId"] = request
++			row["modelInfo"] = map[string]any{"modelName": "grok-4.7"}
++		}
++		if path != "" {
++			row["toolFormerData"] = map[string]any{"status": "completed", "name": "read_file", "params": fmt.Sprintf(`{"targetFile":%q}`, path)}
++		}
++		raw, e := json.Marshal(row)
++		require.NoError(t, e)
++		_, e = db.Exec(`INSERT INTO cursorDiskKV VALUES(?,?)`, "bubbleId:"+session+":"+id, string(raw))
++		require.NoError(t, e)
++	}
++	add("session", "user", 1, 0, "turn", "")
++	add("other", "user", 1, 1, "other", "")
++	add("session", "file", 2, 2, "", file)
++	add("other", "file", 2, 3, "", filepath.Join(other, "other.go"))
++	add("session", "answer", 2, 4, "", "")
++	// Another user message with no request identity must reset the binding.
++	add("session", "missing", 1, 5, "", "")
++	add("session", "unassociated", 2, 6, "", "")
++	require.NoError(t, db.Close())
++	cutoff := at.Add(-time.Second)
++	baseline, err := (Cursor{After: cutoff, ToolIdentity: true, FallbackUserAgent: "cursor/3.24.18"}).Parse(context.Background())
++	require.NoError(t, err)
++	state := &parserCheckpoint{global: cutoff, Sessions: map[string]*sessionCheckpoint{}}
++	otherEntry := stopEntry("other", "other")
++	otherEntry["raw_token_counts"] = map[string]any{"input_tokens": 0, "output_tokens": 0, "cache_read_tokens": 0, "cache_write_tokens": 0}
++	g := Cursor{After: cutoff, ToolIdentity: true, FallbackUserAgent: "cursor/3.24.18", CursorStopMetadata: stopFixture(t, stopEntry("session", "turn"), otherEntry), checkpoint: state}
++	got, err := g.Parse(context.Background())
++	require.NoError(t, err)
++	require.Len(t, got, len(baseline))
++	var input, cached, output int64
++	tokenRows := 0
++	for i, h := range got {
++		input += h.AIInputTokens
++		cached += h.AICachedInputTokens
++		output += h.AIOutputTokens
++		if h.AIInputTokens > 0 {
++			tokenRows++
++			assert.Equal(t, "session", h.AISession)
++			assert.Equal(t, project, h.ProjectPathOverride)
++			assert.Equal(t, heartbeatTimestamp(at.Add(4*time.Second)), h.Time)
++		}
++		h.UserAgent = baseline[i].UserAgent
++		h.AIInputTokens = 0
++		h.AICachedInputTokens = 0
++		h.AIOutputTokens = 0
++		assert.Equal(t, baseline[i], h)
++	}
++	assert.Equal(t, 1, tokenRows)
++	assert.Equal(t, int64(18340), input)
++	assert.Equal(t, int64(6016), cached)
++	assert.Equal(t, int64(156), output)
++	require.Len(t, state.filter(got), len(got))
++	again, err := g.Parse(context.Background())
++	require.NoError(t, err)
++	assert.Empty(t, state.filter(again), "restart/reparse cannot add activity or tokens")
++}
++
++func TestCursorStopWaitsForUsageAndPreservesCheckpoint(t *testing.T) {
++	at := time.Now().UTC().Add(-time.Minute)
++	state := &parserCheckpoint{Cutoff: at.Add(-time.Second), global: at.Add(-time.Second), Sessions: map[string]*sessionCheckpoint{"session": {Cutoff: at.Add(-time.Second)}}}
++	key := cursorStopKey(cursorOpaque("session"), cursorOpaque("turn"))
++	incomplete := stopEntry("session", "turn")
++	incomplete["raw_token_counts"] = map[string]any{}
++	g := Cursor{CursorStopMetadata: stopFixture(t, incomplete), checkpoint: state}
++	input := Heartbeats{stopHeartbeat(at)}
++	assert.Empty(t, g.finalizeCursorStops(context.Background(), input, map[string]*cursorStopBinding{key: {indices: []int{0}}}))
++	assert.Empty(t, state.CursorStops)
++	assert.Equal(t, at.Add(-time.Second), state.Sessions["session"].Cutoff)
++	freshStop := stopEntry("session", "turn")
++	freshStop["recorded_at"] = time.Now().UTC().Format(time.RFC3339Nano)
++	g.CursorStopMetadata = stopFixture(t, freshStop)
++	assert.Empty(t, g.finalizeCursorStops(context.Background(), input, map[string]*cursorStopBinding{key: {indices: []int{0}}}), "complete callbacks settle before checkpoint advancement")
++	// Another parser advances while this generation waits; Cursor discovery
++	// still starts at its own watermark for new conversations as well.
++	state.global = time.Now().UTC()
++	c := cursorCheckpointConfig(ParserConfig{After: state.global, checkpoint: state})
++	assert.True(t, c.After.Before(at))
++	assert.True(t, c.sessionAfter("new-conversation").Before(at))
++	g.CursorStopMetadata = stopFixture(t, incomplete, stopEntry("session", "turn"))
++	ready := g.finalizeCursorStops(context.Background(), input, map[string]*cursorStopBinding{key: {indices: []int{0}}})
++	require.Len(t, ready, 1)
++	assert.Equal(t, input[0].Time, ready[0].Time)
++	assert.Equal(t, input[0].ProjectPathOverride, ready[0].ProjectPathOverride)
++	assert.Equal(t, int64(18340), ready[0].AIInputTokens)
++	require.Len(t, state.filter(ready), 1)
++	assert.Empty(t, state.filter(ready), "completed activity is still exactly once")
++}
++
++func TestCursorStopInactiveFallbackAndVerifiedRoutingAlias(t *testing.T) {
++	entry := stopEntry("session", "turn")
++	entry["model"] = "cursor-grok-4.6-xhigh-fast"
++	entry["raw_token_counts"] = map[string]any{"input_tokens": 48814, "output_tokens": 1424, "cache_read_tokens": 22784, "cache_write_tokens": 0}
++	path := stopFixture(t, entry)
++	at := time.Now().UTC().Add(-time.Minute)
++	h := stopHeartbeat(at)
++	h.UserAgent = "grok/4.6 cursor/3.24.18"
++	key := cursorStopKey(cursorOpaque("session"), cursorOpaque("turn"))
++	g := Cursor{CursorStopMetadata: path, checkpoint: &parserCheckpoint{Sessions: map[string]*sessionCheckpoint{"session": {Cutoff: at.Add(-time.Second)}}}}
++	hh := g.finalizeCursorStops(context.Background(), Heartbeats{h}, map[string]*cursorStopBinding{key: {indices: []int{0}}})
++	require.Len(t, hh, 1)
++	assert.Contains(t, hh[0].UserAgent, "grok/4.6-xhigh-fast cursor/3.24.18")
++	assert.Equal(t, int64(26030), hh[0].AIInputTokens)
++	assert.Equal(t, int64(22784), hh[0].AICachedInputTokens)
++	assert.Equal(t, int64(1424), hh[0].AIOutputTokens)
++	old := stopHeartbeat(time.Now().Add(-16 * time.Minute))
++	g.CursorStopMetadata = stopFixture(t, map[string]any{})
++	hh = g.finalizeCursorStops(context.Background(), Heartbeats{old}, map[string]*cursorStopBinding{key: {indices: []int{0}}})
++	require.Len(t, hh, 1)
++	assert.Equal(t, old, hh[0], "failed/missing hooks release inactive native activity without inventing usage")
++}
++
++func TestCursorStopActivationBoundaryCannotReplayHistoryOrTakePartialTurnUsage(t *testing.T) {
++	home := t.TempDir()
++	t.Setenv("WAKATIME_HOME", home)
++	t.Setenv("HOME", home)
++	t.Setenv("USERPROFILE", home)
++	dir := filepath.Join(home, "AppData", "Roaming", "Cursor", "User", "globalStorage")
++	require.NoError(t, os.MkdirAll(dir, 0700))
++	db, err := sql.Open("sqlite", filepath.Join(dir, "state.vscdb"))
++	require.NoError(t, err)
++	_, err = db.Exec(`CREATE TABLE cursorDiskKV(key TEXT PRIMARY KEY,value BLOB)`)
++	require.NoError(t, err)
++	at := time.Now().UTC().Add(-2 * time.Minute)
++	activation := at.Add(3 * time.Second)
++	project := filepath.Join(home, "original-no-git-project")
++	entries := []map[string]any{}
++	for _, item := range []struct {
++		session string
++		seconds [3]int
++	}{{"old", [3]int{0, 1, 2}}, {"straddles", [3]int{2, 4, 5}}, {"new", [3]int{6, 7, 8}}} {
++		entries = append(entries, stopEntry(item.session, "turn-"+item.session))
++		for i, second := range item.seconds {
++			row := map[string]any{"type": 2, "createdAt": at.Add(time.Duration(second) * time.Second).Format(time.RFC3339Nano), "text": "fixture"}
++			if i == 0 {
++				row["type"] = 1
++				row["requestId"] = "turn-" + item.session
++				row["modelInfo"] = map[string]any{"modelName": "grok-4.7"}
++			}
++			if i == 1 {
++				row["toolFormerData"] = map[string]any{"status": "completed", "name": "read_file", "params": fmt.Sprintf(`{"targetFile":%q}`, filepath.Join(project, "main.py"))}
++			}
++			raw, e := json.Marshal(row)
++			require.NoError(t, e)
++			_, e = db.Exec(`INSERT INTO cursorDiskKV VALUES(?,?)`, fmt.Sprintf("bubbleId:%s:%d", item.session, i), string(raw))
++			require.NoError(t, e)
++		}
++	}
++	require.NoError(t, db.Close())
++	// Deliberately start from an old/missing per-session checkpoint.
++	cutoff := at.Add(-time.Hour)
++	state := &parserCheckpoint{Cutoff: cutoff, global: cutoff, Sessions: map[string]*sessionCheckpoint{}}
++	g := Cursor{After: cutoff, CursorStopSince: activation, CursorStopMetadata: stopFixture(t, entries...), ToolIdentity: true, FallbackUserAgent: "cursor/3.24.18", checkpoint: state}
++	hh, err := g.Parse(context.Background())
++	require.NoError(t, err)
++	require.NotEmpty(t, hh)
++	seen := map[string]int{}
++	var input, cached, output int64
++	for _, h := range hh {
++		assert.GreaterOrEqual(t, h.Time, heartbeatTimestamp(activation))
++		assert.NotEqual(t, "old", h.AISession)
++		seen[h.AISession]++
++		if h.AISession == "straddles" {
++			assert.Zero(t, h.AIInputTokens, "do not assign full-turn usage to a partially imported turn")
++			assert.Zero(t, h.AICachedInputTokens)
++			assert.Zero(t, h.AIOutputTokens)
++			if h.EntityType == heartbeat.FileType {
++				assert.Equal(t, filepath.Join(project, "main.py"), h.Entity)
++			} else {
++				assert.Equal(t, project, h.ProjectPathOverride)
++			}
++		}
++		input += h.AIInputTokens
++		cached += h.AICachedInputTokens
++		output += h.AIOutputTokens
++	}
++	assert.Positive(t, seen["straddles"])
++	assert.Positive(t, seen["new"])
++	assert.Equal(t, int64(18340), input)
++	assert.Equal(t, int64(6016), cached)
++	assert.Equal(t, int64(156), output)
++	require.NotEmpty(t, state.filter(hh))
++	again, err := g.Parse(context.Background())
++	require.NoError(t, err)
++	assert.Empty(t, state.filter(again))
++}
++
++func TestCursorStopCanEnrichToolOnlyUnknownNativeModel(t *testing.T) {
++	at := time.Now().UTC().Add(-time.Minute)
++	h := stopHeartbeat(at)
++	h.UserAgent = "cursor/3.24.18"
++	g := Cursor{CursorStopMetadata: stopFixture(t, stopEntry("session", "turn")), checkpoint: &parserCheckpoint{Sessions: map[string]*sessionCheckpoint{"session": {Cutoff: at.Add(-time.Second)}}}}
++	key := cursorStopKey(cursorOpaque("session"), cursorOpaque("turn"))
++	hh := Heartbeats{h}
++	g.enrichCursorStops(context.Background(), hh, map[string]*cursorStopBinding{key: {indices: []int{0}}})
++	assert.Equal(t, int64(18340), hh[0].AIInputTokens)
++	assert.Contains(t, hh[0].UserAgent, "grok/4.7-xhigh cursor/3.24.18")
++}
+diff --git a/pkg/ai/generic_json.go b/pkg/ai/generic_json.go
+index b635c2e..002b602 100644
+--- a/pkg/ai/generic_json.go
++++ b/pkg/ai/generic_json.go
+@@ -765,6 +765,9 @@ func genericAIEventHeartbeats(parser Parser, config ParserConfig, event genericA
+ 		firstNonEmptyString(filePath, entity), config.UserAgents, config.FallbackUserAgent,
+ 		event.model, "", aiPlugin(parser, ""),
+ 	)
++	if config.ToolIdentity {
++		userAgent = aiToolUserAgent(userAgent, aiModelUserAgentToken(event.model, ""), parser.Name())
++	}
+ 
+ 	app := heartbeat.NewWithAITokens(
+ 		nil,
+diff --git a/pkg/ai/grokbot.go b/pkg/ai/grokbot.go
+index dbb4c1b..ddd9dfa 100644
+--- a/pkg/ai/grokbot.go
++++ b/pkg/ai/grokbot.go
+@@ -37,6 +37,20 @@ func (g GrokBot) Parse(ctx context.Context) (Heartbeats, error) {
+ }
+ 
+ func (g GrokBot) parseMirror(ctx context.Context, root string) (Heartbeats, error) {
++	config := ParserConfig(g)
++	if g.ToolIdentity && g.GrokBotVersion != "" {
++		// Measured application version, never a model version. The configured
++		// value is read from the installed executable during deployment.
++		valid := true
++		for _, r := range g.GrokBotVersion {
++			if (r < '0' || r > '9') && r != '.' {
++				valid = false
++			}
++		}
++		if valid {
++			config.FallbackUserAgent = "grok-bot/" + g.GrokBotVersion + " " + config.FallbackUserAgent
++		}
++	}
+ 	files, err := filepath.Glob(filepath.Join(root, "*.blob"))
+ 	if err != nil {
+ 		return nil, err
+@@ -120,7 +134,7 @@ func (g GrokBot) parseMirror(ctx context.Context, root string) (Heartbeats, erro
+ 				}
+ 			}
+ 
+-			result = append(result, genericAIEventHeartbeats(g, ParserConfig(g), event)...)
++			result = append(result, genericAIEventHeartbeats(g, config, event)...)
+ 		}
+ 	}
+ 
+diff --git a/pkg/ai/opencode.go b/pkg/ai/opencode.go
+index d384431..35e22dc 100644
+--- a/pkg/ai/opencode.go
++++ b/pkg/ai/opencode.go
+@@ -29,6 +29,7 @@ type OpenCode struct {
+ 	FallbackUserAgent string
+ 	UserAgents        map[string]string
+ 	ProjectInfo       ProjectInfo
++	ToolIdentity      bool
+ 	checkpoint        *parserCheckpoint
+ 	seenMessages      map[string]bool
+ 	v2Sessions        map[string]bool
+@@ -982,8 +983,7 @@ func (g OpenCode) userHeartbeat(
+ 		"",
+ 		cwd,
+ 		heartbeatTimestamp(time.UnixMilli(message.info.Time.Created)),
+-		aiUserAgentWithModelAndEditor(
+-			entity, g.UserAgents, g.FallbackUserAgent, model, "", "opencode-cli/"+unknownIfEmpty(version)),
++		g.userAgent(entity, model, version),
+ 	)
+ 	h.AIPromptLength = prompt
+ 
+@@ -1038,8 +1038,7 @@ func (g OpenCode) assistantHeartbeat(
+ 		"",
+ 		cwd,
+ 		heartbeatTimestamp(time.UnixMilli(message.info.Time.Created)),
+-		aiUserAgentWithModelAndEditor(
+-			entity, g.UserAgents, g.FallbackUserAgent, model, "", "opencode-cli/"+unknownIfEmpty(version)),
++		g.userAgent(entity, model, version),
+ 	)
+ 
+ 	return &h
+@@ -1275,11 +1274,19 @@ func (g OpenCode) fileHeartbeat(
+ 		"",
+ 		"",
+ 		heartbeatTimestamp(timestamp),
+-		aiUserAgentWithModelAndEditor(
+-			filePath, g.UserAgents, g.FallbackUserAgent, model, "", "opencode-cli/"+unknownIfEmpty(version)),
++		g.userAgent(filePath, model, version),
+ 	)
+ }
+ 
++func (g OpenCode) userAgent(entity, model, version string) string {
++	userAgent := aiUserAgentWithModelAndEditor(
++		entity, g.UserAgents, g.FallbackUserAgent, model, "", "opencode-cli/"+unknownIfEmpty(version))
++	if g.ToolIdentity {
++		return aiToolUserAgent(userAgent, aiModelUserAgentToken(model, ""), g.Name())
++	}
++	return userAgent
++}
++
+ func openCodePatchFilePath(cwd string, line string) string {
+ 	prefixes := []string{
+ 		"*** Update File: ",
+diff --git a/pkg/ai/provider_updates_internal_test.go b/pkg/ai/provider_updates_internal_test.go
+index 0e5a8a0..ac3c92a 100644
+--- a/pkg/ai/provider_updates_internal_test.go
++++ b/pkg/ai/provider_updates_internal_test.go
+@@ -298,6 +298,15 @@ func TestProviderUpdatesGrokBotAndOpenClaude(t *testing.T) {
+ 	assert.Zero(t, input)
+ 	assert.Zero(t, output)
+ 	assert.Equal(t, 5, prompt)
++	versioned, err := (GrokBot{ToolIdentity: true, GrokBotVersion: "0.77.0", FallbackUserAgent: "codex-cli/0.154 codex-cli-wakatime/1"}).parseMirror(context.Background(), root)
++	require.NoError(t, err)
++	require.Len(t, versioned, len(hh))
++	for i, h := range versioned {
++		assert.Equal(t, "unknown/unknown grok-bot", h.UserAgent)
++		assert.NotContains(t, h.UserAgent, " codex-cli/")
++		h.UserAgent = hh[i].UserAgent
++		assert.Equal(t, hh[i], h, "adding the measured app version only changes tool identity")
++	}
+ 	updateWrite(t, filepath.Join(home, ".openclaude", "projects", "project", "one.jsonl"),
+ 		updateFixture(t, "grokbotandopenclaude-2.txt"))
+ 

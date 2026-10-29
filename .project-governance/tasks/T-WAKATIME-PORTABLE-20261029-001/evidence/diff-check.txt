@@ -1,0 +1,5 @@
+warning: in the working copy of '.project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/catalog-consistency.txt', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of '.project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/catalog-tests.txt', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of '.project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/install-link-tests.txt', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of '.project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/python-tests.txt', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of '.project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/skill-structure.txt', CRLF will be replaced by LF the next time Git touches it

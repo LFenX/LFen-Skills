@@ -1,13 +1,19 @@
 ---
 name: setup-wakatime-ai-tracking
-description: "将 Codex 桌面客户端、Cursor、VS Code、Claude Code 和 OpenCode 的真实编程活动接入 WakaTime，支持多设备汇总，并核对项目、语言、模型和离线队列。用于安装配置、重复采集排查、Other 占比异常、模型仅显示 GPT、非 Git 项目命名及同步积压；不用于模型供应商接入或修改 GitHub 主页卡片。"
+description: "将 Codex 桌面客户端、Cursor、VS Code、Claude Code、OpenCode 和 Grok Bot 的真实活动接入原 WakaTime dashboard，支持家用电脑等多设备。包含固定源码修复补丁、Cursor stop 元数据钩子、Windows 新设备部署与回滚，核对 Editors 发起方、具体模型、Token 缓存、会话项目关联、语言和重复同步；不用于模型供应商配置或 GitHub 主页卡片。"
 metadata:
-  description_en: "Connect real coding activity from Codex desktop, Cursor, VS Code, Claude Code, and OpenCode to WakaTime across devices. Verify project, language, model, and offline queue metadata; diagnose duplicate collectors, excessive Other, generic GPT labels, non-Git project names, and upload backlogs. Excludes model-provider configuration and GitHub profile cards."
+  description_en: "Connect Codex desktop, Cursor, VS Code, Claude Code, OpenCode, and Grok Bot to the existing WakaTime dashboard across devices. Includes a pinned collector patch, Cursor stop metadata hook, and Windows deployment and rollback. Verify actor attribution, precise model, cache-aware tokens, session/project joins, language, and deduplication. Excludes model-provider configuration and GitHub profile cards."
 ---
 
 # WakaTime 多工具接入与准确性核验
 
 把用户实际使用的开发工具接入同一 WakaTime 账户，并以真实活动验证采集、上传和仪表盘归因。安装完成、hooks 受信任和统计准确是不同结论。
+
+## 新电脑直接入口
+
+接入另一台电脑时，先读 [新设备完整执行手册](references/new-device-runbook.md)，按“预检 → 隔离构建 → 部署 → 配置密钥 → 官方插件 → 真实事件验收”执行。不能先启用上传再建立新设备时间下限。
+
+修复包基于官方 CLI 固定提交，属于本 skill 的本地修改，不能冒称官方已合入。自动构建和部署支持 **Windows x64 / Python 3.11+ / Go 1.27.3**；其他系统只走官方基础接入，定制修复须先移植与验证。读取 [采集契约和支持边界](references/collector-contract.md) 后再决定是否部署。
 
 ## 先确定对象和授权
 
@@ -22,9 +28,11 @@ metadata:
 
 - 安装、密钥输入、hooks 信任、多设备：读 [工具接入步骤](references/tool-setup.md)。
 - 项目名、Other、模型显示、重复来源、离线同步：读 [准确性与恢复](references/accuracy-and-recovery.md)。
+- 新设备操作命令、凭证与状态隔离、回滚、真实验收：读 [新设备执行手册](references/new-device-runbook.md)。
+- 固定补丁、Cursor 会话关联、Token 校准范围、历史重载教训：读 [采集契约](references/collector-contract.md)。
 - 本地检查：在本 skill 目录运行 `python scripts/inspect_wakatime.py`。仅读取配置状态和检查 CLI 文件是否存在，不启动 CLI、不读取真实队列、不修改配置、不调用网络上传、不产生新 heartbeat。输出 `offline_queue.status=not_checked` 不是空队列或同步成功的证明。
 
-执行前核对当前官方安装页、插件来源和本机 `--help`。参考文档中的版本用于说明已观察行为，不是最低版本或永久兼容保证。
+执行前核对当前官方安装页、插件来源和本机帮助。未知 CLI 的 `--help`/`--version` 也只在合成 HOME、空配置和隔离环境探测。参考版本不是永久兼容保证；固定补丁不能直接套到更新的上游提交。
 
 ## 接入顺序
 
@@ -54,7 +62,19 @@ metadata:
 - **语言**：区分 `type=file` 与 `type=app`、空语言和服务端 Other。只对有实际文件上下文的事件讨论语言识别；不能把项目主要语言套给全部聊天活动。
 - **模型**：区分工具名、模型系列、版本与推理强度。保留原始 model 标识，再检查采集 token 和云端维度；`GPT` 标签本身不能证明版本丢失。
 - **指标**：先看单位和日期。Models 的代码变更行数占比，不等于请求次数、token、费用或聊天时间占比。
-- **设备**：每台设备独立安装需要的采集器，并使用同一账户的 key；使用不同 hostname。跨设备同项目名称统一，路径映射分别配置。
+- **设备**：每台设备独立安装、使用同一账户的 key、保留独立机器名和 checkpoint。路径映射逐台配置，已有项目统计保留。禁止把办公室的配置整包、会话、队列、checkpoint 或钩子信任记录复制到家用电脑。
+
+## 已封装的执行资源
+
+| 资源 | 职责 |
+| --- | --- |
+| `assets/wakatime-session-20261029.patch` | 已验证 f 版源码修复及 Go 回归夹具 |
+| `scripts/build_collector.py` | 固定提交导出、补丁校验、合成 HOME 测试与 Windows 构建 |
+| `scripts/deploy_tracking.py` | 只读预检/计划、合并配置、备份部署和严格摘要回滚；不启动 CLI、不上传 |
+| `scripts/cursor_stop_metadata.py` | 本地 stop 元数据白名单、哈希关联、去重入库；不独立产生 heartbeat |
+| `scripts/native_sync.py` | 校验原生 INI/checkpoint 一致；默认只检验上下文，`--send` 才补传真实活动 |
+
+执行脚本都在本 skill 内，不依赖原会话的 `work/`、其他 skill 或办公室路径。测试使用合成数据，测试事件不能发往真实账号。版本升级后重新验证；不要静默让官方自动更新覆盖本地构建。
 
 ## 输出与停止条件
 

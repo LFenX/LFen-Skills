@@ -1,0 +1,100 @@
+{
+  "measured_at": "2026-10-29T10:45:41.807453+00:00",
+  "platform": "Windows x64",
+  "python": "3.13.0",
+  "python_tests": {
+    "result": "Passed",
+    "count": 37,
+    "evidence": "python-tests.txt"
+  },
+  "go_build": {
+    "schema_version": 1,
+    "upstream_commit": "37ab01e6d80dbe9a05f0ee3cd90012e988090c7a",
+    "patch_sha256": "50d12b1969a8b780ec57c192a4e187875dad041a9177191b4743f359df9f5608",
+    "build_id": "37ab01e6-lfen-session-20261029f",
+    "go_version": "go version go1.27.3 windows/amd64",
+    "platform": "windows-amd64",
+    "binary": "wakatime-cli-windows-amd64.exe",
+    "binary_sha256": "78dba72cea307ed0cf63b4890ff404603d319833a46f239bd79b806754620161",
+    "isolated_tests": "passed",
+    "passed_test_events": 738,
+    "real_profile_used": false,
+    "cloud_activity_uploaded": false
+  },
+  "catalog_tests": {
+    "result": "Passed",
+    "count": 22
+  },
+  "install_link_tests": {
+    "result": "Passed",
+    "count": 10
+  },
+  "structure_and_references": "Passed",
+  "privacy_scan": {
+    "result": "Passed",
+    "violations": [],
+    "scope": "credential shapes, case-specific machine paths, private/build artifacts, local links; synthetic credential fixtures retained"
+  },
+  "independent_directory_copy": {
+    "result": "Passed",
+    "python_test_count": 37,
+    "original_skill_imported": false,
+    "roundtrip": {
+      "status": "passed",
+      "endpoint": "loopback_only",
+      "synthetic_profile": true,
+      "real_credentials_used": false,
+      "old_activity_uploaded": 0,
+      "opening_before_model_uploaded": 0,
+      "completed_records": 2,
+      "repeat_sync_additions": 0,
+      "non_git_project": "preserved",
+      "file_language": "Python",
+      "actor": "Codex",
+      "model_token": "gpt/6.1-sol-max",
+      "tokens": [
+        60,
+        40,
+        20
+      ],
+      "rollback_preserved_progress": true
+    }
+  },
+  "upstream_fixed_commit_fresh_clone": "Passed",
+  "taxonomy_and_existing_skill_paths": "unchanged",
+  "real_profile_modified": false,
+  "real_cloud_history_modified": false,
+  "new_adversarial_rounds": 0,
+  "file_sha256": {
+    "SKILL.md": "7d4e3a3444a1c1f73bbce490ba8a37d97a5fb80e4bf759ab3f3b2c84af0131ec",
+    "agents/openai.yaml": "166910967e869fae6c309dc8a23b5f8bbb68f1c5aa5c60961a926a2b724f7e7e",
+    "assets/.gitattributes": "9e302b62ab9190b81125b59f5ca007b376f45634f4efdacdead4c39c18a8a6a1",
+    "assets/WAKATIME-CLI-LICENSE": "4aafe64159ef6372aba2de60ba7de1b92cb37c9adc63f904ae1a0e4e7b1292d2",
+    "assets/wakatime-session-20261029.patch": "50d12b1969a8b780ec57c192a4e187875dad041a9177191b4743f359df9f5608",
+    "references/accuracy-and-recovery.md": "02e36afcc626328a521d553e9c86c3f0fe57a20f6983c1ddf510d1af498e5df3",
+    "references/collector-contract.md": "9020a5b6c91ee2e8a4951922dfdd5122ceec3e185bfc1b83b32b942c04df79e4",
+    "references/new-device-runbook.md": "c178226ab3a7c23c8bb8e9de05167dedb735f63da4aced48721f2548cf4665b7",
+    "references/tool-setup.md": "6424fbbed7cb3c4a007fc0f229c5008df689a66963b4ba75c3f05fe630919e3c",
+    "scripts/build_collector.py": "747898cdfdd5890dcf5850443a2d5b5e45ba23a280d123aa74e6bd58e96192ed",
+    "scripts/cursor_stop_metadata.py": "ff95b2b099717de3fd37889c85c8521b7eada3f5f408de4b6a9ddb7e8717937c",
+    "scripts/deploy_tracking.py": "cffa74312b0fed20d06fde58d7ddc9468a797e1879ab9092020f584071f7a38a",
+    "scripts/inspect_wakatime.py": "ab822681c7256f744d8d1a81ba80de0d5bea7a03fa029a83f4149b7d47509040",
+    "scripts/native_sync.py": "fc5852dbf7c54333d25eb61d1fac0f18f198acbe92620e7694c56eecd0f5294f",
+    "scripts/test_cursor_stop_metadata.py": "f524c3955837ec3314f681641d5950a310459d86779d71fcc6f9c3f6dc9c0157",
+    "scripts/test_deploy_tracking.py": "d2b6fad944f3a24740b7db77ea305e9effd4375e6c133169862de1346e7dcea2",
+    "scripts/test_inspect_wakatime.py": "719cf655416e3b1d513fc99a3dad5483b3c13fb35f819e06a2b08fdf951605e9",
+    "scripts/verify_device_roundtrip.py": "33a4880eb04aa7d30fb84a73949f43b15accb421d082af6966e15c59dda32590"
+  },
+  "online_ci": "NotRun",
+  "publication": "Pending",
+  "required_gate": {
+    "id": "security-privacy-review",
+    "outcome": "Pending"
+  },
+  "limits": [
+    "未在家用电脑现场接入；需真实账号和客户端验收",
+    "Windows x64 已验证；其他系统不宣称定制修复生效",
+    "未知 Cursor 型号/版本保留原始 Token，不套用未校准缓存口径"
+  ],
+  "staged_git_blobs_equal_release_files": 18
+}

@@ -1,0 +1,64 @@
+name: WakaTime portable tracking
+
+on:
+  push:
+    paths:
+      - "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/**"
+      - ".github/workflows/wakatime-skill.yml"
+  pull_request:
+    paths:
+      - "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/**"
+      - ".github/workflows/wakatime-skill.yml"
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUTF8: "1"
+  WAKA_SKILL: skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking
+
+jobs:
+  scripts:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Test local deployment, rollback, hooks and readonly diagnostics
+        run: python -B -m unittest discover -s "$env:WAKA_SKILL/scripts" -p 'test_*.py' -v
+
+  collector:
+    needs: scripts
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.27.3"
+          cache: false
+      - name: Obtain official source and rebuild pinned patch in isolated HOME
+        shell: pwsh
+        run: |
+          $source = Join-Path $env:RUNNER_TEMP 'waka-upstream'
+          $build = Join-Path $env:RUNNER_TEMP 'waka-build'
+          git -c core.longpaths=true clone --no-checkout https://github.com/wakatime/wakatime-cli.git $source
+          if ($LASTEXITCODE -ne 0) { throw 'Source clone failed' }
+          $go = (Get-Command go).Source
+          python -B "$env:WAKA_SKILL/scripts/build_collector.py" --source $source --output $build --go $go
+          if ($LASTEXITCODE -ne 0) { throw 'Pinned build/test failed' }
+      - name: Exercise a clean synthetic device against loopback only
+        shell: pwsh
+        run: |
+          $manifest = Join-Path $env:RUNNER_TEMP 'waka-build/build.json'
+          python -B "$env:WAKA_SKILL/scripts/verify_device_roundtrip.py" --manifest $manifest
+          if ($LASTEXITCODE -ne 0) { throw 'Synthetic device acceptance failed' }

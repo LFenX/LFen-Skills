@@ -33,7 +33,7 @@
 |  | [`add-opencode-model-provider`](skills/dev-tools/add-opencode-model-provider/SKILL.md) | Connect opencode to third-party OpenAI-compatible model providers such as a LiteLLM gateway. |
 |  | [`repair-windows-monitor-audio`](skills/dev-tools/repair-windows-monitor-audio/SKILL.md) | Diagnose system-wide silence from HDMI/DisplayPort monitor speakers after standby or wake on Windows. |
 | [**Coding&nbsp;Activity&nbsp;Analytics**](CATALOG.md#coding-activity-analytics) |  | Integration, accuracy verification, and synchronization troubleshooting for coding activity, project time, and AI coding metrics. |
-|  | [`setup-wakatime-ai-tracking`](skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md) | Connect real coding activity from Codex desktop, Cursor, VS Code, Claude Code, and OpenCode to WakaTime across devices. |
+|  | [`setup-wakatime-ai-tracking`](skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md) | Connect Codex desktop, Cursor, VS Code, Claude Code, OpenCode, and Grok Bot to the existing WakaTime dashboard across devices. |
 | [**Debugging**](CATALOG.md#debug) |  | Record and unpack confirmed execution problems, keeping observations separate from inferences. |
 |  | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | Record a confirmed Agent Skill incident as JSON, keeping verifiable observations separate from inferred causes. |
 | [**Ai&nbsp;Complaint&nbsp;System**](CATALOG.md#ai-complaint-system) |  | Deployment, upgrades, and operations for the AI complaint system. |

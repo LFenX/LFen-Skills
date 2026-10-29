@@ -1,0 +1,18 @@
+{
+  "created_at": "2026-10-29T10:45:41.892544+00:00",
+  "archive": "setup-wakatime-ai-tracking-20261029.zip",
+  "sha256": "4703060a2a7e70a70fcade6a8f42adc07ae3d75adbeee1d01b610391d6be1e80",
+  "file_count": 18,
+  "verification": {
+    "python_tests": 37,
+    "go_pass_events": 738,
+    "catalog_tests": 22,
+    "install_link_tests": 10,
+    "clean_copy_and_loopback": "passed"
+  },
+  "publication": "Pending",
+  "security_privacy_gate": "Pending",
+  "target_device_live_acceptance": "NotRun",
+  "support": "Windows x64 / Python 3.11+ / Go 1.27.3; local test interpreter 3.13",
+  "contains_credentials_sessions_queues_checkpoints_or_machine_identity": false
+}

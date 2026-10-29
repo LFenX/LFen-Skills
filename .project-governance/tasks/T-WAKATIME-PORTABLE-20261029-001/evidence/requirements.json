@@ -1,0 +1,99 @@
+{
+  "source": "现在把这些统计修复钩子等等，都放到之前的那个skill里面吧，更新一下，我要在我家里面的电脑也加上这些统计并接入dashboard你要确保根据该skill我家里面的agent能够顺利接入不出错",
+  "items": [
+    {
+      "id": "R-01",
+      "source": "request_snapshot",
+      "quote": "现在把这些统计修复钩子等等，都放到之前的那个skill里面吧，更新一下，我要在我家里面的电脑也加上这些统计并接入dashboard你要确保根据该skill我家里面的agent能够顺利接入不出错",
+      "reading": "已有多级 skill 原位更新，包含后续已验证统计修复、hooks、模型与去重边界。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/verification.json"
+      ],
+      "acceptance_refs": [
+        0
+      ],
+      "review": {
+        "source_sha256": "a78313247ea401bc9f9bd02cb3c463d23720ecdd62b8af257dd15a7707365f5b",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "现在把这些统计修复钩子等等，都放到之前的那个skill里面吧，更新一下，我要在我家里面的电脑也加上这些统计并接入dashboard你要确保根据该skill我家里面的agent能够顺利接入不出错",
+            "expected": "已有多级 skill 原位更新，包含后续已验证统计修复、hooks、模型与去重边界。",
+            "actual": "原多级路径更新，固定补丁、最小元数据hook、会话与项目关联、去重、模型/Token/语言边界和历史经验均已收录。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/verification.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-02",
+      "source": "request_snapshot",
+      "quote": "现在把这些统计修复钩子等等，都放到之前的那个skill里面吧，更新一下，我要在我家里面的电脑也加上这些统计并接入dashboard你要确保根据该skill我家里面的agent能够顺利接入不出错",
+      "reading": "另一台 Windows 电脑可按自包含步骤从固定源码构建、安装与回滚；不复制凭证、会话、队列或旧 checkpoint。",
+      "state": "Covered",
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/verification.json"
+      ],
+      "acceptance_refs": [
+        1
+      ],
+      "review": {
+        "source_sha256": "a78313247ea401bc9f9bd02cb3c463d23720ecdd62b8af257dd15a7707365f5b",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "现在把这些统计修复钩子等等，都放到之前的那个skill里面吧，更新一下，我要在我家里面的电脑也加上这些统计并接入dashboard你要确保根据该skill我家里面的agent能够顺利接入不出错",
+            "expected": "另一台 Windows 电脑可按自包含步骤从固定源码构建、安装与回滚；不复制凭证、会话、队列或旧 checkpoint。",
+            "actual": "Windows固定提交隔离重建738个pass，独立复制包37项及真实二进制回环通过；备份和状态保护验证；家用设备真实验收明确待执行。",
+            "result": "Passed",
+            "evidence_refs": [
+              ".project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/verification.json"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "R-03",
+      "source": "request_snapshot",
+      "quote": "现在把这些统计修复钩子等等，都放到之前的那个skill里面吧，更新一下，我要在我家里面的电脑也加上这些统计并接入dashboard你要确保根据该skill我家里面的agent能够顺利接入不出错",
+      "reading": "隔离接入与重复运行验证通过，明确真实家用电脑的待验项；常规上传并提供可核对版本。",
+      "state": "Open",
+      "evidence_refs": [
+        ".project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/verification.json"
+      ],
+      "acceptance_refs": [
+        2
+      ],
+      "review": {
+        "source_sha256": "a78313247ea401bc9f9bd02cb3c463d23720ecdd62b8af257dd15a7707365f5b",
+        "conditions": [],
+        "cases": [
+          {
+            "condition": null,
+            "branch": "Unconditional",
+            "input": "现在把这些统计修复钩子等等，都放到之前的那个skill里面吧，更新一下，我要在我家里面的电脑也加上这些统计并接入dashboard你要确保根据该skill我家里面的agent能够顺利接入不出错",
+            "expected": "隔离接入与重复运行验证通过，明确真实家用电脑的待验项；常规上传并提供可核对版本。",
+            "actual": "本地验证和可核对ZIP已生成，远端上传、在线CI与本次安全隐私门禁待完成。",
+            "result": "NotRun",
+            "evidence_refs": [
+              ".project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/verification.json"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "limits": [
+    "真实家用电脑尚未执行；不承诺未来任意版本零故障",
+    "未启动新的对抗性审查"
+  ]
+}

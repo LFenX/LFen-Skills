@@ -1,0 +1,18 @@
+[
+  "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking",
+  ".project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001",
+  ".project-governance/project-state.json",
+  "update_log/2026-10-29-wakatime-portable-tracking.md",
+  ".github/workflows/wakatime-skill.yml",
+  "README.md",
+  "README.en.md",
+  "SKILLS.md",
+  "SKILLS.en.md",
+  "CATALOG.md",
+  "catalog/index.json",
+  ".project-governance/console/README.md",
+  ".project-governance/console/deployment.json",
+  ".project-governance/console/snapshot/adversarial_review.py",
+  ".project-governance/console/snapshot/deploy_console.py",
+  ".project-governance/console/snapshot/review_budget.py"
+]

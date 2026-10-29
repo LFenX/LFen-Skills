@@ -1,0 +1,1 @@
+分类目录校验通过：10 个 skill，6 个一级分类，Markdown 与 JSON 目录一致

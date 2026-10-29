@@ -1,6 +1,6 @@
 # 准确性与恢复
 
-来源核对日期：2026-10-28；源码行为以下列链接的 v2.28.0 为准。实际运行必须同时记录所装版本、日期范围、时区和指标单位。
+来源核对日期：2026-10-29；官方基线 v2.28.0 与本 skill 固定修改版必须分开。已封装修复、session/turn 去重及 Token 校准范围见 [采集契约](collector-contract.md)。实际运行必须记录所装版本、日期范围、时区和指标单位。
 
 ## 1. 先取得脱敏本地摘要
 
@@ -41,7 +41,7 @@ python scripts/inspect_wakatime.py
 | AI 实际改了文件，但记录只有 app | 检查工具事件、patch 解析和文件上下文是否丢失 |
 | 本地语言正确但云端显示错误 | 核对上传、日期/时区、筛选、规则和云端原始记录 |
 
-本次只抽样确认过 app/空语言事件；没有完成截图中全部 Other 时长的逐条归因。不能把样本扩展成“全部 Other 都是聊天”，也不能仅凭比例判断百分之九十以上代码语言未识别。
+后续已区分真实 file、app 与动态拼接路径，并重载了有可复核来源的历史；最终观察的 Other 为 4.37%，仅是当时窗口的结果，不是未来设备的通过阈值。仍有缺源记录保留。不能把样本扩展成“全部 Other 都是聊天”，也不能仅凭比例断定代码语言全未识别。
 
 `guess_language=true` 不能补出不存在的文件上下文。本次启用后出现无实际文件的语言猜测告警，已恢复原值；这不是修复 Other 的通用开关。只对真实文件和验证过的规则做窄范围覆盖，不给整个项目聊天统一指定主要语言。
 
@@ -57,11 +57,11 @@ python scripts/inspect_wakatime.py
 
 ```ini
 [projectmap]
-(?i)^D:/Projects/local-app(/|$) = LocalApp
+(?i)^D\x3a/Projects/local-app(/|$) = LocalApp
 ^/Users/dev/Projects/local-app(/|$) = LocalApp
 ```
 
-正则需锚定项目根和边界，防止把 `local-app-backup` 归入 `local-app`；嵌套项目需核对匹配顺序。确认 CLI 对输入路径的规范化方式后再使用相应斜杠表达式。只有用户选择项目内配置时，才写 `.wakatime-project`；不要静默向所有项目加文件。
+Windows 示例用 `\x3a` 匹配盘符冒号，避免 INI 将未引用键中的 `:` 当分隔符；边界使用 `(/|$)`，不要在未引用键里引入含冒号的 `(?:...)`。正则需锚定项目根和边界，防止把 `local-app-backup` 归入 `local-app`；嵌套项目需核对匹配顺序。确认 CLI 对输入路径的规范化方式后再使用相应斜杠表达式。只有用户选择项目内配置时，才写 `.wakatime-project`；不要静默向所有项目加文件。
 
 验证分两层：原生配置读取确认规则已保存，再用真实项目事件确认命中结果；只有前一层通过时，不能声称项目显示已校准。不要承诺本地映射自动重命名既有云端历史。
 
@@ -75,7 +75,7 @@ WakaTime 的模型名称和版本是不同概念；FAQ 在 GPT 下列出多个�
 
 Models 显示 `lines` 时统计 AI 代码变更行数；GPT 为 100% 不等于所有聊天、请求或 token 都来自 GPT。不能从 Grok Bot、Cursor、OpenCode 等工具名直接猜底层模型。
 
-本次待上传样本包含 DeepSeek 和 Opus，说明该采集样本没有全部被写成 GPT；同时发现大量上传积压。补传期间队列下降，但没有读取已登录仪表盘核验云端版本细分，不能宣布模型统计已完全修复。
+后续原始记录已核对 GPT 6.1-sol/max、GPT 6-astra/xhigh、Composer 2.5 和 Cursor Grok 的具体版本；原生 Models 图仍按系列汇总。Grok Bot 缺少具体型号时仍为未知；模型尚未出现时等待同轮 context，不借前轮型号。详细行为与支持范围见采集契约。
 
 如果用户要按具体版本分别展示，先检查当前官方界面/API 是否提供该维度。没有已验证入口时说明限制，不通过改插件名或编造字段模拟模型版本。
 
@@ -83,17 +83,17 @@ Models 显示 `lines` 时统计 AI 代码变更行数；GPT 为 100% 不等于�
 
 ## 6. 同步积压与限流
 
-先记录队列数量、样本时间范围、认证/网络/限流错误类别。队列大表示本地记录尚未全部完成同步，不能直接认定模型识别失败；也不能把自动回填的旧记录当成刚发生的新活动。
+先记录能够安全取得的队列状态、样本时间范围、认证/网络/限流错误类别。无法只读取得数量时写“未检查”，不要运行底层可写诊断取数。队列大不直接等于模型识别失败；也不能把旧记录当刚发生的新活动。
 
-需补传且已有同步授权时，使用本机官方 CLI 的 `--sync-offline-activity`；先核对当前 `--help`。标准 Windows 路径存在时，可有界补传真实记录：
+AI 活动手工同步优先使用本包 `native_sync.py` 固定真实配置与资源，先验证 INI/checkpoint。新设备下限未建立、进度不一致时拒绝上传。不得使用 `WAKATIME_HOME=用户主目录` 的临时脚本读取另一份旧进度。
+
+确有离线队列需补传且已有授权时，核对当前 CLI 的 `--sync-offline-activity` 行为；只在隔离环境读帮助。标准 Windows 路径经确认后可有界补传真实记录：
 
 ```powershell
 $wakaCli = Join-Path $env:USERPROFILE '.wakatime\wakatime-cli-windows-amd64.exe'
 if (-not (Test-Path -LiteralPath $wakaCli)) { throw '未找到标准位置的 WakaTime CLI，请先确认实际路径。' }
-& $wakaCli --offline-count
 & $wakaCli --sync-offline-activity 1000 --timeout 15
 $syncExitCode = $LASTEXITCODE
-& $wakaCli --offline-count
 Write-Output ('同步命令退出码：' + $syncExitCode)
 ```
 
@@ -107,6 +107,6 @@ Write-Output ('同步命令退出码：' + $syncExitCode)
 
 插件 API Key 用于发送活动；其他 API 集成按当前官方文档使用 OAuth。不要复用 key 在临时脚本里读取任意账户统计。使用已登录仪表盘、授权导出或正式授权集成核验云端；浏览器停留登录页时不能假装已经看到数据。
 
-配置变更默认核验后续真实事件。需要修正历史时，先明确范围、采用官方支持的规则/导出方案并保留原始记录；删除、批量重标记、扩大公开权限需有对应明确授权。
+配置变更默认核验后续真实事件。需要修正历史时，先明确范围、保留原记录和精确 manifest；删除、批量重标记、扩大公开权限需有对应明确授权。原始事件重放、合并 Token、同时间 UUID 排序和历史客户端版本缺失均会引入误差，见采集契约的历史修复边界；新电脑接入不包含这些操作。
 
 来源：[WakaTime API 授权规则](https://wakatime.com/developers)。

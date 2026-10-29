@@ -68,7 +68,7 @@ WakaTime 的多工具、多设备接入，以及项目、语言、模型标识�
 
 | Skill | 适用范围 | 标签 | 能力说明 |
 | --- | --- | --- | --- |
-| [`setup-wakatime-ai-tracking`](skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md) | 通用 | `ai-coding-metrics`, `codex`, `coding-activity`, `cursor`, `multi-device`, `opencode`, `wakatime` | 将 Codex 桌面客户端、Cursor、VS Code、Claude Code 和 OpenCode 的真实编程活动接入 WakaTime，支持多设备汇总，并核对项目、语言、模型和离线队列。用于安装配置、重复采集排查、Other 占比异常、模型仅显示 GPT、非 Git 项目命名及同步积压；不用于模型供应商接入或修改 GitHub 主页卡片。 |
+| [`setup-wakatime-ai-tracking`](skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking/SKILL.md) | 通用 | `ai-coding-metrics`, `codex`, `coding-activity`, `cursor`, `multi-device`, `opencode`, `wakatime` | 将 Codex 桌面客户端、Cursor、VS Code、Claude Code、OpenCode 和 Grok Bot 的真实活动接入原 WakaTime dashboard，支持家用电脑等多设备。包含固定源码修复补丁、Cursor stop 元数据钩子、Windows 新设备部署与回滚，核对 Editors 发起方、具体模型、Token 缓存、会话项目关联、语言和重复同步；不用于模型供应商配置或 GitHub 主页卡片。 |
 
 <a id="debug"></a>
 ## 调试排障

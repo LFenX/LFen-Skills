@@ -1,0 +1,13 @@
+{
+  "cause": "init_task 的目录 bootstrap 通过 manage_project_docs 自动装配控制台；装配时间与新任务建立同秒且快照等于当前 runtime。",
+  "action": "仅恢复本任务自动生成的控制台字节到任务初始 HEAD；不改 runtime 源码。",
+  "files": {
+    ".project-governance/console/README.md": "ec869e7fa72b0a290b4ec61175eeb32787f1a22fe1b5d9a1abc27886ef33a4ff",
+    ".project-governance/console/deployment.json": "7b8a750b28ce9cabe0b64c99fb382b81bf9d80ec7dd0132c945369c9fe4fd89a",
+    ".project-governance/console/snapshot/adversarial_review.py": "93afef2c276d35e66da158122bf99074db88cecd21d6ae26e7ddb59362812abb",
+    ".project-governance/console/snapshot/deploy_console.py": "b0fad291ca3d53636c948dd3bba82613ce5bb969863550d285a57b05f2ba1b0f",
+    ".project-governance/console/snapshot/review_budget.py": "b4b40dc92075d82630f69f5e3491321591eb7c5ac381ce96d047afeaf5a4fafc"
+  },
+  "result": "restored_exact_task_baseline",
+  "baseline_commit": "6ebfa140e92c5da3e0ed44112062bc04a3f1f5e3"
+}

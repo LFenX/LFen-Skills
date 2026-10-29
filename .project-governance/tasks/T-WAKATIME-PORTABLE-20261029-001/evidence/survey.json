@@ -1,0 +1,23 @@
+{
+  "repository": "LFenX/LFen-Skills",
+  "baseline": "6ebfa14",
+  "clean": true,
+  "remote_main_equal": true,
+  "existing_skill": "skills/coding-activity-analytics/wakatime/setup-wakatime-ai-tracking",
+  "existing_behavior": "正文、两份参考和只读诊断；未包含后续修复代码",
+  "verified_source": "WakaTime CLI 37ab01e6d80dbe9a05f0ee3cd90012e988090c7a + session f patch",
+  "patch_sha256": "50d12b1969a8b780ec57c192a4e187875dad041a9177191b4743f359df9f5608",
+  "conventions": [
+    "原路径不变",
+    "新增 update_log",
+    "脚本隔离测试",
+    "常规提交推送与 CI 核对"
+  ],
+  "unknowns": [
+    {
+      "item": "家用电脑系统与工具版本",
+      "blocking": false,
+      "resolution": "运行时检测；Windows 受支持组合可部署，其他系统不冒充已验证"
+    }
+  ]
+}

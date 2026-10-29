@@ -1,4 +1,4 @@
 interface:
   display_name: "WakaTime 多工具统计接入"
-  short_description: "接入多设备开发工具，核验项目、语言、模型标识和离线同步，保留真实证据"
-  default_prompt: "使用 $setup-wakatime-ai-tracking 检查并接入我的开发工具到 WakaTime，核对项目、语言、模型和多设备同步，只报告已验证的结果。"
+  short_description: "部署多设备 WakaTime 采集修复与钩子，核对工具、型号、Token 缓存和去重"
+  default_prompt: "使用 $setup-wakatime-ai-tracking，按 references/new-device-runbook.md 接入我原来的 WakaTime dashboard；先检测本机，再部署固定修复和钩子，以真实会话验证 Editors、具体型号、语言、项目、Token 缓存与去重，保留已有项目统计。"
