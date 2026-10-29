@@ -1,0 +1,4 @@
+interface:
+  display_name: "Windows 经 Tailscale 互登 SSH"
+  short_description: "只经 Tailscale 内网配置 Windows SSH 密钥互登，并准备 PuTTY 的 .ppk"
+  default_prompt: "使用 $setup-tailscale-ssh-between-windows-pcs 在两台已登录同一 Tailscale 账号的 Windows 电脑之间配置 SSH 密钥互登。只监听 Tailscale 地址，不要把私钥或 token 写入对话。"

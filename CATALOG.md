@@ -12,14 +12,15 @@
 | [编程活动统计](#coding-activity-analytics) | 编程活动、项目时长与 AI 编码指标的采集接入、准确性核验和同步排障。 | 1 |
 | [调试排障](#debug) | 记录和拆解已确认的执行问题，把可核对观察与推理分开。 | 1 |
 | [Ai Complaint System](#ai-complaint-system) | AI 客诉系统的部署、升级与运行维护。 | 1 |
+| [远程访问](#remote-access) | 远程连接、内网穿透与跨设备访问的配置、验证和排障。 | 1 |
 
-共收录 **10** 个 skill。机器可读目录见 [`catalog/index.json`](catalog/index.json)。
+共收录 **11** 个 skill。机器可读目录见 [`catalog/index.json`](catalog/index.json)。
 
 ## 适用范围
 
 | 范围 | 定义 | Skill 数量 |
 | --- | --- | ---: |
-| 通用 | 不依赖 LFen 团队或单一项目上下文，可跨项目复用。 | 7 |
+| 通用 | 不依赖 LFen 团队或单一项目上下文，可跨项目复用。 | 8 |
 | 团队 | 依赖 LFen 团队规范、流程或共享约定。 | 1 |
 | 项目 | 面向一个明确项目、系统或业务工作流。 | 2 |
 
@@ -87,6 +88,15 @@ AI 客诉系统的部署、升级与运行维护。
 | Skill | 适用范围 | 标签 | 能力说明 |
 | --- | --- | --- | --- |
 | [`aics-cloud-upgrade`](skills/ai-complaint-system/aics-cloud-upgrade/SKILL.md) | 项目 | `aics`, `deployment`, `docker`, `maintenance` | 在本机按顺序升级 AI 客诉系统。用户说升级服务、拉取新镜像、重启 AICS 容器或挂维护页时使用。 先确认镜像标签并拉取，读镜像说明，把维护页挂到 80 端口，停容器并备份生产库且不恢复旧 dump， 核对发信总闸和全部邮箱 SMTP，做迁移与读取模型对拍，启动后检查每个容器，再把 80 端口切回正式服务。 |
+
+<a id="remote-access"></a>
+## 远程访问
+
+远程连接、内网穿透与跨设备访问的配置、验证和排障。
+
+| Skill | 适用范围 | 标签 | 能力说明 |
+| --- | --- | --- | --- |
+| [`setup-tailscale-ssh-between-windows-pcs`](skills/remote-access/setup-tailscale-ssh-between-windows-pcs/SKILL.md) | 通用 | `openssh`, `putty`, `remote-access`, `ssh-keys`, `tailscale`, `windows` | 在已登录同一 Tailscale 账号的 Windows 电脑之间，只经 Tailscale 内网用 SSH 密钥互登，并准备 PuTTY 可用的 .ppk。覆盖 OpenSSH Server、只监听 Tailscale 地址、防火墙限于 100.64.0.0/10、管理员公钥位置、双向验证，以及用 Python 把 OpenSSH ed25519 私钥转为 PPK v2。不用于公网暴露 SSH，也不用于 UU 远程或 ToDesk 等远程桌面。 |
 
 ## 分类演进规则
 

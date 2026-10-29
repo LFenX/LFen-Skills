@@ -6,7 +6,7 @@
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/skills-10-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
+  <img src="https://img.shields.io/badge/skills-11-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
   <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat&labelColor=1E1B4B" alt="platforms">
   <img src="https://img.shields.io/badge/license-MIT-475569?style=flat&labelColor=1E1B4B" alt="license">
 </p>
@@ -38,6 +38,8 @@
 |  | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | Record a confirmed Agent Skill incident as JSON, keeping verifiable observations separate from inferred causes. |
 | [**Ai&nbsp;Complaint&nbsp;System**](CATALOG.md#ai-complaint-system) |  | Deployment, upgrades, and operations for the AI complaint system. |
 |  | [`aics-cloud-upgrade`](skills/ai-complaint-system/aics-cloud-upgrade/SKILL.md) | Upgrade the on-host AICS stack from the Tencent CCR image ccr.ccs.tencentyun.com/aics/aics. |
+| [**Remote&nbsp;Access**](CATALOG.md#remote-access) |  | Configuration, verification, and troubleshooting for remote connections, intranet traversal, and cross-device access. |
+|  | [`setup-tailscale-ssh-between-windows-pcs`](skills/remote-access/setup-tailscale-ssh-between-windows-pcs/SKILL.md) | Set up SSH-key login between Windows PCs that already share one Tailscale account, using only the Tailscale network, and prepare a PuTTY .ppk. |
 <!-- catalog-detail:end -->
 
 ---

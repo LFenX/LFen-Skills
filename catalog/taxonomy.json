@@ -102,6 +102,17 @@
         "aics-cloud-upgrade"
       ],
       "children": []
+    },
+    {
+      "id": "remote-access",
+      "name": "远程访问",
+      "name_en": "Remote Access",
+      "description": "远程连接、内网穿透与跨设备访问的配置、验证和排障。",
+      "description_en": "Configuration, verification, and troubleshooting for remote connections, intranet traversal, and cross-device access.",
+      "skills": [
+        "setup-tailscale-ssh-between-windows-pcs"
+      ],
+      "children": []
     }
   ],
   "skill_metadata": {
@@ -193,6 +204,17 @@
         "multi-device",
         "opencode",
         "wakatime"
+      ]
+    },
+    "setup-tailscale-ssh-between-windows-pcs": {
+      "scope": "general",
+      "tags": [
+        "openssh",
+        "putty",
+        "remote-access",
+        "ssh-keys",
+        "tailscale",
+        "windows"
       ]
     }
   },

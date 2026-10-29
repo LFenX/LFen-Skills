@@ -14,7 +14,7 @@
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/skills-10-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
+  <img src="https://img.shields.io/badge/skills-11-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
   <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat&labelColor=1E1B4B" alt="platforms">
   <img src="https://img.shields.io/badge/license-MIT-475569?style=flat&labelColor=1E1B4B" alt="license">
 </p>
@@ -1478,6 +1478,165 @@ bash -o pipefail -c '
 </details>
 
 <details name="install-skill">
+<summary><code>setup-tailscale-ssh-between-windows-pcs</code></summary>
+
+<details name="install-platform-setup-tailscale-ssh-between-windows-pcs">
+<summary>OpenCode</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -OpenCode -Skill setup-tailscale-ssh-between-windows-pcs
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --opencode --skill setup-tailscale-ssh-between-windows-pcs
+'
+```
+
+</details>
+
+<details name="install-platform-setup-tailscale-ssh-between-windows-pcs">
+<summary>Claude Code</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Claude -Skill setup-tailscale-ssh-between-windows-pcs
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --claude --skill setup-tailscale-ssh-between-windows-pcs
+'
+```
+
+</details>
+
+<details name="install-platform-setup-tailscale-ssh-between-windows-pcs">
+<summary>Codex</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Codex -Skill setup-tailscale-ssh-between-windows-pcs
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --codex --skill setup-tailscale-ssh-between-windows-pcs
+'
+```
+
+</details>
+
+<details name="install-platform-setup-tailscale-ssh-between-windows-pcs">
+<summary>Cursor</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Cursor -Skill setup-tailscale-ssh-between-windows-pcs
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --cursor --skill setup-tailscale-ssh-between-windows-pcs
+'
+```
+
+</details>
+
+<details name="install-platform-setup-tailscale-ssh-between-windows-pcs">
+<summary>Gemini CLI</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Gemini -Skill setup-tailscale-ssh-between-windows-pcs
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --gemini --skill setup-tailscale-ssh-between-windows-pcs
+'
+```
+
+</details>
+
+<details name="install-platform-setup-tailscale-ssh-between-windows-pcs">
+<summary>GitHub Copilot</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Copilot -Skill setup-tailscale-ssh-between-windows-pcs
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --copilot --skill setup-tailscale-ssh-between-windows-pcs
+'
+```
+
+</details>
+
+<details name="install-platform-setup-tailscale-ssh-between-windows-pcs">
+<summary>Windsurf</summary>
+
+**Windows（PowerShell）**
+
+```powershell
+& ([scriptblock]::Create(
+  (irm https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.ps1 -ErrorAction Stop)
+)) -Windsurf -Skill setup-tailscale-ssh-between-windows-pcs
+```
+
+**macOS / Linux（Bash）**
+
+```bash
+bash -o pipefail -c '
+  curl -fsSL https://raw.githubusercontent.com/LFenX/LFen-Skills/main/install.sh |
+    bash -s -- --windsurf --skill setup-tailscale-ssh-between-windows-pcs
+'
+```
+
+</details>
+
+</details>
+
+<details name="install-skill">
 <summary><code>setup-wakatime-ai-tracking</code></summary>
 
 <details name="install-platform-setup-wakatime-ai-tracking">
@@ -1711,6 +1870,8 @@ python scripts/check_install_links.py --platform claude,codex,opencode,cursor  #
 |  | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | 把已确认的 Agent Skill 问题整理成 JSON：可核对观察与推理原因必须分开。 |
 | [**Ai&nbsp;Complaint&nbsp;System**](CATALOG.md#ai-complaint-system) |  | AI 客诉系统的部署、升级与运行维护。 |
 |  | [`aics-cloud-upgrade`](skills/ai-complaint-system/aics-cloud-upgrade/SKILL.md) | 在本机按顺序升级 AI 客诉系统。 |
+| [**远程访问**](CATALOG.md#remote-access) |  | 远程连接、内网穿透与跨设备访问的配置、验证和排障。 |
+|  | [`setup-tailscale-ssh-between-windows-pcs`](skills/remote-access/setup-tailscale-ssh-between-windows-pcs/SKILL.md) | 在已登录同一 Tailscale 账号的 Windows 电脑之间，只经 Tailscale 内网用 SSH 密钥互登，并准备 PuTTY 可用的 .ppk。 |
 <!-- catalog-summary:end -->
 
 完整清单见 [`CATALOG.md`](CATALOG.md)；机器可读索引见 [`catalog/index.json`](catalog/index.json)。

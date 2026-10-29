@@ -6,7 +6,7 @@
   <a href="https://github.com/LFenX/LFen-Skills/actions/workflows/catalog.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/LFenX/LFen-Skills/catalog.yml?branch=main&style=flat&label=catalog&labelColor=1E1B4B" alt="Catalog CI">
   </a>
-  <img src="https://img.shields.io/badge/skills-10-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
+  <img src="https://img.shields.io/badge/skills-11-8B5CF6?style=flat&labelColor=1E1B4B" alt="skills">
   <img src="https://img.shields.io/badge/platforms-7-0EA5E9?style=flat&labelColor=1E1B4B" alt="platforms">
   <img src="https://img.shields.io/badge/license-MIT-475569?style=flat&labelColor=1E1B4B" alt="license">
 </p>
@@ -38,6 +38,8 @@
 |  | [`record-skill-incident`](skills/debug/record-skill-incident/SKILL.md) | 把已确认的 Agent Skill 问题整理成 JSON：可核对观察与推理原因必须分开。 |
 | [**Ai&nbsp;Complaint&nbsp;System**](CATALOG.md#ai-complaint-system) |  | AI 客诉系统的部署、升级与运行维护。 |
 |  | [`aics-cloud-upgrade`](skills/ai-complaint-system/aics-cloud-upgrade/SKILL.md) | 在本机按顺序升级 AI 客诉系统。 |
+| [**远程访问**](CATALOG.md#remote-access) |  | 远程连接、内网穿透与跨设备访问的配置、验证和排障。 |
+|  | [`setup-tailscale-ssh-between-windows-pcs`](skills/remote-access/setup-tailscale-ssh-between-windows-pcs/SKILL.md) | 在已登录同一 Tailscale 账号的 Windows 电脑之间，只经 Tailscale 内网用 SSH 密钥互登，并准备 PuTTY 可用的 .ppk。 |
 <!-- catalog-detail:end -->
 
 ---

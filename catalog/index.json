@@ -6,7 +6,7 @@
     "skills_root": "skills",
     "layout": "skills/<category-path>/<skill-name>"
   },
-  "skill_count": 10,
+  "skill_count": 11,
   "scopes": {
     "general": {
       "name": "通用",
@@ -105,6 +105,18 @@
       ],
       "name_path": [
         "Ai Complaint System"
+      ],
+      "skill_count": 1
+    },
+    {
+      "id": "remote-access",
+      "name": "远程访问",
+      "description": "远程连接、内网穿透与跨设备访问的配置、验证和排障。",
+      "path": [
+        "remote-access"
+      ],
+      "name_path": [
+        "远程访问"
       ],
       "skill_count": 1
     }
@@ -330,6 +342,33 @@
         "feedback-management",
         "feishu-base",
         "koc"
+      ]
+    },
+    {
+      "name": "setup-tailscale-ssh-between-windows-pcs",
+      "description": "在已登录同一 Tailscale 账号的 Windows 电脑之间，只经 Tailscale 内网用 SSH 密钥互登，并准备 PuTTY 可用的 .ppk。覆盖 OpenSSH Server、只监听 Tailscale 地址、防火墙限于 100.64.0.0/10、管理员公钥位置、双向验证，以及用 Python 把 OpenSSH ed25519 私钥转为 PPK v2。不用于公网暴露 SSH，也不用于 UU 远程或 ToDesk 等远程桌面。",
+      "path": "skills/remote-access/setup-tailscale-ssh-between-windows-pcs/SKILL.md",
+      "category": {
+        "id": "remote-access",
+        "name": "远程访问",
+        "path": [
+          "remote-access"
+        ],
+        "name_path": [
+          "远程访问"
+        ]
+      },
+      "scope": {
+        "id": "general",
+        "name": "通用"
+      },
+      "tags": [
+        "openssh",
+        "putty",
+        "remote-access",
+        "ssh-keys",
+        "tailscale",
+        "windows"
       ]
     },
     {
