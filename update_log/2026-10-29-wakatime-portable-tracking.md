@@ -36,5 +36,5 @@
 
 - 未在用户家用电脑执行，不能宣布该设备真实入云；需按手册完成实际客户端、账号、机器和新会话验收。
 - 自动定制构建/部署仅验证 Windows x64；其他系统与未知客户端/Token 组合明确停止或保留未知，不承诺任意版本零错误。
-- 本地实现与隔离验证完成；远端上传、在线 CI 和本次 `security-privacy-review` 具体版本决定当前待完成，不把用户一般授权或单元测试写成门禁已通过。
+- 用户于 2026-10-29T11:45:10Z 确认提交 `550b84e13b25b793b94016b3adf7b550c8c89a4b` 通过 `security-privacy-review` 并上传。该提交已常规快进推送到 `origin/main`，`ls-remote` 核对为同一 SHA。GitHub Actions：Validate skill catalog `40870228835`、Skill gates `40870228829`、WakaTime portable tracking `40870228867` 均为 success。这不是家用电脑真实入云验收。
 - 遵守用户此前“不再审查”，未新增对抗性审查，也未将工程回归计为新审查轮次。

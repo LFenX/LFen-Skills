@@ -1,0 +1,8 @@
+{
+  "id": "security-privacy-review",
+  "outcome": "Passed",
+  "subject_sha256": "67964c30b8e3ca16bd885dd847356d5e74da9843d533c157fdf794fae9909b24",
+  "decided_by": "发布后证据重绑定；人类确认仍以 2026-10-29T11:45:10Z 的答复为准，本条不是新的人工验收",
+  "decided_at": "2026-10-29T12:08:40.922864+00:00",
+  "authority_ref": ".project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/user-request.json"
+}

@@ -1,0 +1,37 @@
+{
+  "verified_at": "2026-10-29T12:08:40.288092+00:00",
+  "repository": "https://github.com/LFenX/LFen-Skills",
+  "target_ref": "refs/heads/main",
+  "content_commit": "550b84e13b25b793b94016b3adf7b550c8c89a4b",
+  "remote_commit_at_verification": "550b84e13b25b793b94016b3adf7b550c8c89a4b",
+  "push_kind": "normal fast-forward; no force",
+  "push_range": "6ebfa140e92c5da3e0ed44112062bc04a3f1f5e3..550b84e13b25b793b94016b3adf7b550c8c89a4b",
+  "source": "git push origin 550b84e13b25b793b94016b3adf7b550c8c89a4b:refs/heads/main; git ls-remote origin refs/heads/main",
+  "ci": [
+    {
+      "id": 40870228835,
+      "name": "Validate skill catalog",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40870228835"
+    },
+    {
+      "id": 40870228829,
+      "name": "Skill gates",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40870228829"
+    },
+    {
+      "id": 40870228867,
+      "name": "WakaTime portable tracking",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/LFenX/LFen-Skills/actions/runs/40870228867"
+    }
+  ],
+  "human_gate_response": "确认本版本通过门禁并上传（推荐）",
+  "human_gate_decided_at": "2026-10-29T11:45:10.093000+00:00",
+  "home_device_live_acceptance": "NotRun",
+  "rollback": "仅为本任务内容追加 revert 提交，不强推或删除共享历史。"
+}

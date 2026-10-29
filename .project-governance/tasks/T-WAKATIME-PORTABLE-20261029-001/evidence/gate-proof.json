@@ -1,0 +1,8 @@
+{
+  "id": "security-privacy-review",
+  "outcome": "Passed",
+  "subject_sha256": "48970c3df44bc6145f1726bb45deb1b785c5c894a5af6834f39377ee0d361c93",
+  "decided_by": "当前会话的人类用户",
+  "decided_at": "2026-10-29T11:45:10.093000+00:00",
+  "authority_ref": ".project-governance/tasks/T-WAKATIME-PORTABLE-20261029-001/evidence/user-request.json"
+}
